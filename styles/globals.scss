@@ -1,0 +1,75 @@
+@import "variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  background: transparent;
+  font-family: $poppins;
+  color: $darker;
+  font-size: 1rem;
+  user-select: none;
+}
+
+html,
+body {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: $bg-light;
+}
+
+button {
+  cursor: pointer;
+}
+
+svg {
+  display: none;
+}
+
+.Resizer {
+  background: $red;
+  z-index: 5;
+  background-clip: padding-box;
+  &:hover,
+  &:active {
+    z-index: 6;
+    background: $blue-mid;
+    background-clip: padding-box;
+    transition: all 0.1s ease-out 0.2s;
+  }
+  &.horizontal {
+    height: 5px;
+    width: 100%;
+    margin: -2px 0;
+    border-top: 2px solid rgba(0, 0, 20, 0);
+    border-bottom: 2px solid rgba(24, 24, 24, 0);
+    cursor: ns-resize;
+    &:hover,
+    &:active {
+      border-top: 2px solid $blue-mid;
+      border-bottom: 2px solid $blue-mid;
+    }
+  }
+  &.vertical {
+    width: 5px;
+    height: 100%;
+    margin: 0 -2px;
+    border-left: 2px solid rgba(32, 156, 226, 0);
+    border-right: 2px solid rgba(32, 156, 226, 0);
+    cursor: ew-resize;
+    &:hover,
+    &:active {
+      border-left: 2px solid $blue-mid;
+      border-right: 2px solid $blue-mid;
+    }
+  }
+}
