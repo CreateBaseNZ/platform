@@ -35,6 +35,15 @@ svg {
   display: none;
 }
 
+span {
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  color: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+
 .Resizer {
   background: $red;
   z-index: 5;

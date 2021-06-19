@@ -8,6 +8,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background: linear-gradient(to bottom right, $logo-dark, $blue-mid);
 }
 
 .bg {
@@ -20,156 +21,129 @@
   pointer-events: none;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-
-.h1 {
-  margin-bottom: -2rem;
-  align-self: flex-end;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  span {
-    display: block;
-    opacity: 0;
-    font-size: 2rem;
-    letter-spacing: 0.2em;
-    font-family: $poppins;
-    font-weight: 600;
-    text-shadow: -1px -1px 0 $blue-light, 1px -1px 0 $blue-light,
-      -1px 1px 0 $blue-light, 1px 1px 0 $blue-light;
-    color: #242424;
-  }
-  &.loaded {
-    span {
-      animation: h1 0.6s ease-out forwards;
-      &:nth-of-type(1) {
-        animation-delay: 1s;
-      }
-      &:nth-of-type(2) {
-        animation-delay: 1.2s;
-      }
-      &:nth-of-type(3) {
-        animation-delay: 1.4s;
-      }
-      &:nth-of-type(4) {
-        animation-delay: 1.6s;
-      }
-    }
-  }
-}
-
-.btn {
-  position: relative;
-  padding: 20px 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  overflow: hidden;
-  border-radius: 40px;
-  margin-top: 6vh;
-  span {
-    font-size: 1.1rem;
-    font-weight: 600;
-    font-family: $poppins;
-    color: $lightest;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    z-index: 1;
-  }
-  svg {
-    margin-left: 1rem;
-    z-index: 1;
-    transition: transform 0.2s ease-out;
-    path {
-      fill: $lightest;
-    }
-  }
-  .liquid {
-    position: absolute;
-    top: -90px;
-    left: 0;
-    width: 200px;
-    height: 200px;
-    background: $blue-light;
-    transition: 0.5s all;
-    &::before,
-    &::after {
-      content: "";
-      width: 200%;
-      height: 200%;
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translate(-50%, -75%);
-      background: rgb(36, 36, 36);
-    }
-    &::before {
-      border-radius: 45%;
-      background: rgba(36, 36, 36, 1);
-      animation: liquid 12s linear infinite;
-    }
-    &::after {
-      border-radius: 40%;
-      background: rgba(36, 36, 36, 0.5);
-      animation: liquid 16s linear infinite;
-    }
-  }
-  &:hover {
-    svg {
-      transform: translateX(8px);
-    }
-    .liquid {
-      top: -120px;
-    }
-  }
-}
-
-.help {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  justify-content: center;
+.nav {
   position: absolute;
-  bottom: 10vh;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  button {
-    font-weight: 300;
+  top: 2rem;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 10vw;
+  .logo {
+    width: 180px;
+    height: 32px;
+    position: relative;
     opacity: 0.75;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 1.5rem;
-    overflow: hidden;
     transition: opacity 0.1s ease-out;
     &:hover {
       opacity: 1;
     }
-    span {
-      height: 1.5rem;
-      color: $lightest;
-    }
-    .what {
-      border-bottom: thin solid rgba(255, 255, 255, 0.75);
-      transition: margin-top 0.2s ease-out;
-      &.moveUp {
-        margin-top: -1.5rem;
+  }
+  .socials {
+    display: flex;
+    align-items: center;
+    & > * {
+      margin: 0 6px;
+      opacity: 0.75;
+      transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
+      svg {
+        padding: 4px;
+        border-radius: 2px;
+        transition: background-color 0.1s ease-out;
+      }
+      &:hover {
+        opacity: 1;
+        svg {
+          background: rgba(0, 0, 0, 0.1);
+        }
       }
     }
-    .hide {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1;
+  margin-right: 25vw;
+}
+
+.h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  opacity: 0.75;
+  color: $lightest;
+  text-transform: uppercase;
+}
+
+.h1 {
+  text-transform: uppercase;
+  color: $lightest;
+  letter-spacing: 0.05em;
+  font-size: 5rem;
+  font-weight: 900;
+  text-shadow: 0 6px rgba(0, 0, 0, 0.25);
+  line-height: 1.25em;
+}
+
+.getStarted {
+  padding: 1em 2em;
+  background: $green;
+  margin-top: 6vh;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: $lightest;
+  letter-spacing: 0.1em;
+  text-shadow: 2px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 6px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 10px 0 2px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.help {
+  position: absolute;
+  bottom: 2rem;
+  right: 10vw;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  justify-content: flex-end;
+  z-index: 1;
+  button {
+    display: flex;
+    align-items: center;
+    transition: opacity 0.1s ease-out;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.05);
+    transition: background-color 0.1s ease-out;
+    &:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+    .what {
+      color: $lightest;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    svg {
+      width: 0;
+      overflow: hidden;
+      transition: width 0.1s ease-out;
+    }
+    &.active {
+      background: rgba(0, 0, 0, 0.4);
       svg {
-        margin-right: 0.5em;
+        width: 24px;
         path {
           fill: $lightest;
         }
@@ -178,64 +152,25 @@
   }
   p {
     pointer-events: none;
-    position: absolute;
-    right: -2rem;
-    transform: translateX(100%);
-    bottom: 0.5rem;
-    font-size: 14px;
-    font-weight: 300;
+    font-size: 0.75rem;
+    line-height: 1.75em;
     padding: 1rem 1.25rem;
-    background: rgba(19, 19, 19, 0.75);
-    border-radius: 0.4rem 0.4rem 0.4rem 0;
+    background: rgba(0, 0, 0, 0.75);
     width: 30vw;
     min-width: 300px;
     max-width: 650px;
-    line-height: 1.4em;
     color: $lightest;
-    transition: opacity 0.2s ease-out, right 0.2s ease-out;
+    margin-bottom: 0.5rem;
+    transition: opacity 0.2s ease-out;
     * {
       color: $lightest;
     }
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      transform: translateX(-100%);
-      width: 0;
-      height: 0;
-      border-bottom: 0.5rem solid rgba(19, 19, 19, 0.75);
-      border-left: 0.5rem solid transparent;
-      border-top: 0.5rem solid transparent;
-      border-right: 0.5rem solid rgba(19, 19, 19, 0.75);
-      border-radius: 0 0 0 0.25rem;
-    }
     &.hide {
       opacity: 0;
-      right: calc(-2rem + 6px);
     }
   }
 }
 
-@keyframes h1 {
-  0% {
-    transform: translate(3rem, 8px);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(3rem, 0);
-    opacity: 1;
-  }
-}
-
-@keyframes liquid {
-  0% {
-    transform: translate(-50%, -75%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -75%) rotate(360deg);
-  }
+.italic {
+  font-style: italic;
 }

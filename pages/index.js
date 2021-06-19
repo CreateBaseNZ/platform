@@ -5,12 +5,17 @@ import Head from "next/head";
 
 import PlayArrowRoundedIcon from "@material-ui/icons/PlayArrowRounded";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
-import WhiteLogo from "/components/UI/WhiteLogo";
+import WhiteLogo, {
+  FBIcon,
+  IGIcon,
+  TwitterIcon,
+  YTIcon,
+} from "/components/UI/Icons";
 
 import classes from "/styles/Index.module.scss";
 
 const Index = () => {
-  const [showHelper, setShowhelper] = useState(false);
+  const [showHelper, setShowHelper] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
 
   useEffect(() => {
@@ -18,7 +23,7 @@ const Index = () => {
   }, []);
 
   const helperClickHandler = () => {
-    setShowhelper((state) => !state);
+    setShowHelper((state) => !state);
   };
 
   return (
@@ -34,41 +39,39 @@ const Index = () => {
         <Image
           src="/landing.png"
           layout="fill"
-          objectFit="cover"
+          objectFit="contain"
           quality={100}
+          objectPosition={"75% 100%"}
           alt="Landing image"
         />
       </div>
-      <div className={classes.container}>
-        <h1 className={`${classes.h1} ${pageLoaded ? classes.loaded : ""}`}>
-          <span>D</span>
-          <span>E</span>
-          <span>M</span>
-          <span>O</span>
-        </h1>
-        <div style={{ position: "relative", width: "650px", height: "125px" }}>
+      <nav className={classes.nav}>
+        <div className={classes.logo}>
           <WhiteLogo layout="fill" objectFit="contain" quality={100} />
         </div>
+        <div className={classes.socials}>
+          <FBIcon height={28} width={28} />
+          <IGIcon height={28} width={28} />
+          <TwitterIcon height={28} width={28} />
+          <YTIcon height={28} width={28} />
+        </div>
+      </nav>
+      <div className={classes.container}>
+        <h2 className={classes.h2}>Welcome to</h2>
+        <h1 className={classes.h1}>Open Alpha</h1>
         <Link href="/explore">
-          <a className={classes.btn}>
-            <span>Start</span>
-            <PlayArrowRoundedIcon style={{ fontSize: "24" }} />
-            <div className={classes.liquid}></div>
-          </a>
+          <button className={classes.getStarted}>Get Started</button>
         </Link>
       </div>
       <div className={classes.help}>
-        <button onClick={helperClickHandler}>
-          <span
-            className={`${classes.what} ${showHelper ? classes.moveUp : ""}`}
-          >
-            What's this?
-          </span>
-          <span className={classes.hide}>
-            <CloseRoundedIcon style={{ fontSize: 16 }} /> Hide
-          </span>
+        <button
+          className={showHelper && classes.active}
+          onClick={helperClickHandler}
+        >
+          <span className={classes.what}>What's this?</span>
+          <CloseRoundedIcon style={{ fontSize: 16 }} />
         </button>
-        <p className={showHelper ? "" : classes.hide}>
+        <p className={!showHelper && classes.hide}>
           At CreateBase, we want to change the world by enabling the next
           generation of creators. That's why we're developing a project-centric
           educational platform to give people the skills, tools, and confidence
@@ -76,11 +79,12 @@ const Index = () => {
           <br />
           <br />
           You're about to experience a tiny portion of our final platform,
-          something that we call a <i>Project</i>. You'll be introduced to a
-          situation and will need to apply skills and problem-solving to build a
-          working solution. Your progress will be saved as you move through the
-          Project, so feel free to take your time and, most importantly, have
-          fun along the way.
+          something that we call a{" "}
+          <span className={classes.italic}>Project</span>. You'll be introduced
+          to a situation and will need to apply skills and problem-solving to
+          build a working solution. Your progress will be saved as you move
+          through the Project, so feel free to take your time and, most
+          importantly, have fun along the way.
           <br />
           <br />
           💜 Team CreateBase
