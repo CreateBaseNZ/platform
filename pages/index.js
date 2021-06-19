@@ -49,7 +49,7 @@ const Index = () => {
         <div style={{ position: "relative", width: "650px", height: "125px" }}>
           <WhiteLogo layout="fill" objectFit="contain" quality={100} />
         </div>
-        <Link href="/menu">
+        <Link href="/explore">
           <a className={classes.btn}>
             <span>Start</span>
             <PlayArrowRoundedIcon style={{ fontSize: "24" }} />
