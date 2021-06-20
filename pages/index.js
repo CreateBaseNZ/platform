@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
+import GreenButton from "/components/UI/GreenButton";
 
-import PlayArrowRoundedIcon from "@material-ui/icons/PlayArrowRounded";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import WhiteLogo, {
   FBIcon,
@@ -16,11 +16,6 @@ import classes from "/styles/Index.module.scss";
 
 const Index = () => {
   const [showHelper, setShowHelper] = useState(false);
-  const [pageLoaded, setPageLoaded] = useState(false);
-
-  useEffect(() => {
-    setPageLoaded(true);
-  }, []);
 
   const helperClickHandler = () => {
     setShowHelper((state) => !state);
@@ -60,18 +55,20 @@ const Index = () => {
         <h2 className={classes.h2}>Welcome to</h2>
         <h1 className={classes.h1}>Open Alpha</h1>
         <Link href="/explore">
-          <button className={classes.getStarted}>Get Started</button>
+          <div>
+            <GreenButton caption="Get Started" />
+          </div>
         </Link>
       </div>
       <div className={classes.help}>
         <button
-          className={showHelper && classes.active}
+          className={showHelper ? classes.active : ""}
           onClick={helperClickHandler}
         >
           <span className={classes.what}>What's this?</span>
           <CloseRoundedIcon style={{ fontSize: 16 }} />
         </button>
-        <p className={!showHelper && classes.hide}>
+        <p className={showHelper ? "" : classes.hide}>
           At CreateBase, we want to change the world by enabling the next
           generation of creators. That's why we're developing a project-centric
           educational platform to give people the skills, tools, and confidence
@@ -79,7 +76,7 @@ const Index = () => {
           <br />
           <br />
           You're about to experience a tiny portion of our final platform,
-          something that we call a{" "}
+          something that we call a
           <span className={classes.italic}>Project</span>. You'll be introduced
           to a situation and will need to apply skills and problem-solving to
           build a working solution. Your progress will be saved as you move

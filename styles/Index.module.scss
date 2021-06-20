@@ -8,7 +8,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(to bottom right, $logo-dark, $blue-mid);
+  background: radial-gradient(to bottom right, $logo-dark, $blue-mid);
 }
 
 .bg {
@@ -49,7 +49,7 @@
       transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
       svg {
         padding: 4px;
-        border-radius: 2px;
+        border-radius: 4px;
         transition: background-color 0.1s ease-out;
       }
       &:hover {
@@ -69,6 +69,9 @@
   align-items: flex-start;
   z-index: 1;
   margin-right: 25vw;
+  button {
+    margin-top: 6vh;
+  }
 }
 
 .h2 {
@@ -89,24 +92,6 @@
   font-weight: 900;
   text-shadow: 0 6px rgba(0, 0, 0, 0.25);
   line-height: 1.25em;
-}
-
-.getStarted {
-  padding: 1em 2em;
-  background: $green;
-  margin-top: 6vh;
-  text-transform: uppercase;
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: $lightest;
-  letter-spacing: 0.1em;
-  text-shadow: 2px 3px rgba(0, 0, 0, 0.25);
-  box-shadow: 6px 8px rgba(0, 0, 0, 0.25);
-  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-  &:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 8px 10px 0 2px rgba(0, 0, 0, 0.15);
-  }
 }
 
 .help {
