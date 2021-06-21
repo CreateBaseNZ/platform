@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Head from "next/head";
 import { useState } from "react";
 import { ColourLogo } from "/components/UI/Icons";
 import GreenButton from "/components/UI/GreenButton";
@@ -38,6 +39,10 @@ const Explore = () => {
 
   return (
     <div className={classes.explore}>
+      <Head>
+        <title>Explore | CreateBase</title>
+        <meta name="description" content="Explore CreateBase games" />
+      </Head>
       <div className={classes.logo}>
         <ColourLogo layout="fill" objectFit="contain" quality={100} />
       </div>

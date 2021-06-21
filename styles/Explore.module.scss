@@ -1,15 +1,29 @@
 @import "/styles/variables";
 
+$bg-color: #e9e9e9;
+$dot-color: #f1f1f1;
+$dot-size: 5px;
+$dot-space: 48px;
+
 .explore {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background: linear-gradient(to bottom right, #f5f5f5, #ededed);
+  // background: linear-gradient(to bottom right, #f5f5f5, #ededed);
   padding: 5vh 10vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  background: linear-gradient(
+        90deg,
+        $bg-color ($dot-space - $dot-size),
+        transparent 1%
+      )
+      center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+    $dot-color;
+  background-size: $dot-space $dot-space;
 }
 
 .logo {
@@ -24,7 +38,7 @@
   color: $light;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-top: 2rem;
+  margin-top: 4vh;
 }
 
 .selectedGame {
@@ -43,18 +57,19 @@
   h2 {
     font-size: 3rem;
     font-weight: 800;
+    line-height: 1em;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 2vh;
   }
   p {
-    font-size: 14px;
+    font-size: 0.75rem;
     line-height: 1.75em;
     letter-spacing: 0.05em;
     font-weight: 500;
   }
   button {
-    margin-top: 3rem;
+    margin-top: 3vh;
   }
 }
 

@@ -8,7 +8,12 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(to bottom right, $logo-dark, $blue-mid);
+  background: radial-gradient(
+    to bottom right,
+    $logo-mid,
+    $logo-dark,
+    $blue-mid
+  );
 }
 
 .bg {
