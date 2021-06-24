@@ -86,6 +86,29 @@ $dot-space: 48px;
   height: 24vh;
 }
 
+.gameThumbnailWrapper {
+  height: 24vh;
+  width: 24vh;
+  margin-right: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.selectedThumbnail {
+    position: relative;
+    .gameThumbnail {
+      height: 24vh;
+      width: 24vh;
+      & > div {
+        transform: scale(110%);
+      }
+      & > p {
+        opacity: 1;
+        transform: translate(0);
+      }
+    }
+  }
+}
+
 .gameThumbnail {
   height: 20vh;
   width: 20vh;
@@ -96,7 +119,6 @@ $dot-space: 48px;
   align-items: flex-start;
   overflow: hidden;
   cursor: pointer;
-  margin-right: 1rem;
   transition: height 0.2s ease-out, width 0.2s ease-out;
   p {
     z-index: 1;
@@ -125,17 +147,5 @@ $dot-space: 48px;
   }
   &:hover > div {
     transform: scale(110%);
-  }
-  &.selectedThumbnail {
-    height: 24vh;
-    width: 24vh;
-    border: thick solid $logo-mid;
-    & > div {
-      transform: scale(110%);
-    }
-    & > p {
-      opacity: 1;
-      transform: translate(0);
-    }
   }
 }

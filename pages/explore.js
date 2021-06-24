@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 import { useState } from "react";
 import { ColourLogo } from "/components/UI/Icons";
 import GreenButton from "/components/UI/GreenButton";
@@ -8,22 +9,22 @@ import classes from "/styles/Explore.module.scss";
 
 const DUMMY_GAMES = [
   {
-    id: "123",
     name: "Boom Clap",
+    routerQuery: "jump",
     src: "/game.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
   },
   {
-    id: "1234",
     name: "Yep jump",
+    routerQuery: "jump",
     src: "/game.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
   },
   {
-    id: "1235",
     name: "wah wah wah",
+    routerQuery: "jump",
     src: "/game.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
@@ -51,7 +52,16 @@ const Explore = () => {
         <div className={classes.content}>
           <h2>{DUMMY_GAMES[activeGame].name}</h2>
           <p>{DUMMY_GAMES[activeGame].caption}</p>
-          <GreenButton caption="Start!" />
+          <Link
+            href={{
+              pathname: "/play/[game]",
+              query: { game: DUMMY_GAMES[activeGame].routerQuery },
+            }}
+          >
+            <div>
+              <GreenButton caption="Start!" />
+            </div>
+          </Link>
         </div>
         <div className={classes.coverImage}>
           <Image
@@ -65,21 +75,25 @@ const Explore = () => {
       <div className={classes.allGames}>
         {DUMMY_GAMES.map((game, index) => (
           <div
-            key={game.id}
-            className={`${classes.gameThumbnail} ${
-              activeGame === index && classes.selectedThumbnail
+            key={game.name}
+            className={`${classes.gameThumbnailWrapper} ${
+              activeGame === index ? classes.selectedThumbnail : ""
             }`}
-            onClick={() => thumbnailHandler(index)}
           >
-            <Image
-              src={game.src}
-              layout="fill"
-              objectFit="cover"
-              alt={game.name}
-            />
-            <p>
-              <span>{game.name}</span>
-            </p>
+            <div
+              className={classes.gameThumbnail}
+              onClick={() => thumbnailHandler(index)}
+            >
+              <Image
+                src={game.src}
+                layout="fill"
+                objectFit="cover"
+                alt={game.name}
+              />
+              <p>
+                <span>{game.name}</span>
+              </p>
+            </div>
           </div>
         ))}
       </div>
