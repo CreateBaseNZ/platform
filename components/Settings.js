@@ -1,34 +1,22 @@
-import { useEffect, useState } from "react";
-
 import CloseIcon from "@material-ui/icons/Close";
 
-import classes from "./SettingsModal.module.scss";
-
-const defaultSettings = {
-  showMenu: false,
-};
+import classes from "./Settings.module.scss";
 
 const Settings = (props) => {
-  const [settings, setSettings] = useState(defaultSettings);
-
-  useEffect(() => {
-    setSettings((state) => ({ ...state, showMenu: true }));
-  }, [props.showSettings]);
-
-  const closeMenu = () => {
-    setSettings((state) => ({ ...state, showMenu: false }));
+  const closeHandler = () => {
+    props.setSettings((state) => ({ ...state, showMenu: false }));
   };
 
   return (
-    <div className={classes.backdrop}>
-      <div
-        className={classes.menu}
-        style={{ display: settings.showMenu && "none" }}
-      >
+    <div
+      className={classes.backdrop}
+      style={{ display: !props.settings.showMenu && "none" }}
+    >
+      <div className={classes.menu}>
         <CloseIcon
           style={{ fontSize: 36 }}
           className={classes.close}
-          onClick={closeMenu}
+          onClick={closeHandler}
         />
         <div></div>
       </div>

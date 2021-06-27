@@ -2,9 +2,14 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import useUnity from "/hooks/useUnity";
+
+import Settings from "/components/Settings";
+import Game from "/components/Game";
+import Workspace from "/components/Workspace";
+import Aside from "/components/Aside";
 
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import SettingsIcon from "@material-ui/icons/Settings";
 
 import classes from "/styles/Play.module.scss";
 
@@ -18,11 +23,18 @@ const DUMMY_QUERY = {
   },
 };
 
+const defaultSettings = {
+  showMenu: false,
+  stacked: true,
+};
+
 const Play = () => {
   const router = useRouter();
   const [game, setGame] = useState();
-  const [showSettings, setShowSettings] = useState(false);
+  const [settings, setSettings] = useState(defaultSettings);
+  const [unityContext, sensorData, gameState, resetScene] = useUnity();
 
+  console.log(settings);
   useEffect(() => {
     if (router.query.game) {
       console.log(router);
@@ -31,24 +43,21 @@ const Play = () => {
     }
   }, [router.query]);
 
-  const settingsHandler = () => {
-    setShowSettings(true);
-  };
-
   return (
     <OverlayScrollbarsComponent className={classes.play}>
       <Head>
         <title>{game ? game.name : "Play"} | CreateBase</title>
         <meta name="description" content={game ? game.caption : ""} />
       </Head>
-      <div className={`${classes.mainWindow} ${classes.stackedView}`}>
-        <div className={classes.unity}>
-          <button className={classes.settingsBtn} onClick={settingsHandler}>
-            <SettingsIcon />
-          </button>
-        </div>
-        <div className={classes.workspace}></div>
+      <div
+        className={`${classes.mainWindow} ${
+          settings.stacked ? classes.stackedView : classes.shelvedView
+        }`}
+      >
+        <Game unityContext={unityContext} setSettings={setSettings} />
+        <Workspace />
       </div>
+      <Settings settings={settings} setSettings={setSettings} />
     </OverlayScrollbarsComponent>
   );
 };
