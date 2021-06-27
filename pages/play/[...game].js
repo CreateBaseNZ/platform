@@ -34,7 +34,6 @@ const Play = () => {
   const [settings, setSettings] = useState(defaultSettings);
   const [unityContext, sensorData, gameState, resetScene] = useUnity();
 
-  console.log(settings);
   useEffect(() => {
     if (router.query.game) {
       console.log(router);

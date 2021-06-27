@@ -9,6 +9,7 @@ const Game = (props) => {
   };
 
   const focusHandler = () => {
+    console.log("working");
     props.unityContext.send("GameController", "FocusCanvas", "1");
   };
 
@@ -25,7 +26,7 @@ const Game = (props) => {
     >
       <Unity
         unityContext={props.unityContext}
-        style={{ height: "100%", width: props.width || "100%" }}
+        style={{ height: "100%", width: "100%" }}
       />
       <button className={classes.settingsBtn} onClick={showSettingsHandler}>
         <SettingsIcon />

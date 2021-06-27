@@ -17,8 +17,16 @@
   justify-content: flex-start;
   &.stackedView {
     flex-direction: column;
+    & > div {
+      height: 50%;
+      width: 100%;
+    }
   }
   &.shelvedView {
     flex-direction: row-reverse;
+    & > div {
+      height: 100%;
+      width: 50%;
+    }
   }
 }
