@@ -24,10 +24,10 @@ const Game = (props) => {
       onBlur={blurHandler}
       tabIndex={1}
     >
-      <Unity
+      {/* <Unity
         unityContext={props.unityContext}
         style={{ height: "100%", width: "100%" }}
-      />
+      /> */}
       <button className={classes.settingsBtn} onClick={showSettingsHandler}>
         <SettingsIcon />
       </button>

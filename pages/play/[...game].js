@@ -54,7 +54,7 @@ const Play = () => {
         }`}
       >
         <Game unityContext={unityContext} setSettings={setSettings} />
-        <Workspace />
+        <Workspace stacked={settings.stacked} />
       </div>
       <Settings settings={settings} setSettings={setSettings} />
     </OverlayScrollbarsComponent>
