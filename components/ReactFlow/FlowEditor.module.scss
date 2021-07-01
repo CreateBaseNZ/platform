@@ -1,0 +1,62 @@
+@import "/styles/variables";
+
+.editorContainer {
+  height: 100%;
+  width: 100%;
+  background: $bg-light;
+  display: flex;
+  * {
+    font-family: $exo-2;
+  }
+  svg {
+    display: block;
+  }
+  &.disable {
+    pointer-events: none;
+    opacity: 0.5;
+    * {
+      pointer-events: none !important;
+    }
+  }
+}
+
+.editorWrapper {
+  height: 100%;
+  flex-grow: 1;
+}
+
+.controls {
+  background: none;
+  box-shadow: none !important;
+  & > div {
+    margin: 0.25rem;
+    border-radius: 4px;
+    background: $light;
+    border: none;
+    opacity: 0.5;
+    transition: opacity 0.1s ease-out;
+    &:hover {
+      opacity: 1;
+    }
+    &.locked {
+      opacity: 0.75;
+      background: $lightest;
+      path {
+        fill: rgb(255, 22, 22);
+      }
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  .customControl {
+    padding: 5px;
+    svg {
+      max-height: 16px;
+      max-width: 16px;
+      path {
+        fill: black;
+      }
+    }
+  }
+}
