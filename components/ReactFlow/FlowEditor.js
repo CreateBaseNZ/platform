@@ -123,7 +123,7 @@ const FlowEditor = (props) => {
     _reactFlowInstance.fitView();
     setReactFlowInstance(_reactFlowInstance);
 
-    const controls = document.querySelector(".react_flow_controls").children;
+    const controls = document.querySelector("." + classes.controls).children;
     for (let i = 0; i < controls.length; i++) {
       controls[i].title = controlTitles[i];
     }
@@ -171,7 +171,7 @@ const FlowEditor = (props) => {
   };
 
   const interactiveChangeHandler = () => {
-    const lock = document.querySelector(".react_flow_controls").children[3];
+    const lock = document.querySelector("." + classes.controls).children[3];
     if (lock.title === "Lock") {
       lock.title = "Unlock";
       lock.classList.add(classes.locked);
@@ -214,7 +214,7 @@ const FlowEditor = (props) => {
             deleteKeyCode={46}
           >
             <Controls
-              className={`${classes.controls} react_flow_controls`}
+              className={classes.controls}
               onInteractiveChange={interactiveChangeHandler}
             >
               <ControlButton

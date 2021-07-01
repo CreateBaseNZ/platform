@@ -28,12 +28,12 @@
 .controls {
   background: none;
   box-shadow: none !important;
-  & > div {
-    margin: 0.25rem;
+  border: thin solid rgba(0, 0, 0, 0.1);
+  & > * {
     border-radius: 4px;
     background: $light;
-    border: none;
-    opacity: 0.5;
+    border-bottom: thin solid rgba(0, 0, 0, 0.1) !important;
+    opacity: 0.75;
     transition: opacity 0.1s ease-out;
     &:hover {
       opacity: 1;
@@ -51,6 +51,7 @@
   }
   .customControl {
     padding: 5px;
+    border: none !important;
     svg {
       max-height: 16px;
       max-width: 16px;

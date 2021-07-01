@@ -1,10 +1,5 @@
 import StartNode from "/components/ReactFlow/StartNode";
-// import EndNode from "/components/Play/Workspace/FlowEditor/EndNode";
-// import MoveNode from "/components/Play/Workspace/FlowEditor/MoveNode";
-// import GravityNode from "/components/Play/Workspace/FlowEditor/GravityNode";
-// import ReadNode from "/components/Play/Workspace/FlowEditor/ReadNode";
-// import SetNode from "/components/Play/Workspace/FlowEditor/SetNode";
-// import PauseNode from "/components/Play/Workspace/FlowEditor/PauseNode";
+import EndNode from "/components/ReactFlow/EndNode";
 import CustomEdge from "/components/ReactFlow/CustomEdge";
 
 export const initialData = {
@@ -14,12 +9,7 @@ export const initialData = {
 
 export const nodeTypes = {
   start: StartNode,
-  // end: EndNode,
-  // move: MoveNode,
-  // gravity: GravityNode,
-  // read: ReadNode,
-  // set: SetNode,
-  // pause: PauseNode,
+  end: EndNode,
 };
 
 export const edgeTypes = {
@@ -30,6 +20,7 @@ export const initialElements = [
   {
     id: "start",
     type: "start",
-    position: { x: -150, y: 150 },
+    position: { x: -150, y: -150 },
   },
+  { id: "end", type: "end", position: { x: 150, y: 150 } },
 ];
