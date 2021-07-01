@@ -20,7 +20,7 @@ export const initialElements = [
   {
     id: "start",
     type: "start",
-    position: { x: -150, y: -150 },
+    position: { x: -160, y: -160 },
   },
-  { id: "end", type: "end", position: { x: 150, y: 150 } },
+  { id: "end", type: "end", position: { x: 160, y: 160 } },
 ];

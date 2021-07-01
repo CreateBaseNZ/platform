@@ -9,8 +9,6 @@ import ReactFlow, {
   removeElements,
   addEdge,
   updateEdge,
-  Controls,
-  ControlButton,
   Background,
   getOutgoers,
 } from "react-flow-renderer";
@@ -21,9 +19,9 @@ import {
   edgeTypes,
 } from "../../utils/flowConfig";
 
-import DndBar from "/components/ReactFlow/DndBar";
+import DndBar from "./DndBar";
+import ControlsBar from "./ControlsBar";
 import { CustomConnectionLine } from "./CustomEdge";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 
 import classes from "./FlowEditor.module.scss";
 
@@ -170,17 +168,6 @@ const FlowEditor = (props) => {
     setElements((es) => es.concat(newNode));
   };
 
-  const interactiveChangeHandler = () => {
-    const lock = document.querySelector("." + classes.controls).children[3];
-    if (lock.title === "Lock") {
-      lock.title = "Unlock";
-      lock.classList.add(classes.locked);
-    } else {
-      lock.title = "Lock";
-      lock.classList.remove(classes.locked);
-    }
-  };
-
   const onEdgeUpdateStart = (event, edge) => {
     console.log(event);
     console.log(edge);
@@ -213,18 +200,8 @@ const FlowEditor = (props) => {
             arrowHeadColor="#ffffff"
             deleteKeyCode={46}
           >
-            <Controls
-              className={classes.controls}
-              onInteractiveChange={interactiveChangeHandler}
-            >
-              <ControlButton
-                className={classes.customControl}
-                onClick={() => console.log("another action")}
-              >
-                <InfoOutlinedIcon />
-              </ControlButton>
-            </Controls>
-            <Background id="set-bg" olor="#aaa" gap={16} />
+            <ControlsBar />
+            <Background color="#aaa" gap={16} />
           </ReactFlow>
         </div>
       </ReactFlowProvider>

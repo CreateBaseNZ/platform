@@ -4,26 +4,15 @@ import { Handle } from "react-flow-renderer";
 import PinDropOutlinedIcon from "@material-ui/icons/PinDropOutlined";
 import classes from "./Nodes.module.scss";
 
-const isValidConnection = (connection) => {
-  connection.target === "unconnectable";
-};
-
 const EndNode = ({ data }) => {
   return (
-    <div className={`${classes.node} ${classes.end}`}>
+    <div className={`${classes.node} ${classes.endNode}`}>
       <Handle
         type="target"
         position="left"
-        style={{
-          height: "8px",
-          width: "8px",
-        }}
-        className={`${classes.handle} ${classes.target}`}
+        className={`${classes.handle} ${classes.leftHandle} ${classes.targetHandle}`}
       />
-      <h5>
-        <PinDropOutlinedIcon />
-        End
-      </h5>
+      <h4>End</h4>
     </div>
   );
 };

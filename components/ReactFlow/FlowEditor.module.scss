@@ -5,9 +5,7 @@
   width: 100%;
   background: $bg-light;
   display: flex;
-  * {
-    font-family: $exo-2;
-  }
+  position: relative;
   svg {
     display: block;
   }
@@ -29,8 +27,8 @@
   background: none;
   box-shadow: none !important;
   border: thin solid rgba(0, 0, 0, 0.1);
+  left: 310px !important;
   & > * {
-    border-radius: 4px;
     background: $light;
     border-bottom: thin solid rgba(0, 0, 0, 0.1) !important;
     opacity: 0.75;
