@@ -23,11 +23,11 @@ const NodeSpeed = ({ data }) => {
     >
       <h4>Speed of</h4>
       <select
-        name={`${data.id}_distance-from`}
-        id={`${data.id}_distance-from`}
+        name={`${data.id}_speed`}
+        id={`${data.id}_speed`}
         onChange={changeHandler}
         onDragStart={dragHandler}
-        value={data.values.from}
+        value={data.values.speed}
       >
         <option value="character">Character</option>
         <option value="drone">Drone</option>
