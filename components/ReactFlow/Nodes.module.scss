@@ -90,8 +90,9 @@
 }
 
 .targetHandle {
-  border-color: $dark !important;
-  background: $lightest !important;
+  border-color: $lightest !important;
+  background: $dark !important;
+  border-radius: 6px 0 0 6px !important;
 }
 
 .nodeMini {
