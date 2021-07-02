@@ -3,7 +3,7 @@ import { Handle } from "react-flow-renderer";
 
 import classes from "./Nodes.module.scss";
 
-const NodeDistance = ({ data }) => {
+const NodeSpeed = ({ data }) => {
   const changeHandler = (event) => {
     const newValues = {
       ...data.values,
@@ -19,27 +19,15 @@ const NodeDistance = ({ data }) => {
 
   return (
     <div
-      className={`${classes.node} ${classes.sensoring} ${classes.distanceNode} ${classes.hasRightHandle}`}
+      className={`${classes.node} ${classes.sensoring} ${classes.nodeSpeed} ${classes.hasRightHandle}`}
     >
-      <h4>Distance from</h4>
+      <h4>Speed of</h4>
       <select
         name={`${data.id}_distance-from`}
         id={`${data.id}_distance-from`}
         onChange={changeHandler}
         onDragStart={dragHandler}
         value={data.values.from}
-      >
-        <option value="character">Character</option>
-        <option value="drone">Drone</option>
-        <option value="vehicle">Vehicle</option>
-      </select>
-      <h4>to</h4>
-      <select
-        name={`${data.id}_distance-to`}
-        name={`${data.id}_distance-to`}
-        onChange={changeHandler}
-        onDragStart={dragHandler}
-        value={data.values.to}
       >
         <option value="character">Character</option>
         <option value="drone">Drone</option>
@@ -54,18 +42,16 @@ const NodeDistance = ({ data }) => {
   );
 };
 
-export default memo(NodeDistance);
+export default memo(NodeSpeed);
 
-export const NodeDistanceMini = (props) => {
+export const NodeSpeedMini = (props) => {
   return (
     <div
-      className={`${classes.nodeMini} ${classes.sensoring} ${classes.distanceNode}`}
+      className={`${classes.nodeMini} ${classes.sensoring} ${classes.nodeSpeed}`}
       onDragStart={props.onDragStart}
       draggable
     >
-      <h4>Distance from</h4>
-      <div className={classes.blankInput}></div>
-      <h4>to</h4>
+      <h4>Speed of</h4>
       <div className={classes.blankInput}></div>
     </div>
   );

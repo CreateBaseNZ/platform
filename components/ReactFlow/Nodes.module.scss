@@ -95,13 +95,13 @@
 }
 
 .nodeMini {
-  height: 2rem;
+  height: 2.5rem;
   width: 15rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 8px;
+  padding: 8px 10px;
   overflow: hidden;
   border-radius: 4px;
   cursor: grab;
