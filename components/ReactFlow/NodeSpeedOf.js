@@ -3,7 +3,7 @@ import { Handle } from "react-flow-renderer";
 
 import classes from "./Nodes.module.scss";
 
-const NodeSpeed = ({ data }) => {
+const NodeSpeedOf = ({ data }) => {
   const changeHandler = (event) => {
     const newValues = {
       ...data.values,
@@ -19,15 +19,15 @@ const NodeSpeed = ({ data }) => {
 
   return (
     <div
-      className={`${classes.node} ${classes.sensoring} ${classes.nodeSpeed} ${classes.hasRightHandle}`}
+      className={`${classes.node} ${classes.sensoring} ${classes.nodeSpeedOf} ${classes.hasRightHandle}`}
     >
       <h4>Speed of</h4>
       <select
-        name={`${data.id}_speed`}
-        id={`${data.id}_speed`}
+        name={`${data.id}_speedOf`}
+        id={`${data.id}_speedOf`}
         onChange={changeHandler}
         onDragStart={dragHandler}
-        value={data.values.speed}
+        value={data.values.entity}
       >
         <option value="character">Character</option>
         <option value="drone">Drone</option>
@@ -42,12 +42,12 @@ const NodeSpeed = ({ data }) => {
   );
 };
 
-export default memo(NodeSpeed);
+export default memo(NodeSpeedOf);
 
-export const NodeSpeedMini = (props) => {
+export const NodeSpeedOfMini = (props) => {
   return (
     <div
-      className={`${classes.nodeMini} ${classes.sensoring} ${classes.nodeSpeed}`}
+      className={`${classes.nodeMini} ${classes.sensoring} ${classes.nodeSpeedOf}`}
       onDragStart={props.onDragStart}
       draggable
     >

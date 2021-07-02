@@ -19,7 +19,7 @@ const NodeDistance = ({ data }) => {
 
   return (
     <div
-      className={`${classes.node} ${classes.sensoring} ${classes.distanceNode} ${classes.hasRightHandle}`}
+      className={`${classes.node} ${classes.sensoring} ${classes.nodeDistance} ${classes.hasRightHandle}`}
     >
       <h4>Distance from</h4>
       <select
@@ -59,7 +59,7 @@ export default memo(NodeDistance);
 export const NodeDistanceMini = (props) => {
   return (
     <div
-      className={`${classes.nodeMini} ${classes.sensoring} ${classes.distanceNode}`}
+      className={`${classes.nodeMini} ${classes.sensoring} ${classes.nodeDistance}`}
       onDragStart={props.onDragStart}
       draggable
     >

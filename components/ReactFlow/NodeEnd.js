@@ -7,7 +7,7 @@ import classes from "./Nodes.module.scss";
 const NodeEnd = ({ data }) => {
   return (
     <div
-      className={`${classes.node} ${classes.endNode} ${classes.hasLeftHandle}`}
+      className={`${classes.node} ${classes.nodeEnd} ${classes.hasLeftHandle}`}
     >
       <Handle
         type="target"

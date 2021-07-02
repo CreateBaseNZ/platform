@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   &.stacked {
     height: 100%;
     width: 4rem;

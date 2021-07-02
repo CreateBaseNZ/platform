@@ -151,6 +151,8 @@ const FlowEditor = (props) => {
     let defaultValues = null;
     if (type === "distance") {
       defaultValues = { from: "character", to: "character" };
+    } else if (type === "speedOf") {
+      defaultValues = { entity: "character" };
     }
     setData((data) => ({
       ...data,
