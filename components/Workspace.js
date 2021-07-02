@@ -16,9 +16,11 @@ const Workspace = (props) => {
     setActiveTab(option);
   };
 
+  console.log(activeTab);
+
   return (
     <div className={classes.workspace}>
-      <FlowEditor />
+      <FlowEditor show={activeTab === "flow"} />
       <TabBar
         stacked={props.stacked}
         active={activeTab}

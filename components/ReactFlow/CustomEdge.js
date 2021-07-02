@@ -41,7 +41,7 @@ export const CustomConnectionLine = ({
   );
 };
 
-const CustomEdge = ({
+const ExeEdge = ({
   id,
   sourceX,
   sourceY,
@@ -80,4 +80,4 @@ const CustomEdge = ({
   );
 };
 
-export default CustomEdge;
+export default ExeEdge;

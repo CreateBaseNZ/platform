@@ -10,6 +10,7 @@ import ReactFlow, {
   addEdge,
   updateEdge,
   Background,
+  isNode,
   getOutgoers,
 } from "react-flow-renderer";
 import {
@@ -36,51 +37,51 @@ const FlowEditor = (props) => {
   const [elements, setElements] = useState(initialElements);
   const [data, setData] = useState(initialData);
 
-  useImperativeHandle(props.forwardedRef, () => ({
-    getBlockConfig: () => {
-      let blocksConfig = [];
-      let currentNode = elements[0];
-      let traverse = true;
-      while (traverse) {
-        let block = {
-          robot: "Arm",
-          value: { ...data[currentNode.id] },
-          type: currentNode.type,
-        };
-        switch (currentNode.type) {
-          case "move":
-            block = {
-              ...block,
-              name: "MoveArm",
-            };
-            break;
-          case "gravity":
-            block = {
-              ...block,
-              name: "GravitySwitch",
-            };
-            block.type = "move";
-            break;
-          default:
-            break;
-        }
-        blocksConfig.push(block);
-        const nextNode = getOutgoers(currentNode, elements);
-        if (nextNode.length > 1) {
-          return "multiple_tracks";
-        } else if (nextNode[0]) {
-          currentNode = nextNode[0];
-        } else {
-          traverse = false;
-          break;
-        }
-      }
-      if (blocksConfig[blocksConfig.length - 1].type !== "end") {
-        return "disconnected";
-      }
-      return blocksConfig;
-    },
-  }));
+  // useImperativeHandle(props.forwardedRef, () => ({
+  //   getBlockConfig: () => {
+  //     let blocksConfig = [];
+  //     let currentNode = elements[0];
+  //     let traverse = true;
+  //     while (traverse) {
+  //       let block = {
+  //         robot: "Arm",
+  //         value: { ...data[currentNode.id] },
+  //         type: currentNode.type,
+  //       };
+  //       switch (currentNode.type) {
+  //         case "move":
+  //           block = {
+  //             ...block,
+  //             name: "MoveArm",
+  //           };
+  //           break;
+  //         case "gravity":
+  //           block = {
+  //             ...block,
+  //             name: "GravitySwitch",
+  //           };
+  //           block.type = "move";
+  //           break;
+  //         default:
+  //           break;
+  //       }
+  //       blocksConfig.push(block);
+  //       const nextNode = getOutgoers(currentNode, elements);
+  //       if (nextNode.length > 1) {
+  //         return "multiple_tracks";
+  //       } else if (nextNode[0]) {
+  //         currentNode = nextNode[0];
+  //       } else {
+  //         traverse = false;
+  //         break;
+  //       }
+  //     }
+  //     if (blocksConfig[blocksConfig.length - 1].type !== "end") {
+  //       return "disconnected";
+  //     }
+  //     return blocksConfig;
+  //   },
+  // }));
 
   const onElementsRemove = useCallback((elementsToRemove) => {
     const filteredElements = elementsToRemove.filter(
@@ -90,9 +91,9 @@ const FlowEditor = (props) => {
   }, []);
 
   const onElementClick = useCallback((event, element) => {
-    // if (isNode(element)) {
-    //   console.log("this is a node");
-    // }
+    if (isNode(element)) {
+      console.log(event);
+    }
   }, []);
 
   const onConnect = useCallback((params) => {
@@ -135,31 +136,35 @@ const FlowEditor = (props) => {
   const onDrop = (event) => {
     event.preventDefault();
 
+    // place the node in correct position
     const reactFlowBounds = wrapperRef.current.getBoundingClientRect();
-    const [type, x, y] = event.dataTransfer
-      .getData("application/reactflow")
-      .split("-");
+    const type = event.dataTransfer.getData("application/reactflow");
     const position = reactFlowInstance.project({
-      x: event.clientX - reactFlowBounds.left - parseFloat(x),
-      y: event.clientY - reactFlowBounds.top - parseFloat(y),
+      x: event.clientX - reactFlowBounds.left,
+      y: event.clientY - reactFlowBounds.top,
     });
+
+    // create new node
     const id = getId();
+
+    // add to data state
     let defaultValues = null;
-    if (type === "gravity") {
-      defaultValues = { isOn: true };
-    } else if (type === "move") {
-      defaultValues = { x: 0, y: 0, z: 0 };
+    if (type === "distance") {
+      defaultValues = { from: "character", to: "character" };
     }
     setData((data) => ({
       ...data,
       [id]: { ...defaultValues },
     }));
+
+    // add to element state
     const newNode = {
       id: id,
       type,
       position,
       data: {
-        default: defaultValues,
+        id: id,
+        values: defaultValues,
         callBack: (newValues) => {
           setData((state) => ({ ...state, [id]: { ...newValues } }));
         },
@@ -168,18 +173,10 @@ const FlowEditor = (props) => {
     setElements((es) => es.concat(newNode));
   };
 
-  const onEdgeUpdateStart = (event, edge) => {
-    console.log(event);
-    console.log(edge);
-  };
-
-  const onEdgeMouseLeave = (event, edge) => {
-    console.log(event);
-    console.log(edge);
-  };
-
   return (
-    <div className={classes.editorContainer}>
+    <div
+      className={`${classes.editorContainer} ${props.show ? "" : classes.hide}`}
+    >
       <ReactFlowProvider>
         <DndBar />
         <div className={classes.editorWrapper} ref={wrapperRef}>
@@ -198,7 +195,6 @@ const FlowEditor = (props) => {
             snapGrid={[16, 16]}
             connectionLineComponent={CustomConnectionLine}
             arrowHeadColor="#ffffff"
-            deleteKeyCode={46}
           >
             <ControlsBar />
             <Background color="#aaa" gap={16} />

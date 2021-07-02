@@ -1,6 +1,7 @@
-import StartNode from "/components/ReactFlow/StartNode";
-import EndNode from "/components/ReactFlow/EndNode";
-import CustomEdge from "/components/ReactFlow/CustomEdge";
+import NodeStart from "../components/ReactFlow/NodeStart";
+import NodeEnd from "../components/ReactFlow/NodeEnd";
+import NodeDistance from "../components/ReactFlow/NodeDistance";
+import CustomEdge from "../components/ReactFlow/CustomEdge";
 
 export const initialData = {
   start: {},
@@ -8,8 +9,9 @@ export const initialData = {
 };
 
 export const nodeTypes = {
-  start: StartNode,
-  end: EndNode,
+  start: NodeStart,
+  end: NodeEnd,
+  distance: NodeDistance,
 };
 
 export const edgeTypes = {
@@ -20,7 +22,13 @@ export const initialElements = [
   {
     id: "start",
     type: "start",
-    position: { x: -160, y: -160 },
+    position: { x: -80, y: -80 },
   },
-  { id: "end", type: "end", position: { x: 160, y: 160 } },
+  {
+    id: "123",
+    type: "distance",
+    position: { x: 0, y: 0 },
+    data: { id: "123", values: { from: "character", to: "drone" } },
+  },
+  { id: "end", type: "end", position: { x: 80, y: 80 } },
 ];

@@ -4,9 +4,11 @@ import { Handle } from "react-flow-renderer";
 import OutlinedFlagIcon from "@material-ui/icons/OutlinedFlag";
 import classes from "./Nodes.module.scss";
 
-const StartNode = ({ data }) => {
+const NodeStart = ({ data }) => {
   return (
-    <div className={`${classes.node} ${classes.startNode}`}>
+    <div
+      className={`${classes.node} ${classes.startNode} ${classes.hasRightHandle}`}
+    >
       <h4>Start</h4>
       <Handle
         type="source"
@@ -17,4 +19,4 @@ const StartNode = ({ data }) => {
   );
 };
 
-export default memo(StartNode);
+export default memo(NodeStart);

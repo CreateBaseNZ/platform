@@ -16,6 +16,11 @@
       pointer-events: none !important;
     }
   }
+  &.hide {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+  }
 }
 
 .editorWrapper {
@@ -26,11 +31,10 @@
 .controls {
   background: none;
   box-shadow: none !important;
-  border: thin solid rgba(0, 0, 0, 0.1);
-  left: 310px !important;
+  border: thin solid $lighter;
   & > * {
     background: $light;
-    border-bottom: thin solid rgba(0, 0, 0, 0.1) !important;
+    border-bottom: thin solid $lighter !important;
     opacity: 0.75;
     transition: opacity 0.1s ease-out;
     &:hover {
