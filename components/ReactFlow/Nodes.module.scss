@@ -56,6 +56,10 @@
   background: #40aaf8;
 }
 
+.actioning {
+  background: #00dccf;
+}
+
 .nodeStart {
   background: #08df44;
   height: 2rem;
@@ -81,6 +85,15 @@
 .nodeSizeOf {
   height: 5rem;
   width: 14rem;
+}
+
+.nodeJump,
+.nodeDoubleJump,
+.nodeDuck,
+.nodeSlide,
+.nodeAttack {
+  height: 5rem;
+  width: 10rem;
 }
 
 .handle {

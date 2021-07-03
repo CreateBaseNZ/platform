@@ -18,6 +18,7 @@ import {
   initialElements,
   nodeTypes,
   edgeTypes,
+  entities,
 } from "../../utils/flowConfig";
 
 import DndBar from "./DndBar";
@@ -92,7 +93,7 @@ const FlowEditor = (props) => {
 
   const onElementClick = useCallback((event, element) => {
     if (isNode(element)) {
-      console.log(event);
+      // console.log(event);
     }
   }, []);
 
@@ -151,10 +152,16 @@ const FlowEditor = (props) => {
     let defaultValues = null;
     if (type === "distance") {
       defaultValues = { from: "character", to: "character" };
-    } else if (type === "speedOf") {
-      defaultValues = { entity: "character" };
-    } else if (type === "sizeOf") {
-      defaultValues = { entity: "character" };
+    } else if (
+      type === "speedOf" ||
+      type === "sizeOf" ||
+      type === "jump" ||
+      type === "doubleJump" ||
+      type === "duck" ||
+      type === "slide" ||
+      type === "attack"
+    ) {
+      defaultValues = { entity: entities[0].toLowerCase() };
     }
     setData((data) => ({
       ...data,
@@ -171,6 +178,17 @@ const FlowEditor = (props) => {
         values: defaultValues,
         callBack: (newValues) => {
           setData((state) => ({ ...state, [id]: { ...newValues } }));
+          setElements((els) =>
+            els.map((el) => {
+              if (el.id === id) {
+                el.data = {
+                  ...el.data,
+                  values: newValues,
+                };
+              }
+              return el;
+            })
+          );
         },
       },
     };

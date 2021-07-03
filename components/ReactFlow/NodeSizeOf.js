@@ -1,38 +1,16 @@
 import { memo } from "react";
 import { Handle } from "react-flow-renderer";
+import { EntityDropdown } from "./NodeShared";
 
 import classes from "./Nodes.module.scss";
 
 const NodeSizeOf = ({ data }) => {
-  const changeHandler = (event) => {
-    const newValues = {
-      ...data.values,
-      [event.target.name]:
-        event.target.value && parseInt(event.target.value).toString(),
-    };
-    data.callBack(newValues);
-  };
-
-  const dragHandler = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <div
       className={`${classes.node} ${classes.sensoring} ${classes.nodeSizeOf} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
     >
       <h4>Size of</h4>
-      <select
-        name={`${data.id}_sizeOf`}
-        id={`${data.id}_sizeOf`}
-        onChange={changeHandler}
-        onDragStart={dragHandler}
-        value={data.values.entity}
-      >
-        <option value="character">Character</option>
-        <option value="drone">Drone</option>
-        <option value="vehicle">Vehicle</option>
-      </select>
+      <EntityDropdown data={data} selectName="sizeOf" dataName="entity" />
       <div className={classes.rightHandleLabel} style={{ top: 16 }}>
         Height
       </div>

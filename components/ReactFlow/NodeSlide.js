@@ -4,13 +4,13 @@ import { EntityDropdown } from "./NodeShared";
 
 import classes from "./Nodes.module.scss";
 
-const NodeSpeedOf = ({ data }) => {
+const NodeSlide = ({ data }) => {
   return (
     <div
-      className={`${classes.node} ${classes.sensoring} ${classes.nodeSpeedOf} ${classes.hasRightHandle}`}
+      className={`${classes.node} ${classes.actioning} ${classes.nodeSlide} ${classes.hasRightHandle}`}
     >
-      <h4>Speed of</h4>
-      <EntityDropdown data={data} selectName="speedOf" dataName="entity" />
+      <h4>Slide</h4>
+      <EntityDropdown data={data} selectName="slide" dataName="entity" />
       <Handle
         type="source"
         position="right"
@@ -20,16 +20,16 @@ const NodeSpeedOf = ({ data }) => {
   );
 };
 
-export default memo(NodeSpeedOf);
+export default memo(NodeSlide);
 
-export const NodeSpeedOfMini = (props) => {
+export const NodeSlideMini = (props) => {
   return (
     <div
-      className={`${classes.nodeMini} ${classes.sensoring} ${classes.nodeSpeedOf}`}
+      className={`${classes.nodeMini} ${classes.actioning} ${classes.nodeSlide}`}
       onDragStart={props.onDragStart}
       draggable
     >
-      <h4>Speed of</h4>
+      <h4>Slide</h4>
       <div className={classes.blankInput}></div>
     </div>
   );

@@ -3,6 +3,11 @@ import NodeEnd from "../components/ReactFlow/NodeEnd";
 import NodeDistance from "../components/ReactFlow/NodeDistance";
 import NodeSpeedOf from "../components/ReactFlow/NodeSpeedOf";
 import NodeSizeOf from "../components/ReactFlow/NodeSizeOf";
+import NodeJump from "../components/ReactFlow/NodeJump";
+import NodeDoubleJump from "../components/ReactFlow/NodeDoubleJump";
+import NodeDuck from "../components/ReactFlow/NodeDuck";
+import NodeSlide from "../components/ReactFlow/NodeSlide";
+import NodeAttack from "../components/ReactFlow/NodeAttack";
 import CustomEdge from "../components/ReactFlow/CustomEdge";
 
 export const initialData = {
@@ -16,6 +21,11 @@ export const nodeTypes = {
   distance: NodeDistance,
   speedOf: NodeSpeedOf,
   sizeOf: NodeSizeOf,
+  jump: NodeJump,
+  doubleJump: NodeDoubleJump,
+  duck: NodeDuck,
+  slide: NodeSlide,
+  attack: NodeAttack,
 };
 
 export const edgeTypes = {
@@ -28,17 +38,7 @@ export const initialElements = [
     type: "start",
     position: { x: -80, y: -80 },
   },
-  {
-    id: "123",
-    type: "distance",
-    position: { x: 0, y: 0 },
-    data: { id: "123", values: { from: "character", to: "drone" } },
-  },
-  {
-    id: "456",
-    type: "speedOf",
-    position: { x: 32, y: 32 },
-    data: { id: "456", values: { entity: "character" } },
-  },
   { id: "end", type: "end", position: { x: 80, y: 80 } },
 ];
+
+export const entities = ["Character", "Drone", "Vehicle"];
