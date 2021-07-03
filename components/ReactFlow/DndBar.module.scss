@@ -13,13 +13,14 @@
 }
 
 .wrapper {
+  height: 100%;
   width: 100%;
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  overflow: auto;
+  overflow-y: scroll;
   padding: 1vh 1rem;
 
   h5 {

@@ -6,6 +6,15 @@ import { NodeDoubleJumpMini } from "./NodeDoubleJump";
 import { NodeDuckMini } from "./NodeDuck";
 import { NodeSlideMini } from "./NodeSlide";
 import { NodeAttackMini } from "./NodeAttack";
+import {
+  NodeAddMini,
+  NodeSubtractMini,
+  NodeMultiplyMini,
+  NodeDivideMini,
+  NodeGreaterThanMini,
+  NodeLessThanMini,
+  NodeEqualsMini,
+} from "./NodeOperations";
 
 import classes from "./DndBar.module.scss";
 
@@ -34,6 +43,22 @@ const DndBar = () => {
         <NodeDuckMini onDragStart={(event) => onDragStart(event, "duck")} />
         <NodeSlideMini onDragStart={(event) => onDragStart(event, "slide")} />
         <NodeAttackMini onDragStart={(event) => onDragStart(event, "attack")} />
+        <h5>Operators</h5>
+        <NodeAddMini onDragStart={(event) => onDragStart(event, "add")} />
+        <NodeSubtractMini
+          onDragStart={(event) => onDragStart(event, "subtract")}
+        />
+        <NodeMultiplyMini
+          onDragStart={(event) => onDragStart(event, "multiply")}
+        />
+        <NodeDivideMini onDragStart={(event) => onDragStart(event, "divide")} />
+        <NodeGreaterThanMini
+          onDragStart={(event) => onDragStart(event, "greaterThan")}
+        />
+        <NodeLessThanMini
+          onDragStart={(event) => onDragStart(event, "lessThan")}
+        />
+        <NodeEqualsMini onDragStart={(event) => onDragStart(event, "equals")} />
       </div>
     </aside>
   );

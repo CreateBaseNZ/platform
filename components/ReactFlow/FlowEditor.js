@@ -162,6 +162,16 @@ const FlowEditor = (props) => {
       type === "attack"
     ) {
       defaultValues = { entity: entities[0].toLowerCase() };
+    } else if (
+      type === "add" ||
+      type === "subtract" ||
+      type === "multiply" ||
+      type === "divide" ||
+      type === "greaterThan" ||
+      type === "lessThan" ||
+      type === "equals"
+    ) {
+      defaultValues = { a: 0, b: 0 };
     }
     setData((data) => ({
       ...data,

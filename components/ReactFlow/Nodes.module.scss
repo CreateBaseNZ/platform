@@ -17,7 +17,8 @@
     font-size: 14px;
     color: $lightest;
   }
-  select {
+  select,
+  input {
     height: 2rem;
     width: 100%;
     background: $lighter;
@@ -33,9 +34,21 @@
       background: $lightest;
     }
   }
+  input {
+    padding: 0 4px;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+  }
   h4,
   h5,
-  select {
+  select,
+  input {
     margin: 0.1rem 0;
   }
 }
@@ -62,6 +75,15 @@
 
 .operating {
   background: #9c40f8;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 10rem;
+  h4 {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 }
 
 .nodeStart {
@@ -114,6 +136,10 @@
   right: -6px !important;
 }
 
+.topHandle {
+  top: 2px !important;
+}
+
 .sourceHandle {
   border-color: $lightest !important;
   background: $dark !important;
@@ -124,6 +150,12 @@
   border-color: $lightest !important;
   background: $dark !important;
   border-radius: 6px 0 0 6px !important;
+}
+
+.paramHandle {
+  border-color: $dark !important;
+  background: $lightest !important;
+  border-radius: 6px !important;
 }
 
 .leftHandleLabel,
@@ -141,6 +173,7 @@
 }
 
 .nodeMini {
+  min-height: 2rem;
   height: 2rem;
   display: flex;
   flex-direction: row;
@@ -157,6 +190,7 @@
     font-size: 14px;
     font-weight: 500;
     color: $lightest;
+    margin: 0;
   }
   .blankInput {
     height: 1.25rem;

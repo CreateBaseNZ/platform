@@ -8,6 +8,15 @@ import NodeDoubleJump from "../components/ReactFlow/NodeDoubleJump";
 import NodeDuck from "../components/ReactFlow/NodeDuck";
 import NodeSlide from "../components/ReactFlow/NodeSlide";
 import NodeAttack from "../components/ReactFlow/NodeAttack";
+import {
+  NodeAdd,
+  NodeSubtract,
+  NodeMultiply,
+  NodeDivide,
+  NodeGreaterThan,
+  NodeLessThan,
+  NodeEquals,
+} from "../components/ReactFlow/NodeOperations";
 import CustomEdge from "../components/ReactFlow/CustomEdge";
 
 export const initialData = {
@@ -26,6 +35,13 @@ export const nodeTypes = {
   duck: NodeDuck,
   slide: NodeSlide,
   attack: NodeAttack,
+  add: NodeAdd,
+  subtract: NodeSubtract,
+  multiply: NodeMultiply,
+  divide: NodeDivide,
+  greaterThan: NodeGreaterThan,
+  lessThan: NodeLessThan,
+  equals: NodeEquals,
 };
 
 export const edgeTypes = {
