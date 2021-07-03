@@ -1,5 +1,11 @@
 import { useState } from "react";
+import dynamic from "next/dynamic";
+
 import TabBar from "./TabBar";
+
+const FlowEditor = dynamic(() => import("./ReactFlow/FlowEditor"), {
+  ssr: false,
+});
 
 import classes from "./Workspace.module.scss";
 
@@ -10,9 +16,11 @@ const Workspace = (props) => {
     setActiveTab(option);
   };
 
+  console.log(activeTab);
+
   return (
     <div className={classes.workspace}>
-      <div style={{ height: "100%", width: "100%" }}></div>
+      <FlowEditor show={activeTab === "flow"} />
       <TabBar
         stacked={props.stacked}
         active={activeTab}

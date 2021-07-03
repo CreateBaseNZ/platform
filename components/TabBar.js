@@ -3,6 +3,7 @@ import CodeIcon from "@material-ui/icons/Code";
 import CallToActionOutlinedIcon from "@material-ui/icons/CallToActionOutlined";
 
 import classes from "./TabBar.module.scss";
+import { useEffect, useRef, useState } from "react";
 
 const Divider = (props) => {
   return (
@@ -12,7 +13,7 @@ const Divider = (props) => {
         opacity:
           props.active === props.tabBefore || props.active === props.tabAfter
             ? 0
-            : 1,
+            : 0.5,
       }}
     />
   );
@@ -24,6 +25,7 @@ const Tab = (props) => {
     <div
       className={`${classes.tab} ${isActive ? classes.activeTab : ""}`}
       title={props.title}
+      ref={props.innerRef}
     >
       <input
         type="radio"
@@ -43,8 +45,32 @@ const Tab = (props) => {
 };
 
 const TabBar = (props) => {
+  const flowRef = useRef(null);
+  const textRef = useRef(null);
+  const consoleRef = useRef(null);
+  const [sliderSize, setSliderSize] = useState({});
+
+  useEffect(() => {
+    switch (props.active) {
+      case "flow":
+        setSliderSize({ top: 0, size: flowRef.current.offsetHeight });
+        break;
+      case "text":
+        setSliderSize({
+          top: textRef.current.offsetTop,
+          size: textRef.current.offsetHeight,
+        });
+        break;
+      case "console":
+        setSliderSize({
+          top: consoleRef.current.offsetTop,
+          size: consoleRef.current.offsetHeight + 1,
+        });
+        break;
+    }
+  }, [props.active]);
+
   const onChangeHandler = (event) => {
-    console.log(event);
     props.onChange(event.target.value);
   };
 
@@ -60,7 +86,11 @@ const TabBar = (props) => {
         props.stacked ? classes.stacked : classes.shelved
       }`}
     >
-      <span className={`${classes.slider} ${classes[`${props.active}`]}`} />
+      <span
+        id="tab-slider"
+        className={classes.slider}
+        style={{ top: sliderSize.top, height: sliderSize.size }}
+      />
       <Tab
         title="Flow"
         id="flow-tab"
@@ -68,6 +98,7 @@ const TabBar = (props) => {
         icon={<SwapCallsIcon />}
         onChangeHandler={onChangeHandler}
         active={props.active}
+        innerRef={flowRef}
       />
       <Divider tabBefore="flow" tabAfter="text" active={props.active} />
       <Tab
@@ -77,6 +108,7 @@ const TabBar = (props) => {
         icon={<CodeIcon />}
         onChangeHandler={onChangeHandler}
         active={props.active}
+        innerRef={textRef}
       />
       <Divider tabBefore="text" tabAfter="console" active={props.active} />
       <Tab
@@ -87,6 +119,7 @@ const TabBar = (props) => {
         onChangeHandler={onChangeHandler}
         onClickHandler={consoleClickHandler}
         active={props.active}
+        innerRef={consoleRef}
       />
       <Divider tabBefore="console" tabAfter="" active={props.active} />
     </div>

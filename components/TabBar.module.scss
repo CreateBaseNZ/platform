@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   &.stacked {
     height: 100%;
     width: 4rem;
@@ -14,7 +15,9 @@
 }
 
 .tab {
-  flex: 1 1 0;
+  writing-mode: vertical-lr; /* ADDED */
+  -webkit-writing-mode: vertical-lr;
+  flex: 1 1 auto;
   position: relative;
   width: 100%;
   display: flex;
@@ -37,7 +40,7 @@
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    transform: rotate(90deg);
+    // transform: rotate(90deg);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -45,8 +48,8 @@
     transition: color 0.1s ease-out;
   }
   svg {
-    margin-right: 0.5rem;
-    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 16px;
     path {
       fill: $light;
       transition: fill 0.1s ease-out;
@@ -82,15 +85,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 33.33333%;
   width: 4px;
   background: $logo-mid;
   z-index: 1;
-  transition: transform 0.2s ease-out;
-  &.text {
-    transform: translateY(100%);
-  }
-  &.console {
-    transform: translateY(200%);
-  }
+  transition: top 0.2s ease-out, height 0.2s ease-out;
 }

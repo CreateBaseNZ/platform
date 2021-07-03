@@ -9,8 +9,6 @@ import Game from "/components/Game";
 import Workspace from "/components/Workspace";
 import Aside from "/components/Aside";
 
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-
 import classes from "/styles/Play.module.scss";
 
 const DUMMY_QUERY = {
@@ -43,7 +41,7 @@ const Play = () => {
   }, [router.query]);
 
   return (
-    <OverlayScrollbarsComponent className={classes.play}>
+    <div className={classes.play}>
       <Head>
         <title>{game ? game.name : "Play"} | CreateBase</title>
         <meta name="description" content={game ? game.caption : ""} />
@@ -57,7 +55,7 @@ const Play = () => {
         <Workspace stacked={settings.stacked} />
       </div>
       <Settings settings={settings} setSettings={setSettings} />
-    </OverlayScrollbarsComponent>
+    </div>
   );
 };
 
