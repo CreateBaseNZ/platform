@@ -48,13 +48,10 @@ const TabBar = (props) => {
   const flowRef = useRef(null);
   const textRef = useRef(null);
   const consoleRef = useRef(null);
-  const [sliderSize, setSliderSize] = useState({});
+  const [sliderSize, setSliderSize] = useState({ top: 0, size: 1 });
 
   useEffect(() => {
     switch (props.active) {
-      case "flow":
-        setSliderSize({ top: 0, size: flowRef.current.offsetHeight });
-        break;
       case "text":
         setSliderSize({
           top: textRef.current.offsetTop,
@@ -66,6 +63,9 @@ const TabBar = (props) => {
           top: consoleRef.current.offsetTop,
           size: consoleRef.current.offsetHeight + 1,
         });
+        break;
+      default:
+        setSliderSize({ top: 0, size: flowRef.current.offsetHeight });
         break;
     }
   }, [props.active]);
