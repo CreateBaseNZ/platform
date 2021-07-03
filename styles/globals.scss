@@ -45,7 +45,7 @@ span {
 }
 
 .react-flow__node.selected > div {
-  border: medium solid $amber;
+  box-shadow: 0 0 6px 3px $amber;
 }
 
 .Resizer {

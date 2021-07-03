@@ -48,6 +48,10 @@
   padding-right: 14px;
 }
 
+.hasRightLabel {
+  padding-right: calc(4rem + 14px);
+}
+
 .sensoring {
   background: #40aaf8;
 }
@@ -72,6 +76,11 @@
 .nodeSpeedOf {
   height: 5rem;
   width: 10rem;
+}
+
+.nodeSizeOf {
+  height: 5rem;
+  width: 14rem;
 }
 
 .handle {
@@ -100,9 +109,22 @@
   border-radius: 6px 0 0 6px !important;
 }
 
+.leftHandleLabel,
+.rightHandleLabel {
+  position: absolute;
+  font-size: 14px;
+  line-height: 1em;
+  color: $lightest;
+}
+.leftHandleLabel {
+  left: 14px;
+}
+.rightHandleLabel {
+  right: 14px;
+}
+
 .nodeMini {
-  height: 2.5rem;
-  width: 15rem;
+  height: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -111,10 +133,11 @@
   overflow: hidden;
   border-radius: 4px;
   cursor: grab;
+  width: auto !important;
   transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
   h4 {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: $lightest;
   }
   .blankInput {
@@ -123,6 +146,7 @@
     background: $lightest;
     margin: 0 0.5rem;
     border-radius: 2px;
+    opacity: 0.75;
   }
   &:hover {
     transform: translateY(-2px);

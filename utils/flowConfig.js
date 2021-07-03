@@ -2,6 +2,7 @@ import NodeStart from "../components/ReactFlow/NodeStart";
 import NodeEnd from "../components/ReactFlow/NodeEnd";
 import NodeDistance from "../components/ReactFlow/NodeDistance";
 import NodeSpeedOf from "../components/ReactFlow/NodeSpeedOf";
+import NodeSizeOf from "../components/ReactFlow/NodeSizeOf";
 import CustomEdge from "../components/ReactFlow/CustomEdge";
 
 export const initialData = {
@@ -14,6 +15,7 @@ export const nodeTypes = {
   end: NodeEnd,
   distance: NodeDistance,
   speedOf: NodeSpeedOf,
+  sizeOf: NodeSizeOf,
 };
 
 export const edgeTypes = {

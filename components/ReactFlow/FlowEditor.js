@@ -153,6 +153,8 @@ const FlowEditor = (props) => {
       defaultValues = { from: "character", to: "character" };
     } else if (type === "speedOf") {
       defaultValues = { entity: "character" };
+    } else if (type === "sizeOf") {
+      defaultValues = { entity: "character" };
     }
     setData((data) => ({
       ...data,
