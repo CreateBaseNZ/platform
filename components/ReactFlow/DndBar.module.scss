@@ -20,10 +20,12 @@
   align-items: flex-start;
   justify-content: flex-start;
   overflow: auto;
-  padding: 2vh 1rem;
+  padding: 1vh 1rem;
 
-  & > div {
-    margin-bottom: 0.5rem;
+  h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
   }
 
   &::-webkit-scrollbar {

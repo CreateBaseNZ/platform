@@ -18,6 +18,7 @@ const DndBar = () => {
   return (
     <aside className={classes.dndbar}>
       <div className={classes.wrapper}>
+        <h5>Sensoring</h5>
         <NodeDistanceMini
           onDragStart={(event) => onDragStart(event, "distance")}
         />
@@ -25,6 +26,7 @@ const DndBar = () => {
           onDragStart={(event) => onDragStart(event, "speedOf")}
         />
         <NodeSizeOfMini onDragStart={(event) => onDragStart(event, "sizeOf")} />
+        <h5>Actions</h5>
         <NodeJumpMini onDragStart={(event) => onDragStart(event, "jump")} />
         <NodeDoubleJumpMini
           onDragStart={(event) => onDragStart(event, "doubleJump")}

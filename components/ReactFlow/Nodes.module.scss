@@ -60,6 +60,10 @@
   background: #00dccf;
 }
 
+.operating {
+  background: #9c40f8;
+}
+
 .nodeStart {
   background: #08df44;
   height: 2rem;
@@ -145,6 +149,7 @@
   padding: 8px 10px;
   overflow: hidden;
   border-radius: 4px;
+  margin: 0.25rem 0;
   cursor: grab;
   width: auto !important;
   transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
