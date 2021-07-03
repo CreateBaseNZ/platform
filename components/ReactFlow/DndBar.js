@@ -1,11 +1,13 @@
 import { NodeDistanceMini } from "./NodeDistance";
 import { NodeSpeedOfMini } from "./NodeSpeedOf";
 import { NodeSizeOfMini } from "./NodeSizeOf";
-import { NodeJumpMini } from "./NodeJump";
-import { NodeDoubleJumpMini } from "./NodeDoubleJump";
-import { NodeDuckMini } from "./NodeDuck";
-import { NodeSlideMini } from "./NodeSlide";
-import { NodeAttackMini } from "./NodeAttack";
+import {
+  NodeAttackMini,
+  NodeDoubleJumpMini,
+  NodeDuckMini,
+  NodeJumpMini,
+  NodeSlideMini,
+} from "./NodeActions";
 import {
   NodeAddMini,
   NodeSubtractMini,

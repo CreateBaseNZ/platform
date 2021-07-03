@@ -1,9 +1,7 @@
 @import "/styles/variables";
 
 .dndbar {
-  width: 300px;
-  min-width: 300px;
-  max-width: 300px;
+  flex: 0 0 auto;
   font-size: 0.75rem;
   background: $lightest;
   display: flex;

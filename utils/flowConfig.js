@@ -1,13 +1,14 @@
-import NodeStart from "../components/ReactFlow/NodeStart";
-import NodeEnd from "../components/ReactFlow/NodeEnd";
+import { NodeStart, NodeEnd } from "../components/ReactFlow/NodeShared";
 import NodeDistance from "../components/ReactFlow/NodeDistance";
 import NodeSpeedOf from "../components/ReactFlow/NodeSpeedOf";
 import NodeSizeOf from "../components/ReactFlow/NodeSizeOf";
-import NodeJump from "../components/ReactFlow/NodeJump";
-import NodeDoubleJump from "../components/ReactFlow/NodeDoubleJump";
-import NodeDuck from "../components/ReactFlow/NodeDuck";
-import NodeSlide from "../components/ReactFlow/NodeSlide";
-import NodeAttack from "../components/ReactFlow/NodeAttack";
+import {
+  NodeAttack,
+  NodeDoubleJump,
+  NodeDuck,
+  NodeJump,
+  NodeSlide,
+} from "../components/ReactFlow/NodeActions";
 import {
   NodeAdd,
   NodeSubtract,
