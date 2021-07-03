@@ -23,7 +23,6 @@ import {
 
 import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
-import { CustomConnectionLine } from "./CustomEdge";
 
 import classes from "./FlowEditor.module.scss";
 
@@ -215,7 +214,7 @@ const FlowEditor = (props) => {
           <ReactFlow
             elements={elements}
             nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
+            // edgeTypes={edgeTypes}
             onLoad={onLoad}
             onElementClick={onElementClick}
             onElementsRemove={onElementsRemove}
@@ -225,7 +224,6 @@ const FlowEditor = (props) => {
             onEdgeUpdate={onEdgeUpdate}
             snapToGrid={true}
             snapGrid={[16, 16]}
-            connectionLineComponent={CustomConnectionLine}
             arrowHeadColor="#ffffff"
           >
             <ControlsBar />

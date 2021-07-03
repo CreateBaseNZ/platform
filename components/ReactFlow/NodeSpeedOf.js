@@ -7,7 +7,7 @@ import classes from "./Nodes.module.scss";
 const NodeSpeedOf = ({ data }) => {
   return (
     <div
-      className={`${classes.node} ${classes.sensoring} ${classes.nodeSpeedOf} ${classes.hasRightHandle}`}
+      className={`${classes.node} ${classes.sensing} ${classes.nodeSpeedOf} ${classes.hasRightHandle}`}
     >
       <h4>Speed of</h4>
       <EntityDropdown data={data} selectName="speedOf" dataName="entity" />
@@ -25,7 +25,7 @@ export default memo(NodeSpeedOf);
 export const NodeSpeedOfMini = (props) => {
   return (
     <div
-      className={`${classes.nodeMini} ${classes.sensoring} ${classes.nodeSpeedOf}`}
+      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeSpeedOf}`}
       onDragStart={props.onDragStart}
       draggable
     >

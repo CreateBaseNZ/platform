@@ -29,7 +29,7 @@ const DndBar = () => {
   return (
     <aside className={classes.dndbar}>
       <div className={classes.wrapper}>
-        <h5>Sensoring</h5>
+        <h5>Sensing</h5>
         <NodeDistanceMini
           onDragStart={(event) => onDragStart(event, "distance")}
         />
@@ -61,6 +61,7 @@ const DndBar = () => {
           onDragStart={(event) => onDragStart(event, "lessThan")}
         />
         <NodeEqualsMini onDragStart={(event) => onDragStart(event, "equals")} />
+        <h5>Statements</h5>
       </div>
     </aside>
   );

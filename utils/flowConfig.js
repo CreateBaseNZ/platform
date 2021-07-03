@@ -18,7 +18,6 @@ import {
   NodeLessThan,
   NodeEquals,
 } from "../components/ReactFlow/NodeOperations";
-import CustomEdge from "../components/ReactFlow/CustomEdge";
 
 export const initialData = {
   start: {},
@@ -45,9 +44,9 @@ export const nodeTypes = {
   equals: NodeEquals,
 };
 
-export const edgeTypes = {
-  custom: CustomEdge,
-};
+// export const edgeTypes = {
+//   custom: CustomEdge,
+// };
 
 export const initialElements = [
   {
