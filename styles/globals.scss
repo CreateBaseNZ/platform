@@ -35,13 +35,22 @@ svg {
   display: none;
 }
 
-span {
+.span {
   font-size: inherit;
   font-weight: inherit;
   font-style: inherit;
   color: inherit;
   font-family: inherit;
   letter-spacing: inherit;
+}
+
+.hide {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .react-flow__node.selected > div {

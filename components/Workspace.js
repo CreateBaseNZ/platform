@@ -1,5 +1,6 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import TextEditor from "./TextEditor";
 
 const TabBar = dynamic(() => import("./TabBar"), {
   ssr: false,
@@ -23,6 +24,7 @@ const Workspace = (props) => {
   return (
     <div className={classes.workspace}>
       <FlowEditor show={activeTab === "flow"} />
+      <TextEditor show={activeTab === "text"} />
       <TabBar
         stacked={props.stacked}
         active={activeTab}

@@ -88,7 +88,7 @@ const TabBar = (props) => {
     >
       <span
         id="tab-slider"
-        className={classes.slider}
+        className={`${classes.slider} span`}
         style={{ top: sliderSize.top, height: sliderSize.size }}
       />
       <Tab

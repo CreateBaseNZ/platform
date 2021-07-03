@@ -205,9 +205,7 @@ const FlowEditor = (props) => {
   };
 
   return (
-    <div
-      className={`${classes.editorContainer} ${props.show ? "" : classes.hide}`}
-    >
+    <div className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}>
       <ReactFlowProvider>
         <DndBar />
         <div className={classes.editorWrapper} ref={wrapperRef}>

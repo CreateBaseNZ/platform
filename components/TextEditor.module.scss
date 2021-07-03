@@ -1,0 +1,18 @@
+@import "/styles/variables";
+
+.editorContainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  * {
+    font-family: $jetbrains;
+    font-size: 14px;
+  }
+  &.disable {
+    pointer-events: none;
+    opacity: 0.5;
+    * {
+      pointer-events: none !important;
+    }
+  }
+}

@@ -65,7 +65,7 @@ const Index = () => {
           className={showHelper ? classes.active : ""}
           onClick={helperClickHandler}
         >
-          <span className={classes.what}>What's this?</span>
+          <span className={`${classes.what} span`}>What's this?</span>
           <CloseRoundedIcon style={{ fontSize: 16 }} />
         </button>
         <p className={showHelper ? "" : classes.hide}>
@@ -77,11 +77,11 @@ const Index = () => {
           <br />
           You're about to experience a tiny portion of our final platform,
           something that we call a
-          <span className={classes.italic}>Project</span>. You'll be introduced
-          to a situation and will need to apply skills and problem-solving to
-          build a working solution. Your progress will be saved as you move
-          through the Project, so feel free to take your time and, most
-          importantly, have fun along the way.
+          <span className={`${classes.italic} span`}>Project</span>. You'll be
+          introduced to a situation and will need to apply skills and
+          problem-solving to build a working solution. Your progress will be
+          saved as you move through the Project, so feel free to take your time
+          and, most importantly, have fun along the way.
           <br />
           <br />
           💜 Team CreateBase

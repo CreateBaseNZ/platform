@@ -91,7 +91,7 @@ const Explore = () => {
                 alt={game.name}
               />
               <p>
-                <span>{game.name}</span>
+                <span className="span">{game.name}</span>
               </p>
             </div>
           </div>
