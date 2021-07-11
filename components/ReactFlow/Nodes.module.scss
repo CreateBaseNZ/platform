@@ -122,40 +122,46 @@
   width: 10rem;
 }
 
-.handle {
-  height: 12px !important;
-  width: 12px !important;
-  border: 2px solid !important;
+.handle.leftHandle {
+  height: 12px;
+  width: 12px;
+  left: -6px;
 }
 
-.leftHandle {
-  left: -6px !important;
+.handle.rightHandle {
+  height: 12px;
+  width: 12px;
+  right: -6px;
 }
 
-.rightHandle {
-  right: -6px !important;
+.handle.topHandle {
+  height: 12px;
+  width: 12px;
+  top: 2px;
 }
 
-.topHandle {
-  top: 2px !important;
+.handle.executionHandle {
+  border-radius: 0;
+  &.targetHandle {
+    background: $lightest;
+    border: 2px solid $amber;
+  }
+  &.sourceHandle {
+    background: $amber;
+    border: 2px solid $lightest;
+  }
 }
 
-.sourceHandle {
-  border-color: $lightest !important;
-  background: $dark !important;
-  border-radius: 0 6px 6px 0 !important;
-}
-
-.targetHandle {
-  border-color: $lightest !important;
-  background: $dark !important;
-  border-radius: 6px 0 0 6px !important;
-}
-
-.paramHandle {
-  border-color: $dark !important;
-  background: $lightest !important;
-  border-radius: 6px !important;
+.handle.paramHandle {
+  border-radius: 6px;
+  &.targetHandle {
+    background: $lightest;
+    border: 2px solid #b1b1b7;
+  }
+  &.sourceHandle {
+    background: #b1b1b7;
+    border: 2px solid $lightest;
+  }
 }
 
 .leftHandleLabel,

@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useCallback,
-  useImperativeHandle,
-} from "react";
+import React, { useState, useRef, useCallback } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   removeElements,
@@ -13,12 +8,7 @@ import ReactFlow, {
   isNode,
   getOutgoers,
 } from "react-flow-renderer";
-import {
-  initialData,
-  nodeTypes,
-  edgeTypes,
-  entities,
-} from "../../utils/flowConfig";
+import { nodeTypes, edgeTypes, entities } from "../../utils/flowConfig";
 
 import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
@@ -44,16 +34,25 @@ const FlowEditor = (props) => {
 
   // custom edges
   const onConnect = useCallback((params) => {
+    console.log(params);
+
+    let newEdge;
+
+    if (params.sourceHandle.split("__")[0] === "execution") {
+      newEdge = {
+        ...params,
+        type: "execution",
+        animated: true,
+        arrowHeadType: "arrowclosed",
+      };
+    } else if (params.sourceHandle.split("__")[0] === "param") {
+      newEdge = {
+        ...params,
+      };
+    }
+
     props.setElements((els) => {
-      return addEdge(
-        {
-          ...params,
-          type: "custom",
-          animated: true,
-          arrowHeadType: "arrowclosed",
-        },
-        els
-      );
+      return addEdge(newEdge, els);
     });
   }, []);
 
@@ -75,6 +74,10 @@ const FlowEditor = (props) => {
     for (let i = 0; i < controls.length; i++) {
       controls[i].title = controlTitles[i];
     }
+
+    // const arrowClosed = document.querySelector("#react-flow__arrowclosed");
+    // arrowClosed.setAttribute("markerHeight", 16);
+    // arrowClosed.setAttribute("markerWidth", 16);
   }, []);
 
   // dragging from menu to drop zone
@@ -153,7 +156,7 @@ const FlowEditor = (props) => {
           <ReactFlow
             elements={props.elements}
             nodeTypes={nodeTypes}
-            // edgeTypes={edgeTypes}
+            edgeTypes={edgeTypes}
             onLoad={onLoad}
             // onElementClick={onElementClick}
             onElementsRemove={onElementsRemove}

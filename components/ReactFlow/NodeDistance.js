@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle } from "react-flow-renderer";
-import { EntityDropdown } from "./NodeShared";
+import { EntityDropdown } from "./NodeGeneral";
+import { isValidConnection } from "../../utils/nodeHelpers";
 
 import classes from "./Nodes.module.scss";
 
@@ -16,7 +17,12 @@ const NodeDistance = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle}`}
+        id="param"
+        onConnect={() => {
+          console.log("need to remove placeholder");
+        }}
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
       />
     </div>
   );

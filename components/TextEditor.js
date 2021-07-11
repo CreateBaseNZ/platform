@@ -8,13 +8,10 @@ import classes from "./TextEditor.module.scss";
 const TextEditor = (props) => {
   const editorRef = useRef();
   const monacoRef = useRef();
-  console.log(Date.now());
 
   useEffect(() => {
-    console.log(Date.now());
     if (editorRef.current) {
       editorRef.current.getAction("editor.action.formatDocument").run();
-      console.log(Date.now());
     }
   }, [props.text]);
 

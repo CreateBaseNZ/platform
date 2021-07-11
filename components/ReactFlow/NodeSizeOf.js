@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle } from "react-flow-renderer";
-import { EntityDropdown } from "./NodeShared";
+import { EntityDropdown } from "./NodeGeneral";
+import { isValidConnection } from "../../utils/nodeHelpers";
 
 import classes from "./Nodes.module.scss";
 
@@ -20,15 +21,17 @@ const NodeSizeOf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="height"
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle}`}
+        id="param__height"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
         style={{ top: 16, transform: "none" }}
       />
       <Handle
         type="source"
         position="right"
-        id="width"
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle}`}
+        id="param__width"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
         style={{ bottom: 16, top: "auto", transform: "none" }}
       />
     </div>

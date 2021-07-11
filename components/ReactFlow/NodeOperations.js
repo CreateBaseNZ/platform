@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { Handle } from "react-flow-renderer";
+import { isValidConnection } from "../../utils/nodeHelpers";
 
 import classes from "./Nodes.module.scss";
 
@@ -18,15 +19,17 @@ const NodeOperations = ({ label, data }) => {
       <Handle
         type="target"
         position="top"
-        id="a"
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle}`}
+        id="param___a"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "30px", transform: "none" }}
       />
       <Handle
         type="target"
         position="top"
-        id="b"
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle}`}
+        id="param__b"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "auto", right: "34px", transform: "none" }}
       />
       <input
@@ -43,7 +46,9 @@ const NodeOperations = ({ label, data }) => {
       <Handle
         type="source"
         position="right"
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle}`}
+        id="param"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.rightHandle} ${classes.paramHandle} ${classes.sourceHandle}`}
       />
     </div>
   );

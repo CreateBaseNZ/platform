@@ -1,4 +1,4 @@
-import { NodeStart, NodeEnd } from "../components/ReactFlow/NodeShared";
+import { NodeStart, NodeEnd } from "../components/ReactFlow/NodeGeneral";
 import NodeDistance from "../components/ReactFlow/NodeDistance";
 import NodeSpeedOf from "../components/ReactFlow/NodeSpeedOf";
 import NodeSizeOf from "../components/ReactFlow/NodeSizeOf";
@@ -18,6 +18,7 @@ import {
   NodeLessThan,
   NodeEquals,
 } from "../components/ReactFlow/NodeOperations";
+import { ExecutionEdge } from "../components/ReactFlow/Edges";
 
 export const initialData = {
   start: {},
@@ -44,9 +45,9 @@ export const nodeTypes = {
   equals: NodeEquals,
 };
 
-// export const edgeTypes = {
-//   custom: CustomEdge,
-// };
+export const edgeTypes = {
+  execution: ExecutionEdge,
+};
 
 export const initialElements = [
   {

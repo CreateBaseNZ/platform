@@ -57,6 +57,25 @@ svg {
   box-shadow: 0 0 0 4px $amber;
 }
 
+.react-flow__handle-connecting {
+  border-color: $red !important;
+  background: $red !important;
+  cursor: not-allowed !important;
+}
+
+.react-flow__handle-valid {
+  border-color: $green !important;
+  background: $green !important;
+  cursor: crosshair !important;
+}
+
+.react-flow__arrowhead {
+  polyline {
+    stroke: $amber;
+    fill: $amber;
+  }
+}
+
 .Resizer {
   background: $red;
   z-index: 5;
