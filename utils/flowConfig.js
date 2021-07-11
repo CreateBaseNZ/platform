@@ -17,6 +17,7 @@ import {
   NodeGreaterThan,
   NodeLessThan,
   NodeEquals,
+  NodeOr,
 } from "../components/ReactFlow/NodeOperations";
 import { ExecutionEdge } from "../components/ReactFlow/Edges";
 
@@ -43,6 +44,7 @@ export const nodeTypes = {
   greaterThan: NodeGreaterThan,
   lessThan: NodeLessThan,
   equals: NodeEquals,
+  or: NodeOr,
 };
 
 export const edgeTypes = {

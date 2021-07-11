@@ -16,6 +16,7 @@ import {
   NodeGreaterThanMini,
   NodeLessThanMini,
   NodeEqualsMini,
+  NodeOrMini,
 } from "./NodeOperations";
 
 import classes from "./DndBar.module.scss";
@@ -61,7 +62,8 @@ const DndBar = () => {
           onDragStart={(event) => onDragStart(event, "lessThan")}
         />
         <NodeEqualsMini onDragStart={(event) => onDragStart(event, "equals")} />
-        <h5>Statements</h5>
+        <NodeOrMini onDragStart={(event) => onDragStart(event, "or")} />
+        <h5>Conditionals</h5>
       </div>
     </aside>
   );

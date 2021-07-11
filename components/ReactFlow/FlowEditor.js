@@ -119,7 +119,8 @@ const FlowEditor = (props) => {
       type === "divide" ||
       type === "greaterThan" ||
       type === "lessThan" ||
-      type === "equals"
+      type === "equals" ||
+      type === "or"
     ) {
       defaultValues = { a: 0, b: 0 };
     }

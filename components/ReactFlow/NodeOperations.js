@@ -89,6 +89,9 @@ export const NodeLessThan = memo(({ data }) => {
 export const NodeEquals = memo(({ data }) => {
   return <NodeOperations label="=" data={data} selectName="equals" />;
 });
+export const NodeOr = memo(({ data }) => {
+  return <NodeOperations label="or" data={data} selectName="or" />;
+});
 
 export const NodeAddMini = (props) => {
   return <NodeOperationsMini {...props} label="+" />;
@@ -110,4 +113,7 @@ export const NodeLessThanMini = (props) => {
 };
 export const NodeEqualsMini = (props) => {
   return <NodeOperationsMini {...props} label="=" />;
+};
+export const NodeOrMini = (props) => {
+  return <NodeOperationsMini {...props} label="or" />;
 };
