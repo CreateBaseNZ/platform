@@ -15,7 +15,6 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import {
   initialData,
-  initialElements,
   nodeTypes,
   edgeTypes,
   entities,
@@ -34,8 +33,8 @@ const controlTitles = ["Zoom-in", "Zoom-out", "Fit-view", "Lock", "Info"];
 const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-  const [elements, setElements] = useState(initialElements);
-  const [data, setData] = useState(initialData);
+
+  console.log(props.elements);
 
   // useImperativeHandle(props.forwardedRef, () => ({
   //   getBlockConfig: () => {
@@ -83,21 +82,17 @@ const FlowEditor = (props) => {
   //   },
   // }));
 
+  // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
     const filteredElements = elementsToRemove.filter(
-      (el) => el.id !== "start" && el.id !== "end"
+      (el) => el.id !== "start" && el.id !== "end" // prevent deleting start and end node
     );
-    setElements((els) => removeElements(filteredElements, els));
+    props.setElements((els) => removeElements(filteredElements, els));
   }, []);
 
-  const onElementClick = useCallback((event, element) => {
-    if (isNode(element)) {
-      // console.log(event);
-    }
-  }, []);
-
+  // custom edges
   const onConnect = useCallback((params) => {
-    setElements((els) => {
+    props.setElements((els) => {
       return addEdge(
         {
           ...params,
@@ -110,12 +105,14 @@ const FlowEditor = (props) => {
     });
   }, []);
 
+  // updating edges
   const onEdgeUpdate = useCallback(
     (oldEdge, newConnection) =>
-      setElements((els) => updateEdge(oldEdge, newConnection, els)),
+      props.setElements((els) => updateEdge(oldEdge, newConnection, els)),
     []
   );
 
+  // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
     console.log("flow loaded:", _reactFlowInstance);
 
@@ -128,14 +125,15 @@ const FlowEditor = (props) => {
     }
   }, []);
 
+  // dragging from menu to drop zone
   const onDragOver = (event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
 
+  // dropping
   const onDrop = (event) => {
     event.preventDefault();
-
     // place the node in correct position
     const reactFlowBounds = wrapperRef.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
@@ -143,10 +141,8 @@ const FlowEditor = (props) => {
       x: event.clientX - reactFlowBounds.left,
       y: event.clientY - reactFlowBounds.top,
     });
-
     // create new node
     const id = getId();
-
     // add to data state
     let defaultValues = null;
     if (type === "distance") {
@@ -172,22 +168,15 @@ const FlowEditor = (props) => {
     ) {
       defaultValues = { a: 0, b: 0 };
     }
-    setData((data) => ({
-      ...data,
-      [id]: { ...defaultValues },
-    }));
-
     // add to element state
     const newNode = {
       id: id,
       type,
       position,
       data: {
-        id: id,
         values: defaultValues,
         callBack: (newValues) => {
-          setData((state) => ({ ...state, [id]: { ...newValues } }));
-          setElements((els) =>
+          props.setElements((els) =>
             els.map((el) => {
               if (el.id === id) {
                 el.data = {
@@ -201,7 +190,7 @@ const FlowEditor = (props) => {
         },
       },
     };
-    setElements((es) => es.concat(newNode));
+    props.setElements((es) => es.concat(newNode));
   };
 
   return (
@@ -210,11 +199,11 @@ const FlowEditor = (props) => {
         <DndBar />
         <div className={classes.editorWrapper} ref={wrapperRef}>
           <ReactFlow
-            elements={elements}
+            elements={props.elements}
             nodeTypes={nodeTypes}
             // edgeTypes={edgeTypes}
             onLoad={onLoad}
-            onElementClick={onElementClick}
+            // onElementClick={onElementClick}
             onElementsRemove={onElementsRemove}
             onDrop={onDrop}
             onDragOver={onDragOver}
