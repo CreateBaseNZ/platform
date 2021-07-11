@@ -8,11 +8,20 @@ import classes from "./TextEditor.module.scss";
 const TextEditor = (props) => {
   const editorRef = useRef();
   const monacoRef = useRef();
+  console.log(Date.now());
+
+  useEffect(() => {
+    console.log(Date.now());
+    if (editorRef.current) {
+      editorRef.current.getAction("editor.action.formatDocument").run();
+      console.log(Date.now());
+    }
+  }, [props.text]);
 
   // const [monacoTheme, setMonacoTheme] = useState("Monokai");
   // console.log(monacoTheme);
 
-  const handleEditorDidMount = (editor, monaco) => {
+  const editorDidMount = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
   };
@@ -27,6 +36,7 @@ const TextEditor = (props) => {
     wrappingStrategy: "advanced",
     folding: true,
     foldingStrategy: "indentation",
+    formatOnPaste: true,
   };
 
   return (
@@ -39,8 +49,8 @@ const TextEditor = (props) => {
     >
       <Editor
         defaultLanguage="javascript"
-        value={props.code}
-        onMount={handleEditorDidMount}
+        value={props.text}
+        onMount={editorDidMount}
         className={classes.editor}
         theme={"vs-dark"}
         options={editorOptions}

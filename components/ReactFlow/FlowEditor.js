@@ -34,54 +34,6 @@ const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
-  console.log(props.elements);
-
-  // useImperativeHandle(props.forwardedRef, () => ({
-  //   getBlockConfig: () => {
-  //     let blocksConfig = [];
-  //     let currentNode = elements[0];
-  //     let traverse = true;
-  //     while (traverse) {
-  //       let block = {
-  //         robot: "Arm",
-  //         value: { ...data[currentNode.id] },
-  //         type: currentNode.type,
-  //       };
-  //       switch (currentNode.type) {
-  //         case "move":
-  //           block = {
-  //             ...block,
-  //             name: "MoveArm",
-  //           };
-  //           break;
-  //         case "gravity":
-  //           block = {
-  //             ...block,
-  //             name: "GravitySwitch",
-  //           };
-  //           block.type = "move";
-  //           break;
-  //         default:
-  //           break;
-  //       }
-  //       blocksConfig.push(block);
-  //       const nextNode = getOutgoers(currentNode, elements);
-  //       if (nextNode.length > 1) {
-  //         return "multiple_tracks";
-  //       } else if (nextNode[0]) {
-  //         currentNode = nextNode[0];
-  //       } else {
-  //         traverse = false;
-  //         break;
-  //       }
-  //     }
-  //     if (blocksConfig[blocksConfig.length - 1].type !== "end") {
-  //       return "disconnected";
-  //     }
-  //     return blocksConfig;
-  //   },
-  // }));
-
   // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
     const filteredElements = elementsToRemove.filter(
