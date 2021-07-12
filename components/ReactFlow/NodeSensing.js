@@ -16,7 +16,7 @@ export const NodeDistance = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param"
+        id="param__out"
         onConnect={() => {
           console.log("need to remove placeholder");
         }}

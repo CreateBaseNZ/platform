@@ -20,7 +20,7 @@ export const NodeIf = ({ data }) => {
       <Handle
         type="target"
         position="top"
-        id="param"
+        id="param__condition"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "52px", transform: "none" }}
@@ -37,7 +37,7 @@ export const NodeIf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="execution__if"
+        id="execution__0"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ top: 16, transform: "none" }}
@@ -45,7 +45,7 @@ export const NodeIf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="execution__else"
+        id="execution__1"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ top: 50, transform: "none" }}
@@ -53,7 +53,7 @@ export const NodeIf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="execution__then"
+        id="execution__2"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ bottom: 16, top: "auto", transform: "none" }}
@@ -87,7 +87,7 @@ export const NodeRepeat = ({ data }) => {
       <Handle
         type="target"
         position="top"
-        id="param"
+        id="param__condition"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "91px", transform: "none" }}
@@ -101,7 +101,7 @@ export const NodeRepeat = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="execution__do"
+        id="execution__0"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ top: 16, transform: "none" }}
@@ -109,7 +109,7 @@ export const NodeRepeat = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="execution__then"
+        id="execution__1"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ bottom: 16, top: "auto", transform: "none" }}
@@ -135,7 +135,7 @@ export const NodeWhile = ({ data }) => {
       <Handle
         type="target"
         position="top"
-        id="param"
+        id="param__condition"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "86px", transform: "none" }}
@@ -149,7 +149,7 @@ export const NodeWhile = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="execution__do"
+        id="execution__0"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ top: 16, transform: "none" }}
@@ -157,7 +157,7 @@ export const NodeWhile = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="execution__then"
+        id="execution__1"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ bottom: 16, top: "auto", transform: "none" }}

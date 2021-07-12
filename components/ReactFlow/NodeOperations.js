@@ -38,7 +38,7 @@ const NodeOperations = ({ label, data }) => {
       <Handle
         type="source"
         position="right"
-        id="param"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.paramHandle} ${classes.sourceHandle}`}
       />
@@ -133,7 +133,7 @@ export const NodeOperatorGeneral = memo(({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.paramHandle} ${classes.sourceHandle}`}
       />
