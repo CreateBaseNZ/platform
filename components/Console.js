@@ -61,13 +61,19 @@ const Console = (props) => {
       </div>
       <div className={classes.controls}>
         {warningCount > 0 && (
-          <i className={classes.warningIcon}>
+          <i
+            className={classes.warningIcon}
+            title={`${warningCount} warning${warningCount > 1 ? "s" : ""}`}
+          >
             <WarningRoundedIcon style={{ fontSize: 16 }} />
             {warningCount}
           </i>
         )}
         {errorCount > 0 && (
-          <i className={classes.errorIcon}>
+          <i
+            className={classes.errorIcon}
+            title={`${errorCount} error${errorCount > 1 ? "s" : ""}`}
+          >
             <BugReportIcon style={{ fontSize: 20 }} />
             {errorCount}
           </i>

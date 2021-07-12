@@ -15,6 +15,7 @@ export const ConsoleContextProvider = (props) => {
     { type: "log", message: "hello" },
     { type: "warning", message: "yeap" },
     { type: "error", message: "clock" },
+    { type: "error", message: "clock" },
   ]);
 
   const addLog = (message) => {
