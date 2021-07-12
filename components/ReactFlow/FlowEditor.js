@@ -50,9 +50,10 @@ const FlowEditor = (props) => {
     const filteredElements = elementsToRemove.filter(
       (el) => el.id !== "start" && el.id !== "end" // prevent deleting start and end node
     );
-    if (isEdge(elementsToRemove[0])) {
-      const edge = elementsToRemove[0];
-      updateGhostEnd(edge.source, edge.sourceHandle, "remove");
+    for (const element of elementsToRemove) {
+      if (isEdge(element)) {
+        updateGhostEnd(element.source, element.sourceHandle, "remove");
+      }
     }
     props.setElements((els) => removeElements(filteredElements, els));
   }, []);
