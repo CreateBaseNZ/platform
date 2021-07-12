@@ -8,8 +8,8 @@
   {
     "robot": "Player",
     "type": "start",
-    "logic": "while(true){\n\tcurrentData=sensorData\n\t",
-    "executes": []
+    "logic":[], 
+    "executes": "while(true){\n\tcurrentData=sensorData\n\t"
   },
   {
     "robot": "Arm",

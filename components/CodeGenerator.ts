@@ -129,6 +129,7 @@ export class CodeGenerator {
     });
     if (blockFunction) {
       this.content += blockFunction.logic;
+      this.executes.push(blockFunction.executes);
       return true;
     }
     else {
