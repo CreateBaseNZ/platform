@@ -57,7 +57,8 @@ svg {
   box-shadow: 0 0 0 4px $amber;
 }
 
-.react-flow__handle-connecting {
+.react-flow__handle-connecting:not(.react-flow__handle-valid) {
+  z-index: 1;
   border-color: $red !important;
   background: $red !important;
   cursor: not-allowed !important;
@@ -66,51 +67,11 @@ svg {
 .react-flow__handle-valid {
   border-color: $green !important;
   background: $green !important;
-  cursor: crosshair !important;
 }
 
 .react-flow__arrowhead {
   polyline {
     stroke: $amber;
     fill: $amber;
-  }
-}
-
-.Resizer {
-  background: $red;
-  z-index: 5;
-  background-clip: padding-box;
-  &:hover,
-  &:active {
-    z-index: 6;
-    background: $blue-mid;
-    background-clip: padding-box;
-    transition: all 0.1s ease-out 0.2s;
-  }
-  &.horizontal {
-    height: 5px;
-    width: 100%;
-    margin: -2px 0;
-    border-top: 2px solid rgba(0, 0, 20, 0);
-    border-bottom: 2px solid rgba(24, 24, 24, 0);
-    cursor: ns-resize;
-    &:hover,
-    &:active {
-      border-top: 2px solid $blue-mid;
-      border-bottom: 2px solid $blue-mid;
-    }
-  }
-  &.vertical {
-    width: 5px;
-    height: 100%;
-    margin: 0 -2px;
-    border-left: 2px solid rgba(32, 156, 226, 0);
-    border-right: 2px solid rgba(32, 156, 226, 0);
-    cursor: ew-resize;
-    &:hover,
-    &:active {
-      border-left: 2px solid $blue-mid;
-      border-right: 2px solid $blue-mid;
-    }
   }
 }

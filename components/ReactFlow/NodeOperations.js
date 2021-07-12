@@ -32,17 +32,9 @@ const NodeOperations = ({ label, data }) => {
         className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "auto", right: "34px", transform: "none" }}
       />
-      <input
-        onChange={changeHandlerA}
-        type="number"
-        value={data.values.a}
-      ></input>
+      <input onChange={changeHandlerA} type="number" value={data.values.a} />
       <h4>{label}</h4>
-      <input
-        onChange={changeHandlerB}
-        type="number"
-        value={data.values.b}
-      ></input>
+      <input onChange={changeHandlerB} type="number" value={data.values.b} />
       <Handle
         type="source"
         position="right"
@@ -124,11 +116,7 @@ export const NodeOperatorGeneral = memo(({ data }) => {
         className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "auto", right: "34px", transform: "none" }}
       />
-      <input
-        onChange={changeHandlerA}
-        type="number"
-        value={data.values.a}
-      ></input>
+      <input onChange={changeHandlerA} type="number" value={data.values.a} />
       <select
         name={`${data.id}_operator`}
         id={`${data.id}_operator`}
@@ -141,11 +129,7 @@ export const NodeOperatorGeneral = memo(({ data }) => {
           </option>
         ))}
       </select>
-      <input
-        onChange={changeHandlerB}
-        type="number"
-        value={data.values.b}
-      ></input>
+      <input onChange={changeHandlerB} type="number" value={data.values.b} />
       <Handle
         type="source"
         position="right"

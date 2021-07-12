@@ -150,6 +150,10 @@ const FlowEditor = (props) => {
       defaultValues = { a: 0, b: 0 };
     } else if (type === "operatorGeneral") {
       defaultValues = { a: 0, b: 0, operator: "+" };
+    } else if (type === "repeat") {
+      defaultValues = { condition: "1" };
+    } else {
+      defaultValues = {};
     }
     // add to element state
     const newNode = {
