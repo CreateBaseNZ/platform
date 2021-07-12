@@ -10,6 +10,7 @@
   &.stacked {
     height: 100%;
     width: 4rem;
+    min-width: 4rem;
     flex-direction: column;
   }
 }

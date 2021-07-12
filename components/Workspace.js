@@ -81,10 +81,6 @@ const Workspace = (props) => {
     setActiveTab(tab);
   };
 
-  const testClickHandler = () => {
-    props.unityContext.send("Player", "Crouch");
-  };
-
   return (
     <ConsoleContextProvider>
       <div className={classes.workspace}>
@@ -100,19 +96,6 @@ const Workspace = (props) => {
           active={activeTab}
           onChange={changeTabHandler}
         />
-        <button
-          style={{
-            position: "absolute",
-            bottom: 32,
-            left: 32,
-            background: "red",
-            fontSize: 24,
-            padding: 16,
-          }}
-          onClick={testClickHandler}
-        >
-          TESTING
-        </button>
       </div>
     </ConsoleContextProvider>
   );

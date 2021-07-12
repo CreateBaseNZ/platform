@@ -6,8 +6,17 @@
   height: 100%;
   overflow-y: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
   padding-top: 2px;
+}
+
+.logArea {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
   &::-webkit-scrollbar {
     width: 12px;
   }
@@ -66,4 +75,50 @@
       }
     }
   }
+}
+
+.controls {
+  height: 100%;
+  width: 4rem;
+  min-width: 4rem;
+  border-left: thin solid $darker;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.75rem 0;
+  button {
+    margin-top: auto;
+    justify-self: flex-end;
+    padding: 0.4rem;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
+    path {
+      fill: $lightest;
+    }
+    &:hover {
+      opacity: 1;
+      background: $darker;
+    }
+  }
+  i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $light;
+    font-style: normal;
+    padding: 0.4rem;
+    svg {
+      margin-right: 0.1rem;
+    }
+  }
+}
+.warningIcon path {
+  fill: #f8b538;
+}
+.errorIcon path {
+  fill: #bd1d1d;
 }

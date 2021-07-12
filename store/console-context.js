@@ -5,6 +5,7 @@ const ConsoleContext = createContext({
   addLog: () => {},
   addWarning: () => {},
   addError: () => {},
+  clearLogs: () => {},
 });
 
 export default ConsoleContext;
@@ -28,6 +29,10 @@ export const ConsoleContextProvider = (props) => {
     setLogs((state) => [...state, { type: "error", message: message }]);
   };
 
+  const clearLogs = () => {
+    setLogs([]);
+  };
+
   return (
     <ConsoleContext.Provider
       value={{
@@ -35,6 +40,7 @@ export const ConsoleContextProvider = (props) => {
         addLog: addLog,
         addWarning: addWarning,
         addError: addError,
+        clearLogs: clearLogs,
       }}
     >
       {props.children}
