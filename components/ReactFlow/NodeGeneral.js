@@ -51,8 +51,7 @@ export const EntityDropdown = ({ data, selectName, dataName }) => {
 
   return (
     <select
-      name={`${data.id}_${selectName}`}
-      id={`${data.id}_${selectName}`}
+      name={selectName}
       onChange={changeHandler}
       onDragStart={dragHandler}
       value={data.values.entity}

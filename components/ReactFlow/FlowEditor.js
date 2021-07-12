@@ -5,6 +5,7 @@ import ReactFlow, {
   addEdge,
   updateEdge,
   Background,
+  isEdge,
   isNode,
   getOutgoers,
 } from "react-flow-renderer";
@@ -14,11 +15,31 @@ import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
+import handleClass from "./Nodes.module.scss";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const controlTitles = ["Zoom-in", "Zoom-out", "Fit-view", "Lock", "Info"];
+
+const updateGhostEnd = (sourceBlock, sourceHandle, action) => {
+  switch (action) {
+    case "add":
+      document
+        .querySelector(
+          `.react-flow__handle.source[data-nodeid="${sourceBlock}"][data-handleid="${sourceHandle}"]`
+        )
+        .classList.add(handleClass.handleConnected);
+      break;
+    case "remove":
+      document
+        .querySelector(
+          `.react-flow__handle.source[data-nodeid="${sourceBlock}"][data-handleid="${sourceHandle}"]`
+        )
+        .classList.remove(handleClass.handleConnected);
+      break;
+  }
+};
 
 const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
@@ -29,12 +50,16 @@ const FlowEditor = (props) => {
     const filteredElements = elementsToRemove.filter(
       (el) => el.id !== "start" && el.id !== "end" // prevent deleting start and end node
     );
+    if (isEdge(elementsToRemove[0])) {
+      const edge = elementsToRemove[0];
+      updateGhostEnd(edge.source, edge.sourceHandle, "remove");
+    }
     props.setElements((els) => removeElements(filteredElements, els));
   }, []);
 
   // custom edges
   const onConnect = useCallback((params) => {
-    console.log(params);
+    updateGhostEnd(params.source, params.sourceHandle, "add");
 
     let newEdge;
 
@@ -57,11 +82,11 @@ const FlowEditor = (props) => {
   }, []);
 
   // updating edges
-  const onEdgeUpdate = useCallback(
-    (oldEdge, newConnection) =>
-      props.setElements((els) => updateEdge(oldEdge, newConnection, els)),
-    []
-  );
+  const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
+    updateGhostEnd(oldEdge.source, oldEdge.sourceHandle, "remove");
+    updateGhostEnd(newConnection.source, newConnection.sourceHandle, "add");
+    props.setElements((els) => updateEdge(oldEdge, newConnection, els));
+  }, []);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {

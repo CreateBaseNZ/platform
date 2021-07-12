@@ -36,7 +36,7 @@ export const NodeAttack = memo(({ data }) => {
       data={data}
       className={classes.nodeAttack}
       label="Attack"
-      selectname="attack"
+      selectName="attack"
       dataName="entity"
     />
   );
@@ -47,7 +47,7 @@ export const NodeDoubleJump = memo(({ data }) => {
       data={data}
       className={classes.nodeDoubleJump}
       label="Double Jump"
-      selectname="doubleJump"
+      selectName="doubleJump"
       dataName="entity"
     />
   );
@@ -58,7 +58,7 @@ export const NodeDuck = memo(({ data }) => {
       data={data}
       className={classes.nodeDuck}
       label="Duck"
-      selectname="duck"
+      selectName="duck"
       dataName="entity"
     />
   );
@@ -69,7 +69,7 @@ export const NodeJump = memo(({ data }) => {
       data={data}
       className={classes.nodeJump}
       label="Jump"
-      selectname="jump"
+      selectName="jump"
       dataName="entity"
     />
   );
@@ -80,7 +80,7 @@ export const NodeSlide = memo(({ data }) => {
       data={data}
       className={classes.nodeSlide}
       label="Slide"
-      selectname="slide"
+      selectName="slide"
       dataName="entity"
     />
   );
