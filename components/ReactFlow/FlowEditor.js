@@ -123,6 +123,8 @@ const FlowEditor = (props) => {
       type === "or"
     ) {
       defaultValues = { a: 0, b: 0 };
+    } else if (type === "operatorGeneral") {
+      defaultValues = { a: 0, b: 0, operator: "+" };
     }
     // add to element state
     const newNode = {

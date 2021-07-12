@@ -62,6 +62,8 @@ const Workspace = (props) => {
   const [elements, setElements] = useState(initialElements);
   const [text, setText] = useState("// Let's code! 💡");
 
+  console.log(elements);
+
   const changeTabHandler = (tab) => {
     if (tab === "text") {
       // run flow2Text()
