@@ -217,7 +217,6 @@ const flow2Text = (elements) => {
   let maxPath = [];
   let nodeContext = [];
   while (traverse) {
-    console.log(currentNode)
     if (currentNode) {
       let f;
       [blocksConfig, val, f] = findInputs(blocksConfig, currentNode, elements, val);

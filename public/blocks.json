@@ -38,11 +38,13 @@
   {
     "robot": "Arm",
     "type": "end",
+    "logic":[],
     "executes": []
   },
   {
     "robot": "Player",
     "type": "end",
+    "logic":[],
     "executes": "}"
   }
 ]

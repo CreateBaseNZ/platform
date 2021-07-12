@@ -341,10 +341,8 @@ export class CodeGenerator {
     });
     // Add to execute
     if (blockFunction) {
-      for (let i = 0; i < blockFunction.executes.length; i++) {
-        const element = blockFunction.executes[i];
-        this.executes.push(element);
-      }
+      this.content+=blockFunction.logic;
+      this.executes.push(blockFunction.executes);
       return true;
     }
     return false;
@@ -366,8 +364,10 @@ export class CodeGenerator {
   private readSensors(blockDetail) {
     if (blockDetail.value) {
       const output = this.checkCorrectVar(String(blockDetail.value.out));
-      const target = blockDetail.value.sensor;
-      let str=`${output}currentData.${target}`
+      const target = blockDetail.name;
+      let str = `${output}currentData.${target}`
+      this.executes.push(str);
+      return true;
     } else {
       return false;
     }
@@ -451,6 +451,7 @@ export class CodeGenerator {
           break;
       }
       if (!state) {
+        console.log(i)
         return ""
       }
     }

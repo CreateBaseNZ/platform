@@ -98,7 +98,7 @@ export const NodeSpeedOf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
       />
