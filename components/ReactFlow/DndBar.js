@@ -1,6 +1,8 @@
-import { NodeDistanceMini } from "./NodeDistance";
-import { NodeSpeedOfMini } from "./NodeSpeedOf";
-import { NodeSizeOfMini } from "./NodeSizeOf";
+import {
+  NodeDistanceMini,
+  NodeSizeOfMini,
+  NodeSpeedOfMini,
+} from "./NodeSensing";
 import {
   NodeAttackMini,
   NodeDoubleJumpMini,
@@ -16,7 +18,10 @@ import {
   NodeGreaterThanMini,
   NodeLessThanMini,
   NodeEqualsMini,
+  NodeOrMini,
+  NodeOperatorGeneralMini,
 } from "./NodeOperations";
+import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "./NodeConditionals";
 
 import classes from "./DndBar.module.scss";
 
@@ -61,7 +66,14 @@ const DndBar = () => {
           onDragStart={(event) => onDragStart(event, "lessThan")}
         />
         <NodeEqualsMini onDragStart={(event) => onDragStart(event, "equals")} />
-        <h5>Statements</h5>
+        <NodeOrMini onDragStart={(event) => onDragStart(event, "or")} />
+        <NodeOperatorGeneralMini
+          onDragStart={(event) => onDragStart(event, "operatorGeneral")}
+        />
+        <h5>Conditionals</h5>
+        <NodeIfMini onDragStart={(event) => onDragStart(event, "if")} />
+        <NodeRepeatMini onDragStart={(event) => onDragStart(event, "repeat")} />
+        <NodeWhileMini onDragStart={(event) => onDragStart(event, "while")} />
       </div>
     </aside>
   );

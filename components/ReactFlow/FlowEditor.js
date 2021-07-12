@@ -1,121 +1,95 @@
-import React, {
-  useState,
-  useRef,
-  useCallback,
-  useImperativeHandle,
-} from "react";
+import React, { useState, useRef, useCallback } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   removeElements,
   addEdge,
   updateEdge,
   Background,
+  isEdge,
   isNode,
   getOutgoers,
 } from "react-flow-renderer";
-import {
-  initialData,
-  initialElements,
-  nodeTypes,
-  edgeTypes,
-  entities,
-} from "../../utils/flowConfig";
+import { nodeTypes, edgeTypes, entities } from "../../utils/flowConfig";
 
 import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
+import handleClass from "./Nodes.module.scss";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const controlTitles = ["Zoom-in", "Zoom-out", "Fit-view", "Lock", "Info"];
 
+const updateGhostEnd = (sourceBlock, sourceHandle, action) => {
+  switch (action) {
+    case "add":
+      document
+        .querySelector(
+          `.react-flow__handle.source[data-nodeid="${sourceBlock}"][data-handleid="${sourceHandle}"]`
+        )
+        .classList.add(handleClass.handleConnected);
+      break;
+    case "remove":
+      document
+        .querySelector(
+          `.react-flow__handle.source[data-nodeid="${sourceBlock}"][data-handleid="${sourceHandle}"]`
+        )
+        .classList.remove(handleClass.handleConnected);
+      break;
+  }
+};
+
 const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-  const [elements, setElements] = useState(initialElements);
-  const [data, setData] = useState(initialData);
 
-  // useImperativeHandle(props.forwardedRef, () => ({
-  //   getBlockConfig: () => {
-  //     let blocksConfig = [];
-  //     let currentNode = elements[0];
-  //     let traverse = true;
-  //     while (traverse) {
-  //       let block = {
-  //         robot: "Arm",
-  //         value: { ...data[currentNode.id] },
-  //         type: currentNode.type,
-  //       };
-  //       switch (currentNode.type) {
-  //         case "move":
-  //           block = {
-  //             ...block,
-  //             name: "MoveArm",
-  //           };
-  //           break;
-  //         case "gravity":
-  //           block = {
-  //             ...block,
-  //             name: "GravitySwitch",
-  //           };
-  //           block.type = "move";
-  //           break;
-  //         default:
-  //           break;
-  //       }
-  //       blocksConfig.push(block);
-  //       const nextNode = getOutgoers(currentNode, elements);
-  //       if (nextNode.length > 1) {
-  //         return "multiple_tracks";
-  //       } else if (nextNode[0]) {
-  //         currentNode = nextNode[0];
-  //       } else {
-  //         traverse = false;
-  //         break;
-  //       }
-  //     }
-  //     if (blocksConfig[blocksConfig.length - 1].type !== "end") {
-  //       return "disconnected";
-  //     }
-  //     return blocksConfig;
-  //   },
-  // }));
-
+  // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
     const filteredElements = elementsToRemove.filter(
-      (el) => el.id !== "start" && el.id !== "end"
+      (el) => el.id !== "start" && el.id !== "end" // prevent deleting start and end node
     );
-    setElements((els) => removeElements(filteredElements, els));
-  }, []);
-
-  const onElementClick = useCallback((event, element) => {
-    if (isNode(element)) {
-      // console.log(event);
+    for (const element of elementsToRemove) {
+      if (isEdge(element)) {
+        updateGhostEnd(element.source, element.sourceHandle, "remove");
+      }
     }
+    props.setElements((els) => removeElements(filteredElements, els));
   }, []);
 
+  // custom edges
   const onConnect = useCallback((params) => {
-    setElements((els) => {
-      return addEdge(
-        {
-          ...params,
-          type: "custom",
-          animated: true,
-          arrowHeadType: "arrowclosed",
-        },
-        els
-      );
+    updateGhostEnd(params.source, params.sourceHandle, "add");
+
+    let newEdge;
+
+    if (params.sourceHandle.split("__")[0] === "execution") {
+      newEdge = {
+        ...params,
+        type: "execution",
+        animated: true,
+        arrowHeadType: "arrowclosed",
+      };
+    } else if (params.sourceHandle.split("__")[0] === "param") {
+      newEdge = {
+        ...params,
+      };
+    }
+
+    props.setElements((els) => {
+      return addEdge(newEdge, els);
     });
   }, []);
 
-  const onEdgeUpdate = useCallback(
-    (oldEdge, newConnection) =>
-      setElements((els) => updateEdge(oldEdge, newConnection, els)),
-    []
-  );
+  // updating edges
+  const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
+    updateGhostEnd(oldEdge.source, oldEdge.sourceHandle, "remove");
+    updateGhostEnd(newConnection.source, newConnection.sourceHandle, "add");
+    props.setElements((els) => updateEdge(oldEdge, newConnection, els));
+  }, []);
 
+  // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
     console.log("flow loaded:", _reactFlowInstance);
 
@@ -126,16 +100,21 @@ const FlowEditor = (props) => {
     for (let i = 0; i < controls.length; i++) {
       controls[i].title = controlTitles[i];
     }
+
+    // const arrowClosed = document.querySelector("#react-flow__arrowclosed");
+    // arrowClosed.setAttribute("markerHeight", 16);
+    // arrowClosed.setAttribute("markerWidth", 16);
   }, []);
 
+  // dragging from menu to drop zone
   const onDragOver = (event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
 
+  // dropping
   const onDrop = (event) => {
     event.preventDefault();
-
     // place the node in correct position
     const reactFlowBounds = wrapperRef.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
@@ -143,10 +122,8 @@ const FlowEditor = (props) => {
       x: event.clientX - reactFlowBounds.left,
       y: event.clientY - reactFlowBounds.top,
     });
-
     // create new node
     const id = getId();
-
     // add to data state
     let defaultValues = null;
     if (type === "distance") {
@@ -168,26 +145,26 @@ const FlowEditor = (props) => {
       type === "divide" ||
       type === "greaterThan" ||
       type === "lessThan" ||
-      type === "equals"
+      type === "equals" ||
+      type === "or"
     ) {
       defaultValues = { a: 0, b: 0 };
+    } else if (type === "operatorGeneral") {
+      defaultValues = { a: 0, b: 0, operator: "+" };
+    } else if (type === "repeat") {
+      defaultValues = { condition: "1" };
+    } else {
+      defaultValues = {};
     }
-    setData((data) => ({
-      ...data,
-      [id]: { ...defaultValues },
-    }));
-
     // add to element state
     const newNode = {
       id: id,
       type,
       position,
       data: {
-        id: id,
         values: defaultValues,
         callBack: (newValues) => {
-          setData((state) => ({ ...state, [id]: { ...newValues } }));
-          setElements((els) =>
+          props.setElements((els) =>
             els.map((el) => {
               if (el.id === id) {
                 el.data = {
@@ -201,22 +178,20 @@ const FlowEditor = (props) => {
         },
       },
     };
-    setElements((es) => es.concat(newNode));
+    props.setElements((es) => es.concat(newNode));
   };
 
   return (
-    <div
-      className={`${classes.editorContainer} ${props.show ? "" : classes.hide}`}
-    >
+    <div className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}>
       <ReactFlowProvider>
         <DndBar />
         <div className={classes.editorWrapper} ref={wrapperRef}>
           <ReactFlow
-            elements={elements}
+            elements={props.elements}
             nodeTypes={nodeTypes}
-            // edgeTypes={edgeTypes}
+            edgeTypes={edgeTypes}
             onLoad={onLoad}
-            onElementClick={onElementClick}
+            // onElementClick={onElementClick}
             onElementsRemove={onElementsRemove}
             onDrop={onDrop}
             onDragOver={onDragOver}

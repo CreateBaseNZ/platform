@@ -1,7 +1,9 @@
-import { NodeStart, NodeEnd } from "../components/ReactFlow/NodeShared";
-import NodeDistance from "../components/ReactFlow/NodeDistance";
-import NodeSpeedOf from "../components/ReactFlow/NodeSpeedOf";
-import NodeSizeOf from "../components/ReactFlow/NodeSizeOf";
+import { NodeStart, NodeEnd } from "../components/ReactFlow/NodeGeneral";
+import {
+  NodeDistance,
+  NodeSpeedOf,
+  NodeSizeOf,
+} from "../components/ReactFlow/NodeSensing";
 import {
   NodeAttack,
   NodeDoubleJump,
@@ -17,7 +19,15 @@ import {
   NodeGreaterThan,
   NodeLessThan,
   NodeEquals,
+  NodeOr,
+  NodeOperatorGeneral,
 } from "../components/ReactFlow/NodeOperations";
+import {
+  NodeIf,
+  NodeRepeat,
+  NodeWhile,
+} from "../components/ReactFlow/NodeConditionals";
+import { ExecutionEdge } from "../components/ReactFlow/Edges";
 
 export const initialData = {
   start: {},
@@ -42,11 +52,16 @@ export const nodeTypes = {
   greaterThan: NodeGreaterThan,
   lessThan: NodeLessThan,
   equals: NodeEquals,
+  or: NodeOr,
+  operatorGeneral: NodeOperatorGeneral,
+  if: NodeIf,
+  repeat: NodeRepeat,
+  while: NodeWhile,
 };
 
-// export const edgeTypes = {
-//   custom: CustomEdge,
-// };
+export const edgeTypes = {
+  execution: ExecutionEdge,
+};
 
 export const initialElements = [
   {

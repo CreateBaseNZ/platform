@@ -13,8 +13,8 @@ import classes from "/styles/Play.module.scss";
 
 const DUMMY_QUERY = {
   jump: {
-    name: "Yep Jump",
-    routerQuery: "jump",
+    name: "Run It Down",
+    routerQuery: "run-it-down",
     src: "/game.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",

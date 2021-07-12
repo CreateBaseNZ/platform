@@ -1,20 +1,30 @@
 import { memo } from "react";
 import { Handle } from "react-flow-renderer";
-import { EntityDropdown } from "./NodeShared";
+import { EntityDropdown } from "./NodeGeneral";
+import { isValidConnection } from "../../utils/nodeHelpers";
 
 import classes from "./Nodes.module.scss";
 
 const NodeActions = ({ data, className, label, selectName, dataName }) => {
   return (
     <div
-      className={`${classes.node} ${classes.actioning} ${classes.hasRightHandle} ${className}`}
+      className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${className}`}
     >
+      <Handle
+        type="target"
+        position="left"
+        id="execution"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.leftHandle} ${classes.targetHandle} ${classes.executionHandle}`}
+      />
       <h4>{label}</h4>
       <EntityDropdown data={data} selectName={selectName} dataName={dataName} />
       <Handle
         type="source"
         position="right"
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle}`}
+        id="execution"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
       />
     </div>
   );
@@ -26,7 +36,7 @@ export const NodeAttack = memo(({ data }) => {
       data={data}
       className={classes.nodeAttack}
       label="Attack"
-      selectname="attack"
+      selectName="attack"
       dataName="entity"
     />
   );
@@ -37,7 +47,7 @@ export const NodeDoubleJump = memo(({ data }) => {
       data={data}
       className={classes.nodeDoubleJump}
       label="Double Jump"
-      selectname="doubleJump"
+      selectName="doubleJump"
       dataName="entity"
     />
   );
@@ -48,7 +58,7 @@ export const NodeDuck = memo(({ data }) => {
       data={data}
       className={classes.nodeDuck}
       label="Duck"
-      selectname="duck"
+      selectName="duck"
       dataName="entity"
     />
   );
@@ -59,7 +69,7 @@ export const NodeJump = memo(({ data }) => {
       data={data}
       className={classes.nodeJump}
       label="Jump"
-      selectname="jump"
+      selectName="jump"
       dataName="entity"
     />
   );
@@ -70,7 +80,7 @@ export const NodeSlide = memo(({ data }) => {
       data={data}
       className={classes.nodeSlide}
       label="Slide"
-      selectname="slide"
+      selectName="slide"
       dataName="entity"
     />
   );
