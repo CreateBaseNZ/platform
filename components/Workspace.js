@@ -164,32 +164,13 @@ const findInputs = (blocksOrder, currentNode, elements, val,level=0) => {
   for (let i = 0; i < edgeCollection.length; i++) {
     if (currentNode.id == edgeCollection[i].source) {
       if (edgeCollection[i].sourceHandle && (edgeCollection[i].sourceHandle).split("_")[0] != "execution") {
-        edgeNum = i;
+        edgeNum=i;
         break;
       }
     }
   }
   let outName = false;
   switch (currentNode.type) {
-    // case "num":
-    //   outName = { ...currentNode.data.values };
-    //   outName = outName.value;
-    //   break;
-    // case "intialise":
-    //   let nextNodeID = edgeCollection[edgeNum].target;
-    //   let nextNodeList = getOutgoers(currentNode, elements);
-    //   let nextNode;
-    //   for (let i = 0; i < nextNodeList.length; i++) {
-    //     if (nextNodeID == nextNodeList[i].id) {
-    //       nextNode = nextNodeList[i];
-    //     }
-    //   }
-    //   if (nextNode.type == "var") {
-    //     let value = { ...nextNode.data.values};
-    //     block.value[edgeCollection[edgeNum].sourceHandle] = value.varName
-    //   }
-    //   blocksOrder.push(block);
-    //   break;
     default:
       if (edgeNum || edgeNum == 0) {
         let NextOut = edgeCollection[edgeNum].sourceHandle.split("__")[1];
@@ -204,7 +185,6 @@ const findInputs = (blocksOrder, currentNode, elements, val,level=0) => {
   }
   return [blocksOrder, val, outName];
 
-  // return false;
 }
 
 
@@ -225,8 +205,6 @@ const flow2Text = (elements) => {
       }
     }
     let nextNode;
-    let edges = [];
-    let nodes = [currentNode];
     let executionNext;
     switch (currentNode.type) {
       case "if":

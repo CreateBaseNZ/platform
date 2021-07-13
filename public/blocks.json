@@ -9,7 +9,7 @@
     "robot": "Player",
     "type": "start",
     "logic":[], 
-    "executes": "while(true){\n\tcurrentData=sensorData\n\t"
+    "executes": "while(true){\n\trawData=sensorData.split(\"\\\"\")\ncurrentData={}\ncurrentData.speedOf=(rawData[8]).substr(1,(rawData[8]).length-2)\n\tcurrentData.distance=(rawData[4]).substr(1,(rawData[4]).length-2)\n\tcurrentData.height=(rawData[6]).substr(1,(rawData[6]).length-3)\n\tcurrentData.widthOf=(rawData[12]).substr(1,(rawData[12]).length-2)\n\tcurrentData.heightOf=(rawData[14]).substr(1,(rawData[14]).length-3)"
   },
   {
     "robot": "Arm",

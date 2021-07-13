@@ -58,7 +58,7 @@ export const NodeSizeOf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param__height"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
         style={{ top: 16, transform: "none" }}
@@ -66,7 +66,7 @@ export const NodeSizeOf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param__width"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
         style={{ bottom: 16, top: "auto", transform: "none" }}
