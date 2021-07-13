@@ -39,6 +39,10 @@ const useUnity = (subsystem) => {
     });
   }, [subsystem]);
 
+  useEffect(() => {
+    return () => unityContext.removeAllEventListeners();
+  }, []);
+
   const resetScene = () => {
     unityContext.send("SceneController", "ResetScene");
   };

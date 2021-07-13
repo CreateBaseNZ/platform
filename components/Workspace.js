@@ -2,6 +2,8 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import TextEditor from "./TextEditor";
 import { initialElements } from "../utils/flowConfig";
+import Console from "./Console";
+import { ConsoleContextProvider } from "../store/console-context";
 
 import classes from "./Workspace.module.scss";
 
@@ -80,19 +82,22 @@ const Workspace = (props) => {
   };
 
   return (
-    <div className={classes.workspace}>
-      <FlowEditor
-        show={activeTab === "flow"}
-        elements={elements}
-        setElements={setElements}
-      />
-      <TextEditor show={activeTab === "text"} text={text} />
-      <TabBar
-        stacked={props.stacked}
-        active={activeTab}
-        onChange={changeTabHandler}
-      />
-    </div>
+    <ConsoleContextProvider>
+      <div className={classes.workspace}>
+        <FlowEditor
+          show={activeTab === "flow"}
+          elements={elements}
+          setElements={setElements}
+        />
+        <TextEditor show={activeTab === "text"} text={text} />
+        <Console show={activeTab === "console"} />
+        <TabBar
+          stacked={props.stacked}
+          active={activeTab}
+          onChange={changeTabHandler}
+        />
+      </div>
+    </ConsoleContextProvider>
   );
 };
 

@@ -1,42 +1,39 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import useUnity from "/hooks/useUnity";
 
-import Settings from "/components/Settings";
 import Game from "/components/Game";
 import Workspace from "/components/Workspace";
-import Aside from "/components/Aside";
 
 import classes from "/styles/Play.module.scss";
 
 const DUMMY_QUERY = {
-  jump: {
+  RunItDown: {
     name: "Run It Down",
     routerQuery: "run-it-down",
     src: "/game.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
+    stacked: true,
   },
 };
 
-const defaultSettings = {
-  showMenu: false,
-  stacked: true,
+const urlToQueryName = (str) => {
+  return str
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("");
 };
 
 const Play = () => {
   const router = useRouter();
-  const [game, setGame] = useState();
-  const [settings, setSettings] = useState(defaultSettings);
+  const [game, setGame] = useState({ stacked: true });
   const [unityContext, sensorData, gameState, resetScene] = useUnity();
 
   useEffect(() => {
     if (router.query.game) {
-      console.log(router);
-      console.log(router.query.game[0]);
-      setGame(DUMMY_QUERY[router.query.game[0]]);
+      setGame(DUMMY_QUERY[urlToQueryName(router.query.game[0])]);
     }
   }, [router.query]);
 
@@ -48,13 +45,12 @@ const Play = () => {
       </Head>
       <div
         className={`${classes.mainWindow} ${
-          settings.stacked ? classes.stackedView : classes.shelvedView
+          game.stacked ? classes.stackedView : classes.shelvedView
         }`}
       >
-        <Game unityContext={unityContext} setSettings={setSettings} />
-        <Workspace stacked={settings.stacked} />
+        <Game unityContext={unityContext} />
+        <Workspace stacked={game.stacked} unityContext={unityContext} />
       </div>
-      <Settings settings={settings} setSettings={setSettings} />
     </div>
   );
 };
