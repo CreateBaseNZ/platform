@@ -1,7 +1,9 @@
 import {
   NodeDistanceMini,
-  NodeSizeOfMini,
+  NodeHeightOfMini,
+  NodeWidthOfMini,
   NodeSpeedOfMini,
+  NodeElevationOfMini,
 } from "./NodeSensing";
 import {
   NodeAttackMini,
@@ -41,7 +43,15 @@ const DndBar = () => {
         <NodeSpeedOfMini
           onDragStart={(event) => onDragStart(event, "speedOf")}
         />
-        <NodeSizeOfMini onDragStart={(event) => onDragStart(event, "sizeOf")} />
+        <NodeHeightOfMini
+          onDragStart={(event) => onDragStart(event, "heightOf")}
+        />
+        <NodeWidthOfMini
+          onDragStart={(event) => onDragStart(event, "widthOf")}
+        />
+        <NodeElevationOfMini
+          onDragStart={(event) => onDragStart(event, "elevationOf")}
+        />
         <h5>Actions</h5>
         <NodeJumpMini onDragStart={(event) => onDragStart(event, "jump")} />
         <NodeDoubleJumpMini

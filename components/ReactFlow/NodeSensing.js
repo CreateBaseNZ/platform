@@ -42,47 +42,63 @@ export const NodeDistanceMini = (props) => {
   );
 };
 
-export const NodeSizeOf = ({ data }) => {
+export const NodeHeightOf = ({ data }) => {
   return (
     <div
-      className={`${classes.node} ${classes.sensing} ${classes.nodeSizeOf} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
+      className={`${classes.node} ${classes.sensing} ${classes.nodeHeightOf} ${classes.hasRightHandle}`}
     >
-      <h4>Size of</h4>
-      <EntityDropdown data={data} selectName="sizeOf" dataName="entity" />
-      <div className={classes.rightHandleLabel} style={{ top: 16 }}>
-        Height
-      </div>
-      <div className={classes.rightHandleLabel} style={{ bottom: 16 }}>
-        Width
-      </div>
+      <h4>Height of</h4>
+      <EntityDropdown data={data} selectName="heightOf" dataName="entity" />
       <Handle
         type="source"
         position="right"
         id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
-        style={{ top: 16, transform: "none" }}
-      />
-      <Handle
-        type="source"
-        position="right"
-        id="param__out"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
-        style={{ bottom: 16, top: "auto", transform: "none" }}
       />
     </div>
   );
 };
 
-export const NodeSizeOfMini = (props) => {
+export const NodeHeightOfMini = (props) => {
   return (
     <div
-      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeSizeOf}`}
+      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeHeightOf}`}
       onDragStart={props.onDragStart}
       draggable
     >
-      <h4>Size of</h4>
+      <h4>Height of</h4>
+      <div className={classes.blankInput}></div>
+    </div>
+  );
+};
+
+export const NodeWidthOf = ({ data }) => {
+  return (
+    <div
+      className={`${classes.node} ${classes.sensing} ${classes.nodeWidthOf} ${classes.hasRightHandle}`}
+    >
+      <h4>Width of</h4>
+      <EntityDropdown data={data} selectName="widthOf" dataName="entity" />
+      <Handle
+        type="source"
+        position="right"
+        id="param__out"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
+      />
+    </div>
+  );
+};
+
+export const NodeWidthOfMini = (props) => {
+  return (
+    <div
+      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeWidthOf}`}
+      onDragStart={props.onDragStart}
+      draggable
+    >
+      <h4>Width of</h4>
       <div className={classes.blankInput}></div>
     </div>
   );
@@ -114,6 +130,37 @@ export const NodeSpeedOfMini = (props) => {
       draggable
     >
       <h4>Speed of</h4>
+      <div className={classes.blankInput}></div>
+    </div>
+  );
+};
+
+export const NodeElevationOf = ({ data }) => {
+  return (
+    <div
+      className={`${classes.node} ${classes.sensing} ${classes.nodeElevationOf} ${classes.hasRightHandle}`}
+    >
+      <h4>Elevation of</h4>
+      <EntityDropdown data={data} selectName="elevationOf" dataName="entity" />
+      <Handle
+        type="source"
+        position="right"
+        id="param__elevation"
+        isValidConnection={isValidConnection}
+        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
+      />
+    </div>
+  );
+};
+
+export const NodeElevationOfMini = (props) => {
+  return (
+    <div
+      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeElevationOf}`}
+      onDragStart={props.onDragStart}
+      draggable
+    >
+      <h4>Elevation of</h4>
       <div className={classes.blankInput}></div>
     </div>
   );

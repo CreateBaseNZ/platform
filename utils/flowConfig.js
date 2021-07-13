@@ -2,7 +2,9 @@ import { NodeStart, NodeEnd } from "../components/ReactFlow/NodeGeneral";
 import {
   NodeDistance,
   NodeSpeedOf,
-  NodeSizeOf,
+  NodeHeightOf,
+  NodeWidthOf,
+  NodeElevationOf,
 } from "../components/ReactFlow/NodeSensing";
 import {
   NodeAttack,
@@ -39,7 +41,9 @@ export const nodeTypes = {
   end: NodeEnd,
   distance: NodeDistance,
   speedOf: NodeSpeedOf,
-  sizeOf: NodeSizeOf,
+  heightOf: NodeHeightOf,
+  widthOf: NodeWidthOf,
+  elevationOf: NodeElevationOf,
   jump: NodeJump,
   doubleJump: NodeDoubleJump,
   duck: NodeDuck,
