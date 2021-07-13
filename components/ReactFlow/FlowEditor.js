@@ -130,7 +130,9 @@ const FlowEditor = (props) => {
       defaultValues = { from: "character", to: "character" };
     } else if (
       type === "speedOf" ||
-      type === "sizeOf" ||
+      type === "heightOf" ||
+      type === "widthOf" ||
+      type === "elevationOf" ||
       type === "jump" ||
       type === "doubleJump" ||
       type === "duck" ||
