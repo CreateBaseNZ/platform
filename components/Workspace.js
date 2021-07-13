@@ -67,7 +67,9 @@ const determineType = (block, currentNode) => {
       block.type = "operatorGeneral";
       block.name = currentNode.type;
       break;
-    case "sizeOf":
+    case "heightOf":
+    case "widthOf":
+    case "elevationOf":
     case "speedOf":
     case "distance":
       block.type = "sense";

@@ -145,7 +145,7 @@ export const NodeElevationOf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param__elevation"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
       />
