@@ -365,7 +365,7 @@ export class CodeGenerator {
     if (blockDetail.value) {
       const output = this.checkCorrectVar(String(blockDetail.value.out));
       const target = blockDetail.name;
-      let str = `${output}currentData.${target}`
+      let str = `${output}currentData.${target};`
       this.executes.push(str);
       return true;
     } else {

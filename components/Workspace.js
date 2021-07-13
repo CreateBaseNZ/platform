@@ -313,7 +313,6 @@ const Workspace = (props) => {
   const changeTabHandler = (tab) => {
     if (tab === "text") {
       const blocks = flow2Text(elements);
-      console.log(blocks);
       const codeGen = new CodeGenerator();
       const text = codeGen.build(blocks);
       // run flow2Text()
