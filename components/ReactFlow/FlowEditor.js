@@ -11,6 +11,7 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import { nodeTypes, edgeTypes, entities } from "../../utils/flowConfig";
 
+import GreenButton from "../UI/GreenButton";
 import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
 
@@ -21,6 +22,8 @@ let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const controlTitles = ["Zoom-in", "Zoom-out", "Fit-view", "Lock", "Info"];
+
+let com;
 
 const updateGhostEnd = (sourceBlock, sourceHandle, action) => {
   switch (action) {
@@ -127,7 +130,7 @@ const FlowEditor = (props) => {
     // add to data state
     let defaultValues = null;
     if (type === "distance") {
-      defaultValues = { from: "character", to: "character" };
+      defaultValues = { from: entities[0].toLowerCase(), to: "next object" };
     } else if (
       type === "speedOf" ||
       type === "heightOf" ||
@@ -183,11 +186,25 @@ const FlowEditor = (props) => {
     props.setElements((es) => es.concat(newNode));
   };
 
+  const compileHandler = async () => {
+    clearInterval(com);
+    com = 0;
+    const code = props.compileCode();
+    com = setInterval(() => {
+      props.executeCode(code);
+    }, 100);
+  };
+
   return (
     <div className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}>
       <ReactFlowProvider>
         <DndBar />
         <div className={classes.editorWrapper} ref={wrapperRef}>
+          <GreenButton
+            className={`${classes.compileBtn} terminate-code`}
+            clickHandler={compileHandler}
+            caption="Compile"
+          />
           <ReactFlow
             elements={props.elements}
             nodeTypes={nodeTypes}

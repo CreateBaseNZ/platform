@@ -1,4 +1,4 @@
-import { NodeStart, NodeEnd } from "../components/ReactFlow/NodeGeneral";
+import { NodeStart } from "../components/ReactFlow/NodeGeneral";
 import {
   NodeDistance,
   NodeSpeedOf,
@@ -38,7 +38,6 @@ export const initialData = {
 
 export const nodeTypes = {
   start: NodeStart,
-  end: NodeEnd,
   distance: NodeDistance,
   speedOf: NodeSpeedOf,
   heightOf: NodeHeightOf,
@@ -73,7 +72,6 @@ export const initialElements = [
     type: "start",
     position: { x: -80, y: -80 },
   },
-  { id: "end", type: "end", position: { x: 80, y: 80 } },
 ];
 
-export const entities = ["Character", "Drone", "Vehicle"];
+export const entities = ["Player"];

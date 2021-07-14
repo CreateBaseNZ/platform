@@ -12,14 +12,16 @@ export const NodeDistance = ({ data }) => {
       <h4>Distance from</h4>
       <EntityDropdown data={data} selectName="distance-from" dataName="from" />
       <h4>to</h4>
-      <EntityDropdown data={data} selectName="distance-to" dataName="to" />
+      <EntityDropdown
+        data={data}
+        selectName="distance-to"
+        dataName="to"
+        options={["Next obstacle"]}
+      />
       <Handle
         type="source"
         position="right"
         id="param__out"
-        onConnect={() => {
-          console.log("need to remove placeholder");
-        }}
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
       />

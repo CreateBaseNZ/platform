@@ -28,24 +28,26 @@ const findNextNode = (currentNode, path, elements) => {
   for (let i = 0; i < nodeCollection.length; i++) {
     if (currentNode.id == nodeCollection[i].source) {
       if (nodeCollection[i].sourceHandle == String(path)) {
-        if (nodeCollection[i].targetHandle && nodeCollection[i].targetHandle.split("_")[0] == "execution") {
+        if (
+          nodeCollection[i].targetHandle &&
+          nodeCollection[i].targetHandle.split("_")[0] == "execution"
+        ) {
           nextNodeID = nodeCollection[i].target;
           break;
-        }
-        else {
-          return [false,"Wrong Connection"];
+        } else {
+          return [false, "Wrong Connection"];
         }
       }
     }
   }
   for (let i = 0; i < nextNodeList.length; i++) {
     if (nextNodeID == nextNodeList[i].id) {
-      return [true,nextNodeList[i]];
+      return [true, nextNodeList[i]];
     }
   }
 
-  return [true,false];
-}
+  return [true, false];
+};
 
 const determineType = (block, currentNode) => {
   switch (currentNode.type) {
@@ -96,10 +98,9 @@ const determineType = (block, currentNode) => {
       break;
   }
   return block;
-}
+};
 
-
-const findInputs = (blocksOrder, currentNode, elements, val,level=0) => {
+const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
   const nodes = [currentNode];
   let edgeCollection = getConnectedEdges(nodes, elements);
   let prevNodeList = getIncomers(currentNode, elements);
@@ -110,9 +111,15 @@ const findInputs = (blocksOrder, currentNode, elements, val,level=0) => {
     let executionBlock = false;
     for (let i = 0; i < edgeCollection.length; i++) {
       if (currentNode.id == edgeCollection[i].source) {
-        if (edgeCollection[i].sourceHandle && (edgeCollection[i].sourceHandle).split("_")[0] == "execution") {
+        if (
+          edgeCollection[i].sourceHandle &&
+          edgeCollection[i].sourceHandle.split("_")[0] == "execution"
+        ) {
           executionBlock = true;
-        } else if (edgeCollection[i].sourceHandle && (edgeCollection[i].sourceHandle).split("_")[0] == "execution") {
+        } else if (
+          edgeCollection[i].sourceHandle &&
+          edgeCollection[i].sourceHandle.split("_")[0] == "execution"
+        ) {
           outName = blocksOrder[i].value[edgeCollection[i].sourceHandle];
         }
         if (executionBlock == true && outName) {
@@ -131,12 +138,15 @@ const findInputs = (blocksOrder, currentNode, elements, val,level=0) => {
   }
   for (let i = 0; i < edgeCollection.length; i++) {
     if (currentNode.id == edgeCollection[i].target) {
-      if (edgeCollection[i].targetHandle && (edgeCollection[i].targetHandle).split("_")[0] != "execution") {
-        const inputName = (edgeCollection[i].targetHandle).split("__")[1];
+      if (
+        edgeCollection[i].targetHandle &&
+        edgeCollection[i].targetHandle.split("_")[0] != "execution"
+      ) {
+        const inputName = edgeCollection[i].targetHandle.split("__")[1];
         inputs.push(inputName);
         for (let j = 0; j < prevNodeList.length; j++) {
           if (edgeCollection[i].source == prevNodeList[j].id) {
-            IDlist.push(prevNodeList[j])
+            IDlist.push(prevNodeList[j]);
             break;
           }
         }
@@ -144,7 +154,7 @@ const findInputs = (blocksOrder, currentNode, elements, val,level=0) => {
     }
   }
   if (IDlist.length != inputs.length) {
-    console.log("gg",currentNode);
+    console.log("gg", currentNode);
   }
   let block = {
     robot: "Player",
@@ -152,24 +162,32 @@ const findInputs = (blocksOrder, currentNode, elements, val,level=0) => {
     type: currentNode.type,
   };
   if (currentNode.data != undefined) {
-    block.value= {...currentNode.data.values}
+    block.value = { ...currentNode.data.values };
   }
   block = determineType(block, currentNode);
   let output;
   for (let i = 0; i < IDlist.length; i++) {
-    [blocksOrder, val, output] = (findInputs(blocksOrder, IDlist[i], elements, val, 1));
+    [blocksOrder, val, output] = findInputs(
+      blocksOrder,
+      IDlist[i],
+      elements,
+      val,
+      1
+    );
     if (blocksOrder || val || output) {
       block.value[inputs[i]] = output;
-    }
-    else {
-      return [null,null,null];
+    } else {
+      return [null, null, null];
     }
   }
   let edgeNum;
   for (let i = 0; i < edgeCollection.length; i++) {
     if (currentNode.id == edgeCollection[i].source) {
-      if (edgeCollection[i].sourceHandle && (edgeCollection[i].sourceHandle).split("_")[0] != "execution") {
-        edgeNum=i;
+      if (
+        edgeCollection[i].sourceHandle &&
+        edgeCollection[i].sourceHandle.split("_")[0] != "execution"
+      ) {
+        edgeNum = i;
         break;
       }
     }
@@ -189,9 +207,7 @@ const findInputs = (blocksOrder, currentNode, elements, val,level=0) => {
       break;
   }
   return [blocksOrder, val, outName];
-
-}
-
+};
 
 const flow2Text = (elements) => {
   let blocksConfig = [];
@@ -204,7 +220,12 @@ const flow2Text = (elements) => {
   while (traverse) {
     if (currentNode) {
       let f;
-      [blocksConfig, val, f] = findInputs(blocksConfig, currentNode, elements, val);
+      [blocksConfig, val, f] = findInputs(
+        blocksConfig,
+        currentNode,
+        elements,
+        val
+      );
       if (!(blocksConfig || val || f)) {
         return "wrong order";
       }
@@ -284,16 +305,14 @@ const flow2Text = (elements) => {
         }
         blocksConfig.push(interBlock);
         currentNode = nextNode;
-
       }
-      
     }
   }
-  
-  const endNode={
+
+  const endNode = {
     robot: "Player",
     type: "end",
-  }
+  };
   blocksConfig.push(endNode);
   console.log(blocksConfig);
 
@@ -313,8 +332,6 @@ const Workspace = (props) => {
   const [elements, setElements] = useState(initialElements);
   const [text, setText] = useState("// Let's code! 💡");
 
-  console.log(elements);
-
   const changeTabHandler = (tab) => {
     if (tab === "text") {
       const blocks = flow2Text(elements);
@@ -323,7 +340,7 @@ const Workspace = (props) => {
       // run flow2Text()
       // run compile to code - return the code (or error status if error)
       // setText(the code)
-      setText(text)//"// Let's code! 💡");
+      setText(text); //"// Let's code! 💡");
 
       // if error status -> console log error message
       // flash the console tab
@@ -334,6 +351,20 @@ const Workspace = (props) => {
     setActiveTab(tab);
   };
 
+  const compileCode = () => {
+    const blocks = flow2Text(elements);
+    console.log(blocks);
+    const codeGen = new CodeGenerator();
+    const text = codeGen.build(blocks);
+    return text;
+  };
+
+  const executeCode = (text) => {
+    const sensorData = props.sensorData;
+    const unityContext = props.unityContext;
+    eval(text);
+  };
+
   return (
     <ConsoleContextProvider>
       <div className={classes.workspace}>
@@ -341,6 +372,8 @@ const Workspace = (props) => {
           show={activeTab === "flow"}
           elements={elements}
           setElements={setElements}
+          executeCode={executeCode}
+          compileCode={compileCode}
         />
         <TextEditor show={activeTab === "text"} text={text} />
         <Console show={activeTab === "console"} />

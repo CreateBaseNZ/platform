@@ -8,8 +8,8 @@
   {
     "robot": "Player",
     "type": "start",
-    "logic":[], 
-    "executes": "while(true){\n\tif(sensorData){\nrawData=JSON.parse(sensorData);\ncurrentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleSpeed.x;\n\tcurrentData.elevationOf=rawData.obstacleSpeed.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n"
+    "logic": [],
+    "executes": "if(sensorData){\n// console.log(sensorData);\nconst rawData=JSON.parse(sensorData);\nconst currentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleSpeed.x;\n\tcurrentData.elevationOf=rawData.obstacleSpeed.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n"
   },
   {
     "robot": "Arm",
@@ -38,13 +38,13 @@
   {
     "robot": "Arm",
     "type": "end",
-    "logic":[],
+    "logic": [],
     "executes": []
   },
   {
     "robot": "Player",
     "type": "end",
-    "logic":[],
-    "executes": "}\n}"
+    "logic": [],
+    "executes": "}"
   }
 ]

@@ -21,6 +21,7 @@
 .editorWrapper {
   height: 100%;
   flex-grow: 1;
+  position: relative;
 }
 
 .controls {
@@ -57,4 +58,17 @@
       }
     }
   }
+}
+
+.compileBtn {
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
+  padding: 0.5em 1em;
+  background: $green;
+  color: $lightest;
+  z-index: 5;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
 }

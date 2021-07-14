@@ -1,12 +1,9 @@
 import classes from "./GreenButton.module.scss";
 
-const GreenButton = (props) => {
+const GreenButton = ({ className, clickHandler, caption }) => {
   return (
-    <button
-      className={`${classes.button} ${props.className}`}
-      onClick={props.clickHandler}
-    >
-      {props.caption}
+    <button className={`${classes.button} ${className}`} onClick={clickHandler}>
+      {caption}
     </button>
   );
 };

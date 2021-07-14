@@ -32,7 +32,6 @@ const useUnity = (subsystem) => {
 
   useEffect(() => {
     unityContext.on("loaded", () => {
-      console.log();
       setTimeout(() => {
         unityContext.send("SceneController", "LoadScene", "Project_Jump_0");
       }, 4000);

@@ -19,7 +19,7 @@ const NodeOperations = ({ label, data }) => {
       <Handle
         type="target"
         position="top"
-        id="param___a"
+        id="param__a"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "30px", transform: "none" }}
@@ -103,7 +103,7 @@ export const NodeOperatorGeneral = memo(({ data }) => {
       <Handle
         type="target"
         position="top"
-        id="param___a"
+        id="param__a"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "30px", transform: "none" }}

@@ -49,7 +49,11 @@ const Play = () => {
         }`}
       >
         <Game unityContext={unityContext} />
-        <Workspace stacked={game.stacked} unityContext={unityContext} />
+        <Workspace
+          stacked={game.stacked}
+          unityContext={unityContext}
+          sensorData={sensorData}
+        />
       </div>
     </div>
   );

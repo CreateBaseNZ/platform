@@ -23,24 +23,12 @@ export const NodeStart = memo(() => {
   );
 });
 
-export const NodeEnd = memo(() => {
-  return (
-    <div
-      className={`${classes.node} ${classes.nodeEnd} ${classes.hasLeftHandle}`}
-    >
-      <Handle
-        type="target"
-        position="left"
-        id="execution"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.leftHandle} ${classes.targetHandle} ${classes.executionHandle}`}
-      />
-      <h4>End</h4>
-    </div>
-  );
-});
-
-export const EntityDropdown = ({ data, selectName, dataName }) => {
+export const EntityDropdown = ({
+  data,
+  selectName,
+  dataName,
+  options = entities,
+}) => {
   const changeHandler = (event) => {
     data.callBack({ ...data.values, [dataName]: event.target.value });
   };
@@ -56,7 +44,7 @@ export const EntityDropdown = ({ data, selectName, dataName }) => {
       onDragStart={dragHandler}
       value={data.values.entity}
     >
-      {entities.map((entity) => (
+      {options.map((entity) => (
         <option value={entity.toLowerCase()} key={entity}>
           {entity}
         </option>
