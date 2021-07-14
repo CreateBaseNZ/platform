@@ -16,7 +16,7 @@ import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
-import handleClass from "./Nodes.module.scss";
+import nodesClass from "./Nodes.module.scss";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -32,15 +32,40 @@ const updateGhostEnd = (sourceBlock, sourceHandle, action) => {
         .querySelector(
           `.react-flow__handle.source[data-nodeid="${sourceBlock}"][data-handleid="${sourceHandle}"]`
         )
-        .classList.add(handleClass.handleConnected);
+        .classList.add(nodesClass.handleConnected);
       break;
     case "remove":
       document
         .querySelector(
           `.react-flow__handle.source[data-nodeid="${sourceBlock}"][data-handleid="${sourceHandle}"]`
         )
-        .classList.remove(handleClass.handleConnected);
+        .classList.remove(nodesClass.handleConnected);
       break;
+  }
+};
+
+const updateParamInput = (targetBlock, targetHandle, action) => {
+  if (targetHandle.split("__")[0] === "param") {
+    const handleId = targetHandle.split("__")[1];
+    const el = document.querySelector(
+      `.react-flow__node[data-id="${targetBlock}"]`
+    );
+    switch (handleId) {
+      case "b":
+        action === "prevent"
+          ? el
+              .querySelectorAll("input")[1]
+              .classList.add(nodesClass.preventInput)
+          : el
+              .querySelectorAll("input")[1]
+              .classList.remove(nodesClass.preventInput);
+        break;
+      default:
+        action === "prevent"
+          ? el.querySelector("input").classList.add(nodesClass.preventInput)
+          : el.querySelector("input").classList.remove(nodesClass.preventInput);
+        break;
+    }
   }
 };
 
@@ -56,17 +81,17 @@ const FlowEditor = (props) => {
     for (const element of elementsToRemove) {
       if (isEdge(element)) {
         updateGhostEnd(element.source, element.sourceHandle, "remove");
+        updateParamInput(element.target, element.targetHandle, "allow");
       }
     }
     props.setElements((els) => removeElements(filteredElements, els));
   }, []);
 
-  // custom edges
   const onConnect = useCallback((params) => {
     updateGhostEnd(params.source, params.sourceHandle, "add");
 
+    // styling new edge
     let newEdge;
-
     if (params.sourceHandle.split("__")[0] === "execution") {
       newEdge = {
         ...params,
@@ -80,6 +105,9 @@ const FlowEditor = (props) => {
       };
     }
 
+    // check if param input needs to be toggled
+    updateParamInput(params.target, params.targetHandle, "prevent");
+
     props.setElements((els) => {
       return addEdge(newEdge, els);
     });
@@ -89,6 +117,12 @@ const FlowEditor = (props) => {
   const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
     updateGhostEnd(oldEdge.source, oldEdge.sourceHandle, "remove");
     updateGhostEnd(newConnection.source, newConnection.sourceHandle, "add");
+    updateParamInput(oldEdge.target, oldEdge.targetHandle, "allow");
+    updateParamInput(
+      newConnection.target,
+      newConnection.targetHandle,
+      "prevent"
+    );
     props.setElements((els) => updateEdge(oldEdge, newConnection, els));
   }, []);
 

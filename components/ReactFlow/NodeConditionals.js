@@ -16,7 +16,7 @@ export const NodeIf = ({ data }) => {
         className={`${classes.handle} ${classes.leftHandle} ${classes.executionHandle} ${classes.targetHandle}`}
       />
       <h4>If</h4>
-      <input />
+      <input className={classes.preventInput} />
       <Handle
         type="target"
         position="top"
@@ -131,7 +131,7 @@ export const NodeWhile = ({ data }) => {
         className={`${classes.handle} ${classes.leftHandle} ${classes.executionHandle} ${classes.targetHandle}`}
       />
       <h4>While</h4>
-      <input />
+      <input className={classes.preventInput} />
       <Handle
         type="target"
         position="top"

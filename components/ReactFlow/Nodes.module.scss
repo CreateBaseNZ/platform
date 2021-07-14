@@ -51,6 +51,10 @@
   input {
     margin: 0.1rem 0;
   }
+  .preventInput {
+    pointer-events: none;
+    opacity: 0.5;
+  }
 }
 
 .hasLeftHandle {
@@ -136,14 +140,6 @@
 .nodeWhile {
   height: 5rem;
   width: 12rem;
-}
-
-.nodeIf,
-.nodeWhile {
-  input {
-    pointer-events: none;
-    opacity: 0.5;
-  }
 }
 
 .handle.leftHandle {
