@@ -20,6 +20,8 @@ import {
   NodeGreaterThanMini,
   NodeLessThanMini,
   NodeEqualsMini,
+  NodeNotEqualsMini,
+  NodeAndMini,
   NodeOrMini,
   NodeOperatorGeneralMini,
 } from "./NodeOperations";
@@ -76,6 +78,10 @@ const DndBar = () => {
           onDragStart={(event) => onDragStart(event, "lessThan")}
         />
         <NodeEqualsMini onDragStart={(event) => onDragStart(event, "equals")} />
+        <NodeNotEqualsMini
+          onDragStart={(event) => onDragStart(event, "notEquals")}
+        />
+        <NodeAndMini onDragStart={(event) => onDragStart(event, "and")} />
         <NodeOrMini onDragStart={(event) => onDragStart(event, "or")} />
         <NodeOperatorGeneralMini
           onDragStart={(event) => onDragStart(event, "operatorGeneral")}

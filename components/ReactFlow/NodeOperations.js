@@ -4,7 +4,7 @@ import { isValidConnection } from "../../utils/nodeHelpers";
 
 import classes from "./Nodes.module.scss";
 
-const NodeOperations = ({ label, data }) => {
+const NodeOperations = ({ label, data, className = "" }) => {
   const changeHandlerA = (event) => {
     data.callBack({ ...data.values, a: event.target.value });
   };
@@ -14,7 +14,7 @@ const NodeOperations = ({ label, data }) => {
 
   return (
     <div
-      className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`}
+      className={`${classes.node} ${classes.operating} ${classes.hasRightHandle} ${className}`}
     >
       <Handle
         type="target"
@@ -49,7 +49,7 @@ const NodeOperations = ({ label, data }) => {
 const NodeOperationsMini = (props) => {
   return (
     <div
-      className={`${classes.nodeMini} ${classes.operating}`}
+      className={`${classes.nodeMini} ${classes.operating} ${props.className}`}
       onDragStart={props.onDragStart}
       draggable
     >
@@ -80,6 +80,18 @@ export const NodeLessThan = memo(({ data }) => {
 });
 export const NodeEquals = memo(({ data }) => {
   return <NodeOperations label="=" data={data} />;
+});
+export const NodeNotEquals = memo(({ data }) => {
+  return (
+    <NodeOperations
+      label="not ="
+      data={data}
+      className={classes.nodeNotEquals}
+    />
+  );
+});
+export const NodeAnd = memo(({ data }) => {
+  return <NodeOperations label="and" data={data} />;
 });
 export const NodeOr = memo(({ data }) => {
   return <NodeOperations label="or" data={data} />;
@@ -123,11 +135,13 @@ export const NodeOperatorGeneral = memo(({ data }) => {
         onChange={changeHandlerOperator}
         value={data.values.operator}
       >
-        {["+", "-", "×", "÷", ">", "<", "=", "or"].map((operator) => (
-          <option value={operator} key={operator}>
-            {operator}
-          </option>
-        ))}
+        {["+", "-", "×", "÷", ">", "<", "=", "not =", "and", "or"].map(
+          (operator) => (
+            <option value={operator} key={operator}>
+              {operator}
+            </option>
+          )
+        )}
       </select>
       <input onChange={changeHandlerB} type="number" value={data.values.b} />
       <Handle
@@ -161,6 +175,18 @@ export const NodeLessThanMini = (props) => {
 };
 export const NodeEqualsMini = (props) => {
   return <NodeOperationsMini {...props} label="=" />;
+};
+export const NodeNotEqualsMini = (props) => {
+  return (
+    <NodeOperationsMini
+      {...props}
+      label="not ="
+      className={classes.nodeNotEquals}
+    />
+  );
+};
+export const NodeAndMini = (props) => {
+  return <NodeOperationsMini {...props} label="and" />;
 };
 export const NodeOrMini = (props) => {
   return <NodeOperationsMini {...props} label="or" />;

@@ -9,7 +9,7 @@
     "robot": "Player",
     "type": "start",
     "logic": [],
-    "executes": "if(sensorData){\n// console.log(sensorData);\nconst rawData=JSON.parse(sensorData);\nconst currentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleDistance.x;\n\tcurrentData.elevationOf=rawData.obstacleDistance.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n"
+    "executes": "if(sensorData){\n // console.log(sensorData);\nconst rawData=JSON.parse(sensorData);\nconst currentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleDistance.x;\n\tcurrentData.elevationOf=rawData.obstacleDistance.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n"
   },
   {
     "robot": "Arm",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
 import TextEditor from "./TextEditor";
 import ReactFlow, {
@@ -314,7 +314,6 @@ const flow2Text = (elements) => {
     type: "end",
   };
   blocksConfig.push(endNode);
-  console.log(blocksConfig);
 
   return blocksConfig;
 };
@@ -353,14 +352,14 @@ const Workspace = (props) => {
 
   const compileCode = () => {
     const blocks = flow2Text(elements);
-    console.log(blocks);
     const codeGen = new CodeGenerator();
     const text = codeGen.build(blocks);
     return text;
   };
 
-  const executeCode = (text) => {
-    const sensorData = props.sensorData;
+  const executeCode = (text, data) => {
+    // console.log(data);
+    const sensorData = data;
     const unityContext = props.unityContext;
     eval(text);
   };
@@ -374,6 +373,7 @@ const Workspace = (props) => {
           setElements={setElements}
           executeCode={executeCode}
           compileCode={compileCode}
+          sensorData={props.sensorData}
         />
         <TextEditor show={activeTab === "text"} text={text} />
         <Console show={activeTab === "console"} />

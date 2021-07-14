@@ -21,6 +21,8 @@ import {
   NodeGreaterThan,
   NodeLessThan,
   NodeEquals,
+  NodeNotEquals,
+  NodeAnd,
   NodeOr,
   NodeOperatorGeneral,
 } from "../components/ReactFlow/NodeOperations";
@@ -55,6 +57,8 @@ export const nodeTypes = {
   greaterThan: NodeGreaterThan,
   lessThan: NodeLessThan,
   equals: NodeEquals,
+  notEquals: NodeNotEquals,
+  and: NodeAnd,
   or: NodeOr,
   operatorGeneral: NodeOperatorGeneral,
   if: NodeIf,

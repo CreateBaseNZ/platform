@@ -31,6 +31,8 @@ const Play = () => {
   const [game, setGame] = useState({ stacked: true });
   const [unityContext, sensorData, gameState, resetScene] = useUnity();
 
+  console.log(sensorData);
+
   useEffect(() => {
     if (router.query.game) {
       setGame(DUMMY_QUERY[urlToQueryName(router.query.game[0])]);

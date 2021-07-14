@@ -73,6 +73,9 @@ const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
+  const sensorDataRef = useRef(props.sensorData);
+  sensorDataRef.current = props.sensorData;
+
   // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
     const filteredElements = elementsToRemove.filter(
@@ -185,6 +188,8 @@ const FlowEditor = (props) => {
       type === "greaterThan" ||
       type === "lessThan" ||
       type === "equals" ||
+      type === "notEquals" ||
+      type === "and" ||
       type === "or"
     ) {
       defaultValues = { a: 0, b: 0 };
@@ -220,13 +225,14 @@ const FlowEditor = (props) => {
     props.setElements((es) => es.concat(newNode));
   };
 
-  const compileHandler = async () => {
+  const compileHandler = () => {
     clearInterval(com);
     com = 0;
     const code = props.compileCode();
     com = setInterval(() => {
-      props.executeCode(code);
-    }, 100);
+      console.log(sensorDataRef.current);
+      props.executeCode(code, sensorDataRef.current);
+    }, 10);
   };
 
   return (
