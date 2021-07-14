@@ -62,8 +62,15 @@ export class CodeGenerator {
   }
 
   private isNumber(varName: string) {
+    let decimal = 0;
     for (let i = 0; i < varName.length; i++) {
-      if (varName[i] < "0" || varName[i] > "9") {
+      if (varName[i] == ".") {
+        decimal++;
+        if (decimal > 1) {
+          return false;
+        }
+      }
+      else if (varName[i] < "0" || varName[i] > "9") {
         return false;
       }
     }
