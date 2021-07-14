@@ -16,7 +16,7 @@ export const NodeDistance = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param"
+        id="param__out"
         onConnect={() => {
           console.log("need to remove placeholder");
         }}
@@ -52,7 +52,7 @@ export const NodeHeightOf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param__height"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
       />
@@ -83,7 +83,7 @@ export const NodeWidthOf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param__width"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
       />
@@ -114,7 +114,7 @@ export const NodeSpeedOf = ({ data }) => {
       <Handle
         type="source"
         position="right"
-        id="param"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
       />

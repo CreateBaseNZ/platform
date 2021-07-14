@@ -1,0 +1,50 @@
+[
+  {
+    "robot": "Arm",
+    "type": "start",
+    "logic": "//Within this code segment, we aim to configure the motors to operate\n//The first step is to define the motors and their poperties\n//The first property is the motor strentgh and would determine how much torque could it provide\nconst actuator = [\"12kg\", \"12kg\", \"12kg\", \"12kg\", \"100000kg\", \"100000kg\"];\n//The next property is the gain. This would determine the relationship between the speed of each motor and how much angle should it rotate.\nconst gainsP = [1, 1, 0.9,0.9, 15, 15];\nconst gainsD = [0.5, 0.5, 0, 0, 0, 0];\nlet Joints = [];\n// For further point we would like to save the number of motors we have and the the number of joints the robotic arm has\nconst noOfMotors = actuator.length;\nconst noOfJoints = 4;\n// We will now store the actuators with their properties in one location. This would help in making sure we are using the right motor properties\nlet angles_start=await(()=>{\nreturn new Promise((resolve,reject)=>{\nlet com=setInterval(()=>{\nconst data=sensorData;\nif(data){\nclearInterval(com);\nresolve(data);}\n},100)\n})\n})()\nconst least_claw=Math.min(-angles_start.jointData[4].angle,angles_start.jointData[5].angle);\nfor(let i=0;i<noOfMotors;i++){\n\n\tif(i>=noOfJoints){\nangles_start.jointData[i].angle=least_claw\n}else{\nlet current=angles_start.jointData[i].angle;\nangles_start.jointData[i].angle=Math.sign(current)*(Math.floor(Math.abs(current)/5))*5;\n}\n}\nfor(let i=0;i<noOfMotors;i++){\n\n\tJoints[i]=new ServoMotorsClass(i,actuator[i],angles_start.jointData[i].angle,gainsP[i],gainsD[i]);\n}\n//We will create a variable which would help us later in calling predefined set of instruction that are stored in the BlockClass\nconst actions=new BlockClass();\n// ServoMotors Controller\n// We will run these lines every 12.5 millisecond. This is to recieve information about each joint and its current location. Using that, we will determine the speed the motor should have to reach the required location\ncommunication = setInterval(() => {\n\t//First we will collect the sensor information about the current angles\n\tconst angles = sensorData;\n\t//Sometimes, the data from the sensors won't be updated and we cant use the data as it would produce errors. To prevent that, we would make a check that there is something within angles.\n\tif (angles) {\n\t\t//Next, we go through each motor and evalute the speed required for the motor and store that in a input array.\n\t\tlet input = { motors: [] };\n\t\tfor (let i = 0; i < noOfMotors; i++) {\n\t\t\tinput.motors.push(Joints[i].Evaluate(angles['jointData'][i].angle,angles['jointData'][i].velocity));\n\t\t}\n\t\tconst formattedInput = JSON.stringify(input);\n\t\t//We will now send the messages containing the speed of the motors to the robotic arm motor's so they could follow that speed\n\t\tlet robot = new ActuationClass(someVar, RoboticSystemName, formattedInput);\n\t\trobot.run();\n\t}\n}, 1000 / 80);\n",
+    "executes": []
+  },
+  {
+    "robot": "Player",
+    "type": "start",
+    "logic":[], 
+    "executes": "while(true){\n\tif(sensorData){\nrawData=JSON.parse(sensorData);\ncurrentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleSpeed.x;\n\tcurrentData.elevationOf=rawData.obstacleSpeed.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n"
+  },
+  {
+    "robot": "Arm",
+    "type": "specific",
+    "name": "move",
+    "function": {
+      "name": "move",
+      "inputs": [
+        { "variable": "x", "type": "number", "value": 0 },
+        { "variable": "y", "type": "number", "value": 0 },
+        { "variable": "z", "type": "number", "value": 0 }
+      ],
+      "logic": "// The function below is made to move the arm to a new location. First, we will find the angles each of the joints should have to reach this point. We will send these positions to the motors, which will try to reach them. Next, we will wait untill the arm has actually reached by checking if each of the joints has reached to the correct angle.\n//Use inverse kinematics to find the angles required by each joint. This would return false if position is unreachable and angles if it is.\nconst TargetAngles = actions.InverseKinematics(x, y, z);\n//If TargetAngles is an array then we will change the target angle of each servo\nif (TargetAngles) {\n\tfor (let i = 0; i < noOfJoints; i++) {\n\t\tJoints[i].SetAngle(TargetAngles[i]);\n\t}\n}\n// set the interval to run every 1000 seconds (1s)\nconst rate = 1000;\n//Every second we will check if the motors of the robotic arm have reached their required angle and once we reach we will advance to next step\ninterval = setInterval(() => {\n\t//Create a variable with the name Reached. We will assume that the arm has reached its location unless we find otherwise in the loop following\n\tlet Reached = true;\n\t//Now, we will go through each of the joints and check the difference between the angle we want to reach to and the actual angle of each joint. If the difference is more than 5 degrees the value of Reached is set to false and the loop is broken\n\tfor (let i = 0; i < noOfJoints; i++) {\n\t\tconst error = Math.abs(TargetAngles[i] - sensorData.jointData[i].angle);\n\t\tif (error > 5) {\n\t\t\tReached = false;\n\t\t\tbreak;\n\t\t}\n\t}\n\t// If the error in each of the joints is less than 5, then value of Reached will stay as positive and the interval is deleted and the code is allowed to progress to the next function\n\tif (Reached) {\n\t\tclearInterval(interval);\n\t\tresolve();\n\t}\n}, rate);//setting the rate of the interval running\n"
+    }
+  },
+  {
+    "robot": "Arm",
+    "type": "specific",
+    "name": "gravity",
+    "function": {
+      "name": "gravity",
+      "inputs": [{ "variable": "isOn", "type": "boolean", "value": true }],
+      "logic": "if(isOn){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nresolve();\n"
+    }
+  },
+  {
+    "robot": "Arm",
+    "type": "end",
+    "logic":[],
+    "executes": []
+  },
+  {
+    "robot": "Player",
+    "type": "end",
+    "logic":[],
+    "executes": "}\n}"
+  }
+]
