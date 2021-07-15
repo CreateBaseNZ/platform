@@ -73,6 +73,30 @@
       fill: $logo-mid;
     }
   }
+  &.hasWarning {
+    animation: warning 0.5s ease-out infinite alternate;
+  }
+  &.hasError {
+    animation: error 0.5s ease-out infinite alternate;
+  }
+}
+
+@keyframes warning {
+  from {
+    background: transparent;
+  }
+  to {
+    background: $amber;
+  }
+}
+
+@keyframes error {
+  from {
+    background: transparent;
+  }
+  to {
+    background: $red;
+  }
 }
 
 .divider {

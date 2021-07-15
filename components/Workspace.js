@@ -230,7 +230,7 @@ const flow2Text = (elements) => {
         val
       );
       if (!(blocksConfig || val || f)) {
-        return "wrong order";
+        return "Wrong execution order";
       }
     }
     let nextNode;
@@ -340,41 +340,38 @@ const Workspace = (props) => {
     if (tab === "text") {
       const blocks = flow2Text(elements);
       console.log(blocks);
-      const codeGen = new CodeGenerator();
-      const [text, type, message] = codeGen.build(blocks);
-      console.log(type);
-      console.log(message);
-      if (type === "warning") {
-        ctx.addWarning(message);
-      } else if (type === "error") {
-        ctx.addError(message);
+      if (Array.isArray(blocks)) {
+        const codeGen = new CodeGenerator();
+        const [newText, type, message] = codeGen.build(blocks);
+        if (newText !== text) {
+          if (type === "warning") {
+            ctx.addWarning(message);
+          } else if (type === "error") {
+            ctx.addError(message);
+          }
+          setText(newText);
+        }
+      } else {
+        ctx.addError(blocks);
       }
-      // run flow2Text()
-      // run compile to code - return the code (or error status if error)
-      // setText(the code)
-      setText(text); //"// Let's code! 💡");
-
-      // if error status -> console log error message
-      // flash the console tab
-      // setText("// Ooops! There was a problem converting to code. See Console for more info")
-    } else {
-      setText("// Let's code! 💡");
     }
     setActiveTab(tab);
   };
 
   const compileCode = () => {
     const blocks = flow2Text(elements);
-    const codeGen = new CodeGenerator();
-    const [text, type, message] = codeGen.build(blocks);
-    if (type === "warning") {
-      ctx.addWarning(message);
-      ctx.setUnreadStatus(type);
-    } else if (type === "error") {
-      ctx.addError(message);
-      ctx.setUnreadStatus(type);
+    if (Array.isArray(blocks)) {
+      const codeGen = new CodeGenerator();
+      const [text, type, message] = codeGen.build(blocks);
+      if (type === "warning") {
+        ctx.addWarning(message);
+      } else if (type === "error") {
+        ctx.addError(message);
+      }
+      return text;
+    } else {
+      ctx.addError(blocks);
     }
-    return text;
   };
 
   const executeCode = (text, data) => {

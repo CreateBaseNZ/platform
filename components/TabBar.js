@@ -80,9 +80,7 @@ const TabBar = (props) => {
   };
 
   const consoleClickHandler = () => {
-    document
-      .querySelector("#console-tab")
-      .classList.remove(classes.tabWarning, classes.tabError);
+    ctx.clearUnread();
   };
 
   return (
@@ -125,9 +123,8 @@ const TabBar = (props) => {
         onClickHandler={consoleClickHandler}
         active={props.active}
         innerRef={consoleRef}
-        status={ctx.hasUnread}
+        status={ctx.unreadStatus}
       />
-      <Divider tabBefore="console" tabAfter="" active={props.active} />
     </div>
   );
 };
