@@ -88,8 +88,7 @@ const determineType = (block, currentNode) => {
     case "end":
       break;
     case "jump":
-    case "duck":
-    case "slide":
+    case "crouch":
     case "attack":
     case "crouch":
     case "doubleJump":
@@ -370,8 +369,10 @@ const Workspace = (props) => {
     const [text, type, message] = codeGen.build(blocks);
     if (type === "warning") {
       ctx.addWarning(message);
+      ctx.setUnreadStatus(type);
     } else if (type === "error") {
       ctx.addError(message);
+      ctx.setUnreadStatus(type);
     }
     return text;
   };

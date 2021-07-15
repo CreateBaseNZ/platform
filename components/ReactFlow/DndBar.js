@@ -8,9 +8,8 @@ import {
 import {
   NodeAttackMini,
   NodeDoubleJumpMini,
-  NodeDuckMini,
+  NodeCrouchMini,
   NodeJumpMini,
-  NodeSlideMini,
 } from "./NodeActions";
 import {
   NodeAddMini,
@@ -59,8 +58,7 @@ const DndBar = () => {
         <NodeDoubleJumpMini
           onDragStart={(event) => onDragStart(event, "doubleJump")}
         />
-        <NodeDuckMini onDragStart={(event) => onDragStart(event, "duck")} />
-        <NodeSlideMini onDragStart={(event) => onDragStart(event, "slide")} />
+        <NodeCrouchMini onDragStart={(event) => onDragStart(event, "crouch")} />
         <NodeAttackMini onDragStart={(event) => onDragStart(event, "attack")} />
         <h5>Operators</h5>
         <NodeAddMini onDragStart={(event) => onDragStart(event, "add")} />

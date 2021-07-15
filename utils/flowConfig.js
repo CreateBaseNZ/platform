@@ -9,9 +9,8 @@ import {
 import {
   NodeAttack,
   NodeDoubleJump,
-  NodeDuck,
+  NodeCrouch,
   NodeJump,
-  NodeSlide,
 } from "../components/ReactFlow/NodeActions";
 import {
   NodeAdd,
@@ -47,8 +46,7 @@ export const nodeTypes = {
   elevationOf: NodeElevationOf,
   jump: NodeJump,
   doubleJump: NodeDoubleJump,
-  duck: NodeDuck,
-  slide: NodeSlide,
+  crouch: NodeCrouch,
   attack: NodeAttack,
   add: NodeAdd,
   subtract: NodeSubtract,

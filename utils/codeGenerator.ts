@@ -306,13 +306,17 @@ export class CodeGenerator {
     const val = String(blockDetail.value.condition).trim();
     if (!this.isBool(val)) {
       if (!this.checkVariable(val)) {
-        return false;
+        return [
+          false,
+          "error",
+          "One or more If blocks do not have a condition",
+        ];
       }
     }
     let inputs = val;
     const str = `if(${inputs}){`;
     this.executes.push(str);
-    return true;
+    return [true];
   }
 
   private whileStart(blockDetail: any) {
@@ -435,7 +439,7 @@ export class CodeGenerator {
           state = this.end(element);
           break;
         case "if":
-          state = this.ifStart(element);
+          [state, type, message] = this.ifStart(element);
           break;
         case "intialise":
           state = this.intialise(element);
@@ -466,7 +470,11 @@ export class CodeGenerator {
       }
       if (!state) {
         console.log(i);
-        return ["", type, message];
+        return [
+          "// Oops! An error occurred, please check the Console for more info",
+          type,
+          message,
+        ];
       }
     }
 

@@ -171,8 +171,7 @@ const FlowEditor = (props) => {
     } else if (
       type === "jump" ||
       type === "doubleJump" ||
-      type === "duck" ||
-      type === "slide" ||
+      type === "crouch" ||
       type === "attack"
     ) {
       defaultValues = { entity: entities[0].toLowerCase() };

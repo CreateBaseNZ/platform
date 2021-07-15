@@ -25,7 +25,9 @@ const Tab = (props) => {
   const isActive = props.active === props.value;
   return (
     <div
-      className={`${classes.tab} ${isActive ? classes.activeTab : ""}`}
+      className={`${classes.tab} ${isActive ? classes.activeTab : ""} ${
+        classes[props.status]
+      }`}
       title={props.title}
       ref={props.innerRef}
     >
@@ -123,6 +125,7 @@ const TabBar = (props) => {
         onClickHandler={consoleClickHandler}
         active={props.active}
         innerRef={consoleRef}
+        status={ctx.hasUnread}
       />
       <Divider tabBefore="console" tabAfter="" active={props.active} />
     </div>

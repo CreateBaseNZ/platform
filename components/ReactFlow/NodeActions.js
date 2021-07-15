@@ -52,13 +52,13 @@ export const NodeDoubleJump = memo(({ data }) => {
     />
   );
 });
-export const NodeDuck = memo(({ data }) => {
+export const NodeCrouch = memo(({ data }) => {
   return (
     <NodeActions
       data={data}
-      className={classes.nodeDuck}
-      label="Duck"
-      selectName="duck"
+      className={classes.nodeCrouch}
+      label="Crouch"
+      selectName="crouch"
       dataName="entity"
     />
   );
@@ -70,17 +70,6 @@ export const NodeJump = memo(({ data }) => {
       className={classes.nodeJump}
       label="Jump"
       selectName="jump"
-      dataName="entity"
-    />
-  );
-});
-export const NodeSlide = memo(({ data }) => {
-  return (
-    <NodeActions
-      data={data}
-      className={classes.nodeSlide}
-      label="Slide"
-      selectName="slide"
       dataName="entity"
     />
   );
@@ -117,18 +106,17 @@ export const NodeDoubleJumpMini = (props) => {
     />
   );
 };
-export const NodeDuckMini = (props) => {
+export const NodeCrouchMini = (props) => {
   return (
-    <NodeActionsMini {...props} className={classes.nodeDuck} label={"Duck"} />
+    <NodeActionsMini
+      {...props}
+      className={classes.nodeCrouch}
+      label={"Crouch"}
+    />
   );
 };
 export const NodeJumpMini = (props) => {
   return (
     <NodeActionsMini {...props} className={classes.nodeJump} label={"Jump"} />
-  );
-};
-export const NodeSlideMini = (props) => {
-  return (
-    <NodeActionsMini {...props} className={classes.nodeSlide} label={"Slide"} />
   );
 };

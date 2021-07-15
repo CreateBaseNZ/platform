@@ -6,6 +6,8 @@ const ConsoleContext = createContext({
   addWarning: () => {},
   addError: () => {},
   clearLogs: () => {},
+  hasUnread: "",
+  setUnreadStatus: () => {},
 });
 
 export default ConsoleContext;
@@ -17,6 +19,7 @@ export const ConsoleContextProvider = (props) => {
     { type: "error", message: "clock" },
     { type: "error", message: "clock" },
   ]);
+  const [hasUnread, setHasUnread] = useState("");
 
   const addLog = (message) => {
     setLogs((state) => [...state, { type: "log", message: message }]);
@@ -34,6 +37,10 @@ export const ConsoleContextProvider = (props) => {
     setLogs([]);
   };
 
+  const setUnreadStatus = (status) => {
+    setHasUnread(status);
+  };
+
   return (
     <ConsoleContext.Provider
       value={{
@@ -42,6 +49,8 @@ export const ConsoleContextProvider = (props) => {
         addWarning: addWarning,
         addError: addError,
         clearLogs: clearLogs,
+        hasUnread: hasUnread,
+        setUnreadStatus: setUnreadStatus,
       }}
     >
       {props.children}
