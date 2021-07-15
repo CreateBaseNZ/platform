@@ -1,9 +1,11 @@
+import { useContext, useEffect, useRef, useState } from "react";
 import SwapCallsIcon from "@material-ui/icons/SwapCalls";
 import CodeIcon from "@material-ui/icons/Code";
 import CallToActionOutlinedIcon from "@material-ui/icons/CallToActionOutlined";
 
+import ConsoleContext from "../store/console-context";
+
 import classes from "./TabBar.module.scss";
-import { useEffect, useRef, useState } from "react";
 
 const Divider = (props) => {
   return (
@@ -49,6 +51,7 @@ const TabBar = (props) => {
   const textRef = useRef(null);
   const consoleRef = useRef(null);
   const [sliderSize, setSliderSize] = useState({ top: 0, size: 1 });
+  const ctx = useContext(ConsoleContext);
 
   useEffect(() => {
     switch (props.active) {

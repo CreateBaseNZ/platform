@@ -78,7 +78,7 @@ const Console = (props) => {
             {errorCount}
           </i>
         )}
-        <button title="Clear console" onClick={() => ctx.clearLogs()}>
+        <button title="Clear console" onClick={ctx.clearLogs}>
           <DeleteSweepIcon />
         </button>
       </div>

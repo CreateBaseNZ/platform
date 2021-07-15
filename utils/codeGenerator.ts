@@ -69,8 +69,7 @@ export class CodeGenerator {
         if (decimal > 1) {
           return false;
         }
-      }
-      else if (varName[i] < "0" || varName[i] > "9") {
+      } else if (varName[i] < "0" || varName[i] > "9") {
         return false;
       }
     }
