@@ -110,6 +110,7 @@ export class CodeGenerator {
       "!=",
       ">=",
       "||",
+      "&&",
     ];
     for (let i = 0; i < possibility.length; i++) {
       const data = possibility[i];
@@ -182,6 +183,12 @@ export class CodeGenerator {
         break;
       case "or":
         blockDetail.value.operator = "||";
+        break;
+      case "and":
+        blockDetail.value.operator = "&&";
+        break;
+      case "notEquals":
+        blockDetail.value.operator = "!=";
         break;
     }
     let mathInput = ["a", "operator", "b"];

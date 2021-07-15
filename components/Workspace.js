@@ -17,7 +17,7 @@ import { initialElements } from "../utils/flowConfig";
 import Console from "./Console";
 import { ConsoleContextProvider } from "../store/console-context";
 
-import { CodeGenerator } from "./CodeGenerator.ts";
+import { CodeGenerator } from "../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
 
 const findNextNode = (currentNode, path, elements) => {
@@ -68,6 +68,8 @@ const determineType = (block, currentNode) => {
     case "greaterThan":
     case "lessThan":
     case "equals":
+    case "notEquals":
+    case "and":
     case "or":
       block.type = "operatorGeneral";
       block.name = currentNode.type;
@@ -334,6 +336,7 @@ const Workspace = (props) => {
   const changeTabHandler = (tab) => {
     if (tab === "text") {
       const blocks = flow2Text(elements);
+      console.log(blocks);
       const codeGen = new CodeGenerator();
       const text = codeGen.build(blocks);
       // run flow2Text()
