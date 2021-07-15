@@ -197,7 +197,11 @@ export class CodeGenerator {
       if (mathInput[i] != "operator") {
         if (!this.isNumber(val)) {
           if (!this.checkVariable(val)) {
-            return false;
+            return [
+              false,
+              "error",
+              "The inputs to one of the operators is not a number",
+            ];
           }
         } else {
           val = String(Number(val));
@@ -205,7 +209,11 @@ export class CodeGenerator {
       } else {
         if (blockDetail)
           if (!this.checkSign(val)) {
-            return false;
+            return [
+              false,
+              "error",
+              "Wrong Sign is Entered",
+            ];
           }
       }
       inputs += val;
@@ -215,7 +223,7 @@ export class CodeGenerator {
     output = this.checkCorrectVar(String(blockDetail.value.out));
     const str = `${output}(${inputs})`;
     this.executes.push(str);
-    return true;
+    return [true];
   }
 
   private move(blockDetail: any) {
@@ -241,13 +249,12 @@ export class CodeGenerator {
           if (element.type == "number")
             if (!this.isNumber(currentInput)) {
               console.log("Can't be used");
-              return false;
+              return [false, "error", "Input to one of blocks is not a Boolean or Number"];
             } else {
               currentInput = String(Number(currentInput));
             }
         } else if (element.type == "boolean" && !this.isBool(currentInput)) {
-          console.log("Can't be used");
-          return false;
+          return [false, "error", "Input to one of blocks is not a Boolean or Number"];
         }
         if (i === blockFunction.function.inputs.length - 1) {
           inputVariables += element.variable;
@@ -257,6 +264,8 @@ export class CodeGenerator {
           inputs += currentInput + ", ";
         }
       }
+    } else {
+      return [false, "error", "Function does not exist"];
     }
     const elementOut = blockFunction.function.output;
     let output: any;
@@ -285,7 +294,7 @@ export class CodeGenerator {
     const execute = `// ${blockFunction.name}
     ${output}await ${functionName}(${inputs});`;
     this.executes.push(execute);
-    return true;
+    return [true];
   }
 
   private forStart(blockDetail) {
@@ -323,13 +332,17 @@ export class CodeGenerator {
     const val = String(blockDetail.value.condition).trim();
     if (!this.isBool(val)) {
       if (!this.checkVariable(val)) {
-        return false;
+        return [
+          false,
+          "error",
+          "One or more While blocks do not have a condition",
+        ];
       }
     }
     let inputs = val;
     const str = `while(${inputs}){`;
     this.executes.push(str);
-    return true;
+    return [true];
   }
 
   private elseCondition() {
@@ -343,7 +356,11 @@ export class CodeGenerator {
     if (!this.isNumber(currentInput)) {
       if (!this.checkVariable(currentInput) && !this.isBool(currentInput)) {
         console.log("Can't be used");
-        return false;
+        return [
+          false,
+          "error",
+          "One or more intialise block does not have a correct input",
+        ];
       }
     } else {
       currentInput = String(Number(currentInput));
@@ -354,7 +371,7 @@ export class CodeGenerator {
     const execute = `// Assign Variable
     ${output} ${currentInput};`;
     this.executes.push(execute);
-    return true;
+    return [true];
   }
 
   private endCondition() {
@@ -433,7 +450,7 @@ export class CodeGenerator {
           state = this.start(element);
           break;
         case "specific":
-          state = this.move(element);
+          [state, type, message] = this.move(element);
           break;
         case "end":
           state = this.end(element);
@@ -442,13 +459,13 @@ export class CodeGenerator {
           [state, type, message] = this.ifStart(element);
           break;
         case "intialise":
-          state = this.intialise(element);
+          [state, type, message] = this.intialise(element);
           break;
         case "while":
-          state = this.whileStart(element);
+          [state, type, message] = this.whileStart(element);
           break;
         case "operatorGeneral":
-          state = this.mathOp(element);
+          [state, type, message] = this.mathOp(element);
           break;
         case "repeat":
           [state, type, message] = this.forStart(element);
