@@ -209,11 +209,7 @@ export class CodeGenerator {
       } else {
         if (blockDetail)
           if (!this.checkSign(val)) {
-            return [
-              false,
-              "error",
-              "Wrong Sign is Entered",
-            ];
+            return [false, "error", "Wrong Sign is Entered"];
           }
       }
       inputs += val;
@@ -249,12 +245,20 @@ export class CodeGenerator {
           if (element.type == "number")
             if (!this.isNumber(currentInput)) {
               console.log("Can't be used");
-              return [false, "error", "Input to one of blocks is not a Boolean or Number"];
+              return [
+                false,
+                "error",
+                "Input to one of blocks is not a Boolean or Number",
+              ];
             } else {
               currentInput = String(Number(currentInput));
             }
         } else if (element.type == "boolean" && !this.isBool(currentInput)) {
-          return [false, "error", "Input to one of blocks is not a Boolean or Number"];
+          return [
+            false,
+            "error",
+            "Input to one of blocks is not a Boolean or Number",
+          ];
         }
         if (i === blockFunction.function.inputs.length - 1) {
           inputVariables += element.variable;
