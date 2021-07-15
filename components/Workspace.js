@@ -336,46 +336,34 @@ const Workspace = (props) => {
 
   const ctx = useContext(ConsoleContext);
 
-  const changeTabHandler = (tab) => {
-    if (tab === "text") {
-      const blocks = flow2Text(elements);
-      console.log(blocks);
-      if (Array.isArray(blocks)) {
-        const codeGen = new CodeGenerator();
-        const [newText, type, message] = codeGen.build(blocks);
-        if (newText !== text) {
-          if (type === "warning") {
-            ctx.addWarning(message);
-          } else if (type === "error") {
-            ctx.addError(message);
-          }
-          setText(newText);
-        }
-      } else {
-        ctx.addError(blocks);
-      }
-    }
-    setActiveTab(tab);
-  };
-
   const compileCode = () => {
     const blocks = flow2Text(elements);
     if (Array.isArray(blocks)) {
       const codeGen = new CodeGenerator();
-      const [text, type, message] = codeGen.build(blocks);
+      const [newText, type, message] = codeGen.build(blocks);
       if (type === "warning") {
         ctx.addWarning(message);
       } else if (type === "error") {
         ctx.addError(message);
       }
-      return text;
+      return newText;
     } else {
       ctx.addError(blocks);
+      return;
     }
   };
 
+  const changeTabHandler = (tab) => {
+    if (activeTab === "flow" && tab === "text") {
+      const newText = compileCode();
+      if (newText) {
+        setText(newText);
+      }
+    }
+    setActiveTab(tab);
+  };
+
   const executeCode = (text, data) => {
-    // console.log(data);
     const sensorData = data;
     const unityContext = props.unityContext;
     eval(text);
