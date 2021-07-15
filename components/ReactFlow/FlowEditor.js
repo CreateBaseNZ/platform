@@ -167,12 +167,8 @@ const FlowEditor = (props) => {
     // add to data state
     let defaultValues = null;
     if (type === "distance") {
-      defaultValues = { from: entities[0].toLowerCase(), to: "next object" };
+      defaultValues = { from: entities[0].toLowerCase(), to: "next obstacle" };
     } else if (
-      type === "speedOf" ||
-      type === "heightOf" ||
-      type === "widthOf" ||
-      type === "elevationOf" ||
       type === "jump" ||
       type === "doubleJump" ||
       type === "duck" ||
@@ -180,6 +176,13 @@ const FlowEditor = (props) => {
       type === "attack"
     ) {
       defaultValues = { entity: entities[0].toLowerCase() };
+    } else if (
+      type === "speedOf" ||
+      type === "heightOf" ||
+      type === "widthOf" ||
+      type === "elevationOf"
+    ) {
+      defaultValues = { entity: "next obstacle" };
     } else if (
       type === "add" ||
       type === "subtract" ||
@@ -230,7 +233,6 @@ const FlowEditor = (props) => {
     com = 0;
     const code = props.compileCode();
     com = setInterval(() => {
-      console.log(sensorDataRef.current);
       props.executeCode(code, sensorDataRef.current);
     }, 10);
   };

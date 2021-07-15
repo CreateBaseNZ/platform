@@ -7,6 +7,7 @@ import Game from "/components/Game";
 import Workspace from "/components/Workspace";
 
 import classes from "/styles/Play.module.scss";
+import { ConsoleContextProvider } from "../../store/console-context";
 
 const DUMMY_QUERY = {
   RunItDown: {
@@ -31,8 +32,6 @@ const Play = () => {
   const [game, setGame] = useState({ stacked: true });
   const [unityContext, sensorData, gameState, resetScene] = useUnity();
 
-  console.log(sensorData);
-
   useEffect(() => {
     if (router.query.game) {
       setGame(DUMMY_QUERY[urlToQueryName(router.query.game[0])]);
@@ -41,22 +40,24 @@ const Play = () => {
 
   return (
     <div className={classes.play}>
-      <Head>
-        <title>{game ? game.name : "Play"} | CreateBase</title>
-        <meta name="description" content={game ? game.caption : ""} />
-      </Head>
-      <div
-        className={`${classes.mainWindow} ${
-          game.stacked ? classes.stackedView : classes.shelvedView
-        }`}
-      >
-        <Game unityContext={unityContext} />
-        <Workspace
-          stacked={game.stacked}
-          unityContext={unityContext}
-          sensorData={sensorData}
-        />
-      </div>
+      <ConsoleContextProvider>
+        <Head>
+          <title>{game ? game.name : "Play"} | CreateBase</title>
+          <meta name="description" content={game ? game.caption : ""} />
+        </Head>
+        <div
+          className={`${classes.mainWindow} ${
+            game.stacked ? classes.stackedView : classes.shelvedView
+          }`}
+        >
+          <Game unityContext={unityContext} />
+          <Workspace
+            stacked={game.stacked}
+            unityContext={unityContext}
+            sensorData={sensorData}
+          />
+        </div>
+      </ConsoleContextProvider>
     </div>
   );
 };

@@ -292,14 +292,14 @@ export class CodeGenerator {
     let val = String(blockDetail.value.condition).trim();
     if (!this.isNumber(val)) {
       if (!this.checkVariable(val)) {
-        return false;
+        return [false, "error", "The input for a Repeat block is not a number"];
       }
     } else {
       val = String(Number(val));
     }
     const str = `for(let i=0;i<${val};i++){`;
     this.executes.push(str);
-    return true;
+    return [true];
   }
 
   private ifStart(blockDetail: any) {
@@ -419,7 +419,9 @@ export class CodeGenerator {
     this.increment = 1;
     this.code = "";
     //
-    let state = true;
+    let state: any = true;
+    let type = null;
+    let message = null;
     for (let i = 0; i < blockDetails.length; i++) {
       const element = blockDetails[i];
       switch (element.type) {
@@ -445,7 +447,7 @@ export class CodeGenerator {
           state = this.mathOp(element);
           break;
         case "repeat":
-          state = this.forStart(element);
+          [state, type, message] = this.forStart(element);
           break;
         case "else-condition":
           state = this.elseCondition();
@@ -464,12 +466,12 @@ export class CodeGenerator {
       }
       if (!state) {
         console.log(i);
-        return "";
+        return ["", type, message];
       }
     }
 
     this.run();
 
-    return this.intialiseVar() + this.content + this.execute;
+    return [this.intialiseVar() + this.content + this.execute, null, null];
   }
 }

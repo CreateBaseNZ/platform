@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import dynamic from "next/dynamic";
 import TextEditor from "./TextEditor";
 import ReactFlow, {
@@ -15,7 +15,9 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import { initialElements } from "../utils/flowConfig";
 import Console from "./Console";
-import { ConsoleContextProvider } from "../store/console-context";
+import ConsoleContext, {
+  ConsoleContextProvider,
+} from "../store/console-context";
 
 import { CodeGenerator } from "../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
@@ -333,12 +335,21 @@ const Workspace = (props) => {
   const [elements, setElements] = useState(initialElements);
   const [text, setText] = useState("// Let's code! 💡");
 
+  const ctx = useContext(ConsoleContext);
+
   const changeTabHandler = (tab) => {
     if (tab === "text") {
       const blocks = flow2Text(elements);
       console.log(blocks);
       const codeGen = new CodeGenerator();
-      const text = codeGen.build(blocks);
+      const [text, type, message] = codeGen.build(blocks);
+      console.log(type);
+      console.log(message);
+      if (type === "warning") {
+        ctx.addWarning(message);
+      } else if (type === "error") {
+        ctx.addError(message);
+      }
       // run flow2Text()
       // run compile to code - return the code (or error status if error)
       // setText(the code)
@@ -356,7 +367,12 @@ const Workspace = (props) => {
   const compileCode = () => {
     const blocks = flow2Text(elements);
     const codeGen = new CodeGenerator();
-    const text = codeGen.build(blocks);
+    const [text, type, message] = codeGen.build(blocks);
+    if (type === "warning") {
+      ctx.addWarning(message);
+    } else if (type === "error") {
+      ctx.addError(message);
+    }
     return text;
   };
 
@@ -368,25 +384,23 @@ const Workspace = (props) => {
   };
 
   return (
-    <ConsoleContextProvider>
-      <div className={classes.workspace}>
-        <FlowEditor
-          show={activeTab === "flow"}
-          elements={elements}
-          setElements={setElements}
-          executeCode={executeCode}
-          compileCode={compileCode}
-          sensorData={props.sensorData}
-        />
-        <TextEditor show={activeTab === "text"} text={text} />
-        <Console show={activeTab === "console"} />
-        <TabBar
-          stacked={props.stacked}
-          active={activeTab}
-          onChange={changeTabHandler}
-        />
-      </div>
-    </ConsoleContextProvider>
+    <div className={classes.workspace}>
+      <FlowEditor
+        show={activeTab === "flow"}
+        elements={elements}
+        setElements={setElements}
+        executeCode={executeCode}
+        compileCode={compileCode}
+        sensorData={props.sensorData}
+      />
+      <TextEditor show={activeTab === "text"} text={text} />
+      <Console show={activeTab === "console"} />
+      <TabBar
+        stacked={props.stacked}
+        active={activeTab}
+        onChange={changeTabHandler}
+      />
+    </div>
   );
 };
 

@@ -50,7 +50,12 @@ export const NodeHeightOf = ({ data }) => {
       className={`${classes.node} ${classes.sensing} ${classes.nodeHeightOf} ${classes.hasRightHandle}`}
     >
       <h4>Height of</h4>
-      <EntityDropdown data={data} selectName="heightOf" dataName="entity" />
+      <EntityDropdown
+        data={data}
+        selectName="heightOf"
+        dataName="entity"
+        options={["Next obstacle"]}
+      />
       <Handle
         type="source"
         position="right"
@@ -81,7 +86,12 @@ export const NodeWidthOf = ({ data }) => {
       className={`${classes.node} ${classes.sensing} ${classes.nodeWidthOf} ${classes.hasRightHandle}`}
     >
       <h4>Width of</h4>
-      <EntityDropdown data={data} selectName="widthOf" dataName="entity" />
+      <EntityDropdown
+        data={data}
+        selectName="widthOf"
+        dataName="entity"
+        options={["Next obstacle"]}
+      />
       <Handle
         type="source"
         position="right"
@@ -112,7 +122,12 @@ export const NodeSpeedOf = ({ data }) => {
       className={`${classes.node} ${classes.sensing} ${classes.nodeSpeedOf} ${classes.hasRightHandle}`}
     >
       <h4>Speed of</h4>
-      <EntityDropdown data={data} selectName="speedOf" dataName="entity" />
+      <EntityDropdown
+        data={data}
+        selectName="speedOf"
+        dataName="entity"
+        options={["Next obstacle"]}
+      />
       <Handle
         type="source"
         position="right"
@@ -143,11 +158,16 @@ export const NodeElevationOf = ({ data }) => {
       className={`${classes.node} ${classes.sensing} ${classes.nodeElevationOf} ${classes.hasRightHandle}`}
     >
       <h4>Elevation of</h4>
-      <EntityDropdown data={data} selectName="elevationOf" dataName="entity" />
+      <EntityDropdown
+        data={data}
+        selectName="elevationOf"
+        dataName="entity"
+        options={["Next obstacle"]}
+      />
       <Handle
         type="source"
         position="right"
-        id="param__elevation"
+        id="param__out"
         isValidConnection={isValidConnection}
         className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
       />
