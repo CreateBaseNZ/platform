@@ -43,12 +43,12 @@ const TextEditor = (props) => {
           ? classes.disable
           : ""
       } ${props.show ? "" : "hide"}`}
+      onKeyPress={(e) => e.preventDefault()}
     >
       <Editor
         defaultLanguage="javascript"
         value={props.text}
         onMount={editorDidMount}
-        className={classes.editor}
         theme={"vs-dark"}
         options={editorOptions}
       />

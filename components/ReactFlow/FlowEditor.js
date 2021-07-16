@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   removeElements,
@@ -71,10 +71,12 @@ const updateParamInput = (targetBlock, targetHandle, action) => {
 
 const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
+  const [newChanges, setNewChanges] = useState(false);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
-  const sensorDataRef = useRef(props.sensorData);
-  sensorDataRef.current = props.sensorData;
+  useEffect(() => {
+    setNewChanges(true);
+  }, [props.elements]);
 
   // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
@@ -232,8 +234,9 @@ const FlowEditor = (props) => {
     com = 0;
     const code = props.compileCode();
     com = setInterval(() => {
-      props.executeCode(code, sensorDataRef.current);
+      props.executeCode(code);
     }, 10);
+    setNewChanges(false);
   };
 
   return (
@@ -242,7 +245,9 @@ const FlowEditor = (props) => {
         <DndBar />
         <div className={classes.editorWrapper} ref={wrapperRef}>
           <GreenButton
-            className={`${classes.compileBtn} terminate-code`}
+            className={`${classes.compileBtn} ${
+              newChanges && classes.newChanges
+            } terminate-code`}
             clickHandler={compileHandler}
             caption="Compile"
           />

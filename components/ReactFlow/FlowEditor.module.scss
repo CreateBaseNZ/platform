@@ -71,4 +71,11 @@
   font-size: 1.25rem;
   font-weight: 600;
   cursor: pointer;
+  &:not(.newChanges) {
+    pointer-events: none;
+    box-shadow: none;
+    text-shadow: none;
+    opacity: 0.25;
+    filter: grayscale(1);
+  }
 }

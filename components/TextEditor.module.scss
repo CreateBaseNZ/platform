@@ -3,16 +3,10 @@
 .editorContainer {
   height: 100%;
   width: 100%;
-  position: relative;
+  cursor: default;
   * {
     font-family: $jetbrains;
     font-size: 14px;
-  }
-  &.disable {
-    pointer-events: none;
-    opacity: 0.5;
-    * {
-      pointer-events: none !important;
-    }
+    cursor: default;
   }
 }

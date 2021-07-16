@@ -1,23 +1,14 @@
-import { useCallback, useContext, useState } from "react";
+import { useRef, useContext, useState } from "react";
 import dynamic from "next/dynamic";
 import TextEditor from "./TextEditor";
-import ReactFlow, {
-  ReactFlowProvider,
-  removeElements,
-  addEdge,
-  updateEdge,
-  MiniMap,
-  Controls,
-  Background,
+import {
   getOutgoers,
   getConnectedEdges,
   getIncomers,
 } from "react-flow-renderer";
 import { initialElements } from "../utils/flowConfig";
 import Console from "./Console";
-import ConsoleContext, {
-  ConsoleContextProvider,
-} from "../store/console-context";
+import ConsoleContext from "../store/console-context";
 
 import { CodeGenerator } from "../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
@@ -335,6 +326,9 @@ const Workspace = (props) => {
   const [text, setText] = useState("// Let's code! 💡");
 
   const ctx = useContext(ConsoleContext);
+  const sensorDataRef = useRef(props.sensorData);
+
+  sensorDataRef.current = props.sensorData;
 
   const compileCode = () => {
     const blocks = flow2Text(elements);
@@ -363,8 +357,8 @@ const Workspace = (props) => {
     setActiveTab(tab);
   };
 
-  const executeCode = (text, data) => {
-    const sensorData = data;
+  const executeCode = (text) => {
+    const sensorData = sensorDataRef.current;
     const unityContext = props.unityContext;
     eval(text);
   };
@@ -377,7 +371,6 @@ const Workspace = (props) => {
         setElements={setElements}
         executeCode={executeCode}
         compileCode={compileCode}
-        sensorData={props.sensorData}
       />
       <TextEditor show={activeTab === "text"} text={text} />
       <Console show={activeTab === "console"} />
