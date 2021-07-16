@@ -57,7 +57,7 @@ const Explore = () => {
           <p>{DUMMY_PROJECTS[activeProject].caption}</p>
           <Link
             href={{
-              pathname: "/create/[project]",
+              pathname: "/overview/[project]",
               query: { project: DUMMY_PROJECTS[activeProject].routerQuery },
             }}
           >

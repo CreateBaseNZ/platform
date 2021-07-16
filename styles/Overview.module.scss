@@ -1,0 +1,68 @@
+@import "/styles/variables";
+
+.overview {
+  width: 100vw;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  section {
+    width: 100%;
+    padding: 5vh 5vw;
+    h2 {
+      font-size: 3rem;
+      font-weight: 600;
+      color: $darker;
+      line-height: 2em;
+    }
+  }
+}
+
+.description {
+  font-size: 1rem;
+  color: $dark;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin: 5vh 0;
+  width: 50%;
+}
+
+.taskContainer {
+  width: 50%;
+  margin: 5vh 0;
+  display: flex;
+  flex-direction: column;
+  h5 {
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    color: $darker;
+    font-weight: 700;
+  }
+  ul {
+    margin-top: 0.5em;
+    margin-left: 2rem;
+    li {
+      margin: 0.25em 0;
+    }
+  }
+  p {
+    margin-top: 1em;
+  }
+  p,
+  ul li {
+    font-weight: $darkest;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+}
+
+.moduleContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5vh 0;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: $light;
+}

@@ -1,0 +1,90 @@
+@import "/styles/variables";
+
+.module {
+  height: 15vw;
+  width: 15vw;
+  padding: 1vw;
+  min-height: 180px;
+  min-width: 180px;
+  border: thin solid $light;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out, border 0.2s ease-out,
+    box-shadow 0.2s ease-out;
+  .label {
+    display: flex;
+    align-items: center;
+    i {
+      height: 3rem;
+      width: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      path,
+      circle {
+        fill: $lightest;
+      }
+    }
+    h4 {
+      font-size: calc(1vw + 0.4rem);
+      font-weight: 600;
+      color: $light;
+      margin-left: 1rem;
+    }
+  }
+  h3 {
+    font-size: calc(1vw + 0.75rem);
+    font-weight: 600;
+    line-height: 1.25em;
+    word-wrap: break-word;
+    span {
+      font-size: inherit;
+      font-weight: inherit;
+    }
+  }
+  &:hover {
+    background: $lightest;
+    border: thin solid transparent;
+    box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.infoModule {
+  i {
+    background: #9e2ef6;
+  }
+  span {
+    color: #9e2ef6;
+  }
+}
+
+.tutorialModule {
+  i {
+    background: #20d6e2;
+  }
+  span {
+    color: #20d6e2;
+  }
+}
+
+.hintModule {
+  i {
+    background: $amber;
+  }
+  span {
+    color: $amber;
+  }
+}
+
+.sneakPeekModule {
+  i {
+    background: #acec25;
+  }
+  span {
+    color: #acec25;
+  }
+}

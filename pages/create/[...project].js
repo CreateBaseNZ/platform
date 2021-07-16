@@ -6,25 +6,20 @@ import useUnity from "/hooks/useUnity";
 import Game from "/components/Game";
 import Workspace from "/components/Workspace";
 
-import classes from "/styles/Create.module.scss";
 import { ConsoleContextProvider } from "../../store/console-context";
+
+import urlToQueryName from "../../utils/urlToQueryName";
+
+import classes from "/styles/Create.module.scss";
 
 const DUMMY_QUERY = {
   RunItDown: {
     name: "Run It Down",
-    routerQuery: "run-it-down",
     src: "/project.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
     stacked: true,
   },
-};
-
-const urlToQueryName = (str) => {
-  return str
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join("");
 };
 
 const Create = () => {
