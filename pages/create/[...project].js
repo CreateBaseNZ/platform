@@ -6,14 +6,14 @@ import useUnity from "/hooks/useUnity";
 import Game from "/components/Game";
 import Workspace from "/components/Workspace";
 
-import classes from "/styles/Play.module.scss";
+import classes from "/styles/Create.module.scss";
 import { ConsoleContextProvider } from "../../store/console-context";
 
 const DUMMY_QUERY = {
   RunItDown: {
     name: "Run It Down",
     routerQuery: "run-it-down",
-    src: "/game.png",
+    src: "/project.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
     stacked: true,
@@ -27,32 +27,32 @@ const urlToQueryName = (str) => {
     .join("");
 };
 
-const Play = () => {
+const Create = () => {
   const router = useRouter();
-  const [game, setGame] = useState({ stacked: true });
+  const [project, setProject] = useState({ stacked: true });
   const [unityContext, sensorData, gameState, resetScene] = useUnity();
 
   useEffect(() => {
-    if (router.query.game) {
-      setGame(DUMMY_QUERY[urlToQueryName(router.query.game[0])]);
+    if (router.query.project) {
+      setProject(DUMMY_QUERY[urlToQueryName(router.query.project[0])]);
     }
   }, [router.query]);
 
   return (
-    <div className={classes.play}>
+    <div className={classes.create}>
       <ConsoleContextProvider>
         <Head>
-          <title>{game ? game.name : "Play"} | CreateBase</title>
-          <meta name="description" content={game ? game.caption : ""} />
+          <title>{project ? project.name : "Create"} | CreateBase</title>
+          <meta name="description" content={project ? project.caption : ""} />
         </Head>
         <div
           className={`${classes.mainWindow} ${
-            game.stacked ? classes.stackedView : classes.shelvedView
+            project.stacked ? classes.stackedView : classes.shelvedView
           }`}
         >
           <Game unityContext={unityContext} />
           <Workspace
-            stacked={game.stacked}
+            stacked={project.stacked}
             unityContext={unityContext}
             sensorData={sensorData}
           />
@@ -62,4 +62,4 @@ const Play = () => {
   );
 };
 
-export default Play;
+export default Create;
