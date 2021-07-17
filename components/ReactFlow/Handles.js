@@ -12,8 +12,6 @@ const isValidConnection = (connection) => {
 const CustomHandle = (props) => {
   const [, , zoom] = useStoreState((state) => state.transform);
 
-  console.log(zoom);
-
   return (
     <Handle
       {...props}

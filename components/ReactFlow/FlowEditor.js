@@ -271,7 +271,7 @@ const FlowEditor = (props) => {
             snapGrid={[16, 16]}
             arrowHeadColor="#ffffff"
           >
-            <ControlsBar />
+            <ControlsBar instance={reactFlowInstance} />
             <Background color="#aaa" gap={16} />
           </ReactFlow>
         </div>

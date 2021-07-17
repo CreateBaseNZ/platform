@@ -51,6 +51,9 @@ export const NodeRepeat = ({ data }) => {
   const changeHandler = (event) => {
     data.callBack({ ...data.values, condition: event.target.value });
   };
+  const dragHandler = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <div
@@ -60,6 +63,7 @@ export const NodeRepeat = ({ data }) => {
       <h4>Repeat</h4>
       <input
         onChange={changeHandler}
+        onDragStart={dragHandler}
         type="number"
         value={data.values.condition}
       />

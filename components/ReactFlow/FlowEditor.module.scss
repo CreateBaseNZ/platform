@@ -46,10 +46,12 @@
         opacity: 1;
       }
     }
+    &:last-child {
+      border-bottom: none !important;
+    }
   }
   .customControl {
     padding: 5px;
-    border: none !important;
     svg {
       max-height: 16px;
       max-width: 16px;
