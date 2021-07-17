@@ -1,7 +1,6 @@
 import { memo } from "react";
-import { Handle } from "react-flow-renderer";
 import { EntityDropdown } from "./NodeGeneral";
-import { isValidConnection } from "../../utils/nodeHelpers";
+import CustomHandle from "./Handles";
 
 import classes from "./Nodes.module.scss";
 
@@ -10,22 +9,10 @@ const NodeActions = ({ data, className, label, selectName, dataName }) => {
     <div
       className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${className}`}
     >
-      <Handle
-        type="target"
-        position="left"
-        id="execution"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.leftHandle} ${classes.targetHandle} ${classes.executionHandle}`}
-      />
+      <CustomHandle type="target" position="left" id="execution" />
       <h4>{label}</h4>
       <EntityDropdown data={data} selectName={selectName} dataName={dataName} />
-      <Handle
-        type="source"
-        position="right"
-        id="execution"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="execution" />
     </div>
   );
 };

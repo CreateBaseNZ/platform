@@ -1,8 +1,7 @@
-import { Handle } from "react-flow-renderer";
 import { EntityDropdown } from "./NodeGeneral";
-import { isValidConnection } from "../../utils/nodeHelpers";
 
 import classes from "./Nodes.module.scss";
+import CustomHandle from "./Handles";
 
 export const NodeDistance = ({ data }) => {
   return (
@@ -18,13 +17,7 @@ export const NodeDistance = ({ data }) => {
         dataName="to"
         options={["Next obstacle"]}
       />
-      <Handle
-        type="source"
-        position="right"
-        id="param__out"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
 };
@@ -56,13 +49,7 @@ export const NodeHeightOf = ({ data }) => {
         dataName="entity"
         options={["Next obstacle"]}
       />
-      <Handle
-        type="source"
-        position="right"
-        id="param__out"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
 };
@@ -92,13 +79,7 @@ export const NodeWidthOf = ({ data }) => {
         dataName="entity"
         options={["Next obstacle"]}
       />
-      <Handle
-        type="source"
-        position="right"
-        id="param__out"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
 };
@@ -128,13 +109,7 @@ export const NodeSpeedOf = ({ data }) => {
         dataName="entity"
         options={["Next obstacle"]}
       />
-      <Handle
-        type="source"
-        position="right"
-        id="param__out"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
 };
@@ -164,13 +139,7 @@ export const NodeElevationOf = ({ data }) => {
         dataName="entity"
         options={["Next obstacle"]}
       />
-      <Handle
-        type="source"
-        position="right"
-        id="param__out"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.paramHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
 };

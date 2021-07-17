@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { Handle } from "react-flow-renderer";
-import { isValidConnection } from "../../utils/nodeHelpers";
+// import { Handle } from "react-flow-renderer";
+import CustomHandle from "./Handles";
 
 import { entities } from "../../utils/flowConfig";
 
@@ -12,13 +12,7 @@ export const NodeStart = memo(() => {
       className={`${classes.node} ${classes.nodeStart} ${classes.hasRightHandle}`}
     >
       <h4>Start</h4>
-      <Handle
-        type="source"
-        position="right"
-        id="execution"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="execution" />
     </div>
   );
 });

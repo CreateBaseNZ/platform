@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
 import {
   HintModule,
+  VideoModule,
   InfoModule,
-  SneaPeekModule,
+  SneakPeekModule,
   TutorialModule,
 } from "../../components/Modules";
-
-import urlToQueryName from "../../utils/urlToQueryName";
 
 import classes from "/styles/Overview.module.scss";
 import GreenButton from "../../components/UI/GreenButton";
 
 const DUMMY_QUERY = {
-  RunItDown: {
+  "run-it-down": {
+    query: "run-it-down",
     name: "Run It Down",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
@@ -25,11 +26,13 @@ const DUMMY_QUERY = {
 
 const Overview = (props) => {
   const router = useRouter();
-  const [project, setProject] = useState();
+  const [project, setProject] = useState({});
+
+  console.log(project);
 
   useEffect(() => {
     if (router.query.project) {
-      setProject(DUMMY_QUERY[urlToQueryName(router.query.project[0])]);
+      setProject(DUMMY_QUERY[router.query.project[0]]);
     }
   }, [router.query]);
 
@@ -41,30 +44,42 @@ const Overview = (props) => {
       </Head>
       <section>
         <h2>Imagine</h2>
+        <div className={classes.moduleContainer}>
+          <VideoModule>
+            The <span>Situation</span>
+          </VideoModule>
+        </div>
+        <p className={classes.description}>
+          Dive into the situation. What do you think is happening here?
+        </p>
       </section>
       <div className={classes.divider} />
       <section>
         <h2>Define</h2>
+        <p className={classes.description}>
+          Narrow in on the problem and get to know your tools. Where to begin,
+          where to begin ...
+        </p>
       </section>
       <div className={classes.divider} />
       <section>
         <h2>Research</h2>
         <div className={classes.moduleContainer}>
           <InfoModule>
-            Rewatch the <span>Situation</span> Video
-          </InfoModule>
-          <TutorialModule>
             What is <span>Flow</span> Programming?
-          </TutorialModule>
+          </InfoModule>
           <TutorialModule>
             Introduction to <span>Sensing</span> Blocks
           </TutorialModule>
           <HintModule>
             <span>Tips</span> &amp; <span>Tricks</span>
           </HintModule>
-          <SneaPeekModule>
+          <VideoModule>
+            Rewatch the <span>Situation</span> Video
+          </VideoModule>
+          <SneakPeekModule>
             Give it a <span>Go</span>
-          </SneaPeekModule>
+          </SneakPeekModule>
         </div>
         <p className={classes.description}>
           Work through the modules above to complete your research.
@@ -73,6 +88,11 @@ const Overview = (props) => {
       <div className={classes.divider} />
       <section>
         <h2>Plan</h2>
+        <div className={classes.centerContainer}></div>
+        <p className={classes.description}>
+          Look closely ... are those ... hints? No ... they can't be ... can
+          they? Hmmm ...
+        </p>
       </section>
       <div className={classes.divider} />
       <section>
@@ -92,7 +112,16 @@ const Overview = (props) => {
           </ul>
         </div>
         <div className={classes.buttonContainer}>
-          <GreenButton caption="Go!" />
+          <Link
+            href={{
+              pathname: "/create/[project]",
+              query: { project: project.query },
+            }}
+          >
+            <div>
+              <GreenButton caption="Go!" />
+            </div>
+          </Link>
         </div>
         <div className={classes.graphicContainer}>
           <Image

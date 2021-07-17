@@ -1,5 +1,4 @@
-import { Handle } from "react-flow-renderer";
-import { isValidConnection } from "../../utils/nodeHelpers";
+import CustomHandle from "./Handles";
 
 import classes from "./Nodes.module.scss";
 
@@ -8,21 +7,13 @@ export const NodeIf = ({ data }) => {
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeIf} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
     >
-      <Handle
-        type="target"
-        position="left"
-        id="execution"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.leftHandle} ${classes.executionHandle} ${classes.targetHandle}`}
-      />
+      <CustomHandle type="target" position="left" id="execution" />
       <h4>If</h4>
       <input className={classes.preventInput} />
-      <Handle
+      <CustomHandle
         type="target"
         position="top"
         id="param__condition"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "52px", transform: "none" }}
       />
       <div className={classes.rightHandleLabel} style={{ top: 16 }}>
@@ -34,28 +25,22 @@ export const NodeIf = ({ data }) => {
       <div className={classes.rightHandleLabel} style={{ bottom: 16 }}>
         Then
       </div>
-      <Handle
+      <CustomHandle
         type="source"
         position="right"
         id="execution__0"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ top: 16, transform: "none" }}
       />
-      <Handle
+      <CustomHandle
         type="source"
         position="right"
         id="execution__1"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ top: 50, transform: "none" }}
       />
-      <Handle
+      <CustomHandle
         type="source"
         position="right"
         id="execution__2"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ bottom: 16, top: "auto", transform: "none" }}
       />
     </div>
@@ -71,25 +56,17 @@ export const NodeRepeat = ({ data }) => {
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeRepeat} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
     >
-      <Handle
-        type="target"
-        position="left"
-        id="execution"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.leftHandle} ${classes.executionHandle} ${classes.targetHandle}`}
-      />
+      <CustomHandle type="target" position="left" id="execution" />
       <h4>Repeat</h4>
       <input
         onChange={changeHandler}
         type="number"
         value={data.values.condition}
       />
-      <Handle
+      <CustomHandle
         type="target"
         position="top"
         id="param__condition"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "91px", transform: "none" }}
       />
       <div className={classes.rightHandleLabel} style={{ top: 16 }}>
@@ -98,20 +75,16 @@ export const NodeRepeat = ({ data }) => {
       <div className={classes.rightHandleLabel} style={{ bottom: 16 }}>
         Then
       </div>
-      <Handle
+      <CustomHandle
         type="source"
         position="right"
         id="execution__0"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ top: 16, transform: "none" }}
       />
-      <Handle
+      <CustomHandle
         type="source"
         position="right"
         id="execution__1"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ bottom: 16, top: "auto", transform: "none" }}
       />
     </div>
@@ -123,21 +96,13 @@ export const NodeWhile = ({ data }) => {
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeWhile} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
     >
-      <Handle
-        type="target"
-        position="left"
-        id="execution"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.leftHandle} ${classes.executionHandle} ${classes.targetHandle}`}
-      />
+      <CustomHandle type="target" position="left" id="execution" />
       <h4>While</h4>
       <input className={classes.preventInput} />
-      <Handle
+      <CustomHandle
         type="target"
         position="top"
         id="param__condition"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "86px", transform: "none" }}
       />
       <div className={classes.rightHandleLabel} style={{ top: 16 }}>
@@ -146,20 +111,16 @@ export const NodeWhile = ({ data }) => {
       <div className={classes.rightHandleLabel} style={{ bottom: 16 }}>
         Then
       </div>
-      <Handle
+      <CustomHandle
         type="source"
         position="right"
         id="execution__0"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ top: 16, transform: "none" }}
       />
-      <Handle
+      <CustomHandle
         type="source"
         position="right"
         id="execution__1"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.sourceHandle} ${classes.executionHandle}`}
         style={{ bottom: 16, top: "auto", transform: "none" }}
       />
     </div>

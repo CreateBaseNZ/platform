@@ -34,6 +34,7 @@
       font-weight: 600;
       color: $light;
       margin-left: 1rem;
+      line-height: 1em;
     }
   }
   h3 {
@@ -50,6 +51,15 @@
     background: $lightest;
     border: thin solid transparent;
     box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.videoModule {
+  i {
+    background: #fa4b4b;
+  }
+  span {
+    color: #fa4b4b;
   }
 }
 

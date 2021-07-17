@@ -1,4 +1,5 @@
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import VideocamOutlinedIcon from "@material-ui/icons/VideocamOutlined";
 import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import SportsEsportsOutlinedIcon from "@material-ui/icons/SportsEsportsOutlined";
@@ -14,6 +15,18 @@ const Module = ({ className, icon, label, children }) => {
       </div>
       <h3>{children}</h3>
     </div>
+  );
+};
+
+export const VideoModule = (props) => {
+  return (
+    <Module
+      className={classes.videoModule}
+      icon={<VideocamOutlinedIcon />}
+      label="Video"
+    >
+      {props.children}
+    </Module>
   );
 };
 
@@ -53,7 +66,7 @@ export const HintModule = (props) => {
   );
 };
 
-export const SneaPeekModule = (props) => {
+export const SneakPeekModule = (props) => {
   return (
     <Module
       className={classes.sneakPeekModule}

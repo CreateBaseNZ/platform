@@ -11,21 +11,21 @@ import Thumbnail from "../components/Thumbnail";
 const DUMMY_PROJECTS = [
   {
     name: "Run It Down",
-    routerQuery: "run-it-down",
+    query: "run-it-down",
     src: "/project.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
   },
   {
     name: "Coming soon",
-    routerQuery: "",
+    query: "",
     src: "/coming-soon.png",
     caption: "Coming soon.",
     comingSoon: true,
   },
   {
     name: "Coming soon",
-    routerQuery: "",
+    query: "",
     src: "/coming-soon.png",
     caption: "Coming soon.",
     comingSoon: true,
@@ -58,7 +58,7 @@ const Explore = () => {
           <Link
             href={{
               pathname: "/overview/[project]",
-              query: { project: DUMMY_PROJECTS[activeProject].routerQuery },
+              query: { project: DUMMY_PROJECTS[activeProject].query },
             }}
           >
             <div>

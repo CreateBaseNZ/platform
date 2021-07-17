@@ -1,6 +1,5 @@
 import { memo } from "react";
-import { Handle } from "react-flow-renderer";
-import { isValidConnection } from "../../utils/nodeHelpers";
+import CustomHandle from "./Handles";
 
 import classes from "./Nodes.module.scss";
 
@@ -16,32 +15,22 @@ const NodeOperations = ({ label, data, className = "" }) => {
     <div
       className={`${classes.node} ${classes.operating} ${classes.hasRightHandle} ${className}`}
     >
-      <Handle
+      <CustomHandle
         type="target"
         position="top"
         id="param__a"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "30px", transform: "none" }}
       />
-      <Handle
+      <CustomHandle
         type="target"
         position="top"
         id="param__b"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "auto", right: "34px", transform: "none" }}
       />
       <input onChange={changeHandlerA} type="number" value={data.values.a} />
       <h4>{label}</h4>
       <input onChange={changeHandlerB} type="number" value={data.values.b} />
-      <Handle
-        type="source"
-        position="right"
-        id="param__out"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.paramHandle} ${classes.sourceHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
 };
@@ -112,20 +101,16 @@ export const NodeOperatorGeneral = memo(({ data }) => {
     <div
       className={`${classes.node} ${classes.operating} ${classes.hasRightHandle} ${classes.operatingGeneral}`}
     >
-      <Handle
+      <CustomHandle
         type="target"
         position="top"
         id="param__a"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "30px", transform: "none" }}
       />
-      <Handle
+      <CustomHandle
         type="target"
         position="top"
         id="param__b"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.topHandle} ${classes.paramHandle} ${classes.targetHandle}`}
         style={{ left: "auto", right: "34px", transform: "none" }}
       />
       <input onChange={changeHandlerA} type="number" value={data.values.a} />
@@ -144,13 +129,7 @@ export const NodeOperatorGeneral = memo(({ data }) => {
         )}
       </select>
       <input onChange={changeHandlerB} type="number" value={data.values.b} />
-      <Handle
-        type="source"
-        position="right"
-        id="param__out"
-        isValidConnection={isValidConnection}
-        className={`${classes.handle} ${classes.rightHandle} ${classes.paramHandle} ${classes.sourceHandle}`}
-      />
+      <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
 });

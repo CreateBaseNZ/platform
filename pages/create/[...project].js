@@ -8,12 +8,10 @@ import Workspace from "/components/Workspace";
 
 import { ConsoleContextProvider } from "../../store/console-context";
 
-import urlToQueryName from "../../utils/urlToQueryName";
-
 import classes from "/styles/Create.module.scss";
 
 const DUMMY_QUERY = {
-  RunItDown: {
+  "run-it-down": {
     name: "Run It Down",
     src: "/project.png",
     caption:
@@ -29,7 +27,7 @@ const Create = () => {
 
   useEffect(() => {
     if (router.query.project) {
-      setProject(DUMMY_QUERY[urlToQueryName(router.query.project[0])]);
+      setProject(DUMMY_QUERY[router.query.project[0]]);
     }
   }, [router.query]);
 
