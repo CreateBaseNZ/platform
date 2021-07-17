@@ -80,11 +80,23 @@ const updateParamInput = (targetBlock, targetHandle, action) => {
 const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
   const [newChanges, setNewChanges] = useState(false);
+  const [allowCompile, setAllowCompile] = useState(false);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const [actionStack, setActionStack] = useState([props.elements]);
+
+  console.log(actionStack);
 
   useEffect(() => {
-    setNewChanges(true);
+    setAllowCompile(true);
   }, [props.elements]);
+
+  useEffect(() => {
+    if (newChanges) {
+      console.log("added to stack");
+      setActionStack((actions) => [...actions, props.elements]);
+      setNewChanges(false);
+    }
+  }, [newChanges]);
 
   // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
@@ -98,6 +110,7 @@ const FlowEditor = (props) => {
       }
     }
     props.setElements((els) => removeElements(filteredElements, els));
+    setNewChanges(true);
   }, []);
 
   const onConnect = useCallback((params) => {
@@ -120,10 +133,10 @@ const FlowEditor = (props) => {
 
     // check if param input needs to be toggled
     updateParamInput(params.target, params.targetHandle, "prevent");
-
     props.setElements((els) => {
       return addEdge(newEdge, els);
     });
+    setNewChanges(true);
   }, []);
 
   // updating edges
@@ -137,6 +150,7 @@ const FlowEditor = (props) => {
       "prevent"
     );
     props.setElements((els) => updateEdge(oldEdge, newConnection, els));
+    setNewChanges(true);
   }, []);
 
   // initialising flow editor
@@ -236,10 +250,12 @@ const FlowEditor = (props) => {
               return el;
             })
           );
+          setNewChanges(true);
         },
       },
     };
     props.setElements((es) => es.concat(newNode));
+    setNewChanges(true);
   };
 
   const compileHandler = () => {
@@ -249,7 +265,7 @@ const FlowEditor = (props) => {
     com = setInterval(() => {
       props.executeCode(code);
     }, 10);
-    setNewChanges(false);
+    setAllowCompile(false);
   };
 
   return (
@@ -259,7 +275,7 @@ const FlowEditor = (props) => {
         <div className={classes.editorWrapper} ref={wrapperRef}>
           <GreenButton
             className={`${classes.compileBtn} ${
-              newChanges && classes.newChanges
+              allowCompile && classes.newChanges
             } terminate-code`}
             clickHandler={compileHandler}
             caption="Compile"
@@ -282,6 +298,8 @@ const FlowEditor = (props) => {
             <ControlsBar
               elements={props.elements}
               setElements={props.setElements}
+              actionStack={actionStack}
+              setActionStack={setActionStack}
             />
             <Background color="#aaa" gap={16} />
           </ReactFlow>
