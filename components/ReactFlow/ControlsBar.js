@@ -1,12 +1,12 @@
-import { useCallback } from "react";
-import { Controls, ControlButton } from "react-flow-renderer";
+import { Controls, ControlButton, useZoomPanHelper } from "react-flow-renderer";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
+import RestoreOutlinedIcon from "@material-ui/icons/RestoreOutlined";
 
-import classes from "./FlowEditor.module.scss";
+import classes from "./ControlsBar.module.scss";
 
 const ControlsBar = (props) => {
-  console.log(props.instance);
+  const { setCenter } = useZoomPanHelper();
 
   const interactiveChangeHandler = () => {
     const lock = document.querySelector("." + classes.controls).children[3];
@@ -19,12 +19,26 @@ const ControlsBar = (props) => {
     }
   };
 
-  const saveHandler = useCallback(() => {
-    if (props.instance) {
-      const flow = props.instance.toObject();
-      localforage.setItem("flow_save", flow);
+  const saveHandler = () => {
+    if (props.elements) {
+      window.localStorage.setItem("flow_save", JSON.stringify(props.elements));
     }
-  }, [props.instance]);
+  };
+
+  const restoreHandler = () => {
+    const restoreFlow = () => {
+      const flow = JSON.parse(window.localStorage.getItem("flow_save"));
+
+      console.log(flow);
+
+      if (flow) {
+        props.setElements(flow);
+        setCenter(0, 0, 1.25);
+      }
+    };
+
+    restoreFlow();
+  };
 
   return (
     <Controls
@@ -37,8 +51,17 @@ const ControlsBar = (props) => {
       >
         <InfoOutlinedIcon />
       </ControlButton>
-      <ControlButton className={classes.customControl} onClick={saveHandler}>
+      <ControlButton
+        className={`${classes.customControl} ${classes.saveButton}`}
+        onClick={saveHandler}
+      >
         <SaveOutlinedIcon />
+      </ControlButton>
+      <ControlButton
+        className={`${classes.restoreButton} ${classes.customControl}`}
+        onClick={restoreHandler}
+      >
+        <RestoreOutlinedIcon />
       </ControlButton>
     </Controls>
   );

@@ -21,7 +21,15 @@ import nodesClass from "./Nodes.module.scss";
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const controlTitles = ["Zoom-in", "Zoom-out", "Fit-view", "Lock", "Info"];
+const controlTitles = [
+  "Zoom-in",
+  "Zoom-out",
+  "Fit-view",
+  "Lock",
+  "Info",
+  "Save",
+  "Restore",
+];
 
 let com;
 
@@ -271,7 +279,10 @@ const FlowEditor = (props) => {
             snapGrid={[16, 16]}
             arrowHeadColor="#ffffff"
           >
-            <ControlsBar instance={reactFlowInstance} />
+            <ControlsBar
+              elements={props.elements}
+              setElements={props.setElements}
+            />
             <Background color="#aaa" gap={16} />
           </ReactFlow>
         </div>

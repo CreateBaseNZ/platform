@@ -1,0 +1,46 @@
+@import "/styles/variables";
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  background: none;
+  box-shadow: none !important;
+  border: thin solid $lighter;
+  & > * {
+    background: $light;
+    border-bottom: thin solid $lighter !important;
+    opacity: 0.75;
+    transition: opacity 0.1s ease-out;
+    &:hover {
+      opacity: 1;
+    }
+    &.locked {
+      opacity: 0.75;
+      background: $lightest;
+      path {
+        fill: rgb(255, 22, 22);
+      }
+      &:hover {
+        opacity: 1;
+      }
+    }
+    &:last-child {
+      border-bottom: none !important;
+    }
+  }
+  .customControl {
+    padding: 5px;
+    svg {
+      max-height: 16px;
+      max-width: 16px;
+      path {
+        fill: black;
+      }
+    }
+  }
+}
+
+.saveButton,
+.restoreButton {
+  order: -1;
+}
