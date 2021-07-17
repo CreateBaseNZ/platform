@@ -143,6 +143,11 @@ const FlowEditor = (props) => {
       controls[i].title = controlTitles[i];
     }
 
+    const arrow = document.querySelector("#react-flow__arrowclosed");
+    const clone = arrow.cloneNode(true);
+    clone.id = "react-flow__arrowclosed__custom";
+    arrow.parentNode.appendChild(clone);
+
     // const arrowClosed = document.querySelector("#react-flow__arrowclosed");
     // arrowClosed.setAttribute("markerHeight", 16);
     // arrowClosed.setAttribute("markerWidth", 16);

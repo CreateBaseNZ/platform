@@ -75,3 +75,39 @@ svg {
     fill: $amber;
   }
 }
+
+#react-flow__arrowclosed__custom {
+  polyline {
+    stroke: $logo-light;
+    fill: $logo-light;
+  }
+}
+
+.react-flow__edge {
+  &.updating {
+    path {
+      stroke-width: 2 !important;
+    }
+  }
+  &.selected {
+    path {
+      stroke: $logo-light !important;
+      stroke-width: 3 !important;
+    }
+  }
+}
+
+.react-flow__edge-execution {
+  &.updating {
+    path {
+      stroke-width: 4 !important;
+    }
+  }
+  &.selected {
+    path {
+      stroke: $logo-light !important;
+      stroke-width: 4 !important;
+      marker-end: url(#react-flow__arrowclosed__custom);
+    }
+  }
+}

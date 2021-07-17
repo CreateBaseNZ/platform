@@ -14,7 +14,7 @@ const unityContext = new UnityContext({
   // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
 });
 
-const useUnity = () => {
+const useUnity = (settings) => {
   const [sensorData, setSensorData] = useState();
   const [gameState, setGameState] = useState();
 
@@ -31,6 +31,12 @@ const useUnity = () => {
   }, []);
 
   useEffect(() => {
+    // load settings
+    // unityContext.send(
+    //   "SceneController",
+    //   "LoadScene",
+    //   "project_jump_0," + settings
+    // );
     return () => unityContext.removeAllEventListeners();
   }, []);
 

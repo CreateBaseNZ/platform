@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Image from "next/image";
 import {
   HintModule,
   InfoModule,
@@ -11,6 +12,7 @@ import {
 import urlToQueryName from "../../utils/urlToQueryName";
 
 import classes from "/styles/Overview.module.scss";
+import GreenButton from "../../components/UI/GreenButton";
 
 const DUMMY_QUERY = {
   RunItDown: {
@@ -89,6 +91,17 @@ const Overview = (props) => {
             <li>Reach 1000m to deliver your package. Good luck!</li>
           </ul>
         </div>
+        <div className={classes.buttonContainer}>
+          <GreenButton caption="Go!" />
+        </div>
+        <div className={classes.graphicContainer}>
+          <Image
+            src="/overview-create.png"
+            alt="Create"
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
       </section>
       <div className={classes.divider} />
       <section>
@@ -107,6 +120,17 @@ const Overview = (props) => {
             <li>Modify your code to duck under flying drones</li>
             <li>Deliver that package!</li>
           </ul>
+        </div>
+        <div className={classes.graphicContainer}>
+          <Image
+            src="/overview-improve.png"
+            alt="Create"
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
+        <div className={classes.buttonContainer}>
+          <GreenButton caption="Go!" />
         </div>
       </section>
       <div className={classes.divider} />

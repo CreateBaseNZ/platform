@@ -62,7 +62,7 @@ const Explore = () => {
             }}
           >
             <div>
-              <GreenButton caption="Go!" />
+              <GreenButton caption="Continue" />
             </div>
           </Link>
         </div>
