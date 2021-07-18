@@ -38,9 +38,14 @@
       }
     }
   }
+  .deactive {
+    opacity: 0.25;
+    pointer-events: none;
+  }
 }
 
 .undoButton,
+.redoButton,
 .saveButton,
 .restoreButton {
   order: -1;

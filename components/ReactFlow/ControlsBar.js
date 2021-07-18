@@ -1,10 +1,12 @@
 import { Controls, ControlButton, useZoomPanHelper } from "react-flow-renderer";
 import UndoIcon from "@material-ui/icons/Undo";
+import RedoIcon from "@material-ui/icons/Redo";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
 import RestoreOutlinedIcon from "@material-ui/icons/RestoreOutlined";
 
 import classes from "./ControlsBar.module.scss";
+import { useEffect, useState } from "react";
 
 const ControlsBar = (props) => {
   const { setCenter } = useZoomPanHelper();
@@ -21,15 +23,21 @@ const ControlsBar = (props) => {
   };
 
   const undoHandler = () => {
-    console.log(props.actionStack);
-    const lastIndex = props.actionStack.length - 1;
-    console.log(lastIndex);
-    if (lastIndex > 0) {
-      props.setElements(props.actionStack[lastIndex - 1]);
-      props.setActionStack((stack) =>
-        stack.filter((_, index) => index !== lastIndex)
-      );
-    }
+    props.setElements(
+      props.actionStack.stack[props.actionStack.currentIndex - 1]
+    );
+    props.setActionStack((state) => {
+      return { ...state, currentIndex: state.currentIndex - 1 };
+    });
+  };
+
+  const redoHandler = () => {
+    props.setElements(
+      props.actionStack.stack[props.actionStack.currentIndex + 1]
+    );
+    props.setActionStack((state) => {
+      return { ...state, currentIndex: state.currentIndex + 1 };
+    });
   };
 
   const saveHandler = () => {
@@ -56,10 +64,21 @@ const ControlsBar = (props) => {
       onInteractiveChange={interactiveChangeHandler}
     >
       <ControlButton
-        className={`${classes.customControl} ${classes.undoButton}`}
+        className={`${classes.customControl} ${classes.undoButton} ${
+          props.actionStack.currentIndex === 0 && classes.deactive
+        }`}
         onClick={undoHandler}
       >
         <UndoIcon />
+      </ControlButton>
+      <ControlButton
+        className={`${classes.customControl} ${classes.redoButton} ${
+          props.actionStack.currentIndex + 1 ===
+            props.actionStack.stack.length && classes.deactive
+        }`}
+        onClick={redoHandler}
+      >
+        <RedoIcon />
       </ControlButton>
       <ControlButton
         className={`${classes.customControl} ${classes.saveButton}`}

@@ -26,9 +26,11 @@ const controlTitles = [
   "Zoom-out",
   "Fit-view",
   "Lock",
-  "Info",
+  "Undo",
+  "Redo",
   "Save",
   "Restore",
+  "Info",
 ];
 
 let com;
@@ -79,24 +81,29 @@ const updateParamInput = (targetBlock, targetHandle, action) => {
 
 const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
-  const [newChanges, setNewChanges] = useState(false);
   const [allowCompile, setAllowCompile] = useState(false);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-  const [actionStack, setActionStack] = useState([props.elements]);
-
-  console.log(actionStack);
+  const [actionStack, setActionStack] = useState({
+    stack: [props.elements],
+    currentIndex: 0,
+  });
+  const [userHasActed, setUserHasActed] = useState(false);
 
   useEffect(() => {
     setAllowCompile(true);
-  }, [props.elements]);
-
-  useEffect(() => {
-    if (newChanges) {
-      console.log("added to stack");
-      setActionStack((actions) => [...actions, props.elements]);
-      setNewChanges(false);
+    if (userHasActed) {
+      setActionStack((state) => {
+        return {
+          stack: [
+            ...state.stack.slice(0, state.currentIndex + 1),
+            props.elements,
+          ],
+          currentIndex: state.currentIndex + 1,
+        };
+      });
+      setUserHasActed(false);
     }
-  }, [newChanges]);
+  }, [props.elements]);
 
   // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
@@ -110,7 +117,7 @@ const FlowEditor = (props) => {
       }
     }
     props.setElements((els) => removeElements(filteredElements, els));
-    setNewChanges(true);
+    setUserHasActed(true);
   }, []);
 
   const onConnect = useCallback((params) => {
@@ -133,10 +140,11 @@ const FlowEditor = (props) => {
 
     // check if param input needs to be toggled
     updateParamInput(params.target, params.targetHandle, "prevent");
+
     props.setElements((els) => {
       return addEdge(newEdge, els);
     });
-    setNewChanges(true);
+    setUserHasActed(true);
   }, []);
 
   // updating edges
@@ -149,8 +157,9 @@ const FlowEditor = (props) => {
       newConnection.targetHandle,
       "prevent"
     );
+
     props.setElements((els) => updateEdge(oldEdge, newConnection, els));
-    setNewChanges(true);
+    setUserHasActed(true);
   }, []);
 
   // initialising flow editor
@@ -160,9 +169,10 @@ const FlowEditor = (props) => {
     _reactFlowInstance.fitView();
     setReactFlowInstance(_reactFlowInstance);
 
-    const controls = document.querySelector("." + classes.controls).children;
+    const controls = document.querySelector(".react-flow__controls").children;
     for (let i = 0; i < controls.length; i++) {
       controls[i].title = controlTitles[i];
+      console.log(controls[i]);
     }
 
     const arrow = document.querySelector("#react-flow__arrowclosed");
@@ -250,12 +260,13 @@ const FlowEditor = (props) => {
               return el;
             })
           );
-          setNewChanges(true);
+          setUserHasActed(true);
         },
       },
     };
+
     props.setElements((es) => es.concat(newNode));
-    setNewChanges(true);
+    setUserHasActed(true);
   };
 
   const compileHandler = () => {
