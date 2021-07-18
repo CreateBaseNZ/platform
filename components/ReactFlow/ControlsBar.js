@@ -22,42 +22,6 @@ const ControlsBar = (props) => {
     }
   };
 
-  const undoHandler = () => {
-    props.setElements(
-      props.actionStack.stack[props.actionStack.currentIndex - 1]
-    );
-    props.setActionStack((state) => {
-      return { ...state, currentIndex: state.currentIndex - 1 };
-    });
-  };
-
-  const redoHandler = () => {
-    props.setElements(
-      props.actionStack.stack[props.actionStack.currentIndex + 1]
-    );
-    props.setActionStack((state) => {
-      return { ...state, currentIndex: state.currentIndex + 1 };
-    });
-  };
-
-  const saveHandler = () => {
-    if (props.elements) {
-      window.localStorage.setItem("flow_save", JSON.stringify(props.elements));
-    }
-  };
-
-  const restoreHandler = () => {
-    const restoreFlow = () => {
-      const flow = JSON.parse(window.localStorage.getItem("flow_save"));
-      if (flow) {
-        props.setElements(flow);
-        setCenter(0, 0, 1.25);
-      }
-    };
-
-    restoreFlow();
-  };
-
   return (
     <Controls
       className={classes.controls}
@@ -65,30 +29,29 @@ const ControlsBar = (props) => {
     >
       <ControlButton
         className={`${classes.customControl} ${classes.undoButton} ${
-          props.actionStack.currentIndex === 0 && classes.deactive
+          props.allowUndo && classes.deactive
         }`}
-        onClick={undoHandler}
+        onClick={props.undoHandler}
       >
         <UndoIcon />
       </ControlButton>
       <ControlButton
         className={`${classes.customControl} ${classes.redoButton} ${
-          props.actionStack.currentIndex + 1 ===
-            props.actionStack.stack.length && classes.deactive
+          props.allowRedo && classes.deactive
         }`}
-        onClick={redoHandler}
+        onClick={props.redoHandler}
       >
         <RedoIcon />
       </ControlButton>
       <ControlButton
         className={`${classes.customControl} ${classes.saveButton}`}
-        onClick={saveHandler}
+        onClick={props.saveHandler}
       >
         <SaveOutlinedIcon />
       </ControlButton>
       <ControlButton
         className={`${classes.restoreButton} ${classes.customControl}`}
-        onClick={restoreHandler}
+        onClick={props.restoreHandler}
       >
         <RestoreOutlinedIcon />
       </ControlButton>

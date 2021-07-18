@@ -36,10 +36,17 @@ const FlowEditor = (props) => {
     currentIndex: 0,
   });
   const [userHasActed, setUserHasActed] = useState(false);
+  const [clipBoard, setClipBoard] = useState();
+
+  console.log(actionStack);
 
   useEffect(() => {
     setAllowCompile(true);
+  }, [props.elements]);
+
+  useEffect(() => {
     if (userHasActed) {
+      console.log("im updating something");
       setActionStack((state) => {
         return {
           stack: [
@@ -51,7 +58,22 @@ const FlowEditor = (props) => {
       });
       setUserHasActed(false);
     }
-  }, [props.elements]);
+  }, [userHasActed]);
+
+  // initialising flow editor
+  const onLoad = useCallback((_reactFlowInstance) => {
+    console.log("flow loaded:", _reactFlowInstance);
+    _reactFlowInstance.fitView();
+    setReactFlowInstance(_reactFlowInstance);
+    const controls = document.querySelector(".react-flow__controls").children;
+    for (let i = 0; i < controls.length; i++) {
+      controls[i].title = controlTitles[i];
+    }
+    const arrow = document.querySelector("#react-flow__arrowclosed");
+    const clone = arrow.cloneNode(true);
+    clone.id = "react-flow__arrowclosed__custom";
+    arrow.parentNode.appendChild(clone);
+  }, []);
 
   // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
@@ -86,9 +108,7 @@ const FlowEditor = (props) => {
     }
     // check if param input needs to be toggled
     updateParamInput(params.target, params.targetHandle, "prevent");
-    props.setElements((els) => {
-      return addEdge(newEdge, els);
-    });
+    props.setElements((els) => addEdge(newEdge, els));
     setUserHasActed(true);
   }, []);
 
@@ -104,22 +124,6 @@ const FlowEditor = (props) => {
     );
     props.setElements((els) => updateEdge(oldEdge, newConnection, els));
     setUserHasActed(true);
-  }, []);
-
-  // initialising flow editor
-  const onLoad = useCallback((_reactFlowInstance) => {
-    console.log("flow loaded:", _reactFlowInstance);
-    _reactFlowInstance.fitView();
-    setReactFlowInstance(_reactFlowInstance);
-    const controls = document.querySelector(".react-flow__controls").children;
-    for (let i = 0; i < controls.length; i++) {
-      controls[i].title = controlTitles[i];
-      console.log(controls[i]);
-    }
-    const arrow = document.querySelector("#react-flow__arrowclosed");
-    const clone = arrow.cloneNode(true);
-    clone.id = "react-flow__arrowclosed__custom";
-    arrow.parentNode.appendChild(clone);
   }, []);
 
   // dragging from menu to drop zone
@@ -166,6 +170,38 @@ const FlowEditor = (props) => {
     setUserHasActed(true);
   };
 
+  const undoAction = () => {
+    props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
+    setActionStack((state) => {
+      return { ...state, currentIndex: state.currentIndex - 1 };
+    });
+  };
+
+  const redoAction = () => {
+    props.setElements(actionStack.stack[actionStack.currentIndex + 1]);
+    setActionStack((state) => {
+      return { ...state, currentIndex: state.currentIndex + 1 };
+    });
+  };
+
+  const saveFlow = () => {
+    if (props.elements) {
+      window.localStorage.setItem("flow_save", JSON.stringify(props.elements));
+    }
+  };
+
+  const restoreFlow = () => {
+    const restore = () => {
+      const flow = JSON.parse(window.localStorage.getItem("flow_save"));
+      if (flow) {
+        props.setElements(flow);
+        setCenter(0, 0, 1.25);
+      }
+    };
+
+    restore();
+  };
+
   const compileHandler = () => {
     clearInterval(com);
     com = 0;
@@ -176,10 +212,28 @@ const FlowEditor = (props) => {
     setAllowCompile(false);
   };
 
+  const keyDownHandler = (event) => {
+    if (event.ctrlKey) {
+      if (event.key === "c") {
+      } else if (event.key === "v") {
+      } else if (event.key === "z") {
+        undoAction();
+      } else if (event.key === "y") {
+        redoAction();
+      } else if (event.key === "s") {
+        saveFlow();
+      } else if (event.key === "r") {
+        restoreFlow();
+      }
+    }
+  };
+
   return (
     <div
       className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}
       onContextMenu={() => console.log("does this work")}
+      onKeyDown={keyDownHandler}
+      tabIndex={-1}
     >
       <ReactFlowProvider>
         <DndBar />
@@ -206,10 +260,14 @@ const FlowEditor = (props) => {
             arrowHeadColor="#ffffff"
           >
             <ControlsBar
-              elements={props.elements}
-              setElements={props.setElements}
-              actionStack={actionStack}
-              setActionStack={setActionStack}
+              undoHandler={undoAction}
+              redoHandler={redoAction}
+              saveHandler={saveFlow}
+              restoreHandler={restoreFlow}
+              allowUndo={actionStack.currentIndex === 0}
+              allowRedo={
+                actionStack.currentIndex + 1 === actionStack.stack.length
+              }
             />
             <Background color="#aaa" gap={16} />
           </ReactFlow>
