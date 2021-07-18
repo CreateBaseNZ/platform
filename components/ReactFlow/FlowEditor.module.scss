@@ -43,3 +43,13 @@
     filter: grayscale(1);
   }
 }
+
+.lockAlert {
+  animation: alert 0.8s linear infinite;
+}
+
+@keyframes alert {
+  50% {
+    background: red;
+  }
+}

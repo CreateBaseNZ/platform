@@ -1,31 +1,30 @@
-import { Controls, ControlButton, useZoomPanHelper } from "react-flow-renderer";
+import { Controls, ControlButton } from "react-flow-renderer";
 import UndoIcon from "@material-ui/icons/Undo";
 import RedoIcon from "@material-ui/icons/Redo";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
 import RestoreOutlinedIcon from "@material-ui/icons/RestoreOutlined";
+import LockIcon from "@material-ui/icons/Lock";
+import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 
 import classes from "./ControlsBar.module.scss";
-import { useEffect, useState } from "react";
 
 const ControlsBar = (props) => {
-  const { setCenter } = useZoomPanHelper();
-
-  const interactiveChangeHandler = () => {
-    const lock = document.querySelector("." + classes.controls).children[3];
+  const lockHandler = () => {
+    props.lockHandler();
+    const lock = document.querySelector("." + classes.controls).children[6];
     if (lock.title === "Lock") {
       lock.title = "Unlock";
-      lock.classList.add(classes.locked);
     } else {
       lock.title = "Lock";
-      lock.classList.remove(classes.locked);
     }
   };
 
   return (
     <Controls
       className={classes.controls}
-      onInteractiveChange={interactiveChangeHandler}
+      showFitView={false}
+      showInteractive={false}
     >
       <ControlButton
         className={`${classes.customControl} ${classes.undoButton} ${
@@ -54,6 +53,15 @@ const ControlsBar = (props) => {
         onClick={props.restoreHandler}
       >
         <RestoreOutlinedIcon />
+      </ControlButton>
+      <ControlButton
+        className={`${classes.customControl} ${
+          props.flowLocked && classes.locked
+        }`}
+        id="lockButton"
+        onClick={lockHandler}
+      >
+        {props.flowLocked ? <LockIcon /> : <LockOpenOutlinedIcon />}
       </ControlButton>
       <ControlButton
         className={classes.customControl}

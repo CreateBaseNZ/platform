@@ -1,6 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import ReactFlow, {
-  ReactFlowProvider,
   removeElements,
   addEdge,
   updateEdge,
@@ -8,6 +7,7 @@ import ReactFlow, {
   isEdge,
   isNode,
   getOutgoers,
+  useZoomPanHelper,
 } from "react-flow-renderer";
 import { nodeTypes, edgeTypes } from "../../utils/flowConfig";
 import {
@@ -29,6 +29,7 @@ const getId = () => `dndnode_${id++}`;
 
 const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
+  const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
   const [allowCompile, setAllowCompile] = useState(false);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [actionStack, setActionStack] = useState({
@@ -40,8 +41,9 @@ const FlowEditor = (props) => {
     selectedEl: null,
     board: null,
   });
+  const [flowLocked, setFlowLocked] = useState(false);
 
-  console.log(actionStack);
+  console.log(reactFlowInstance);
 
   useEffect(() => {
     setAllowCompile(true);
@@ -49,7 +51,6 @@ const FlowEditor = (props) => {
 
   useEffect(() => {
     if (userHasActed) {
-      console.log("im updating something");
       setActionStack((state) => {
         return {
           stack: [
@@ -217,7 +218,6 @@ const FlowEditor = (props) => {
         setCenter(0, 0, 1.25);
       }
     };
-
     restore();
   };
 
@@ -231,7 +231,12 @@ const FlowEditor = (props) => {
     setAllowCompile(false);
   };
 
+  const lockHandler = () => {
+    setFlowLocked((state) => !state);
+  };
+
   const keyDownHandler = (event) => {
+    event.preventDefault();
     if (event.ctrlKey) {
       if (event.key === "c") {
         copyNode();
@@ -244,6 +249,26 @@ const FlowEditor = (props) => {
         saveFlow();
       } else if (event.key === "r") {
         restoreFlow();
+      } else if (event.key === "=") {
+        zoomIn();
+      } else if (event.key === "-") {
+        zoomOut();
+      } else if (event.key === "l") {
+        lockHandler();
+      }
+    }
+  };
+
+  // flash lock icon if attempting to drag node while flow is locked
+  const mouseMoveHandler = (event, node) => {
+    if (event.buttons === 1) {
+      if (flowLocked) {
+        document.querySelector("#lockButton").classList.add(classes.lockAlert);
+        setTimeout(() => {
+          document
+            .querySelector("#lockButton")
+            .classList.remove(classes.lockAlert);
+        }, 3200);
       }
     }
   };
@@ -255,45 +280,50 @@ const FlowEditor = (props) => {
       onKeyDown={keyDownHandler}
       tabIndex={-1}
     >
-      <ReactFlowProvider>
-        <DndBar />
-        <div className={classes.editorWrapper} ref={wrapperRef}>
-          <GreenButton
-            className={`${classes.compileBtn} ${
-              allowCompile && classes.newChanges
-            } terminate-code`}
-            clickHandler={compileHandler}
-            caption="Compile"
+      <DndBar />
+      <div className={classes.editorWrapper} ref={wrapperRef}>
+        <GreenButton
+          className={`${classes.compileBtn} ${
+            allowCompile && classes.newChanges
+          } terminate-code`}
+          clickHandler={compileHandler}
+          caption="Compile"
+        />
+        <ReactFlow
+          minZoom={0.25}
+          elements={props.elements}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          onLoad={onLoad}
+          onElementClick={elementClickHandler}
+          onElementsRemove={onElementsRemove}
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          onConnect={onConnect}
+          onEdgeUpdate={onEdgeUpdate}
+          snapToGrid={true}
+          snapGrid={[16, 16]}
+          nodesDraggable={!flowLocked}
+          nodesConnectable={!flowLocked}
+          elementsSelectable={!flowLocked}
+          arrowHeadColor="#ffffff"
+          onNodeMouseMove={mouseMoveHandler}
+        >
+          <ControlsBar
+            undoHandler={undoAction}
+            redoHandler={redoAction}
+            saveHandler={saveFlow}
+            restoreHandler={restoreFlow}
+            allowUndo={actionStack.currentIndex === 0}
+            allowRedo={
+              actionStack.currentIndex + 1 === actionStack.stack.length
+            }
+            flowLocked={flowLocked}
+            lockHandler={lockHandler}
           />
-          <ReactFlow
-            elements={props.elements}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            onLoad={onLoad}
-            onElementClick={elementClickHandler}
-            onElementsRemove={onElementsRemove}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onConnect={onConnect}
-            onEdgeUpdate={onEdgeUpdate}
-            snapToGrid={true}
-            snapGrid={[16, 16]}
-            arrowHeadColor="#ffffff"
-          >
-            <ControlsBar
-              undoHandler={undoAction}
-              redoHandler={redoAction}
-              saveHandler={saveFlow}
-              restoreHandler={restoreFlow}
-              allowUndo={actionStack.currentIndex === 0}
-              allowRedo={
-                actionStack.currentIndex + 1 === actionStack.stack.length
-              }
-            />
-            <Background color="#aaa" gap={16} />
-          </ReactFlow>
-        </div>
-      </ReactFlowProvider>
+          <Background color="#aaa" gap={16} />
+        </ReactFlow>
+      </div>
     </div>
   );
 };

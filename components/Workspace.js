@@ -9,6 +9,7 @@ import {
 import { initialElements } from "../utils/flowConfig";
 import Console from "./Console";
 import ConsoleContext from "../store/console-context";
+import { ReactFlowProvider } from "react-flow-renderer";
 
 import { CodeGenerator } from "../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
@@ -365,13 +366,15 @@ const Workspace = (props) => {
 
   return (
     <div className={classes.workspace}>
-      <FlowEditor
-        show={activeTab === "flow"}
-        elements={elements}
-        setElements={setElements}
-        executeCode={executeCode}
-        compileCode={compileCode}
-      />
+      <ReactFlowProvider>
+        <FlowEditor
+          show={activeTab === "flow"}
+          elements={elements}
+          setElements={setElements}
+          executeCode={executeCode}
+          compileCode={compileCode}
+        />
+      </ReactFlowProvider>
       <TextEditor show={activeTab === "text"} text={text} />
       <Console show={activeTab === "console"} />
       <TabBar

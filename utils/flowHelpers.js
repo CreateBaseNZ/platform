@@ -3,14 +3,13 @@ import { entities } from "./flowConfig";
 import classes from "../components/ReactFlow/Nodes.module.scss";
 
 export const controlTitles = [
-  "Zoom-in",
-  "Zoom-out",
-  "Fit-view",
-  "Lock",
-  "Undo",
-  "Redo",
-  "Save",
-  "Restore",
+  "Zoom-in (Ctrl and +)",
+  "Zoom-out (Ctrl and -)",
+  "Undo (Ctrl + Z)",
+  "Redo (Ctrl + Y)",
+  "Save (Ctrl + S)",
+  "Restore (Ctrl + R)",
+  "Lock (Ctrl + L)",
   "Info",
 ];
 

@@ -55,11 +55,11 @@ const DndBar = () => {
         />
         <h5>Actions</h5>
         <NodeJumpMini onDragStart={(event) => onDragStart(event, "jump")} />
-        <NodeDoubleJumpMini
+        {/* <NodeDoubleJumpMini
           onDragStart={(event) => onDragStart(event, "doubleJump")}
-        />
+        /> */}
         <NodeCrouchMini onDragStart={(event) => onDragStart(event, "crouch")} />
-        <NodeAttackMini onDragStart={(event) => onDragStart(event, "attack")} />
+        {/* <NodeAttackMini onDragStart={(event) => onDragStart(event, "attack")} /> */}
         <h5>Operators</h5>
         <NodeAddMini onDragStart={(event) => onDragStart(event, "add")} />
         <NodeSubtractMini
