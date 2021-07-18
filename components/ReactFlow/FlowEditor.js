@@ -18,6 +18,7 @@ import ControlsBar from "./ControlsBar";
 import classes from "./FlowEditor.module.scss";
 import nodesClass from "./Nodes.module.scss";
 
+let com;
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
@@ -33,7 +34,48 @@ const controlTitles = [
   "Info",
 ];
 
-let com;
+const getDefaultValues = (type) => {
+  if (type === "distance") {
+    return { from: entities[0].toLowerCase(), to: "next obstacle" };
+  }
+  if (
+    type === "jump" ||
+    type === "doubleJump" ||
+    type === "crouch" ||
+    type === "attack"
+  ) {
+    return { entity: entities[0].toLowerCase() };
+  }
+  if (
+    type === "speedOf" ||
+    type === "heightOf" ||
+    type === "widthOf" ||
+    type === "elevationOf"
+  ) {
+    return { entity: "next obstacle" };
+  }
+  if (
+    type === "add" ||
+    type === "subtract" ||
+    type === "multiply" ||
+    type === "divide" ||
+    type === "greaterThan" ||
+    type === "lessThan" ||
+    type === "equals" ||
+    type === "notEquals" ||
+    type === "and" ||
+    type === "or"
+  ) {
+    return { a: 0, b: 0 };
+  }
+  if (type === "operatorGeneral") {
+    return { a: 0, b: 0, operator: "+" };
+  }
+  if (type === "repeat") {
+    return { condition: "1" };
+  }
+  return {};
+};
 
 const updateGhostEnd = (sourceBlock, sourceHandle, action) => {
   switch (action) {
@@ -122,7 +164,6 @@ const FlowEditor = (props) => {
 
   const onConnect = useCallback((params) => {
     updateGhostEnd(params.source, params.sourceHandle, "add");
-
     // styling new edge
     let newEdge;
     if (params.sourceHandle.split("__")[0] === "execution") {
@@ -137,10 +178,8 @@ const FlowEditor = (props) => {
         ...params,
       };
     }
-
     // check if param input needs to be toggled
     updateParamInput(params.target, params.targetHandle, "prevent");
-
     props.setElements((els) => {
       return addEdge(newEdge, els);
     });
@@ -157,7 +196,6 @@ const FlowEditor = (props) => {
       newConnection.targetHandle,
       "prevent"
     );
-
     props.setElements((els) => updateEdge(oldEdge, newConnection, els));
     setUserHasActed(true);
   }, []);
@@ -165,24 +203,17 @@ const FlowEditor = (props) => {
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
     console.log("flow loaded:", _reactFlowInstance);
-
     _reactFlowInstance.fitView();
     setReactFlowInstance(_reactFlowInstance);
-
     const controls = document.querySelector(".react-flow__controls").children;
     for (let i = 0; i < controls.length; i++) {
       controls[i].title = controlTitles[i];
       console.log(controls[i]);
     }
-
     const arrow = document.querySelector("#react-flow__arrowclosed");
     const clone = arrow.cloneNode(true);
     clone.id = "react-flow__arrowclosed__custom";
     arrow.parentNode.appendChild(clone);
-
-    // const arrowClosed = document.querySelector("#react-flow__arrowclosed");
-    // arrowClosed.setAttribute("markerHeight", 16);
-    // arrowClosed.setAttribute("markerWidth", 16);
   }, []);
 
   // dragging from menu to drop zone
@@ -203,51 +234,12 @@ const FlowEditor = (props) => {
     });
     // create new node
     const id = getId();
-    // add to data state
-    let defaultValues = null;
-    if (type === "distance") {
-      defaultValues = { from: entities[0].toLowerCase(), to: "next obstacle" };
-    } else if (
-      type === "jump" ||
-      type === "doubleJump" ||
-      type === "crouch" ||
-      type === "attack"
-    ) {
-      defaultValues = { entity: entities[0].toLowerCase() };
-    } else if (
-      type === "speedOf" ||
-      type === "heightOf" ||
-      type === "widthOf" ||
-      type === "elevationOf"
-    ) {
-      defaultValues = { entity: "next obstacle" };
-    } else if (
-      type === "add" ||
-      type === "subtract" ||
-      type === "multiply" ||
-      type === "divide" ||
-      type === "greaterThan" ||
-      type === "lessThan" ||
-      type === "equals" ||
-      type === "notEquals" ||
-      type === "and" ||
-      type === "or"
-    ) {
-      defaultValues = { a: 0, b: 0 };
-    } else if (type === "operatorGeneral") {
-      defaultValues = { a: 0, b: 0, operator: "+" };
-    } else if (type === "repeat") {
-      defaultValues = { condition: "1" };
-    } else {
-      defaultValues = {};
-    }
-    // add to element state
     const newNode = {
       id: id,
       type,
       position,
       data: {
-        values: defaultValues,
+        values: getDefaultValues(type),
         callBack: (newValues) => {
           props.setElements((els) =>
             els.map((el) => {
@@ -264,7 +256,6 @@ const FlowEditor = (props) => {
         },
       },
     };
-
     props.setElements((es) => es.concat(newNode));
     setUserHasActed(true);
   };
@@ -280,7 +271,10 @@ const FlowEditor = (props) => {
   };
 
   return (
-    <div className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}>
+    <div
+      className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}
+      onContextMenu={() => console.log("does this work")}
+    >
       <ReactFlowProvider>
         <DndBar />
         <div className={classes.editorWrapper} ref={wrapperRef}>
