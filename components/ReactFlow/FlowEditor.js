@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, { useRef, useState, useCallback, useEffect, memo } from "react";
 import ReactFlow, {
   removeElements,
   addEdge,
@@ -16,20 +16,17 @@ import {
   updateParamInput,
 } from "../../utils/flowHelpers";
 
-import GreenButton from "../UI/GreenButton";
 import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
 
-let com;
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const FlowEditor = (props) => {
   const wrapperRef = useRef(null);
   const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
-  const [allowCompile, setAllowCompile] = useState(false);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [actionStack, setActionStack] = useState({
     stack: [props.elements],
@@ -46,10 +43,6 @@ const FlowEditor = (props) => {
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
-
-  useEffect(() => {
-    setAllowCompile(true);
-  }, [props.elements]);
 
   useEffect(() => {
     if (userHasActed) {
@@ -225,16 +218,6 @@ const FlowEditor = (props) => {
     restore();
   };
 
-  const compileHandler = () => {
-    clearInterval(com);
-    com = 0;
-    const code = props.compileCode();
-    com = setInterval(() => {
-      props.executeCode(code);
-    }, 10);
-    setAllowCompile(false);
-  };
-
   const lockHandler = () => {
     setFlowLocked((state) => !state);
   };
@@ -295,13 +278,6 @@ const FlowEditor = (props) => {
     >
       <DndBar />
       <div className={classes.editorWrapper} ref={wrapperRef}>
-        <GreenButton
-          className={`${classes.compileBtn} ${
-            allowCompile && classes.newChanges
-          } terminate-code`}
-          clickHandler={compileHandler}
-          caption="Compile"
-        />
         <ReactFlow
           minZoom={0.25}
           elements={props.elements}
@@ -322,6 +298,7 @@ const FlowEditor = (props) => {
           arrowHeadColor="#ffffff"
           onNodeMouseMove={nodeMouseMoveHandler}
           onEdgeUpdateEnd={edgeUpdateEndHandler}
+          onNodeDragStop={() => console.log("drag stop")}
         >
           <ControlsBar
             undoHandler={undoAction}
@@ -340,4 +317,5 @@ const FlowEditor = (props) => {
   );
 };
 
-export default FlowEditor;
+// export default memo(FlowEditor, memoEqual);
+export default memo(FlowEditor);

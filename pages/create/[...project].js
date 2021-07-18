@@ -50,6 +50,7 @@ const Create = () => {
             sensorData={sensorData}
           />
         </div>
+        <div id="compileBtnPortal"></div>
       </ConsoleContextProvider>
     </div>
   );
