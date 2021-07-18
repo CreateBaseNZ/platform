@@ -40,8 +40,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  span {
     font-size: 14px;
-    // transform: rotate(90deg);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -57,7 +58,7 @@
     }
   }
   &:hover {
-    label {
+    span {
       color: $dark;
     }
     svg > path {
@@ -66,7 +67,7 @@
   }
   &.activeTab {
     background: $lightest;
-    label {
+    span {
       color: $logo-mid;
     }
     svg > path {
@@ -114,4 +115,10 @@
   background: $logo-mid;
   z-index: 1;
   transition: top 0.2s ease-out, height 0.2s ease-out;
+}
+
+@media only screen and (max-height: 650px) {
+  .tab span {
+    display: none;
+  }
 }

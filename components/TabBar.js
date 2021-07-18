@@ -42,7 +42,7 @@ const Tab = (props) => {
       />
       <label htmlFor={props.id}>
         {props.icon}
-        {props.title}
+        <span>{props.title}</span>
       </label>
     </div>
   );
