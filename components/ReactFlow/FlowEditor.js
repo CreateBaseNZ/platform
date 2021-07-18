@@ -269,6 +269,15 @@ const FlowEditor = (props) => {
     }
   };
 
+  const nodeDragStopHandler = (event, node) => {
+    console.log(props.elements);
+    console.log(node);
+    props.setElements((els) =>
+      els.map((el) => (el.id === node.id ? node : el))
+    );
+    setUserHasActed(true);
+  };
+
   return (
     <div
       className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}
@@ -298,7 +307,7 @@ const FlowEditor = (props) => {
           arrowHeadColor="#ffffff"
           onNodeMouseMove={nodeMouseMoveHandler}
           onEdgeUpdateEnd={edgeUpdateEndHandler}
-          onNodeDragStop={() => console.log("drag stop")}
+          onNodeDragStop={nodeDragStopHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
