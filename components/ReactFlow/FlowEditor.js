@@ -42,7 +42,7 @@ const FlowEditor = (props) => {
   });
   const [flowLocked, setFlowLocked] = useState(false);
 
-  console.log(reactFlowInstance);
+  console.log(props.elements);
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;

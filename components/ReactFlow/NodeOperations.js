@@ -10,9 +10,6 @@ const NodeOperations = ({ label, data, className = "" }) => {
   const changeHandlerB = (event) => {
     data.callBack({ ...data.values, b: event.target.value });
   };
-  const dragHandler = (event) => {
-    event.preventDefault();
-  };
 
   return (
     <div
@@ -32,14 +29,14 @@ const NodeOperations = ({ label, data, className = "" }) => {
       />
       <input
         onChange={changeHandlerA}
-        onDragStart={dragHandler}
+        className="nodrag"
         type="number"
         value={data.values.a}
       />
       <h4>{label}</h4>
       <input
         onChange={changeHandlerB}
-        onDragStart={dragHandler}
+        className="nodrag"
         type="number"
         value={data.values.b}
       />
@@ -126,7 +123,12 @@ export const NodeOperatorGeneral = memo(({ data }) => {
         id="param__b"
         style={{ left: "auto", right: "34px", transform: "none" }}
       />
-      <input onChange={changeHandlerA} type="number" value={data.values.a} />
+      <input
+        className="nodrag"
+        onChange={changeHandlerA}
+        type="number"
+        value={data.values.a}
+      />
       <select
         name={`${data.id}_operator`}
         id={`${data.id}_operator`}
@@ -141,7 +143,12 @@ export const NodeOperatorGeneral = memo(({ data }) => {
           )
         )}
       </select>
-      <input onChange={changeHandlerB} type="number" value={data.values.b} />
+      <input
+        className="nodrag"
+        onChange={changeHandlerB}
+        type="number"
+        value={data.values.b}
+      />
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
