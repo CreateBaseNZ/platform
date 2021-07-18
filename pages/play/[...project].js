@@ -16,7 +16,9 @@ const DUMMY_QUERY = {
 const Play = () => {
   const router = useRouter();
   const [project, setProject] = useState({});
-  const [unityContext, sensorData, gameState, resetScene] = useUnity();
+  const [unityContext, sensorData, gameState, resetScene] = useUnity({
+    scene: "research",
+  });
 
   useEffect(() => {
     if (router.query.project) {

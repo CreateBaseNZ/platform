@@ -23,7 +23,7 @@ const DUMMY_QUERY = {
 const Create = () => {
   const router = useRouter();
   const [project, setProject] = useState({ stacked: true });
-  const [unityContext, sensorData, gameState, resetScene] = useUnity();
+  const [unityContext, sensorData, gameState, resetScene] = useUnity("create");
 
   useEffect(() => {
     if (router.query.project) {
@@ -43,7 +43,7 @@ const Create = () => {
             project.stacked ? classes.stackedView : classes.shelvedView
           }`}
         >
-          {/* <Game unityContext={unityContext} /> */}
+          <Game unityContext={unityContext} />
           <Workspace
             stacked={project.stacked}
             unityContext={unityContext}

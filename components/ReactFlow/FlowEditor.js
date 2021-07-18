@@ -36,7 +36,10 @@ const FlowEditor = (props) => {
     currentIndex: 0,
   });
   const [userHasActed, setUserHasActed] = useState(false);
-  const [clipBoard, setClipBoard] = useState();
+  const [clipBoard, setClipBoard] = useState({
+    selectedEl: null,
+    board: null,
+  });
 
   console.log(actionStack);
 
@@ -170,6 +173,22 @@ const FlowEditor = (props) => {
     setUserHasActed(true);
   };
 
+  const elementClickHandler = (event, element) => {
+    console.log(event);
+    console.log(element);
+    if (isNode(element)) {
+      setClipBoard((state) => {
+        return { ...state, selectedEl: element };
+      });
+    }
+  };
+
+  const copyNode = () => {
+    setClipBoard((state) => {
+      return { ...state, board: clipBoard.selectedEl };
+    });
+  };
+
   const undoAction = () => {
     props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
     setActionStack((state) => {
@@ -215,6 +234,7 @@ const FlowEditor = (props) => {
   const keyDownHandler = (event) => {
     if (event.ctrlKey) {
       if (event.key === "c") {
+        copyNode();
       } else if (event.key === "v") {
       } else if (event.key === "z") {
         undoAction();
@@ -250,6 +270,7 @@ const FlowEditor = (props) => {
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
             onLoad={onLoad}
+            onElementClick={elementClickHandler}
             onElementsRemove={onElementsRemove}
             onDrop={onDrop}
             onDragOver={onDragOver}
