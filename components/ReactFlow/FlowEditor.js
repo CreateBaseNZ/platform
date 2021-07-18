@@ -175,8 +175,6 @@ const FlowEditor = (props) => {
   };
 
   const elementClickHandler = (event, element) => {
-    console.log(event);
-    console.log(element);
     if (isNode(element)) {
       setClipBoard((state) => {
         return { ...state, selectedEl: element };
@@ -260,7 +258,7 @@ const FlowEditor = (props) => {
   };
 
   // flash lock icon if attempting to drag node while flow is locked
-  const mouseMoveHandler = (event, node) => {
+  const nodeMouseMoveHandler = (event, node) => {
     if (event.buttons === 1) {
       if (flowLocked) {
         document.querySelector("#lockButton").classList.add(classes.lockAlert);
@@ -270,6 +268,15 @@ const FlowEditor = (props) => {
             .classList.remove(classes.lockAlert);
         }, 3200);
       }
+    }
+  };
+
+  const edgeUpdateEndHandler = (event, edge) => {
+    if (!event.target.classList.contains(".react-flow__handle")) {
+      updateGhostEnd(edge.source, edge.sourceHandle, "remove");
+      updateParamInput(edge.target, edge.targetHandle, "allow");
+      props.setElements((els) => removeElements([edge], els));
+      setUserHasActed(true);
     }
   };
 
@@ -307,7 +314,8 @@ const FlowEditor = (props) => {
           nodesConnectable={!flowLocked}
           elementsSelectable={!flowLocked}
           arrowHeadColor="#ffffff"
-          onNodeMouseMove={mouseMoveHandler}
+          onNodeMouseMove={nodeMouseMoveHandler}
+          onEdgeUpdateEnd={edgeUpdateEndHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
