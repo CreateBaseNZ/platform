@@ -30,8 +30,8 @@ const FlowEditor = (props) => {
   const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [actionStack, setActionStack] = useState({
-    stack: [props.elements],
-    currentIndex: 0,
+    stack: [],
+    currentIndex: -1,
   });
   const [systemAction, setSystemAction] = useState(false);
   const [clipBoard, setClipBoard] = useState({
@@ -40,7 +40,7 @@ const FlowEditor = (props) => {
   });
   const [flowLocked, setFlowLocked] = useState(false);
 
-  console.log(props.elements);
+  console.log(actionStack);
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
