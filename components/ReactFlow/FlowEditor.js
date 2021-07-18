@@ -6,7 +6,6 @@ import ReactFlow, {
   Background,
   isEdge,
   isNode,
-  getOutgoers,
   useZoomPanHelper,
 } from "react-flow-renderer";
 import { nodeTypes, edgeTypes } from "../../utils/flowConfig";
@@ -44,6 +43,9 @@ const FlowEditor = (props) => {
   const [flowLocked, setFlowLocked] = useState(false);
 
   console.log(reactFlowInstance);
+
+  const allowUndo = actionStack.currentIndex !== 0;
+  const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
   useEffect(() => {
     setAllowCompile(true);
@@ -189,17 +191,21 @@ const FlowEditor = (props) => {
   };
 
   const undoAction = () => {
-    props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
-    setActionStack((state) => {
-      return { ...state, currentIndex: state.currentIndex - 1 };
-    });
+    if (allowUndo) {
+      props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
+      setActionStack((state) => {
+        return { ...state, currentIndex: state.currentIndex - 1 };
+      });
+    }
   };
 
   const redoAction = () => {
-    props.setElements(actionStack.stack[actionStack.currentIndex + 1]);
-    setActionStack((state) => {
-      return { ...state, currentIndex: state.currentIndex + 1 };
-    });
+    if (allowRedo) {
+      props.setElements(actionStack.stack[actionStack.currentIndex + 1]);
+      setActionStack((state) => {
+        return { ...state, currentIndex: state.currentIndex + 1 };
+      });
+    }
   };
 
   const saveFlow = () => {
@@ -322,10 +328,8 @@ const FlowEditor = (props) => {
             redoHandler={redoAction}
             saveHandler={saveFlow}
             restoreHandler={restoreFlow}
-            allowUndo={actionStack.currentIndex === 0}
-            allowRedo={
-              actionStack.currentIndex + 1 === actionStack.stack.length
-            }
+            allowUndo={allowUndo}
+            allowRedo={allowRedo}
             flowLocked={flowLocked}
             lockHandler={lockHandler}
           />

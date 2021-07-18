@@ -28,7 +28,7 @@ const ControlsBar = (props) => {
     >
       <ControlButton
         className={`${classes.customControl} ${classes.undoButton} ${
-          props.allowUndo && classes.deactive
+          !props.allowUndo && classes.deactive
         }`}
         onClick={props.undoHandler}
       >
@@ -36,7 +36,7 @@ const ControlsBar = (props) => {
       </ControlButton>
       <ControlButton
         className={`${classes.customControl} ${classes.redoButton} ${
-          props.allowRedo && classes.deactive
+          !props.allowRedo && classes.deactive
         }`}
         onClick={props.redoHandler}
       >
