@@ -7,6 +7,7 @@ import ReactFlow, {
   isEdge,
   isNode,
   useZoomPanHelper,
+  getConnectedEdges,
 } from "react-flow-renderer";
 import { nodeTypes, edgeTypes } from "../../utils/flowConfig";
 import {
@@ -32,7 +33,7 @@ const FlowEditor = (props) => {
     stack: [props.elements],
     currentIndex: 0,
   });
-  const [userHasActed, setUserHasActed] = useState(false);
+  const [systemAction, setSystemAction] = useState(false);
   const [clipBoard, setClipBoard] = useState({
     selectedEl: null,
     board: null,
@@ -45,7 +46,7 @@ const FlowEditor = (props) => {
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
   useEffect(() => {
-    if (userHasActed) {
+    if (!systemAction) {
       setActionStack((state) => {
         return {
           stack: [
@@ -55,9 +56,10 @@ const FlowEditor = (props) => {
           currentIndex: state.currentIndex + 1,
         };
       });
-      setUserHasActed(false);
+    } else {
+      setSystemAction(false);
     }
-  }, [userHasActed]);
+  }, [props.elements]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -86,11 +88,9 @@ const FlowEditor = (props) => {
       }
     }
     props.setElements((els) => removeElements(filteredElements, els));
-    setUserHasActed(true);
   }, []);
 
   const onConnect = useCallback((params) => {
-    updateGhostEnd(params.source, params.sourceHandle, "add");
     // styling new edge
     let newEdge;
     if (params.sourceHandle.split("__")[0] === "execution") {
@@ -106,9 +106,9 @@ const FlowEditor = (props) => {
       };
     }
     // check if param input needs to be toggled
+    updateGhostEnd(params.source, params.sourceHandle, "add");
     updateParamInput(params.target, params.targetHandle, "prevent");
     props.setElements((els) => addEdge(newEdge, els));
-    setUserHasActed(true);
   }, []);
 
   // updating edges
@@ -122,7 +122,6 @@ const FlowEditor = (props) => {
       "prevent"
     );
     props.setElements((els) => updateEdge(oldEdge, newConnection, els));
-    setUserHasActed(true);
   }, []);
 
   // dragging from menu to drop zone
@@ -161,12 +160,10 @@ const FlowEditor = (props) => {
               return el;
             })
           );
-          setUserHasActed(true);
         },
       },
     };
     props.setElements((es) => es.concat(newNode));
-    setUserHasActed(true);
   };
 
   const elementClickHandler = (event, element) => {
@@ -185,6 +182,7 @@ const FlowEditor = (props) => {
 
   const undoAction = () => {
     if (allowUndo) {
+      setSystemAction(true);
       props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
       setActionStack((state) => {
         return { ...state, currentIndex: state.currentIndex - 1 };
@@ -194,6 +192,7 @@ const FlowEditor = (props) => {
 
   const redoAction = () => {
     if (allowRedo) {
+      setSystemAction(true);
       props.setElements(actionStack.stack[actionStack.currentIndex + 1]);
       setActionStack((state) => {
         return { ...state, currentIndex: state.currentIndex + 1 };
@@ -265,7 +264,6 @@ const FlowEditor = (props) => {
       updateGhostEnd(edge.source, edge.sourceHandle, "remove");
       updateParamInput(edge.target, edge.targetHandle, "allow");
       props.setElements((els) => removeElements([edge], els));
-      setUserHasActed(true);
     }
   };
 
@@ -275,7 +273,6 @@ const FlowEditor = (props) => {
     props.setElements((els) =>
       els.map((el) => (el.id === node.id ? node : el))
     );
-    setUserHasActed(true);
   };
 
   return (
