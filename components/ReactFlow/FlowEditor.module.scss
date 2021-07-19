@@ -23,13 +23,3 @@
   flex-grow: 1;
   position: relative;
 }
-
-.lockAlert {
-  animation: alert 0.8s linear infinite;
-}
-
-@keyframes alert {
-  50% {
-    background: red;
-  }
-}

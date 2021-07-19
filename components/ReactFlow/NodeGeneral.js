@@ -1,5 +1,5 @@
 import { memo } from "react";
-// import { Handle } from "react-flow-renderer";
+import { Handle } from "react-flow-renderer";
 import CustomHandle from "./Handles";
 
 import { entities } from "../../utils/flowConfig";

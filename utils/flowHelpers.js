@@ -2,6 +2,8 @@ import { entities } from "./flowConfig";
 
 import classes from "../components/ReactFlow/Nodes.module.scss";
 
+import classesControlsBar from "../components/ReactFlow/ControlsBar.module.scss";
+
 export const controlTitles = [
   "Zoom-in (Ctrl and +)",
   "Zoom-out (Ctrl and -)",
@@ -96,4 +98,15 @@ export const updateParamInput = (targetBlock, targetHandle, action) => {
         break;
     }
   }
+};
+
+export const flashLockIcon = () => {
+  document
+    .querySelector("#lockButton")
+    .classList.add(classesControlsBar.lockAlert);
+  setTimeout(() => {
+    document
+      .querySelector("#lockButton")
+      .classList.remove(classesControlsBar.lockAlert);
+  }, 3200);
 };

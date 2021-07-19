@@ -8,10 +8,12 @@ import ReactFlow, {
   isNode,
   useZoomPanHelper,
   getConnectedEdges,
+  Controls,
 } from "react-flow-renderer";
 import { nodeTypes, edgeTypes } from "../../utils/flowConfig";
 import {
   controlTitles,
+  flashLockIcon,
   getDefaultValues,
   updateGhostEnd,
   updateParamInput,
@@ -133,6 +135,10 @@ const FlowEditor = (props) => {
   // dropping
   const onDrop = (event) => {
     event.preventDefault();
+    if (flowLocked) {
+      flashLockIcon();
+      return;
+    }
     // place the node in correct position
     const reactFlowBounds = wrapperRef.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
@@ -247,14 +253,10 @@ const FlowEditor = (props) => {
 
   // flash lock icon if attempting to drag node while flow is locked
   const nodeMouseMoveHandler = (event, node) => {
+    event.preventDefault();
     if (event.buttons === 1) {
       if (flowLocked) {
-        document.querySelector("#lockButton").classList.add(classes.lockAlert);
-        setTimeout(() => {
-          document
-            .querySelector("#lockButton")
-            .classList.remove(classes.lockAlert);
-        }, 3200);
+        flashLockIcon();
       }
     }
   };
@@ -285,12 +287,16 @@ const FlowEditor = (props) => {
       <DndBar />
       <div className={classes.editorWrapper} ref={wrapperRef}>
         <ReactFlow
-          minZoom={0.25}
           elements={props.elements}
+          elementsSelectable={!flowLocked}
+          nodesConnectable={!flowLocked}
+          nodesDraggable={!flowLocked}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           onLoad={onLoad}
-          onElementClick={elementClickHandler}
+          minZoom={0.25}
+          onElementClick={!flowLocked && elementClickHandler}
+          // onNodeMouseMove={nodeMouseMoveHandler} maybe keep
           onElementsRemove={onElementsRemove}
           onDrop={onDrop}
           onDragOver={onDragOver}
@@ -298,13 +304,10 @@ const FlowEditor = (props) => {
           onEdgeUpdate={onEdgeUpdate}
           snapToGrid={true}
           snapGrid={[16, 16]}
-          nodesDraggable={!flowLocked}
-          nodesConnectable={!flowLocked}
-          elementsSelectable={!flowLocked}
           arrowHeadColor="#ffffff"
-          onNodeMouseMove={nodeMouseMoveHandler}
-          onEdgeUpdateEnd={edgeUpdateEndHandler}
           onNodeDragStop={nodeDragStopHandler}
+          onEdgeUpdateEnd={edgeUpdateEndHandler}
+          onEdgeMouseEnter={() => console.log("what")}
         >
           <ControlsBar
             undoHandler={undoAction}
