@@ -24,7 +24,7 @@ const Create = () => {
   const router = useRouter();
   const [project, setProject] = useState({ stacked: true });
   const [unityContext, sensorData, gameState, resetScene] = useUnity({
-    scene: "create",
+    scene: "improve",
   });
 
   useEffect(() => {

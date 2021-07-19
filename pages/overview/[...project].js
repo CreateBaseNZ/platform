@@ -77,9 +77,18 @@ const Overview = (props) => {
           <VideoModule>
             Rewatch the <span>Situation</span> Video
           </VideoModule>
-          <SneakPeekModule>
-            Give it a <span>Go</span>
-          </SneakPeekModule>
+          <Link
+            href={{
+              pathname: "/play/[project]",
+              query: { project: project.query },
+            }}
+          >
+            <div>
+              <SneakPeekModule>
+                Give it a <span>Go</span>
+              </SneakPeekModule>
+            </div>
+          </Link>
         </div>
         <p className={classes.description}>
           Work through the modules above to complete your research.
@@ -159,7 +168,16 @@ const Overview = (props) => {
           />
         </div>
         <div className={classes.buttonContainer}>
-          <GreenButton caption="Go!" />
+          <Link
+            href={{
+              pathname: "/improve/[project]",
+              query: { project: project.query },
+            }}
+          >
+            <div>
+              <GreenButton caption="Go!" />
+            </div>
+          </Link>
         </div>
       </section>
       <div className={classes.divider} />

@@ -31,15 +31,13 @@ const useUnity = ({ scene }) => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      unityContext.on("loaded", () => {
-        unityContext.send(
-          "SceneController",
-          "LoadScene",
-          "Project_Jump_0," + scene
-        );
-      });
-    }, [500]);
+    unityContext.on("loaded", () => {
+      unityContext.send(
+        "SceneController",
+        "LoadScene",
+        "Project_Jump_0," + scene
+      );
+    });
   }, []);
 
   useEffect(() => {

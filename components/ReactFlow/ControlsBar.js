@@ -10,14 +10,8 @@ import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import classes from "./ControlsBar.module.scss";
 
 const ControlsBar = (props) => {
-  const lockHandler = () => {
-    props.lockHandler();
-    const lock = document.querySelector("." + classes.controls).children[6];
-    if (lock.title === "Lock") {
-      lock.title = "Unlock";
-    } else {
-      lock.title = "Lock";
-    }
+  const infoHandler = () => {
+    console.log("hi");
   };
 
   return (
@@ -59,14 +53,12 @@ const ControlsBar = (props) => {
           props.flowLocked && classes.locked
         }`}
         id="lockButton"
-        onClick={lockHandler}
+        onClick={props.lockHandler}
+        title={props.flowLocked ? "Unlock (Ctrl + L)" : "Lock (Ctrl + L)"}
       >
         {props.flowLocked ? <LockIcon /> : <LockOpenOutlinedIcon />}
       </ControlButton>
-      <ControlButton
-        className={classes.customControl}
-        onClick={() => console.log("another action")}
-      >
+      <ControlButton className={classes.customControl} onClick={infoHandler}>
         <InfoOutlinedIcon />
       </ControlButton>
     </Controls>
