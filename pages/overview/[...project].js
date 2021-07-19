@@ -15,9 +15,9 @@ import classes from "/styles/Overview.module.scss";
 import GreenButton from "../../components/UI/GreenButton";
 
 const DUMMY_QUERY = {
-  "run-it-down": {
-    query: "run-it-down",
-    name: "Run It Down",
+  "send-it": {
+    query: "send-it",
+    name: "Send It",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
     stacked: true,
@@ -69,10 +69,10 @@ const Overview = (props) => {
             What is <span>Flow</span> Programming?
           </InfoModule>
           <TutorialModule>
-            Introduction to <span>Sensing</span> Blocks
+            Introduction to Flow <span>Blocks</span>
           </TutorialModule>
           <HintModule>
-            <span>Tips</span> &amp; <span>Tricks</span>
+            How to <span>Send It</span>
           </HintModule>
           <VideoModule>
             Rewatch the <span>Situation</span> Video

@@ -63,6 +63,19 @@ const FlowEditor = (props) => {
     }
   }, [props.elements]);
 
+  // temporary while devs fix library
+  useEffect(() => {
+    if (flowLocked) {
+      document.querySelectorAll(".react-flow__handle").forEach((handle) => {
+        handle.classList.remove("connectable");
+      });
+    } else {
+      document.querySelectorAll(".react-flow__handle").forEach((handle) => {
+        handle.classList.add("connectable");
+      });
+    }
+  }, [flowLocked]);
+
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
     console.log("flow loaded:", _reactFlowInstance);
@@ -251,16 +264,6 @@ const FlowEditor = (props) => {
     }
   };
 
-  // flash lock icon if attempting to drag node while flow is locked
-  const nodeMouseMoveHandler = (event, node) => {
-    event.preventDefault();
-    if (event.buttons === 1) {
-      if (flowLocked) {
-        flashLockIcon();
-      }
-    }
-  };
-
   const edgeUpdateEndHandler = (event, edge) => {
     if (!event.target.classList.contains(".react-flow__handle")) {
       updateGhostEnd(edge.source, edge.sourceHandle, "remove");
@@ -296,7 +299,6 @@ const FlowEditor = (props) => {
           onLoad={onLoad}
           minZoom={0.25}
           onElementClick={!flowLocked && elementClickHandler}
-          // onNodeMouseMove={nodeMouseMoveHandler} maybe keep
           onElementsRemove={onElementsRemove}
           onDrop={onDrop}
           onDragOver={onDragOver}
@@ -307,7 +309,6 @@ const FlowEditor = (props) => {
           arrowHeadColor="#ffffff"
           onNodeDragStop={nodeDragStopHandler}
           onEdgeUpdateEnd={edgeUpdateEndHandler}
-          onEdgeMouseEnter={() => console.log("what")}
         >
           <ControlsBar
             undoHandler={undoAction}
@@ -326,5 +327,4 @@ const FlowEditor = (props) => {
   );
 };
 
-// export default memo(FlowEditor, memoEqual);
 export default memo(FlowEditor);

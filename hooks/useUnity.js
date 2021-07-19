@@ -31,13 +31,18 @@ const useUnity = ({ scene }) => {
   }, []);
 
   useEffect(() => {
-    unityContext.on("loaded", () => {
-      unityContext.send(
-        "SceneController",
-        "LoadScene",
-        "Project_Jump_0," + scene
-      );
-    });
+    setTimeout(() => {
+      unityContext.on("loaded", () => {
+        unityContext.send(
+          "SceneController",
+          "LoadScene",
+          "Project_Jump_0," + scene
+        );
+      });
+    }, [500]);
+  }, []);
+
+  useEffect(() => {
     return () => unityContext.removeAllEventListeners();
   }, []);
 
