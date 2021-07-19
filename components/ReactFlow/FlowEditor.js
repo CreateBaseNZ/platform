@@ -9,6 +9,7 @@ import ReactFlow, {
   useZoomPanHelper,
   getConnectedEdges,
   Controls,
+  useStoreActions,
 } from "react-flow-renderer";
 import { nodeTypes, edgeTypes } from "../../utils/flowConfig";
 import {
@@ -37,10 +38,13 @@ const FlowEditor = (props) => {
   });
   const [systemAction, setSystemAction] = useState(false);
   const [clipBoard, setClipBoard] = useState({
-    selectedEl: null,
+    selection: null,
     board: null,
   });
   const [flowLocked, setFlowLocked] = useState(false);
+  const setSelectedElements = useStoreActions(
+    (actions) => actions.setSelectedElements
+  );
 
   console.log(actionStack);
 
@@ -185,18 +189,68 @@ const FlowEditor = (props) => {
     props.setElements((es) => es.concat(newNode));
   };
 
-  const elementClickHandler = (event, element) => {
-    if (isNode(element)) {
+  const selectChangeHandler = (elements) => {
+    if (elements) {
+      console.log(elements);
       setClipBoard((state) => {
-        return { ...state, selectedEl: element };
+        return {
+          ...state,
+          selection: elements,
+        };
       });
     }
   };
 
-  const copyNode = () => {
-    setClipBoard((state) => {
-      return { ...state, board: clipBoard.selectedEl };
-    });
+  const copySelection = () => {
+    if (clipBoard.selection) {
+      setClipBoard((state) => {
+        return {
+          ...state,
+          board: clipBoard.selection.filter((el) => el.id !== "start"),
+        };
+      });
+    }
+  };
+
+  const pasteSelection = () => {
+    if (clipBoard.board) {
+      console.log(clipBoard.board);
+
+      let newNodes = [];
+      let mapping = {};
+      let edges = [];
+      for (const el of clipBoard.board) {
+        if (isNode(el)) {
+          const newId = getId();
+          newNodes.push({
+            ...el,
+            id: newId,
+          });
+          mapping[el.id] = newId;
+        } else {
+          edges.push(el);
+        }
+      }
+
+      const newEdges = edges
+        .map((edge) => {
+          return {
+            ...edge,
+            id: `reactflow__edge-${mapping[edge.source]}${edge.sourceHandle}-${
+              mapping[edge.target]
+            }${edge.targetHandle}`,
+            source: mapping[edge.source],
+            target: mapping[edge.target],
+          };
+        })
+        .filter((edge) => {
+          return edge.source && edge.target;
+        });
+
+      const newEls = newNodes.concat(newEdges);
+      props.setElements((els) => els.concat(newEls));
+      setSelectedElements(newEls);
+    }
   };
 
   const undoAction = () => {
@@ -244,8 +298,9 @@ const FlowEditor = (props) => {
     event.preventDefault();
     if (event.ctrlKey) {
       if (event.key === "c") {
-        copyNode();
+        copySelection();
       } else if (event.key === "v") {
+        pasteSelection();
       } else if (event.key === "z") {
         undoAction();
       } else if (event.key === "y") {
@@ -273,8 +328,6 @@ const FlowEditor = (props) => {
   };
 
   const nodeDragStopHandler = (event, node) => {
-    console.log(props.elements);
-    console.log(node);
     props.setElements((els) =>
       els.map((el) => (el.id === node.id ? node : el))
     );
@@ -298,7 +351,7 @@ const FlowEditor = (props) => {
           edgeTypes={edgeTypes}
           onLoad={onLoad}
           minZoom={0.25}
-          onElementClick={!flowLocked && elementClickHandler}
+          onSelectionChange={selectChangeHandler}
           onElementsRemove={onElementsRemove}
           onDrop={onDrop}
           onDragOver={onDragOver}

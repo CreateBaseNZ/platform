@@ -10,7 +10,6 @@ import { initialElements } from "../utils/flowConfig";
 import Console from "./Console";
 import ConsoleContext from "../store/console-context";
 import { ReactFlowProvider } from "react-flow-renderer";
-import ClientOnlyPortal from "./ClientOnlyPortal";
 import GreenButton from "./UI/GreenButton";
 
 import { CodeGenerator } from "../utils/codeGenerator.ts";
