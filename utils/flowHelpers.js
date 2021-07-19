@@ -110,3 +110,7 @@ export const flashLockIcon = () => {
       .classList.remove(classesControlsBar.lockAlert);
   }, 3200);
 };
+
+export const getNearestGridPosition = (position) => {
+  return Math.round(position / 16) * 16;
+};

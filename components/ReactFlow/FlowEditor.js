@@ -16,6 +16,7 @@ import {
   controlTitles,
   flashLockIcon,
   getDefaultValues,
+  getNearestGridPosition,
   updateGhostEnd,
   updateParamInput,
 } from "../../utils/flowHelpers";
@@ -46,7 +47,7 @@ const FlowEditor = (props) => {
     (actions) => actions.setSelectedElements
   );
 
-  console.log(actionStack);
+  console.log(props.elements);
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
@@ -191,7 +192,6 @@ const FlowEditor = (props) => {
 
   const selectChangeHandler = (elements) => {
     if (elements) {
-      console.log(elements);
       setClipBoard((state) => {
         return {
           ...state,
@@ -327,10 +327,30 @@ const FlowEditor = (props) => {
     }
   };
 
-  const nodeDragStopHandler = (event, node) => {
+  const nodeDragStopHandler = (_, node) => {
     props.setElements((els) =>
       els.map((el) => (el.id === node.id ? node : el))
     );
+  };
+
+  const selectionDragStopHandler = (_, selectionNodes) => {
+    props.setElements((els) => {
+      return els.map((el) => {
+        for (const node of selectionNodes) {
+          if (node.id === el.id) {
+            console.log("same detected");
+            return {
+              ...node,
+              position: {
+                x: getNearestGridPosition(node.position.x),
+                y: getNearestGridPosition(node.position.y),
+              },
+            };
+          }
+        }
+        return el;
+      });
+    });
   };
 
   return (
@@ -362,6 +382,7 @@ const FlowEditor = (props) => {
           arrowHeadColor="#ffffff"
           onNodeDragStop={nodeDragStopHandler}
           onEdgeUpdateEnd={edgeUpdateEndHandler}
+          onSelectionDragStop={selectionDragStopHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
