@@ -385,7 +385,7 @@ const Workspace = (props) => {
 
   return (
     <div className={classes.workspace}>
-      <ClientOnlyPortal selector="#compileBtnPortal">
+      {activeTab === "flow" && (
         <GreenButton
           className={`${classes.compileBtn} ${
             allowCompile && classes.newChanges
@@ -393,7 +393,7 @@ const Workspace = (props) => {
           clickHandler={compileHandler}
           caption="Compile"
         />
-      </ClientOnlyPortal>
+      )}
       <ReactFlowProvider>
         <FlowEditor
           show={activeTab === "flow"}

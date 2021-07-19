@@ -74,11 +74,23 @@
       fill: $logo-mid;
     }
   }
+  &.hasLog {
+    animation: log 0.5s ease-out infinite alternate;
+  }
   &.hasWarning {
     animation: warning 0.5s ease-out infinite alternate;
   }
   &.hasError {
     animation: error 0.5s ease-out infinite alternate;
+  }
+}
+
+@keyframes log {
+  from {
+    background: transparent;
+  }
+  to {
+    background: $light;
   }
 }
 
