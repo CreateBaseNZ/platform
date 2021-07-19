@@ -62,6 +62,20 @@
   display: flex;
   flex-wrap: wrap;
   margin: 5vh 0;
+  & > *:not(:last-child) {
+    margin-right: 2rem;
+  }
+}
+
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  .description {
+    text-align: center;
+  }
+  & > *:not(:last-child) {
+    margin-right: 2rem;
+  }
 }
 
 .buttonContainer {

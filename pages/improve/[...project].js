@@ -37,7 +37,9 @@ const Create = () => {
     <div className={classes.create}>
       <ConsoleContextProvider>
         <Head>
-          <title>{project ? project.name : "Create"} | CreateBase</title>
+          <title>
+            Improve - {project ? project.name : "Create"} | CreateBase
+          </title>
           <meta name="description" content={project ? project.caption : ""} />
         </Head>
         <div

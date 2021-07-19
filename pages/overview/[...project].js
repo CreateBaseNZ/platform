@@ -9,6 +9,7 @@ import {
   InfoModule,
   SneakPeekModule,
   TutorialModule,
+  ResourceModule,
 } from "../../components/Modules";
 
 import classes from "/styles/Overview.module.scss";
@@ -39,19 +40,23 @@ const Overview = (props) => {
   return (
     <div className={classes.overview}>
       <Head>
-        <title>{project ? project.name : "Create"} | CreateBase</title>
+        <title>
+          Overview - {project ? project.name : "Create"} - CreateBase
+        </title>
         <meta name="description" content={project ? project.caption : ""} />
       </Head>
       <section>
         <h2>Imagine</h2>
-        <div className={classes.moduleContainer}>
+        <div className={classes.centerContainer}>
           <VideoModule>
             The <span>Situation</span>
           </VideoModule>
         </div>
-        <p className={classes.description}>
-          Dive into the situation. What do you think is happening here?
-        </p>
+        <div className={classes.centerContainer}>
+          <p className={classes.description}>
+            Dive into the situation. What do you think is happening here?
+          </p>
+        </div>
       </section>
       <div className={classes.divider} />
       <section>
@@ -83,7 +88,7 @@ const Overview = (props) => {
               query: { project: project.query },
             }}
           >
-            <div>
+            <div title="Play Send It">
               <SneakPeekModule>
                 Give it a <span>Go</span>
               </SneakPeekModule>
@@ -97,11 +102,33 @@ const Overview = (props) => {
       <div className={classes.divider} />
       <section>
         <h2>Plan</h2>
-        <div className={classes.centerContainer}></div>
-        <p className={classes.description}>
-          Look closely ... are those ... hints? No ... they can't be ... can
-          they? Hmmm ...
-        </p>
+        <div className={classes.centerContainer}>
+          <a
+            href="https://docs.google.com/presentation/d/1_eOO1FbH6qRGbQrGoVNgtD73yJ57yrtk5RpRd6XMtd4/edit?usp=sharing"
+            target="_blank"
+            title="Learning Journal - Google Slides"
+          >
+            <ResourceModule>
+              <span>Learning Journal</span> - Slides
+            </ResourceModule>
+          </a>
+          <a
+            href="/Learning Journal.docx"
+            title="Learning Journal - Word"
+            download
+          >
+            <ResourceModule>
+              <span>Learning Journal</span> - Word
+            </ResourceModule>
+          </a>
+        </div>
+        <div className={classes.centerContainer}>
+          <p className={classes.description}>
+            One made in Google Slides and the other in Word, either will do the
+            trick so just choose one. Be sure to create a copy and make it all
+            yours.
+          </p>
+        </div>
       </section>
       <div className={classes.divider} />
       <section>
@@ -183,6 +210,11 @@ const Overview = (props) => {
       <div className={classes.divider} />
       <section>
         <h2>Review</h2>
+        <div className={classes.description}>
+          Share your thoughts and ideas with your friends and teacher. How did
+          everything go? Were you able to complete all the challenges? How did
+          you overcome any problems?
+        </div>
       </section>
     </div>
   );
