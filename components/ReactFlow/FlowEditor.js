@@ -213,9 +213,8 @@ const FlowEditor = (props) => {
   };
 
   const pasteSelection = () => {
+    console.log(clipBoard);
     if (clipBoard.board) {
-      console.log(clipBoard.board);
-
       let newNodes = [];
       let mapping = {};
       let edges = [];
@@ -376,13 +375,13 @@ const FlowEditor = (props) => {
           arrowHeadColor="#ffffff"
           onDrop={onDrop}
           onDragOver={onDragOver}
-          // onSelectionChange={selectChangeHandler}
-          // onElementsRemove={onElementsRemove}
-          // onConnect={onConnect}
-          // onEdgeUpdate={onEdgeUpdate}
-          // onNodeDragStop={nodeDragStopHandler}
-          // onEdgeUpdateEnd={edgeUpdateEndHandler}
-          // onSelectionDragStop={selectionDragStopHandler}
+          onSelectionChange={selectChangeHandler}
+          onElementsRemove={onElementsRemove}
+          onConnect={onConnect}
+          onEdgeUpdate={onEdgeUpdate}
+          onNodeDragStop={nodeDragStopHandler}
+          onEdgeUpdateEnd={edgeUpdateEndHandler}
+          onSelectionDragStop={selectionDragStopHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
