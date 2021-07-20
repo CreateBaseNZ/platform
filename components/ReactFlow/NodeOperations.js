@@ -36,6 +36,7 @@ const NodeOperations = ({ label, data, className = "" }) => {
         type="number"
         value={data.values.a}
         onDragStart={dragHandler}
+        onKeyDown={(e) => e.key === "e" && e.preventDefault()}
       />
       <h4>{label}</h4>
       <input
@@ -44,6 +45,7 @@ const NodeOperations = ({ label, data, className = "" }) => {
         type="number"
         value={data.values.b}
         onDragStart={dragHandler}
+        onKeyDown={(e) => e.key === "e" && e.preventDefault()}
       />
       <CustomHandle type="source" position="right" id="param__out" />
     </div>

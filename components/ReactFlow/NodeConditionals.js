@@ -49,12 +49,12 @@ export const NodeIf = ({ data }) => {
 
 export const NodeRepeat = ({ data }) => {
   const changeHandler = (event) => {
+    console.log(event.target.value);
     data.callBack({ ...data.values, condition: event.target.value });
   };
   const dragHandler = (event) => {
     event.preventDefault();
   };
-
   return (
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeRepeat} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
@@ -67,6 +67,10 @@ export const NodeRepeat = ({ data }) => {
         type="number"
         value={data.values.condition}
         onDragStart={dragHandler}
+        onKeyDown={(e) =>
+          (e.key === "e" || e.key === "-" || e.key === ".") &&
+          e.preventDefault()
+        }
       />
       <CustomHandle
         type="target"
