@@ -94,6 +94,7 @@ const FlowEditor = (props) => {
     const clone = arrow.cloneNode(true);
     clone.id = "react-flow__arrowclosed__custom";
     arrow.parentNode.appendChild(clone);
+    document.querySelector(".react-flow").focus();
   }, []);
 
   // deleting an element
@@ -295,24 +296,32 @@ const FlowEditor = (props) => {
 
   const keyDownHandler = (event) => {
     if (event.ctrlKey) {
-      event.preventDefault();
       if (event.key === "c") {
+        event.preventDefault();
         copySelection();
       } else if (event.key === "v") {
+        event.preventDefault();
         pasteSelection();
       } else if (event.key === "z") {
+        event.preventDefault();
         undoAction();
       } else if (event.key === "y") {
+        event.preventDefault();
         redoAction();
       } else if (event.key === "s") {
+        event.preventDefault();
         saveFlow();
       } else if (event.key === "r") {
+        event.preventDefault();
         restoreFlow();
       } else if (event.key === "=") {
+        event.preventDefault();
         zoomIn();
       } else if (event.key === "-") {
+        event.preventDefault();
         zoomOut();
       } else if (event.key === "l") {
+        event.preventDefault();
         lockHandler();
       }
     }
