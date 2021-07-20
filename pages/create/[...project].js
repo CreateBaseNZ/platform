@@ -47,7 +47,7 @@ const Create = () => {
             project.stacked ? classes.stackedView : classes.shelvedView
           }`}
         >
-          {/* <Game unityContext={unityContext} /> */}
+          <Game unityContext={unityContext} />
           <Workspace
             stacked={project.stacked}
             unityContext={unityContext}

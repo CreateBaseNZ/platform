@@ -15,10 +15,6 @@ const TextEditor = (props) => {
     }
   }, [props.text]);
 
-  useEffect(() => {
-    console.log(document.querySelector(".overflow-guard"));
-  }, []);
-
   // const [monacoTheme, setMonacoTheme] = useState("Monokai");
   // console.log(monacoTheme);
 
