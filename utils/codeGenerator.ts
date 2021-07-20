@@ -70,7 +70,9 @@ export class CodeGenerator {
           return false;
         }
       } else if (varName[i] < "0" || varName[i] > "9") {
-        return false;
+        if(i!=0||varName[i]!='-'){
+          return false;
+        } 
       }
     }
     return true;
