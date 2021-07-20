@@ -15,6 +15,10 @@ const TextEditor = (props) => {
     }
   }, [props.text]);
 
+  useEffect(() => {
+    console.log(document.querySelector(".overflow-guard"));
+  }, []);
+
   // const [monacoTheme, setMonacoTheme] = useState("Monokai");
   // console.log(monacoTheme);
 
@@ -37,14 +41,7 @@ const TextEditor = (props) => {
   };
 
   return (
-    <div
-      className={`${classes.editorContainer} ${
-        props.mode === "testing" || props.mode === "verifying"
-          ? classes.disable
-          : ""
-      } ${props.show ? "" : "hide"}`}
-      onKeyPress={(e) => e.preventDefault()}
-    >
+    <div className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}>
       <Editor
         defaultLanguage="javascript"
         value={props.text}

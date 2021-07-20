@@ -51,6 +51,9 @@ export const NodeRepeat = ({ data }) => {
   const changeHandler = (event) => {
     data.callBack({ ...data.values, condition: event.target.value });
   };
+  const dragHandler = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <div
@@ -63,6 +66,7 @@ export const NodeRepeat = ({ data }) => {
         className="nodrag"
         type="number"
         value={data.values.condition}
+        onDragStart={dragHandler}
       />
       <CustomHandle
         type="target"

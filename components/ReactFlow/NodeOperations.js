@@ -10,6 +10,9 @@ const NodeOperations = ({ label, data, className = "" }) => {
   const changeHandlerB = (event) => {
     data.callBack({ ...data.values, b: event.target.value });
   };
+  const dragHandler = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <div
@@ -32,6 +35,7 @@ const NodeOperations = ({ label, data, className = "" }) => {
         className="nodrag"
         type="number"
         value={data.values.a}
+        onDragStart={dragHandler}
       />
       <h4>{label}</h4>
       <input
@@ -39,6 +43,7 @@ const NodeOperations = ({ label, data, className = "" }) => {
         className="nodrag"
         type="number"
         value={data.values.b}
+        onDragStart={dragHandler}
       />
       <CustomHandle type="source" position="right" id="param__out" />
     </div>

@@ -295,8 +295,8 @@ const FlowEditor = (props) => {
   };
 
   const keyDownHandler = (event) => {
-    event.preventDefault();
     if (event.ctrlKey) {
+      event.preventDefault();
       if (event.key === "c") {
         copySelection();
       } else if (event.key === "v") {
@@ -363,26 +363,26 @@ const FlowEditor = (props) => {
       <DndBar />
       <div className={classes.editorWrapper} ref={wrapperRef}>
         <ReactFlow
+          onLoad={onLoad}
           elements={props.elements}
           elementsSelectable={!flowLocked}
           nodesConnectable={!flowLocked}
           nodesDraggable={!flowLocked}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
-          onLoad={onLoad}
           minZoom={0.25}
-          onSelectionChange={selectChangeHandler}
-          onElementsRemove={onElementsRemove}
-          onDrop={onDrop}
-          onDragOver={onDragOver}
-          onConnect={onConnect}
-          onEdgeUpdate={onEdgeUpdate}
           snapToGrid={true}
           snapGrid={[16, 16]}
           arrowHeadColor="#ffffff"
-          onNodeDragStop={nodeDragStopHandler}
-          onEdgeUpdateEnd={edgeUpdateEndHandler}
-          onSelectionDragStop={selectionDragStopHandler}
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          // onSelectionChange={selectChangeHandler}
+          // onElementsRemove={onElementsRemove}
+          // onConnect={onConnect}
+          // onEdgeUpdate={onEdgeUpdate}
+          // onNodeDragStop={nodeDragStopHandler}
+          // onEdgeUpdateEnd={edgeUpdateEndHandler}
+          // onSelectionDragStop={selectionDragStopHandler}
         >
           <ControlsBar
             undoHandler={undoAction}

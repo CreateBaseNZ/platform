@@ -337,7 +337,7 @@ const Workspace = (props) => {
 
   useEffect(() => {
     setAllowCompile(true);
-  }, [props.elements]);
+  }, [elements]);
 
   const compileCode = () => {
     const blocks = flow2Text(elements);
