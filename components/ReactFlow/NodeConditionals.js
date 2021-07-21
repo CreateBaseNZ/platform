@@ -145,12 +145,12 @@ const NodeConditionalsMini = (props) => {
   );
 };
 
-export const NodeIfMini = (props) => {
-  return <NodeConditionalsMini {...props} label="If" nodeType="if" />;
+export const NodeIfMini = () => {
+  return <NodeConditionalsMini label="If" nodeType="if" />;
 };
-export const NodeRepeatMini = (props) => {
-  return <NodeConditionalsMini {...props} label="Repeat" nodeType="repeat" />;
+export const NodeRepeatMini = () => {
+  return <NodeConditionalsMini label="Repeat" nodeType="repeat" />;
 };
-export const NodeWhileMini = (props) => {
-  return <NodeConditionalsMini {...props} label="While" nodeType="while" />;
+export const NodeWhileMini = () => {
+  return <NodeConditionalsMini label="While" nodeType="while" />;
 };

@@ -158,51 +158,46 @@ export const NodeOperatorGeneral = memo(({ data }) => {
   );
 });
 
-export const NodeAddMini = (props) => {
-  return <NodeOperationsMini {...props} label="+" nodeType="add" />;
+export const NodeAddMini = () => {
+  return <NodeOperationsMini label="+" nodeType="add" />;
 };
-export const NodeSubtractMini = (props) => {
-  return <NodeOperationsMini {...props} label="-" nodeType="subtract" />;
+export const NodeSubtractMini = () => {
+  return <NodeOperationsMini label="-" nodeType="subtract" />;
 };
-export const NodeMultiplyMini = (props) => {
-  return <NodeOperationsMini {...props} label="&times;" nodeType="multiply" />;
+export const NodeMultiplyMini = () => {
+  return <NodeOperationsMini label="&times;" nodeType="multiply" />;
 };
-export const NodeDivideMini = (props) => {
-  return <NodeOperationsMini {...props} label="&divide;" nodeType="divide" />;
+export const NodeDivideMini = () => {
+  return <NodeOperationsMini label="&divide;" nodeType="divide" />;
 };
-export const NodeGreaterThanMini = (props) => {
-  return <NodeOperationsMini {...props} label=">" nodeType="greaterThan" />;
+export const NodeGreaterThanMini = () => {
+  return <NodeOperationsMini label=">" nodeType="greaterThan" />;
 };
-export const NodeLessThanMini = (props) => {
-  return <NodeOperationsMini {...props} label="<" nodeType="lessThan" />;
+export const NodeLessThanMini = () => {
+  return <NodeOperationsMini label="<" nodeType="lessThan" />;
 };
-export const NodeEqualsMini = (props) => {
-  return <NodeOperationsMini {...props} label="=" nodeType="equals" />;
+export const NodeEqualsMini = () => {
+  return <NodeOperationsMini label="=" nodeType="equals" />;
 };
-export const NodeNotEqualsMini = (props) => {
+export const NodeNotEqualsMini = () => {
   return (
     <NodeOperationsMini
-      {...props}
       label="not ="
       className={classes.nodeNotEquals}
       nodeType="notEquals"
     />
   );
 };
-export const NodeAndMini = (props) => {
-  return <NodeOperationsMini {...props} label="and" nodeType="and" />;
+export const NodeAndMini = () => {
+  return <NodeOperationsMini label="and" nodeType="and" />;
 };
-export const NodeOrMini = (props) => {
-  return <NodeOperationsMini {...props} label="or" nodeType="or" />;
+export const NodeOrMini = () => {
+  return <NodeOperationsMini label="or" nodeType="or" />;
 };
 
 export const NodeOperatorGeneralMini = (props) => {
   return (
-    <NodeMini
-      {...props}
-      className={classes.operating}
-      nodeType="operatorGeneral"
-    >
+    <NodeMini className={classes.operating} nodeType="operatorGeneral">
       <div className={classes.blankInput} />
       <div className={classes.blankInput} />
       <div className={classes.blankInput} />

@@ -40,7 +40,6 @@ export const NodeMini = memo((props) => {
 
   return (
     <div
-      {...props}
       className={`${classes.nodeMini} ${props.className}`}
       onDragStart={dragStartHandler}
       draggable

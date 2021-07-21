@@ -21,10 +21,9 @@ export const NodeDistance = ({ data }) => {
   );
 };
 
-export const NodeDistanceMini = (props) => {
+export const NodeDistanceMini = () => {
   return (
     <NodeMini
-      {...props}
       nodeType="distance"
       className={`${classes.sensing} ${classes.nodeDistance}`}
     >
@@ -53,10 +52,9 @@ export const NodeHeightOf = ({ data }) => {
   );
 };
 
-export const NodeHeightOfMini = (props) => {
+export const NodeHeightOfMini = () => {
   return (
     <NodeMini
-      {...props}
       nodeType="heightOf"
       className={`${classes.sensing} ${classes.nodeHeightOf}`}
     >
@@ -83,10 +81,9 @@ export const NodeWidthOf = ({ data }) => {
   );
 };
 
-export const NodeWidthOfMini = (props) => {
+export const NodeWidthOfMini = () => {
   return (
     <NodeMini
-      {...props}
       nodeType="widthOf"
       className={`${classes.sensing} ${classes.nodeWidthOf}`}
     >
@@ -113,10 +110,9 @@ export const NodeSpeedOf = ({ data }) => {
   );
 };
 
-export const NodeSpeedOfMini = (props) => {
+export const NodeSpeedOfMini = () => {
   return (
     <NodeMini
-      {...props}
       nodeType="speedOf"
       className={`${classes.sensing} ${classes.nodeSpeedOf}`}
     >
@@ -143,10 +139,9 @@ export const NodeElevationOf = ({ data }) => {
   );
 };
 
-export const NodeElevationOfMini = (props) => {
+export const NodeElevationOfMini = () => {
   return (
     <NodeMini
-      {...props}
       nodeType="elevationOf"
       className={`${classes.sensing} ${classes.nodeElevationOf}`}
     >

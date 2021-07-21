@@ -71,40 +71,36 @@ const NodeActionsMini = (props) => {
   );
 };
 
-export const NodeAttackMini = (props) => {
+export const NodeAttackMini = () => {
   return (
     <NodeActionsMini
-      {...props}
       className={classes.nodeAttack}
       label="Attack"
       nodeType="attack"
     />
   );
 };
-export const NodeDoubleJumpMini = (props) => {
+export const NodeDoubleJumpMini = () => {
   return (
     <NodeActionsMini
-      {...props}
       className={classes.nodeDoubleJump}
       label="Double Jump"
       nodeType="doubleJump"
     />
   );
 };
-export const NodeCrouchMini = (props) => {
+export const NodeCrouchMini = () => {
   return (
     <NodeActionsMini
-      {...props}
       className={classes.nodeCrouch}
       label="Crouch"
       nodeType="crouch"
     />
   );
 };
-export const NodeJumpMini = (props) => {
+export const NodeJumpMini = () => {
   return (
     <NodeActionsMini
-      {...props}
       className={classes.nodeJump}
       label="Jump"
       nodeType="jump"
