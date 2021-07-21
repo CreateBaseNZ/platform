@@ -43,9 +43,7 @@ export const getDefaultValues = (type) => {
     type === "greaterThan" ||
     type === "lessThan" ||
     type === "equals" ||
-    type === "notEquals" ||
-    type === "and" ||
-    type === "or"
+    type === "notEquals"
   ) {
     return { a: 0, b: 0 };
   }

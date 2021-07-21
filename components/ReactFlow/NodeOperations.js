@@ -93,12 +93,6 @@ export const NodeNotEquals = memo(({ data }) => {
     />
   );
 });
-export const NodeAnd = memo(({ data }) => {
-  return <NodeOperations label="and" data={data} />;
-});
-export const NodeOr = memo(({ data }) => {
-  return <NodeOperations label="or" data={data} />;
-});
 
 export const NodeOperatorGeneral = memo(({ data }) => {
   const changeHandlerA = (event) => {
@@ -158,28 +152,28 @@ export const NodeOperatorGeneral = memo(({ data }) => {
   );
 });
 
-export const NodeAddMini = () => {
+export const NodeAddMini = memo(() => {
   return <NodeOperationsMini label="+" nodeType="add" />;
-};
-export const NodeSubtractMini = () => {
+});
+export const NodeSubtractMini = memo(() => {
   return <NodeOperationsMini label="-" nodeType="subtract" />;
-};
-export const NodeMultiplyMini = () => {
+});
+export const NodeMultiplyMini = memo(() => {
   return <NodeOperationsMini label="&times;" nodeType="multiply" />;
-};
-export const NodeDivideMini = () => {
+});
+export const NodeDivideMini = memo(() => {
   return <NodeOperationsMini label="&divide;" nodeType="divide" />;
-};
-export const NodeGreaterThanMini = () => {
+});
+export const NodeGreaterThanMini = memo(() => {
   return <NodeOperationsMini label=">" nodeType="greaterThan" />;
-};
-export const NodeLessThanMini = () => {
+});
+export const NodeLessThanMini = memo(() => {
   return <NodeOperationsMini label="<" nodeType="lessThan" />;
-};
-export const NodeEqualsMini = () => {
+});
+export const NodeEqualsMini = memo(() => {
   return <NodeOperationsMini label="=" nodeType="equals" />;
-};
-export const NodeNotEqualsMini = () => {
+});
+export const NodeNotEqualsMini = memo(() => {
   return (
     <NodeOperationsMini
       label="not ="
@@ -187,13 +181,7 @@ export const NodeNotEqualsMini = () => {
       nodeType="notEquals"
     />
   );
-};
-export const NodeAndMini = () => {
-  return <NodeOperationsMini label="and" nodeType="and" />;
-};
-export const NodeOrMini = () => {
-  return <NodeOperationsMini label="or" nodeType="or" />;
-};
+});
 
 export const NodeOperatorGeneralMini = (props) => {
   return (

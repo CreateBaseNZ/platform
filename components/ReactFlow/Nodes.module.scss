@@ -81,8 +81,8 @@
   width: 6rem;
 }
 
-.operating {
-  background: #9c40f8;
+.operating,
+.logical {
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -94,6 +94,16 @@
     flex: 0 0 1rem;
     text-align: center;
   }
+}
+
+.operating {
+  background: #9c40f8;
+  &.nodeNotEquals {
+    width: 12rem;
+    h4 {
+      flex: 0 0 3rem;
+    }
+  }
   &.operatingGeneral {
     width: 12rem;
     select {
@@ -103,11 +113,8 @@
   }
 }
 
-.nodeNotEquals {
-  width: 12rem;
-  h4 {
-    flex: 0 0 3rem;
-  }
+.logical {
+  background: #faca8b;
 }
 
 .conditionals {

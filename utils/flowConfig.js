@@ -21,10 +21,9 @@ import {
   NodeLessThan,
   NodeEquals,
   NodeNotEquals,
-  NodeAnd,
-  NodeOr,
   NodeOperatorGeneral,
 } from "../components/ReactFlow/NodeOperations";
+import { NodeAnd, NodeOr } from "../components/ReactFlow/NodeLogicals";
 import {
   NodeIf,
   NodeRepeat,
@@ -56,9 +55,9 @@ export const nodeTypes = {
   lessThan: NodeLessThan,
   equals: NodeEquals,
   notEquals: NodeNotEquals,
+  operatorGeneral: NodeOperatorGeneral,
   and: NodeAnd,
   or: NodeOr,
-  operatorGeneral: NodeOperatorGeneral,
   if: NodeIf,
   repeat: NodeRepeat,
   while: NodeWhile,

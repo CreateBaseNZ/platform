@@ -20,10 +20,9 @@ import {
   NodeLessThanMini,
   NodeEqualsMini,
   NodeNotEqualsMini,
-  NodeAndMini,
-  NodeOrMini,
   NodeOperatorGeneralMini,
 } from "./NodeOperations";
+import { NodeAndMini, NodeOrMini } from "./NodeLogicals";
 import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "./NodeConditionals";
 
 import classes from "./DndBar.module.scss";
@@ -52,9 +51,10 @@ const DndBar = () => {
         <NodeLessThanMini />
         <NodeEqualsMini />
         <NodeNotEqualsMini />
+        <NodeOperatorGeneralMini />
+        <h5>Logicals</h5>
         <NodeAndMini />
         <NodeOrMini />
-        <NodeOperatorGeneralMini />
         <h5>Conditionals</h5>
         <NodeIfMini />
         <NodeRepeatMini />
