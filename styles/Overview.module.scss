@@ -99,3 +99,64 @@
   height: 1px;
   background: $light;
 }
+
+.sendIt {
+  .sendItContainer {
+    width: 50vw;
+    min-width: 600px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  .sendItSlide {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    .slideVideoWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      video {
+        width: 100%;
+      }
+    }
+    .sendItCaption {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2vw;
+      font-weight: 500;
+      background: rgba(0, 0, 0, 0.5);
+      color: $lightest;
+      padding: 0.5rem 1.5rem;
+      text-align: center;
+      width: 85%;
+    }
+  }
+  .sendItClose {
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    padding: 0.25rem;
+    transition: background-color 0.1s ease-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    path {
+      fill: $lightest;
+      transition: background-color 0.1s ease-out;
+    }
+    &:hover {
+      background: $lighter;
+      path {
+        fill: $red;
+      }
+    }
+  }
+}

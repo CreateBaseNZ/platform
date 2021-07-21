@@ -1,7 +1,13 @@
+import { Fragment } from "react";
 import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <Fragment>
+      <div id="modal-root"></div>
+      <Component {...pageProps} />
+    </Fragment>
+  );
 }
 
 export default MyApp;
