@@ -1,5 +1,6 @@
 import { memo } from "react";
 import CustomHandle from "./Handles";
+import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
@@ -54,15 +55,11 @@ const NodeOperations = ({ label, data, className = "" }) => {
 
 const NodeOperationsMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.operating} ${props.className}`}
-      onDragStart={props.onDragStart}
-      draggable
-    >
+    <NodeMini {...props} className={`${classes.operating} ${props.className}`}>
       <div className={classes.blankInput} />
       <h4>{props.label}</h4>
       <div className={classes.blankInput} />
-    </div>
+    </NodeMini>
   );
 };
 
@@ -162,25 +159,25 @@ export const NodeOperatorGeneral = memo(({ data }) => {
 });
 
 export const NodeAddMini = (props) => {
-  return <NodeOperationsMini {...props} label="+" />;
+  return <NodeOperationsMini {...props} label="+" nodeType="add" />;
 };
 export const NodeSubtractMini = (props) => {
-  return <NodeOperationsMini {...props} label="-" />;
+  return <NodeOperationsMini {...props} label="-" nodeType="subtract" />;
 };
 export const NodeMultiplyMini = (props) => {
-  return <NodeOperationsMini {...props} label="&times;" />;
+  return <NodeOperationsMini {...props} label="&times;" nodeType="multiply" />;
 };
 export const NodeDivideMini = (props) => {
-  return <NodeOperationsMini {...props} label="&divide;" />;
+  return <NodeOperationsMini {...props} label="&divide;" nodeType="divide" />;
 };
 export const NodeGreaterThanMini = (props) => {
-  return <NodeOperationsMini {...props} label=">" />;
+  return <NodeOperationsMini {...props} label=">" nodeType="greaterThan" />;
 };
 export const NodeLessThanMini = (props) => {
-  return <NodeOperationsMini {...props} label="<" />;
+  return <NodeOperationsMini {...props} label="<" nodeType="lessThan" />;
 };
 export const NodeEqualsMini = (props) => {
-  return <NodeOperationsMini {...props} label="=" />;
+  return <NodeOperationsMini {...props} label="=" nodeType="equals" />;
 };
 export const NodeNotEqualsMini = (props) => {
   return (
@@ -188,26 +185,27 @@ export const NodeNotEqualsMini = (props) => {
       {...props}
       label="not ="
       className={classes.nodeNotEquals}
+      nodeType="notEquals"
     />
   );
 };
 export const NodeAndMini = (props) => {
-  return <NodeOperationsMini {...props} label="and" />;
+  return <NodeOperationsMini {...props} label="and" nodeType="and" />;
 };
 export const NodeOrMini = (props) => {
-  return <NodeOperationsMini {...props} label="or" />;
+  return <NodeOperationsMini {...props} label="or" nodeType="or" />;
 };
 
 export const NodeOperatorGeneralMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.operating}`}
-      onDragStart={props.onDragStart}
-      draggable
+    <NodeMini
+      {...props}
+      className={classes.operating}
+      nodeType="operatorGeneral"
     >
       <div className={classes.blankInput} />
       <div className={classes.blankInput} />
       <div className={classes.blankInput} />
-    </div>
+    </NodeMini>
   );
 };

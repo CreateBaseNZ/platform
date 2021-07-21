@@ -1,5 +1,4 @@
-import { EntityDropdown } from "./NodeGeneral";
-
+import { EntityDropdown, NodeMini } from "./NodeGeneral";
 import classes from "./Nodes.module.scss";
 import CustomHandle from "./Handles";
 
@@ -24,16 +23,16 @@ export const NodeDistance = ({ data }) => {
 
 export const NodeDistanceMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeDistance}`}
-      onDragStart={props.onDragStart}
-      draggable
+    <NodeMini
+      {...props}
+      nodeType="distance"
+      className={`${classes.sensing} ${classes.nodeDistance}`}
     >
       <h4>Distance from</h4>
       <div className={classes.blankInput}></div>
       <h4>to</h4>
       <div className={classes.blankInput}></div>
-    </div>
+    </NodeMini>
   );
 };
 
@@ -56,14 +55,14 @@ export const NodeHeightOf = ({ data }) => {
 
 export const NodeHeightOfMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeHeightOf}`}
-      onDragStart={props.onDragStart}
-      draggable
+    <NodeMini
+      {...props}
+      nodeType="heightOf"
+      className={`${classes.sensing} ${classes.nodeHeightOf}`}
     >
       <h4>Height of</h4>
       <div className={classes.blankInput}></div>
-    </div>
+    </NodeMini>
   );
 };
 
@@ -86,14 +85,14 @@ export const NodeWidthOf = ({ data }) => {
 
 export const NodeWidthOfMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeWidthOf}`}
-      onDragStart={props.onDragStart}
-      draggable
+    <NodeMini
+      {...props}
+      nodeType="widthOf"
+      className={`${classes.sensing} ${classes.nodeWidthOf}`}
     >
       <h4>Width of</h4>
       <div className={classes.blankInput}></div>
-    </div>
+    </NodeMini>
   );
 };
 
@@ -116,14 +115,14 @@ export const NodeSpeedOf = ({ data }) => {
 
 export const NodeSpeedOfMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeSpeedOf}`}
-      onDragStart={props.onDragStart}
-      draggable
+    <NodeMini
+      {...props}
+      nodeType="speedOf"
+      className={`${classes.sensing} ${classes.nodeSpeedOf}`}
     >
       <h4>Speed of</h4>
       <div className={classes.blankInput}></div>
-    </div>
+    </NodeMini>
   );
 };
 
@@ -146,13 +145,13 @@ export const NodeElevationOf = ({ data }) => {
 
 export const NodeElevationOfMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.sensing} ${classes.nodeElevationOf}`}
-      onDragStart={props.onDragStart}
-      draggable
+    <NodeMini
+      {...props}
+      nodeType="elevationOf"
+      className={`${classes.sensing} ${classes.nodeElevationOf}`}
     >
       <h4>Elevation of</h4>
       <div className={classes.blankInput}></div>
-    </div>
+    </NodeMini>
   );
 };

@@ -1,5 +1,4 @@
-import { memo } from "react";
-import { Handle } from "react-flow-renderer";
+import { memo, useState, useEffect } from "react";
 import CustomHandle from "./Handles";
 
 import { entities } from "../../utils/flowConfig";
@@ -13,6 +12,40 @@ export const NodeStart = memo(() => {
     >
       <h4>Start</h4>
       <CustomHandle type="source" position="right" id="execution" />
+    </div>
+  );
+});
+
+export const NodeMini = memo((props) => {
+  const [hovered, setHovered] = useState(false);
+
+  const dragStartHandler = (event) => {
+    event.dataTransfer.setData("application/reactflow", props.nodeType);
+    event.dataTransfer.effectAllowed = "move";
+  };
+
+  const mouseEnterHandler = () => setHovered(true);
+  const mouseLeaveHandler = () => setHovered(false);
+
+  const onTimeout = () => {
+    props.showPreview();
+  };
+
+  useEffect(() => {
+    const timer = hovered && setTimeout(onTimeout, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [hovered]);
+
+  return (
+    <div
+      {...props}
+      className={`${classes.nodeMini} ${props.className}`}
+      onDragStart={dragStartHandler}
+      draggable
+    >
+      {props.children}
     </div>
   );
 });

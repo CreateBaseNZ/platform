@@ -1,4 +1,5 @@
 import CustomHandle from "./Handles";
+import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
@@ -137,23 +138,19 @@ export const NodeWhile = ({ data }) => {
 
 const NodeConditionalsMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.conditionals}`}
-      onDragStart={props.onDragStart}
-      draggable
-    >
+    <NodeMini {...props} className={classes.conditionals}>
       <h4>{props.label}</h4>
       <div className={classes.blankInput}></div>
-    </div>
+    </NodeMini>
   );
 };
 
 export const NodeIfMini = (props) => {
-  return <NodeConditionalsMini {...props} label="If" />;
+  return <NodeConditionalsMini {...props} label="If" nodeType="if" />;
 };
 export const NodeRepeatMini = (props) => {
-  return <NodeConditionalsMini {...props} label="Repeat" />;
+  return <NodeConditionalsMini {...props} label="Repeat" nodeType="repeat" />;
 };
 export const NodeWhileMini = (props) => {
-  return <NodeConditionalsMini {...props} label="While" />;
+  return <NodeConditionalsMini {...props} label="While" nodeType="while" />;
 };
