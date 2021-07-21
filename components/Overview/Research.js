@@ -10,6 +10,9 @@ import {
   SneakPeekModule,
 } from "../Modules";
 import CloseIcon from "@material-ui/icons/Close";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import { Situation } from "./Imagine";
 
 import classes from "/styles/Overview.module.scss";
 import "swiper/swiper.min.css";
@@ -18,40 +21,47 @@ import "swiper/components/navigation/navigation.min.css";
 SwiperCore.use([Pagination, Navigation]);
 
 const instructions = [
-  "Run 1000m to deliver the Pizza",
-  "Jump over obstacles to avoid crashing into them",
-  "Crouch under flying obstacles to avoid crashing into them",
-  "Change the simulation speed to allow more time for your code to react",
+  ["Run 1000m to deliver the Pizza"],
+  ["Jump over obstacles to avoid crashing into them", <ArrowUpwardIcon />],
+  [
+    "Crouch under flying obstacles to avoid crashing into them",
+    <ArrowDownwardIcon />,
+  ],
+  ["Change the simulation speed to allow more time for your code to react"],
 ];
 
-const SendIt = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
+const renderBullet = (index, className) => {
+  return `<span class="${className}"></span>`;
+};
 
+const swiperOptions = {
+  observer: true,
+  observeParents: true,
+  pagination: {
+    type: "bullets",
+    el: `.${classes.pagination}`,
+    bulletClass: classes.bullet,
+    bulletActiveClass: classes.bulletActive,
+    renderBullet: renderBullet,
+    clickable: true,
+  },
+};
+
+const SendIt = (props) => {
   useEffect(() => {
     document.querySelectorAll(".sendItVideo").forEach((v) => {
       v.muted = true;
       v.setAttribute("muted", "1");
-      console.log(v);
     });
   }, []);
 
-  console.log(activeSlide);
-
-  const slideChangeHandler = (swiper) => {
-    console.log(swiper);
-    setActiveSlide(swiper.activeIndex);
-  };
-
   return (
     <div className={classes.sendIt}>
-      <button className={classes.sendItClose}>
+      <button className={classes.sendItClose} onClick={props.closeHandler}>
         <CloseIcon />
       </button>
-      <Swiper
-        className={classes.sendItContainer}
-        onSlideChange={slideChangeHandler}
-      >
-        {instructions.map((text, i) => {
+      <Swiper {...swiperOptions} className={classes.sendItContainer}>
+        {instructions.map((caption, i) => {
           return (
             <SwiperSlide key={i} className={classes.sendItSlide}>
               <div className={classes.slideVideoWrapper}>
@@ -68,20 +78,36 @@ const SendIt = () => {
                   />
                 </video>
               </div>
-              <div className={classes.sendItCaption}>{text}</div>
+              <div className={classes.sendItCaption}>
+                {caption.map((x) => x)}
+              </div>
             </SwiperSlide>
           );
         })}
       </Swiper>
+      <div
+        className={classes.pagination}
+        style={{ visibility: props.mode === "verifying" && "hidden" }}
+      ></div>
     </div>
   );
 };
 
 const Research = (props) => {
   const [showSendIt, setShowSendIt] = useState(false);
+  const [showSituation, setShowSituation] = useState(false);
 
-  const sendItHandler = () => {
+  const sendItShowHandler = () => {
     setShowSendIt(true);
+  };
+  const sendItCloseHandler = () => {
+    setShowSendIt(false);
+  };
+  const situationShowHandler = () => {
+    setShowSituation(true);
+  };
+  const situationCloseHandler = () => {
+    setShowSituation(false);
   };
 
   return (
@@ -90,8 +116,14 @@ const Research = (props) => {
       <div className={classes.moduleContainer}>
         {showSendIt && (
           <Modal
-            children={<SendIt />}
-            closeHandler={() => setShowSendIt(false)}
+            children={<SendIt closeHandler={sendItCloseHandler} />}
+            closeHandler={sendItCloseHandler}
+          />
+        )}
+        {showSituation && (
+          <Modal
+            children={<Situation closeHandler={situationCloseHandler} />}
+            closeHandler={situationCloseHandler}
           />
         )}
         <InfoModule>
@@ -100,10 +132,10 @@ const Research = (props) => {
         <TutorialModule>
           Introduction to Flow <span>Blocks</span>
         </TutorialModule>
-        <TutorialModule onClick={sendItHandler}>
+        <TutorialModule onClick={sendItShowHandler}>
           How to <span>Send It</span>
         </TutorialModule>
-        <VideoModule>
+        <VideoModule onClick={situationShowHandler}>
           Rewatch the <span>Situation</span> Video
         </VideoModule>
         <Link

@@ -29,7 +29,7 @@ const Play = () => {
   return (
     <div className={classes.play}>
       <Head>
-        <title>{project.name} | CreateBase</title>
+        <title>Play - {project.name} | CreateBase</title>
         <meta name="description" content={project.caption} />
       </Head>
       <Game unityContext={unityContext} />
