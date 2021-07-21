@@ -7,7 +7,7 @@ export const NodeDistance = ({ data }) => {
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeDistance} ${classes.hasRightHandle}`}
     >
-      <h4>Distance from</h4>
+      {/* <h4>Distance from</h4>
       <EntityDropdown data={data} selectName="distance-from" dataName="from" />
       <h4>to</h4>
       <EntityDropdown
@@ -15,7 +15,8 @@ export const NodeDistance = ({ data }) => {
         selectName="distance-to"
         dataName="to"
         options={["Next obstacle"]}
-      />
+      /> */}
+      <h4>Distance to next obstacle</h4>
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
@@ -27,10 +28,11 @@ export const NodeDistanceMini = () => {
       nodeType="distance"
       className={`${classes.sensing} ${classes.nodeDistance}`}
     >
-      <h4>Distance from</h4>
+      {/* <h4>Distance from</h4>
       <div className={classes.blankInput}></div>
       <h4>to</h4>
-      <div className={classes.blankInput}></div>
+      <div className={classes.blankInput}></div> */}
+      <h4>Distance to next obstacle</h4>
     </NodeMini>
   );
 };
@@ -40,13 +42,14 @@ export const NodeHeightOf = ({ data }) => {
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeHeightOf} ${classes.hasRightHandle}`}
     >
-      <h4>Height of</h4>
+      {/* <h4>Height of</h4>
       <EntityDropdown
         data={data}
         selectName="heightOf"
         dataName="entity"
         options={["Next obstacle"]}
-      />
+      /> */}
+      <h4>Height of next obstacle</h4>
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
@@ -58,8 +61,9 @@ export const NodeHeightOfMini = () => {
       nodeType="heightOf"
       className={`${classes.sensing} ${classes.nodeHeightOf}`}
     >
-      <h4>Height of</h4>
-      <div className={classes.blankInput}></div>
+      {/* <h4>Height of</h4>
+      <div className={classes.blankInput}></div> */}
+      <h4>Height of next obstacle</h4>
     </NodeMini>
   );
 };
@@ -69,13 +73,14 @@ export const NodeWidthOf = ({ data }) => {
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeWidthOf} ${classes.hasRightHandle}`}
     >
-      <h4>Width of</h4>
+      {/* <h4>Width of</h4>
       <EntityDropdown
         data={data}
         selectName="widthOf"
         dataName="entity"
         options={["Next obstacle"]}
-      />
+      /> */}
+      <h4>Width of next obstacle</h4>
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
@@ -87,8 +92,9 @@ export const NodeWidthOfMini = () => {
       nodeType="widthOf"
       className={`${classes.sensing} ${classes.nodeWidthOf}`}
     >
-      <h4>Width of</h4>
-      <div className={classes.blankInput}></div>
+      {/* <h4>Width of</h4>
+      <div className={classes.blankInput}></div> */}
+      <h4>Width of next obstacle</h4>
     </NodeMini>
   );
 };
@@ -98,13 +104,14 @@ export const NodeSpeedOf = ({ data }) => {
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeSpeedOf} ${classes.hasRightHandle}`}
     >
-      <h4>Speed of</h4>
+      {/* <h4>Speed of</h4>
       <EntityDropdown
         data={data}
         selectName="speedOf"
         dataName="entity"
         options={["Next obstacle"]}
-      />
+      /> */}
+      <h4>Speed of next obstacle</h4>
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
@@ -116,8 +123,9 @@ export const NodeSpeedOfMini = () => {
       nodeType="speedOf"
       className={`${classes.sensing} ${classes.nodeSpeedOf}`}
     >
-      <h4>Speed of</h4>
-      <div className={classes.blankInput}></div>
+      {/* <h4>Speed of</h4>
+      <div className={classes.blankInput}></div> */}
+      <h4>Speed of next obstacle</h4>
     </NodeMini>
   );
 };
@@ -127,13 +135,14 @@ export const NodeElevationOf = ({ data }) => {
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeElevationOf} ${classes.hasRightHandle}`}
     >
-      <h4>Elevation of</h4>
+      {/* <h4>Elevation of</h4>
       <EntityDropdown
         data={data}
         selectName="elevationOf"
         dataName="entity"
         options={["Next obstacle"]}
-      />
+      /> */}
+      <h4>Elevation of next obstacle</h4>
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
@@ -145,8 +154,9 @@ export const NodeElevationOfMini = () => {
       nodeType="elevationOf"
       className={`${classes.sensing} ${classes.nodeElevationOf}`}
     >
-      <h4>Elevation of</h4>
-      <div className={classes.blankInput}></div>
+      {/* <h4>Elevation of</h4>
+      <div className={classes.blankInput}></div> */}
+      <h4>Elevation of next obstacle</h4>
     </NodeMini>
   );
 };

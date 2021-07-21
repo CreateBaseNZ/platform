@@ -11,7 +11,7 @@ const NodeActions = ({ data, className, label, selectName, dataName }) => {
     >
       <CustomHandle type="target" position="left" id="execution" />
       <h4>{label}</h4>
-      <EntityDropdown data={data} selectName={selectName} dataName={dataName} />
+      {/* <EntityDropdown data={data} selectName={selectName} dataName={dataName} /> */}
       <CustomHandle type="source" position="right" id="execution" />
     </div>
   );
@@ -66,7 +66,7 @@ const NodeActionsMini = (props) => {
   return (
     <NodeMini {...props} className={`${classes.actioning} ${props.className}`}>
       <h4>{props.label}</h4>
-      <div className={classes.blankInput}></div>
+      {/* <div className={classes.blankInput}></div> */}
     </NodeMini>
   );
 };

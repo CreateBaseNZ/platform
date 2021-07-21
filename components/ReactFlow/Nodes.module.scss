@@ -75,8 +75,10 @@
 
 .actioning {
   background: #00dccf;
-  height: 5rem;
-  width: 10rem;
+  // height: 5rem;
+  // width: 10rem;
+  height: 2rem;
+  width: 6rem;
 }
 
 .operating {
@@ -127,17 +129,13 @@
   width: 5rem;
 }
 
-.nodeDistance {
-  height: 9rem;
-  width: 10rem;
-}
-
+.nodeDistance,
 .nodeSpeedOf,
 .nodeHeightOf,
 .nodeWidthOf,
 .nodeElevationOf {
-  height: 5rem;
-  width: 10rem;
+  height: 4rem;
+  width: 9rem;
 }
 
 .nodeIf {
