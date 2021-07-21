@@ -1,4 +1,4 @@
-import SwiperCore, { Pagination, Navigation } from "swiper";
+import SwiperCore, { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Modal from "../UI/Modal";
 import Link from "next/link";
@@ -18,7 +18,7 @@ import classes from "/styles/Overview.module.scss";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Pagination]);
 
 const instructions = [
   ["Run 1000m to deliver the Pizza"],

@@ -87,17 +87,19 @@
   align-items: center;
   justify-content: center;
   height: 3rem;
-  width: 10rem;
   h4 {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    flex: 0 0 1rem;
     text-align: center;
   }
 }
 
 .operating {
   background: #9c40f8;
+  width: 10rem;
+  h4 {
+    flex: 0 0 1rem;
+  }
   &.nodeNotEquals {
     width: 12rem;
     h4 {
@@ -115,6 +117,10 @@
 
 .logical {
   background: #faca8b;
+  width: 11rem;
+  h4 {
+    flex: 0 0 2rem;
+  }
 }
 
 .conditionals {
@@ -267,6 +273,7 @@
     font-weight: 500;
     color: $lightest;
     margin: 0;
+    flex: 1 1 auto !important;
   }
   .blankInput {
     height: 1.25rem;

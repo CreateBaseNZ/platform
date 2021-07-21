@@ -3,20 +3,17 @@
 .controls {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   background: none;
   box-shadow: none !important;
-  border: thin solid $lighter;
+  max-height: 120px;
   & > * {
     background: $light;
-    border-bottom: thin solid $lighter !important;
+    border: thin solid $lighter !important;
     opacity: 0.75;
     transition: opacity 0.1s ease-out;
     &:hover {
       opacity: 1;
-    }
-
-    &:last-child {
-      border-bottom: none !important;
     }
   }
   .customControl {
