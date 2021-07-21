@@ -47,8 +47,6 @@ const FlowEditor = (props) => {
     (actions) => actions.setSelectedElements
   );
 
-  console.log(props.elements);
-
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
@@ -214,7 +212,6 @@ const FlowEditor = (props) => {
   };
 
   const pasteSelection = () => {
-    console.log(clipBoard);
     if (clipBoard.board) {
       let newNodes = [];
       let mapping = {};
@@ -346,7 +343,6 @@ const FlowEditor = (props) => {
       return els.map((el) => {
         for (const node of selectionNodes) {
           if (node.id === el.id) {
-            console.log("same detected");
             return {
               ...node,
               position: {

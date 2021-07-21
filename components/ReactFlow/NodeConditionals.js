@@ -49,7 +49,6 @@ export const NodeIf = ({ data }) => {
 
 export const NodeRepeat = ({ data }) => {
   const changeHandler = (event) => {
-    console.log(event.target.value);
     data.callBack({ ...data.values, condition: event.target.value });
   };
   const dragHandler = (event) => {
