@@ -23,3 +23,30 @@
   flex-grow: 1;
   position: relative;
 }
+
+.hoverBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.85);
+  animation: appear 0.2s ease-out forwards;
+
+  & > div {
+    position: relative;
+    margin-top: 5vh;
+    margin-left: 5vw;
+    overflow: visible;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

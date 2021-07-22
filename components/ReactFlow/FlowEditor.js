@@ -1,4 +1,11 @@
-import React, { useRef, useState, useCallback, useEffect, memo } from "react";
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  memo,
+  useContext,
+} from "react";
 import ReactFlow, {
   removeElements,
   addEdge,
@@ -25,11 +32,13 @@ import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
+import MiniHoverContext from "../../store/mini-hover-context";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const FlowEditor = (props) => {
+  const miniHoverCtx = useContext(MiniHoverContext);
   const wrapperRef = useRef(null);
   const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -400,6 +409,9 @@ const FlowEditor = (props) => {
           />
           <Background color="#aaa" gap={16} />
         </ReactFlow>
+        {miniHoverCtx.activeNode && (
+          <div className={classes.hoverBg}>{miniHoverCtx.activeNode}</div>
+        )}
       </div>
     </div>
   );

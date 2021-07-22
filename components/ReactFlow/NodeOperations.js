@@ -4,7 +4,11 @@ import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
-const NodeOperations = ({ label, data, className = "" }) => {
+const NodeOperations = ({
+  label,
+  data = { values: { a: 1, b: 2 } },
+  className = "",
+}) => {
   const changeHandlerA = (event) => {
     data.callBack({ ...data.values, a: event.target.value });
   };
@@ -94,84 +98,110 @@ export const NodeNotEquals = memo(({ data }) => {
   );
 });
 
-export const NodeOperatorGeneral = memo(({ data }) => {
-  const changeHandlerA = (event) => {
-    data.callBack({ ...data.values, a: event.target.value });
-  };
-  const changeHandlerB = (event) => {
-    data.callBack({ ...data.values, b: event.target.value });
-  };
-  const changeHandlerOperator = (event) => {
-    data.callBack({ ...data.values, operator: event.target.value });
-  };
+export const NodeOperatorGeneral = memo(
+  ({ data = { values: { a: 1, b: 2, operator: "+" } } }) => {
+    const changeHandlerA = (event) => {
+      data.callBack({ ...data.values, a: event.target.value });
+    };
+    const changeHandlerB = (event) => {
+      data.callBack({ ...data.values, b: event.target.value });
+    };
+    const changeHandlerOperator = (event) => {
+      data.callBack({ ...data.values, operator: event.target.value });
+    };
 
-  return (
-    <div
-      className={`${classes.node} ${classes.operating} ${classes.hasRightHandle} ${classes.operatingGeneral}`}
-    >
-      <CustomHandle
-        type="target"
-        position="top"
-        id="param__a"
-        style={{ left: "30px", transform: "none" }}
-      />
-      <CustomHandle
-        type="target"
-        position="top"
-        id="param__b"
-        style={{ left: "auto", right: "34px", transform: "none" }}
-      />
-      <input
-        className="nodrag"
-        onChange={changeHandlerA}
-        type="number"
-        value={data.values.a}
-      />
-      <select
-        name={`${data.id}_operator`}
-        id={`${data.id}_operator`}
-        onChange={changeHandlerOperator}
-        value={data.values.operator}
+    return (
+      <div
+        className={`${classes.node} ${classes.operating} ${classes.hasRightHandle} ${classes.operatingGeneral}`}
       >
-        {["+", "-", "×", "÷", ">", "<", "=", "not =", "and", "or"].map(
-          (operator) => (
-            <option value={operator} key={operator}>
-              {operator}
-            </option>
-          )
-        )}
-      </select>
-      <input
-        className="nodrag"
-        onChange={changeHandlerB}
-        type="number"
-        value={data.values.b}
-      />
-      <CustomHandle type="source" position="right" id="param__out" />
-    </div>
-  );
-});
+        <CustomHandle
+          type="target"
+          position="top"
+          id="param__a"
+          style={{ left: "30px", transform: "none" }}
+        />
+        <CustomHandle
+          type="target"
+          position="top"
+          id="param__b"
+          style={{ left: "auto", right: "34px", transform: "none" }}
+        />
+        <input
+          className="nodrag"
+          onChange={changeHandlerA}
+          type="number"
+          value={data.values.a}
+        />
+        <select
+          name={`${data.id}_operator`}
+          id={`${data.id}_operator`}
+          onChange={changeHandlerOperator}
+          value={data.values.operator}
+        >
+          {["+", "-", "×", "÷", ">", "<", "=", "not =", "and", "or"].map(
+            (operator) => (
+              <option value={operator} key={operator}>
+                {operator}
+              </option>
+            )
+          )}
+        </select>
+        <input
+          className="nodrag"
+          onChange={changeHandlerB}
+          type="number"
+          value={data.values.b}
+        />
+        <CustomHandle type="source" position="right" id="param__out" />
+      </div>
+    );
+  }
+);
 
 export const NodeAddMini = memo(() => {
-  return <NodeOperationsMini label="+" nodeType="add" />;
+  return <NodeOperationsMini label="+" nodeType="add" node={<NodeAdd />} />;
 });
 export const NodeSubtractMini = memo(() => {
-  return <NodeOperationsMini label="-" nodeType="subtract" />;
+  return (
+    <NodeOperationsMini label="-" nodeType="subtract" node={<NodeSubtract />} />
+  );
 });
 export const NodeMultiplyMini = memo(() => {
-  return <NodeOperationsMini label="&times;" nodeType="multiply" />;
+  return (
+    <NodeOperationsMini
+      label="&times;"
+      nodeType="multiply"
+      node={<NodeMultiply />}
+    />
+  );
 });
 export const NodeDivideMini = memo(() => {
-  return <NodeOperationsMini label="&divide;" nodeType="divide" />;
+  return (
+    <NodeOperationsMini
+      label="&divide;"
+      nodeType="divide"
+      node={<NodeDivide />}
+    />
+  );
 });
 export const NodeGreaterThanMini = memo(() => {
-  return <NodeOperationsMini label=">" nodeType="greaterThan" />;
+  return (
+    <NodeOperationsMini
+      label=">"
+      nodeType="greaterThan"
+      node={<NodeGreaterThan />}
+    />
+  );
 });
 export const NodeLessThanMini = memo(() => {
-  return <NodeOperationsMini label="<" nodeType="lessThan" />;
+  return (
+    <NodeOperationsMini label="<" nodeType="lessThan" node={<NodeLessThan />} />
+  );
 });
 export const NodeEqualsMini = memo(() => {
-  return <NodeOperationsMini label="=" nodeType="equals" />;
+  return (
+    <NodeOperationsMini label="=" nodeType="equals" node={<NodeEquals />} />
+  );
 });
 export const NodeNotEqualsMini = memo(() => {
   return (
@@ -179,13 +209,18 @@ export const NodeNotEqualsMini = memo(() => {
       label="not ="
       className={classes.nodeNotEquals}
       nodeType="notEquals"
+      node={<NodeNotEquals />}
     />
   );
 });
 
 export const NodeOperatorGeneralMini = (props) => {
   return (
-    <NodeMini className={classes.operating} nodeType="operatorGeneral">
+    <NodeMini
+      className={classes.operating}
+      nodeType="operatorGeneral"
+      node={<NodeOperatorGeneral />}
+    >
       <div className={classes.blankInput} />
       <div className={classes.blankInput} />
       <div className={classes.blankInput} />

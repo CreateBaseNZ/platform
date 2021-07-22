@@ -1,9 +1,10 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useContext } from "react";
 import CustomHandle from "./Handles";
 
 import { entities } from "../../utils/flowConfig";
 
 import classes from "./Nodes.module.scss";
+import MiniHoverContext from "../../store/mini-hover-context";
 
 export const NodeStart = memo(() => {
   return (
@@ -17,31 +18,20 @@ export const NodeStart = memo(() => {
 });
 
 export const NodeMini = memo((props) => {
-  const [hovered, setHovered] = useState(false);
+  const miniHoverCtx = useContext(MiniHoverContext);
 
   const dragStartHandler = (event) => {
     event.dataTransfer.setData("application/reactflow", props.nodeType);
     event.dataTransfer.effectAllowed = "move";
+    miniHoverCtx.clearNow();
   };
-
-  const mouseEnterHandler = () => setHovered(true);
-  const mouseLeaveHandler = () => setHovered(false);
-
-  const onTimeout = () => {
-    props.showPreview();
-  };
-
-  useEffect(() => {
-    const timer = hovered && setTimeout(onTimeout, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [hovered]);
 
   return (
     <div
       className={`${classes.nodeMini} ${props.className}`}
       onDragStart={dragStartHandler}
+      onMouseEnter={miniHoverCtx.mouseEnterHandler.bind(this, props.node)}
+      onMouseLeave={miniHoverCtx.mouseLeaveHandler}
       draggable
     >
       {props.children}

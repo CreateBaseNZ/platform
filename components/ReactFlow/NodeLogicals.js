@@ -9,21 +9,21 @@ const NodeLogicals = ({ label, data, className = "" }) => {
     <div
       className={`${classes.node} ${classes.logical} ${classes.hasRightHandle} ${className}`}
     >
+      <input className={classes.preventInput} />
       <CustomHandle
         type="target"
         position="top"
         id="param__a"
         style={{ left: "30px", transform: "none" }}
       />
+      <h4>{label}</h4>
+      <input className={classes.preventInput} />
       <CustomHandle
         type="target"
         position="top"
         id="param__b"
         style={{ left: "auto", right: "34px", transform: "none" }}
       />
-      <input className={classes.preventInput} />
-      <h4>{label}</h4>
-      <input className={classes.preventInput} />
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
   );
@@ -47,8 +47,8 @@ export const NodeOr = memo(({ data }) => {
 });
 
 export const NodeAndMini = memo(() => {
-  return <NodeLogicalsMini label="and" nodeType="and" />;
+  return <NodeLogicalsMini label="and" nodeType="and" node={<NodeAnd />} />;
 });
 export const NodeOrMini = memo(() => {
-  return <NodeLogicalsMini label="or" nodeType="or" />;
+  return <NodeLogicalsMini label="or" nodeType="or" node={<NodeOr />} />;
 });

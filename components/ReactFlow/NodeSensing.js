@@ -22,21 +22,6 @@ export const NodeDistance = ({ data }) => {
   );
 };
 
-export const NodeDistanceMini = () => {
-  return (
-    <NodeMini
-      nodeType="distance"
-      className={`${classes.sensing} ${classes.nodeDistance}`}
-    >
-      {/* <h4>Distance from</h4>
-      <div className={classes.blankInput}></div>
-      <h4>to</h4>
-      <div className={classes.blankInput}></div> */}
-      <h4>Distance to next obstacle</h4>
-    </NodeMini>
-  );
-};
-
 export const NodeHeightOf = ({ data }) => {
   return (
     <div
@@ -52,19 +37,6 @@ export const NodeHeightOf = ({ data }) => {
       <h4>Height of next obstacle</h4>
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
-  );
-};
-
-export const NodeHeightOfMini = () => {
-  return (
-    <NodeMini
-      nodeType="heightOf"
-      className={`${classes.sensing} ${classes.nodeHeightOf}`}
-    >
-      {/* <h4>Height of</h4>
-      <div className={classes.blankInput}></div> */}
-      <h4>Height of next obstacle</h4>
-    </NodeMini>
   );
 };
 
@@ -86,19 +58,6 @@ export const NodeWidthOf = ({ data }) => {
   );
 };
 
-export const NodeWidthOfMini = () => {
-  return (
-    <NodeMini
-      nodeType="widthOf"
-      className={`${classes.sensing} ${classes.nodeWidthOf}`}
-    >
-      {/* <h4>Width of</h4>
-      <div className={classes.blankInput}></div> */}
-      <h4>Width of next obstacle</h4>
-    </NodeMini>
-  );
-};
-
 export const NodeSpeedOf = ({ data }) => {
   return (
     <div
@@ -114,19 +73,6 @@ export const NodeSpeedOf = ({ data }) => {
       <h4>Speed of next obstacle</h4>
       <CustomHandle type="source" position="right" id="param__out" />
     </div>
-  );
-};
-
-export const NodeSpeedOfMini = () => {
-  return (
-    <NodeMini
-      nodeType="speedOf"
-      className={`${classes.sensing} ${classes.nodeSpeedOf}`}
-    >
-      {/* <h4>Speed of</h4>
-      <div className={classes.blankInput}></div> */}
-      <h4>Speed of next obstacle</h4>
-    </NodeMini>
   );
 };
 
@@ -148,11 +94,70 @@ export const NodeElevationOf = ({ data }) => {
   );
 };
 
+export const NodeDistanceMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeDistance}`}
+      nodeType="distance"
+      node={<NodeDistance />}
+    >
+      {/* <h4>Distance from</h4>
+      <div className={classes.blankInput}></div>
+      <h4>to</h4>
+      <div className={classes.blankInput}></div> */}
+      <h4>Distance to next obstacle</h4>
+    </NodeMini>
+  );
+};
+
+export const NodeHeightOfMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeHeightOf}`}
+      nodeType="heightOf"
+      node={<NodeHeightOf />}
+    >
+      {/* <h4>Height of</h4>
+      <div className={classes.blankInput}></div> */}
+      <h4>Height of next obstacle</h4>
+    </NodeMini>
+  );
+};
+
+export const NodeWidthOfMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeWidthOf}`}
+      nodeType="widthOf"
+      node={<NodeWidthOf />}
+    >
+      {/* <h4>Width of</h4>
+      <div className={classes.blankInput}></div> */}
+      <h4>Width of next obstacle</h4>
+    </NodeMini>
+  );
+};
+
+export const NodeSpeedOfMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeSpeedOf}`}
+      nodeType="speedOf"
+      node={<NodeSpeedOf />}
+    >
+      {/* <h4>Speed of</h4>
+      <div className={classes.blankInput}></div> */}
+      <h4>Speed of next obstacle</h4>
+    </NodeMini>
+  );
+};
+
 export const NodeElevationOfMini = () => {
   return (
     <NodeMini
-      nodeType="elevationOf"
       className={`${classes.sensing} ${classes.nodeElevationOf}`}
+      nodeType="elevationOf"
+      node={<NodeElevationOf />}
     >
       {/* <h4>Elevation of</h4>
       <div className={classes.blankInput}></div> */}

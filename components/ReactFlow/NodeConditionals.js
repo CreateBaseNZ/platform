@@ -48,7 +48,7 @@ export const NodeIf = ({ data }) => {
   );
 };
 
-export const NodeRepeat = ({ data }) => {
+export const NodeRepeat = ({ data = { values: { condition: 1 } } }) => {
   const changeHandler = (event) => {
     data.callBack({ ...data.values, condition: event.target.value });
   };
@@ -146,11 +146,19 @@ const NodeConditionalsMini = (props) => {
 };
 
 export const NodeIfMini = () => {
-  return <NodeConditionalsMini label="If" nodeType="if" />;
+  return <NodeConditionalsMini label="If" nodeType="if" node={<NodeIf />} />;
 };
 export const NodeRepeatMini = () => {
-  return <NodeConditionalsMini label="Repeat" nodeType="repeat" />;
+  return (
+    <NodeConditionalsMini
+      label="Repeat"
+      nodeType="repeat"
+      node={<NodeRepeat />}
+    />
+  );
 };
 export const NodeWhileMini = () => {
-  return <NodeConditionalsMini label="While" nodeType="while" />;
+  return (
+    <NodeConditionalsMini label="While" nodeType="while" node={<NodeWhile />} />
+  );
 };

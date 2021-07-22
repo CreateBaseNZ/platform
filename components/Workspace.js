@@ -14,6 +14,7 @@ import GreenButton from "./UI/GreenButton";
 
 import { CodeGenerator } from "../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
+import { MiniHoverContextProvider } from "../store/mini-hover-context";
 
 let com;
 
@@ -393,13 +394,15 @@ const Workspace = (props) => {
           caption="Compile"
         />
       )}
-      <ReactFlowProvider>
-        <FlowEditor
-          show={activeTab === "flow"}
-          elements={elements}
-          setElements={setElements}
-        />
-      </ReactFlowProvider>
+      <MiniHoverContextProvider>
+        <ReactFlowProvider>
+          <FlowEditor
+            show={activeTab === "flow"}
+            elements={elements}
+            setElements={setElements}
+          />
+        </ReactFlowProvider>
+      </MiniHoverContextProvider>
       <TextEditor show={activeTab === "text"} text={text} />
       <Console show={activeTab === "console"} />
       <TabBar

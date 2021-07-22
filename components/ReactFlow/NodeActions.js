@@ -77,6 +77,7 @@ export const NodeAttackMini = () => {
       className={classes.nodeAttack}
       label="Attack"
       nodeType="attack"
+      node={<NodeAttack />}
     />
   );
 };
@@ -86,6 +87,7 @@ export const NodeDoubleJumpMini = () => {
       className={classes.nodeDoubleJump}
       label="Double Jump"
       nodeType="doubleJump"
+      node={<NodeDoubleJump />}
     />
   );
 };
@@ -95,6 +97,7 @@ export const NodeCrouchMini = () => {
       className={classes.nodeCrouch}
       label="Crouch"
       nodeType="crouch"
+      node={<NodeCrouch />}
     />
   );
 };
@@ -104,6 +107,7 @@ export const NodeJumpMini = () => {
       className={classes.nodeJump}
       label="Jump"
       nodeType="jump"
+      node={<NodeJump />}
     />
   );
 };
