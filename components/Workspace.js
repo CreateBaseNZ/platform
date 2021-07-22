@@ -331,6 +331,7 @@ const Workspace = (props) => {
   const [elements, setElements] = useState(initialElements);
   const [text, setText] = useState("// Let's code! 💡");
   const [allowCompile, setAllowCompile] = useState(false);
+  const [theme, setTheme] = useState(null);
 
   const ctx = useContext(ConsoleContext);
   const sensorDataRef = useRef(props.sensorData);
@@ -405,7 +406,11 @@ const Workspace = (props) => {
         </ReactFlowProvider>
       </MiniHoverContextProvider>
       <TextEditor show={activeTab === "text"} text={text} />
-      <Console show={activeTab === "console"} />
+      <Console
+        show={activeTab === "console"}
+        theme={theme}
+        setTheme={setTheme}
+      />
       <Config show={activeTab === "config"} />
       <TabBar
         stacked={props.stacked}
