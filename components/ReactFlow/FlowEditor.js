@@ -59,6 +59,8 @@ const FlowEditor = (props) => {
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
+  console.log(props.elements);
+
   useEffect(() => {
     if (!systemAction) {
       setActionStack((state) => {
@@ -283,17 +285,48 @@ const FlowEditor = (props) => {
     if (props.elements) {
       window.localStorage.setItem("flow_save", JSON.stringify(props.elements));
     }
+    console.log(window.localStorage.getItem("flow_save"));
   };
 
   const restoreFlow = () => {
-    const restore = () => {
-      const flow = JSON.parse(window.localStorage.getItem("flow_save"));
-      if (flow) {
-        props.setElements(flow);
-        setCenter(0, 0, 1.25);
-      }
-    };
-    restore();
+    const savedEls = JSON.parse(window.localStorage.getItem("flow_save"));
+    if (savedEls) {
+      const restoredEls = savedEls.map((el) => {
+        if (isNode(el)) {
+          const idNum = parseInt(el.id.split("_")[1]);
+          if (idNum <= id) {
+            id = idNum + 1;
+          }
+          const { data = {} } = el;
+          return {
+            id: el.id,
+            type: el.type,
+            position: el.position,
+            data: {
+              values: data.values,
+              callBack: (newValues) => {
+                props.setElements((els) =>
+                  els.map((thisEl) => {
+                    if (thisEl.id === el.id) {
+                      thisEl.data = {
+                        ...thisEl.data,
+                        values: newValues,
+                      };
+                    }
+                    return thisEl;
+                  })
+                );
+              },
+            },
+          };
+        } else {
+          return el;
+        }
+      });
+      console.log(restoredEls);
+      props.setElements(restoredEls);
+      setCenter(0, 0, 1.25);
+    }
   };
 
   const lockHandler = () => {
