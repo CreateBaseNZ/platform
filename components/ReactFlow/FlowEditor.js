@@ -1,55 +1,66 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  memo,
+  useContext,
+} from "react";
 import ReactFlow, {
-  ReactFlowProvider,
   removeElements,
   addEdge,
   updateEdge,
   Background,
   isEdge,
   isNode,
-  getOutgoers,
+  useZoomPanHelper,
+  getConnectedEdges,
+  Controls,
+  useStoreActions,
 } from "react-flow-renderer";
-import { nodeTypes, edgeTypes } from "../../utils/flowConfig";
+import { nodeTypes, edgeTypes, tooltips } from "../../utils/flowConfig";
 import {
   controlTitles,
+  flashLockIcon,
   getDefaultValues,
+  getNearestGridPosition,
   updateGhostEnd,
   updateParamInput,
 } from "../../utils/flowHelpers";
 
-import GreenButton from "../UI/GreenButton";
 import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
+import MiniHoverContext from "../../store/mini-hover-context";
 
-let com;
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const FlowEditor = (props) => {
+  const miniHoverCtx = useContext(MiniHoverContext);
   const wrapperRef = useRef(null);
-  const [allowCompile, setAllowCompile] = useState(false);
+  const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [actionStack, setActionStack] = useState({
-    stack: [props.elements],
-    currentIndex: 0,
+    stack: [],
+    currentIndex: -1,
   });
-  const [userHasActed, setUserHasActed] = useState(false);
+  const [systemAction, setSystemAction] = useState(false);
   const [clipBoard, setClipBoard] = useState({
-    selectedEl: null,
+    selection: null,
     board: null,
   });
+  const [flowLocked, setFlowLocked] = useState(false);
+  const setSelectedElements = useStoreActions(
+    (actions) => actions.setSelectedElements
+  );
 
-  console.log(actionStack);
+  const allowUndo = actionStack.currentIndex !== 0;
+  const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
   useEffect(() => {
-    setAllowCompile(true);
-  }, [props.elements]);
-
-  useEffect(() => {
-    if (userHasActed) {
-      console.log("im updating something");
+    if (!systemAction) {
       setActionStack((state) => {
         return {
           stack: [
@@ -59,9 +70,23 @@ const FlowEditor = (props) => {
           currentIndex: state.currentIndex + 1,
         };
       });
-      setUserHasActed(false);
+    } else {
+      setSystemAction(false);
     }
-  }, [userHasActed]);
+  }, [props.elements]);
+
+  // temporary while devs fix library
+  useEffect(() => {
+    if (flowLocked) {
+      document.querySelectorAll(".react-flow__handle").forEach((handle) => {
+        handle.classList.remove("connectable");
+      });
+    } else {
+      document.querySelectorAll(".react-flow__handle").forEach((handle) => {
+        handle.classList.add("connectable");
+      });
+    }
+  }, [flowLocked]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -76,6 +101,7 @@ const FlowEditor = (props) => {
     const clone = arrow.cloneNode(true);
     clone.id = "react-flow__arrowclosed__custom";
     arrow.parentNode.appendChild(clone);
+    document.querySelector(".react-flow").focus();
   }, []);
 
   // deleting an element
@@ -90,11 +116,9 @@ const FlowEditor = (props) => {
       }
     }
     props.setElements((els) => removeElements(filteredElements, els));
-    setUserHasActed(true);
   }, []);
 
   const onConnect = useCallback((params) => {
-    updateGhostEnd(params.source, params.sourceHandle, "add");
     // styling new edge
     let newEdge;
     if (params.sourceHandle.split("__")[0] === "execution") {
@@ -110,9 +134,9 @@ const FlowEditor = (props) => {
       };
     }
     // check if param input needs to be toggled
+    updateGhostEnd(params.source, params.sourceHandle, "add");
     updateParamInput(params.target, params.targetHandle, "prevent");
     props.setElements((els) => addEdge(newEdge, els));
-    setUserHasActed(true);
   }, []);
 
   // updating edges
@@ -126,7 +150,6 @@ const FlowEditor = (props) => {
       "prevent"
     );
     props.setElements((els) => updateEdge(oldEdge, newConnection, els));
-    setUserHasActed(true);
   }, []);
 
   // dragging from menu to drop zone
@@ -138,6 +161,10 @@ const FlowEditor = (props) => {
   // dropping
   const onDrop = (event) => {
     event.preventDefault();
+    if (flowLocked) {
+      flashLockIcon();
+      return;
+    }
     // place the node in correct position
     const reactFlowBounds = wrapperRef.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
@@ -165,42 +192,91 @@ const FlowEditor = (props) => {
               return el;
             })
           );
-          setUserHasActed(true);
         },
       },
     };
     props.setElements((es) => es.concat(newNode));
-    setUserHasActed(true);
   };
 
-  const elementClickHandler = (event, element) => {
-    console.log(event);
-    console.log(element);
-    if (isNode(element)) {
+  const selectChangeHandler = (elements) => {
+    if (elements) {
       setClipBoard((state) => {
-        return { ...state, selectedEl: element };
+        return {
+          ...state,
+          selection: elements,
+        };
       });
     }
   };
 
-  const copyNode = () => {
-    setClipBoard((state) => {
-      return { ...state, board: clipBoard.selectedEl };
-    });
+  const copySelection = () => {
+    if (clipBoard.selection) {
+      setClipBoard((state) => {
+        return {
+          ...state,
+          board: clipBoard.selection.filter((el) => el.id !== "start"),
+        };
+      });
+    }
+  };
+
+  const pasteSelection = () => {
+    if (clipBoard.board) {
+      let newNodes = [];
+      let mapping = {};
+      let edges = [];
+      for (const el of clipBoard.board) {
+        if (isNode(el)) {
+          const newId = getId();
+          newNodes.push({
+            ...el,
+            id: newId,
+          });
+          mapping[el.id] = newId;
+        } else {
+          edges.push(el);
+        }
+      }
+
+      const newEdges = edges
+        .map((edge) => {
+          return {
+            ...edge,
+            id: `reactflow__edge-${mapping[edge.source]}${edge.sourceHandle}-${
+              mapping[edge.target]
+            }${edge.targetHandle}`,
+            source: mapping[edge.source],
+            target: mapping[edge.target],
+          };
+        })
+        .filter((edge) => {
+          return edge.source && edge.target;
+        });
+
+      const newEls = newNodes.concat(newEdges);
+      props.setElements((els) => els.concat(newEls));
+      setSelectedElements(newEls);
+    }
   };
 
   const undoAction = () => {
-    props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
-    setActionStack((state) => {
-      return { ...state, currentIndex: state.currentIndex - 1 };
-    });
+    if (allowUndo) {
+      setSystemAction(true);
+      props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
+      setActionStack((state) => {
+        return { ...state, currentIndex: state.currentIndex - 1 };
+      });
+    }
   };
 
   const redoAction = () => {
-    props.setElements(actionStack.stack[actionStack.currentIndex + 1]);
-    setActionStack((state) => {
-      return { ...state, currentIndex: state.currentIndex + 1 };
-    });
+    if (allowRedo) {
+      setSystemAction(true);
+      props.setElements(actionStack.stack[actionStack.currentIndex + 1]);
+      setActionStack((state) => {
+        return { ...state, currentIndex: state.currentIndex + 1 };
+      });
+    }
   };
 
   const saveFlow = () => {
@@ -217,35 +293,77 @@ const FlowEditor = (props) => {
         setCenter(0, 0, 1.25);
       }
     };
-
     restore();
   };
 
-  const compileHandler = () => {
-    clearInterval(com);
-    com = 0;
-    const code = props.compileCode();
-    com = setInterval(() => {
-      props.executeCode(code);
-    }, 10);
-    setAllowCompile(false);
+  const lockHandler = () => {
+    setFlowLocked((state) => !state);
   };
 
   const keyDownHandler = (event) => {
     if (event.ctrlKey) {
       if (event.key === "c") {
-        copyNode();
+        event.preventDefault();
+        copySelection();
       } else if (event.key === "v") {
+        event.preventDefault();
+        pasteSelection();
       } else if (event.key === "z") {
+        event.preventDefault();
         undoAction();
       } else if (event.key === "y") {
+        event.preventDefault();
         redoAction();
       } else if (event.key === "s") {
+        event.preventDefault();
         saveFlow();
       } else if (event.key === "r") {
+        event.preventDefault();
         restoreFlow();
+      } else if (event.key === "=") {
+        event.preventDefault();
+        zoomIn();
+      } else if (event.key === "-") {
+        event.preventDefault();
+        zoomOut();
+      } else if (event.key === "l") {
+        event.preventDefault();
+        lockHandler();
       }
     }
+  };
+
+  const edgeUpdateEndHandler = (event, edge) => {
+    if (!event.target.classList.contains(".react-flow__handle")) {
+      updateGhostEnd(edge.source, edge.sourceHandle, "remove");
+      updateParamInput(edge.target, edge.targetHandle, "allow");
+      props.setElements((els) => removeElements([edge], els));
+    }
+  };
+
+  const nodeDragStopHandler = (_, node) => {
+    props.setElements((els) =>
+      els.map((el) => (el.id === node.id ? node : el))
+    );
+  };
+
+  const selectionDragStopHandler = (_, selectionNodes) => {
+    props.setElements((els) => {
+      return els.map((el) => {
+        for (const node of selectionNodes) {
+          if (node.id === el.id) {
+            return {
+              ...node,
+              position: {
+                x: getNearestGridPosition(node.position.x),
+                y: getNearestGridPosition(node.position.y),
+              },
+            };
+          }
+        }
+        return el;
+      });
+    });
   };
 
   return (
@@ -255,47 +373,51 @@ const FlowEditor = (props) => {
       onKeyDown={keyDownHandler}
       tabIndex={-1}
     >
-      <ReactFlowProvider>
-        <DndBar />
-        <div className={classes.editorWrapper} ref={wrapperRef}>
-          <GreenButton
-            className={`${classes.compileBtn} ${
-              allowCompile && classes.newChanges
-            } terminate-code`}
-            clickHandler={compileHandler}
-            caption="Compile"
+      <DndBar />
+      <div className={classes.editorWrapper} ref={wrapperRef}>
+        <ReactFlow
+          onLoad={onLoad}
+          elements={props.elements}
+          elementsSelectable={!flowLocked}
+          nodesConnectable={!flowLocked}
+          nodesDraggable={!flowLocked}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          minZoom={0.25}
+          snapToGrid={true}
+          snapGrid={[16, 16]}
+          arrowHeadColor="#ffffff"
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          onSelectionChange={selectChangeHandler}
+          onElementsRemove={onElementsRemove}
+          onConnect={onConnect}
+          onEdgeUpdate={onEdgeUpdate}
+          onNodeDragStop={nodeDragStopHandler}
+          onEdgeUpdateEnd={edgeUpdateEndHandler}
+          onSelectionDragStop={selectionDragStopHandler}
+        >
+          <ControlsBar
+            undoHandler={undoAction}
+            redoHandler={redoAction}
+            saveHandler={saveFlow}
+            restoreHandler={restoreFlow}
+            allowUndo={allowUndo}
+            allowRedo={allowRedo}
+            flowLocked={flowLocked}
+            lockHandler={lockHandler}
           />
-          <ReactFlow
-            elements={props.elements}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            onLoad={onLoad}
-            onElementClick={elementClickHandler}
-            onElementsRemove={onElementsRemove}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onConnect={onConnect}
-            onEdgeUpdate={onEdgeUpdate}
-            snapToGrid={true}
-            snapGrid={[16, 16]}
-            arrowHeadColor="#ffffff"
-          >
-            <ControlsBar
-              undoHandler={undoAction}
-              redoHandler={redoAction}
-              saveHandler={saveFlow}
-              restoreHandler={restoreFlow}
-              allowUndo={actionStack.currentIndex === 0}
-              allowRedo={
-                actionStack.currentIndex + 1 === actionStack.stack.length
-              }
-            />
-            <Background color="#aaa" gap={16} />
-          </ReactFlow>
-        </div>
-      </ReactFlowProvider>
+          <Background color="#aaa" gap={16} />
+        </ReactFlow>
+        {miniHoverCtx.activeNode && (
+          <div className={classes.hoverBg}>
+            {miniHoverCtx.activeNode.block}
+            <span>{tooltips[miniHoverCtx.activeNode.nodeType]}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default FlowEditor;
+export default memo(FlowEditor);

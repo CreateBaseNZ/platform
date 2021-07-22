@@ -11,9 +11,9 @@ import { ConsoleContextProvider } from "../../store/console-context";
 import classes from "/styles/Create.module.scss";
 
 const DUMMY_QUERY = {
-  "run-it-down": {
-    name: "Run It Down",
-    src: "/project.png",
+  "send-it": {
+    name: "Send It",
+    src: "/send_it.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
     stacked: true,
@@ -23,7 +23,9 @@ const DUMMY_QUERY = {
 const Create = () => {
   const router = useRouter();
   const [project, setProject] = useState({ stacked: true });
-  const [unityContext, sensorData, gameState, resetScene] = useUnity("create");
+  const [unityContext, sensorData, gameState, resetScene] = useUnity({
+    scene: "create",
+  });
 
   useEffect(() => {
     if (router.query.project) {
@@ -35,7 +37,9 @@ const Create = () => {
     <div className={classes.create}>
       <ConsoleContextProvider>
         <Head>
-          <title>{project ? project.name : "Create"} | CreateBase</title>
+          <title>
+            Create - {project ? project.name : "Create"} | CreateBase
+          </title>
           <meta name="description" content={project ? project.caption : ""} />
         </Head>
         <div

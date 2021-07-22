@@ -18,6 +18,7 @@ export const ConsoleContextProvider = (props) => {
 
   const addLog = (message) => {
     setLogs((state) => [...state, { type: "log", message: message }]);
+    setUnreadStatus("hasLog");
   };
 
   const addWarning = (message) => {

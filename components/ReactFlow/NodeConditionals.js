@@ -1,4 +1,5 @@
 import CustomHandle from "./Handles";
+import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
@@ -47,14 +48,13 @@ export const NodeIf = ({ data }) => {
   );
 };
 
-export const NodeRepeat = ({ data }) => {
+export const NodeRepeat = ({ data = { values: { condition: 1 } } }) => {
   const changeHandler = (event) => {
     data.callBack({ ...data.values, condition: event.target.value });
   };
   const dragHandler = (event) => {
     event.preventDefault();
   };
-
   return (
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeRepeat} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
@@ -63,9 +63,14 @@ export const NodeRepeat = ({ data }) => {
       <h4>Repeat</h4>
       <input
         onChange={changeHandler}
-        onDragStart={dragHandler}
+        className="nodrag"
         type="number"
         value={data.values.condition}
+        onDragStart={dragHandler}
+        onKeyDown={(e) =>
+          (e.key === "e" || e.key === "-" || e.key === ".") &&
+          e.preventDefault()
+        }
       />
       <CustomHandle
         type="target"
@@ -133,23 +138,27 @@ export const NodeWhile = ({ data }) => {
 
 const NodeConditionalsMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.conditionals}`}
-      onDragStart={props.onDragStart}
-      draggable
-    >
+    <NodeMini {...props} className={classes.conditionals}>
       <h4>{props.label}</h4>
       <div className={classes.blankInput}></div>
-    </div>
+    </NodeMini>
   );
 };
 
-export const NodeIfMini = (props) => {
-  return <NodeConditionalsMini {...props} label="If" />;
+export const NodeIfMini = () => {
+  return <NodeConditionalsMini label="If" nodeType="if" node={<NodeIf />} />;
 };
-export const NodeRepeatMini = (props) => {
-  return <NodeConditionalsMini {...props} label="Repeat" />;
+export const NodeRepeatMini = () => {
+  return (
+    <NodeConditionalsMini
+      label="Repeat"
+      nodeType="repeat"
+      node={<NodeRepeat />}
+    />
+  );
 };
-export const NodeWhileMini = (props) => {
-  return <NodeConditionalsMini {...props} label="While" />;
+export const NodeWhileMini = () => {
+  return (
+    <NodeConditionalsMini label="While" nodeType="while" node={<NodeWhile />} />
+  );
 };

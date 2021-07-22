@@ -37,14 +37,7 @@ const TextEditor = (props) => {
   };
 
   return (
-    <div
-      className={`${classes.editorContainer} ${
-        props.mode === "testing" || props.mode === "verifying"
-          ? classes.disable
-          : ""
-      } ${props.show ? "" : "hide"}`}
-      onKeyPress={(e) => e.preventDefault()}
-    >
+    <div className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}>
       <Editor
         defaultLanguage="javascript"
         value={props.text}

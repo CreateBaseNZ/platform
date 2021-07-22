@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import SwapCallsIcon from "@material-ui/icons/SwapCalls";
 import CodeIcon from "@material-ui/icons/Code";
 import CallToActionOutlinedIcon from "@material-ui/icons/CallToActionOutlined";
-
+import TuneOutlinedIcon from "@material-ui/icons/TuneOutlined";
 import ConsoleContext from "../store/console-context";
 
 import classes from "./TabBar.module.scss";
@@ -42,7 +42,7 @@ const Tab = (props) => {
       />
       <label htmlFor={props.id}>
         {props.icon}
-        {props.title}
+        <span>{props.title}</span>
       </label>
     </div>
   );
@@ -52,6 +52,7 @@ const TabBar = (props) => {
   const flowRef = useRef(null);
   const textRef = useRef(null);
   const consoleRef = useRef(null);
+  const configRef = useRef(null);
   const [sliderSize, setSliderSize] = useState({ top: 0, size: 1 });
   const ctx = useContext(ConsoleContext);
 
@@ -67,6 +68,12 @@ const TabBar = (props) => {
         setSliderSize({
           top: consoleRef.current.offsetTop,
           size: consoleRef.current.offsetHeight + 1,
+        });
+        break;
+      case "config":
+        setSliderSize({
+          top: configRef.current.offsetTop,
+          size: configRef.current.offsetHeight + 1,
         });
         break;
       default:
@@ -124,6 +131,16 @@ const TabBar = (props) => {
         active={props.active}
         innerRef={consoleRef}
         status={ctx.unreadStatus}
+      />
+      <Divider tabBefore="console" tabAfter="settings" active={props.active} />
+      <Tab
+        title="Config"
+        id="config-tab"
+        value="config"
+        icon={<TuneOutlinedIcon />}
+        onChangeHandler={onChangeHandler}
+        active={props.active}
+        innerRef={configRef}
       />
     </div>
   );

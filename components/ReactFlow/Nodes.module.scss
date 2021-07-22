@@ -75,22 +75,36 @@
 
 .actioning {
   background: #00dccf;
-  height: 5rem;
-  width: 10rem;
+  // height: 5rem;
+  // width: 10rem;
+  height: 2rem;
+  width: 6rem;
 }
 
-.operating {
-  background: #9c40f8;
+.operating,
+.logical {
   flex-direction: row;
   align-items: center;
   justify-content: center;
   height: 3rem;
-  width: 10rem;
   h4 {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    flex: 0 0 1rem;
     text-align: center;
+  }
+}
+
+.operating {
+  background: #9c40f8;
+  width: 10rem;
+  h4 {
+    flex: 0 0 1rem;
+  }
+  &.nodeNotEquals {
+    width: 12rem;
+    h4 {
+      flex: 0 0 3rem;
+    }
   }
   &.operatingGeneral {
     width: 12rem;
@@ -101,10 +115,11 @@
   }
 }
 
-.nodeNotEquals {
-  width: 12rem;
+.logical {
+  background: #faca8b;
+  width: 11rem;
   h4 {
-    flex: 0 0 3rem;
+    flex: 0 0 2rem;
   }
 }
 
@@ -127,17 +142,13 @@
   width: 5rem;
 }
 
-.nodeDistance {
-  height: 9rem;
-  width: 10rem;
-}
-
+.nodeDistance,
 .nodeSpeedOf,
 .nodeHeightOf,
 .nodeWidthOf,
 .nodeElevationOf {
-  height: 5rem;
-  width: 10rem;
+  height: 4rem;
+  width: 9rem;
 }
 
 .nodeIf {
@@ -262,6 +273,7 @@
     font-weight: 500;
     color: $lightest;
     margin: 0;
+    flex: 1 1 auto !important;
   }
   .blankInput {
     height: 1.25rem;

@@ -3,29 +3,17 @@
 .controls {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   background: none;
   box-shadow: none !important;
-  border: thin solid $lighter;
+  max-height: 120px;
   & > * {
     background: $light;
-    border-bottom: thin solid $lighter !important;
+    border: thin solid $lighter !important;
     opacity: 0.75;
     transition: opacity 0.1s ease-out;
     &:hover {
       opacity: 1;
-    }
-    &.locked {
-      opacity: 0.75;
-      background: $lightest;
-      path {
-        fill: rgb(255, 22, 22);
-      }
-      &:hover {
-        opacity: 1;
-      }
-    }
-    &:last-child {
-      border-bottom: none !important;
     }
   }
   .customControl {
@@ -42,6 +30,16 @@
     opacity: 0.25;
     pointer-events: none;
   }
+  .locked {
+    opacity: 0.75;
+    background: $lightest;
+    svg path {
+      fill: rgb(255, 22, 22);
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .undoButton,
@@ -49,4 +47,14 @@
 .saveButton,
 .restoreButton {
   order: -1;
+}
+
+.lockAlert {
+  animation: alert 0.8s linear infinite;
+}
+
+@keyframes alert {
+  50% {
+    background: red;
+  }
 }

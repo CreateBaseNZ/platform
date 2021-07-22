@@ -10,23 +10,24 @@ import Thumbnail from "../components/Thumbnail";
 
 const DUMMY_PROJECTS = [
   {
-    name: "Run It Down",
-    query: "run-it-down",
-    src: "/project.png",
+    name: "Send It",
+    query: "send-it",
+    thumbnail: "/send_it_thumbnail.png",
+    img: "/send_it.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
   },
   {
     name: "Coming soon",
     query: "",
-    src: "/coming-soon.png",
+    thumbnail: "/coming-soon.png",
     caption: "Coming soon.",
     comingSoon: true,
   },
   {
     name: "Coming soon",
     query: "",
-    src: "/coming-soon.png",
+    thumbnail: "/coming-soon.png",
     caption: "Coming soon.",
     comingSoon: true,
   },
@@ -68,7 +69,7 @@ const Explore = () => {
         </div>
         <div className={classes.coverImage}>
           <Image
-            src={DUMMY_PROJECTS[activeProject].src}
+            src={DUMMY_PROJECTS[activeProject].img}
             layout="fill"
             objectFit="cover"
             alt={DUMMY_PROJECTS[activeProject].name}
@@ -81,7 +82,7 @@ const Explore = () => {
             key={index}
             activeProject={activeProject}
             index={index}
-            src={project.src}
+            src={project.thumbnail}
             name={project.name}
             comingSoon={project.comingSoon}
             thumbnailHandler={thumbnailHandler}

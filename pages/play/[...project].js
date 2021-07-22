@@ -7,9 +7,9 @@ import Game from "../../components/Game";
 import classes from "/styles/Play.module.scss";
 
 const DUMMY_QUERY = {
-  "run-it-down": {
-    query: "run-it-down",
-    name: "Run It Down",
+  "send-it": {
+    query: "send-it",
+    name: "Send It",
   },
 };
 
@@ -29,7 +29,7 @@ const Play = () => {
   return (
     <div className={classes.play}>
       <Head>
-        <title>{project.name} | CreateBase</title>
+        <title>Play - {project.name} | CreateBase</title>
         <meta name="description" content={project.caption} />
       </Head>
       <Game unityContext={unityContext} />

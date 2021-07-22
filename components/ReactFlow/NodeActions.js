@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { EntityDropdown } from "./NodeGeneral";
+import { EntityDropdown, NodeMini } from "./NodeGeneral";
 import CustomHandle from "./Handles";
 
 import classes from "./Nodes.module.scss";
@@ -11,7 +11,7 @@ const NodeActions = ({ data, className, label, selectName, dataName }) => {
     >
       <CustomHandle type="target" position="left" id="execution" />
       <h4>{label}</h4>
-      <EntityDropdown data={data} selectName={selectName} dataName={dataName} />
+      {/* <EntityDropdown data={data} selectName={selectName} dataName={dataName} /> */}
       <CustomHandle type="source" position="right" id="execution" />
     </div>
   );
@@ -64,46 +64,50 @@ export const NodeJump = memo(({ data }) => {
 
 const NodeActionsMini = (props) => {
   return (
-    <div
-      className={`${classes.nodeMini} ${classes.actioning} ${props.className}`}
-      onDragStart={props.onDragStart}
-      draggable
-    >
+    <NodeMini {...props} className={`${classes.actioning} ${props.className}`}>
       <h4>{props.label}</h4>
-      <div className={classes.blankInput}></div>
-    </div>
+      {/* <div className={classes.blankInput}></div> */}
+    </NodeMini>
   );
 };
 
-export const NodeAttackMini = (props) => {
+export const NodeAttackMini = () => {
   return (
     <NodeActionsMini
-      {...props}
       className={classes.nodeAttack}
-      label={"Attack"}
+      label="Attack"
+      nodeType="attack"
+      node={<NodeAttack />}
     />
   );
 };
-export const NodeDoubleJumpMini = (props) => {
+export const NodeDoubleJumpMini = () => {
   return (
     <NodeActionsMini
-      {...props}
       className={classes.nodeDoubleJump}
-      label={"Double Jump"}
+      label="Double Jump"
+      nodeType="doubleJump"
+      node={<NodeDoubleJump />}
     />
   );
 };
-export const NodeCrouchMini = (props) => {
+export const NodeCrouchMini = () => {
   return (
     <NodeActionsMini
-      {...props}
       className={classes.nodeCrouch}
-      label={"Crouch"}
+      label="Crouch"
+      nodeType="crouch"
+      node={<NodeCrouch />}
     />
   );
 };
-export const NodeJumpMini = (props) => {
+export const NodeJumpMini = () => {
   return (
-    <NodeActionsMini {...props} className={classes.nodeJump} label={"Jump"} />
+    <NodeActionsMini
+      className={classes.nodeJump}
+      label="Jump"
+      nodeType="jump"
+      node={<NodeJump />}
+    />
   );
 };

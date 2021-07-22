@@ -2,15 +2,16 @@ import { entities } from "./flowConfig";
 
 import classes from "../components/ReactFlow/Nodes.module.scss";
 
+import classesControlsBar from "../components/ReactFlow/ControlsBar.module.scss";
+
 export const controlTitles = [
-  "Zoom-in",
-  "Zoom-out",
-  "Fit-view",
-  "Lock",
-  "Undo",
-  "Redo",
-  "Save",
-  "Restore",
+  "Zoom-in (Ctrl and +)",
+  "Zoom-out (Ctrl and -)",
+  "Undo (Ctrl + Z)",
+  "Redo (Ctrl + Y)",
+  "Save (Ctrl + S)",
+  "Restore (Ctrl + R)",
+  "Lock (Ctrl + L)",
   "Info",
 ];
 
@@ -42,9 +43,7 @@ export const getDefaultValues = (type) => {
     type === "greaterThan" ||
     type === "lessThan" ||
     type === "equals" ||
-    type === "notEquals" ||
-    type === "and" ||
-    type === "or"
+    type === "notEquals"
   ) {
     return { a: 0, b: 0 };
   }
@@ -97,4 +96,19 @@ export const updateParamInput = (targetBlock, targetHandle, action) => {
         break;
     }
   }
+};
+
+export const flashLockIcon = () => {
+  document
+    .querySelector("#lockButton")
+    .classList.add(classesControlsBar.lockAlert);
+  setTimeout(() => {
+    document
+      .querySelector("#lockButton")
+      .classList.remove(classesControlsBar.lockAlert);
+  }, 3200);
+};
+
+export const getNearestGridPosition = (position) => {
+  return Math.round(position / 16) * 16;
 };

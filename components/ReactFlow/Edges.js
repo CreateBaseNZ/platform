@@ -6,11 +6,6 @@ import {
 
 const foreignObjectSize = 40;
 
-const onEdgeClick = (evt, id) => {
-  evt.stopPropagation();
-  console.log(`remove ${id}`);
-};
-
 export const ExecutionEdge = ({
   id,
   sourceX,

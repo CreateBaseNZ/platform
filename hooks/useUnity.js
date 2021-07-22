@@ -32,12 +32,17 @@ const useUnity = ({ scene }) => {
 
   useEffect(() => {
     unityContext.on("loaded", () => {
-      unityContext.send(
-        "SceneController",
-        "LoadScene",
-        "Project_Jump_0," + scene
-      );
+      setTimeout(() => {
+        unityContext.send(
+          "SceneController",
+          "LoadScene",
+          "Project_Jump_0," + scene
+        );
+      }, 1000);
     });
+  }, []);
+
+  useEffect(() => {
     return () => unityContext.removeAllEventListeners();
   }, []);
 

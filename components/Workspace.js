@@ -1,4 +1,4 @@
-import { useRef, useContext, useState } from "react";
+import { useRef, useContext, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import TextEditor from "./TextEditor";
 import {
@@ -9,9 +9,14 @@ import {
 import { initialElements } from "../utils/flowConfig";
 import Console from "./Console";
 import ConsoleContext from "../store/console-context";
+import { ReactFlowProvider } from "react-flow-renderer";
+import GreenButton from "./UI/GreenButton";
 
 import { CodeGenerator } from "../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
+import { MiniHoverContextProvider } from "../store/mini-hover-context";
+
+let com;
 
 const findNextNode = (currentNode, path, elements) => {
   const nodes = [currentNode];
@@ -324,11 +329,16 @@ const Workspace = (props) => {
   const [activeTab, setActiveTab] = useState("flow");
   const [elements, setElements] = useState(initialElements);
   const [text, setText] = useState("// Let's code! 💡");
+  const [allowCompile, setAllowCompile] = useState(false);
 
   const ctx = useContext(ConsoleContext);
   const sensorDataRef = useRef(props.sensorData);
 
   sensorDataRef.current = props.sensorData;
+
+  useEffect(() => {
+    setAllowCompile(true);
+  }, [elements]);
 
   const compileCode = () => {
     const blocks = flow2Text(elements);
@@ -363,15 +373,36 @@ const Workspace = (props) => {
     eval(text);
   };
 
+  const compileHandler = () => {
+    clearInterval(com);
+    com = 0;
+    const code = compileCode();
+    com = setInterval(() => {
+      executeCode(code);
+    }, 10);
+    setAllowCompile(false);
+  };
+
   return (
     <div className={classes.workspace}>
-      <FlowEditor
-        show={activeTab === "flow"}
-        elements={elements}
-        setElements={setElements}
-        executeCode={executeCode}
-        compileCode={compileCode}
-      />
+      {activeTab === "flow" && (
+        <GreenButton
+          className={`${classes.compileBtn} ${
+            allowCompile && classes.newChanges
+          } terminate-code`}
+          clickHandler={compileHandler}
+          caption="Compile"
+        />
+      )}
+      <MiniHoverContextProvider>
+        <ReactFlowProvider>
+          <FlowEditor
+            show={activeTab === "flow"}
+            elements={elements}
+            setElements={setElements}
+          />
+        </ReactFlowProvider>
+      </MiniHoverContextProvider>
       <TextEditor show={activeTab === "text"} text={text} />
       <Console show={activeTab === "console"} />
       <TabBar

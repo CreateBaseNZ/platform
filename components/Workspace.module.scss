@@ -1,4 +1,26 @@
+@import "/styles/variables";
+
 .workspace {
   display: flex;
   overflow: hidden;
+}
+
+.compileBtn {
+  position: absolute;
+  top: 52vh;
+  left: 240px;
+  padding: 0.5em 1em;
+  background: $green;
+  color: $lightest;
+  z-index: 5;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  &:not(.newChanges) {
+    pointer-events: none;
+    box-shadow: none;
+    text-shadow: none;
+    opacity: 0.25;
+    filter: grayscale(1);
+  }
 }

@@ -7,7 +7,6 @@
   min-height: 180px;
   min-width: 180px;
   border: thin solid $light;
-  margin-right: 2rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
@@ -96,5 +95,14 @@
   }
   span {
     color: #acec25;
+  }
+}
+
+.docModule {
+  i {
+    background: #4b65f8;
+  }
+  span {
+    color: #4b65f8;
   }
 }

@@ -24,22 +24,35 @@
   position: relative;
 }
 
-.compileBtn {
+.hoverBg {
   position: absolute;
-  top: 1vw;
-  left: 5vw;
-  padding: 0.5em 1em;
-  background: $green;
-  color: $lightest;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   z-index: 5;
-  font-size: 1.25rem;
-  font-weight: 600;
-  cursor: pointer;
-  &:not(.newChanges) {
-    pointer-events: none;
-    box-shadow: none;
-    text-shadow: none;
-    opacity: 0.25;
-    filter: grayscale(1);
+  background-color: rgba(0, 0, 0, 0.85);
+  animation: appear 0.2s ease-out forwards;
+  display: flex;
+  flex-direction: row;
+  padding: 5vh 5vw;
+  & > div {
+    position: relative;
+    overflow: visible;
+    flex: 0 0 auto;
+  }
+  span {
+    color: $lightest;
+    flex: 1 1 0;
+    margin-left: 5vw;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
