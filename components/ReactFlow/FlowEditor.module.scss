@@ -33,12 +33,18 @@
   z-index: 5;
   background-color: rgba(0, 0, 0, 0.85);
   animation: appear 0.2s ease-out forwards;
-
+  display: flex;
+  flex-direction: row;
+  padding: 5vh 5vw;
   & > div {
     position: relative;
-    margin-top: 5vh;
-    margin-left: 5vw;
     overflow: visible;
+    flex: 0 0 auto;
+  }
+  span {
+    color: $lightest;
+    flex: 1 1 0;
+    margin-left: 5vw;
   }
 }
 

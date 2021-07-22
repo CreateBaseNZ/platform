@@ -30,7 +30,11 @@ export const NodeMini = memo((props) => {
     <div
       className={`${classes.nodeMini} ${props.className}`}
       onDragStart={dragStartHandler}
-      onMouseEnter={miniHoverCtx.mouseEnterHandler.bind(this, props.node)}
+      onMouseEnter={miniHoverCtx.mouseEnterHandler.bind(
+        this,
+        props.nodeType,
+        props.node
+      )}
       onMouseLeave={miniHoverCtx.mouseLeaveHandler}
       draggable
     >

@@ -10,23 +10,21 @@ const MiniHoverContext = createContext({
 export default MiniHoverContext;
 
 export const MiniHoverContextProvider = (props) => {
-  const [activeNode, setActiveNode] = useState(null);
+  const [activeNode, setActiveNode] = useState();
   const [sticky, setSticky] = useState(false);
   const activeNodeTimer = useRef(null);
   const clearTimer = useRef(null);
 
-  console.log(activeNode);
-
-  const setAfterDelay = (node) => {
+  const setAfterDelay = (nodeType, block) => {
     activeNodeTimer.current = setTimeout(() => {
-      setActiveNode(node);
+      setActiveNode({ nodeType: nodeType, block: block });
       setSticky(true);
       activeNodeTimer.current = null;
     }, 500);
   };
 
-  const setNow = (node) => {
-    setActiveNode(node);
+  const setNow = (nodeType, block) => {
+    setActiveNode({ nodeType: nodeType, block: block });
     setSticky(true);
     clearTimeout(clearTimer.current);
   };
@@ -44,16 +42,15 @@ export const MiniHoverContextProvider = (props) => {
     setSticky(false);
   };
 
-  const mouseEnterHandler = (node) => {
+  const mouseEnterHandler = (nodeType, block) => {
     if (sticky) {
-      setNow(node);
+      setNow(nodeType, block);
     } else {
-      setAfterDelay(node);
+      setAfterDelay(nodeType, block);
     }
   };
 
   const mouseLeaveHandler = () => {
-    console.log(activeNodeTimer.current);
     if (activeNodeTimer.current) {
       clearNow();
     } else {

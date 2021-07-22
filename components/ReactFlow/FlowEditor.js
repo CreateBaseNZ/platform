@@ -18,7 +18,7 @@ import ReactFlow, {
   Controls,
   useStoreActions,
 } from "react-flow-renderer";
-import { nodeTypes, edgeTypes } from "../../utils/flowConfig";
+import { nodeTypes, edgeTypes, tooltips } from "../../utils/flowConfig";
 import {
   controlTitles,
   flashLockIcon,
@@ -410,7 +410,10 @@ const FlowEditor = (props) => {
           <Background color="#aaa" gap={16} />
         </ReactFlow>
         {miniHoverCtx.activeNode && (
-          <div className={classes.hoverBg}>{miniHoverCtx.activeNode}</div>
+          <div className={classes.hoverBg}>
+            {miniHoverCtx.activeNode.block}
+            <span>{tooltips[miniHoverCtx.activeNode.nodeType]}</span>
+          </div>
         )}
       </div>
     </div>
