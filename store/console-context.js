@@ -17,17 +17,47 @@ export const ConsoleContextProvider = (props) => {
   const [unreadStatus, setUnreadStatus] = useState("");
 
   const addLog = (message) => {
-    setLogs((state) => [...state, { type: "log", message: message }]);
+    setLogs((state) => [
+      ...state,
+      {
+        type: "log",
+        message: message,
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      },
+    ]);
     setUnreadStatus("hasLog");
   };
 
   const addWarning = (message) => {
-    setLogs((state) => [...state, { type: "warning", message: message }]);
+    setLogs((state) => [
+      ...state,
+      {
+        type: "warning",
+        message: message,
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      },
+    ]);
     setUnreadStatus("hasWarning");
   };
 
   const addError = (message) => {
-    setLogs((state) => [...state, { type: "error", message: message }]);
+    setLogs((state) => [
+      ...state,
+      {
+        type: "error",
+        message: message,
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      },
+    ]);
     setUnreadStatus("hasError");
   };
 

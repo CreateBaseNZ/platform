@@ -15,6 +15,7 @@ import GreenButton from "./UI/GreenButton";
 import { CodeGenerator } from "../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
 import { MiniHoverContextProvider } from "../store/mini-hover-context";
+import Config from "./Config";
 
 let com;
 
@@ -405,6 +406,7 @@ const Workspace = (props) => {
       </MiniHoverContextProvider>
       <TextEditor show={activeTab === "text"} text={text} />
       <Console show={activeTab === "console"} />
+      <Config show={activeTab === "config"} />
       <TabBar
         stacked={props.stacked}
         active={activeTab}

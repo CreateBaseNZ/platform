@@ -1,4 +1,5 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
+import { memo } from "react";
 import Editor from "@monaco-editor/react";
 
 // import themes from "/utils/themes";
@@ -49,4 +50,4 @@ const TextEditor = (props) => {
   );
 };
 
-export default TextEditor;
+export default memo(TextEditor);

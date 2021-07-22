@@ -44,7 +44,7 @@
   span {
     color: $lightest;
     flex: 1 1 0;
-    margin-left: 5vw;
+    margin-left: calc(2vw + 4rem);
   }
 }
 
