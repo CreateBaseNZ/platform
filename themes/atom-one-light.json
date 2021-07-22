@@ -1,6 +1,6 @@
 {
   "inherit": true,
-  "base": "vs-dark",
+  "base": "vs",
   "colors": {
     "activityBar.background": "#fafafa",
     "activityBar.foreground": "#121417",

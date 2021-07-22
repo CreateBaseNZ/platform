@@ -339,6 +339,16 @@ const Workspace = (props) => {
   sensorDataRef.current = props.sensorData;
 
   useEffect(() => {
+    const theme = localStorage.getItem("monaco-theme");
+    if (theme) {
+      setTheme(theme);
+    } else {
+      setTheme("VSDark");
+      localStorage.setItem("monaco-theme", "VSDark");
+    }
+  }, []);
+
+  useEffect(() => {
     setAllowCompile(true);
   }, [elements]);
 
@@ -411,7 +421,7 @@ const Workspace = (props) => {
         theme={theme}
         setTheme={setTheme}
       />
-      <Config show={activeTab === "config"} />
+      <Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
       <TabBar
         stacked={props.stacked}
         active={activeTab}

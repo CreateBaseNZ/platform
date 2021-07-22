@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { memo } from "react";
 import Editor from "@monaco-editor/react";
 
-import { darkThemes, lightThemes, funkyThemes } from "/utils/themes";
+import { themeFiles } from "/utils/themes";
 
 import classes from "./TextEditor.module.scss";
 
@@ -36,25 +36,10 @@ const TextEditor = (props) => {
   const editorDidMount = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
-    for (const t in darkThemes) {
-      monacoRef.current.editor.defineTheme(t, darkThemes[t]);
+    for (const t in themeFiles) {
+      monacoRef.current.editor.defineTheme(t, themeFiles[t]);
     }
-    for (const t in lightThemes) {
-      monacoRef.current.editor.defineTheme(t, lightThemes[t]);
-    }
-    for (const t in funkyThemes) {
-      monacoRef.current.editor.defineTheme(t, funkyThemes[t]);
-    }
-    const theme = localStorage.getItem("monaco-theme");
-    if (theme) {
-      monacoRef.current.editor.setTheme(theme);
-    } else {
-      monacoRef.current.editor.setTheme("Dark");
-      localStorage.setItem("monaco-theme", "Dark");
-    }
-    // setTimeout(() => {
-    //   monacoRef.current.editor.remeasureFonts();
-    // }, [5000]);
+    monacoRef.current.editor.setTheme(props.theme);
   };
 
   return (

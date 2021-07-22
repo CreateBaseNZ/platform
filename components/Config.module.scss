@@ -3,12 +3,50 @@
 .config {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    background: rgba(0, 0, 0, 0.01);
+    border-left: thin solid rgba(0, 0, 0, 0.05);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-out;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.4);
+  }
 }
 
-.editorWrapper {
-  height: 300px;
-  width: 750px;
+.themeSelect {
+  width: 100%;
+  padding-right: 5vw;
+  padding-bottom: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.configEditorWrapper {
   pointer-events: none;
+  flex: 0 0 auto;
+  height: 300px;
+  width: 500px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transform: scale(0.75);
+  box-shadow: 0 6px 24px 0px rgba(0, 0, 0, 0.2);
   * {
     cursor: default;
   }
@@ -20,7 +58,59 @@
       border: none !important;
     }
   }
+  [data-mprt="8"] {
+    display: none;
+  }
   canvas {
     display: none;
+  }
+}
+
+.themeOptions {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: calc(2vh + 1rem);
+  h4 {
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  div {
+    font-size: 14px;
+    padding: 0.5rem 0.75rem;
+    line-height: 1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    cursor: pointer;
+    color: $dark;
+    border: thin solid transparent;
+    transition: padding 0.2s ease-out;
+    &:hover {
+      border-top: thin solid $lighter;
+      border-bottom: thin solid $lighter;
+    }
+  }
+  .selectedTheme {
+    font-weight: 500;
+    position: relative;
+    border: thin solid $light;
+    padding-left: 1.5rem;
+    &::after {
+      content: ">";
+      position: absolute;
+      left: calc(0.25rem + 0.5vw);
+      top: 50%;
+      color: inherit;
+      font-size: 16px;
+      font-weight: 300;
+      transform: translateY(-50%);
+    }
   }
 }
