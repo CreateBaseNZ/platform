@@ -4,10 +4,59 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.configTabContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  border-right: thin solid $lighter;
+  height: 100%;
+  cursor: pointer;
+  background: $lighter;
+  .configTab {
+    width: 10rem;
+    padding: 2vh 0 2vh 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: $dark;
+    transition: color 0.2s ease-out, border-right 0.1s ease-out,
+      background-color 0.2s ease-out;
+    &:hover:not(.activeTab) {
+      background: $lighter;
+    }
+    &.activeTab {
+      color: $blue-dark;
+      border-right: thick solid $blue-dark;
+      background: $lightest;
+    }
+  }
+}
+
+.themeSelect {
+  height: 100%;
+  width: 100%;
+  padding-bottom: 5vh;
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   overflow-y: auto;
+  h4 {
+    padding: 0.5rem 0.75rem;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   &::-webkit-scrollbar {
     width: 1rem;
   }
@@ -28,21 +77,14 @@
   }
 }
 
-.themeSelect {
-  width: 100%;
-  padding-right: 5vw;
-  padding-bottom: 5vh;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
 .configEditorWrapper {
+  position: sticky;
+  top: 2vh;
   pointer-events: none;
   flex: 0 0 auto;
   height: 300px;
-  width: 500px;
+  width: calc(40vw);
+  max-width: 500px;
   border-radius: 0.75rem;
   overflow: hidden;
   transform: scale(0.75);
@@ -74,12 +116,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding-top: calc(2vh + 1rem);
-  h4 {
-    padding: 0.5rem 0.75rem;
-    font-weight: 600;
-    font-size: 14px;
-  }
+  padding-top: 2vh;
   div {
     font-size: 14px;
     padding: 0.5rem 0.75rem;
@@ -93,15 +130,14 @@
     border: thin solid transparent;
     transition: padding 0.2s ease-out;
     &:hover {
-      border-top: thin solid $lighter;
-      border-bottom: thin solid $lighter;
+      border: thin solid $lighter;
     }
   }
   .selectedTheme {
     font-weight: 500;
     position: relative;
     border: thin solid $light;
-    padding-left: 1.5rem;
+    padding-left: 1.75rem;
     &::after {
       content: ">";
       position: absolute;
@@ -112,5 +148,32 @@
       font-weight: 300;
       transform: translateY(-50%);
     }
+  }
+}
+
+.message {
+  padding: 2vh 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  h4 {
+    font-style: italic;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $dark;
+    font-size: 1.5rem;
+    line-height: 2em;
+    opacity: 0.5;
+    margin: 2vh 0;
+  }
+  p {
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    line-height: 1.75em;
+    font-size: 14px;
+    width: 100%;
+  }
+  a {
+    margin: 4vh 0;
   }
 }

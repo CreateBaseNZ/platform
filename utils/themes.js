@@ -47,20 +47,20 @@ const themes = {
     "VS Dark+",
     "Dracula",
     "GitHub Dark",
-    "Gloom",
     "Monokai",
     "Monokai Pro",
     "Night Owl",
     "Palenight",
     "Synthwave '84",
-    "Tomorrow Night Blue",
     "Winter is Coming Dark Blue",
   ],
   "Funky Themes": [
+    "Gloom",
     "High Contrast",
     "Red",
     "Shades of Purple",
     "Solarized Dark",
+    "Tomorrow Night Blue",
   ],
 };
 

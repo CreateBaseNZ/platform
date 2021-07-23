@@ -135,15 +135,22 @@
       text-align: center;
       width: 85%;
       svg {
+        display: inline;
         margin-left: 1rem;
         padding: 0.25rem;
         border: thin solid $lightest;
         border-radius: 0.25rem;
         background: rgba(0, 0, 0, 0.25);
-        font-size: 2vw;
+        font-size: calc(1vw + 1rem);
         path {
           fill: $lightest;
         }
+      }
+      span {
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+        display: inline;
       }
     }
   }
@@ -208,6 +215,9 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
+  svg {
+    font-size: 2rem;
+  }
   path {
     fill: $lightest;
     transition: background-color 0.1s ease-out;

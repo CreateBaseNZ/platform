@@ -38,7 +38,10 @@ const Imagine = (props) => {
       )}
       <h2>Imagine</h2>
       <div className={classes.centerContainer}>
-        <VideoModule onClick={situationShowHandler}>
+        <VideoModule
+          onClick={situationShowHandler}
+          title="Play the situation video"
+        >
           The <span>Situation</span>
         </VideoModule>
       </div>

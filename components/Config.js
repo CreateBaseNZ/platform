@@ -3,6 +3,7 @@ import Editor, { editorOptions } from "@monaco-editor/react";
 import classes from "./Config.module.scss";
 
 import themes, { themeFiles } from "../utils/themes";
+import GreenButton from "./UI/GreenButton";
 
 const lorem = `const btn = document.getElementById('btn')
 let count = 0
@@ -19,9 +20,12 @@ btn.addEventListener('click', () => {
   }
 })`;
 
+const tabs = ["Theme", "Message Us"];
+
 const Config = (props) => {
   const monacoRef = useRef();
   const [hoveredTheme, setHoveredTheme] = useState();
+  const [activeTab, setActiveTab] = useState("Theme");
 
   useEffect(() => {
     if (monacoRef.current) {
@@ -32,6 +36,10 @@ const Config = (props) => {
       }
     }
   }, [props.theme, monacoRef.current, hoveredTheme]);
+
+  const tabClickHandler = (tab) => {
+    setActiveTab(tab);
+  };
 
   const editorDidMount = (editor, monaco) => {
     monacoRef.current = monaco;
@@ -50,7 +58,7 @@ const Config = (props) => {
     setHoveredTheme(props.theme);
   };
 
-  const clickHandler = (theme) => {
+  const themeClickHandler = (theme) => {
     props.setTheme(theme.replace(/([\ +'])/g, ""));
   };
 
@@ -72,7 +80,7 @@ const Config = (props) => {
                 themeFiles[themeName].colors["editor.background"]
               )}
               onMouseLeave={mouseLeaveHandler}
-              onClick={clickHandler.bind(this, t)}
+              onClick={themeClickHandler.bind(this, t)}
             >
               {t}
             </div>
@@ -84,7 +92,23 @@ const Config = (props) => {
 
   return (
     <div className={`${classes.config} ${props.show ? "" : "hide"}`}>
-      <div className={classes.themeSelect}>
+      <div className={classes.configTabContainer}>
+        {tabs.map((tab) => (
+          <div
+            key={tab}
+            className={`${classes.configTab} ${
+              activeTab === tab ? classes.activeTab : ""
+            }`}
+            onClick={tabClickHandler.bind(this, tab)}
+          >
+            {tab}
+          </div>
+        ))}
+      </div>
+      <div
+        className={classes.themeSelect}
+        style={{ display: activeTab !== "Theme" && "none" }}
+      >
         <div className={classes.configEditorWrapper}>
           <Editor
             defaultLanguage="javascript"
@@ -96,6 +120,25 @@ const Config = (props) => {
         {themeOptions("Light Themes")}
         {themeOptions("Dark Themes")}
         {themeOptions("Funky Themes")}
+      </div>
+      <div
+        className={classes.message}
+        style={{ display: activeTab !== "Message Us" && "none" }}
+      >
+        <h4>We want to hear from you</h4>
+        <p>
+          Your feedback will help us deliver the best experience to creators
+          like yourself. Whether you've found a bug, got some feedback, just
+          want to have a chat, or anything else - get in touch! We'd love to
+          hear your thoughts.
+        </p>
+        <a
+          href="https://forms.gle/VJNUzpAhXG4KtiZz6"
+          target="_blank"
+          title="Message Us - Google Forms"
+        >
+          <GreenButton caption="Message Us" />
+        </a>
       </div>
     </div>
   );
