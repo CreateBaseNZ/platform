@@ -13,6 +13,7 @@ export const NodeIf = ({ data, isConnectable }) => {
         position="left"
         id="execution__in"
         isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <h4>If</h4>
       <input className={classes.preventInput} />
@@ -22,6 +23,7 @@ export const NodeIf = ({ data, isConnectable }) => {
         id="param__condition"
         style={{ left: "52px", transform: "none" }}
         isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <div className={classes.rightHandleLabel} style={{ top: 16 }}>
         Do
