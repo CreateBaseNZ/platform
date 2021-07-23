@@ -42,7 +42,7 @@ const findNextNode = (currentNode, path, elements) => {
   const Connection = reqConnection[0];
   if (
     Connection.targetHandle &&
-    Connection.targetHandle.split("_")[0] == "execution"
+    Connection.targetHandle.split("__")[0] == "execution"
   ) {
     nextNodeID =Connection.target;
   } else {
@@ -118,7 +118,7 @@ const CheckPreviuos = (currentNode, elements) => {
   console.log(edgeCollection);
   const prevConnection = edgeCollection.filter((connection) => {
     if (currentNode.id == connection.target) {
-      if (connection.targetHandle == "execution") {
+      if (connection.targetHandle.split("__")[0] == "execution") {
         return true
       }
     }
@@ -292,7 +292,7 @@ const flow2Text = (elements) => {
         }
         break;
       default:
-        executionNext = "execution";
+        executionNext = "execution__out";
         break;
     }
     if (executionNext) {
