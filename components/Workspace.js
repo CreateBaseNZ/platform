@@ -356,13 +356,13 @@ const Workspace = (props) => {
     const blocks = flow2Text(elements);
     if (Array.isArray(blocks)) {
       const codeGen = new CodeGenerator();
-      const [newText, type, message] = codeGen.build(blocks);
+      const [newText, type, message,dispCode] = codeGen.build(blocks);
       if (type === "warning") {
         ctx.addWarning(message);
       } else if (type === "error") {
         ctx.addError(message);
       }
-      return newText;
+      return [newText,dispCode];
     } else {
       ctx.addError(blocks);
       return;
@@ -371,9 +371,9 @@ const Workspace = (props) => {
 
   const changeTabHandler = (tab) => {
     if (activeTab === "flow" && tab === "text") {
-      const newText = compileCode();
+      const [newText,dispCode] = compileCode();
       if (newText) {
-        setText(newText);
+        setText(dispCode);
       }
     }
     setActiveTab(tab);
@@ -388,7 +388,7 @@ const Workspace = (props) => {
   const compileHandler = () => {
     clearInterval(com);
     com = 0;
-    const code = compileCode();
+    const [code,dispCode] = compileCode();
     com = setInterval(() => {
       executeCode(code);
     }, 10);

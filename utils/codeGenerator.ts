@@ -4,8 +4,11 @@ import blockFunctions from "../public/blocks.json";
 export class CodeGenerator {
   private blockFunctions: Array<any>;
   private content: string;
+  private simpleContent: string;
   private executes: Array<string>;
   private execute: string;
+  private simpleExecutes: Array<string>;
+  private simpleExecute: string;
   private increment: number;
   private code: string;
   private variables: string[];
@@ -20,6 +23,9 @@ export class CodeGenerator {
     this.code = "";
     this.variables = [];
     this.functions = [];
+    this.simpleExecutes = [];
+    this.simpleExecute = "";
+    this.simpleContent = "";
   }
 
   private checkCorrectVar(varName: string) {
@@ -28,7 +34,6 @@ export class CodeGenerator {
     const numberStart = varName[0] < "A" || varName[0] > "z";
     if (numberStart || spaces || this.isBool(varName)) {
       return false;
-      console.log("Invalid Variable Name");
     }
     //Checks if variable created
     let found = false;
@@ -151,7 +156,9 @@ export class CodeGenerator {
     });
     if (blockFunction) {
       this.content += blockFunction.logic;
+      this.simpleContent+=blockFunction.simpleLogic;
       this.executes.push(blockFunction.executes);
+      this.simpleExecutes.push(blockFunction.simpleExecutes);
       return true;
     } else {
       return false;
@@ -194,7 +201,9 @@ export class CodeGenerator {
     }
     let mathInput = ["a", "operator", "b"];
     let inputs: string = "";
+    let simpleInput: string = "";
     for (let i = 0; i < mathInput.length; i++) {
+      let simpleVal = "";
       let val = String(blockDetail.value[mathInput[i]]).trim();
       if (mathInput[i] != "operator") {
         if (!this.isNumber(val)) {
@@ -208,18 +217,39 @@ export class CodeGenerator {
         } else {
           val = String(Number(val));
         }
+        simpleVal = val;
       } else {
-        if (blockDetail)
+        if (blockDetail) {
           if (!this.checkSign(val)) {
             return [false, "error", "Wrong Sign is Entered"];
+          } else {
+            simpleVal = val;
+            switch (val) {
+              case "||":
+                simpleVal = " or ";
+                break;
+              case "&&":
+                simpleVal = " and ";
+                break;
+              case "!=":
+                simpleVal = " not= ";
+                break;
+            }
           }
+        }else{
+          return [false, "error", "Something Went Wrong"];
+        }
+          
       }
       inputs += val;
+      simpleInput += simpleVal;
     }
     let output: any;
     output = "";
     output = this.checkCorrectVar(String(blockDetail.value.out));
     const str = `${output}(${inputs})`;
+    const simpleStr = `${output}(${simpleInput})`;
+    this.simpleExecutes.push(simpleStr);
     this.executes.push(str);
     return [true];
   }
@@ -299,7 +329,9 @@ export class CodeGenerator {
     // Add execute
     const execute = `// ${blockFunction.name}
     ${output}await ${functionName}(${inputs});`;
+    const simpleStr = ` ${output} ${functionName}(${inputs});`;
     this.executes.push(execute);
+    this.simpleExecutes.push(simpleStr);
     return [true];
   }
 
@@ -313,6 +345,8 @@ export class CodeGenerator {
       val = String(Number(val));
     }
     const str = `for(let i=0;i<${val};i++){`;
+    const simpleStr = `Repeat(${val}){`;
+    this.simpleExecutes.push(simpleStr);
     this.executes.push(str);
     return [true];
   }
@@ -331,6 +365,7 @@ export class CodeGenerator {
     let inputs = val;
     const str = `if(${inputs}){`;
     this.executes.push(str);
+    this.simpleExecutes.push(str);
     return [true];
   }
 
@@ -348,12 +383,15 @@ export class CodeGenerator {
     let inputs = val;
     const str = `while(${inputs}){`;
     this.executes.push(str);
+    this.simpleExecutes.push(str);
+
     return [true];
   }
 
   private elseCondition() {
     let str = `}else{`;
     this.executes.push(str);
+    this.simpleExecutes.push(str);
     return true;
   }
 
@@ -374,15 +412,17 @@ export class CodeGenerator {
     let output: any;
     output = "";
     output = this.checkCorrectVar(String(blockDetail.value.varName));
-    const execute = `// Assign Variable
-    ${output} ${currentInput};`;
-    this.executes.push(execute);
+    const str = `${output} ${currentInput};`;
+    this.simpleExecutes.push(str);
+
+    this.executes.push(str);
     return [true];
   }
 
   private endCondition() {
     let str = `}`;
     this.executes.push(str);
+    this.simpleExecutes.push(str);
     return true;
   }
 
@@ -394,7 +434,9 @@ export class CodeGenerator {
     // Add to execute
     if (blockFunction) {
       this.content += blockFunction.logic;
+      this.simpleContent+=blockFunction.simpleLogic;
       this.executes.push(blockFunction.executes);
+      this.simpleExecutes.push(blockFunction.simpleExecutes);
       return true;
     }
     return false;
@@ -408,6 +450,8 @@ export class CodeGenerator {
         blockDetail.value.entity.charAt(0).toUpperCase() +
         blockDetail.value.entity.slice(1);
       const str = `unityContext.send("${target}","${command}");`;
+      const simpleStr = `${command}();`;
+      this.simpleExecutes.push(simpleStr);
       this.executes.push(str);
       return true;
     } else {
@@ -420,6 +464,8 @@ export class CodeGenerator {
       const output = this.checkCorrectVar(String(blockDetail.value.out));
       const target = blockDetail.name;
       let str = `${output}currentData.${target};`;
+      const simpleStr = `${output} ${target};`;
+      this.simpleExecutes.push(simpleStr);
       this.executes.push(str);
       return true;
     } else {
@@ -429,9 +475,12 @@ export class CodeGenerator {
 
   private run() {
     this.execute = "const run = async () => {\n";
+    console.log(this.executes);
+    console.log(this.simpleExecutes);
     for (let i = 0; i < this.executes.length; i++) {
+      this.simpleExecute += this.simpleExecutes[i] + "\n";
       const element = this.executes[i];
-      this.execute += "\t" + element + "\n\n";
+      this.execute += "\t" + element + "\n";
     }
     this.execute += "};\nrun();";
   }
@@ -439,12 +488,15 @@ export class CodeGenerator {
   public build(blockDetails: Array<any> = []) {
     // Reset Values
     this.content = "";
-    this.executes = [""];
+    this.executes = [];
     this.variables = [];
     this.functions = [];
     this.execute = "";
     this.increment = 1;
     this.code = "";
+    this.simpleExecutes = [];
+    this.simpleExecute = "";
+    this.simpleContent = "";
     //
     let state: any = true;
     let type = null;
@@ -497,12 +549,14 @@ export class CodeGenerator {
           "// Oops! An error occurred, please check the Console for more info",
           type,
           message,
+          "// Oops! An error occurred, please check the Console for more info"
         ];
       }
     }
 
     this.run();
-
-    return [this.intialiseVar() + this.content + this.execute, null, null];
+    const runCode = this.intialiseVar() + this.content + this.execute;
+    const simple = this.intialiseVar() + this.simpleContent + this.simpleExecute;
+    return [runCode, null, null,simple];
   }
 }
