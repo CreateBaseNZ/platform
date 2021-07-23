@@ -16,9 +16,6 @@ export const controlTitles = [
 ];
 
 export const getDefaultValues = (type) => {
-  if (type === "distance") {
-    return { from: entities[0].toLowerCase(), to: "next obstacle" };
-  }
   if (
     type === "jump" ||
     type === "doubleJump" ||
@@ -28,6 +25,7 @@ export const getDefaultValues = (type) => {
     return { entity: entities[0].toLowerCase() };
   }
   if (
+    type === "distance" ||
     type === "speedOf" ||
     type === "heightOf" ||
     type === "widthOf" ||
