@@ -24,21 +24,31 @@ const findNextNode = (currentNode, path, elements) => {
   let nodeCollection = getConnectedEdges(nodes, elements);
   let nextNodeList = getOutgoers(currentNode, elements);
   let nextNodeID;
-  for (let i = 0; i < nodeCollection.length; i++) {
-    if (currentNode.id == nodeCollection[i].source) {
-      if (nodeCollection[i].sourceHandle == String(path)) {
-        if (
-          nodeCollection[i].targetHandle &&
-          nodeCollection[i].targetHandle.split("_")[0] == "execution"
-        ) {
-          nextNodeID = nodeCollection[i].target;
-          break;
-        } else {
-          return [false, "Wrong Connection"];
-        }
+  const reqConnection = nodeCollection.filter((connection) => {
+    if (currentNode.id == connection.source) {
+      if (connection.sourceHandle == String(path)) {
+        return true
       }
     }
+    return false;
+  })
+  console.log(reqConnection);
+  if (reqConnection.length > 1) {
+    return [false, "One Block has multiple exectution connection"];
   }
+  if (reqConnection.length == 0) {
+    return [true, false];
+  }
+  const Connection = reqConnection[0];
+  if (
+    Connection.targetHandle &&
+    Connection.targetHandle.split("_")[0] == "execution"
+  ) {
+    nextNodeID =Connection.target;
+  } else {
+    return [false, "Wrong Connection"];
+  }
+  
   for (let i = 0; i < nextNodeList.length; i++) {
     if (nextNodeID == nextNodeList[i].id) {
       return [true, nextNodeList[i]];
@@ -100,6 +110,28 @@ const determineType = (block, currentNode) => {
   return block;
 };
 
+
+const CheckPreviuos = (currentNode, elements) => {
+  const nodes = [currentNode];
+  let edgeCollection = getConnectedEdges(nodes, elements);
+  console.log(currentNode);
+  console.log(edgeCollection);
+  const prevConnection = edgeCollection.filter((connection) => {
+    if (currentNode.id == connection.target) {
+      if (connection.targetHandle == "execution") {
+        return true
+      }
+    }
+    return false;
+  })
+  console.log(prevConnection);
+
+  if (prevConnection.length != 1 && currentNode.id != "start") {
+    return false;
+  }
+  return true;
+}
+
 const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
   const nodes = [currentNode];
   let edgeCollection = getConnectedEdges(nodes, elements);
@@ -133,9 +165,10 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
           return [blocksOrder, val, outName];
         }
       }
-      return [null, null, null];
+      return [null, null, null,"Wrong execution order"];
     }
   }
+  
   for (let i = 0; i < edgeCollection.length; i++) {
     if (currentNode.id == edgeCollection[i].target) {
       if (
@@ -153,8 +186,10 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
       }
     }
   }
-  if (IDlist.length != inputs.length) {
-    console.log("gg", currentNode);
+  const unduplicatedArray = [...new Set(inputs)];
+
+  if (unduplicatedArray.length != inputs.length) {
+    return [null, null, null,"One of the inputs has more than one entry"];
   }
   let block = {
     robot: "Player",
@@ -167,7 +202,8 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
   block = determineType(block, currentNode);
   let output;
   for (let i = 0; i < IDlist.length; i++) {
-    [blocksOrder, val, output] = findInputs(
+    let message;
+    [blocksOrder, val, output,message] = findInputs(
       blocksOrder,
       IDlist[i],
       elements,
@@ -177,7 +213,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
     if (blocksOrder || val || output) {
       block.value[inputs[i]] = output;
     } else {
-      return [null, null, null];
+      return [null, null, null,message];
     }
   }
   let edgeNum;
@@ -206,7 +242,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
       blocksOrder.push(block);
       break;
   }
-  return [blocksOrder, val, outName];
+  return [blocksOrder, val, outName,""];
 };
 
 const flow2Text = (elements) => {
@@ -219,15 +255,18 @@ const flow2Text = (elements) => {
   let nodeContext = [];
   while (traverse) {
     if (currentNode) {
-      let f;
-      [blocksConfig, val, f] = findInputs(
+      if (!CheckPreviuos(currentNode, elements)) {
+        return "One Node has more than one input";
+      }
+      let f,message;
+      [blocksConfig, val, f,message] = findInputs(
         blocksConfig,
         currentNode,
         elements,
         val
       );
       if (!(blocksConfig || val || f)) {
-        return "Wrong execution order";
+        return message;
       }
     }
     let nextNode;
@@ -356,24 +395,25 @@ const Workspace = (props) => {
     const blocks = flow2Text(elements);
     if (Array.isArray(blocks)) {
       const codeGen = new CodeGenerator();
-      const [newText, type, message] = codeGen.build(blocks);
+      const [newText, type, message,dispCode] = codeGen.build(blocks);
       if (type === "warning") {
         ctx.addWarning(message);
       } else if (type === "error") {
         ctx.addError(message);
       }
-      return newText;
+      return [newText,dispCode];
     } else {
       ctx.addError(blocks);
-      return;
+      const meassage = "// Oops! An error occurred, please check the Console for more info";
+      return [meassage,meassage];
     }
   };
 
   const changeTabHandler = (tab) => {
     if (activeTab === "flow" && tab === "text") {
-      const newText = compileCode();
+      const [newText,dispCode] = compileCode();
       if (newText) {
-        setText(newText);
+        setText(dispCode);
       }
     }
     setActiveTab(tab);
@@ -388,7 +428,7 @@ const Workspace = (props) => {
   const compileHandler = () => {
     clearInterval(com);
     com = 0;
-    const code = compileCode();
+    const [code,dispCode] = compileCode();
     com = setInterval(() => {
       executeCode(code);
     }, 10);
