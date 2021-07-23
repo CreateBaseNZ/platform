@@ -94,26 +94,30 @@ const FlowEditor = (props) => {
 
   // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
-    let handles = [];
     let edges = [];
     const filteredElements = elementsToRemove.filter((el) => {
       if (isEdge(el)) {
-        handles.push(el.sourceHandle, el.targetHandle);
         edges.push(el);
       }
       return el.id !== "start";
     });
+    console.log(edges);
     props.setElements((els) =>
       removeElements(filteredElements, els).map((el) => {
+        console.log(el);
         for (const edge of edges) {
+          console.log(edge);
           if (el.id === edge.source) {
+            console.log(edge.source);
+            console.log(edge.sourceHandle);
             return removeConnection(el, edge.sourceHandle);
           } else if (el.id === edge.target) {
+            console.log(edge.target);
+            console.log(edge.targetHandle);
             return removeConnection(el, edge.targetHandle);
-          } else {
-            return el;
           }
         }
+        return el;
       })
     );
   }, []);
