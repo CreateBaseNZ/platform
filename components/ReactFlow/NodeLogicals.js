@@ -4,7 +4,7 @@ import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
-const NodeLogicals = ({ label, data, className = "" }) => {
+const NodeLogicals = ({ label, data, className = "", isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.logical} ${classes.hasRightHandle} ${className}`}
@@ -15,6 +15,8 @@ const NodeLogicals = ({ label, data, className = "" }) => {
         position="top"
         id="param__a"
         style={{ left: "30px", transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <h4>{label}</h4>
       <input className={classes.preventInput} />
@@ -23,8 +25,16 @@ const NodeLogicals = ({ label, data, className = "" }) => {
         position="top"
         id="param__b"
         style={{ left: "auto", right: "34px", transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
-      <CustomHandle type="source" position="right" id="param__out" />
+      <CustomHandle
+        type="source"
+        position="right"
+        id="param__out"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
     </div>
   );
 };
@@ -39,11 +49,11 @@ const NodeLogicalsMini = (props) => {
   );
 };
 
-export const NodeAnd = memo(({ data }) => {
-  return <NodeLogicals label="and" data={data} />;
+export const NodeAnd = memo(({ data, isConnectable }) => {
+  return <NodeLogicals label="and" data={data} isConnectable={isConnectable} />;
 });
-export const NodeOr = memo(({ data }) => {
-  return <NodeLogicals label="or" data={data} />;
+export const NodeOr = memo(({ data, isConnectable }) => {
+  return <NodeLogicals label="or" data={data} isConnectable={isConnectable} />;
 });
 
 export const NodeAndMini = memo(() => {

@@ -3,12 +3,17 @@ import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
-export const NodeIf = ({ data }) => {
+export const NodeIf = ({ data, isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeIf} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
     >
-      <CustomHandle type="target" position="left" id="execution" />
+      <CustomHandle
+        type="target"
+        position="left"
+        id="execution__in"
+        isConnectable={isConnectable}
+      />
       <h4>If</h4>
       <input className={classes.preventInput} />
       <CustomHandle
@@ -16,6 +21,7 @@ export const NodeIf = ({ data }) => {
         position="top"
         id="param__condition"
         style={{ left: "52px", transform: "none" }}
+        isConnectable={isConnectable}
       />
       <div className={classes.rightHandleLabel} style={{ top: 16 }}>
         Do
@@ -31,41 +37,59 @@ export const NodeIf = ({ data }) => {
         position="right"
         id="execution__0"
         style={{ top: 16, transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <CustomHandle
         type="source"
         position="right"
         id="execution__1"
         style={{ top: 50, transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <CustomHandle
         type="source"
         position="right"
         id="execution__2"
         style={{ bottom: 16, top: "auto", transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
     </div>
   );
 };
 
-export const NodeRepeat = ({ data = { values: { condition: 1 } } }) => {
+export const NodeRepeat = ({
+  data = { values: { condition: 1 } },
+  isConnectable,
+}) => {
   const changeHandler = (event) => {
     data.callBack({ ...data.values, condition: event.target.value });
   };
   const dragHandler = (event) => {
     event.preventDefault();
   };
+
+  const prevent = data.connections.includes("param__condition");
+
   return (
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeRepeat} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
     >
-      <CustomHandle type="target" position="left" id="execution" />
+      <CustomHandle
+        type="target"
+        position="left"
+        id="execution__in"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
       <h4>Repeat</h4>
       <input
         onChange={changeHandler}
-        className="nodrag"
+        className={`nodrag ${prevent ? classes.preventInput : ""}`}
         type="number"
-        value={data.values.condition}
+        value={prevent ? "" : data.values.condition}
         onDragStart={dragHandler}
         onKeyDown={(e) =>
           (e.key === "e" || e.key === "-" || e.key === ".") &&
@@ -77,6 +101,8 @@ export const NodeRepeat = ({ data = { values: { condition: 1 } } }) => {
         position="top"
         id="param__condition"
         style={{ left: "91px", transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <div className={classes.rightHandleLabel} style={{ top: 16 }}>
         Do
@@ -89,23 +115,33 @@ export const NodeRepeat = ({ data = { values: { condition: 1 } } }) => {
         position="right"
         id="execution__0"
         style={{ top: 16, transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <CustomHandle
         type="source"
         position="right"
         id="execution__1"
         style={{ bottom: 16, top: "auto", transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
     </div>
   );
 };
 
-export const NodeWhile = ({ data }) => {
+export const NodeWhile = ({ data, isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeWhile} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
     >
-      <CustomHandle type="target" position="left" id="execution" />
+      <CustomHandle
+        type="target"
+        position="left"
+        id="execution__in"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
       <h4>While</h4>
       <input className={classes.preventInput} />
       <CustomHandle
@@ -113,6 +149,8 @@ export const NodeWhile = ({ data }) => {
         position="top"
         id="param__condition"
         style={{ left: "86px", transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <div className={classes.rightHandleLabel} style={{ top: 16 }}>
         Do
@@ -125,12 +163,16 @@ export const NodeWhile = ({ data }) => {
         position="right"
         id="execution__0"
         style={{ top: 16, transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
       <CustomHandle
         type="source"
         position="right"
         id="execution__1"
         style={{ bottom: 16, top: "auto", transform: "none" }}
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
       />
     </div>
   );

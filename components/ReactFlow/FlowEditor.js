@@ -14,8 +14,6 @@ import ReactFlow, {
   isEdge,
   isNode,
   useZoomPanHelper,
-  getConnectedEdges,
-  Controls,
   useStoreActions,
 } from "react-flow-renderer";
 import { nodeTypes, edgeTypes, tooltips } from "../../utils/flowConfig";
@@ -24,8 +22,9 @@ import {
   flashLockIcon,
   getDefaultValues,
   getNearestGridPosition,
-  updateGhostEnd,
-  updateParamInput,
+  newConnection,
+  removeConnection,
+  updateConnections,
 } from "../../utils/flowHelpers";
 
 import DndBar from "./DndBar";
@@ -56,10 +55,10 @@ const FlowEditor = (props) => {
     (actions) => actions.setSelectedElements
   );
 
+  console.log(props.elements);
+
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
-
-  console.log(props.elements);
 
   useEffect(() => {
     if (!systemAction) {
@@ -76,19 +75,6 @@ const FlowEditor = (props) => {
       setSystemAction(false);
     }
   }, [props.elements]);
-
-  // temporary while devs fix library
-  useEffect(() => {
-    if (flowLocked) {
-      document.querySelectorAll(".react-flow__handle").forEach((handle) => {
-        handle.classList.remove("connectable");
-      });
-    } else {
-      document.querySelectorAll(".react-flow__handle").forEach((handle) => {
-        handle.classList.add("connectable");
-      });
-    }
-  }, [flowLocked]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -108,16 +94,28 @@ const FlowEditor = (props) => {
 
   // deleting an element
   const onElementsRemove = useCallback((elementsToRemove) => {
-    const filteredElements = elementsToRemove.filter(
-      (el) => el.id !== "start" && el.id !== "end" // prevent deleting start and end node
-    );
-    for (const element of elementsToRemove) {
-      if (isEdge(element)) {
-        updateGhostEnd(element.source, element.sourceHandle, "remove");
-        updateParamInput(element.target, element.targetHandle, "allow");
+    let handles = [];
+    let edges = [];
+    const filteredElements = elementsToRemove.filter((el) => {
+      if (isEdge(el)) {
+        handles.push(el.sourceHandle, el.targetHandle);
+        edges.push(el);
       }
-    }
-    props.setElements((els) => removeElements(filteredElements, els));
+      return el.id !== "start";
+    });
+    props.setElements((els) =>
+      removeElements(filteredElements, els).map((el) => {
+        for (const edge of edges) {
+          if (el.id === edge.source) {
+            return removeConnection(el, edge.sourceHandle);
+          } else if (el.id === edge.target) {
+            return removeConnection(el, edge.targetHandle);
+          } else {
+            return el;
+          }
+        }
+      })
+    );
   }, []);
 
   const onConnect = useCallback((params) => {
@@ -135,23 +133,18 @@ const FlowEditor = (props) => {
         ...params,
       };
     }
-    // check if param input needs to be toggled
-    updateGhostEnd(params.source, params.sourceHandle, "add");
-    updateParamInput(params.target, params.targetHandle, "prevent");
-    props.setElements((els) => addEdge(newEdge, els));
+    props.setElements((els) => newConnection(addEdge(newEdge, els), params));
   }, []);
 
   // updating edges
   const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
-    updateGhostEnd(oldEdge.source, oldEdge.sourceHandle, "remove");
-    updateGhostEnd(newConnection.source, newConnection.sourceHandle, "add");
-    updateParamInput(oldEdge.target, oldEdge.targetHandle, "allow");
-    updateParamInput(
-      newConnection.target,
-      newConnection.targetHandle,
-      "prevent"
+    props.setElements((els) =>
+      updateConnections(
+        updateEdge(oldEdge, newConnection, els),
+        oldEdge,
+        newConnection
+      )
     );
-    props.setElements((els) => updateEdge(oldEdge, newConnection, els));
   }, []);
 
   // dragging from menu to drop zone
@@ -182,6 +175,7 @@ const FlowEditor = (props) => {
       position,
       data: {
         values: getDefaultValues(type),
+        connections: [],
         callBack: (newValues) => {
           props.setElements((els) =>
             els.map((el) => {
@@ -289,21 +283,22 @@ const FlowEditor = (props) => {
   };
 
   const restoreFlow = () => {
+    if (flowLocked) {
+      flashLockIcon();
+      return;
+    }
     const savedEls = JSON.parse(window.localStorage.getItem("flow_save"));
     if (savedEls) {
       const restoredEls = savedEls.map((el) => {
         if (isNode(el)) {
           const idNum = parseInt(el.id.split("_")[1]);
-          if (idNum <= id) {
+          if (idNum && idNum <= id) {
             id = idNum + 1;
           }
-          const { data = {} } = el;
           return {
-            id: el.id,
-            type: el.type,
-            position: el.position,
+            ...el,
             data: {
-              values: data.values,
+              ...el.data,
               callBack: (newValues) => {
                 props.setElements((els) =>
                   els.map((thisEl) => {
@@ -323,7 +318,7 @@ const FlowEditor = (props) => {
           return el;
         }
       });
-      console.log(restoredEls);
+      setSystemAction(true);
       props.setElements(restoredEls);
       setCenter(0, 0, 1.25);
     }
@@ -367,10 +362,18 @@ const FlowEditor = (props) => {
   };
 
   const edgeUpdateEndHandler = (event, edge) => {
-    if (!event.target.classList.contains(".react-flow__handle")) {
-      updateGhostEnd(edge.source, edge.sourceHandle, "remove");
-      updateParamInput(edge.target, edge.targetHandle, "allow");
-      props.setElements((els) => removeElements([edge], els));
+    if (!event.target.classList.contains("react-flow__handle")) {
+      props.setElements((els) =>
+        removeElements([edge], els).map((el) => {
+          if (el.id === edge.target) {
+            return removeConnection(el, edge.targetHandle);
+          } else if (el.id === edge.source) {
+            return removeConnection(el, edge.sourceHandle);
+          } else {
+            return el;
+          }
+        })
+      );
     }
   };
 
@@ -422,12 +425,12 @@ const FlowEditor = (props) => {
           arrowHeadColor="#ffffff"
           onDrop={onDrop}
           onDragOver={onDragOver}
-          onSelectionChange={selectChangeHandler}
-          onElementsRemove={onElementsRemove}
           onConnect={onConnect}
           onEdgeUpdate={onEdgeUpdate}
+          onElementsRemove={onElementsRemove}
           onNodeDragStop={nodeDragStopHandler}
           onEdgeUpdateEnd={edgeUpdateEndHandler}
+          onSelectionChange={selectChangeHandler}
           onSelectionDragStop={selectionDragStopHandler}
         >
           <ControlsBar

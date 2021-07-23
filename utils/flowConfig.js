@@ -72,6 +72,7 @@ export const initialElements = [
     id: "start",
     type: "start",
     position: { x: -80, y: -80 },
+    data: { connections: [] },
   },
 ];
 

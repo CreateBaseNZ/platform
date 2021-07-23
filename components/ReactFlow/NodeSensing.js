@@ -2,7 +2,7 @@ import { EntityDropdown, NodeMini } from "./NodeGeneral";
 import classes from "./Nodes.module.scss";
 import CustomHandle from "./Handles";
 
-export const NodeDistance = ({ data }) => {
+export const NodeDistance = ({ data, isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeDistance} ${classes.hasRightHandle}`}
@@ -17,12 +17,18 @@ export const NodeDistance = ({ data }) => {
         options={["Next obstacle"]}
       /> */}
       <h4>Distance to next obstacle</h4>
-      <CustomHandle type="source" position="right" id="param__out" />
+      <CustomHandle
+        type="source"
+        position="right"
+        id="param__out"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
     </div>
   );
 };
 
-export const NodeHeightOf = ({ data }) => {
+export const NodeHeightOf = ({ data, isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeHeightOf} ${classes.hasRightHandle}`}
@@ -35,12 +41,18 @@ export const NodeHeightOf = ({ data }) => {
         options={["Next obstacle"]}
       /> */}
       <h4>Height of next obstacle</h4>
-      <CustomHandle type="source" position="right" id="param__out" />
+      <CustomHandle
+        type="source"
+        position="right"
+        id="param__out"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
     </div>
   );
 };
 
-export const NodeWidthOf = ({ data }) => {
+export const NodeWidthOf = ({ data, isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeWidthOf} ${classes.hasRightHandle}`}
@@ -53,12 +65,18 @@ export const NodeWidthOf = ({ data }) => {
         options={["Next obstacle"]}
       /> */}
       <h4>Width of next obstacle</h4>
-      <CustomHandle type="source" position="right" id="param__out" />
+      <CustomHandle
+        type="source"
+        position="right"
+        id="param__out"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
     </div>
   );
 };
 
-export const NodeSpeedOf = ({ data }) => {
+export const NodeSpeedOf = ({ data, isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeSpeedOf} ${classes.hasRightHandle}`}
@@ -71,12 +89,18 @@ export const NodeSpeedOf = ({ data }) => {
         options={["Next obstacle"]}
       /> */}
       <h4>Speed of next obstacle</h4>
-      <CustomHandle type="source" position="right" id="param__out" />
+      <CustomHandle
+        type="source"
+        position="right"
+        id="param__out"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
     </div>
   );
 };
 
-export const NodeElevationOf = ({ data }) => {
+export const NodeElevationOf = ({ data, isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.sensing} ${classes.nodeElevationOf} ${classes.hasRightHandle}`}
@@ -89,7 +113,13 @@ export const NodeElevationOf = ({ data }) => {
         options={["Next obstacle"]}
       /> */}
       <h4>Elevation of next obstacle</h4>
-      <CustomHandle type="source" position="right" id="param__out" />
+      <CustomHandle
+        type="source"
+        position="right"
+        id="param__out"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
     </div>
   );
 };

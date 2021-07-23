@@ -24,6 +24,7 @@
     background: $lighter;
     border-radius: 2px;
     padding: 0 2px;
+    font-family: $poppins;
     transition: background-color 0.1s ease-out;
     &,
     * {
@@ -211,7 +212,7 @@
   right: 14px;
 }
 
-.handle.sourceHandle.executionHandle:not(.handleConnected) {
+.handle.sourceHandle.executionHandle:not(.hideEnd) {
   &::before {
     content: "";
     height: 1px;

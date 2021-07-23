@@ -4,20 +4,39 @@ import CustomHandle from "./Handles";
 
 import classes from "./Nodes.module.scss";
 
-const NodeActions = ({ data, className, label, selectName, dataName }) => {
+const NodeActions = ({
+  data,
+  className,
+  label,
+  selectName,
+  dataName,
+  isConnectable,
+}) => {
   return (
     <div
       className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${className}`}
     >
-      <CustomHandle type="target" position="left" id="execution" />
+      <CustomHandle
+        type="target"
+        position="left"
+        id="execution__in"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
       <h4>{label}</h4>
       {/* <EntityDropdown data={data} selectName={selectName} dataName={dataName} /> */}
-      <CustomHandle type="source" position="right" id="execution" />
+      <CustomHandle
+        type="source"
+        position="right"
+        id="execution__out"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
     </div>
   );
 };
 
-export const NodeAttack = memo(({ data }) => {
+export const NodeAttack = memo(({ data, isConnectable }) => {
   return (
     <NodeActions
       data={data}
@@ -25,10 +44,11 @@ export const NodeAttack = memo(({ data }) => {
       label="Attack"
       selectName="attack"
       dataName="entity"
+      isConnectable={isConnectable}
     />
   );
 });
-export const NodeDoubleJump = memo(({ data }) => {
+export const NodeDoubleJump = memo(({ data, isConnectable }) => {
   return (
     <NodeActions
       data={data}
@@ -36,10 +56,11 @@ export const NodeDoubleJump = memo(({ data }) => {
       label="Double Jump"
       selectName="doubleJump"
       dataName="entity"
+      isConnectable={isConnectable}
     />
   );
 });
-export const NodeCrouch = memo(({ data }) => {
+export const NodeCrouch = memo(({ data, isConnectable }) => {
   return (
     <NodeActions
       data={data}
@@ -47,10 +68,11 @@ export const NodeCrouch = memo(({ data }) => {
       label="Crouch"
       selectName="crouch"
       dataName="entity"
+      isConnectable={isConnectable}
     />
   );
 });
-export const NodeJump = memo(({ data }) => {
+export const NodeJump = memo(({ data, isConnectable }) => {
   return (
     <NodeActions
       data={data}
@@ -58,6 +80,7 @@ export const NodeJump = memo(({ data }) => {
       label="Jump"
       selectName="jump"
       dataName="entity"
+      isConnectable={isConnectable}
     />
   );
 });

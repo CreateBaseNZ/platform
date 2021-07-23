@@ -56,48 +56,6 @@ export const getDefaultValues = (type) => {
   return {};
 };
 
-export const updateGhostEnd = (sourceBlock, sourceHandle, action) => {
-  switch (action) {
-    case "add":
-      document
-        .querySelector(
-          `.react-flow__handle.source[data-nodeid="${sourceBlock}"][data-handleid="${sourceHandle}"]`
-        )
-        .classList.add(classes.handleConnected);
-      break;
-    case "remove":
-      document
-        .querySelector(
-          `.react-flow__handle.source[data-nodeid="${sourceBlock}"][data-handleid="${sourceHandle}"]`
-        )
-        .classList.remove(classes.handleConnected);
-      break;
-  }
-};
-
-export const updateParamInput = (targetBlock, targetHandle, action) => {
-  if (targetHandle.split("__")[0] === "param") {
-    const handleId = targetHandle.split("__")[1];
-    const el = document.querySelector(
-      `.react-flow__node[data-id="${targetBlock}"]`
-    );
-    switch (handleId) {
-      case "b":
-        action === "prevent"
-          ? el.querySelectorAll("input")[1].classList.add(classes.preventInput)
-          : el
-              .querySelectorAll("input")[1]
-              .classList.remove(classes.preventInput);
-        break;
-      default:
-        action === "prevent"
-          ? el.querySelector("input").classList.add(classes.preventInput)
-          : el.querySelector("input").classList.remove(classes.preventInput);
-        break;
-    }
-  }
-};
-
 export const flashLockIcon = () => {
   document
     .querySelector("#lockButton")
@@ -111,4 +69,60 @@ export const flashLockIcon = () => {
 
 export const getNearestGridPosition = (position) => {
   return Math.round(position / 16) * 16;
+};
+
+export const removeConnection = (el, oldHandle) => {
+  return {
+    ...el,
+    data: {
+      ...el.data,
+      connections: el.data.connections.filter((handle) => handle !== oldHandle),
+    },
+  };
+};
+
+export const addConnection = (el, newHandle) => {
+  return {
+    ...el,
+    data: {
+      ...el.data,
+      connections: el.data.connections.concat(newHandle),
+    },
+  };
+};
+
+export const newConnection = (elements, edge) => {
+  return elements.map((el) => {
+    if (el.id === edge.source) {
+      return addConnection(el, edge.sourceHandle);
+    } else if (el.id === edge.target) {
+      return addConnection(el, edge.targetHandle);
+    } else {
+      return el;
+    }
+  });
+};
+
+export const updateConnections = (elements, oldEdge, newEdge) => {
+  if (oldEdge.source === newEdge.source) {
+    return elements.map((el) => {
+      if (el.id === oldEdge.target) {
+        return removeConnection(el, oldEdge.targetHandle);
+      } else if (el.id === newEdge.target) {
+        return addConnection(el, newEdge.targetHandle);
+      } else {
+        return el;
+      }
+    });
+  } else {
+    return elements.map((el) => {
+      if (el.id === oldEdge.source) {
+        return removeConnection(el, oldEdge.sourceHandle);
+      } else if (el.id === newEdge.source) {
+        return addConnection(el, newEdge.sourceHandle);
+      } else {
+        return el;
+      }
+    });
+  }
 };

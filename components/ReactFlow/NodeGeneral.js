@@ -6,13 +6,19 @@ import { entities } from "../../utils/flowConfig";
 import classes from "./Nodes.module.scss";
 import MiniHoverContext from "../../store/mini-hover-context";
 
-export const NodeStart = memo(() => {
+export const NodeStart = memo(({ data, isConnectable }) => {
   return (
     <div
       className={`${classes.node} ${classes.nodeStart} ${classes.hasRightHandle}`}
     >
       <h4>Start</h4>
-      <CustomHandle type="source" position="right" id="execution" />
+      <CustomHandle
+        type="source"
+        position="right"
+        id="execution__out"
+        isConnectable={isConnectable}
+        connections={data ? data.connections : []}
+      />
     </div>
   );
 });
