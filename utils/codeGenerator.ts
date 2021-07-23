@@ -475,8 +475,6 @@ export class CodeGenerator {
 
   private run() {
     this.execute = "const run = async () => {\n";
-    console.log(this.executes);
-    console.log(this.simpleExecutes);
     for (let i = 0; i < this.executes.length; i++) {
       this.simpleExecute += this.simpleExecutes[i] + "\n";
       const element = this.executes[i];
@@ -549,7 +547,7 @@ export class CodeGenerator {
           "// Oops! An error occurred, please check the Console for more info",
           type,
           message,
-          "// Oops! An error occurred, please check the Console for more info"
+          "// Oops! An error occurred, please check the Console for more info",
         ];
       }
     }

@@ -24,21 +24,31 @@ const findNextNode = (currentNode, path, elements) => {
   let nodeCollection = getConnectedEdges(nodes, elements);
   let nextNodeList = getOutgoers(currentNode, elements);
   let nextNodeID;
-  for (let i = 0; i < nodeCollection.length; i++) {
-    if (currentNode.id == nodeCollection[i].source) {
-      if (nodeCollection[i].sourceHandle == String(path)) {
-        if (
-          nodeCollection[i].targetHandle &&
-          nodeCollection[i].targetHandle.split("_")[0] == "execution"
-        ) {
-          nextNodeID = nodeCollection[i].target;
-          break;
-        } else {
-          return [false, "Wrong Connection"];
-        }
+  const reqConnection = nodeCollection.filter((connection) => {
+    if (currentNode.id == connection.source) {
+      if (connection.sourceHandle == String(path)) {
+        return true
       }
     }
+    return false;
+  })
+  console.log(reqConnection);
+  if (reqConnection.length > 1) {
+    return [false, "One Block has multiple exectution connection"];
   }
+  if (reqConnection.length == 0) {
+    return [true, false];
+  }
+  const Connection = reqConnection[0];
+  if (
+    Connection.targetHandle &&
+    Connection.targetHandle.split("_")[0] == "execution"
+  ) {
+    nextNodeID =Connection.target;
+  } else {
+    return [false, "Wrong Connection"];
+  }
+  
   for (let i = 0; i < nextNodeList.length; i++) {
     if (nextNodeID == nextNodeList[i].id) {
       return [true, nextNodeList[i]];
@@ -365,7 +375,8 @@ const Workspace = (props) => {
       return [newText,dispCode];
     } else {
       ctx.addError(blocks);
-      return;
+      const meassage = "// Oops! An error occurred, please check the Console for more info";
+      return [meassage,meassage];
     }
   };
 
