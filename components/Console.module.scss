@@ -4,7 +4,6 @@
   width: 100%;
   background: #0f0f0f;
   height: 100%;
-  overflow-y: auto;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -16,15 +15,18 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow-y: scroll;
   width: 100%;
   &::-webkit-scrollbar {
-    width: 12px;
+    width: 1rem;
   }
   &::-webkit-scrollbar-track {
     background: #0a0a0a;
+    border-left: thin solid $darkest;
+    border-right: thin solid $darker;
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     transition: background-color 0.2s ease-out;
   }
   &::-webkit-scrollbar-thumb:hover {
@@ -41,9 +43,9 @@
     margin: -0.5px 0;
     display: flex;
   }
-  span {
+  p {
     width: 100%;
-    padding: 0.25rem 1rem 0.25rem 2.5rem;
+    padding: 0.25rem 6rem 0.25rem 2.5rem;
     font-size: 13px;
     border-top: thin solid #2b2b2b;
     border-bottom: thin solid #2b2b2b;
@@ -74,6 +76,16 @@
         fill: #f8d89e;
       }
     }
+    .time {
+      position: absolute;
+      top: 0.3rem;
+      right: 1rem;
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      opacity: 0.75;
+      font-weight: 200;
+    }
   }
 }
 
@@ -81,7 +93,6 @@
   height: 100%;
   width: 4rem;
   min-width: 4rem;
-  border-left: thin solid $darker;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,10 +109,14 @@
     transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
     path {
       fill: $lightest;
+      transition: fill 0.1s ease-out;
     }
     &:hover {
       opacity: 1;
       background: $darker;
+      path {
+        fill: $red;
+      }
     }
   }
   i {

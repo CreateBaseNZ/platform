@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import ClientOnlyPortal from "../ClientOnlyPortal";
+import ClientOnlyPortal from "./ClientOnlyPortal";
 
 import classes from "./Modal.module.scss";
 

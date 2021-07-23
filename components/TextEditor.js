@@ -1,9 +1,21 @@
 import { useRef, useEffect, useState } from "react";
+import { memo } from "react";
 import Editor from "@monaco-editor/react";
 
-// import themes from "/utils/themes";
+import { themeFiles } from "/utils/themes";
 
 import classes from "./TextEditor.module.scss";
+
+export const editorOptions = {
+  automaticLayout: true,
+  wordWrap: "on",
+  wrappingStrategy: "advanced",
+  folding: true,
+  foldingStrategy: "indentation",
+  formatOnPaste: true,
+  fontSize: 14,
+  fontFamily: "JetBrains Mono, mono",
+};
 
 const TextEditor = (props) => {
   const editorRef = useRef();
@@ -15,25 +27,19 @@ const TextEditor = (props) => {
     }
   }, [props.text]);
 
-  // const [monacoTheme, setMonacoTheme] = useState("Monokai");
-  // console.log(monacoTheme);
+  useEffect(() => {
+    if (monacoRef.current) {
+      monacoRef.current.editor.setTheme(props.theme);
+    }
+  }, [props.theme]);
 
   const editorDidMount = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
-  };
-
-  // const themeOptions = Object.keys(themes).map((key) => {
-  //   return <button key={key}> {key} </button>;
-  // });
-
-  const editorOptions = {
-    automaticLayout: true,
-    wordWrap: "on",
-    wrappingStrategy: "advanced",
-    folding: true,
-    foldingStrategy: "indentation",
-    formatOnPaste: true,
+    for (const t in themeFiles) {
+      monacoRef.current.editor.defineTheme(t, themeFiles[t]);
+    }
+    monacoRef.current.editor.setTheme(props.theme);
   };
 
   return (
@@ -42,11 +48,10 @@ const TextEditor = (props) => {
         defaultLanguage="javascript"
         value={props.text}
         onMount={editorDidMount}
-        theme={"vs-dark"}
         options={editorOptions}
       />
     </div>
   );
 };
 
-export default TextEditor;
+export default memo(TextEditor);

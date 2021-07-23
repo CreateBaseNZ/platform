@@ -79,7 +79,9 @@ const SendIt = (props) => {
                 </video>
               </div>
               <div className={classes.sendItCaption}>
-                {caption.map((x) => x)}
+                {caption.map((x, i) => (
+                  <span key={i}>{x}</span>
+                ))}
               </div>
             </SwiperSlide>
           );
@@ -112,30 +114,33 @@ const Research = (props) => {
 
   return (
     <section>
+      {showSendIt && (
+        <Modal
+          children={<SendIt closeHandler={sendItCloseHandler} />}
+          closeHandler={sendItCloseHandler}
+        />
+      )}
+      {showSituation && (
+        <Modal
+          children={<Situation closeHandler={situationCloseHandler} />}
+          closeHandler={situationCloseHandler}
+        />
+      )}
       <h2>Research</h2>
       <div className={classes.moduleContainer}>
-        {showSendIt && (
-          <Modal
-            children={<SendIt closeHandler={sendItCloseHandler} />}
-            closeHandler={sendItCloseHandler}
-          />
-        )}
-        {showSituation && (
-          <Modal
-            children={<Situation closeHandler={situationCloseHandler} />}
-            closeHandler={situationCloseHandler}
-          />
-        )}
         <InfoModule>
           What is <span>Flow</span> Programming?
         </InfoModule>
         <TutorialModule>
           Introduction to Flow <span>Blocks</span>
         </TutorialModule>
-        <TutorialModule onClick={sendItShowHandler}>
+        <TutorialModule onClick={sendItShowHandler} title="Watch the tutorial">
           How to <span>Send It</span>
         </TutorialModule>
-        <VideoModule onClick={situationShowHandler}>
+        <VideoModule
+          onClick={situationShowHandler}
+          title="Play the situation video"
+        >
           Rewatch the <span>Situation</span> Video
         </VideoModule>
         <Link

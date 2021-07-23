@@ -6,11 +6,11 @@ const Plan = (props) => {
   return (
     <section>
       <h2>Plan</h2>
-      <div className={classes.centerContainer}>
+      <div className={classes.moduleContainer}>
         <a
           href="https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing"
           target="_blank"
-          title="Learning Journal - Docs"
+          title="Learning Journal - Google Docs"
         >
           <ResourceModule>
             <span>Learning Journal</span> - Docs
@@ -26,13 +26,10 @@ const Plan = (props) => {
           </ResourceModule>
         </a>
       </div>
-      <div className={classes.centerContainer}>
-        <p className={classes.description}>
-          One made in Google Docs and the other in Word, either will do the
-          trick so just choose one. Be sure to create a copy and make it all
-          yours.
-        </p>
-      </div>
+      <p className={classes.description}>
+        One made in Google Docs and the other in Word, either will do the trick
+        so just choose one. Be sure to create a copy and make it all yours.
+      </p>
     </section>
   );
 };

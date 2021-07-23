@@ -1,6 +1,6 @@
 @import "variables";
 
-* {
+*:not(.monaco-editor *) {
   margin: 0;
   padding: 0;
   border: none;
@@ -8,7 +8,6 @@
   box-sizing: border-box;
   text-decoration: none;
   background: transparent;
-  font-family: $poppins;
   color: $darker;
   font-size: 1rem;
   user-select: none;
@@ -22,6 +21,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   background: $bg-light;
+  font-family: $poppins;
 }
 
 button {
@@ -110,5 +110,5 @@ svg {
 }
 
 .overflow-guard {
-  pointer-events: none;
+  // pointer-events: none;
 }

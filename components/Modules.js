@@ -7,9 +7,13 @@ import AttachFileIcon from "@material-ui/icons/AttachFile";
 
 import classes from "./Modules.module.scss";
 
-const Module = ({ className, icon, label, children, clickHandler }) => {
+const Module = ({ className, icon, label, children, title, clickHandler }) => {
   return (
-    <div className={`${classes.module} ${className}`} onClick={clickHandler}>
+    <div
+      className={`${classes.module} ${className}`}
+      onClick={clickHandler}
+      title={title}
+    >
       <div className={classes.label}>
         <i>{icon}</i>
         <h4>{label}</h4>
@@ -26,6 +30,7 @@ export const VideoModule = (props) => {
       icon={<VideocamOutlinedIcon />}
       label="Video"
       clickHandler={props.onClick}
+      title={props.title}
     >
       {props.children}
     </Module>
@@ -39,6 +44,7 @@ export const InfoModule = (props) => {
       icon={<InfoOutlinedIcon />}
       label="Info"
       clickHandler={props.onClick}
+      title={props.title}
     >
       {props.children}
     </Module>
@@ -52,6 +58,7 @@ export const TutorialModule = (props) => {
       icon={<HelpOutlineOutlinedIcon />}
       label="Tutorial"
       clickHandler={props.onClick}
+      title={props.title}
     >
       {props.children}
     </Module>
@@ -65,6 +72,7 @@ export const HintModule = (props) => {
       icon={<EmojiObjectsOutlinedIcon />}
       label="Hint"
       clickHandler={props.onClick}
+      title={props.title}
     >
       {props.children}
     </Module>
@@ -78,6 +86,7 @@ export const SneakPeekModule = (props) => {
       icon={<SportsEsportsOutlinedIcon />}
       label="Sneak peek"
       clickHandler={props.onClick}
+      title={props.title}
     >
       {props.children}
     </Module>
@@ -91,6 +100,7 @@ export const ResourceModule = (props) => {
       icon={<AttachFileIcon />}
       label="Resource"
       clickHandler={props.onClick}
+      title={props.title}
     >
       {props.children}
     </Module>

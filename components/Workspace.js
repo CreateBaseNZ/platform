@@ -15,6 +15,7 @@ import GreenButton from "./UI/GreenButton";
 import { CodeGenerator } from "../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
 import { MiniHoverContextProvider } from "../store/mini-hover-context";
+import Config from "./Config";
 
 let com;
 
@@ -330,11 +331,22 @@ const Workspace = (props) => {
   const [elements, setElements] = useState(initialElements);
   const [text, setText] = useState("// Let's code! 💡");
   const [allowCompile, setAllowCompile] = useState(false);
+  const [theme, setTheme] = useState(null);
 
   const ctx = useContext(ConsoleContext);
   const sensorDataRef = useRef(props.sensorData);
 
   sensorDataRef.current = props.sensorData;
+
+  useEffect(() => {
+    const theme = localStorage.getItem("monaco-theme");
+    if (theme) {
+      setTheme(theme);
+    } else {
+      setTheme("VSDark");
+      localStorage.setItem("monaco-theme", "VSDark");
+    }
+  }, []);
 
   useEffect(() => {
     setAllowCompile(true);
@@ -404,7 +416,12 @@ const Workspace = (props) => {
         </ReactFlowProvider>
       </MiniHoverContextProvider>
       <TextEditor show={activeTab === "text"} text={text} />
-      <Console show={activeTab === "console"} />
+      <Console
+        show={activeTab === "console"}
+        theme={theme}
+        setTheme={setTheme}
+      />
+      <Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
       <TabBar
         stacked={props.stacked}
         active={activeTab}
