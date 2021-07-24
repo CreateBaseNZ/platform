@@ -51,9 +51,11 @@ const FlowEditor = (props) => {
     board: null,
   });
   const [flowLocked, setFlowLocked] = useState(false);
+  const [visualBell, setVisualBell] = useState({ message: "", switch: false });
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
+  const visualBellTimer = useRef(null);
 
   console.log(props.elements);
 
@@ -75,6 +77,16 @@ const FlowEditor = (props) => {
       setSystemAction(false);
     }
   }, [props.elements]);
+
+  useEffect(() => {
+    if (visualBell.message) {
+      clearTimeout(visualBellTimer.current);
+      visualBellTimer.current = setTimeout(
+        () => setVisualBell((state) => ({ message: "", switch: state.switch })),
+        [5000]
+      );
+    }
+  }, [visualBell.switch]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -101,19 +113,12 @@ const FlowEditor = (props) => {
       }
       return el.id !== "start";
     });
-    console.log(edges);
     props.setElements((els) =>
       removeElements(filteredElements, els).map((el) => {
-        console.log(el);
         for (const edge of edges) {
-          console.log(edge);
           if (el.id === edge.source) {
-            console.log(edge.source);
-            console.log(edge.sourceHandle);
             return removeConnection(el, edge.sourceHandle);
           } else if (el.id === edge.target) {
-            console.log(edge.target);
-            console.log(edge.targetHandle);
             return removeConnection(el, edge.targetHandle);
           }
         }
@@ -162,6 +167,10 @@ const FlowEditor = (props) => {
     event.preventDefault();
     if (flowLocked) {
       flashLockIcon();
+      setVisualBell((state) => ({
+        message: "Flow is locked",
+        switch: !state.switch,
+      }));
       return;
     }
     // place the node in correct position
@@ -221,6 +230,14 @@ const FlowEditor = (props) => {
   };
 
   const pasteSelection = () => {
+    if (flowLocked) {
+      flashLockIcon();
+      setVisualBell((state) => ({
+        message: "Flow is locked",
+        switch: !state.switch,
+      }));
+      return;
+    }
     if (clipBoard.board) {
       let newNodes = [];
       let mapping = {};
@@ -237,7 +254,6 @@ const FlowEditor = (props) => {
           edges.push(el);
         }
       }
-
       const newEdges = edges
         .map((edge) => {
           return {
@@ -252,14 +268,25 @@ const FlowEditor = (props) => {
         .filter((edge) => {
           return edge.source && edge.target;
         });
-
       const newEls = newNodes.concat(newEdges);
       props.setElements((els) => els.concat(newEls));
       setSelectedElements(newEls);
     }
+    setVisualBell((state) => ({
+      message: "Code pasted",
+      switch: !state.switch,
+    }));
   };
 
   const undoAction = () => {
+    if (flowLocked) {
+      flashLockIcon();
+      setVisualBell((state) => ({
+        message: "Flow is locked",
+        switch: !state.switch,
+      }));
+      return;
+    }
     if (allowUndo) {
       setSystemAction(true);
       props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
@@ -270,6 +297,14 @@ const FlowEditor = (props) => {
   };
 
   const redoAction = () => {
+    if (flowLocked) {
+      flashLockIcon();
+      setVisualBell((state) => ({
+        message: "Flow is locked",
+        switch: !state.switch,
+      }));
+      return;
+    }
     if (allowRedo) {
       setSystemAction(true);
       props.setElements(actionStack.stack[actionStack.currentIndex + 1]);
@@ -283,12 +318,19 @@ const FlowEditor = (props) => {
     if (props.elements) {
       window.localStorage.setItem("flow_save", JSON.stringify(props.elements));
     }
-    console.log(window.localStorage.getItem("flow_save"));
+    setVisualBell((state) => ({
+      message: "Code saved",
+      switch: !state.switch,
+    }));
   };
 
   const restoreFlow = () => {
     if (flowLocked) {
       flashLockIcon();
+      setVisualBell((state) => ({
+        message: "Flow is locked",
+        switch: !state.switch,
+      }));
       return;
     }
     const savedEls = JSON.parse(window.localStorage.getItem("flow_save"));
@@ -454,6 +496,9 @@ const FlowEditor = (props) => {
             {miniHoverCtx.activeNode.block}
             <span>{tooltips[miniHoverCtx.activeNode.nodeType]}</span>
           </div>
+        )}
+        {visualBell.message && (
+          <div className={classes.visualBell}>{visualBell.message}</div>
         )}
       </div>
     </div>
