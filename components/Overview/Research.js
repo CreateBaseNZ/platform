@@ -128,12 +128,15 @@ const Research = (props) => {
       )}
       <h2>Research</h2>
       <div className={classes.moduleContainer}>
-        <InfoModule>
-          What is <span>Flow</span> Programming?
-        </InfoModule>
-        <TutorialModule>
-          Introduction to Flow <span>Blocks</span>
-        </TutorialModule>
+        <a
+          href="/intro-to-flow.pdf"
+          target="_blank"
+          title="Introduction to Flow Blocks PDF"
+        >
+          <TutorialModule>
+            Introduction to <span>Flow</span> Blocks
+          </TutorialModule>
+        </a>
         <TutorialModule onClick={sendItShowHandler} title="Watch the tutorial">
           How to <span>Send It</span>
         </TutorialModule>

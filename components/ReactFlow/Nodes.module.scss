@@ -231,7 +231,7 @@
     font-weight: 600;
     position: absolute;
     right: -36px;
-    top: -2px;
+    top: -1px;
     height: 8px;
     padding: 0 4px;
     background: $lighter;
@@ -245,6 +245,21 @@
   &:active::before,
   &:active::after {
     opacity: 0.2;
+  }
+}
+
+.handle.targetHandle.executionHandle {
+  &::after {
+    content: "";
+    color: $light;
+    position: absolute;
+    left: -3px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 4px;
+    background: $lightest;
+    pointer-events: none;
   }
 }
 
