@@ -224,17 +224,6 @@ export class CodeGenerator {
             return [false, "error", "Wrong Sign is Entered"];
           } else {
             simpleVal = val;
-            switch (val) {
-              case "||":
-                simpleVal = " or ";
-                break;
-              case "&&":
-                simpleVal = " and ";
-                break;
-              case "!=":
-                simpleVal = " not= ";
-                break;
-            }
           }
         }else{
           return [false, "error", "Something Went Wrong"];
