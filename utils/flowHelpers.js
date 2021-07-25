@@ -7,6 +7,7 @@ import classesControlsBar from "../components/ReactFlow/ControlsBar.module.scss"
 export const controlTitles = [
   "Zoom-in (Ctrl and +)",
   "Zoom-out (Ctrl and -)",
+  "Fit view (Space)",
   "Undo (Ctrl + Z)",
   "Redo (Ctrl + Y)",
   "Save (Ctrl + S)",

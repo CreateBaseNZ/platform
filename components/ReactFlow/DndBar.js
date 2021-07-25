@@ -49,7 +49,7 @@ const DndBar = () => {
         <NodeDivideMini />
         <NodeGreaterThanMini />
         <NodeLessThanMini />
-        <NodeEqualsMini />
+        {/* <NodeEqualsMini /> */}
         <NodeNotEqualsMini />
         <NodeOperatorGeneralMini />
         <h5>Logicals</h5>

@@ -30,11 +30,7 @@ const ControlsBar = (props) => {
   };
 
   return (
-    <Controls
-      className={classes.controls}
-      showFitView={false}
-      showInteractive={false}
-    >
+    <Controls className={classes.controls} showInteractive={false}>
       <ControlButton
         className={`${classes.customControl} ${classes.undoButton} ${
           !props.allowUndo && classes.deactive

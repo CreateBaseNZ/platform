@@ -374,8 +374,12 @@ const FlowEditor = (props) => {
     setFlowLocked((state) => !state);
   };
 
+  const fitView = () => {
+    reactFlowInstance.fitView();
+  };
+
   const keyDownHandler = (event) => {
-    if (event.ctrlKey) {
+    if (event.ctrlKey || event.metaKey) {
       if (event.key === "c") {
         event.preventDefault();
         copySelection();
@@ -404,6 +408,9 @@ const FlowEditor = (props) => {
         event.preventDefault();
         lockHandler();
       }
+    } else if (event.key === " ") {
+      event.preventDefault();
+      fitView();
     }
   };
 
@@ -448,6 +455,10 @@ const FlowEditor = (props) => {
     });
   };
 
+  const paneClickHandler = (e) => {
+    console.log(e);
+  };
+
   return (
     <div
       className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}
@@ -469,6 +480,8 @@ const FlowEditor = (props) => {
           snapToGrid={true}
           snapGrid={[16, 16]}
           arrowHeadColor="#ffffff"
+          // deleteKeyCode={["Backspace", "Delete"]}
+          multiSelectionKeyCode={"Control"}
           onDrop={onDrop}
           onDragOver={onDragOver}
           onConnect={onConnect}
@@ -478,6 +491,7 @@ const FlowEditor = (props) => {
           onEdgeUpdateEnd={edgeUpdateEndHandler}
           onSelectionChange={selectChangeHandler}
           onSelectionDragStop={selectionDragStopHandler}
+          onPaneClick={paneClickHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
