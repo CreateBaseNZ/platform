@@ -51,11 +51,9 @@ const FlowEditor = (props) => {
     board: null,
   });
   const [flowLocked, setFlowLocked] = useState(false);
-  const [visualBell, setVisualBell] = useState({ message: "", switch: false });
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
-  const visualBellTimer = useRef(null);
 
   console.log(props.elements);
 
@@ -77,16 +75,6 @@ const FlowEditor = (props) => {
       setSystemAction(false);
     }
   }, [props.elements]);
-
-  useEffect(() => {
-    if (visualBell.message) {
-      clearTimeout(visualBellTimer.current);
-      visualBellTimer.current = setTimeout(
-        () => setVisualBell((state) => ({ message: "", switch: state.switch })),
-        [5000]
-      );
-    }
-  }, [visualBell.switch]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -167,7 +155,7 @@ const FlowEditor = (props) => {
     event.preventDefault();
     if (flowLocked) {
       flashLockIcon();
-      setVisualBell((state) => ({
+      props.setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -232,7 +220,7 @@ const FlowEditor = (props) => {
   const pasteSelection = () => {
     if (flowLocked) {
       flashLockIcon();
-      setVisualBell((state) => ({
+      props.setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -272,7 +260,7 @@ const FlowEditor = (props) => {
       props.setElements((els) => els.concat(newEls));
       setSelectedElements(newEls);
     }
-    setVisualBell((state) => ({
+    props.setVisualBell((state) => ({
       message: "Code pasted",
       switch: !state.switch,
     }));
@@ -281,7 +269,7 @@ const FlowEditor = (props) => {
   const undoAction = () => {
     if (flowLocked) {
       flashLockIcon();
-      setVisualBell((state) => ({
+      props.setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -299,7 +287,7 @@ const FlowEditor = (props) => {
   const redoAction = () => {
     if (flowLocked) {
       flashLockIcon();
-      setVisualBell((state) => ({
+      props.setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -318,7 +306,7 @@ const FlowEditor = (props) => {
     if (props.elements) {
       window.localStorage.setItem("flow_save", JSON.stringify(props.elements));
     }
-    setVisualBell((state) => ({
+    props.setVisualBell((state) => ({
       message: "Code saved",
       switch: !state.switch,
     }));
@@ -327,7 +315,7 @@ const FlowEditor = (props) => {
   const restoreFlow = () => {
     if (flowLocked) {
       flashLockIcon();
-      setVisualBell((state) => ({
+      props.setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -511,8 +499,8 @@ const FlowEditor = (props) => {
             <span>{tooltips[miniHoverCtx.activeNode.nodeType]}</span>
           </div>
         )}
-        {visualBell.message && (
-          <div className={classes.visualBell}>{visualBell.message}</div>
+        {props.visualBell.message && (
+          <div className={classes.visualBell}>{props.visualBell.message}</div>
         )}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { memo, useContext, useEffect, useRef, useState } from "react";
 import SwapCallsIcon from "@material-ui/icons/SwapCalls";
 import CodeIcon from "@material-ui/icons/Code";
 import CallToActionOutlinedIcon from "@material-ui/icons/CallToActionOutlined";
@@ -146,4 +146,4 @@ const TabBar = (props) => {
   );
 };
 
-export default TabBar;
+export default memo(TabBar);

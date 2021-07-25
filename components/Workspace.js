@@ -27,11 +27,11 @@ const findNextNode = (currentNode, path, elements) => {
   const reqConnection = nodeCollection.filter((connection) => {
     if (currentNode.id == connection.source) {
       if (connection.sourceHandle == String(path)) {
-        return true
+        return true;
       }
     }
     return false;
-  })
+  });
   console.log(reqConnection);
   if (reqConnection.length > 1) {
     return [false, "One Block has multiple exectution connection"];
@@ -44,11 +44,11 @@ const findNextNode = (currentNode, path, elements) => {
     Connection.targetHandle &&
     Connection.targetHandle.split("__")[0] == "execution"
   ) {
-    nextNodeID =Connection.target;
+    nextNodeID = Connection.target;
   } else {
     return [false, "Wrong Connection"];
   }
-  
+
   for (let i = 0; i < nextNodeList.length; i++) {
     if (nextNodeID == nextNodeList[i].id) {
       return [true, nextNodeList[i]];
@@ -110,7 +110,6 @@ const determineType = (block, currentNode) => {
   return block;
 };
 
-
 const CheckPreviuos = (currentNode, elements) => {
   const nodes = [currentNode];
   let edgeCollection = getConnectedEdges(nodes, elements);
@@ -119,18 +118,18 @@ const CheckPreviuos = (currentNode, elements) => {
   const prevConnection = edgeCollection.filter((connection) => {
     if (currentNode.id == connection.target) {
       if (connection.targetHandle.split("__")[0] == "execution") {
-        return true
+        return true;
       }
     }
     return false;
-  })
+  });
   console.log(prevConnection);
 
   if (prevConnection.length != 1 && currentNode.id != "start") {
     return false;
   }
   return true;
-}
+};
 
 const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
   const nodes = [currentNode];
@@ -165,10 +164,10 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
           return [blocksOrder, val, outName];
         }
       }
-      return [null, null, null,"Wrong execution order"];
+      return [null, null, null, "Wrong execution order"];
     }
   }
-  
+
   for (let i = 0; i < edgeCollection.length; i++) {
     if (currentNode.id == edgeCollection[i].target) {
       if (
@@ -189,7 +188,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
   const unduplicatedArray = [...new Set(inputs)];
 
   if (unduplicatedArray.length != inputs.length) {
-    return [null, null, null,"One of the inputs has more than one entry"];
+    return [null, null, null, "One of the inputs has more than one entry"];
   }
   let block = {
     robot: "Player",
@@ -203,7 +202,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
   let output;
   for (let i = 0; i < IDlist.length; i++) {
     let message;
-    [blocksOrder, val, output,message] = findInputs(
+    [blocksOrder, val, output, message] = findInputs(
       blocksOrder,
       IDlist[i],
       elements,
@@ -213,7 +212,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
     if (blocksOrder || val || output) {
       block.value[inputs[i]] = output;
     } else {
-      return [null, null, null,message];
+      return [null, null, null, message];
     }
   }
   let edgeNum;
@@ -242,7 +241,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
       blocksOrder.push(block);
       break;
   }
-  return [blocksOrder, val, outName,""];
+  return [blocksOrder, val, outName, ""];
 };
 
 const flow2Text = (elements) => {
@@ -258,8 +257,8 @@ const flow2Text = (elements) => {
       if (!CheckPreviuos(currentNode, elements)) {
         return "One Node has more than one input";
       }
-      let f,message;
-      [blocksConfig, val, f,message] = findInputs(
+      let f, message;
+      [blocksConfig, val, f, message] = findInputs(
         blocksConfig,
         currentNode,
         elements,
@@ -371,9 +370,11 @@ const Workspace = (props) => {
   const [text, setText] = useState("// Let's code! 💡");
   const [allowCompile, setAllowCompile] = useState(false);
   const [theme, setTheme] = useState(null);
+  const [visualBell, setVisualBell] = useState({ message: "", switch: false });
 
   const ctx = useContext(ConsoleContext);
   const sensorDataRef = useRef(props.sensorData);
+  const visualBellTimer = useRef(null);
 
   sensorDataRef.current = props.sensorData;
 
@@ -391,27 +392,38 @@ const Workspace = (props) => {
     setAllowCompile(true);
   }, [elements]);
 
+  useEffect(() => {
+    if (visualBell.message) {
+      clearTimeout(visualBellTimer.current);
+      visualBellTimer.current = setTimeout(
+        () => setVisualBell((state) => ({ message: "", switch: state.switch })),
+        [5000]
+      );
+    }
+  }, [visualBell.switch]);
+
   const compileCode = () => {
     const blocks = flow2Text(elements);
     if (Array.isArray(blocks)) {
       const codeGen = new CodeGenerator();
-      const [newText, type, message,dispCode] = codeGen.build(blocks);
+      const [newText, type, message, dispCode] = codeGen.build(blocks);
       if (type === "warning") {
         ctx.addWarning(message);
       } else if (type === "error") {
         ctx.addError(message);
       }
-      return [newText,dispCode];
+      return [newText, dispCode];
     } else {
       ctx.addError(blocks);
-      const meassage = "// Oops! An error occurred, please check the Console for more info";
-      return [meassage,meassage];
+      const meassage =
+        "// Oops! An error occurred, please check the Console for more info";
+      return [meassage, meassage];
     }
   };
 
   const changeTabHandler = (tab) => {
     if (activeTab === "flow" && tab === "text") {
-      const [newText,dispCode] = compileCode();
+      const [newText, dispCode] = compileCode();
       if (newText) {
         setText(dispCode);
       }
@@ -428,10 +440,14 @@ const Workspace = (props) => {
   const compileHandler = () => {
     clearInterval(com);
     com = 0;
-    const [code,dispCode] = compileCode();
+    const [code, dispCode] = compileCode();
     com = setInterval(() => {
       executeCode(code);
     }, 10);
+    setVisualBell((state) => ({
+      message: "Code is now running",
+      switch: !state.switch,
+    }));
     setAllowCompile(false);
   };
 
@@ -452,6 +468,8 @@ const Workspace = (props) => {
             show={activeTab === "flow"}
             elements={elements}
             setElements={setElements}
+            visualBell={visualBell}
+            setVisualBell={setVisualBell}
           />
         </ReactFlowProvider>
       </MiniHoverContextProvider>
