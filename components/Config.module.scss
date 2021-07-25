@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-around;
   overflow-y: auto;
   h4 {
     padding: 0.5rem 0.75rem;
@@ -83,7 +83,8 @@
   pointer-events: none;
   flex: 0 0 auto;
   height: 300px;
-  width: calc(40vw);
+  width: calc(30vw);
+  min-width: 450px;
   max-width: 500px;
   border-radius: 0.75rem;
   overflow: hidden;
@@ -118,7 +119,7 @@
   justify-content: flex-start;
   padding-top: 2vh;
   div {
-    font-size: 14px;
+    font-size: 12px;
     padding: 0.5rem 0.75rem;
     line-height: 1em;
     text-overflow: ellipsis;
