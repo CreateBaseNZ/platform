@@ -201,7 +201,6 @@ export class CodeGenerator {
     }
     let mathInput = ["a", "operator", "b"];
     let inputs: string = "";
-    let simpleInput: string = "";
     for (let i = 0; i < mathInput.length; i++) {
       let simpleVal = "";
       let val = String(blockDetail.value[mathInput[i]]).trim();
@@ -217,39 +216,22 @@ export class CodeGenerator {
         } else {
           val = String(Number(val));
         }
-        simpleVal = val;
       } else {
         if (blockDetail) {
           if (!this.checkSign(val)) {
             return [false, "error", "Wrong Sign is Entered"];
-          } else {
-            simpleVal = val;
-            switch (val) {
-              case "||":
-                simpleVal = " or ";
-                break;
-              case "&&":
-                simpleVal = " and ";
-                break;
-              case "!=":
-                simpleVal = " not= ";
-                break;
-            }
-          }
+          } 
         }else{
           return [false, "error", "Something Went Wrong"];
         }
-          
       }
       inputs += val;
-      simpleInput += simpleVal;
     }
     let output: any;
     output = "";
     output = this.checkCorrectVar(String(blockDetail.value.out));
     const str = `${output}(${inputs})`;
-    const simpleStr = `${output}(${simpleInput})`;
-    this.simpleExecutes.push(simpleStr);
+    this.simpleExecutes.push(str);
     this.executes.push(str);
     return [true];
   }
@@ -345,8 +327,7 @@ export class CodeGenerator {
       val = String(Number(val));
     }
     const str = `for(let i=0;i<${val};i++){`;
-    const simpleStr = `Repeat(${val}){`;
-    this.simpleExecutes.push(simpleStr);
+    this.simpleExecutes.push(str);
     this.executes.push(str);
     return [true];
   }
