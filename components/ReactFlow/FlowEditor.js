@@ -177,10 +177,11 @@ const FlowEditor = (props) => {
       data: {
         values: getDefaultValues(type),
         connections: [],
-        callBack: (newValues) => {
+        callBack: (newValues, thisId) => {
+          console.log(thisId);
           props.setElements((els) =>
             els.map((el) => {
-              if (el.id === id) {
+              if (el.id === thisId) {
                 el.data = {
                   ...el.data,
                   values: newValues,
@@ -232,6 +233,7 @@ const FlowEditor = (props) => {
       let edges = [];
       for (const el of clipBoard.board) {
         if (isNode(el)) {
+          console.log(el);
           const newId = getId();
           newNodes.push({
             ...el,

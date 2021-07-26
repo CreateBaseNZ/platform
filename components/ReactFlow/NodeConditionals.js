@@ -63,11 +63,12 @@ export const NodeIf = ({ data, isConnectable }) => {
 };
 
 export const NodeRepeat = ({
+  id,
   data = { values: { condition: 1 } },
   isConnectable,
 }) => {
   const changeHandler = (event) => {
-    data.callBack({ ...data.values, condition: event.target.value });
+    data.callBack({ ...data.values, condition: event.target.value }, id);
   };
   const dragHandler = (event) => {
     event.preventDefault();

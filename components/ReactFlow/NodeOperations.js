@@ -5,16 +5,19 @@ import { NodeMini } from "./NodeGeneral";
 import classes from "./Nodes.module.scss";
 
 const NodeOperations = ({
+  id,
   label,
   data = { values: { a: 1, b: 2 }, connections: [] },
   className = "",
   isConnectable,
 }) => {
+  console.log(id);
+
   const changeHandlerA = (event) => {
-    data.callBack({ ...data.values, a: event.target.value });
+    data.callBack({ ...data.values, a: event.target.value }, id);
   };
   const changeHandlerB = (event) => {
-    data.callBack({ ...data.values, b: event.target.value });
+    data.callBack({ ...data.values, b: event.target.value }, id);
   };
   const dragHandler = (event) => {
     event.preventDefault();
@@ -71,38 +74,80 @@ const NodeOperations = ({
   );
 };
 
-export const NodeAdd = memo(({ data, isConnectable }) => {
-  return <NodeOperations label="+" data={data} isConnectable={isConnectable} />;
-});
-export const NodeSubtract = memo(({ data, isConnectable }) => {
-  return <NodeOperations label="-" data={data} isConnectable={isConnectable} />;
-});
-export const NodeMultiply = memo(({ data, isConnectable }) => {
-  return (
-    <NodeOperations label="&times;" data={data} isConnectable={isConnectable} />
-  );
-});
-export const NodeDivide = memo(({ data, isConnectable }) => {
+export const NodeAdd = memo(({ id, data, isConnectable }) => {
   return (
     <NodeOperations
+      id={id}
+      label="+"
+      data={data}
+      isConnectable={isConnectable}
+    />
+  );
+});
+export const NodeSubtract = memo(({ id, data, isConnectable }) => {
+  return (
+    <NodeOperations
+      id={id}
+      label="-"
+      data={data}
+      isConnectable={isConnectable}
+    />
+  );
+});
+export const NodeMultiply = memo(({ id, data, isConnectable }) => {
+  return (
+    <NodeOperations
+      id={id}
+      label="&times;"
+      data={data}
+      isConnectable={isConnectable}
+    />
+  );
+});
+export const NodeDivide = memo(({ id, data, isConnectable }) => {
+  return (
+    <NodeOperations
+      id={id}
       label="&divide;"
       data={data}
       isConnectable={isConnectable}
     />
   );
 });
-export const NodeGreaterThan = memo(({ data, isConnectable }) => {
-  return <NodeOperations label=">" data={data} isConnectable={isConnectable} />;
-});
-export const NodeLessThan = memo(({ data, isConnectable }) => {
-  return <NodeOperations label="<" data={data} isConnectable={isConnectable} />;
-});
-export const NodeEquals = memo(({ data, isConnectable }) => {
-  return <NodeOperations label="=" data={data} isConnectable={isConnectable} />;
-});
-export const NodeNotEquals = memo(({ data, isConnectable }) => {
+export const NodeGreaterThan = memo(({ id, data, isConnectable }) => {
   return (
     <NodeOperations
+      id={id}
+      label=">"
+      data={data}
+      isConnectable={isConnectable}
+    />
+  );
+});
+export const NodeLessThan = memo(({ id, data, isConnectable }) => {
+  return (
+    <NodeOperations
+      id={id}
+      label="<"
+      data={data}
+      isConnectable={isConnectable}
+    />
+  );
+});
+export const NodeEquals = memo(({ id, data, isConnectable }) => {
+  return (
+    <NodeOperations
+      id={id}
+      label="="
+      data={data}
+      isConnectable={isConnectable}
+    />
+  );
+});
+export const NodeNotEquals = memo(({ id, data, isConnectable }) => {
+  return (
+    <NodeOperations
+      id={id}
       label="not ="
       data={data}
       className={classes.nodeNotEquals}
@@ -113,17 +158,18 @@ export const NodeNotEquals = memo(({ data, isConnectable }) => {
 
 export const NodeOperatorGeneral = memo(
   ({
+    id,
     data = { values: { a: 1, b: 2, operator: "+" }, connections: [] },
     isConnectable,
   }) => {
     const changeHandlerA = (event) => {
-      data.callBack({ ...data.values, a: event.target.value });
+      data.callBack({ ...data.values, a: event.target.value }, id);
     };
     const changeHandlerB = (event) => {
-      data.callBack({ ...data.values, b: event.target.value });
+      data.callBack({ ...data.values, b: event.target.value }, id);
     };
     const changeHandlerOperator = (event) => {
-      data.callBack({ ...data.values, operator: event.target.value });
+      data.callBack({ ...data.values, operator: event.target.value }, id);
     };
 
     const preventA = data.connections.includes("param__a");
