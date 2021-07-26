@@ -15,7 +15,7 @@ const DUMMY_PROJECTS = [
     thumbnail: "/send_it_thumbnail.png",
     img: "/send_it.png",
     caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
+      "In this project, users will automate a jumping game by creating a simple \"AI\" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.",
   },
   {
     name: "Coming soon",

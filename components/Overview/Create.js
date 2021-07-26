@@ -13,13 +13,22 @@ const Create = (props) => {
         you go. Rinse and repeat. Be sure to share it with your friends!
       </p>
       <div className={classes.taskContainer}>
-        <h5>Task</h5>
+        <h5>Task:</h5>
         <ul>
           <li>
-            Write some code so your robot detects incoming obstacles and avoids
-            them
+            Write some code so that your robot can detect incoming obstacles and avoid them.
           </li>
-          <li>Reach 1000m to deliver your package. Good luck!</li>
+          <li>
+            Reach 1000m to deliver your package and complete the task. Good luck!
+          </li>
+        </ul>
+      </div>
+      <div className={classes.taskContainer}>
+        <h5>Hint:</h5>
+        <ul>
+          <li>
+            Make sure that you hit the compile button to upload your code to the robot!
+          </li>
         </ul>
       </div>
       <div className={classes.buttonContainer}>

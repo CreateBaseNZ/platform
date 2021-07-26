@@ -47,7 +47,7 @@ const Imagine = (props) => {
       </div>
       <div className={classes.centerContainer}>
         <p className={classes.description}>
-          Dive into the situation. What do you think is happening here?
+          Dive into the situation by watching this short video! What do you think is happening here? Discuss with your peers!
         </p>
       </div>
     </section>

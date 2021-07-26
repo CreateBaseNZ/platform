@@ -13,14 +13,24 @@ const Improve = (props) => {
         ways to make your solution smarter, faster, stronger!
       </p>
       <div className={classes.taskContainer}>
-        <h5>Task</h5>
+        <h5>Task:</h5>
         <p>
-          Did you beat the game? Uh oh, seems like there’s flying drones too!
-          Time to rethink your code ...
+          Did you beat the game? Uh oh, looks like there’s now some flying drones! And is that acceleration? Different sized obstacles too?
+          Time to rethink your code...
         </p>
         <ul>
-          <li>Modify your code to duck under flying drones</li>
-          <li>Deliver that package!</li>
+          <li>Modify your code to duck under flying drones.</li>
+          <li>Modify your code to take into account an accelerating robot.</li>
+          <li>Modify your code to jump over obstacles of different sizes.</li>
+          <li>Deliver that package with the highest possible score!</li>
+        </ul>
+      </div>
+      <div className={classes.taskContainer}>
+        <h5>Hint:</h5>
+        <ul>
+          <li>
+            Rather than trying to do solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all!
+          </li>
         </ul>
       </div>
       <div className={classes.graphicContainer}>
