@@ -14,9 +14,15 @@ import ReactFlow, {
   isEdge,
   isNode,
   useZoomPanHelper,
+  useStoreState,
   useStoreActions,
 } from "react-flow-renderer";
-import { nodeTypes, edgeTypes, tooltips } from "../../utils/flowConfig";
+import {
+  nodeTypes,
+  edgeTypes,
+  tooltips,
+  initialElements,
+} from "../../utils/flowConfig";
 import {
   controlTitles,
   flashLockIcon,
@@ -51,6 +57,7 @@ const FlowEditor = (props) => {
     board: null,
   });
   const [flowLocked, setFlowLocked] = useState(false);
+  const nodes = useStoreState((store) => store.nodes);
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
@@ -178,7 +185,6 @@ const FlowEditor = (props) => {
         values: getDefaultValues(type),
         connections: [],
         callBack: (newValues, thisId) => {
-          console.log(thisId);
           props.setElements((els) =>
             els.map((el) => {
               if (el.id === thisId) {
@@ -228,44 +234,47 @@ const FlowEditor = (props) => {
       return;
     }
     if (clipBoard.board) {
-      let newNodes = [];
       let mapping = {};
       let edges = [];
       for (const el of clipBoard.board) {
         if (isNode(el)) {
-          console.log(el);
           const newId = getId();
-          newNodes.push({
+          mapping[el.id] = {
             ...el,
             id: newId,
-          });
-          mapping[el.id] = newId;
+            data: { ...el.data, connections: [] },
+          };
         } else {
           edges.push(el);
         }
       }
+
       const newEdges = edges
+        .filter((edge) => edge.source in mapping && edge.target in mapping)
         .map((edge) => {
+          mapping[edge.source].data.connections.push(edge.sourceHandle);
+          mapping[edge.target].data.connections.push(edge.targetHandle);
           return {
             ...edge,
-            id: `reactflow__edge-${mapping[edge.source]}${edge.sourceHandle}-${
-              mapping[edge.target]
-            }${edge.targetHandle}`,
-            source: mapping[edge.source],
-            target: mapping[edge.target],
+            id: `reactflow__edge-${mapping[edge.source].id}${
+              edge.sourceHandle
+            }-${mapping[edge.target].id}${edge.targetHandle}`,
+            source: mapping[edge.source].id,
+            target: mapping[edge.target].id,
           };
-        })
-        .filter((edge) => {
-          return edge.source && edge.target;
         });
+
+      const newNodes = Object.keys(mapping).map((key) => mapping[key]);
       const newEls = newNodes.concat(newEdges);
       props.setElements((els) => els.concat(newEls));
-      setSelectedElements(newEls);
+      setSelectedElements(
+        newNodes.map((node) => ({ id: node.id, type: node.type }))
+      );
+      props.setVisualBell((state) => ({
+        message: "Code pasted",
+        switch: !state.switch,
+      }));
     }
-    props.setVisualBell((state) => ({
-      message: "Code pasted",
-      switch: !state.switch,
-    }));
   };
 
   const undoAction = () => {
@@ -328,7 +337,7 @@ const FlowEditor = (props) => {
       const restoredEls = savedEls.map((el) => {
         if (isNode(el)) {
           const idNum = parseInt(el.id.split("_")[1]);
-          if (idNum && idNum <= id) {
+          if (idNum && idNum >= id) {
             id = idNum + 1;
           }
           return {
@@ -354,7 +363,6 @@ const FlowEditor = (props) => {
           return el;
         }
       });
-      setSystemAction(true);
       props.setElements(restoredEls);
       setCenter(0, 0, 1.25);
     }
@@ -366,6 +374,10 @@ const FlowEditor = (props) => {
 
   const fitView = () => {
     reactFlowInstance.fitView();
+  };
+
+  const clearAll = () => {
+    props.setElements(initialElements);
   };
 
   const keyDownHandler = (event) => {
@@ -397,6 +409,9 @@ const FlowEditor = (props) => {
       } else if (event.key === "l") {
         event.preventDefault();
         lockHandler();
+      } else if (event.key === "q") {
+        event.preventDefault();
+        clearAll();
       }
     } else if (event.key === " ") {
       event.preventDefault();
@@ -427,26 +442,31 @@ const FlowEditor = (props) => {
   };
 
   const selectionDragStopHandler = (_, selectionNodes) => {
-    props.setElements((els) => {
-      return els.map((el) => {
-        for (const node of selectionNodes) {
-          if (node.id === el.id) {
-            return {
-              ...node,
-              position: {
-                x: getNearestGridPosition(node.position.x),
-                y: getNearestGridPosition(node.position.y),
-              },
-            };
-          }
-        }
-        return el;
-      });
-    });
+    // props.setElements((els) => {
+    //   return els.map((el) => {
+    //     for (const node of selectionNodes) {
+    //       if (node.id === el.id) {
+    //         return {
+    //           ...node,
+    //           position: {
+    //             x: getNearestGridPosition(node.position.x),
+    //             y: getNearestGridPosition(node.position.y),
+    //           },
+    //         };
+    //       }
+    //     }
+    //     return el;
+    //   });
+    // });
   };
 
   const paneClickHandler = (e) => {
     console.log(e);
+    setSelectedElements([]);
+  };
+
+  const mouseDownHandler = (e) => {
+    // console.log(e);
   };
 
   return (
@@ -457,7 +477,11 @@ const FlowEditor = (props) => {
       tabIndex={-1}
     >
       <DndBar />
-      <div className={classes.editorWrapper} ref={wrapperRef}>
+      <div
+        className={classes.editorWrapper}
+        onMouseDown={mouseDownHandler}
+        ref={wrapperRef}
+      >
         <ReactFlow
           onLoad={onLoad}
           elements={props.elements}

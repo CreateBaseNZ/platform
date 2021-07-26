@@ -11,8 +11,6 @@ const NodeOperations = ({
   className = "",
   isConnectable,
 }) => {
-  console.log(id);
-
   const changeHandlerA = (event) => {
     data.callBack({ ...data.values, a: event.target.value }, id);
   };
