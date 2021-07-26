@@ -3,16 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Modal from "../UI/Modal";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  InfoModule,
-  TutorialModule,
-  VideoModule,
-  SneakPeekModule,
-} from "../Modules";
+import { TutorialModule, VideoModule, SneakPeekModule } from "../Modules";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import { Situation } from "./Imagine";
 
 import classes from "/styles/Overview.module.scss";
 import "swiper/swiper.min.css";
@@ -95,6 +89,19 @@ const SendIt = (props) => {
   );
 };
 
+const Situation = (props) => {
+  return (
+    <div className={classes.situation}>
+      <button className={classes.situationClose} onClick={props.closeHandler}>
+        <CloseIcon />
+      </button>
+      <video controls>
+        <source src="/situation.mp4" type="video/mp4" />
+      </video>
+    </div>
+  );
+};
+
 const Research = (props) => {
   const [showSendIt, setShowSendIt] = useState(false);
   const [showSituation, setShowSituation] = useState(false);
@@ -113,7 +120,7 @@ const Research = (props) => {
   };
 
   return (
-    <section>
+    <section id="research">
       {showSendIt && (
         <Modal
           children={<SendIt closeHandler={sendItCloseHandler} />}
@@ -160,8 +167,9 @@ const Research = (props) => {
         </Link>
       </div>
       <p className={classes.description}>
-        Work through the four modules above to complete your research. 
-        Make sure that you understand all of the content as you will need it to create your solution!
+        Work through the four modules above to complete your research. Make sure
+        that you understand all of the content as you will need it to create
+        your solution!
       </p>
     </section>
   );

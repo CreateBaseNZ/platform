@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import Head from "next/head";
-import Image from "next/image";
-import {
-  HintModule,
-  VideoModule,
-  InfoModule,
-  SneakPeekModule,
-  TutorialModule,
-  ResourceModule,
-} from "../../components/Modules";
 
 import classes from "/styles/Overview.module.scss";
 import GreenButton from "../../components/UI/GreenButton";
@@ -37,6 +27,7 @@ const Overview = (props) => {
   const [project, setProject] = useState({});
 
   useEffect(() => {
+    console.log(router.query);
     if (router.query.project) {
       setProject(DUMMY_QUERY[router.query.project[0]]);
     }

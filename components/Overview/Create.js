@@ -6,7 +6,7 @@ import classes from "/styles/Overview.module.scss";
 
 const Create = (props) => {
   return (
-    <section>
+    <section id="create">
       <h2>Create</h2>
       <p className={`${classes.description} ${classes.halfContainer}`}>
         This step is all about building your own code, making sure you test as

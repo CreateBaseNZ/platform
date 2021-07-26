@@ -3,7 +3,7 @@ import classes from "/styles/Overview.module.scss";
 
 const Review = (props) => {
   return (
-    <section>
+    <section id="review">
       <h2>Review</h2>
       <div className={classes.moduleContainer}>
         <a

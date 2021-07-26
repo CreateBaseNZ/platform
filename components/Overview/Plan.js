@@ -4,11 +4,12 @@ import classes from "/styles/Overview.module.scss";
 
 const Plan = (props) => {
   return (
-    <section>
+    <section id="plan">
       <h2>Plan</h2>
       <p className={classes.description}>
-        One made in Google Docs and the other in Word, open one of these documents, create a copy and save it somewhere that you can access.
-        Your teacher will tell you which file to open and where to save your copy.
+        One made in Google Docs and the other in Word, open one of these
+        documents, create a copy and save it somewhere that you can access. Your
+        teacher will tell you which file to open and where to save your copy.
       </p>
       <div className={classes.moduleContainer}>
         <a
@@ -31,7 +32,8 @@ const Plan = (props) => {
         </a>
       </div>
       <p className={classes.description}>
-        When you have your own file, go ahead and answer all of the questions in the Plan section!
+        When you have your own file, go ahead and answer all of the questions in
+        the Plan section!
       </p>
     </section>
   );

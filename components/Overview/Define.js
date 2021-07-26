@@ -205,7 +205,7 @@ const Define = (props) => {
   };
 
   return (
-    <section>
+    <section id="define">
       {activePrompt}
       <h2>Define</h2>
       <div className={classes.moduleContainer}>

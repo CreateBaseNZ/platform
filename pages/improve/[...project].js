@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Head from "next/head";
 import useUnity from "/hooks/useUnity";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import Game from "/components/Game";
 import Workspace from "/components/Workspace";
@@ -13,6 +15,7 @@ import classes from "/styles/Create.module.scss";
 const DUMMY_QUERY = {
   "send-it": {
     name: "Send It",
+    query: "send-it",
     src: "/send_it.png",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
@@ -47,6 +50,17 @@ const Create = () => {
             project.stacked ? classes.stackedView : classes.shelvedView
           }`}
         >
+          <Link
+            href={{
+              pathname: "/overview/[project]",
+              query: { project: project.query },
+              hash: "improve",
+            }}
+          >
+            <button className={classes.backButton} title="Back to overview">
+              <ExitToAppIcon />
+            </button>
+          </Link>
           <Game unityContext={unityContext} />
           <Workspace
             stacked={project.stacked}

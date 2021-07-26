@@ -6,7 +6,7 @@ import classes from "/styles/Overview.module.scss";
 
 const Improve = (props) => {
   return (
-    <section>
+    <section id="improve">
       <h2>Improve</h2>
       <p className={`${classes.description} ${classes.halfContainer}`}>
         Test what you’ve learnt by taking on more challenges. There are always
