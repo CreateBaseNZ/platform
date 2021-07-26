@@ -380,6 +380,10 @@ const FlowEditor = (props) => {
     props.setElements(initialElements);
   };
 
+  const selectAll = () => {
+    setSelectedElements(props.elements);
+  };
+
   const keyDownHandler = (event) => {
     if (event.ctrlKey || event.metaKey) {
       if (event.key === "c") {
@@ -412,6 +416,8 @@ const FlowEditor = (props) => {
       } else if (event.key === "q") {
         event.preventDefault();
         clearAll();
+      } else if (event.key === "a") {
+        selectAll();
       }
     } else if (event.key === " ") {
       event.preventDefault();
@@ -517,6 +523,7 @@ const FlowEditor = (props) => {
             flowLocked={flowLocked}
             lockHandler={lockHandler}
             clearAll={clearAll}
+            selectAll={selectAll}
           />
           <Background color="#aaa" gap={16} />
         </ReactFlow>

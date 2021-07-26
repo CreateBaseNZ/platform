@@ -86,6 +86,7 @@ export const controlTitles = [
   "Redo (Ctrl + Y)",
   "Save (Ctrl + S)",
   "Restore (Ctrl + R)",
+  "Select all (Ctrl + A)",
   "Clear all (Ctrl + Q)",
   "Lock (Ctrl + L)",
   "Info",

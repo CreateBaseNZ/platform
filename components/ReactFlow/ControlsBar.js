@@ -6,10 +6,11 @@ import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
 import RestoreOutlinedIcon from "@material-ui/icons/RestoreOutlined";
 import LockIcon from "@material-ui/icons/Lock";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
+import SelectAllOutlinedIcon from "@material-ui/icons/SelectAllOutlined";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
 import classes from "./ControlsBar.module.scss";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import ConsoleContext from "../../store/console-context";
 
 const ControlsBar = (props) => {
@@ -29,11 +30,12 @@ const ControlsBar = (props) => {
       "When you code in Flow, the corresponding text code will automatically generate in the Text tab."
     );
   };
+  console.log("controls rerendered");
 
   return (
     <Controls className={classes.controls} showInteractive={false}>
       <ControlButton
-        className={`${classes.customControl} ${classes.undoButton} ${
+        className={`${classes.customControl} ${classes.prioritise} ${
           !props.allowUndo && classes.deactive
         }`}
         onClick={props.undoHandler}
@@ -41,7 +43,7 @@ const ControlsBar = (props) => {
         <UndoIcon />
       </ControlButton>
       <ControlButton
-        className={`${classes.customControl} ${classes.redoButton} ${
+        className={`${classes.customControl} ${classes.prioritise} ${
           !props.allowRedo && classes.deactive
         }`}
         onClick={props.redoHandler}
@@ -49,19 +51,25 @@ const ControlsBar = (props) => {
         <RedoIcon />
       </ControlButton>
       <ControlButton
-        className={`${classes.customControl} ${classes.saveButton}`}
+        className={`${classes.customControl} ${classes.prioritise}`}
         onClick={props.saveHandler}
       >
         <SaveOutlinedIcon />
       </ControlButton>
       <ControlButton
-        className={`${classes.restoreButton} ${classes.customControl}`}
+        className={`${classes.customControl} ${classes.prioritise}`}
         onClick={props.restoreHandler}
       >
         <RestoreOutlinedIcon />
       </ControlButton>
       <ControlButton
-        className={`${classes.clearAllButton} ${classes.customControl}`}
+        className={`${classes.customControl} ${classes.prioritise}`}
+        onClick={props.selectAll}
+      >
+        <SelectAllOutlinedIcon />
+      </ControlButton>
+      <ControlButton
+        className={`${classes.customControl} ${classes.prioritise} ${classes.clearAll}`}
         onClick={props.clearAll}
       >
         <BackspaceOutlinedIcon />
@@ -83,4 +91,4 @@ const ControlsBar = (props) => {
   );
 };
 
-export default ControlsBar;
+export default memo(ControlsBar);
