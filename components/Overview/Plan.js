@@ -47,8 +47,8 @@ const Plan = (props) => {
           </a>
         </div>
         <p className={classes.description}>
-          When you have your own file, go ahead and answer all of the questions
-          in the Plan section!
+          Open up your learning journal and answer all of the questions in the Plan section! If you get stuck,
+          ask one of your classmates for help but don't forget to explain your own reasoning!
         </p>
       </div>
       {!props.unlocked && (
