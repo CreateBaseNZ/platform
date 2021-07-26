@@ -8,6 +8,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import SelectAllOutlinedIcon from "@material-ui/icons/SelectAllOutlined";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
+import CameraAltOutlinedIcon from "@material-ui/icons/CameraAltOutlined";
 
 import classes from "./ControlsBar.module.scss";
 import { memo, useContext } from "react";
@@ -68,10 +69,16 @@ const ControlsBar = (props) => {
         <SelectAllOutlinedIcon />
       </ControlButton>
       <ControlButton
-        className={`${classes.customControl} ${classes.prioritise} ${classes.clearAll}`}
+        className={`${classes.customControl} ${classes.prioritise} ${classes.verySmall}`}
         onClick={props.clearAll}
       >
         <BackspaceOutlinedIcon />
+      </ControlButton>
+      <ControlButton
+        className={`${classes.customControl} ${classes.small}`}
+        onClick={props.capture}
+      >
+        <CameraAltOutlinedIcon />
       </ControlButton>
       <ControlButton
         className={`${classes.customControl} ${

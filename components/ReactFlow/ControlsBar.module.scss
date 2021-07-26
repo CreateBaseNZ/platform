@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   background: none;
   box-shadow: none !important;
-  max-height: 140px;
+  max-height: 160px;
   & > * {
     background: $light;
     border: none !important;
@@ -61,8 +61,11 @@
   order: -1;
 }
 
-.customControl.clearAllButton {
-  svg {
+.customControl {
+  &.small svg {
+    padding: 0.5px;
+  }
+  &.verySmall svg {
     padding: 1px;
   }
 }

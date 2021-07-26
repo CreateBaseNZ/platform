@@ -30,8 +30,10 @@ import {
   getNearestGridPosition,
   newConnection,
   removeConnection,
+  saveAs,
   updateConnections,
 } from "../../utils/flowHelpers";
+import html2canvas from "html2canvas";
 
 import DndBar from "./DndBar";
 import ControlsBar from "./ControlsBar";
@@ -382,6 +384,14 @@ const FlowEditor = (props) => {
     setSelectedElements(props.elements);
   };
 
+  const capture = () => {
+    html2canvas(document.querySelector(".react-flow__renderer")).then(
+      (canvas) => {
+        saveAs(canvas.toDataURL(), "my-flow-code.png");
+      }
+    );
+  };
+
   const keyDownHandler = (event) => {
     if (event.ctrlKey || event.metaKey) {
       if (event.key === "c") {
@@ -525,6 +535,7 @@ const FlowEditor = (props) => {
             lockHandler={lockHandler}
             clearAll={clearAll}
             selectAll={selectAll}
+            capture={capture}
           />
           <Background color="#aaa" gap={16} />
         </ReactFlow>
