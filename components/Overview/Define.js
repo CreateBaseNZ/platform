@@ -3,6 +3,7 @@ import { InfoModule } from "../Modules";
 import Modal from "../UI/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 import classes from "/styles/Overview.module.scss";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const Delivery = (props) => {
   return (
@@ -181,6 +182,7 @@ const Define = (props) => {
   const closeHandler = () => {
     setActivePrompt(null);
   };
+
   const openPrompt = (prompt) => {
     let modal;
     switch (prompt) {
@@ -200,41 +202,52 @@ const Define = (props) => {
         modal = <Trolley closeHandler={closeHandler} />;
         break;
     }
-
+    props.setUnlocked((state) => ({ ...state, research: true }));
+    localStorage.setItem("run-it-down__research-unlocked", true);
     setActivePrompt(<Modal children={modal} closeHandler={closeHandler} />);
   };
 
   return (
     <section id="define">
       {activePrompt}
-      <h2>Define</h2>
-      <div className={classes.moduleContainer}>
-        <InfoModule onClick={openPrompt.bind(this, "delivery")}>
-          Types of <span>Delivery</span> Robots
-        </InfoModule>
-        <InfoModule onClick={openPrompt.bind(this, "mail")}>
-          Delivering <span>Mail</span>
-        </InfoModule>
-        <InfoModule onClick={openPrompt.bind(this, "controlling")}>
-          <span>Controlling</span> a Robot
-        </InfoModule>
-        <InfoModule onClick={openPrompt.bind(this, "ethics")}>
-          The <span>Ethics</span> of Automation
-        </InfoModule>
-        <InfoModule onClick={openPrompt.bind(this, "trolley")}>
-          The <span>Trolley Problem</span>
-        </InfoModule>
+      <div
+        className={`${classes.wrapper} ${props.unlocked ? "" : classes.locked}`}
+      >
+        <h2>Define</h2>
+        <div className={classes.moduleContainer}>
+          <InfoModule onClick={openPrompt.bind(this, "delivery")}>
+            Types of <span>Delivery</span> Robots
+          </InfoModule>
+          <InfoModule onClick={openPrompt.bind(this, "mail")}>
+            Delivering <span>Mail</span>
+          </InfoModule>
+          <InfoModule onClick={openPrompt.bind(this, "controlling")}>
+            <span>Controlling</span> a Robot
+          </InfoModule>
+          <InfoModule onClick={openPrompt.bind(this, "ethics")}>
+            The <span>Ethics</span> of Automation
+          </InfoModule>
+          <InfoModule onClick={openPrompt.bind(this, "trolley")}>
+            The <span>Trolley Problem</span>
+          </InfoModule>
+        </div>
+        <p className={classes.description}>
+          Explore the advantages and disadvantages of automation and AI by
+          discussing the questions in these cards with your peers. Make sure to
+          write your groups answers in your individual learning journals!
+        </p>
+        <p className={classes.description}>
+          When every group has finished, your teacher will call you back to
+          discuss your answers and narrow in on the problem that you will be
+          solving.
+        </p>
       </div>
-      <p className={classes.description}>
-        Explore the advantages and disadvantages of automation and AI by
-        discussing the questions in these cards with your peers. Make sure to
-        write your groups answers in your individual learning journals!
-      </p>
-      <p className={classes.description}>
-        When every group has finished, your teacher will call you back to
-        discuss your answers and narrow in on the problem that you will be
-        solving.
-      </p>
+      {!props.unlocked && (
+        <LockOutlinedIcon
+          className={classes.lockIcon}
+          style={{ fontSize: 48 }}
+        />
+      )}
     </section>
   );
 };

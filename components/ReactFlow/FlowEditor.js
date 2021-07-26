@@ -98,6 +98,11 @@ const FlowEditor = (props) => {
     clone.id = "react-flow__arrowclosed__custom";
     arrow.parentNode.appendChild(clone);
     document.querySelector(".react-flow").focus();
+    window.onbeforeunload = (e) => {
+      e.preventDefault();
+      return (e.returnValue =
+        "You have unsaved changes, are you sure you want to exit?");
+    };
   }, []);
 
   // deleting an element

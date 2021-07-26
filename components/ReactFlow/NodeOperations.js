@@ -235,7 +235,16 @@ const NodeOperationsMini = (props) => {
   return (
     <NodeMini {...props} className={`${classes.operating} ${props.className}`}>
       <div className={classes.blankInput} />
-      <h4>{props.label}</h4>
+      <h4
+        style={{
+          fontSize:
+            (props.nodeType === "greaterThan" ||
+              props.nodeType === "lessThan") &&
+            14,
+        }}
+      >
+        {props.label}
+      </h4>
       <div className={classes.blankInput} />
     </NodeMini>
   );

@@ -25,6 +25,7 @@ const DUMMY_QUERY = {
 const Overview = (props) => {
   const router = useRouter();
   const [project, setProject] = useState({});
+  const [unlocked, setUnlocked] = useState({ plan: {} });
 
   useEffect(() => {
     console.log(router.query);
@@ -32,6 +33,22 @@ const Overview = (props) => {
       setProject(DUMMY_QUERY[router.query.project[0]]);
     }
   }, [router.query]);
+
+  useEffect(() => {
+    setUnlocked({
+      define: localStorage.getItem("run-it-down__define-unlocked"),
+      research: localStorage.getItem("run-it-down__research-unlocked"),
+      plan: {
+        0: localStorage.getItem("run-it-down__plan-unlocked__0"),
+        1: localStorage.getItem("run-it-down__plan-unlocked__1"),
+        2: localStorage.getItem("run-it-down__plan-unlocked__2"),
+      },
+      create: localStorage.getItem("run-it-down__create-unlocked"),
+      improve: localStorage.getItem("run-it-down__improve-unlocked"),
+    });
+  }, []);
+
+  console.log(unlocked);
 
   return (
     <div className={classes.overview}>
@@ -41,17 +58,24 @@ const Overview = (props) => {
         </title>
         <meta name="description" content={project ? project.caption : ""} />
       </Head>
-      <Imagine />
+      <Imagine setUnlocked={setUnlocked} />
       <div className={classes.divider} />
-      <Define />
+      <Define unlocked={unlocked.define} setUnlocked={setUnlocked} />
       <div className={classes.divider} />
-      <Research project={project} />
+      <Research
+        project={project}
+        unlocked={unlocked.research}
+        setUnlocked={setUnlocked}
+      />
       <div className={classes.divider} />
-      <Plan />
+      <Plan
+        unlocked={Object.values(unlocked.plan).every(Boolean)}
+        setUnlocked={setUnlocked}
+      />
       <div className={classes.divider} />
-      <Create project={project} />
+      <Create project={project} unlocked={unlocked.create} />
       <div className={classes.divider} />
-      <Improve project={project} />
+      <Improve project={project} unlocked={unlocked.improve} />
       <div className={classes.divider} />
       <Review />
     </div>

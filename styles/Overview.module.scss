@@ -8,15 +8,33 @@
   scroll-behavior: smooth;
   section {
     width: 100%;
-    padding: 10vh 5vw 5vh 5vw;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    h2 {
-      font-size: 3rem;
-      font-weight: 600;
-      color: $darker;
-      margin: 2vh 0;
+    .wrapper {
+      width: 100%;
+      padding: 10vh 5vw 5vh 5vw;
+      display: flex;
+      flex-direction: column;
+      h2 {
+        font-size: 3rem;
+        font-weight: 600;
+        color: $darker;
+        margin: 2vh 0;
+      }
+      &.locked {
+        filter: blur(4px);
+      }
+      &.locked::after {
+        content: "";
+        text-align: center;
+        line-height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $lightest;
+        opacity: 0.95;
+      }
     }
   }
 }
@@ -97,6 +115,16 @@
   width: 50%;
   min-width: 500px;
   transform: translateY(-65%);
+}
+
+.lockIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  path {
+    fill: $darkest;
+  }
 }
 
 .divider {

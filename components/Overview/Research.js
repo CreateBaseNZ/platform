@@ -7,6 +7,7 @@ import { TutorialModule, VideoModule, SneakPeekModule } from "../Modules";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import classes from "/styles/Overview.module.scss";
 import "swiper/swiper.min.css";
@@ -107,6 +108,13 @@ const Research = (props) => {
   const [showSituation, setShowSituation] = useState(false);
 
   const sendItShowHandler = () => {
+    props.setUnlocked((state) => ({
+      ...state,
+      plan: Object.values(state.plan).map((visited, i) =>
+        i === 1 ? true : visited
+      ),
+    }));
+    localStorage.setItem("run-it-down__plan-unlocked__1", true);
     setShowSendIt(true);
   };
   const sendItCloseHandler = () => {
@@ -121,56 +129,83 @@ const Research = (props) => {
 
   return (
     <section id="research">
-      {showSendIt && (
-        <Modal
-          children={<SendIt closeHandler={sendItCloseHandler} />}
-          closeHandler={sendItCloseHandler}
-        />
-      )}
-      {showSituation && (
-        <Modal
-          children={<Situation closeHandler={situationCloseHandler} />}
-          closeHandler={situationCloseHandler}
-        />
-      )}
-      <h2>Research</h2>
-      <div className={classes.moduleContainer}>
-        <a
-          href="/intro-to-flow.pdf"
-          target="_blank"
-          title="Introduction to Flow Blocks PDF"
-        >
-          <TutorialModule>
-            Introduction to <span>Flow</span> Blocks
+      <div
+        className={`${classes.wrapper} ${props.unlocked ? "" : classes.locked}`}
+      >
+        {showSendIt && (
+          <Modal
+            children={<SendIt closeHandler={sendItCloseHandler} />}
+            closeHandler={sendItCloseHandler}
+          />
+        )}
+        {showSituation && (
+          <Modal
+            children={<Situation closeHandler={situationCloseHandler} />}
+            closeHandler={situationCloseHandler}
+          />
+        )}
+        <h2>Research</h2>
+        <div className={classes.moduleContainer}>
+          <a
+            href="/intro-to-flow.pdf"
+            target="_blank"
+            title="Introduction to Flow Blocks PDF"
+            onClick={() => {
+              props.setUnlocked((state) => ({
+                ...state,
+                plan: Object.values(state.plan).map((visited, i) =>
+                  i === 0 ? true : visited
+                ),
+              }));
+              localStorage.setItem("run-it-down__plan-unlocked__0", true);
+            }}
+          >
+            <TutorialModule>
+              Introduction to <span>Flow</span> Blocks
+            </TutorialModule>
+          </a>
+          <TutorialModule
+            onClick={sendItShowHandler}
+            title="Watch the tutorial"
+          >
+            How to <span>Send It</span>
           </TutorialModule>
-        </a>
-        <TutorialModule onClick={sendItShowHandler} title="Watch the tutorial">
-          How to <span>Send It</span>
-        </TutorialModule>
-        <VideoModule
-          onClick={situationShowHandler}
-          title="Play the situation video"
-        >
-          Rewatch the <span>Situation</span> Video
-        </VideoModule>
-        <Link
-          href={{
-            pathname: "/play/[project]",
-            query: { project: props.project.query },
-          }}
-        >
-          <div title="Play Send It">
-            <SneakPeekModule>
-              Give it a <span>Go</span>
-            </SneakPeekModule>
-          </div>
-        </Link>
+          <Link
+            href={{
+              pathname: "/play/[project]",
+              query: { project: props.project.query },
+            }}
+          >
+            <div
+              title="Play Send It"
+              onClick={() =>
+                localStorage.setItem("run-it-down__plan-unlocked__2", true)
+              }
+            >
+              <SneakPeekModule>
+                Give it a <span>Go</span>
+              </SneakPeekModule>
+            </div>
+          </Link>
+          <VideoModule
+            onClick={situationShowHandler}
+            title="Play the situation video"
+          >
+            Rewatch the <span>Situation</span> Video
+          </VideoModule>
+        </div>
+        <p className={classes.description}>
+          Work through the four modules above to complete your research. Make
+          sure that you understand all of the content as you will need it to
+          create your solution!
+        </p>
       </div>
-      <p className={classes.description}>
-        Work through the four modules above to complete your research. Make sure
-        that you understand all of the content as you will need it to create
-        your solution!
-      </p>
+      {!props.unlocked && (
+        <LockOutlinedIcon
+          className={classes.lockIcon}
+          style={{ fontSize: 48 }}
+        />
+      )}
     </section>
   );
 };
