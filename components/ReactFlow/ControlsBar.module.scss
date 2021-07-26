@@ -9,11 +9,26 @@
   max-height: 140px;
   & > * {
     background: $light;
-    border: thin solid $lighter !important;
+    border: none !important;
     opacity: 0.75;
+    position: relative;
     transition: opacity 0.1s ease-out;
     &:hover {
-      opacity: 1;
+      background: $darker !important;
+      opacity: 1 !important;
+      svg path {
+        fill: $lightest !important;
+      }
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      border: thin solid $lighter;
+      pointer-events: none;
     }
   }
   .customControl {
@@ -45,8 +60,15 @@
 .undoButton,
 .redoButton,
 .saveButton,
-.restoreButton {
+.restoreButton,
+.clearAllButton {
   order: -1;
+}
+
+.customControl.clearAllButton {
+  svg {
+    padding: 1px;
+  }
 }
 
 .lockAlert {

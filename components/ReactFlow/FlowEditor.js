@@ -21,10 +21,10 @@ import {
   nodeTypes,
   edgeTypes,
   tooltips,
+  controlTitles,
   initialElements,
 } from "../../utils/flowConfig";
 import {
-  controlTitles,
   flashLockIcon,
   getDefaultValues,
   getNearestGridPosition,
@@ -516,6 +516,7 @@ const FlowEditor = (props) => {
             allowRedo={allowRedo}
             flowLocked={flowLocked}
             lockHandler={lockHandler}
+            clearAll={clearAll}
           />
           <Background color="#aaa" gap={16} />
         </ReactFlow>

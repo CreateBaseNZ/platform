@@ -6,6 +6,7 @@ import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
 import RestoreOutlinedIcon from "@material-ui/icons/RestoreOutlined";
 import LockIcon from "@material-ui/icons/Lock";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
+import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
 import classes from "./ControlsBar.module.scss";
 import { useContext } from "react";
@@ -58,6 +59,12 @@ const ControlsBar = (props) => {
         onClick={props.restoreHandler}
       >
         <RestoreOutlinedIcon />
+      </ControlButton>
+      <ControlButton
+        className={`${classes.clearAllButton} ${classes.customControl}`}
+        onClick={props.clearAll}
+      >
+        <BackspaceOutlinedIcon />
       </ControlButton>
       <ControlButton
         className={`${classes.customControl} ${

@@ -4,18 +4,6 @@ import classes from "../components/ReactFlow/Nodes.module.scss";
 
 import classesControlsBar from "../components/ReactFlow/ControlsBar.module.scss";
 
-export const controlTitles = [
-  "Zoom-in (Ctrl and +)",
-  "Zoom-out (Ctrl and -)",
-  "Fit view (Space)",
-  "Undo (Ctrl + Z)",
-  "Redo (Ctrl + Y)",
-  "Save (Ctrl + S)",
-  "Restore (Ctrl + R)",
-  "Lock (Ctrl + L)",
-  "Info",
-];
-
 export const getDefaultValues = (type) => {
   if (
     type === "jump" ||

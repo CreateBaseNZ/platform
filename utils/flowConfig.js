@@ -78,6 +78,19 @@ export const initialElements = [
 
 export const entities = ["Player"];
 
+export const controlTitles = [
+  "Zoom-in (Ctrl and +)",
+  "Zoom-out (Ctrl and -)",
+  "Fit view (Space)",
+  "Undo (Ctrl + Z)",
+  "Redo (Ctrl + Y)",
+  "Save (Ctrl + S)",
+  "Restore (Ctrl + R)",
+  "Clear all (Ctrl + Q)",
+  "Lock (Ctrl + L)",
+  "Info",
+];
+
 export const tooltips = {
   distance: "Outputs the distance to the next obstacle",
   speedOf: "Outputs the speed of the next obstacle",
