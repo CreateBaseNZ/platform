@@ -46,8 +46,9 @@ const Imagine = (props) => {
         </VideoModule>
       </div>
       <div className={classes.centerContainer}>
-        <p className={classes.description}>
-          Dive into the situation by watching this short video! What do you think is happening here? Discuss with your peers!
+        <p className={`${classes.description} ${classes.halfContainer}`}>
+          Dive into the situation by watching this short video! What do you
+          think is happening here? Discuss with your peers!
         </p>
       </div>
     </section>

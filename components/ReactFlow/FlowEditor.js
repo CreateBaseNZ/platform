@@ -267,9 +267,7 @@ const FlowEditor = (props) => {
       const newNodes = Object.keys(mapping).map((key) => mapping[key]);
       const newEls = newNodes.concat(newEdges);
       props.setElements((els) => els.concat(newEls));
-      setSelectedElements(
-        newNodes.map((node) => ({ id: node.id, type: node.type }))
-      );
+      setSelectedElements(newEls);
       props.setVisualBell((state) => ({
         message: "Code pasted",
         switch: !state.switch,
@@ -413,7 +411,7 @@ const FlowEditor = (props) => {
       } else if (event.key === "l") {
         event.preventDefault();
         lockHandler();
-      } else if (event.key === "q") {
+      } else if (event.key === "b") {
         event.preventDefault();
         clearAll();
       } else if (event.key === "a") {

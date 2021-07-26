@@ -26,11 +26,11 @@
   font-weight: 500;
   letter-spacing: 0.05em;
   margin: 2vh 0;
-  width: 40%;
+  width: 90%;
 }
 
 .taskContainer {
-  width: 40%;
+  width: 90%;
   margin: 2vh 0;
   display: flex;
   flex-direction: column;
@@ -56,6 +56,10 @@
     font-weight: 500;
     letter-spacing: 0.05em;
   }
+}
+
+.halfContainer {
+  width: 40%;
 }
 
 .moduleContainer {
@@ -226,6 +230,37 @@
     background: $darkest;
     path {
       fill: $red;
+    }
+  }
+}
+
+.definePrompt {
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  background: $lightest;
+  padding: 5vh 10vw;
+  max-width: 1200px;
+  h4 {
+    font-size: 2rem;
+    font-family: 600;
+    color: $dark;
+    margin-top: 1vh;
+    margin-bottom: 0.5vh;
+  }
+  ol {
+    margin-bottom: 1vh;
+    li {
+      margin: 1vh 0;
+      line-height: 1.75em;
+      padding-left: 0.5rem;
+      font-size: calc(0.5rem + 0.5vw);
+    }
+    ol {
+      margin-left: 2rem;
+      li {
+        margin: 0.5vh 0;
+      }
     }
   }
 }

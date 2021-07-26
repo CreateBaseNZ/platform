@@ -8,15 +8,16 @@ const Improve = (props) => {
   return (
     <section>
       <h2>Improve</h2>
-      <p className={classes.description}>
+      <p className={`${classes.description} ${classes.halfContainer}`}>
         Test what you’ve learnt by taking on more challenges. There are always
         ways to make your solution smarter, faster, stronger!
       </p>
-      <div className={classes.taskContainer}>
+      <div className={`${classes.taskContainer} ${classes.halfContainer}`}>
         <h5>Task:</h5>
         <p>
-          Did you beat the game? Uh oh, looks like there’s now some flying drones! And is that acceleration? Different sized obstacles too?
-          Time to rethink your code...
+          Did you beat the game? Uh oh, looks like there’s now some flying
+          drones! And is that acceleration? Different sized obstacles too? Time
+          to rethink your code...
         </p>
         <ul>
           <li>Modify your code to duck under flying drones.</li>
@@ -29,7 +30,9 @@ const Improve = (props) => {
         <h5>Hint:</h5>
         <ul>
           <li>
-            Rather than trying to do solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all!
+            Rather than trying to do solve them all at once, try turning on one
+            modifier, updating your code until it works, and only then adding
+            the next modifier until you have solved them all!
           </li>
         </ul>
       </div>

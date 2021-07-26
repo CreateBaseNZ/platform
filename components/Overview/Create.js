@@ -8,26 +8,29 @@ const Create = (props) => {
   return (
     <section>
       <h2>Create</h2>
-      <p className={classes.description}>
+      <p className={`${classes.description} ${classes.halfContainer}`}>
         This step is all about building your own code, making sure you test as
         you go. Rinse and repeat. Be sure to share it with your friends!
       </p>
-      <div className={classes.taskContainer}>
+      <div className={`${classes.taskContainer} ${classes.halfContainer}`}>
         <h5>Task:</h5>
         <ul>
           <li>
-            Write some code so that your robot can detect incoming obstacles and avoid them.
+            Write some code so that your robot can detect incoming obstacles and
+            avoid them.
           </li>
           <li>
-            Reach 1000m to deliver your package and complete the task. Good luck!
+            Reach 1000m to deliver your package and complete the task. Good
+            luck!
           </li>
         </ul>
       </div>
-      <div className={classes.taskContainer}>
+      <div className={`${classes.taskContainer} ${classes.halfContainer}`}>
         <h5>Hint:</h5>
         <ul>
           <li>
-            Make sure that you hit the compile button to upload your code to the robot!
+            Make sure that you hit the compile button to upload your code to the
+            robot!
           </li>
         </ul>
       </div>
