@@ -60,7 +60,6 @@ const FlowEditor = (props) => {
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
-  // const [tempSelectDrag, setTempSelectDrag] = useState([]);
 
   console.log(props.elements);
 
@@ -82,27 +81,6 @@ const FlowEditor = (props) => {
       setSystemAction(false);
     }
   }, [props.elements]);
-
-  // useEffect(() => {
-  // if (tempSelectDrag) {
-  //   props.setElements((els) => {
-  //     return els.map((el) => {
-  //       for (const node of tempSelectDrag) {
-  //         if (node.id === el.id) {
-  //           return {
-  //             ...node,
-  //             position: {
-  //               x: getNearestGridPosition(node.position.x),
-  //               y: getNearestGridPosition(node.position.y),
-  //             },
-  //           };
-  //         }
-  //       }
-  //       return el;
-  //     });
-  //   });
-  // }
-  // }, [tempSelectDrag]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -471,23 +449,24 @@ const FlowEditor = (props) => {
   };
 
   const selectionDragStopHandler = (_, selectionNodes) => {
-    // props.setElements((els) => {
-    //   return els.map((el) => {
-    //     for (const node of selectionNodes) {
-    //       if (node.id === el.id) {
-    //         return {
-    //           ...node,
-    //           position: {
-    //             x: getNearestGridPosition(node.position.x),
-    //             y: getNearestGridPosition(node.position.y),
-    //           },
-    //         };
-    //       }
-    //     }
-    //     return el;
-    //   });
-    // });
-    // setTempSelectDrag(selectionNodes);
+    props.setElements((els) => {
+      return els.map((el) => {
+        for (const node of selectionNodes) {
+          if (node.id === el.id) {
+            return {
+              id: el.id,
+              type: el.type,
+              position: {
+                x: getNearestGridPosition(node.position.x),
+                y: getNearestGridPosition(node.position.y),
+              },
+              data: el.data,
+            };
+          }
+        }
+        return el;
+      });
+    });
   };
 
   const paneClickHandler = (e) => {
