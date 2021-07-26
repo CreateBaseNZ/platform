@@ -57,10 +57,10 @@ const FlowEditor = (props) => {
     board: null,
   });
   const [flowLocked, setFlowLocked] = useState(false);
-  const nodes = useStoreState((store) => store.nodes);
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
+  // const [tempSelectDrag, setTempSelectDrag] = useState([]);
 
   console.log(props.elements);
 
@@ -82,6 +82,27 @@ const FlowEditor = (props) => {
       setSystemAction(false);
     }
   }, [props.elements]);
+
+  // useEffect(() => {
+  // if (tempSelectDrag) {
+  //   props.setElements((els) => {
+  //     return els.map((el) => {
+  //       for (const node of tempSelectDrag) {
+  //         if (node.id === el.id) {
+  //           return {
+  //             ...node,
+  //             position: {
+  //               x: getNearestGridPosition(node.position.x),
+  //               y: getNearestGridPosition(node.position.y),
+  //             },
+  //           };
+  //         }
+  //       }
+  //       return el;
+  //     });
+  //   });
+  // }
+  // }, [tempSelectDrag]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -240,8 +261,9 @@ const FlowEditor = (props) => {
         if (isNode(el)) {
           const newId = getId();
           mapping[el.id] = {
-            ...el,
             id: newId,
+            type: el.type,
+            position: el.position,
             data: { ...el.data, connections: [] },
           };
         } else {
@@ -442,6 +464,7 @@ const FlowEditor = (props) => {
   };
 
   const nodeDragStopHandler = (_, node) => {
+    console.log(node);
     props.setElements((els) =>
       els.map((el) => (el.id === node.id ? node : el))
     );
@@ -464,6 +487,7 @@ const FlowEditor = (props) => {
     //     return el;
     //   });
     // });
+    // setTempSelectDrag(selectionNodes);
   };
 
   const paneClickHandler = (e) => {

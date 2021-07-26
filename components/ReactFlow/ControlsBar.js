@@ -30,7 +30,6 @@ const ControlsBar = (props) => {
       "When you code in Flow, the corresponding text code will automatically generate in the Text tab."
     );
   };
-  console.log("controls rerendered");
 
   return (
     <Controls className={classes.controls} showInteractive={false}>
