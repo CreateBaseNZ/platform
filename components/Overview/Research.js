@@ -160,7 +160,8 @@ const Research = (props) => {
         </Link>
       </div>
       <p className={classes.description}>
-        Work through the modules above to complete your research.
+        Work through the four modules above to complete your research. 
+        Make sure that you understand all of the content as you will need it to create your solution!
       </p>
     </section>
   );
