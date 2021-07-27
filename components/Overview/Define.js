@@ -210,9 +210,7 @@ const Define = (props) => {
   return (
     <section id="define">
       {activePrompt}
-      <div
-        className={`${classes.wrapper} ${props.unlocked ? "" : classes.locked}`}
-      >
+      <div className={`${classes.wrapper} ${props.unlocked ? "" : classes.locked}`}>
         <h2>Define</h2>
         <div className={classes.moduleContainer}>
           <InfoModule onClick={openPrompt.bind(this, "delivery")}>
@@ -233,8 +231,9 @@ const Define = (props) => {
         </div>
         <p className={classes.description}>
           Explore the advantages and disadvantages of automation and AI by
-          discussing the questions in these cards with your peers. Make sure to
-          write your groups answers in your individual learning journals!
+          discussing the questions in ONE of these cards with your group. Make sure to
+          write your answers in your own learning journal. If your group finishes early, 
+          feel free to try complete a second card as well!
         </p>
         <p className={classes.description}>
           When every group has finished, your teacher will call you back to
