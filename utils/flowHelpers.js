@@ -59,6 +59,8 @@ export const getNearestGridPosition = (position) => {
 };
 
 export const removeConnection = (el, oldHandle) => {
+  console.log(el);
+  console.log(oldHandle);
   return {
     ...el,
     data: {
@@ -91,26 +93,52 @@ export const newConnection = (elements, edge) => {
 };
 
 export const updateConnections = (elements, oldEdge, newEdge) => {
-  if (oldEdge.source === newEdge.source) {
+  console.log(oldEdge);
+  console.log(newEdge);
+  if (oldEdge.sourceHandle === newEdge.sourceHandle) {
     return elements.map((el) => {
-      if (el.id === oldEdge.target) {
-        return removeConnection(el, oldEdge.targetHandle);
-      } else if (el.id === newEdge.target) {
-        return addConnection(el, newEdge.targetHandle);
+      if (oldEdge.target === newEdge.target) {
+        if (el.id === oldEdge.target) {
+          return addConnection(
+            removeConnection(el, oldEdge.targetHandle),
+            newEdge.targetHandle
+          );
+        } else {
+          return el;
+        }
       } else {
-        return el;
+        if (el.id === oldEdge.target) {
+          return removeConnection(el, oldEdge.targetHandle);
+        } else if (el.id === newEdge.target) {
+          return addConnection(el, newEdge.targetHandle);
+        } else {
+          return el;
+        }
       }
     });
   } else {
-    return elements.map((el) => {
-      if (el.id === oldEdge.source) {
-        return removeConnection(el, oldEdge.sourceHandle);
-      } else if (el.id === newEdge.source) {
-        return addConnection(el, newEdge.sourceHandle);
-      } else {
-        return el;
-      }
-    });
+    if (oldEdge.source === newEdge.source) {
+      return elements.map((el) => {
+        if (el.id === oldEdge.source) {
+          return addConnection(
+            removeConnection(el, oldEdge.sourceHandle),
+            newEdge.sourceHandle
+          );
+        } else {
+          return el;
+        }
+      });
+    } else {
+      return elements.map((el) => {
+        if (el.id === oldEdge.source) {
+          return removeConnection(el, oldEdge.sourceHandle);
+        } else if (el.id === newEdge.source) {
+          return addConnection(el, newEdge.sourceHandle);
+        } else {
+          return el;
+        }
+      });
+    }
   }
 };
 
