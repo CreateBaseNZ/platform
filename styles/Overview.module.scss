@@ -272,10 +272,13 @@
 .definePrompt {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 75vw;
+  max-height: 90vh;
+  overflow-y: auto;
   background: $lightest;
   padding: 5vh 10vw;
-  max-width: 1200px;
   h4 {
     font-size: 2rem;
     font-family: 600;
@@ -289,7 +292,7 @@
       margin: 1vh 0;
       line-height: 1.75em;
       padding-left: 0.5rem;
-      font-size: calc(0.5rem + 0.5vw);
+      font-size: calc(0.5rem + 0.4vw);
     }
     ol {
       margin-left: 2rem;
@@ -297,5 +300,38 @@
         margin: 0.5vh 0;
       }
     }
+  }
+  .imgContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25vh;
+    min-height: 150px;
+    width: 100%;
+    margin: 1vh 0;
+    .imgWrapper {
+      height: 100%;
+      flex: 1 1 auto;
+      position: relative;
+      margin: 0.5vw;
+    }
+  }
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    background: rgba(0, 0, 0, 0.01);
+    border-left: thin solid rgba(0, 0, 0, 0.05);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-out;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.4);
   }
 }

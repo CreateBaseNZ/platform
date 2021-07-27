@@ -13,7 +13,7 @@ $dot-space: 48px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
   background: linear-gradient(
         90deg,
         $bg-color ($dot-space - $dot-size),

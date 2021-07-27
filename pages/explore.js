@@ -15,7 +15,7 @@ const DUMMY_PROJECTS = [
     thumbnail: "/send_it_thumbnail.png",
     img: "/send_it.png",
     caption:
-      "In this project, users will automate a jumping game by creating a simple \"AI\" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.",
+      'In this project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
   },
   {
     name: "Coming soon",
@@ -51,7 +51,7 @@ const Explore = () => {
       <div className={classes.logo}>
         <ColourLogo layout="fill" objectFit="contain" quality={100} />
       </div>
-      <h1 className={classes.h1}>Select a project</h1>
+      {/* <h1 className={classes.h1}>Select a project</h1> */}
       <div className={classes.selectedProject}>
         <div className={classes.content}>
           <h2>{DUMMY_PROJECTS[activeProject].name}</h2>
@@ -76,7 +76,7 @@ const Explore = () => {
           />
         </div>
       </div>
-      <div className={classes.allProjects}>
+      {/* <div className={classes.allProjects}>
         {DUMMY_PROJECTS.map((project, index) => (
           <Thumbnail
             key={index}
@@ -88,7 +88,7 @@ const Explore = () => {
             thumbnailHandler={thumbnailHandler}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
