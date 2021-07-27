@@ -45,6 +45,7 @@ const Overview = (props) => {
         0: localStorage.getItem("run-it-down__plan-unlocked__0"),
         1: localStorage.getItem("run-it-down__plan-unlocked__1"),
         2: localStorage.getItem("run-it-down__plan-unlocked__2"),
+        3: localStorage.getItem("run-it-down__plan-unlocked__3"),
       },
       create: true,
       improve: localStorage.getItem("run-it-down__improve-unlocked"),

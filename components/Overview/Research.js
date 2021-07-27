@@ -3,7 +3,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Modal from "../UI/Modal";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { TutorialModule, VideoModule, SneakPeekModule } from "../Modules";
+import {
+  TutorialModule,
+  VideoModule,
+  SneakPeekModule,
+  HintModule,
+} from "../Modules";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -163,6 +168,24 @@ const Research = (props) => {
             <TutorialModule>
               Introduction to <span>Flow</span> Blocks
             </TutorialModule>
+          </a>
+          <a
+            href="/sensing-blocks.pdf"
+            target="_blank"
+            title="I Sense a Disturbance in the Blocks PDF"
+            onClick={() => {
+              props.setUnlocked((state) => ({
+                ...state,
+                plan: Object.values(state.plan).map((visited, i) =>
+                  i === 3 ? true : visited
+                ),
+              }));
+              localStorage.setItem("run-it-down__plan-unlocked__3", true);
+            }}
+          >
+            <HintModule>
+              Tips &amp; Tricks: <span>Sensing</span> Blocks
+            </HintModule>
           </a>
           <TutorialModule
             onClick={sendItShowHandler}
