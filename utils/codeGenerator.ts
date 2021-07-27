@@ -523,7 +523,6 @@ export class CodeGenerator {
           break;
       }
       if (!state) {
-        console.log(i);
         return [
           "// Oops! An error occurred, please check the Console for more info",
           type,

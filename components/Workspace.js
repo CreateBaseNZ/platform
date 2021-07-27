@@ -32,7 +32,6 @@ const findNextNode = (currentNode, path, elements) => {
     }
     return false;
   });
-  console.log(reqConnection);
   if (reqConnection.length > 1) {
     return [false, "One Block has multiple exectution connection"];
   }
@@ -113,8 +112,6 @@ const determineType = (block, currentNode) => {
 const CheckPreviuos = (currentNode, elements) => {
   const nodes = [currentNode];
   let edgeCollection = getConnectedEdges(nodes, elements);
-  console.log(currentNode);
-  console.log(edgeCollection);
   const prevConnection = edgeCollection.filter((connection) => {
     if (currentNode.id == connection.target) {
       if (connection.targetHandle.split("__")[0] == "execution") {
@@ -123,7 +120,6 @@ const CheckPreviuos = (currentNode, elements) => {
     }
     return false;
   });
-  console.log(prevConnection);
 
   if (prevConnection.length != 1 && currentNode.id != "start") {
     return false;
@@ -298,7 +294,6 @@ const flow2Text = (elements) => {
       let state;
       [state, nextNode] = findNextNode(currentNode, executionNext, elements);
       if (!state) {
-        console.log("lol");
         return nextNode;
       }
     }
@@ -315,7 +310,6 @@ const flow2Text = (elements) => {
         let state;
         [state, nextNode] = findNextNode(currentNode, executionNext, elements);
         if (!state) {
-          console.log("gg");
           return nextNode;
         }
         let interBlock;
