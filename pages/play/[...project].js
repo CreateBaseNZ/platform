@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import useUnity from "/hooks/useUnity";
 import Head from "next/head";
 import Game from "../../components/Game";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import classes from "/styles/Play.module.scss";
 
@@ -32,6 +34,17 @@ const Play = () => {
         <title>Play - {project.name} | CreateBase</title>
         <meta name="description" content={project.caption} />
       </Head>
+      <Link
+        href={{
+          pathname: "/overview/[project]",
+          query: { project: "send-it" },
+          hash: "research",
+        }}
+      >
+        <button className={classes.backButton} title="Back to overview">
+          <ExitToAppIcon />
+        </button>
+      </Link>
       <Game unityContext={unityContext} />
     </div>
   );
