@@ -25,7 +25,7 @@ const DUMMY_QUERY = {
 const Overview = (props) => {
   const router = useRouter();
   const [project, setProject] = useState({});
-  const [unlocked, setUnlocked] = useState({ plan: {} });
+  const [unlocked, setUnlocked] = useState({ define: {}, plan: {} });
 
   useEffect(() => {
     console.log(router.query);
@@ -36,14 +36,17 @@ const Overview = (props) => {
 
   useEffect(() => {
     setUnlocked({
-      define: localStorage.getItem("run-it-down__define-unlocked"),
+      define: {
+        0: localStorage.getItem("run-it-down__define-unlocked__0"),
+        1: localStorage.getItem("run-it-down__define-unlocked__1"),
+      },
       research: localStorage.getItem("run-it-down__research-unlocked"),
       plan: {
         0: localStorage.getItem("run-it-down__plan-unlocked__0"),
         1: localStorage.getItem("run-it-down__plan-unlocked__1"),
         2: localStorage.getItem("run-it-down__plan-unlocked__2"),
       },
-      create: localStorage.getItem("run-it-down__create-unlocked"),
+      create: true,
       improve: localStorage.getItem("run-it-down__improve-unlocked"),
     });
   }, []);
@@ -60,7 +63,10 @@ const Overview = (props) => {
       </Head>
       <Imagine setUnlocked={setUnlocked} />
       <div className={classes.divider} />
-      <Define unlocked={unlocked.define} setUnlocked={setUnlocked} />
+      <Define
+        unlocked={Object.values(unlocked.define).every(Boolean)}
+        setUnlocked={setUnlocked}
+      />
       <div className={classes.divider} />
       <Research
         project={project}
@@ -73,7 +79,10 @@ const Overview = (props) => {
         setUnlocked={setUnlocked}
       />
       <div className={classes.divider} />
-      <Create project={project} unlocked={unlocked.create} />
+      <Create
+        project={project}
+        unlocked={Object.values(unlocked.plan).every(Boolean)}
+      />
       <div className={classes.divider} />
       <Improve project={project} unlocked={unlocked.improve} />
       <div className={classes.divider} />
