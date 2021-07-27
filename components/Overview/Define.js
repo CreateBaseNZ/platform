@@ -151,40 +151,6 @@ const Ethics = (props) => {
   );
 };
 
-const Trolley = (props) => {
-  return (
-    <div className={classes.definePrompt}>
-      <button className={classes.sendItClose} onClick={props.closeHandler}>
-        <CloseIcon />
-      </button>
-      <h4>The trolley problem</h4>
-      <ol>
-        <li>
-          A train is moving down the tracks and is going to run over five
-          people! You have a lever that you could pull to send the train down
-          another track, which would result in it only running over one person.
-          Would you pull the lever? Discuss as a group and then write your
-          answers in your learning journals. Make sure that you explain why you
-          made your decision.
-        </li>
-        <li>
-          Broadly speaking, artificial intelligence (AI) is all about creating
-          programs and machines that are able to carry out human behaviours like
-          critical thinking and decision making. Generally, the realism of an AI
-          is about how closely it acts like a human. AI can be as simple as an
-          automatic light switch or as complicated as a self-driving car. As AI
-          becomes really common, there will eventually be a situation where an
-          AI needs to decide between two or more groups of people to harm. How
-          do you think AI should make decisions where every possible action
-          would cause some harm to humans? What variables will they need to take
-          into account? For example, should a self-driving car value the safety
-          of the people in the car more or less than potential victims outside
-          the car?
-        </li>
-      </ol>
-    </div>
-  );
-};
 
 const Define = (props) => {
   const [activePrompt, setActivePrompt] = useState();
@@ -207,9 +173,6 @@ const Define = (props) => {
         break;
       case "ethics":
         modal = <Ethics closeHandler={closeHandler} />;
-        break;
-      case "trolley":
-        modal = <Trolley closeHandler={closeHandler} />;
         break;
     }
     props.setUnlocked((state) => ({ ...state, research: true }));
@@ -234,9 +197,6 @@ const Define = (props) => {
           </InfoModule>
           <InfoModule onClick={openPrompt.bind(this, "ethics")}>
             The <span>Ethics</span> of Automation
-          </InfoModule>
-          <InfoModule onClick={openPrompt.bind(this, "trolley")}>
-            The <span>Trolley Problem</span>
           </InfoModule>
         </div>
         <p className={classes.description}>
