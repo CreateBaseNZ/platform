@@ -14,24 +14,26 @@ const Delivery = (props) => {
       <h4>Types of delivery robots</h4>
       <ol>
         <li>
-          What examples of delivery robots/vehicles can you think of? Discuss
-          with your group and see how many you can list down in your learning
-          journal. To get you started, a few examples might be bicycles,
-          quad-bikes and airplanes.
+        What examples of delivery vehicles can you think of? Discuss with your 
+        group and see how many you can list down in your learning journal. To 
+        get you started, check out a few examples in these images:
         </li>
         <li>
-          Pick three of the robots/vehicles that you identified in task 1. For
-          each of them, what types of goods does this device normally deliver?
-          Can you think of any other goods that it could be used for (that it is
-          currently not being used to deliver)? Discuss with your group and
-          write your answers in your learning journals.
+        Pick three of the vehicles that you identified in task 1. For each of 
+        them, what goods does this vehicle normally deliver? Discuss with your 
+        group and write your answers in your learning journals.
         </li>
         <li>
-          Out of the same three devices, which does your team think would be
-          best at delivering mail to people’s letterboxes in a suburban
-          environment? Discuss with a team and make sure that you agree on an
-          answer. Justify your answer by listing the pros and cons of each
-          device in your learning journals.
+        For each of the same three vehicles, can you think of any goods that the 
+        vehicle could but does not currently deliver? What adjustments (if any) 
+        would you need to make to the vehicle to make this possible? Discuss with 
+        your group and write your answers in your learning journals.
+        </li>
+        <li>
+        Out of the same three vehicles, which does your team think would be best 
+        at delivering mail to people’s letterboxes in a suburban environment? 
+        Discuss with a team and make sure that you agree on an answer. Justify your 
+        answer by listing the pros and cons of each vehicle in your learning journals.  
         </li>
       </ol>
     </div>
@@ -51,18 +53,22 @@ const Mail = (props) => {
           that each of you write down your answers in your learning journals.
           <ol type="a">
             <li>
-              What types of obstacles might a humanoid robot that delivers mail
-              to people's letterboxes encounter?
+            A humanoid robot is a robot that looks and moves like a human. What 
+            types of obstacles might a humanoid robot that delivers mail to 
+            people’s letterboxes encounter? List as many as you can think of.
             </li>
             <li>
-              Pick three of these obstacles. For each of them, describe how the
-              humanoid delivery robot could detect and avoid them. What sensors
-              would it need? What actions would it need to be able to perform?
+            Pick three of these obstacles. For each of them, describe how the 
+            humanoid mail delivery robot could detect and avoid them. What 
+            sensors would it need? What actions would it need to perform?
             </li>
             <li>
-              What design features, like sensors, transportation mode and shape,
-              would the humanoid delivery robot need if it was instead used to
-              deliver mail to letterboxes 100 metres under water?
+            Let's imagine that the humanoid delivery robot was now going to be 
+            used to deliver mail to letterboxes 50 metres underwater. What 
+            design features would you add to this robot to help it deliver mail 
+            underwater that would not be needed on land? Examples of design 
+            features include size, shape and sensors. For each design feature, 
+            explain why it would be beneficial for underwater delivery.
             </li>
           </ol>
         </li>
@@ -78,24 +84,28 @@ const Controlling = (props) => {
         <CloseIcon />
       </button>
       <h4>Controlling a robot</h4>
+      Broadly speaking, artificial intelligence (AI) is all about creating 
+      programs and machines that are able to carry out human behaviours like 
+      critical thinking and decision making. Generally, the realism of an AI 
+      is judged by how closely it acts like a human. AI can be as simple as 
+      an automatic light switch or as complicated as an autocorrect in a text 
+      document. 
       <ol>
         <li>
-          Broadly speaking, artificial intelligence (AI) is all about creating
-          programs and machines that are able to carry out human behaviours like
-          critical thinking and decision making. Generally, the realism of an AI
-          is judged by how closely it acts like a human. AI can be as simple as
-          an automatic light switch or as complicated as an autocorrect in a
-          text document. As a group, see how many different pieces of technology
-          you can think of that utilise AI. List them all in your learning
-          journals.
+        As a group, see how many different pieces of technology you can think 
+        of that utilise AI. List them all in your learning journals.
         </li>
         <li>
-          What do you think are the pros and cons of driving a delivery van
-          using a person compared to an AI? Things that you could consider
-          include costs of operating the van, the required size of the van,
-          driving efficiency, emergency situations like accidents. Discuss as a
-          group and list all of the pros and cons you can think of for humans
-          and AI in your learning journals.
+        What do you think are the pros and cons of driving a delivery van using 
+        a person compared to an AI?. Discuss as a group and list all of the pros 
+        and cons you can think of in your learning journals. At a minimum, your 
+        pros and cons should include:
+        <ol>
+          <li>Costs of operating the van</li>
+          <li>Required size of the van</li>
+          <li>Driving efficiency</li>
+          <li>What might happen in emergency situations like accidents</li>
+        </ol>
         </li>
       </ol>
     </div>
@@ -132,7 +142,7 @@ const Ethics = (props) => {
           journals.
         </li>
         <li>
-          How could the government support this person who has lost their job
+          How could the government or us as a society support this person who has lost their job
           because they were replaced by a robot? Discuss as a group and then
           write your recommendations into your learning journals.
         </li>
