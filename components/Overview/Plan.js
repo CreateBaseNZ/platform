@@ -1,8 +1,17 @@
+import { ResourceModule } from "../Modules";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import classes from "/styles/Overview.module.scss";
 
 const Plan = (props) => {
+  const clickHandler = () => {
+    props.setUnlocked((state) => ({
+      ...state,
+      create: true,
+    }));
+    localStorage.setItem("run-it-down__create-unlocked", true);
+  };
+
   return (
     <section id="plan">
       <div
@@ -38,8 +47,9 @@ const Plan = (props) => {
           </a>
         </div>
         <p className={classes.description}>
-          Open up your learning journal and answer all of the questions in the Plan section! If you get stuck,
-          ask one of your classmates for help but don't forget to explain your own reasoning!
+          Open up your learning journal and answer all of the questions in the
+          Plan section! If you get stuck, ask one of your classmates for help
+          but don't forget to explain your own reasoning!
         </p>
       </div>
       {!props.unlocked && (

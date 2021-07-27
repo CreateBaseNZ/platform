@@ -46,7 +46,7 @@ const Overview = (props) => {
         1: localStorage.getItem("run-it-down__plan-unlocked__1"),
         2: localStorage.getItem("run-it-down__plan-unlocked__2"),
       },
-      create: true,
+      create: localStorage.getItem("run-it-down__create-unlocked"),
       improve: localStorage.getItem("run-it-down__improve-unlocked"),
     });
   }, []);
@@ -79,10 +79,7 @@ const Overview = (props) => {
         setUnlocked={setUnlocked}
       />
       <div className={classes.divider} />
-      <Create
-        project={project}
-        unlocked={Object.values(unlocked.plan).every(Boolean)}
-      />
+      <Create project={project} unlocked={unlocked.create} />
       <div className={classes.divider} />
       <Improve project={project} unlocked={unlocked.improve} />
       <div className={classes.divider} />
