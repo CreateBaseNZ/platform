@@ -462,7 +462,6 @@ const FlowEditor = (props) => {
   };
 
   const nodeDragStopHandler = (_, node) => {
-    console.log(node);
     props.setElements((els) =>
       els.map((el) => (el.id === node.id ? node : el))
     );
@@ -487,11 +486,6 @@ const FlowEditor = (props) => {
         return el;
       });
     });
-  };
-
-  const paneClickHandler = (e) => {
-    console.log(e);
-    setSelectedElements([]);
   };
 
   const mouseDownHandler = (e) => {
@@ -534,7 +528,6 @@ const FlowEditor = (props) => {
           onEdgeUpdateEnd={edgeUpdateEndHandler}
           onSelectionChange={selectChangeHandler}
           onSelectionDragStop={selectionDragStopHandler}
-          onPaneClick={paneClickHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
