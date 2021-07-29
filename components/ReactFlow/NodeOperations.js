@@ -96,47 +96,6 @@ export const NodeDivide = memo(({ id, data, isConnectable }) => {
     />
   );
 });
-export const NodeGreaterThan = memo(({ id, data, isConnectable }) => {
-  return (
-    <NodeOperations
-      id={id}
-      label=">"
-      data={data}
-      isConnectable={isConnectable}
-    />
-  );
-});
-export const NodeLessThan = memo(({ id, data, isConnectable }) => {
-  return (
-    <NodeOperations
-      id={id}
-      label="<"
-      data={data}
-      isConnectable={isConnectable}
-    />
-  );
-});
-export const NodeEquals = memo(({ id, data, isConnectable }) => {
-  return (
-    <NodeOperations
-      id={id}
-      label="="
-      data={data}
-      isConnectable={isConnectable}
-    />
-  );
-});
-export const NodeNotEquals = memo(({ id, data, isConnectable }) => {
-  return (
-    <NodeOperations
-      id={id}
-      label="not ="
-      data={data}
-      className={classes.nodeNotEquals}
-      isConnectable={isConnectable}
-    />
-  );
-});
 
 export const NodeOperatorGeneral = memo(
   ({
@@ -251,37 +210,8 @@ export const NodeDivideMini = memo(() => {
     />
   );
 });
-export const NodeGreaterThanMini = memo(() => {
-  return (
-    <NodeOperationsMini
-      label=">"
-      nodeType="greaterThan"
-      node={<NodeGreaterThan />}
-    />
-  );
-});
-export const NodeLessThanMini = memo(() => {
-  return (
-    <NodeOperationsMini label="<" nodeType="lessThan" node={<NodeLessThan />} />
-  );
-});
-export const NodeEqualsMini = memo(() => {
-  return (
-    <NodeOperationsMini label="=" nodeType="equals" node={<NodeEquals />} />
-  );
-});
-export const NodeNotEqualsMini = memo(() => {
-  return (
-    <NodeOperationsMini
-      label="not ="
-      className={classes.nodeNotEquals}
-      nodeType="notEquals"
-      node={<NodeNotEquals />}
-    />
-  );
-});
 
-export const NodeOperatorGeneralMini = (props) => {
+export const NodeOperatorGeneralMini = () => {
   return (
     <NodeMini
       className={classes.operating}

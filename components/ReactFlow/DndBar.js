@@ -16,12 +16,14 @@ import {
   NodeSubtractMini,
   NodeMultiplyMini,
   NodeDivideMini,
+  NodeOperatorGeneralMini,
+} from "./NodeOperations";
+import {
   NodeGreaterThanMini,
   NodeLessThanMini,
   NodeEqualsMini,
   NodeNotEqualsMini,
-  NodeOperatorGeneralMini,
-} from "./NodeOperations";
+} from "./NodeComparisons";
 import { NodeAndMini, NodeOrMini } from "./NodeLogicals";
 import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "./NodeConditionals";
 import { NodeDelayMini, NodePrintMini } from "./NodeUtils";
@@ -40,19 +42,20 @@ const DndBar = () => {
         <NodeElevationOfMini />
         <h5>Actions</h5>
         <NodeJumpMini />
-        {/* <NodeDoubleJumpMini/> */}
         <NodeCrouchMini />
+        {/* <NodeDoubleJumpMini/> */}
         {/* <NodeAttackMini /> */}
         <h5>Operators</h5>
         <NodeAddMini />
         <NodeSubtractMini />
         <NodeMultiplyMini />
         <NodeDivideMini />
+        <NodeOperatorGeneralMini />
+        <h5>Comparisons</h5>
         <NodeGreaterThanMini />
         <NodeLessThanMini />
-        {/* <NodeEqualsMini /> */}
         <NodeNotEqualsMini />
-        <NodeOperatorGeneralMini />
+        {/* <NodeEqualsMini /> */}
         <h5>Logicals</h5>
         <NodeAndMini />
         <NodeOrMini />

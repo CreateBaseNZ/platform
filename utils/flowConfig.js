@@ -17,12 +17,14 @@ import {
   NodeSubtract,
   NodeMultiply,
   NodeDivide,
+  NodeOperatorGeneral,
+} from "../components/ReactFlow/NodeOperations";
+import {
   NodeGreaterThan,
   NodeLessThan,
   NodeEquals,
   NodeNotEquals,
-  NodeOperatorGeneral,
-} from "../components/ReactFlow/NodeOperations";
+} from "../components/ReactFlow/NodeComparisons";
 import { NodeAnd, NodeOr } from "../components/ReactFlow/NodeLogicals";
 import {
   NodeIf,
