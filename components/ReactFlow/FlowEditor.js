@@ -28,6 +28,7 @@ import {
   flashLockIcon,
   getDefaultValues,
   getNearestGridPosition,
+  infoLogs,
   newConnection,
   removeConnection,
   saveAs,
@@ -40,11 +41,16 @@ import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
 import MiniHoverContext from "../../store/mini-hover-context";
+import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
+import ConsoleContext from "../../store/console-context";
+
+import ClientOnlyPortal from "../UI/ClientOnlyPortal";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const FlowEditor = (props) => {
+  const consoleCtx = useContext(ConsoleContext);
   const miniHoverCtx = useContext(MiniHoverContext);
   const wrapperRef = useRef(null);
   const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
@@ -54,16 +60,23 @@ const FlowEditor = (props) => {
     currentIndex: -1,
   });
   const [systemAction, setSystemAction] = useState(false);
-  const [clipBoard, setClipBoard] = useState({
-    selection: null,
-    board: null,
-  });
+  const [clipBoard, setClipBoard] = useState();
   const [flowLocked, setFlowLocked] = useState(false);
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
-
-  console.log(props.elements);
+  const selectedElements = useStoreState((store) => store.selectedElements);
+  const [nodeCtxMenu, setNodeCtxMenu] = useState({
+    show: false,
+    x: 0,
+    y: 0,
+    node: null,
+  });
+  const [paneCtxMenu, setPaneCtxMenu] = useState({
+    show: false,
+    x: 0,
+    y: 0,
+  });
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
@@ -83,6 +96,15 @@ const FlowEditor = (props) => {
       setSystemAction(false);
     }
   }, [props.elements]);
+
+  useEffect(() => {
+    if (clipBoard && clipBoard.length) {
+      props.setVisualBell((state) => ({
+        message: "Copied to clipboard",
+        switch: !state.switch,
+      }));
+    }
+  }, [clipBoard]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -112,7 +134,14 @@ const FlowEditor = (props) => {
       if (isEdge(el)) {
         edges.push(el);
       }
-      return el.id !== "start";
+      if (el.id === "start") {
+        props.setVisualBell((state) => ({
+          message: "Cannot delete Start block",
+          switch: !state.switch,
+        }));
+        return false;
+      }
+      return true;
     });
     props.setElements((els) =>
       removeElements(filteredElements, els).map((el) => {
@@ -215,25 +244,11 @@ const FlowEditor = (props) => {
     props.setElements((es) => es.concat(newNode));
   };
 
-  const selectChangeHandler = (elements) => {
-    if (elements) {
-      setClipBoard((state) => {
-        return {
-          ...state,
-          selection: elements,
-        };
-      });
-    }
-  };
-
-  const copySelection = () => {
-    if (clipBoard.selection) {
-      setClipBoard((state) => {
-        return {
-          ...state,
-          board: clipBoard.selection.filter((el) => el.id !== "start"),
-        };
-      });
+  const copySelection = (selection) => {
+    if (selection) {
+      setClipBoard(selection.filter((el) => el.id !== "start"));
+    } else if (selectedElements) {
+      setClipBoard(selectedElements.filter((el) => el.id !== "start"));
     }
   };
 
@@ -246,10 +261,10 @@ const FlowEditor = (props) => {
       }));
       return;
     }
-    if (clipBoard.board) {
+    if (clipBoard && clipBoard.length) {
       let mapping = {};
       let edges = [];
-      for (const el of clipBoard.board) {
+      for (const el of clipBoard) {
         if (isNode(el)) {
           const newId = getId();
           mapping[el.id] = {
@@ -437,6 +452,7 @@ const FlowEditor = (props) => {
         event.preventDefault();
         clearAll();
       } else if (event.key === "a") {
+        event.preventDefault();
         selectAll();
       }
     } else if (event.key === " ") {
@@ -488,23 +504,36 @@ const FlowEditor = (props) => {
     });
   };
 
-  const mouseDownHandler = (e) => {
-    // console.log(e);
+  const infoHandler = () => {
+    infoLogs.map((t) => consoleCtx.addLog(t));
+  };
+
+  const nodeCtxMenuHandler = (e, node) => {
+    e.preventDefault();
+    setNodeCtxMenu({ show: true, x: e.clientX, y: e.clientY, node: node });
+  };
+
+  const nodeCtxBlurHandler = () => {
+    setNodeCtxMenu((state) => ({ ...state, show: false }));
+  };
+
+  const paneCtxMenuHandler = (e, node) => {
+    e.preventDefault();
+    setPaneCtxMenu({ show: true, x: e.clientX, y: e.clientY });
+  };
+
+  const paneCtxBlurHandler = () => {
+    setPaneCtxMenu((state) => ({ ...state, show: false }));
   };
 
   return (
     <div
       className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}
-      onContextMenu={() => console.log("does this work")}
       onKeyDown={keyDownHandler}
       tabIndex={-1}
     >
       <DndBar />
-      <div
-        className={classes.editorWrapper}
-        onMouseDown={mouseDownHandler}
-        ref={wrapperRef}
-      >
+      <div className={classes.editorWrapper} ref={wrapperRef}>
         <ReactFlow
           onLoad={onLoad}
           elements={props.elements}
@@ -526,8 +555,9 @@ const FlowEditor = (props) => {
           onElementsRemove={onElementsRemove}
           onNodeDragStop={nodeDragStopHandler}
           onEdgeUpdateEnd={edgeUpdateEndHandler}
-          onSelectionChange={selectChangeHandler}
           onSelectionDragStop={selectionDragStopHandler}
+          onNodeContextMenu={nodeCtxMenuHandler}
+          onPaneContextMenu={paneCtxMenuHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
@@ -541,6 +571,7 @@ const FlowEditor = (props) => {
             clearAll={clearAll}
             selectAll={selectAll}
             capture={capture}
+            info={infoHandler}
           />
           <Background color="#aaa" gap={16} />
         </ReactFlow>
@@ -549,11 +580,11 @@ const FlowEditor = (props) => {
             {miniHoverCtx.activeNode.block}
             <aside>
               <p>
-                <span className={classes.label}>Inputs:</span>{" "}
+                <span className={classes.label}>Inputs:</span>
                 {tooltips[miniHoverCtx.activeNode.nodeType][0]}
               </p>
               <p>
-                <span className={classes.label}>Outputs:</span>{" "}
+                <span className={classes.label}>Outputs:</span>
                 {tooltips[miniHoverCtx.activeNode.nodeType][1]}
               </p>
               <p style={{ marginTop: 12 }}>
@@ -566,6 +597,39 @@ const FlowEditor = (props) => {
           <div className={classes.visualBell}>{props.visualBell.message}</div>
         )}
       </div>
+      <ClientOnlyPortal selector="#ctx-menu-root">
+        <NodeContextMenu
+          show={nodeCtxMenu.show}
+          x={nodeCtxMenu.x}
+          y={nodeCtxMenu.y}
+          node={nodeCtxMenu.node}
+          blurHandler={nodeCtxBlurHandler}
+          selectHandler={setSelectedElements}
+          copyHandler={copySelection}
+          deleteHandler={onElementsRemove}
+          selectAllHandler={selectAll}
+          clearAllHandler={clearAll}
+        />
+      </ClientOnlyPortal>
+      <ClientOnlyPortal selector="#ctx-menu-root">
+        <PaneContextMenu
+          show={paneCtxMenu.show}
+          x={paneCtxMenu.x}
+          y={paneCtxMenu.y}
+          allowUndo={allowUndo}
+          allowRedo={allowRedo}
+          flowLocked={flowLocked}
+          blurHandler={paneCtxBlurHandler}
+          undoHandler={undoAction}
+          redoHandler={redoAction}
+          saveHandler={saveFlow}
+          restoreHandler={restoreFlow}
+          fitViewHandler={fitView}
+          captureHandler={capture}
+          lockHandler={lockHandler}
+          infoHandler={infoHandler}
+        />
+      </ClientOnlyPortal>
     </div>
   );
 };

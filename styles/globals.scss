@@ -65,6 +65,9 @@ svg {
 .react-flow__handle-valid {
   border-color: $green !important;
   background: $green !important;
+  &::after {
+    background: $green !important;
+  }
 }
 
 .react-flow__arrowhead {

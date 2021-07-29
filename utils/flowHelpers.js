@@ -1,7 +1,5 @@
 import { entities } from "./flowConfig";
 
-import classes from "../components/ReactFlow/Nodes.module.scss";
-
 import classesControlsBar from "../components/ReactFlow/ControlsBar.module.scss";
 
 export const getDefaultValues = (type) => {
@@ -45,6 +43,13 @@ export const getDefaultValues = (type) => {
   }
   return {};
 };
+
+export const infoLogs = [
+  "To start coding with Flow, drag and drop one of the blocks into the drop zone. You can add as many blocks as you like and rearrange them.",
+  "Before you run your code, you will need to connect each of your blocks together in the order you want them to be run. To connect two blocks, drag from the output handle (solid square) of one block to the input handle (hollow square) of another to form a track.",
+  "If a block is connected with multiple tracks, you may get unexpected behavior when running your code. To delete a track, click on its arrowhead to select the track, then press the backspace key on your keyboard.",
+  "When you code in Flow, the corresponding text code will automatically generate in the Text tab.",
+];
 
 export const flashLockIcon = () => {
   document
