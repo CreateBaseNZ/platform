@@ -1,0 +1,55 @@
+@import "/styles/variables";
+
+.contextMenu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: $lightest;
+  width: 14rem;
+  border: thin solid $lighter;
+  border-radius: 4px;
+  padding: 4px;
+  z-index: 5;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  button {
+    width: 100%;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    span {
+      font-size: 13px;
+    }
+    .item {
+      color: $dark;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+    }
+    .hotkey {
+      color: $light;
+      font-weight: 300;
+    }
+    svg {
+      margin-right: 0.5rem;
+      font-size: 18px;
+      width: 1.25rem;
+    }
+    &:hover {
+      background: #faf5ff;
+      color: $logo-dark;
+      path {
+        color: $logo-dark;
+      }
+      .item {
+        color: $logo-mid;
+      }
+      .hotkey {
+        color: #a3a3a3;
+      }
+    }
+  }
+}

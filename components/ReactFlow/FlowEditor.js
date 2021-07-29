@@ -40,6 +40,7 @@ import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
 import MiniHoverContext from "../../store/mini-hover-context";
+import { NodeContextMenu } from "./FlowContextMenu";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -62,8 +63,7 @@ const FlowEditor = (props) => {
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
-
-  console.log(props.elements);
+  const [ctxMenu, setCtxMenu] = useState({ show: false, x: 0, y: 0 });
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
@@ -488,23 +488,24 @@ const FlowEditor = (props) => {
     });
   };
 
-  const mouseDownHandler = (e) => {
-    // console.log(e);
+  const nodeCtxMenuHandler = (e, node) => {
+    e.preventDefault();
+    setCtxMenu({ show: true, x: e.clientX, y: e.clientY });
+    console.log(e);
+  };
+
+  const nodeCtxBlurHandler = () => {
+    setCtxMenu({ show: false });
   };
 
   return (
     <div
       className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}
-      onContextMenu={() => console.log("does this work")}
       onKeyDown={keyDownHandler}
       tabIndex={-1}
     >
       <DndBar />
-      <div
-        className={classes.editorWrapper}
-        onMouseDown={mouseDownHandler}
-        ref={wrapperRef}
-      >
+      <div className={classes.editorWrapper} ref={wrapperRef}>
         <ReactFlow
           onLoad={onLoad}
           elements={props.elements}
@@ -528,6 +529,7 @@ const FlowEditor = (props) => {
           onEdgeUpdateEnd={edgeUpdateEndHandler}
           onSelectionChange={selectChangeHandler}
           onSelectionDragStop={selectionDragStopHandler}
+          onNodeContextMenu={nodeCtxMenuHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
@@ -566,6 +568,12 @@ const FlowEditor = (props) => {
           <div className={classes.visualBell}>{props.visualBell.message}</div>
         )}
       </div>
+      <NodeContextMenu
+        show={ctxMenu.show}
+        x={ctxMenu.x}
+        y={ctxMenu.y}
+        blurHandler={nodeCtxBlurHandler}
+      />
     </div>
   );
 };
