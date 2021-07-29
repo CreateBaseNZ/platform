@@ -41,6 +41,7 @@ import ControlsBar from "./ControlsBar";
 import classes from "./FlowEditor.module.scss";
 import MiniHoverContext from "../../store/mini-hover-context";
 import { NodeContextMenu } from "./FlowContextMenu";
+import ClientOnlyPortal from "../UI/ClientOnlyPortal";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -63,7 +64,12 @@ const FlowEditor = (props) => {
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
-  const [ctxMenu, setCtxMenu] = useState({ show: false, x: 0, y: 0 });
+  const [ctxMenu, setCtxMenu] = useState({
+    show: false,
+    x: 0,
+    y: 0,
+    node: null,
+  });
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
@@ -112,7 +118,14 @@ const FlowEditor = (props) => {
       if (isEdge(el)) {
         edges.push(el);
       }
-      return el.id !== "start";
+      if (el.id === "start") {
+        props.setVisualBell((state) => ({
+          message: "Cannot delete Start block",
+          switch: !state.switch,
+        }));
+        return false;
+      }
+      return true;
     });
     props.setElements((els) =>
       removeElements(filteredElements, els).map((el) => {
@@ -437,6 +450,7 @@ const FlowEditor = (props) => {
         event.preventDefault();
         clearAll();
       } else if (event.key === "a") {
+        event.preventDefault();
         selectAll();
       }
     } else if (event.key === " ") {
@@ -489,13 +503,13 @@ const FlowEditor = (props) => {
   };
 
   const nodeCtxMenuHandler = (e, node) => {
-    e.preventDefault();
-    setCtxMenu({ show: true, x: e.clientX, y: e.clientY });
     console.log(e);
+    e.preventDefault();
+    setCtxMenu({ show: true, x: e.clientX, y: e.clientY, node: node });
   };
 
   const nodeCtxBlurHandler = () => {
-    setCtxMenu({ show: false });
+    setCtxMenu((state) => ({ ...state, show: false }));
   };
 
   return (
@@ -551,11 +565,11 @@ const FlowEditor = (props) => {
             {miniHoverCtx.activeNode.block}
             <aside>
               <p>
-                <span className={classes.label}>Inputs:</span>{" "}
+                <span className={classes.label}>Inputs:</span>
                 {tooltips[miniHoverCtx.activeNode.nodeType][0]}
               </p>
               <p>
-                <span className={classes.label}>Outputs:</span>{" "}
+                <span className={classes.label}>Outputs:</span>
                 {tooltips[miniHoverCtx.activeNode.nodeType][1]}
               </p>
               <p style={{ marginTop: 12 }}>
@@ -568,12 +582,16 @@ const FlowEditor = (props) => {
           <div className={classes.visualBell}>{props.visualBell.message}</div>
         )}
       </div>
-      <NodeContextMenu
-        show={ctxMenu.show}
-        x={ctxMenu.x}
-        y={ctxMenu.y}
-        blurHandler={nodeCtxBlurHandler}
-      />
+      <ClientOnlyPortal selector="#ctx-menu-root">
+        <NodeContextMenu
+          show={ctxMenu.show}
+          x={ctxMenu.x}
+          y={ctxMenu.y}
+          node={ctxMenu.node}
+          blurHandler={nodeCtxBlurHandler}
+          deleteHandler={onElementsRemove}
+        />
+      </ClientOnlyPortal>
     </div>
   );
 };

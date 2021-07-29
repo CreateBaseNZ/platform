@@ -6,11 +6,10 @@
   flex-direction: column;
   background: $lightest;
   width: 14rem;
-  border: thin solid $lighter;
   border-radius: 4px;
   padding: 4px;
   z-index: 5;
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, 0.1);
   button {
     width: 100%;
     padding: 0.25rem 0.75rem;

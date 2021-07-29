@@ -62,7 +62,7 @@ const Create = () => {
               <ExitToAppIcon />
             </button>
           </Link>
-          {/* <Game unityContext={unityContext} /> */}
+          <Game unityContext={unityContext} />
           <Workspace
             stacked={project.stacked}
             unityContext={unityContext}
