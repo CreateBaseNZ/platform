@@ -554,7 +554,19 @@ const FlowEditor = (props) => {
         {miniHoverCtx.activeNode && (
           <div className={classes.hoverBg}>
             {miniHoverCtx.activeNode.block}
-            <span>{tooltips[miniHoverCtx.activeNode.nodeType]}</span>
+            <aside>
+              <p>
+                <span className={classes.label}>Inputs:</span>{" "}
+                {tooltips[miniHoverCtx.activeNode.nodeType][0]}
+              </p>
+              <p>
+                <span className={classes.label}>Outputs:</span>{" "}
+                {tooltips[miniHoverCtx.activeNode.nodeType][1]}
+              </p>
+              <p style={{ marginTop: 12 }}>
+                {tooltips[miniHoverCtx.activeNode.nodeType][2]}
+              </p>
+            </aside>
           </div>
         )}
         {props.visualBell.message && (
