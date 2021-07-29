@@ -90,7 +90,7 @@ const FlowEditor = (props) => {
   }, [props.elements]);
 
   useEffect(() => {
-    if (clipBoard.length) {
+    if (clipBoard && clipBoard.length) {
       props.setVisualBell((state) => ({
         message: "Copied to clipboard",
         switch: !state.switch,
@@ -253,8 +253,7 @@ const FlowEditor = (props) => {
       }));
       return;
     }
-    if (clipBoard) {
-      console.log(clipBoard);
+    if (clipBoard && clipBoard.length) {
       let mapping = {};
       let edges = [];
       for (const el of clipBoard) {
@@ -583,7 +582,8 @@ const FlowEditor = (props) => {
           y={ctxMenu.y}
           node={ctxMenu.node}
           blurHandler={nodeCtxBlurHandler}
-          copyHandler={setClipBoard}
+          selectHandler={setSelectedElements}
+          copyHandler={copySelection}
           deleteHandler={onElementsRemove}
         />
       </ClientOnlyPortal>

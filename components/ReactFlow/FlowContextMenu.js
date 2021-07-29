@@ -6,7 +6,16 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import classes from "./FlowContextMenu.module.scss";
 
 export const NodeContextMenu = memo(
-  ({ show, x, y, node, blurHandler, copyHandler, deleteHandler }) => {
+  ({
+    show,
+    x,
+    y,
+    node,
+    blurHandler,
+    selectHandler,
+    copyHandler,
+    deleteHandler,
+  }) => {
     const ref = useRef();
 
     useEffect(() => {
@@ -36,7 +45,7 @@ export const NodeContextMenu = memo(
         onBlur={blurHandler}
         ref={ref}
       >
-        <button>
+        <button onMouseDown={() => selectHandler(node)}>
           <span className={classes.item}>
             <CallToActionOutlinedIcon /> Select
           </span>
