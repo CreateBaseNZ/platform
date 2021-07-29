@@ -29,7 +29,11 @@ import {
   NodeRepeat,
   NodeWhile,
 } from "../components/ReactFlow/NodeConditionals";
-import { ExecutionEdge } from "../components/ReactFlow/Edges";
+import {
+  ExecutionEdge,
+  BooleanEdge,
+  FloatEdge,
+} from "../components/ReactFlow/Edges";
 import { NodeDelay, NodePrint } from "../components/ReactFlow/NodeUtils";
 
 export const initialData = {
@@ -68,6 +72,8 @@ export const nodeTypes = {
 
 export const edgeTypes = {
   execution: ExecutionEdge,
+  boolean: BooleanEdge,
+  float: FloatEdge,
 };
 
 export const initialElements = [

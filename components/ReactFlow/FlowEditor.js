@@ -131,16 +131,22 @@ const FlowEditor = (props) => {
   const onConnect = useCallback((params) => {
     // styling new edge
     let newEdge;
-    if (params.sourceHandle.split("__")[0] === "execution") {
+    const handleType = params.sourceHandle.split("__")[0];
+    if (handleType === "execution") {
       newEdge = {
         ...params,
         type: "execution",
         animated: true,
         arrowHeadType: "arrowclosed",
       };
-    } else if (params.sourceHandle.split("__")[0] === "param") {
+    } else if (handleType === "param") {
       newEdge = {
         ...params,
+      };
+    } else if (handleType === "boolean") {
+      newEdge = {
+        ...params,
+        type: "boolean",
       };
     }
     props.setElements((els) => newConnection(addEdge(newEdge, els), params));

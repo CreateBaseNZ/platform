@@ -214,6 +214,30 @@
   }
 }
 
+.handle.booleanHandle {
+  border-radius: 6px;
+  &.targetHandle {
+    background: $lightest;
+    border: 2px solid #16e3f1;
+  }
+  &.sourceHandle {
+    background: #16e3f1;
+    border: 2px solid $lightest;
+  }
+}
+
+.handle.floatHandle {
+  border-radius: 6px;
+  &.targetHandle {
+    background: $lightest;
+    border: 2px solid #d869ea;
+  }
+  &.sourceHandle {
+    background: #d869ea;
+    border: 2px solid $lightest;
+  }
+}
+
 .leftHandleLabel,
 .rightHandleLabel {
   position: absolute;
