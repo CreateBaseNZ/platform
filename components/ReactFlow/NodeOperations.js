@@ -19,7 +19,7 @@ const NodeOperations = ({
       <CustomHandle
         type="target"
         position="top"
-        id="param__a"
+        id="float__a"
         style={{ left: "30px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data.connections}
@@ -27,7 +27,7 @@ const NodeOperations = ({
       <CustomHandle
         type="target"
         position="top"
-        id="param__b"
+        id="float__b"
         style={{ left: "auto", right: "34px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data.connections}
@@ -35,20 +35,20 @@ const NodeOperations = ({
       <InputWithHandle
         data={data}
         blockId={id}
-        handleId="param__a"
+        handleId="float__a"
         inputName="a"
       />
       <h4>{label}</h4>
       <InputWithHandle
         data={data}
         blockId={id}
-        handleId="param__b"
+        handleId="float__b"
         inputName="b"
       />
       <CustomHandle
         type="source"
         position="right"
-        id="param__out"
+        id="float__out"
         isConnectable={isConnectable}
         connections={data.connections}
       />
@@ -114,7 +114,7 @@ export const NodeOperatorGeneral = memo(
         <CustomHandle
           type="target"
           position="top"
-          id="param__a"
+          id="float__a"
           style={{ left: "30px", transform: "none" }}
           isConnectable={isConnectable}
           connections={data.connections}
@@ -122,7 +122,7 @@ export const NodeOperatorGeneral = memo(
         <CustomHandle
           type="target"
           position="top"
-          id="param__b"
+          id="float__b"
           style={{ left: "auto", right: "30px", transform: "none" }}
           isConnectable={isConnectable}
           connections={data.connections}
@@ -130,7 +130,7 @@ export const NodeOperatorGeneral = memo(
         <InputWithHandle
           data={data}
           blockId={id}
-          handleId="param__a"
+          handleId="float__a"
           inputName="a"
         />
         <select
@@ -150,13 +150,13 @@ export const NodeOperatorGeneral = memo(
         <InputWithHandle
           data={data}
           blockId={id}
-          handleId="param__b"
+          handleId="float__b"
           inputName="b"
         />
         <CustomHandle
           type="source"
           position="right"
-          id="param__out"
+          id="float__out"
           isConnectable={isConnectable}
           connections={data.connections}
         />

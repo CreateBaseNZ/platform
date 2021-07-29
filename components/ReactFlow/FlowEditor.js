@@ -139,14 +139,15 @@ const FlowEditor = (props) => {
         animated: true,
         arrowHeadType: "arrowclosed",
       };
-    } else if (handleType === "param") {
-      newEdge = {
-        ...params,
-      };
     } else if (handleType === "boolean") {
       newEdge = {
         ...params,
         type: "boolean",
+      };
+    } else if (handleType === "float") {
+      newEdge = {
+        ...params,
+        type: "float",
       };
     }
     props.setElements((els) => newConnection(addEdge(newEdge, els), params));
