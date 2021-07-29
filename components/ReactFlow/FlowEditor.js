@@ -131,16 +131,23 @@ const FlowEditor = (props) => {
   const onConnect = useCallback((params) => {
     // styling new edge
     let newEdge;
-    if (params.sourceHandle.split("__")[0] === "execution") {
+    const handleType = params.sourceHandle.split("__")[0];
+    if (handleType === "execution") {
       newEdge = {
         ...params,
         type: "execution",
         animated: true,
         arrowHeadType: "arrowclosed",
       };
-    } else if (params.sourceHandle.split("__")[0] === "param") {
+    } else if (handleType === "boolean") {
       newEdge = {
         ...params,
+        type: "boolean",
+      };
+    } else if (handleType === "float") {
+      newEdge = {
+        ...params,
+        type: "float",
       };
     }
     props.setElements((els) => newConnection(addEdge(newEdge, els), params));
@@ -455,7 +462,6 @@ const FlowEditor = (props) => {
   };
 
   const nodeDragStopHandler = (_, node) => {
-    console.log(node);
     props.setElements((els) =>
       els.map((el) => (el.id === node.id ? node : el))
     );
@@ -480,11 +486,6 @@ const FlowEditor = (props) => {
         return el;
       });
     });
-  };
-
-  const paneClickHandler = (e) => {
-    console.log(e);
-    setSelectedElements([]);
   };
 
   const mouseDownHandler = (e) => {
@@ -527,7 +528,6 @@ const FlowEditor = (props) => {
           onEdgeUpdateEnd={edgeUpdateEndHandler}
           onSelectionChange={selectChangeHandler}
           onSelectionDragStop={selectionDragStopHandler}
-          onPaneClick={paneClickHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
@@ -547,7 +547,19 @@ const FlowEditor = (props) => {
         {miniHoverCtx.activeNode && (
           <div className={classes.hoverBg}>
             {miniHoverCtx.activeNode.block}
-            <span>{tooltips[miniHoverCtx.activeNode.nodeType]}</span>
+            <aside>
+              <p>
+                <span className={classes.label}>Inputs:</span>{" "}
+                {tooltips[miniHoverCtx.activeNode.nodeType][0]}
+              </p>
+              <p>
+                <span className={classes.label}>Outputs:</span>{" "}
+                {tooltips[miniHoverCtx.activeNode.nodeType][1]}
+              </p>
+              <p style={{ marginTop: 12 }}>
+                {tooltips[miniHoverCtx.activeNode.nodeType][2]}
+              </p>
+            </aside>
           </div>
         )}
         {props.visualBell.message && (

@@ -40,6 +40,9 @@ export const getDefaultValues = (type) => {
   if (type === "repeat") {
     return { condition: "1" };
   }
+  if (type === "print" || type === "delay") {
+    return { a: 0 };
+  }
   return {};
 };
 

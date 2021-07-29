@@ -36,7 +36,7 @@ export const ExecutionEdge = ({
     <>
       <path
         id={id}
-        style={{ stroke: "#ffb649", strokeWidth: 2 }}
+        style={{ stroke: "#FDB554", strokeWidth: 2 }}
         className="react-flow__edge-path"
         d={edgePath}
         markerEnd={markerEnd}
@@ -58,6 +58,66 @@ export const ExecutionEdge = ({
           </button>
         </body>
       </foreignObject> */}
+    </>
+  );
+};
+
+export const BooleanEdge = ({
+  id,
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+  sourcePosition,
+  targetPosition,
+}) => {
+  const edgePath = getBezierPath({
+    sourceX,
+    sourceY,
+    sourcePosition,
+    targetX,
+    targetY,
+    targetPosition,
+  });
+
+  return (
+    <>
+      <path
+        id={id}
+        style={{ stroke: "#16e3f1", strokeWidth: 2 }}
+        className="react-flow__edge-path"
+        d={edgePath}
+      />
+    </>
+  );
+};
+
+export const FloatEdge = ({
+  id,
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+  sourcePosition,
+  targetPosition,
+}) => {
+  const edgePath = getBezierPath({
+    sourceX,
+    sourceY,
+    sourcePosition,
+    targetX,
+    targetY,
+    targetPosition,
+  });
+
+  return (
+    <>
+      <path
+        id={id}
+        style={{ stroke: "#D869EA", strokeWidth: 2 }}
+        className="react-flow__edge-path"
+        d={edgePath}
+      />
     </>
   );
 };

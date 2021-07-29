@@ -1,5 +1,6 @@
 import { memo } from "react";
 import CustomHandle from "./Handles";
+import { InputWithHandle } from "./NodeGeneral";
 import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
@@ -11,19 +12,6 @@ const NodeOperations = ({
   className = "",
   isConnectable,
 }) => {
-  const changeHandlerA = (event) => {
-    data.callBack({ ...data.values, a: event.target.value }, id);
-  };
-  const changeHandlerB = (event) => {
-    data.callBack({ ...data.values, b: event.target.value }, id);
-  };
-  const dragHandler = (event) => {
-    event.preventDefault();
-  };
-
-  const preventA = data.connections.includes("param__a");
-  const preventB = data.connections.includes("param__b");
-
   return (
     <div
       className={`${classes.node} ${classes.operating} ${classes.hasRightHandle} ${className}`}
@@ -31,7 +19,7 @@ const NodeOperations = ({
       <CustomHandle
         type="target"
         position="top"
-        id="param__a"
+        id="float__a"
         style={{ left: "30px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data.connections}
@@ -39,32 +27,28 @@ const NodeOperations = ({
       <CustomHandle
         type="target"
         position="top"
-        id="param__b"
+        id="float__b"
         style={{ left: "auto", right: "34px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data.connections}
       />
-      <input
-        onChange={changeHandlerA}
-        className={`nodrag ${preventA ? classes.preventInput : ""}`}
-        type="number"
-        value={preventA ? "" : data.values.a}
-        onDragStart={dragHandler}
-        onKeyDown={(e) => e.key === "e" && e.preventDefault()}
+      <InputWithHandle
+        data={data}
+        blockId={id}
+        handleId="float__a"
+        inputName="a"
       />
       <h4>{label}</h4>
-      <input
-        onChange={changeHandlerB}
-        className={`nodrag ${preventB ? classes.preventInput : ""}`}
-        type="number"
-        value={preventB ? "" : data.values.b}
-        onDragStart={dragHandler}
-        onKeyDown={(e) => e.key === "e" && e.preventDefault()}
+      <InputWithHandle
+        data={data}
+        blockId={id}
+        handleId="float__b"
+        inputName="b"
       />
       <CustomHandle
         type="source"
         position="right"
-        id="param__out"
+        id="float__out"
         isConnectable={isConnectable}
         connections={data.connections}
       />
@@ -112,47 +96,6 @@ export const NodeDivide = memo(({ id, data, isConnectable }) => {
     />
   );
 });
-export const NodeGreaterThan = memo(({ id, data, isConnectable }) => {
-  return (
-    <NodeOperations
-      id={id}
-      label=">"
-      data={data}
-      isConnectable={isConnectable}
-    />
-  );
-});
-export const NodeLessThan = memo(({ id, data, isConnectable }) => {
-  return (
-    <NodeOperations
-      id={id}
-      label="<"
-      data={data}
-      isConnectable={isConnectable}
-    />
-  );
-});
-export const NodeEquals = memo(({ id, data, isConnectable }) => {
-  return (
-    <NodeOperations
-      id={id}
-      label="="
-      data={data}
-      isConnectable={isConnectable}
-    />
-  );
-});
-export const NodeNotEquals = memo(({ id, data, isConnectable }) => {
-  return (
-    <NodeOperations
-      id={id}
-      label="not ="
-      data={data}
-      className={classes.nodeNotEquals}
-      isConnectable={isConnectable}
-    />
-  );
-});
 
 export const NodeOperatorGeneral = memo(
   ({
@@ -160,18 +103,9 @@ export const NodeOperatorGeneral = memo(
     data = { values: { a: 1, b: 2, operator: "+" }, connections: [] },
     isConnectable,
   }) => {
-    const changeHandlerA = (event) => {
-      data.callBack({ ...data.values, a: event.target.value }, id);
-    };
-    const changeHandlerB = (event) => {
-      data.callBack({ ...data.values, b: event.target.value }, id);
-    };
     const changeHandlerOperator = (event) => {
       data.callBack({ ...data.values, operator: event.target.value }, id);
     };
-
-    const preventA = data.connections.includes("param__a");
-    const preventB = data.connections.includes("param__b");
 
     return (
       <div
@@ -180,7 +114,7 @@ export const NodeOperatorGeneral = memo(
         <CustomHandle
           type="target"
           position="top"
-          id="param__a"
+          id="float__a"
           style={{ left: "30px", transform: "none" }}
           isConnectable={isConnectable}
           connections={data.connections}
@@ -188,16 +122,16 @@ export const NodeOperatorGeneral = memo(
         <CustomHandle
           type="target"
           position="top"
-          id="param__b"
-          style={{ left: "auto", right: "34px", transform: "none" }}
+          id="float__b"
+          style={{ left: "auto", right: "30px", transform: "none" }}
           isConnectable={isConnectable}
           connections={data.connections}
         />
-        <input
-          className={`nodrag ${preventA ? classes.preventInput : ""}`}
-          onChange={changeHandlerA}
-          type="number"
-          value={preventA ? "" : data.values.a}
+        <InputWithHandle
+          data={data}
+          blockId={id}
+          handleId="float__a"
+          inputName="a"
         />
         <select
           name={`${data.id}_operator`}
@@ -213,16 +147,16 @@ export const NodeOperatorGeneral = memo(
             )
           )}
         </select>
-        <input
-          className={`nodrag ${preventB ? classes.preventInput : ""}`}
-          onChange={changeHandlerB}
-          type="number"
-          value={preventB ? "" : data.values.b}
+        <InputWithHandle
+          data={data}
+          blockId={id}
+          handleId="float__b"
+          inputName="b"
         />
         <CustomHandle
           type="source"
           position="right"
-          id="param__out"
+          id="float__out"
           isConnectable={isConnectable}
           connections={data.connections}
         />
@@ -276,37 +210,8 @@ export const NodeDivideMini = memo(() => {
     />
   );
 });
-export const NodeGreaterThanMini = memo(() => {
-  return (
-    <NodeOperationsMini
-      label=">"
-      nodeType="greaterThan"
-      node={<NodeGreaterThan />}
-    />
-  );
-});
-export const NodeLessThanMini = memo(() => {
-  return (
-    <NodeOperationsMini label="<" nodeType="lessThan" node={<NodeLessThan />} />
-  );
-});
-export const NodeEqualsMini = memo(() => {
-  return (
-    <NodeOperationsMini label="=" nodeType="equals" node={<NodeEquals />} />
-  );
-});
-export const NodeNotEqualsMini = memo(() => {
-  return (
-    <NodeOperationsMini
-      label="not ="
-      className={classes.nodeNotEquals}
-      nodeType="notEquals"
-      node={<NodeNotEquals />}
-    />
-  );
-});
 
-export const NodeOperatorGeneralMini = (props) => {
+export const NodeOperatorGeneralMini = () => {
   return (
     <NodeMini
       className={classes.operating}

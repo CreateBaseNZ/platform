@@ -1,5 +1,5 @@
 import CustomHandle from "./Handles";
-import { NodeMini } from "./NodeGeneral";
+import { InputWithHandle, NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
@@ -20,7 +20,7 @@ export const NodeIf = ({ data, isConnectable }) => {
       <CustomHandle
         type="target"
         position="top"
-        id="param__condition"
+        id="boolean__condition"
         style={{ left: "52px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -64,18 +64,9 @@ export const NodeIf = ({ data, isConnectable }) => {
 
 export const NodeRepeat = ({
   id,
-  data = { values: { condition: 1 } },
+  data = { values: { condition: 1 }, connections: [] },
   isConnectable,
 }) => {
-  const changeHandler = (event) => {
-    data.callBack({ ...data.values, condition: event.target.value }, id);
-  };
-  const dragHandler = (event) => {
-    event.preventDefault();
-  };
-
-  const prevent = data.connections.includes("param__condition");
-
   return (
     <div
       className={`${classes.node} ${classes.conditionals} ${classes.nodeRepeat} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.hasRightLabel}`}
@@ -88,21 +79,16 @@ export const NodeRepeat = ({
         connections={data ? data.connections : []}
       />
       <h4>Repeat</h4>
-      <input
-        onChange={changeHandler}
-        className={`nodrag ${prevent ? classes.preventInput : ""}`}
-        type="number"
-        value={prevent ? "" : data.values.condition}
-        onDragStart={dragHandler}
-        onKeyDown={(e) =>
-          (e.key === "e" || e.key === "-" || e.key === ".") &&
-          e.preventDefault()
-        }
+      <InputWithHandle
+        data={data}
+        blockId={id}
+        handleId={"param__condition"}
+        inputName="condition"
       />
       <CustomHandle
         type="target"
         position="top"
-        id="param__condition"
+        id="float__condition"
         style={{ left: "91px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -150,7 +136,7 @@ export const NodeWhile = ({ data, isConnectable }) => {
       <CustomHandle
         type="target"
         position="top"
-        id="param__condition"
+        id="boolean__condition"
         style={{ left: "86px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}

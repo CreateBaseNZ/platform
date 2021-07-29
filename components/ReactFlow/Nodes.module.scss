@@ -85,6 +85,7 @@
 }
 
 .operating,
+.comparing,
 .logical {
   flex-direction: row;
   align-items: center;
@@ -97,8 +98,8 @@
   }
 }
 
-.operating {
-  background: #9c40f8;
+.operating,
+.comparing {
   width: 10rem;
   h4 {
     flex: 0 0 1rem;
@@ -116,6 +117,14 @@
       width: 4rem;
     }
   }
+}
+
+.operating {
+  background: #9c40f8;
+}
+
+.comparing {
+  background: #fe757e;
 }
 
 .logical {
@@ -136,6 +145,22 @@
   }
   input {
     margin: 0;
+  }
+}
+
+.utils {
+  background: #c1c1c1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 9rem;
+  height: 3rem;
+  h4 {
+    margin-right: 0.5rem;
+  }
+  input {
+    margin: 0;
+    width: 3rem;
   }
 }
 
@@ -194,6 +219,30 @@
   }
   &.sourceHandle {
     background: #b1b1b7;
+    border: 2px solid $lightest;
+  }
+}
+
+.handle.booleanHandle {
+  border-radius: 6px;
+  &.targetHandle {
+    background: $lightest;
+    border: 2px solid #16e3f1;
+  }
+  &.sourceHandle {
+    background: #16e3f1;
+    border: 2px solid $lightest;
+  }
+}
+
+.handle.floatHandle {
+  border-radius: 6px;
+  &.targetHandle {
+    background: $lightest;
+    border: 2px solid #d869ea;
+  }
+  &.sourceHandle {
+    background: #d869ea;
     border: 2px solid $lightest;
   }
 }
