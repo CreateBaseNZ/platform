@@ -28,6 +28,7 @@ import {
   flashLockIcon,
   getDefaultValues,
   getNearestGridPosition,
+  infoLogs,
   newConnection,
   removeConnection,
   saveAs,
@@ -41,12 +42,15 @@ import ControlsBar from "./ControlsBar";
 import classes from "./FlowEditor.module.scss";
 import MiniHoverContext from "../../store/mini-hover-context";
 import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
+import ConsoleContext from "../../store/console-context";
+
 import ClientOnlyPortal from "../UI/ClientOnlyPortal";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const FlowEditor = (props) => {
+  const consoleCtx = useContext(ConsoleContext);
   const miniHoverCtx = useContext(MiniHoverContext);
   const wrapperRef = useRef(null);
   const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
@@ -500,6 +504,10 @@ const FlowEditor = (props) => {
     });
   };
 
+  const infoHandler = () => {
+    infoLogs.map((t) => consoleCtx.addLog(t));
+  };
+
   const nodeCtxMenuHandler = (e, node) => {
     e.preventDefault();
     setNodeCtxMenu({ show: true, x: e.clientX, y: e.clientY, node: node });
@@ -563,6 +571,7 @@ const FlowEditor = (props) => {
             clearAll={clearAll}
             selectAll={selectAll}
             capture={capture}
+            info={infoHandler}
           />
           <Background color="#aaa" gap={16} />
         </ReactFlow>
@@ -618,6 +627,7 @@ const FlowEditor = (props) => {
           fitViewHandler={fitView}
           captureHandler={capture}
           lockHandler={lockHandler}
+          infoHandler={infoHandler}
         />
       </ClientOnlyPortal>
     </div>

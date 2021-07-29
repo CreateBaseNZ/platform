@@ -113,6 +113,7 @@ export const PaneContextMenu = memo(
     fitViewHandler,
     captureHandler,
     lockHandler,
+    infoHandler,
   }) => {
     const ref = useRef();
     useEffect(() => {
@@ -197,7 +198,7 @@ export const PaneContextMenu = memo(
           <span className={classes.hotkey}>Ctrl+L</span>
         </button>
         <div className={classes.divider} />
-        <button>
+        <button onMouseDown={infoHandler}>
           <span className={classes.item}>
             <InfoOutlinedIcon />
             Info
