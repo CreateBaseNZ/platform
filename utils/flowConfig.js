@@ -30,6 +30,7 @@ import {
   NodeWhile,
 } from "../components/ReactFlow/NodeConditionals";
 import { ExecutionEdge } from "../components/ReactFlow/Edges";
+import { NodeDelay, NodePrint } from "../components/ReactFlow/NodeUtils";
 
 export const initialData = {
   start: {},
@@ -61,6 +62,8 @@ export const nodeTypes = {
   if: NodeIf,
   repeat: NodeRepeat,
   while: NodeWhile,
+  delay: NodeDelay,
+  print: NodePrint,
 };
 
 export const edgeTypes = {
@@ -123,4 +126,6 @@ export const tooltips = {
     "Repeatedly runs DO for the inputted number of times (input). After it has completed repeating itself, the code continues by running THEN",
   while:
     "While the input (condition) is TRUE, this block will keep repeating the DO code. Only when the input (condition) is FALSE will the code continue onto the THEN code",
+  delay: "Delays the code from running for a certain number of seconds",
+  print: "Prints the input to the console",
 };

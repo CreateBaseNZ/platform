@@ -189,7 +189,7 @@ export const NodeOperatorGeneral = memo(
           type="target"
           position="top"
           id="param__b"
-          style={{ left: "auto", right: "34px", transform: "none" }}
+          style={{ left: "auto", right: "30px", transform: "none" }}
           isConnectable={isConnectable}
           connections={data.connections}
         />

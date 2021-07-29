@@ -139,6 +139,22 @@
   }
 }
 
+.utils {
+  background: #c1c1c1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 9rem;
+  height: 3rem;
+  h4 {
+    margin-right: 0.5rem;
+  }
+  input {
+    margin: 0;
+    width: 3rem;
+  }
+}
+
 .nodeStart {
   background: #08df44;
   height: 2rem;

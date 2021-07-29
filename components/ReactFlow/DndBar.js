@@ -24,6 +24,7 @@ import {
 } from "./NodeOperations";
 import { NodeAndMini, NodeOrMini } from "./NodeLogicals";
 import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "./NodeConditionals";
+import { NodeDelayMini, NodePrintMini } from "./NodeUtils";
 
 import classes from "./DndBar.module.scss";
 
@@ -59,6 +60,9 @@ const DndBar = () => {
         <NodeIfMini />
         <NodeRepeatMini />
         <NodeWhileMini />
+        <h5>Utilities</h5>
+        <NodeDelayMini />
+        <NodePrintMini />
       </div>
     </aside>
   );
