@@ -453,6 +453,30 @@ export class CodeGenerator {
       return false;
     }
   }
+  private printMessage(blockDetail,printNum) {
+    if (blockDetail.value) {
+      printNum++;
+      const input = String(blockDetail.value.a);
+      console.log(input);
+      let str, simpleStr;
+      if (this.checkVariable(input)) {
+        str = `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
+        simpleStr = `Log(\`Print Number ${printNum}= \${${input}}\`)`;
+      } else if (this.isNumber(input) || (this.isBool(input))) {
+        str = `ctx.addLog(\`Print Number ${printNum}= ${input}\`)`;
+        simpleStr = `Log(\`Print Number ${printNum}= ${input}\`)`;
+      } else {
+        printNum--;
+        return [false,printNum];
+
+      }
+      this.simpleExecutes.push(simpleStr);
+      this.executes.push(str);
+      return [true,printNum];
+    } else {
+      return [false,printNum];
+    }
+  }
 
   private run() {
     this.execute = "const run = async () => {\n";
@@ -476,6 +500,7 @@ export class CodeGenerator {
     this.simpleExecutes = [];
     this.simpleExecute = "";
     this.simpleContent = "";
+    let printNum = 0;
     //
     let state: any = true;
     let type = null;
@@ -518,6 +543,9 @@ export class CodeGenerator {
           break;
         case "sense":
           state = this.readSensors(element);
+          break;
+        case "print":
+          [state,printNum] = this.printMessage(element,printNum);
           break;
         default:
           break;

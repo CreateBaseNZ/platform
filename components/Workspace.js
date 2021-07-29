@@ -67,6 +67,8 @@ const determineType = (block, currentNode) => {
     case "num":
     case "repeat":
     case "operatorGeneral":
+    case "print":
+    case "delay":
       block.name = currentNode.type;
       break;
     case "add":
@@ -419,7 +421,7 @@ const Workspace = (props) => {
     if (activeTab === "flow" && tab === "text") {
       const [newText, dispCode] = compileCode();
       if (newText) {
-        setText(dispCode);
+        setText(newText);
       }
     }
     setActiveTab(tab);
