@@ -40,7 +40,7 @@ import ControlsBar from "./ControlsBar";
 
 import classes from "./FlowEditor.module.scss";
 import MiniHoverContext from "../../store/mini-hover-context";
-import { NodeContextMenu } from "./FlowContextMenu";
+import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
 import ClientOnlyPortal from "../UI/ClientOnlyPortal";
 
 let id = 0;
@@ -62,12 +62,16 @@ const FlowEditor = (props) => {
     (actions) => actions.setSelectedElements
   );
   const selectedElements = useStoreState((store) => store.selectedElements);
-
-  const [ctxMenu, setCtxMenu] = useState({
+  const [nodeCtxMenu, setNodeCtxMenu] = useState({
     show: false,
     x: 0,
     y: 0,
     node: null,
+  });
+  const [paneCtxMenu, setPaneCtxMenu] = useState({
+    show: false,
+    x: 0,
+    y: 0,
   });
 
   const allowUndo = actionStack.currentIndex !== 0;
@@ -497,13 +501,21 @@ const FlowEditor = (props) => {
   };
 
   const nodeCtxMenuHandler = (e, node) => {
-    console.log(e);
     e.preventDefault();
-    setCtxMenu({ show: true, x: e.clientX, y: e.clientY, node: node });
+    setNodeCtxMenu({ show: true, x: e.clientX, y: e.clientY, node: node });
   };
 
   const nodeCtxBlurHandler = () => {
-    setCtxMenu((state) => ({ ...state, show: false }));
+    setNodeCtxMenu((state) => ({ ...state, show: false }));
+  };
+
+  const paneCtxMenuHandler = (e, node) => {
+    e.preventDefault();
+    setPaneCtxMenu({ show: true, x: e.clientX, y: e.clientY });
+  };
+
+  const paneCtxBlurHandler = () => {
+    setPaneCtxMenu((state) => ({ ...state, show: false }));
   };
 
   return (
@@ -537,6 +549,7 @@ const FlowEditor = (props) => {
           onEdgeUpdateEnd={edgeUpdateEndHandler}
           onSelectionDragStop={selectionDragStopHandler}
           onNodeContextMenu={nodeCtxMenuHandler}
+          onPaneContextMenu={paneCtxMenuHandler}
         >
           <ControlsBar
             undoHandler={undoAction}
@@ -577,14 +590,34 @@ const FlowEditor = (props) => {
       </div>
       <ClientOnlyPortal selector="#ctx-menu-root">
         <NodeContextMenu
-          show={ctxMenu.show}
-          x={ctxMenu.x}
-          y={ctxMenu.y}
-          node={ctxMenu.node}
+          show={nodeCtxMenu.show}
+          x={nodeCtxMenu.x}
+          y={nodeCtxMenu.y}
+          node={nodeCtxMenu.node}
           blurHandler={nodeCtxBlurHandler}
           selectHandler={setSelectedElements}
           copyHandler={copySelection}
           deleteHandler={onElementsRemove}
+          selectAllHandler={selectAll}
+          clearAllHandler={clearAll}
+        />
+      </ClientOnlyPortal>
+      <ClientOnlyPortal selector="#ctx-menu-root">
+        <PaneContextMenu
+          show={paneCtxMenu.show}
+          x={paneCtxMenu.x}
+          y={paneCtxMenu.y}
+          allowUndo={allowUndo}
+          allowRedo={allowRedo}
+          flowLocked={flowLocked}
+          blurHandler={paneCtxBlurHandler}
+          undoHandler={undoAction}
+          redoHandler={redoAction}
+          saveHandler={saveFlow}
+          restoreHandler={restoreFlow}
+          fitViewHandler={fitView}
+          captureHandler={capture}
+          lockHandler={lockHandler}
         />
       </ClientOnlyPortal>
     </div>

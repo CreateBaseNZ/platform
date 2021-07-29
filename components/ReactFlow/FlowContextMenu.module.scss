@@ -51,4 +51,19 @@
       }
     }
   }
+  .deactive {
+    pointer-events: none;
+    opacity: 0.25;
+    svg {
+      opacity: 0.5;
+    }
+  }
+}
+
+.divider {
+  width: calc(100% + 8px);
+  height: 1px;
+  background: $lighter;
+  margin: 4px 0;
+  margin-left: -4px;
 }
