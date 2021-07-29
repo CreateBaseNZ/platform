@@ -56,14 +56,13 @@ const FlowEditor = (props) => {
     currentIndex: -1,
   });
   const [systemAction, setSystemAction] = useState(false);
-  const [clipBoard, setClipBoard] = useState({
-    selection: null,
-    board: null,
-  });
+  const [clipBoard, setClipBoard] = useState();
   const [flowLocked, setFlowLocked] = useState(false);
   const setSelectedElements = useStoreActions(
     (actions) => actions.setSelectedElements
   );
+  const selectedElements = useStoreState((store) => store.selectedElements);
+
   const [ctxMenu, setCtxMenu] = useState({
     show: false,
     x: 0,
@@ -89,6 +88,15 @@ const FlowEditor = (props) => {
       setSystemAction(false);
     }
   }, [props.elements]);
+
+  useEffect(() => {
+    if (clipBoard.length) {
+      props.setVisualBell((state) => ({
+        message: "Copied to clipboard",
+        switch: !state.switch,
+      }));
+    }
+  }, [clipBoard]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -228,25 +236,11 @@ const FlowEditor = (props) => {
     props.setElements((es) => es.concat(newNode));
   };
 
-  const selectChangeHandler = (elements) => {
-    if (elements) {
-      setClipBoard((state) => {
-        return {
-          ...state,
-          selection: elements,
-        };
-      });
-    }
-  };
-
-  const copySelection = () => {
-    if (clipBoard.selection) {
-      setClipBoard((state) => {
-        return {
-          ...state,
-          board: clipBoard.selection.filter((el) => el.id !== "start"),
-        };
-      });
+  const copySelection = (selection) => {
+    if (selection) {
+      setClipBoard(selection.filter((el) => el.id !== "start"));
+    } else if (selectedElements) {
+      setClipBoard(selectedElements.filter((el) => el.id !== "start"));
     }
   };
 
@@ -259,10 +253,11 @@ const FlowEditor = (props) => {
       }));
       return;
     }
-    if (clipBoard.board) {
+    if (clipBoard) {
+      console.log(clipBoard);
       let mapping = {};
       let edges = [];
-      for (const el of clipBoard.board) {
+      for (const el of clipBoard) {
         if (isNode(el)) {
           const newId = getId();
           mapping[el.id] = {
@@ -541,7 +536,6 @@ const FlowEditor = (props) => {
           onElementsRemove={onElementsRemove}
           onNodeDragStop={nodeDragStopHandler}
           onEdgeUpdateEnd={edgeUpdateEndHandler}
-          onSelectionChange={selectChangeHandler}
           onSelectionDragStop={selectionDragStopHandler}
           onNodeContextMenu={nodeCtxMenuHandler}
         >
@@ -589,6 +583,7 @@ const FlowEditor = (props) => {
           y={ctxMenu.y}
           node={ctxMenu.node}
           blurHandler={nodeCtxBlurHandler}
+          copyHandler={setClipBoard}
           deleteHandler={onElementsRemove}
         />
       </ClientOnlyPortal>

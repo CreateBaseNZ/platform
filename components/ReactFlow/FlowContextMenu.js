@@ -6,7 +6,7 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import classes from "./FlowContextMenu.module.scss";
 
 export const NodeContextMenu = memo(
-  ({ show, x, y, node, blurHandler, deleteHandler }) => {
+  ({ show, x, y, node, blurHandler, copyHandler, deleteHandler }) => {
     const ref = useRef();
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export const NodeContextMenu = memo(
           </span>
           <span className={classes.hotkey}>Left Click</span>
         </button>
-        <button>
+        <button onMouseDown={() => copyHandler([node])}>
           <span className={classes.item}>
             <FilterNoneIcon /> Copy
           </span>
