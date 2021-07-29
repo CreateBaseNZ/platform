@@ -1,6 +1,7 @@
 import { memo } from "react";
 import CustomHandle from "./Handles";
 import { NodeMini } from "./NodeGeneral";
+import { InputWithHandle } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
@@ -11,15 +12,6 @@ const NodeUtils = ({
   className = "",
   isConnectable,
 }) => {
-  const changeHandler = (event) => {
-    data.callBack({ ...data.values, a: event.target.value }, id);
-  };
-  const dragHandler = (event) => {
-    event.preventDefault();
-  };
-
-  const preventInput = data.connections.includes("param__a");
-
   return (
     <div
       className={`${classes.node} ${classes.utils} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${className}`}
@@ -32,13 +24,11 @@ const NodeUtils = ({
         connections={data.connections}
       />
       <h4>{label}</h4>
-      <input
-        onChange={changeHandler}
-        className={`nodrag ${preventInput ? classes.preventInput : ""}`}
-        type="number"
-        value={preventInput ? "" : data.values.a}
-        onDragStart={dragHandler}
-        onKeyDown={(e) => e.key === "e" && e.preventDefault()}
+      <InputWithHandle
+        data={data}
+        blockId={id}
+        handleId="param__a"
+        inputName="a"
       />
       <CustomHandle
         type="target"

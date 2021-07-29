@@ -78,3 +78,21 @@ export const EntityDropdown = ({
     </select>
   );
 };
+
+export const InputWithHandle = ({ data, blockId, handleId, inputName }) => {
+  const changeHandler = (event) => {
+    data.callBack({ ...data.values, [inputName]: event.target.value }, blockId);
+  };
+  const prevent = data.connections.includes(handleId);
+
+  return (
+    <input
+      className={`nodrag ${prevent ? classes.preventInput : ""}`}
+      onChange={changeHandler}
+      type="number"
+      value={prevent ? "" : data.values[inputName]}
+      onDragStart={(e) => e.preventDefault}
+      onKeyDown={(e) => e.key === "e" && e.preventDefault()}
+    />
+  );
+};

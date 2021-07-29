@@ -14,7 +14,7 @@ const NodeLogicals = ({ label, data, className = "", isConnectable }) => {
         type="target"
         position="top"
         id="param__a"
-        style={{ left: "30px", transform: "none" }}
+        style={{ left: "34px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
       />

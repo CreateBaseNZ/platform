@@ -1,5 +1,6 @@
 import { memo } from "react";
 import CustomHandle from "./Handles";
+import { InputWithHandle } from "./NodeGeneral";
 import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
@@ -11,19 +12,6 @@ const NodeOperations = ({
   className = "",
   isConnectable,
 }) => {
-  const changeHandlerA = (event) => {
-    data.callBack({ ...data.values, a: event.target.value }, id);
-  };
-  const changeHandlerB = (event) => {
-    data.callBack({ ...data.values, b: event.target.value }, id);
-  };
-  const dragHandler = (event) => {
-    event.preventDefault();
-  };
-
-  const preventA = data.connections.includes("param__a");
-  const preventB = data.connections.includes("param__b");
-
   return (
     <div
       className={`${classes.node} ${classes.operating} ${classes.hasRightHandle} ${className}`}
@@ -44,22 +32,18 @@ const NodeOperations = ({
         isConnectable={isConnectable}
         connections={data.connections}
       />
-      <input
-        onChange={changeHandlerA}
-        className={`nodrag ${preventA ? classes.preventInput : ""}`}
-        type="number"
-        value={preventA ? "" : data.values.a}
-        onDragStart={dragHandler}
-        onKeyDown={(e) => e.key === "e" && e.preventDefault()}
+      <InputWithHandle
+        data={data}
+        blockId={id}
+        handleId="param__a"
+        inputName="a"
       />
       <h4>{label}</h4>
-      <input
-        onChange={changeHandlerB}
-        className={`nodrag ${preventB ? classes.preventInput : ""}`}
-        type="number"
-        value={preventB ? "" : data.values.b}
-        onDragStart={dragHandler}
-        onKeyDown={(e) => e.key === "e" && e.preventDefault()}
+      <InputWithHandle
+        data={data}
+        blockId={id}
+        handleId="param__b"
+        inputName="b"
       />
       <CustomHandle
         type="source"
@@ -160,18 +144,9 @@ export const NodeOperatorGeneral = memo(
     data = { values: { a: 1, b: 2, operator: "+" }, connections: [] },
     isConnectable,
   }) => {
-    const changeHandlerA = (event) => {
-      data.callBack({ ...data.values, a: event.target.value }, id);
-    };
-    const changeHandlerB = (event) => {
-      data.callBack({ ...data.values, b: event.target.value }, id);
-    };
     const changeHandlerOperator = (event) => {
       data.callBack({ ...data.values, operator: event.target.value }, id);
     };
-
-    const preventA = data.connections.includes("param__a");
-    const preventB = data.connections.includes("param__b");
 
     return (
       <div
@@ -193,11 +168,11 @@ export const NodeOperatorGeneral = memo(
           isConnectable={isConnectable}
           connections={data.connections}
         />
-        <input
-          className={`nodrag ${preventA ? classes.preventInput : ""}`}
-          onChange={changeHandlerA}
-          type="number"
-          value={preventA ? "" : data.values.a}
+        <InputWithHandle
+          data={data}
+          blockId={id}
+          handleId="param__a"
+          inputName="a"
         />
         <select
           name={`${data.id}_operator`}
@@ -213,11 +188,11 @@ export const NodeOperatorGeneral = memo(
             )
           )}
         </select>
-        <input
-          className={`nodrag ${preventB ? classes.preventInput : ""}`}
-          onChange={changeHandlerB}
-          type="number"
-          value={preventB ? "" : data.values.b}
+        <InputWithHandle
+          data={data}
+          blockId={id}
+          handleId="param__b"
+          inputName="b"
         />
         <CustomHandle
           type="source"
