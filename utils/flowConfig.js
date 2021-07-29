@@ -260,5 +260,11 @@ export const tooltips = {
     <ExecutionType />,
     "Delays the code from running for a certain number of seconds",
   ],
-  print: "Prints the input to the console",
+  print: [
+    <>
+      <ExecutionType /> <FloatType />
+    </>,
+    <ExecutionType />,
+    "Prints the input to the console",
+  ],
 };

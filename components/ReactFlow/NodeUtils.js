@@ -27,13 +27,13 @@ const NodeUtils = ({
       <InputWithHandle
         data={data}
         blockId={id}
-        handleId="param__a"
+        handleId="float__a"
         inputName="a"
       />
       <CustomHandle
         type="target"
         position="top"
-        id="param__a"
+        id="float__a"
         style={{ left: "auto", right: "32px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data.connections}
