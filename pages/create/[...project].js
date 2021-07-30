@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import useUnity from "/hooks/useUnity";
+import LoadingScreen from "../../components/UI/Loading";
 
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Game from "/components/Game";
@@ -23,7 +24,7 @@ const DUMMY_QUERY = {
   },
 };
 
-const Create = () => {
+const Create = ({ setLoaded }) => {
   const router = useRouter();
   const [project, setProject] = useState({ stacked: true });
   const [unityContext, sensorData, gameState, resetScene] = useUnity({
@@ -36,6 +37,14 @@ const Create = () => {
       setProject(DUMMY_QUERY[router.query.project[0]]);
     }
   }, [router.query]);
+
+  useEffect(() => {
+    if (gameState) {
+      setTimeout(() => {
+        setLoaded(true);
+      }, [1000]);
+    }
+  }, [gameState]);
 
   return (
     <div className={classes.create}>
