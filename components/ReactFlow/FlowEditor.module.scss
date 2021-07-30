@@ -123,3 +123,33 @@
   margin: 0;
   letter-spacing: 0.1em;
 }
+
+.paneBorder {
+  position: absolute;
+  z-index: 5;
+  background: red;
+}
+
+.borderTop,
+.borderBottom {
+  width: 100%;
+  height: 16px;
+}
+
+.borderLeft,
+.borderRight {
+  width: 16px;
+  height: 100%;
+}
+
+.borderTop,
+.borderLeft {
+  top: 0;
+  left: 0;
+}
+
+.borderBottom,
+.borderRight {
+  bottom: 0;
+  right: 0;
+}

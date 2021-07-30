@@ -12,10 +12,11 @@ const messages = [
   "`format var ${foo}`",
   "JARVIS, you up?",
   "Never gona give you up",
+  "Like, comment, subscribe, share, follow, react",
 ];
 
 const LoadingScreen = () => {
-  const [i, setI] = useState(Math.floor(Math.random() * messages.length));
+  const [i, setI] = useState(0);
 
   useEffect(() => {
     const int = setInterval(() => {
@@ -85,7 +86,7 @@ const LoadingScreen = () => {
           </svg>
         </div>
       </div>
-      <p className={classes.caption}>{messages[i]}</p>
+      <p className={classes.caption}>{i ? messages[i] : "Loading ..."}</p>
     </div>
   );
 };

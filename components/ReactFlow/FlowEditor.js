@@ -50,11 +50,10 @@ let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 const FlowEditor = (props) => {
+  const wrapperRef = useRef(null);
   const consoleCtx = useContext(ConsoleContext);
   const miniHoverCtx = useContext(MiniHoverContext);
-  const wrapperRef = useRef(null);
-  const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
-  const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const [reactFlowInstance, setReactFlowInstance] = useState({});
   const [actionStack, setActionStack] = useState({
     stack: [],
     currentIndex: -1,
@@ -62,10 +61,6 @@ const FlowEditor = (props) => {
   const [systemAction, setSystemAction] = useState(false);
   const [clipBoard, setClipBoard] = useState();
   const [flowLocked, setFlowLocked] = useState(false);
-  const setSelectedElements = useStoreActions(
-    (actions) => actions.setSelectedElements
-  );
-  const selectedElements = useStoreState((store) => store.selectedElements);
   const [nodeCtxMenu, setNodeCtxMenu] = useState({
     show: false,
     x: 0,
@@ -77,6 +72,13 @@ const FlowEditor = (props) => {
     x: 0,
     y: 0,
   });
+  const [edgeMove, setEdgeMove] = useState(false);
+  const { zoomIn, zoomOut, setCenter } = useZoomPanHelper();
+  const setSelectedElements = useStoreActions(
+    (actions) => actions.setSelectedElements
+  );
+  const selectedElements = useStoreState((store) => store.selectedElements);
+  const [x, y, zoom] = useStoreState((state) => state.transform);
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
@@ -105,6 +107,26 @@ const FlowEditor = (props) => {
       }));
     }
   }, [clipBoard]);
+
+  useEffect(() => {
+    if (edgeMove.move) {
+      let dx = 0;
+      let dy = 0;
+      if (edgeMove.up) {
+        dy = 4;
+      } else if (edgeMove.down) {
+        dy = -4;
+      }
+      if (edgeMove.left) {
+        dx = 4;
+      } else if (edgeMove.right) {
+        dx = -4;
+      }
+      setTimeout(() => {
+        reactFlowInstance.setTransform({ x: x + dx, y: y + dy, zoom: zoom });
+      }, [1]);
+    }
+  }, [edgeMove, reactFlowInstance.setTransform, x, y]);
 
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
@@ -477,7 +499,35 @@ const FlowEditor = (props) => {
     }
   };
 
-  const nodeDragStopHandler = (_, node) => {
+  const nodeDragHandler = (e, node) => {
+    let newState = {
+      move: false,
+      up: false,
+      down: false,
+      left: false,
+      right: false,
+    };
+    const editorTop = wrapperRef.current.getBoundingClientRect().top;
+    const editorLeft = wrapperRef.current.getBoundingClientRect().left;
+    if (e.clientY < editorTop + 16) {
+      newState.move = true;
+      newState.up = true;
+    } else if (e.clientY > editorTop + wrapperRef.current.offsetHeight - 16) {
+      newState.move = true;
+      newState.down = true;
+    }
+    if (e.clientX < editorLeft + 16) {
+      newState.move = true;
+      newState.left = true;
+    } else if (e.clientX > editorLeft + wrapperRef.current.offsetWidth - 16) {
+      newState.move = true;
+      newState.right = true;
+    }
+    setEdgeMove(newState);
+  };
+
+  const nodeDragStopHandler = (e, node) => {
+    setEdgeMove({ move: false });
     props.setElements((els) =>
       els.map((el) => (el.id === node.id ? node : el))
     );
@@ -553,6 +603,7 @@ const FlowEditor = (props) => {
           onConnect={onConnect}
           onEdgeUpdate={onEdgeUpdate}
           onElementsRemove={onElementsRemove}
+          onNodeDrag={nodeDragHandler}
           onNodeDragStop={nodeDragStopHandler}
           onEdgeUpdateEnd={edgeUpdateEndHandler}
           onSelectionDragStop={selectionDragStopHandler}
