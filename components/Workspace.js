@@ -445,13 +445,11 @@ const Workspace = (props) => {
     clearTimeout(com);
     com = 0;
     const [code, dispCode] = compileCode();
-    let functionExecute = async (x) => {
-      console.log(x);
-      x++;
+    let functionExecute = async () => {
       await executeCode(code,false);
-      com=setTimeout(functionExecute, 10,x);
+      com=setTimeout(functionExecute, 10);
     }
-    functionExecute(0);
+    functionExecute();
     setVisualBell((state) => ({
       message: "Code is now running",
       switch: !state.switch,
