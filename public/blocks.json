@@ -19,32 +19,27 @@
     "robot": "Arm",
     "type": "specific",
     "name": "move",
-    "function": {
-      "name": "move",
-      "inputs": [
-        { "variable": "x", "type": "number", "value": 0 },
-        { "variable": "y", "type": "number", "value": 0 },
-        { "variable": "z", "type": "number", "value": 0 }
-      ],
-      "logic": "// The function below is made to move the arm to a new location. First, we will find the angles each of the joints should have to reach this point. We will send these positions to the motors, which will try to reach them. Next, we will wait untill the arm has actually reached by checking if each of the joints has reached to the correct angle.\n//Use inverse kinematics to find the angles required by each joint. This would return false if position is unreachable and angles if it is.\nconst TargetAngles = actions.InverseKinematics(x, y, z);\n//If TargetAngles is an array then we will change the target angle of each servo\nif (TargetAngles) {\n\tfor (let i = 0; i < noOfJoints; i++) {\n\t\tJoints[i].SetAngle(TargetAngles[i]);\n\t}\n}\n// set the interval to run every 1000 seconds (1s)\nconst rate = 1000;\n//Every second we will check if the motors of the robotic arm have reached their required angle and once we reach we will advance to next step\ninterval = setInterval(() => {\n\t//Create a variable with the name Reached. We will assume that the arm has reached its location unless we find otherwise in the loop following\n\tlet Reached = true;\n\t//Now, we will go through each of the joints and check the difference between the angle we want to reach to and the actual angle of each joint. If the difference is more than 5 degrees the value of Reached is set to false and the loop is broken\n\tfor (let i = 0; i < noOfJoints; i++) {\n\t\tconst error = Math.abs(TargetAngles[i] - sensorData.jointData[i].angle);\n\t\tif (error > 5) {\n\t\t\tReached = false;\n\t\t\tbreak;\n\t\t}\n\t}\n\t// If the error in each of the joints is less than 5, then value of Reached will stay as positive and the interval is deleted and the code is allowed to progress to the next function\n\tif (Reached) {\n\t\tclearInterval(interval);\n\t\tresolve();\n\t}\n}, rate);//setting the rate of the interval running\n"
-    }
+    "inputs": [
+      { "variable": "x", "type": "number", "value": 0 },
+      { "variable": "y", "type": "number", "value": 0 },
+      { "variable": "z", "type": "number", "value": 0 }
+    ],
+    "logic": "// The function below is made to move the arm to a new location. First, we will find the angles each of the joints should have to reach this point. We will send these positions to the motors, which will try to reach them. Next, we will wait untill the arm has actually reached by checking if each of the joints has reached to the correct angle.\n//Use inverse kinematics to find the angles required by each joint. This would return false if position is unreachable and angles if it is.\nconst TargetAngles = actions.InverseKinematics(x, y, z);\n//If TargetAngles is an array then we will change the target angle of each servo\nif (TargetAngles) {\n\tfor (let i = 0; i < noOfJoints; i++) {\n\t\tJoints[i].SetAngle(TargetAngles[i]);\n\t}\n}\n// set the interval to run every 1000 seconds (1s)\nconst rate = 1000;\n//Every second we will check if the motors of the robotic arm have reached their required angle and once we reach we will advance to next step\ninterval = setInterval(() => {\n\t//Create a variable with the name Reached. We will assume that the arm has reached its location unless we find otherwise in the loop following\n\tlet Reached = true;\n\t//Now, we will go through each of the joints and check the difference between the angle we want to reach to and the actual angle of each joint. If the difference is more than 5 degrees the value of Reached is set to false and the loop is broken\n\tfor (let i = 0; i < noOfJoints; i++) {\n\t\tconst error = Math.abs(TargetAngles[i] - sensorData.jointData[i].angle);\n\t\tif (error > 5) {\n\t\t\tReached = false;\n\t\t\tbreak;\n\t\t}\n\t}\n\t// If the error in each of the joints is less than 5, then value of Reached will stay as positive and the interval is deleted and the code is allowed to progress to the next function\n\tif (Reached) {\n\t\tclearInterval(interval);\n\t\tresolve();\n\t}\n}, rate);//setting the rate of the interval running\n"
+    
   },
   {
     "robot": "Arm",
     "type": "specific",
     "name": "gravity",
-    "function": {
-      "name": "gravity",
-      "inputs": [{ "variable": "isOn", "type": "boolean", "value": true }],
-      "logic": "if(isOn){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nresolve();\n"
-    }
+    "inputs": [{ "variable": "isOn", "type": "boolean", "value": true }],
+    "logic": "if(isOn){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nresolve();\n"
+    
   },
   {
     "robot": "Arm",
     "type": "end",
     "logic": [],
     "executes": [],
-
     "simpleLogic":"",
     "simpleExecutes":""
   },
@@ -55,6 +50,11 @@
     "executes": "}",
     "simpleLogic":"",
     "simpleExecutes":"}"
-
+  },{
+    "name": "delay",
+    "type": "specific",
+    "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+    "logic": "setTimeout(resolve, a*1000);",
+    "executes": "}"
   }
 ]

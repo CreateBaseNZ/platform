@@ -63,7 +63,7 @@ const FlowEditor = (props) => {
     (actions) => actions.setSelectedElements
   );
 
-  console.log(props.elements);
+  //console.log(props.elements);
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;

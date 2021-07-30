@@ -124,7 +124,6 @@ export class CodeGenerator {
         return true;
       }
     }
-    console.log("Incorrect Sign!");
     return false;
   }
 
@@ -133,7 +132,6 @@ export class CodeGenerator {
     const spaces = varName.includes(" ");
     const numberStart = varName[0] < "A" || varName[0] > "z";
     if (numberStart || spaces) {
-      console.log("Invalid Variable Name");
       return false;
     }
     //Checks if variable created
@@ -142,8 +140,6 @@ export class CodeGenerator {
         return true;
       }
     }
-
-    console.log("Unintialized Variable");
     return false;
   }
 
@@ -241,8 +237,7 @@ export class CodeGenerator {
     const blockFunction = this.blockFunctions.find((element) => {
       if (element.type === "specific") {
         return (
-          element.function.name === blockDetail.name &&
-          element.robot === blockDetail.robot
+          element.name === blockDetail.name &&(element.robot==undefined||element.robot === blockDetail.robot)
         );
       } else {
         return false;
@@ -251,14 +246,14 @@ export class CodeGenerator {
     // Build input
     let inputVariables: string = "";
     let inputs: string = "";
-    if (blockFunction.function.inputs) {
-      for (let i = 0; i < blockFunction.function.inputs.length; i++) {
-        const element = blockFunction.function.inputs[i];
+    if (!blockFunction) {return [false, "error", "Function does not exist"];}
+    if (blockFunction.inputs) {
+      for (let i = 0; i < blockFunction.inputs.length; i++) {
+        const element = blockFunction.inputs[i];
         let currentInput = String(blockDetail.value[element.variable]).trim();
         if (!this.checkVariable(currentInput)) {
           if (element.type == "number")
             if (!this.isNumber(currentInput)) {
-              console.log("Can't be used");
               return [
                 false,
                 "error",
@@ -274,7 +269,7 @@ export class CodeGenerator {
             "Input to one of blocks is not a Boolean or Number",
           ];
         }
-        if (i === blockFunction.function.inputs.length - 1) {
+        if (i === blockFunction.inputs.length - 1) {
           inputVariables += element.variable;
           inputs += currentInput;
         } else {
@@ -282,10 +277,8 @@ export class CodeGenerator {
           inputs += currentInput + ", ";
         }
       }
-    } else {
-      return [false, "error", "Function does not exist"];
     }
-    const elementOut = blockFunction.function.output;
+    const elementOut = blockFunction.output;
     let output: any;
     output = "";
     if (elementOut) {
@@ -294,14 +287,14 @@ export class CodeGenerator {
       );
     }
     // Function name
-    const functionName = blockFunction.function.name;
+    const functionName = blockFunction.name;
     const added = this.addFunction(functionName);
     //const functionName = blockFunction.function.name + String(this.increment);
     this.increment++;
     // Build function
     const func = `let ${functionName} = (${inputVariables}) => {
       return new Promise((resolve, reject) => {
-        ${blockFunction.function.logic}
+        ${blockFunction.logic}
       });
     }\n\n
     `;
@@ -380,7 +373,6 @@ export class CodeGenerator {
     let currentInput = String(blockDetail.value.value).trim();
     if (!this.isNumber(currentInput)) {
       if (!this.checkVariable(currentInput) && !this.isBool(currentInput)) {
-        console.log("Can't be used");
         return [
           false,
           "error",
@@ -453,11 +445,35 @@ export class CodeGenerator {
       return false;
     }
   }
+
+
+  private delay(blockDetail) {
+    if (blockDetail.value) {
+      const delayTime = String(blockDetail.value.a);
+      console.log(delayTime);
+      if (this.checkVariable(delayTime) || this.isNumber(delayTime)) {
+        const added = this.addFunction("delay");
+        const functionName = "delay";
+        const functionImplemt = `const delay = (seconds) => {\nconst startTime=new Date().getTime();\nlet timeDone=false;\nwhile(!timeDone){\nif ((new Date().getTime() - startTime) > seconds*1000){\nbreak;\n}\n}\n}\n`;
+        if (added) {
+          this.content += functionImplemt;
+        }
+        let str = `await delay(${delayTime});`;
+        this.simpleExecutes.push(str);
+        this.executes.push(str);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   private printMessage(blockDetail,printNum) {
     if (blockDetail.value) {
       printNum++;
       const input = String(blockDetail.value.a);
-      console.log(input);
       let str, simpleStr;
       if (this.checkVariable(input)) {
         str = `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
@@ -470,7 +486,7 @@ export class CodeGenerator {
         return [false,printNum];
 
       }
-      this.simpleExecutes.push(simpleStr);
+      this.simpleExecutes.push(str);
       this.executes.push(str);
       return [true,printNum];
     } else {
@@ -479,13 +495,13 @@ export class CodeGenerator {
   }
 
   private run() {
-    this.execute = "const run = async () => {\n";
+    this.execute = "";
     for (let i = 0; i < this.executes.length; i++) {
       this.simpleExecute += this.simpleExecutes[i] + "\n";
       const element = this.executes[i];
       this.execute += "\t" + element + "\n";
     }
-    this.execute += "};\nrun();";
+    this.execute += "";
   }
 
   public build(blockDetails: Array<any> = []) {
@@ -545,12 +561,16 @@ export class CodeGenerator {
           state = this.readSensors(element);
           break;
         case "print":
-          [state,printNum] = this.printMessage(element,printNum);
+          [state, printNum] = this.printMessage(element, printNum);
+          break;
+        case "delay":
+          state = this.delay(element);
           break;
         default:
           break;
       }
       if (!state) {
+        console.log(i);
         return [
           "// Oops! An error occurred, please check the Console for more info",
           type,
@@ -561,7 +581,7 @@ export class CodeGenerator {
     }
 
     this.run();
-    const runCode = this.intialiseVar() + this.content + this.execute;
+    const runCode = this.intialiseVar() + this.content + this.execute+"\nresolve(' ');";
     const simple = this.intialiseVar() + this.simpleContent + this.simpleExecute;
     return [runCode, null, null,simple];
   }

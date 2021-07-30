@@ -68,7 +68,6 @@ const determineType = (block, currentNode) => {
     case "repeat":
     case "operatorGeneral":
     case "print":
-    case "delay":
       block.name = currentNode.type;
       break;
     case "add":
@@ -427,19 +426,32 @@ const Workspace = (props) => {
     setActiveTab(tab);
   };
 
-  const executeCode = (text) => {
-    const sensorData = sensorDataRef.current;
-    const unityContext = props.unityContext;
-    eval(text);
+  const executeCode =  (text,codeChange) => {
+    return new Promise((resolve, reject) => {
+      const sensorData = sensorDataRef.current;
+      const unityContext = props.unityContext;
+      eval("(async () => {" + text + "})()");
+      if (codeChanged) {
+        codeChanged = false;
+        resolve('');
+      }
+    })
   };
+  
+  let codeChanged = false;
 
-  const compileHandler = () => {
-    clearInterval(com);
+  const compileHandler = async () => {
+    codeChanged = true;
+    clearTimeout(com);
     com = 0;
     const [code, dispCode] = compileCode();
-    com = setInterval(() => {
-      executeCode(code);
-    }, 10);
+    let functionExecute = async (x) => {
+      console.log(x);
+      x++;
+      await executeCode(code,false);
+      com=setTimeout(functionExecute, 10,x);
+    }
+    functionExecute(0);
     setVisualBell((state) => ({
       message: "Code is now running",
       switch: !state.switch,
