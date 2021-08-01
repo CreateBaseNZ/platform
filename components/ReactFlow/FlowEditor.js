@@ -47,6 +47,7 @@ import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
 import ConsoleContext from "../../store/console-context";
 
 import ClientOnlyPortal from "../UI/ClientOnlyPortal";
+import VisualBell from "./VisualBell";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -281,7 +282,7 @@ const FlowEditor = (props) => {
           newNode.position.x += dx;
           newNode.position.y += dy;
 
-          return props.setElements((els) =>
+          props.setElements((els) =>
             els
               .map((_el) =>
                 _el.id === event.target.dataset.nodeid
@@ -308,6 +309,11 @@ const FlowEditor = (props) => {
                 })
               )
           );
+
+          return props.setVisualBell((state) => ({
+            message: "Blocks autoconnected",
+            switch: !state.switch,
+          }));
         }
       }
     }
@@ -693,7 +699,7 @@ const FlowEditor = (props) => {
           </div>
         )}
         {props.visualBell.message && (
-          <div className={classes.visualBell}>{props.visualBell.message}</div>
+          <VisualBell message={props.visualBell.message} />
         )}
       </div>
       <ClientOnlyPortal selector="#ctx-menu-root">
