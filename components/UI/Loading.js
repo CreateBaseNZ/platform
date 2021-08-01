@@ -15,6 +15,8 @@ const messages = [
     Never gona give you up
   </a>,
   "Like, comment, subscribe, share, follow, react",
+  "Cluck cluck go",
+  "Creaft",
 ];
 
 const LoadingScreen = () => {

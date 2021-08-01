@@ -27,6 +27,7 @@ import {
 import {
   flashLockIcon,
   getDefaultValues,
+  getHandleObject,
   getNearestGridPosition,
   infoLogs,
   newConnection,
@@ -83,6 +84,8 @@ const FlowEditor = (props) => {
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
+
+  console.log(props.elements);
 
   useEffect(() => {
     if (!systemAction) {
@@ -182,26 +185,7 @@ const FlowEditor = (props) => {
 
   const onConnect = useCallback((params) => {
     // styling new edge
-    let newEdge;
-    const handleType = params.sourceHandle.split("__")[0];
-    if (handleType === "execution") {
-      newEdge = {
-        ...params,
-        type: "execution",
-        animated: true,
-        arrowHeadType: "arrowclosed",
-      };
-    } else if (handleType === "boolean") {
-      newEdge = {
-        ...params,
-        type: "boolean",
-      };
-    } else if (handleType === "float") {
-      newEdge = {
-        ...params,
-        type: "float",
-      };
-    }
+    const newEdge = getHandleObject(params.sourceHandle.split("__")[0], params);
     props.setElements((els) => newConnection(addEdge(newEdge, els), params));
   }, []);
 
@@ -224,7 +208,7 @@ const FlowEditor = (props) => {
 
   // dropping
   const onDrop = (event) => {
-    console.log(event);
+    console.log(event.target.classList);
     event.preventDefault();
     if (flowLocked) {
       flashLockIcon();
@@ -265,25 +249,69 @@ const FlowEditor = (props) => {
         },
       },
     };
-    // if (event.target.classList.contains("react-flow__handle")) {
-    //   if (event.target.classList.contains("connectable")) {
-    //     const handles = nodeTypeHandles[type];
-    //     const [targetType, targetDir] = event.target.dataset.handeleid
-    //       .split("__")
-    //       .slice(0, 2);
-    //     for (h in handles) {
-    //       if (
-    //         h.split("__")[0] === targetType &&
-    //         h.split("__")[1] !== targetDir
-    //       ) {
-    //         break;
-    //       }
-    //     }
-    //     console.log(handles);
-    //     console.log(event.target.dataset.handeleid);
-    //   }
-    // }
-    props.setElements((es) => es.concat(newNode));
+    if (
+      event.target.classList.contains("react-flow__handle") &&
+      event.target.classList.contains("connectable")
+    ) {
+      const handles = nodeTypeHandles[type];
+      const [droppedHandleType, droppedHandleDir] =
+        event.target.dataset.handleid.split("__").slice(0, 2);
+      for (const h of handles) {
+        if (
+          h.split("__")[0] === droppedHandleType &&
+          h.split("__")[1] !== droppedHandleDir
+        ) {
+          let sourceId, targetId, sourceHandle, targetHandle, dx, dy;
+          if (droppedHandleDir === "in") {
+            targetId = event.target.dataset.nodeid;
+            targetHandle = event.target.dataset.handleid;
+            sourceId = id;
+            sourceHandle = h;
+            dx = -176;
+            dy = -80;
+          } else {
+            targetId = id;
+            targetHandle = h;
+            sourceId = event.target.dataset.nodeid;
+            sourceHandle = event.target.dataset.handleid;
+            dx = 32;
+            dy = 16;
+          }
+          newNode.data.connections.push(h);
+          newNode.position.x += dx;
+          newNode.position.y += dy;
+
+          return props.setElements((els) =>
+            els
+              .map((_el) =>
+                _el.id === event.target.dataset.nodeid
+                  ? {
+                      ..._el,
+                      data: {
+                        ..._el.data,
+                        connections: _el.data.connections.concat(
+                          event.target.dataset.handleid
+                        ),
+                      },
+                    }
+                  : _el
+              )
+              .concat(newNode)
+              .concat(
+                getHandleObject(droppedHandleType, {
+                  id: `reactflow__edge-${sourceId}${sourceHandle}-${targetId}${targetHandle}`,
+                  source: sourceId,
+                  sourceHandle: sourceHandle,
+                  target: targetId,
+                  targetHandle: targetHandle,
+                  type: droppedHandleType,
+                })
+              )
+          );
+        }
+      }
+    }
+    props.setElements((els) => els.concat(newNode));
   };
 
   const copySelection = (selection) => {

@@ -13,7 +13,7 @@ const NodeLogicals = ({ label, data, className = "", isConnectable }) => {
       <CustomHandle
         type="target"
         position="top"
-        id="boolean__a"
+        id="boolean__in__a"
         style={{ left: "34px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -23,7 +23,7 @@ const NodeLogicals = ({ label, data, className = "", isConnectable }) => {
       <CustomHandle
         type="target"
         position="top"
-        id="boolean__b"
+        id="boolean__in__b"
         style={{ left: "auto", right: "34px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}

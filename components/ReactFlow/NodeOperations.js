@@ -19,7 +19,7 @@ const NodeOperations = ({
       <CustomHandle
         type="target"
         position="top"
-        id="float__a"
+        id="float__in__a"
         style={{ left: "30px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data.connections}
@@ -27,7 +27,7 @@ const NodeOperations = ({
       <CustomHandle
         type="target"
         position="top"
-        id="float__b"
+        id="float__in__b"
         style={{ left: "auto", right: "34px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data.connections}
@@ -35,14 +35,14 @@ const NodeOperations = ({
       <InputWithHandle
         data={data}
         blockId={id}
-        handleId="float__a"
+        handleId="float__in__a"
         inputName="a"
       />
       <h4>{label}</h4>
       <InputWithHandle
         data={data}
         blockId={id}
-        handleId="float__b"
+        handleId="float__in__b"
         inputName="b"
       />
       <CustomHandle
@@ -114,7 +114,7 @@ export const NodeOperatorGeneral = memo(
         <CustomHandle
           type="target"
           position="top"
-          id="float__a"
+          id="float__in__a"
           style={{ left: "30px", transform: "none" }}
           isConnectable={isConnectable}
           connections={data.connections}
@@ -122,7 +122,7 @@ export const NodeOperatorGeneral = memo(
         <CustomHandle
           type="target"
           position="top"
-          id="float__b"
+          id="float__in__b"
           style={{ left: "auto", right: "30px", transform: "none" }}
           isConnectable={isConnectable}
           connections={data.connections}
@@ -130,7 +130,7 @@ export const NodeOperatorGeneral = memo(
         <InputWithHandle
           data={data}
           blockId={id}
-          handleId="float__a"
+          handleId="float__in__a"
           inputName="a"
         />
         <select
@@ -150,7 +150,7 @@ export const NodeOperatorGeneral = memo(
         <InputWithHandle
           data={data}
           blockId={id}
-          handleId="float__b"
+          handleId="float__in__b"
           inputName="b"
         />
         <CustomHandle

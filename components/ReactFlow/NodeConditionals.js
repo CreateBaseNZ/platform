@@ -20,7 +20,7 @@ export const NodeIf = ({ data, isConnectable }) => {
       <CustomHandle
         type="target"
         position="top"
-        id="boolean__condition"
+        id="boolean__in__condition"
         style={{ left: "52px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -37,7 +37,7 @@ export const NodeIf = ({ data, isConnectable }) => {
       <CustomHandle
         type="source"
         position="right"
-        id="execution__0"
+        id="execution__out__0"
         style={{ top: 16, transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -45,7 +45,7 @@ export const NodeIf = ({ data, isConnectable }) => {
       <CustomHandle
         type="source"
         position="right"
-        id="execution__1"
+        id="execution__out__1"
         style={{ top: 50, transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -53,7 +53,7 @@ export const NodeIf = ({ data, isConnectable }) => {
       <CustomHandle
         type="source"
         position="right"
-        id="execution__2"
+        id="execution__out__2"
         style={{ bottom: 16, top: "auto", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -82,13 +82,13 @@ export const NodeRepeat = ({
       <InputWithHandle
         data={data}
         blockId={id}
-        handleId={"param__condition"}
+        handleId="float__in__condition"
         inputName="condition"
       />
       <CustomHandle
         type="target"
         position="top"
-        id="float__condition"
+        id="float__in__condition"
         style={{ left: "91px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -102,7 +102,7 @@ export const NodeRepeat = ({
       <CustomHandle
         type="source"
         position="right"
-        id="execution__0"
+        id="execution__out__0"
         style={{ top: 16, transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -110,7 +110,7 @@ export const NodeRepeat = ({
       <CustomHandle
         type="source"
         position="right"
-        id="execution__1"
+        id="execution__out__1"
         style={{ bottom: 16, top: "auto", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -136,7 +136,7 @@ export const NodeWhile = ({ data, isConnectable }) => {
       <CustomHandle
         type="target"
         position="top"
-        id="boolean__condition"
+        id="boolean__in__condition"
         style={{ left: "86px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -150,7 +150,7 @@ export const NodeWhile = ({ data, isConnectable }) => {
       <CustomHandle
         type="source"
         position="right"
-        id="execution__0"
+        id="execution__out__0"
         style={{ top: 16, transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
@@ -158,7 +158,7 @@ export const NodeWhile = ({ data, isConnectable }) => {
       <CustomHandle
         type="source"
         position="right"
-        id="execution__1"
+        id="execution__out__1"
         style={{ bottom: 16, top: "auto", transform: "none" }}
         isConnectable={isConnectable}
         connections={data ? data.connections : []}

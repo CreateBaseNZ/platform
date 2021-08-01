@@ -44,10 +44,34 @@ export const getDefaultValues = (type) => {
   return {};
 };
 
+export const getHandleObject = (type, params) => {
+  if (type === "execution") {
+    return {
+      ...params,
+      type: "execution",
+      animated: true,
+      arrowHeadType: "arrowclosed",
+    };
+  }
+  if (type === "boolean") {
+    return {
+      ...params,
+      type: "boolean",
+    };
+  }
+  if (type === "float") {
+    return {
+      ...params,
+      type: "float",
+    };
+  }
+};
+
 const sensingHandles = ["float__out"];
 const actionHandles = ["execution__in", "execution__out"];
 const operatorHandles = ["float__in__a", "float__in__b", "float__out"];
 const comparisonHandles = ["float__in__a", "float__in__b", "boolean__out"];
+const logicalHandles = ["boolean__in__a", "boolean__in__b", "boolean__out"];
 
 export const nodeTypeHandles = {
   distance: sensingHandles,
@@ -64,6 +88,8 @@ export const nodeTypeHandles = {
   greaterThan: comparisonHandles,
   lessThan: comparisonHandles,
   notEquals: comparisonHandles,
+  and: logicalHandles,
+  or: logicalHandles,
   if: [
     "execution__in",
     "boolean__in__condition",
