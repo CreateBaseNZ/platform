@@ -1,9 +1,10 @@
 import BugReportIcon from "@material-ui/icons/BugReport";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
-import { useContext, memo, useState } from "react";
+import { useContext, memo, useState, useEffect, useRef } from "react";
 import ConsoleContext from "../store/console-context";
-import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
+import DeleteSweepOutlinedIcon from "@material-ui/icons/DeleteSweepOutlined";
 import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
+import Brightness2OutlinedIcon from "@material-ui/icons/Brightness2Outlined";
 
 import classes from "./Console.module.scss";
 
@@ -38,12 +39,29 @@ const Warning = memo((props) => {
 let key = 0;
 
 const Console = (props) => {
+  const ref = useRef();
   const ctx = useContext(ConsoleContext);
   const [darkMode, setDarkMode] = useState(true);
 
+  useEffect(() => {
+    const storage = localStorage.getItem("createbase__console-mode");
+    if (storage !== null) {
+      setDarkMode(JSON.parse(storage));
+    } else {
+      localStorage.setItem("createbase__console-mode", true);
+    }
+  }, []);
+
   const darkModeHandler = () => {
-    setDarkMode((state) => !state);
+    setDarkMode((state) => {
+      localStorage.setItem("createbase__console-mode", !state);
+      return !state;
+    });
   };
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [ctx.logs]);
 
   let warningCount = 0;
   let errorCount = 0;
@@ -74,6 +92,7 @@ const Console = (props) => {
           if (log.type === "error")
             return <Error key={key++} message={log.message} time={log.time} />;
         })}
+        <div ref={ref} />
       </div>
       <div className={classes.controls}>
         {warningCount > 0 && (
@@ -101,14 +120,14 @@ const Console = (props) => {
             darkMode ? classes.toLight : classes.toDark
           }`}
         >
-          <WbSunnyOutlinedIcon />
+          {darkMode ? <WbSunnyOutlinedIcon /> : <Brightness2OutlinedIcon />}
         </button>
         <button
           className={classes.clearConsole}
           title="Clear Console"
           onClick={ctx.clearLogs}
         >
-          <DeleteSweepIcon />
+          <DeleteSweepOutlinedIcon />
         </button>
       </div>
     </div>
