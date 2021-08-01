@@ -44,6 +44,49 @@ export const getDefaultValues = (type) => {
   return {};
 };
 
+const sensingHandles = ["float__out"];
+const actionHandles = ["execution__in", "execution__out"];
+const operatorHandles = ["float__in__a", "float__in__b", "float__out"];
+const comparisonHandles = ["float__in__a", "float__in__b", "boolean__out"];
+
+export const nodeTypeHandles = {
+  distance: sensingHandles,
+  speedOf: sensingHandles,
+  heightOf: sensingHandles,
+  widthOf: sensingHandles,
+  elevationOf: sensingHandles,
+  jump: actionHandles,
+  crouch: actionHandles,
+  add: operatorHandles,
+  subtract: operatorHandles,
+  multiply: operatorHandles,
+  divide: operatorHandles,
+  greaterThan: comparisonHandles,
+  lessThan: comparisonHandles,
+  notEquals: comparisonHandles,
+  if: [
+    "execution__in",
+    "boolean__in__condition",
+    "execution__out__0",
+    "execution__out__1",
+    "execution__out__2",
+  ],
+  repeat: [
+    "exeuction__in",
+    "float__in__condition",
+    "execution__out__0",
+    "execution__out__1",
+  ],
+  while: [
+    "execution__in",
+    "boolean__in__condition",
+    "execution__out__0",
+    "execution__out__1",
+  ],
+  delay: ["execution__in", "float__in__a", "execution__out"],
+  print: ["execution__in", "float__in__a", "execution__out"],
+};
+
 export const infoLogs = [
   "To start coding with Flow, drag and drop one of the blocks into the drop zone. You can add as many blocks as you like and rearrange them.",
   "Before you run your code, you will need to connect each of your blocks together in the order you want them to be run. To connect two blocks, drag from the output handle (solid square) of one block to the input handle (hollow square) of another to form a track.",

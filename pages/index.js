@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
@@ -14,8 +14,12 @@ import WhiteLogo, {
 
 import classes from "/styles/Index.module.scss";
 
-const Index = () => {
+const Index = ({ setLoaded }) => {
   const [showHelper, setShowHelper] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setLoaded(true), [500]);
+  }, []);
 
   const helperClickHandler = () => {
     setShowHelper((state) => !state);

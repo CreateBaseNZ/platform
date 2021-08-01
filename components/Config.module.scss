@@ -79,11 +79,11 @@
 
 .configEditorWrapper {
   position: sticky;
-  top: 2vh;
+  top: 0;
   pointer-events: none;
   flex: 0 0 auto;
   height: 300px;
-  width: calc(30vw);
+  width: 30vw;
   min-width: 450px;
   max-width: 500px;
   border-radius: 0.75rem;

@@ -11,7 +11,9 @@ const messages = [
   "Built different",
   "`format var ${foo}`",
   "JARVIS, you up?",
-  "Never gona give you up",
+  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+    Never gona give you up
+  </a>,
   "Like, comment, subscribe, share, follow, react",
 ];
 

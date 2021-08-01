@@ -30,6 +30,7 @@ import {
   getNearestGridPosition,
   infoLogs,
   newConnection,
+  nodeTypeHandles,
   removeConnection,
   saveAs,
   updateConnections,
@@ -223,6 +224,7 @@ const FlowEditor = (props) => {
 
   // dropping
   const onDrop = (event) => {
+    console.log(event);
     event.preventDefault();
     if (flowLocked) {
       flashLockIcon();
@@ -263,6 +265,24 @@ const FlowEditor = (props) => {
         },
       },
     };
+    // if (event.target.classList.contains("react-flow__handle")) {
+    //   if (event.target.classList.contains("connectable")) {
+    //     const handles = nodeTypeHandles[type];
+    //     const [targetType, targetDir] = event.target.dataset.handeleid
+    //       .split("__")
+    //       .slice(0, 2);
+    //     for (h in handles) {
+    //       if (
+    //         h.split("__")[0] === targetType &&
+    //         h.split("__")[1] !== targetDir
+    //       ) {
+    //         break;
+    //       }
+    //     }
+    //     console.log(handles);
+    //     console.log(event.target.dataset.handeleid);
+    //   }
+    // }
     props.setElements((es) => es.concat(newNode));
   };
 

@@ -22,7 +22,7 @@ const DUMMY_QUERY = {
   },
 };
 
-const Overview = (props) => {
+const Overview = ({ setLoaded }) => {
   const router = useRouter();
   const [project, setProject] = useState({});
   const [unlocked, setUnlocked] = useState({ define: {}, plan: {} });
@@ -50,6 +50,7 @@ const Overview = (props) => {
       create: true,
       improve: localStorage.getItem("run-it-down__improve-unlocked"),
     });
+    setTimeout(() => setLoaded(true), []);
   }, []);
 
   return (

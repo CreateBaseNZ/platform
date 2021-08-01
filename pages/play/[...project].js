@@ -15,7 +15,7 @@ const DUMMY_QUERY = {
   },
 };
 
-const Play = () => {
+const Play = ({ setLoaded }) => {
   const router = useRouter();
   const [project, setProject] = useState({});
   const [unityContext, sensorData, gameState, resetScene] = useUnity({
@@ -27,6 +27,10 @@ const Play = () => {
       setProject(DUMMY_QUERY[router.query.project[0]]);
     }
   }, [router.query]);
+
+  useEffect(() => {
+    setTimeout(() => setLoaded(true), [500]);
+  }, []);
 
   return (
     <div className={classes.play}>
