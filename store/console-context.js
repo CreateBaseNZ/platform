@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 
 const ConsoleContext = createContext({
   logs: [],
@@ -15,6 +15,15 @@ export default ConsoleContext;
 export const ConsoleContextProvider = (props) => {
   const [logs, setLogs] = useState([]);
   const [unreadStatus, setUnreadStatus] = useState("");
+
+  useEffect(() => {
+    addLog("yeap ");
+    addLog("yeap ");
+    addLog("yeap ");
+    addLog("yeap ");
+    // addWarning("wow so bad");
+    // addError("wow so bad");
+  }, []);
 
   const addLog = (message) => {
     setLogs((state) => [

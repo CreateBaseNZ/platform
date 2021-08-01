@@ -2,7 +2,6 @@
 
 .console {
   width: 100%;
-  background: #0f0f0f;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -17,41 +16,18 @@
   height: 100%;
   overflow-y: scroll;
   width: 100%;
-  &::-webkit-scrollbar {
-    width: 1rem;
-  }
-  &::-webkit-scrollbar-track {
-    background: #0a0a0a;
-    border-left: thin solid $darkest;
-    border-right: thin solid $darker;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    transition: background-color 0.2s ease-out;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.25);
-  }
-  &::-webkit-scrollbar-thumb:active {
-    background: rgba(255, 255, 255, 0.4);
-  }
   * {
     font-family: $jetbrains;
   }
-  & > div {
+  p {
     width: 100%;
     margin: -0.5px 0;
     display: flex;
-  }
-  p {
     width: 100%;
-    padding: 0.25rem 6rem 0.25rem 2.5rem;
+    padding: 0.4rem 6rem 0.4rem 2.5rem;
     font-size: 13px;
-    border-top: thin solid #2b2b2b;
-    border-bottom: thin solid #2b2b2b;
     position: relative;
     line-height: 1.25em;
-    color: #dadada;
     svg {
       position: absolute;
       top: 0.3rem;
@@ -59,26 +35,13 @@
     }
     &.error {
       z-index: 2;
-      border-color: #790a0a;
-      color: #f07c7c;
-      background: #280001;
-
-      path {
-        fill: #f07c7c;
-      }
     }
     &.warning {
       z-index: 1;
-      border-color: #66550d;
-      color: #f8d89e;
-      background: #332b03;
-      path {
-        fill: #f8d89e;
-      }
     }
     .time {
       position: absolute;
-      top: 0.3rem;
+      top: 0.4rem;
       right: 1rem;
       font-family: inherit;
       font-size: inherit;
@@ -99,7 +62,6 @@
   justify-content: flex-start;
   padding: 0.75rem 0;
   button {
-    margin-top: auto;
     justify-self: flex-end;
     padding: 0.4rem;
     opacity: 0.5;
@@ -108,22 +70,25 @@
     justify-content: center;
     transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
     path {
-      fill: $lightest;
       transition: fill 0.1s ease-out;
     }
     &:hover {
       opacity: 1;
-      background: $darker;
-      path {
-        fill: $red;
-      }
+    }
+  }
+  .modeToggler {
+    margin-top: auto;
+    margin-bottom: 1rem;
+  }
+  .clearConsole:hover {
+    path {
+      fill: $red;
     }
   }
   i {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $light;
     font-style: normal;
     padding: 0.4rem;
     svg {
@@ -132,8 +97,127 @@
   }
 }
 .warningIcon path {
-  fill: #f8b538;
+  fill: #f4bc2b;
 }
-.errorIcon path {
-  fill: #bd1d1d;
+
+.darkMode {
+  background: #0f0f0f;
+  .logArea {
+    &::-webkit-scrollbar {
+      width: 1rem;
+    }
+    &::-webkit-scrollbar-track {
+      background: #0a0a0a;
+      border-left: thin solid $darkest;
+      border-right: thin solid $darker;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      transition: background-color 0.2s ease-out;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    &::-webkit-scrollbar-thumb:active {
+      background: rgba(255, 255, 255, 0.4);
+    }
+    p {
+      color: #dadada;
+      border-top: thin solid #252525;
+      border-bottom: thin solid #252525;
+      &.error {
+        border-color: #5b0003;
+        color: #fd7f82;
+        background: #280001;
+        path {
+          fill: #e93545;
+        }
+      }
+      &.warning {
+        border-color: #66550d;
+        color: #f4bc2b;
+        background: #332b03;
+        path {
+          fill: #f4bc2b;
+        }
+      }
+    }
+  }
+  .controls {
+    button {
+      path {
+        fill: $lightest;
+      }
+      &:hover {
+        background: $darker;
+      }
+    }
+    i {
+      color: $light;
+    }
+  }
+  .errorIcon path {
+    fill: #e93545;
+  }
+}
+
+.lightMode {
+  background: #f8f8f8;
+  .logArea {
+    &::-webkit-scrollbar {
+      width: 1rem;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f3f3f3;
+      border-left: thin solid $lighter;
+      border-right: thin solid $lightest;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1);
+      transition: background-color 0.2s ease-out;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+    &::-webkit-scrollbar-thumb:active {
+      background: rgba(0, 0, 0, 0.4);
+    }
+    p {
+      color: #333333;
+      border-top: thin solid #ebebeb;
+      border-bottom: thin solid #ebebeb;
+      &.error {
+        border-color: #fed6d6;
+        color: #e93545;
+        background: #fff0f0;
+        path {
+          fill: #e93545;
+        }
+      }
+      &.warning {
+        border-color: #ffe66a;
+        color: #5b3c08;
+        background: #fffbe6;
+        path {
+          fill: #f4bc2b;
+        }
+      }
+    }
+  }
+  .controls {
+    button {
+      path {
+        fill: $darkest;
+      }
+      &:hover {
+        background: #ebebeb;
+      }
+    }
+    i {
+      color: $dark;
+    }
+  }
+  .errorIcon path {
+    fill: #e93545;
+  }
 }

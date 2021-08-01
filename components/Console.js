@@ -1,8 +1,9 @@
 import BugReportIcon from "@material-ui/icons/BugReport";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
-import { useContext, memo } from "react";
+import { useContext, memo, useState } from "react";
 import ConsoleContext from "../store/console-context";
 import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
+import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
 
 import classes from "./Console.module.scss";
 
@@ -38,6 +39,11 @@ let key = 0;
 
 const Console = (props) => {
   const ctx = useContext(ConsoleContext);
+  const [darkMode, setDarkMode] = useState(true);
+
+  const darkModeHandler = () => {
+    setDarkMode((state) => !state);
+  };
 
   let warningCount = 0;
   let errorCount = 0;
@@ -53,7 +59,9 @@ const Console = (props) => {
   return (
     <div
       id="console"
-      className={`${classes.console} ${props.show ? "" : "hide"}`}
+      className={`${classes.console} ${
+        darkMode ? classes.darkMode : classes.lightMode
+      } ${props.show ? "" : "hide"}`}
     >
       <div className={classes.logArea}>
         {ctx.logs.map((log) => {
@@ -86,7 +94,20 @@ const Console = (props) => {
             {errorCount}
           </i>
         )}
-        <button title="Clear console" onClick={ctx.clearLogs}>
+        <button
+          title={darkMode ? "Toggle Light Mode" : "Toggle Dark Mode"}
+          onClick={darkModeHandler}
+          className={`${classes.modeToggler} ${
+            darkMode ? classes.toLight : classes.toDark
+          }`}
+        >
+          <WbSunnyOutlinedIcon />
+        </button>
+        <button
+          className={classes.clearConsole}
+          title="Clear Console"
+          onClick={ctx.clearLogs}
+        >
           <DeleteSweepIcon />
         </button>
       </div>
