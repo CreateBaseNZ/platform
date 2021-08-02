@@ -170,7 +170,8 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
         edgeCollection[i].targetHandle &&
         edgeCollection[i].targetHandle.split("_")[0] != "execution"
       ) {
-        const inputName = edgeCollection[i].targetHandle.split("__")[1];
+        const splitName = edgeCollection[i].targetHandle.split("__");
+        const inputName = splitName[splitName.length - 1];
         inputs.push(inputName);
         for (let j = 0; j < prevNodeList.length; j++) {
           if (edgeCollection[i].source == prevNodeList[j].id) {
@@ -216,7 +217,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
     if (currentNode.id == edgeCollection[i].source) {
       if (
         edgeCollection[i].sourceHandle &&
-        edgeCollection[i].sourceHandle.split("_")[0] != "execution"
+        edgeCollection[i].sourceHandle.split("__")[0] != "execution"
       ) {
         edgeNum = i;
         break;
@@ -227,7 +228,8 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
   switch (currentNode.type) {
     default:
       if (edgeNum || edgeNum == 0) {
-        let NextOut = edgeCollection[edgeNum].sourceHandle.split("__")[1];
+        const splitArray = edgeCollection[edgeNum].sourceHandle.split("__");
+        let NextOut = splitArray[splitArray.length - 1];
         if (NextOut) {
           outName = "out_" + String(val);
           val++;
@@ -265,29 +267,27 @@ const flow2Text = (elements) => {
       }
     }
     let nextNode;
-    let executionNext;
+    let executionNext= "execution__out";
     switch (currentNode.type) {
       case "if":
         maxPath.push(2);
         path.push(0);
         nodeContext.push(currentNode);
-        executionNext = "execution__" + String(path[path.length - 1]);
+        executionNext += "__" + String(path[path.length - 1]);
         break;
       case "while":
       case "repeat":
         maxPath.push(1);
         path.push(0);
         nodeContext.push(currentNode);
-        executionNext = "execution__" + String(path[path.length - 1]);
+        executionNext += "__" + String(path[path.length - 1]);
         break;
       case undefined:
         let block = blocksConfig.pop();
         if (block.type != "else-condition") {
           blocksConfig.push(block);
         }
-        break;
-      default:
-        executionNext = "execution__out";
+        executionNext = undefined;
         break;
     }
     if (executionNext) {
@@ -306,7 +306,7 @@ const flow2Text = (elements) => {
       } else {
         currentNode = nodeContext[path.length - 1];
         path[path.length - 1]++;
-        let executionNext = "execution__" + String(path[path.length - 1]);
+        let executionNext = "execution__out__" + String(path[path.length - 1]);
         let state;
         [state, nextNode] = findNextNode(currentNode, executionNext, elements);
         if (!state) {
@@ -346,7 +346,6 @@ const flow2Text = (elements) => {
     type: "end",
   };
   blocksConfig.push(endNode);
-
   return blocksConfig;
 };
 
