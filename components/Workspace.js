@@ -67,6 +67,7 @@ const determineType = (block, currentNode) => {
     case "num":
     case "repeat":
     case "operatorGeneral":
+    case "print":
       block.name = currentNode.type;
       break;
     case "add":
@@ -349,6 +350,11 @@ const flow2Text = (elements) => {
   return blocksConfig;
 };
 
+let codeChanged = false;
+let onceCode = false;
+let codesDone = 0;
+
+
 const TabBar = dynamic(() => import("./TabBar"), {
   ssr: false,
 });
@@ -418,25 +424,64 @@ const Workspace = (props) => {
     if (activeTab === "flow" && tab === "text") {
       const [newText, dispCode] = compileCode();
       if (newText) {
-        setText(dispCode);
+        setText(newText);
       }
     }
     setActiveTab(tab);
   };
 
-  const executeCode = (text) => {
-    const sensorData = sensorDataRef.current;
-    const unityContext = props.unityContext;
-    eval(text);
+  const executeCode =  (text) => {
+    return new Promise((resolve, reject) => {
+      const sensorData = sensorDataRef.current;
+      const unityContext = props.unityContext;
+      eval("(async () => {" + text + "})()");
+      if (codeChanged) {
+        resolve('');
+      }
+    })
   };
+  
+  let delay = (time) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, time);
+    });
+  }
 
-  const compileHandler = () => {
-    clearInterval(com);
-    com = 0;
-    const [code, dispCode] = compileCode();
-    com = setInterval(() => {
-      executeCode(code);
-    }, 10);
+
+  const compileHandler = async () => {
+    codeChanged = true;
+    let [code, dispCode] = compileCode();
+    if (!onceCode) {
+      code += "\nresolve(' ');"
+      let functionExecute = async () => {
+        await executeCode(code);
+        if (codeChanged) {
+          com = 0;
+          codeChanged = false;
+        } else {
+          com = setTimeout(functionExecute, 10);
+        }
+      }
+      if (codesDone > 0) {
+        while (codeChanged) {
+          await delay(10);
+        }
+      } else {
+        codeChanged = false;
+      }    
+      functionExecute();
+    } else {
+      com = 0;
+      if (codesDone > 0) {
+        while (codeChanged) {
+          await delay(10);
+        }
+      } else {
+        codeChanged = false;
+      }
+      eval("(async () => {" + code + "})()");
+    }
+    codesDone++;
     setVisualBell((state) => ({
       message: "Code is now running",
       switch: !state.switch,
