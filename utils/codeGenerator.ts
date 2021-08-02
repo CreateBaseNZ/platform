@@ -581,7 +581,7 @@ export class CodeGenerator {
     }
 
     this.run();
-    const runCode = this.intialiseVar() + this.content + this.execute+"\nresolve(' ');";
+    const runCode = this.intialiseVar() + this.content + this.execute;
     const simple = this.intialiseVar() + this.simpleContent + this.simpleExecute;
     return [runCode, null, null,simple];
   }

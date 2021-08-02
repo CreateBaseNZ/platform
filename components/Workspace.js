@@ -351,6 +351,11 @@ const flow2Text = (elements) => {
   return blocksConfig;
 };
 
+let codeChanged = false;
+let onceCode = false;
+let codesDone = 0;
+
+
 const TabBar = dynamic(() => import("./TabBar"), {
   ssr: false,
 });
@@ -426,30 +431,52 @@ const Workspace = (props) => {
     setActiveTab(tab);
   };
 
-  const executeCode =  (text,codeChange) => {
+  const executeCode =  (text,x) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
       eval("(async () => {" + text + "})()");
       if (codeChanged) {
-        codeChanged = false;
         resolve('');
       }
     })
   };
   
-  let codeChanged = false;
+  let delay = (time) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, time);
+    });
+  }
+
 
   const compileHandler = async () => {
     codeChanged = true;
-    clearTimeout(com);
-    com = 0;
-    const [code, dispCode] = compileCode();
-    let functionExecute = async () => {
-      await executeCode(code,false);
-      com=setTimeout(functionExecute, 10);
+    let [code, dispCode] = compileCode();
+    if (!onceCode) {
+      code += "\nresolve(' ');"
     }
-    functionExecute();
+
+    let functionExecute = async (x) => {
+      await executeCode(code, x);
+      if (codeChanged) {
+        com = 0;
+        codeChanged = false;
+      }
+      else if (!onceCode) {
+        com=setTimeout(functionExecute, 10,x);
+      }
+    }
+    if (codesDone > 0) {
+      while (codeChanged) {
+        await delay(10);
+      }
+    } else {
+      codeChanged = false;
+    }
+    
+    codesDone++;
+    functionExecute(x);
+    
     setVisualBell((state) => ({
       message: "Code is now running",
       switch: !state.switch,
