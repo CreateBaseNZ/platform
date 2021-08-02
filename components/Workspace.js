@@ -431,7 +431,7 @@ const Workspace = (props) => {
     setActiveTab(tab);
   };
 
-  const executeCode =  (text,x) => {
+  const executeCode =  (text) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
@@ -454,29 +454,35 @@ const Workspace = (props) => {
     let [code, dispCode] = compileCode();
     if (!onceCode) {
       code += "\nresolve(' ');"
-    }
-
-    let functionExecute = async (x) => {
-      await executeCode(code, x);
-      if (codeChanged) {
-        com = 0;
+      let functionExecute = async () => {
+        await executeCode(code);
+        if (codeChanged) {
+          com = 0;
+          codeChanged = false;
+        } else {
+          com = setTimeout(functionExecute, 10);
+        }
+      }
+      if (codesDone > 0) {
+        while (codeChanged) {
+          await delay(10);
+        }
+      } else {
+        codeChanged = false;
+      }    
+      functionExecute();
+    } else {
+      com = 0;
+      if (codesDone > 0) {
+        while (codeChanged) {
+          await delay(10);
+        }
+      } else {
         codeChanged = false;
       }
-      else if (!onceCode) {
-        com=setTimeout(functionExecute, 10,x);
-      }
+      eval("(async () => {" + code + "})()");
     }
-    if (codesDone > 0) {
-      while (codeChanged) {
-        await delay(10);
-      }
-    } else {
-      codeChanged = false;
-    }
-    
     codesDone++;
-    functionExecute(x);
-    
     setVisualBell((state) => ({
       message: "Code is now running",
       switch: !state.switch,
