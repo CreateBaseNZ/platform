@@ -2,25 +2,23 @@ import Image from "next/image";
 
 import classes from "./Thumbnail.module.scss";
 
-const Thumbnail = ({
-  activeProject,
-  index,
-  thumbnailHandler,
-  src,
-  name,
-  comingSoon = false,
-}) => {
+const Thumbnail = ({ activeIndex, index, thumbnailHandler, query, name }) => {
   return (
     <div
       className={`${classes.projectThumbnailWrapper} ${
-        activeProject === index ? classes.selectedThumbnail : ""
+        activeIndex === index ? classes.selectedThumbnail : ""
       }`}
     >
       <div
         className={classes.projectThumbnail}
-        onClick={thumbnailHandler.bind(this, index, comingSoon)}
+        onClick={thumbnailHandler.bind(this, index)}
       >
-        <Image src={src} layout="fill" objectFit="cover" alt={name} />
+        <Image
+          src={`/${query}/img/thumbnail.png`}
+          layout="fill"
+          objectFit="cover"
+          alt={name}
+        />
         <p>
           <span className="span">{name}</span>
         </p>

@@ -1,67 +1,53 @@
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
 import { ColourLogo } from "/components/UI/Icons";
 import GreenButton from "/components/UI/GreenButton";
-
-import classes from "/styles/Explore.module.scss";
 import Thumbnail from "../components/Thumbnail";
+
+import classes from "/styles/Browse.module.scss";
 
 const DUMMY_PROJECTS = [
   {
     name: "Send It",
     query: "send-it",
-    thumbnail: "/send_it_thumbnail.png",
-    img: "/send_it.png",
     caption:
       'In this project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
   },
   {
-    name: "Coming soon",
-    query: "",
-    thumbnail: "/coming-soon.png",
-    caption: "Coming soon.",
-    comingSoon: true,
-  },
-  {
-    name: "Coming soon",
-    query: "",
-    thumbnail: "/coming-soon.png",
-    caption: "Coming soon.",
-    comingSoon: true,
+    name: "H.E.R.0",
+    query: "her0",
+    caption: "Lorem ipsum",
   },
 ];
 
-const Explore = () => {
-  const [activeProject, setActiveProject] = useState(0);
+const Browse = ({ setLoaded }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const thumbnailHandler = (index, comingSoon) => {
-    if (!comingSoon) {
-      setActiveProject(index);
-    }
+  console.log(`/${DUMMY_PROJECTS[activeIndex].query}/img/cover.png`);
+
+  useEffect(() => setLoaded(true), []);
+
+  const thumbnailHandler = (index) => {
+    setActiveIndex(index);
   };
 
   return (
-    <div className={classes.explore}>
+    <div className={classes.browse}>
       <Head>
-        <title>Explore | CreateBase</title>
-        <meta name="description" content="Explore CreateBase projects" />
+        <title>Browse | CreateBase</title>
+        <meta name="description" content="Browse CreateBase projects" />
       </Head>
       <div className={classes.logo}>
         <ColourLogo layout="fill" objectFit="contain" quality={100} />
       </div>
-      {/* <h1 className={classes.h1}>Select a project</h1> */}
+      <h1 className={classes.h1}>Select a project</h1>
       <div className={classes.selectedProject}>
         <div className={classes.content}>
-          <h2>{DUMMY_PROJECTS[activeProject].name}</h2>
-          <p>{DUMMY_PROJECTS[activeProject].caption}</p>
-          <Link
-            href={{
-              pathname: "/overview/[project]",
-              query: { project: DUMMY_PROJECTS[activeProject].query },
-            }}
-          >
+          <h2>{DUMMY_PROJECTS[activeIndex].name}</h2>
+          <p>{DUMMY_PROJECTS[activeIndex].caption}</p>
+          <Link href={`/${DUMMY_PROJECTS[activeIndex].query}/overview`}>
             <div>
               <GreenButton caption="Continue" />
             </div>
@@ -69,28 +55,27 @@ const Explore = () => {
         </div>
         <div className={classes.coverImage}>
           <Image
-            src={DUMMY_PROJECTS[activeProject].img}
+            src={`/${DUMMY_PROJECTS[activeIndex].query}/img/cover.png`}
             layout="fill"
             objectFit="cover"
-            alt={DUMMY_PROJECTS[activeProject].name}
+            alt={DUMMY_PROJECTS[activeIndex].name}
           />
         </div>
       </div>
-      {/* <div className={classes.allProjects}>
+      <div className={classes.allProjects}>
         {DUMMY_PROJECTS.map((project, index) => (
           <Thumbnail
             key={index}
-            activeProject={activeProject}
+            activeIndex={activeIndex}
             index={index}
-            src={project.thumbnail}
+            query={project.query}
             name={project.name}
-            comingSoon={project.comingSoon}
             thumbnailHandler={thumbnailHandler}
           />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 };
 
-export default Explore;
+export default Browse;

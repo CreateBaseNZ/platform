@@ -5,7 +5,7 @@ $dot-color: #f1f1f1;
 $dot-size: 5px;
 $dot-space: 48px;
 
-.explore {
+.browse {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -13,7 +13,7 @@ $dot-space: 48px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
   background: linear-gradient(
         90deg,
         $bg-color ($dot-space - $dot-size),
