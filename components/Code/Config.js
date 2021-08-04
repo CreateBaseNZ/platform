@@ -2,8 +2,8 @@ import { memo, useEffect, useRef, useState } from "react";
 import Editor, { editorOptions } from "@monaco-editor/react";
 import classes from "./Config.module.scss";
 
-import themes, { themeFiles } from "../utils/themes";
-import GreenButton from "./UI/GreenButton";
+import themes, { themeFiles } from "../../utils/themes";
+import GreenButton from "../UI/GreenButton";
 
 const lorem = `const btn = document.getElementById('btn')
 let count = 0

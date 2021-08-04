@@ -1,7 +1,7 @@
 import BugReportIcon from "@material-ui/icons/BugReport";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import { useContext, memo, useState, useEffect, useRef } from "react";
-import ConsoleContext from "../store/console-context";
+import ConsoleContext from "../../store/console-context";
 import DeleteSweepOutlinedIcon from "@material-ui/icons/DeleteSweepOutlined";
 import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
 import Brightness2OutlinedIcon from "@material-ui/icons/Brightness2Outlined";

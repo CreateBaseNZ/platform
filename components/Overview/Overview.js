@@ -19,10 +19,8 @@ const Overview = ({ setLoaded, project }) => {
   return (
     <div className={classes.overview}>
       <Head>
-        <title>
-          Overview - {project ? project.name : "Create"} - CreateBase
-        </title>
-        <meta name="description" content={project ? project.caption : ""} />
+        <title>Overview - {project.name} - CreateBase</title>
+        <meta name="description" content={project.caption} />
       </Head>
       <Imagine query={project.query} />
       <div className={classes.divider} />

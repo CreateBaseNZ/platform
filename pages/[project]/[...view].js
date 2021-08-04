@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import classes from "/styles/View.module.scss";
 import Overview from "../../components/Overview/Overview";
+import Code from "../../components/Code/Code";
 
 const DUMMY_QUERY = {
   "send-it": {
@@ -30,17 +31,33 @@ const View = ({ setLoaded }) => {
   console.log(view);
 
   useEffect(() => {
-    console.log(router.query);
-    if (router.query) {
+    console.log(router);
+    if (Object.keys(router.query).length) {
       setProject(DUMMY_QUERY[router.query.project]);
-      setView(router.query.view);
+      setView(router.query.view[0]);
     }
   }, [router.query]);
+
+  useEffect(() => {
+    if (view === "overview" && router.query.view[1]) {
+      document.querySelector(`#${router.query.view[1]}`).scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
+  }, [view]);
 
   return (
     <div className={classes.view}>
       {project && view === "overview" && (
         <Overview project={project} setLoaded={setLoaded} />
+      )}
+      {project && view === "create" && (
+        <Code setLoaded={setLoaded} mode="Create" project={project} />
+      )}
+      {project && view === "improve" && (
+        <Code setLoaded={setLoaded} mode="Improve" />
       )}
     </div>
   );

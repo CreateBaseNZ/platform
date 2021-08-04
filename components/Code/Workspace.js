@@ -6,15 +6,15 @@ import {
   getConnectedEdges,
   getIncomers,
 } from "react-flow-renderer";
-import { initialElements } from "../utils/flowConfig";
+import { initialElements } from "../../utils/flowConfig";
 import Console from "./Console";
-import ConsoleContext from "../store/console-context";
+import ConsoleContext from "../../store/console-context";
 import { ReactFlowProvider } from "react-flow-renderer";
-import GreenButton from "./UI/GreenButton";
+import GreenButton from "../UI/GreenButton";
 
-import { CodeGenerator } from "../utils/codeGenerator.ts";
+import { CodeGenerator } from "../../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
-import { MiniHoverContextProvider } from "../store/mini-hover-context";
+import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import Config from "./Config";
 
 let com;
@@ -268,7 +268,7 @@ const flow2Text = (elements) => {
       }
     }
     let nextNode;
-    let executionNext= "execution__out";
+    let executionNext = "execution__out";
     switch (currentNode.type) {
       case "if":
         maxPath.push(2);
@@ -354,12 +354,11 @@ let codeChanged = false;
 let onceCode = false;
 let codesDone = 0;
 
-
 const TabBar = dynamic(() => import("./TabBar"), {
   ssr: false,
 });
 
-const FlowEditor = dynamic(() => import("./ReactFlow/FlowEditor"), {
+const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
@@ -430,29 +429,28 @@ const Workspace = (props) => {
     setActiveTab(tab);
   };
 
-  const executeCode =  (text) => {
+  const executeCode = (text) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
       eval("(async () => {" + text + "})()");
       if (codeChanged) {
-        resolve('');
+        resolve("");
       }
-    })
+    });
   };
-  
+
   let delay = (time) => {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, time);
     });
-  }
-
+  };
 
   const compileHandler = async () => {
     codeChanged = true;
     let [code, dispCode] = compileCode();
     if (!onceCode) {
-      code += "\nresolve(' ');"
+      code += "\nresolve(' ');";
       let functionExecute = async () => {
         await executeCode(code);
         if (codeChanged) {
@@ -461,14 +459,14 @@ const Workspace = (props) => {
         } else {
           com = setTimeout(functionExecute, 10);
         }
-      }
+      };
       if (codesDone > 0) {
         while (codeChanged) {
           await delay(10);
         }
       } else {
         codeChanged = false;
-      }    
+      }
       functionExecute();
     } else {
       com = 0;

@@ -3,7 +3,7 @@ import SwapCallsIcon from "@material-ui/icons/SwapCalls";
 import CodeIcon from "@material-ui/icons/Code";
 import CallToActionOutlinedIcon from "@material-ui/icons/CallToActionOutlined";
 import TuneOutlinedIcon from "@material-ui/icons/TuneOutlined";
-import ConsoleContext from "../store/console-context";
+import ConsoleContext from "../../store/console-context";
 
 import classes from "./TabBar.module.scss";
 
