@@ -1,7 +1,7 @@
 import { HintModule } from "../Modules";
-import classes from "/styles/Overview.module.scss";
+import classes from "./overview.module.scss";
 
-const Review = (props) => {
+const Review = () => {
   return (
     <section id="review">
       <div className={classes.wrapper}>
@@ -32,7 +32,8 @@ const Review = (props) => {
           </a>
         </div>
         <div className={classes.description}>
-          At the end of the Project, make sure that you fill out our survey! Additionally, feel free to send us any messages.
+          At the end of the Project, make sure that you fill out our survey!
+          Additionally, feel free to send us any messages.
         </div>
       </div>
     </section>

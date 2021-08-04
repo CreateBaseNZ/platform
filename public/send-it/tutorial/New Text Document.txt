@@ -1,0 +1,4 @@
+1. Run 1000m to deliver the Pizza
+2. Jump over obstacles to avoid crashing into them
+3. Crouch under flying obstacles to avoid crashing into them
+4. Change the simulation speed to allow more time for your code to react
