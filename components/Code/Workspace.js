@@ -1,4 +1,4 @@
-import { useRef, useContext, useState, useEffect } from "react";
+import { useRef, useContext, useState, useEffect, memo } from "react";
 import dynamic from "next/dynamic";
 import TextEditor from "./TextEditor";
 import {
@@ -525,4 +525,4 @@ const Workspace = (props) => {
   );
 };
 
-export default Workspace;
+export default memo(Workspace);

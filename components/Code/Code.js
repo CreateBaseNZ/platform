@@ -41,8 +41,7 @@ const Code = ({ setLoaded, mode, project }) => {
           <Link
             href={{
               pathname: `/${project.query}/overview/[step]`,
-              query: { step: mode },
-              hash: mode.toLowerCase(),
+              query: { step: mode.toLowerCase() },
             }}
           >
             <button className={classes.backButton} title="Back to overview">

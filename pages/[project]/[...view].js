@@ -31,7 +31,6 @@ const View = ({ setLoaded }) => {
   console.log(view);
 
   useEffect(() => {
-    console.log(router);
     if (Object.keys(router.query).length) {
       setProject(DUMMY_QUERY[router.query.project]);
       setView(router.query.view[0]);
@@ -40,24 +39,25 @@ const View = ({ setLoaded }) => {
 
   useEffect(() => {
     if (view === "overview" && router.query.view[1]) {
+      console.log(router.query.view);
       document.querySelector(`#${router.query.view[1]}`).scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "nearest",
       });
     }
-  }, [view]);
+  }, [view, router.query.view]);
 
   return (
     <div className={classes.view}>
       {project && view === "overview" && (
-        <Overview project={project} setLoaded={setLoaded} />
+        <Overview setLoaded={setLoaded} project={project} />
       )}
       {project && view === "create" && (
         <Code setLoaded={setLoaded} mode="Create" project={project} />
       )}
       {project && view === "improve" && (
-        <Code setLoaded={setLoaded} mode="Improve" />
+        <Code setLoaded={setLoaded} mode="Improve" project={project} />
       )}
     </div>
   );

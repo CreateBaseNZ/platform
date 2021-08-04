@@ -32,7 +32,7 @@ const Overview = ({ setLoaded, project }) => {
       <div className={classes.divider} />
       <Create query={project.query} />
       <div className={classes.divider} />
-      <Improve project={project} />
+      <Improve query={project.query} />
       <div className={classes.divider} />
       {project.query !== "her0" && <Review />}
     </div>
