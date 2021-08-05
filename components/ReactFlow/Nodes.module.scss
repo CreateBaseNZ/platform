@@ -70,6 +70,19 @@
   padding-right: calc(4rem + 16px);
 }
 
+.flexRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
 .sensing {
   background: #40aaf8;
   height: 4rem;
@@ -181,6 +194,23 @@
   width: 12rem;
 }
 
+.nodeMoveArm {
+  height: 6rem;
+  width: 12rem;
+  h4 {
+    margin-bottom: 0.25rem;
+  }
+  .flexCol {
+    align-items: center;
+    &:nth-child(2) {
+      margin: 0 0.5rem;
+    }
+    input {
+      margin: 0.25rem 0 0 0;
+    }
+  }
+}
+
 .handle.leftHandle {
   height: 12px;
   width: 12px;
@@ -197,6 +227,11 @@
   height: 12px;
   width: 12px;
   top: 2px;
+}
+.handle.bottomHandle {
+  height: 12px;
+  width: 12px;
+  bottom: 2px;
 }
 
 .handle.executionHandle {
@@ -247,12 +282,17 @@
   }
 }
 
-.leftHandleLabel,
-.rightHandleLabel {
-  position: absolute;
+.label {
   font-size: 14px;
   line-height: 1em;
   color: $lightest;
+}
+.leftHandleLabel,
+.rightHandleLabel {
+  font-size: 14px;
+  line-height: 1em;
+  color: $lightest;
+  position: absolute;
 }
 .leftHandleLabel {
   left: 14px;

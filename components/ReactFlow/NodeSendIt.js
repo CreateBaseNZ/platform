@@ -4,7 +4,7 @@ import CustomHandle from "./Handles";
 
 import classes from "./Nodes.module.scss";
 
-const NodeActions = ({
+const NodeSendIt = ({
   data,
   className,
   label,
@@ -38,7 +38,7 @@ const NodeActions = ({
 
 export const NodeAttack = memo(({ data, isConnectable }) => {
   return (
-    <NodeActions
+    <NodeSendIt
       data={data}
       className={classes.nodeAttack}
       label="Attack"
@@ -50,7 +50,7 @@ export const NodeAttack = memo(({ data, isConnectable }) => {
 });
 export const NodeDoubleJump = memo(({ data, isConnectable }) => {
   return (
-    <NodeActions
+    <NodeSendIt
       data={data}
       className={classes.nodeDoubleJump}
       label="Double Jump"
@@ -63,7 +63,7 @@ export const NodeDoubleJump = memo(({ data, isConnectable }) => {
 export const NodeCrouch = memo(({ data, isConnectable }) => {
   console.log(data);
   return (
-    <NodeActions
+    <NodeSendIt
       data={data}
       className={classes.nodeCrouch}
       label="Crouch"
@@ -75,7 +75,7 @@ export const NodeCrouch = memo(({ data, isConnectable }) => {
 });
 export const NodeJump = memo(({ data, isConnectable }) => {
   return (
-    <NodeActions
+    <NodeSendIt
       data={data}
       className={classes.nodeJump}
       label="Jump"
@@ -86,7 +86,7 @@ export const NodeJump = memo(({ data, isConnectable }) => {
   );
 });
 
-const NodeActionsMini = (props) => {
+const NodeSendItMini = (props) => {
   return (
     <NodeMini {...props} className={`${classes.actioning} ${props.className}`}>
       <h4>{props.label}</h4>
@@ -97,7 +97,7 @@ const NodeActionsMini = (props) => {
 
 export const NodeAttackMini = () => {
   return (
-    <NodeActionsMini
+    <NodeSendItMini
       className={classes.nodeAttack}
       label="Attack"
       nodeType="attack"
@@ -107,7 +107,7 @@ export const NodeAttackMini = () => {
 };
 export const NodeDoubleJumpMini = () => {
   return (
-    <NodeActionsMini
+    <NodeSendItMini
       className={classes.nodeDoubleJump}
       label="Double Jump"
       nodeType="doubleJump"
@@ -117,7 +117,7 @@ export const NodeDoubleJumpMini = () => {
 };
 export const NodeCrouchMini = () => {
   return (
-    <NodeActionsMini
+    <NodeSendItMini
       className={classes.nodeCrouch}
       label="Crouch"
       nodeType="crouch"
@@ -127,7 +127,7 @@ export const NodeCrouchMini = () => {
 };
 export const NodeJumpMini = () => {
   return (
-    <NodeActionsMini
+    <NodeSendItMini
       className={classes.nodeJump}
       label="Jump"
       nodeType="jump"

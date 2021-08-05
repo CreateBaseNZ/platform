@@ -41,6 +41,9 @@ export const getDefaultValues = (type) => {
   if (type === "print" || type === "delay") {
     return { a: 0 };
   }
+  if (type === "moveArm") {
+    return { x: 0, y: 0, z: 0 };
+  }
   return {};
 };
 
@@ -81,6 +84,12 @@ export const nodeTypeHandles = {
   elevationOf: sensingHandles,
   jump: actionHandles,
   crouch: actionHandles,
+  moveArm: [
+    "execution__in, float__in__x",
+    "float__in__y",
+    "float__in__z",
+    "execution__out",
+  ],
   add: operatorHandles,
   subtract: operatorHandles,
   multiply: operatorHandles,

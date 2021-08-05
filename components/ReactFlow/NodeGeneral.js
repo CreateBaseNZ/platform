@@ -23,31 +23,30 @@ export const NodeStart = memo(({ data, isConnectable }) => {
   );
 });
 
-export const NodeMini = memo((props) => {
-  const miniHoverCtx = useContext(MiniHoverContext);
+export const NodeMini = memo(
+  ({ nodeType, className, node, children, style }) => {
+    const miniHoverCtx = useContext(MiniHoverContext);
 
-  const dragStartHandler = (event) => {
-    event.dataTransfer.setData("application/reactflow", props.nodeType);
-    event.dataTransfer.effectAllowed = "move";
-    miniHoverCtx.clearNow();
-  };
+    const dragStartHandler = (event) => {
+      event.dataTransfer.setData("application/reactflow", nodeType);
+      event.dataTransfer.effectAllowed = "move";
+      miniHoverCtx.clearNow();
+    };
 
-  return (
-    <div
-      className={`${classes.nodeMini} ${props.className}`}
-      onDragStart={dragStartHandler}
-      onMouseEnter={miniHoverCtx.mouseEnterHandler.bind(
-        this,
-        props.nodeType,
-        props.node
-      )}
-      onMouseLeave={miniHoverCtx.mouseLeaveHandler}
-      draggable
-    >
-      {props.children}
-    </div>
-  );
-});
+    return (
+      <div
+        className={`${classes.nodeMini} ${className}`}
+        onDragStart={dragStartHandler}
+        onMouseEnter={miniHoverCtx.mouseEnterHandler.bind(this, nodeType, node)}
+        onMouseLeave={miniHoverCtx.mouseLeaveHandler}
+        style={style}
+        draggable
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 export const EntityDropdown = ({
   data,

@@ -506,6 +506,7 @@ const Workspace = (props) => {
             setElements={setElements}
             visualBell={visualBell}
             setVisualBell={setVisualBell}
+            query={props.query}
           />
         </ReactFlowProvider>
       </MiniHoverContextProvider>
