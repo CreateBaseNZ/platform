@@ -2,7 +2,7 @@
   {
     "robot": "Arm",
     "type": "start",
-    "logic": "const actuator = [\"12kg\", \"12kg\", \"12kg\", \"12kg\"];\nconst\ngainsP = [1, 1, 0.9, 0.9];\nconst gainsD = [0.5, 0.5, 0, 0];\nlet Joints = [];\nconst noOfMotors = actuator.length;\ncom = 0;\nlet angles_start = await(() => {\nreturn new Promise((resolve, reject) => {\nlet com = setInterval(() => {\nconst data = sensorData;\nif (data) {\nclearInterval(com);\nresolve(data);\n}\n}, 100)\n})\n})()\n\nfor (let i = 0; i < noOfMotors; i++) {\nlet current = angles_start.jointData[i].angle;\nangles_start.jointData[i].angle = Math.sign(current) * (Math.floor(Math.abs(current) / 5)) * 5;n}\nfor(let i=0;i<noOfMotors;i++){\nJoints[i]=new ServoMotorsClass(i,actuator[i],angles_start.jointData[i].angle,gainsP[i],gainsD[i]);\n}\nconst actions=new BlockClass();\nconst executeloop = (text) => {\nreturn new Promise((resolve, reject) => {\nconst sensorData = sensorDataRef.current;\nconst unityContext = props.unityContext;\neval(\"(async () => {\" + text + \"})()\").catch((e) => { resolve('')});\nif (codeChanged) { resolve(''); }\n})\n};\ntext = `const angles = sensorData;\nif (angles) {\nlet input = { motors: [] };\nfor (let i = 0; i < noOfMotors; i++) {\ninput.motors.push(Joints[i].Evaluate(angles['jointData'][i].angle,angles['jointData'][i].velocity));\n}\nconst formattedInput = JSON.stringify(input);\nlet robot = new ActuationClass(someVar, RoboticSystemName, formattedInput);\nrobot.run();\n}\nresolve();`\nlet Loop = async () => {\nawait executeloop(text);\nif (codeChanged) {\ncodeChanged = false;\nconsole.log(\"deleted\");\n}\nelse {\ncom = setTimeout(Loop, 10);\n}\n}\nLoop()\n",
+    "logic": "let position;\nconst unityContext = props.unityContext;\nconst executeloop = (text) => {\nreturn new Promise((resolve, reject) => {\nconst SensorData =JSON.parse(sensorDataRef.current);\neval(\"(async () => {\" + text + \"})()\").catch((e) => { resolve();});\nif (codeChanged) { resolve(''); }\n})\n};\ntext = `if(SensorData){\nposition=SensorData.endEffectorPosition;\n}\nresolve();`\nlet Loop = async () => {\nawait executeloop(text);\nif (codeChanged) {\ncodeChanged = false;\n}\nelse {\ncom = setTimeout(Loop, 10);\n}\n}\nLoop()\n",
     "executes": [],
     "simpleLogic":"IntialiseRobot();",
     "simpleExecutes":""
@@ -18,20 +18,20 @@
   {
     "robot": "Arm",
     "type": "specific",
-    "name": "move",
+    "name": "moveArm",
     "inputs": [
       { "variable": "x", "type": "number", "value": 0 },
       { "variable": "y", "type": "number", "value": 0 },
       { "variable": "z", "type": "number", "value": 0 }
     ],
-    "logic": "const TargetAngles = actions.InverseKinematics(x, y, z);\nif (TargetAngles) {\nfor (let i = 0; i < noOfJoints; i++) {\nJoints[i].SetAngle(TargetAngles[i]);\n}\n}\nconst rate = 1000;\nconst maxtime = 10;\nconst maxRepeats = maxtime * 1000 / rate;\nlet repeats = 0;\ninterval = setInterval(() => {\nlet Reached = true;\nrepeats++;\nfor (let i = 0; i < noOfJoints; i++) {\nconst error = Math.abs(TargetAngles[i] - sensorData.jointData[i].angle);\nif (error > 5) {\nReached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}\n}, rate);\n"
+    "logic": "const point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 1000;\nconst maxtime = 5;\nconst maxRepeats = maxtime * 1000 / rate;\nconsole.log(maxRepeats);\nlet repeats = 0;\nlet interval = setInterval(() => {\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nconsole.log(repeats);\nconsole.log(position);\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}\n}, rate);\n"
   },
   {
     "robot": "Arm",
     "type": "specific",
-    "name": "gravity",
-    "inputs": [{ "variable": "isOn", "type": "boolean", "value": true }],
-    "logic": "if(isOn){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nresolve();\n"
+    "name": "magneticSwitch",
+    "inputs": [{ "variable": "a", "type": "boolean", "value": true }],
+    "logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n"
     
   },
   {

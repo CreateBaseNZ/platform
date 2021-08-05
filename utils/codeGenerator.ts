@@ -237,7 +237,7 @@ export class CodeGenerator {
     const blockFunction = this.blockFunctions.find((element) => {
       if (element.type === "specific") {
         return (
-          element.name === blockDetail.name &&(element.robot==undefined||element.robot === blockDetail.robot)
+          element.name === blockDetail.name && (element.robot == undefined || element.robot === blockDetail.robot)
         );
       } else {
         return false;
@@ -246,7 +246,7 @@ export class CodeGenerator {
     // Build input
     let inputVariables: string = "";
     let inputs: string = "";
-    if (!blockFunction) {return [false, "error", "Function does not exist"];}
+    if (!blockFunction) { return [false, "error", "Function does not exist"]; }
     if (blockFunction.inputs) {
       for (let i = 0; i < blockFunction.inputs.length; i++) {
         const element = blockFunction.inputs[i];
@@ -296,8 +296,9 @@ export class CodeGenerator {
       return new Promise((resolve, reject) => {
         ${blockFunction.logic}
       });
-    }\n\n
+    }\n
     `;
+        
     if (added) {
       this.content += func;
     }
@@ -570,7 +571,6 @@ export class CodeGenerator {
           break;
       }
       if (!state) {
-        console.log(i);
         return [
           "// Oops! An error occurred, please check the Console for more info",
           type,
