@@ -17,9 +17,7 @@ import classes from "/styles/Index.module.scss";
 const Index = ({ setLoaded }) => {
   const [showHelper, setShowHelper] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => setLoaded(true), [500]);
-  }, []);
+  useEffect(() => setLoaded(true), []);
 
   const helperClickHandler = () => {
     setShowHelper((state) => !state);
@@ -58,7 +56,7 @@ const Index = ({ setLoaded }) => {
       <div className={classes.container}>
         <h2 className={classes.h2}>Welcome to</h2>
         <h1 className={classes.h1}>Open Alpha</h1>
-        <Link href="/explore">
+        <Link href="/browse">
           <div>
             <GreenButton caption="Get Started" />
           </div>

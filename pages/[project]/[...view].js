@@ -12,13 +12,17 @@ const DUMMY_QUERY = {
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
     stacked: true,
+    scenePrefix: "Project_Jump_0",
+    runType: "loop",
   },
-  her0: {
-    name: "H.E.R.0",
-    query: "her0",
+  "the-zucc": {
+    name: "The Zucc",
+    query: "the-zucc",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
     stacked: true,
+    scenePrefix: "Project_Industrial_1",
+    runType: "once",
   },
 };
 
@@ -26,9 +30,6 @@ const View = ({ setLoaded }) => {
   const router = useRouter();
   const [project, setProject] = useState();
   const [view, setView] = useState();
-
-  console.log(project);
-  console.log(view);
 
   useEffect(() => {
     if (Object.keys(router.query).length) {

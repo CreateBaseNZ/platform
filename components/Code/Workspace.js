@@ -371,18 +371,18 @@ const Workspace = (props) => {
   const [visualBell, setVisualBell] = useState({ message: "", switch: false });
 
   const ctx = useContext(ConsoleContext);
-  const sensorDataRef = useRef(props.sensorData);
+  const sensorDataRef = useRef();
   const visualBellTimer = useRef(null);
 
   sensorDataRef.current = props.sensorData;
 
   useEffect(() => {
-    const theme = localStorage.getItem("monaco-theme");
+    const theme = localStorage.getItem("createbase__monaco-theme");
     if (theme) {
       setTheme(theme);
     } else {
       setTheme("VSDark");
-      localStorage.setItem("monaco-theme", "VSDark");
+      localStorage.setItem("createbase__monaco-theme", "VSDark");
     }
   }, []);
 

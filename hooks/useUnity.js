@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 
-const unityContext = new UnityContext({
-  loaderUrl: "/send-it/unity-build/Build.loader.js",
-  dataUrl: "/send-it/unity-build/Build.data",
-  frameworkUrl: "/send-it/unity-build/Build.framework.js",
-  codeUrl: "/send-it/unity-build/Build.wasm",
-  productName: "Simulation",
-  productVersion: "0.1",
-  companyName: "CreateBase",
-  // streamingAssetsUrl: "StreamingAssets",
-  // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-  // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-});
-
-const useUnity = ({ scene }) => {
+const useUnity = ({ scenePrefix, scene, project, setLoaded }) => {
+  const [unityContext, setUnityContext] = useState(
+    new UnityContext({
+      loaderUrl: `/${project}/unity-build/Build.loader.js`,
+      dataUrl: `/${project}/unity-build/Build.data`,
+      frameworkUrl: `/${project}/unity-build/Build.framework.js`,
+      codeUrl: `/${project}/unity-build/Build.wasm`,
+      productName: "Simulation",
+      productVersion: "0.1",
+      companyName: "CreateBase",
+      // streamingAssetsUrl: "StreamingAssets",
+      // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+      // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+    })
+  );
   const [sensorData, setSensorData] = useState();
   const [gameState, setGameState] = useState();
 
@@ -36,8 +37,12 @@ const useUnity = ({ scene }) => {
         unityContext.send(
           "SceneController",
           "LoadScene",
-          "Project_Jump_0," + scene
+          `${scenePrefix},${scene}`
         );
+        console.log("scene changed");
+        setTimeout(() => {
+          setLoaded(true);
+        }, 2000);
       }, 1000);
     });
   }, []);

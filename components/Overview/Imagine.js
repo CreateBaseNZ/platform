@@ -18,7 +18,7 @@ const Imagine = ({ query }) => {
               think is happening here? Discuss with your peers!
             </p>
           )}
-          {query === "her0" && (
+          {query === "the-zucc" && (
             <p className={`${classes.description} ${classes.halfContainer}`}>
               Lorem ipsum
             </p>

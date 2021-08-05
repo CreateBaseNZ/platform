@@ -16,8 +16,8 @@ const DUMMY_PROJECTS = [
       'In this project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
   },
   {
-    name: "H.E.R.0",
-    query: "her0",
+    name: "The Zucc",
+    query: "the-zucc",
     caption: "Lorem ipsum",
   },
 ];
@@ -25,9 +25,10 @@ const DUMMY_PROJECTS = [
 const Browse = ({ setLoaded }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  console.log(`/${DUMMY_PROJECTS[activeIndex].query}/img/cover.png`);
-
-  useEffect(() => setLoaded(true), []);
+  useEffect(() => {
+    setLoaded(true);
+    return () => setLoaded(false);
+  }, []);
 
   const thumbnailHandler = (index) => {
     setActiveIndex(index);

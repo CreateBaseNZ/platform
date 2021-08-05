@@ -13,16 +13,15 @@ import classes from "/styles/Create.module.scss";
 
 const Code = ({ setLoaded, mode, project }) => {
   const [unityContext, sensorData, gameState, resetScene] = useUnity({
+    project: project.query,
+    scenePrefix: project.scenePrefix,
     scene: mode.toLowerCase(),
+    setLoaded: setLoaded,
   });
 
   useEffect(() => {
-    if (gameState) {
-      setTimeout(() => {
-        setLoaded(true);
-      }, [1000]);
-    }
-  }, [gameState]);
+    return () => setLoaded(false);
+  }, []);
 
   return (
     <div className={classes.code}>
@@ -50,7 +49,7 @@ const Code = ({ setLoaded, mode, project }) => {
           </Link>
           <Game unityContext={unityContext} />
           <Workspace
-            stacked={true} // TODO future feature
+            stacked={project.stacked}
             unityContext={unityContext}
             sensorData={sensorData}
           />

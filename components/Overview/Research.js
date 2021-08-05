@@ -160,7 +160,7 @@ const Research = ({ query }) => {
               </VideoModule>
             </>
           )}
-          {query === "her0" && (
+          {query === "the-zucc" && (
             <>
               <a
                 href="/intro-to-flow.pdf"
@@ -184,7 +184,7 @@ const Research = ({ query }) => {
         <p className={classes.description}>
           {query === "send-it" &&
             "Work through the four modules above to complete your research. Make sure that you understand all of the content as you will need it to create your solution!"}
-          {query === "her0" && "lorem ipsum"}
+          {query === "the-zucc" && "lorem ipsum"}
         </p>
       </div>
     </section>

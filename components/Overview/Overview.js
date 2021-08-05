@@ -13,7 +13,8 @@ import classes from "./overview.module.scss";
 
 const Overview = ({ setLoaded, project }) => {
   useEffect(() => {
-    setTimeout(() => setLoaded(true), []);
+    setLoaded(true);
+    return () => setLoaded(false);
   }, []);
 
   return (
@@ -24,17 +25,17 @@ const Overview = ({ setLoaded, project }) => {
       </Head>
       <Imagine query={project.query} />
       <div className={classes.divider} />
-      {project.query !== "her0" && <Define query={project.query} />}
+      {project.query !== "the-zucc" && <Define query={project.query} />}
       <div className={classes.divider} />
       <Research query={project.query} />
       <div className={classes.divider} />
-      {project.query !== "her0" && <Plan query={project.query} />}
+      {project.query !== "the-zucc" && <Plan query={project.query} />}
       <div className={classes.divider} />
       <Create query={project.query} />
       <div className={classes.divider} />
       <Improve query={project.query} />
       <div className={classes.divider} />
-      {project.query !== "her0" && <Review />}
+      {project.query !== "the-zucc" && <Review />}
     </div>
   );
 };
