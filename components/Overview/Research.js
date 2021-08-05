@@ -172,7 +172,7 @@ const Research = ({ query }) => {
                 </TutorialModule>
               </a>
               <Link href={`/${query}/play`}>
-                <div title="Play ">
+                <div title="Play The Zucc">
                   <SneakPeekModule>
                     Give it a <span>Go</span>
                   </SneakPeekModule>

@@ -52,6 +52,7 @@ const Code = ({ setLoaded, mode, project }) => {
             stacked={project.stacked}
             unityContext={unityContext}
             sensorData={sensorData}
+            query={project.query}
           />
         </div>
       </ConsoleContextProvider>

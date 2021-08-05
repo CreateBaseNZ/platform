@@ -11,7 +11,11 @@ import {
   NodeDoubleJump,
   NodeCrouch,
   NodeJump,
-} from "../components/ReactFlow/NodeActions";
+} from "../components/ReactFlow/NodeSendIt";
+import {
+  NodeMoveArm,
+  NodeMagneticSwitch,
+} from "../components/ReactFlow/NodeTheZucc";
 import {
   NodeAdd,
   NodeSubtract,
@@ -31,12 +35,13 @@ import {
   NodeRepeat,
   NodeWhile,
 } from "../components/ReactFlow/NodeConditionals";
+import { NodeDelay, NodePrint } from "../components/ReactFlow/NodeUtils";
 import {
   ExecutionEdge,
   BooleanEdge,
   FloatEdge,
 } from "../components/ReactFlow/Edges";
-import { NodeDelay, NodePrint } from "../components/ReactFlow/NodeUtils";
+
 import classes from "../components/ReactFlow/FlowEditor.module.scss";
 
 export const initialData = {
@@ -55,6 +60,8 @@ export const nodeTypes = {
   doubleJump: NodeDoubleJump,
   crouch: NodeCrouch,
   attack: NodeAttack,
+  moveArm: NodeMoveArm,
+  magneticSwitch: NodeMagneticSwitch,
   add: NodeAdd,
   subtract: NodeSubtract,
   multiply: NodeMultiply,
@@ -181,6 +188,19 @@ export const tooltips = {
     <ExecutionType />,
     <ExecutionType />,
     "Instructs your character to crouch for 1 second",
+  ],
+  moveArm: [
+    <>
+      <ExecutionType />
+      <FloatType />
+    </>,
+    <ExecutionType />,
+    "Moves the end of the arm to the specified position",
+  ],
+  magneticSwitch: [
+    <ExecutionType />,
+    <ExecutionType />,
+    "Toggles the magnet on and off",
   ],
   add: [<FloatType />, <FloatType />, "Outputs the addition of the two inputs"],
   subtract: [

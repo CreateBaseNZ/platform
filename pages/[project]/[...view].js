@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import classes from "/styles/View.module.scss";
 import Overview from "../../components/Overview/Overview";
 import Code from "../../components/Code/Code";
+import Play from "../../components/Play";
 
 const DUMMY_QUERY = {
   "send-it": {
@@ -53,6 +54,9 @@ const View = ({ setLoaded }) => {
     <div className={classes.view}>
       {project && view === "overview" && (
         <Overview setLoaded={setLoaded} project={project} />
+      )}
+      {project && view === "play" && (
+        <Play setLoaded={setLoaded} project={project} />
       )}
       {project && view === "create" && (
         <Code setLoaded={setLoaded} mode="Create" project={project} />

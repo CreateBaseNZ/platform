@@ -639,7 +639,7 @@ const FlowEditor = (props) => {
       onKeyDown={keyDownHandler}
       tabIndex={-1}
     >
-      <DndBar />
+      <DndBar query={props.query} />
       <div className={classes.editorWrapper} ref={wrapperRef}>
         <ReactFlow
           onLoad={onLoad}
