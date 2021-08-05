@@ -422,7 +422,7 @@ const Workspace = (props) => {
     if (activeTab === "flow" && tab === "text") {
       const [newText, dispCode] = compileCode();
       if (newText) {
-        setText(newText);
+        setText(dispCode);
       }
     }
     setActiveTab(tab);
