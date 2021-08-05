@@ -86,8 +86,6 @@ const FlowEditor = (props) => {
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
-  console.log(props.elements);
-
   useEffect(() => {
     if (!systemAction) {
       setActionStack((state) => {
@@ -418,7 +416,10 @@ const FlowEditor = (props) => {
 
   const saveFlow = () => {
     if (props.elements) {
-      window.localStorage.setItem("flow_save", JSON.stringify(props.elements));
+      window.localStorage.setItem(
+        "createbase__flow_save",
+        JSON.stringify(props.elements)
+      );
     }
     props.setVisualBell((state) => ({
       message: "Code saved",
@@ -435,7 +436,9 @@ const FlowEditor = (props) => {
       }));
       return;
     }
-    const savedEls = JSON.parse(window.localStorage.getItem("flow_save"));
+    const savedEls = JSON.parse(
+      window.localStorage.getItem("createbase__flow_save")
+    );
     if (savedEls) {
       const restoredEls = savedEls.map((el) => {
         if (isNode(el)) {

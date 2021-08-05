@@ -1,16 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import GreenButton from "../UI/GreenButton";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
-import classes from "/styles/Overview.module.scss";
+import classes from "./overview.module.scss";
 
-const Create = (props) => {
+const Create = ({ query }) => {
   return (
     <section id="create">
-      <div
-        className={`${classes.wrapper} ${props.unlocked ? "" : classes.locked}`}
-      >
+      <div className={classes.wrapper}>
         <h2>Create</h2>
         <p className={`${classes.description} ${classes.halfContainer}`}>
           This step is all about building your own code, making sure you test as
@@ -39,17 +36,8 @@ const Create = (props) => {
           </ul>
         </div>
         <div className={classes.buttonContainer}>
-          <Link
-            href={{
-              pathname: "/create/[project]",
-              query: { project: props.project.query },
-            }}
-          >
-            <div
-              onClick={() =>
-                localStorage.setItem("run-it-down__improve-unlocked", true)
-              }
-            >
+          <Link href={`/${query}/create`}>
+            <div>
               <GreenButton caption="Go!" />
             </div>
           </Link>
@@ -63,12 +51,6 @@ const Create = (props) => {
           />
         </div>
       </div>
-      {!props.unlocked && (
-        <LockOutlinedIcon
-          className={classes.lockIcon}
-          style={{ fontSize: 48 }}
-        />
-      )}
     </section>
   );
 };

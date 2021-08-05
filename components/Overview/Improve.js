@@ -1,16 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import GreenButton from "../UI/GreenButton";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
-import classes from "/styles/Overview.module.scss";
+import classes from "./overview.module.scss";
 
-const Improve = (props) => {
+const Improve = ({ query }) => {
   return (
     <section id="improve">
-      <div
-        className={`${classes.wrapper} ${props.unlocked ? "" : classes.locked}`}
-      >
+      <div className={classes.wrapper}>
         <h2>Improve</h2>
         <p className={`${classes.description} ${classes.halfContainer}`}>
           Test what you’ve learnt by taking on more challenges. There are always
@@ -51,24 +48,13 @@ const Improve = (props) => {
           />
         </div>
         <div className={classes.buttonContainer}>
-          <Link
-            href={{
-              pathname: "/improve/[project]",
-              query: { project: props.project.query },
-            }}
-          >
+          <Link href={`/${query}/improve`}>
             <div>
               <GreenButton caption="Go!" />
             </div>
           </Link>
         </div>
       </div>
-      {!props.unlocked && (
-        <LockOutlinedIcon
-          className={classes.lockIcon}
-          style={{ fontSize: 48 }}
-        />
-      )}
     </section>
   );
 };
