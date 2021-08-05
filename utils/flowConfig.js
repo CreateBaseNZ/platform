@@ -12,7 +12,10 @@ import {
   NodeCrouch,
   NodeJump,
 } from "../components/ReactFlow/NodeSendIt";
-import { NodeMoveArm } from "../components/ReactFlow/NodeTheZucc";
+import {
+  NodeMoveArm,
+  NodeMagneticSwitch,
+} from "../components/ReactFlow/NodeTheZucc";
 import {
   NodeAdd,
   NodeSubtract,
@@ -58,6 +61,7 @@ export const nodeTypes = {
   crouch: NodeCrouch,
   attack: NodeAttack,
   moveArm: NodeMoveArm,
+  magneticSwitch: NodeMagneticSwitch,
   add: NodeAdd,
   subtract: NodeSubtract,
   multiply: NodeMultiply,
@@ -192,6 +196,11 @@ export const tooltips = {
     </>,
     <ExecutionType />,
     "Moves the end of the arm to the specified position",
+  ],
+  magneticSwitch: [
+    <ExecutionType />,
+    <ExecutionType />,
+    "Toggles the magnet on and off",
   ],
   add: [<FloatType />, <FloatType />, "Outputs the addition of the two inputs"],
   subtract: [

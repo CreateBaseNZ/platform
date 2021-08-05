@@ -211,6 +211,22 @@
   }
 }
 
+.nodeMagneticSwitch {
+  height: 5rem;
+  width: 11rem;
+  .flexRow {
+    align-self: center;
+    align-items: center;
+  }
+  .label {
+    width: 2rem;
+    text-align: center;
+  }
+  .toggle {
+    margin: 0.25rem;
+  }
+}
+
 .handle.leftHandle {
   height: 12px;
   width: 12px;
@@ -349,6 +365,53 @@
     width: 4px;
     background: $lightest;
     pointer-events: none;
+  }
+}
+
+.toggle {
+  width: 48px;
+  height: 28px;
+  display: flex;
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    margin: 0;
+    z-index: 1;
+  }
+  div {
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.25);
+    position: relative;
+    transition: background-color 0.2s ease-out;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      height: 20px;
+      width: 20px;
+      border-radius: 100%;
+      background: $lightest;
+      transition: left 0.2s ease-out;
+    }
+  }
+  input:checked ~ div {
+    background: $amber;
+    &::after {
+      left: 24px;
+    }
+  }
+  .label {
+    transition: opacity 0.2s ease-out;
   }
 }
 

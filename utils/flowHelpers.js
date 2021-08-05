@@ -44,6 +44,9 @@ export const getDefaultValues = (type) => {
   if (type === "moveArm") {
     return { x: 0, y: 0, z: 0 };
   }
+  if (type === "magneticSwitch") {
+    return { a: true };
+  }
   return {};
 };
 
@@ -90,6 +93,7 @@ export const nodeTypeHandles = {
     "float__in__z",
     "execution__out",
   ],
+  magneticSwitch: actionHandles,
   add: operatorHandles,
   subtract: operatorHandles,
   multiply: operatorHandles,

@@ -11,7 +11,7 @@ import {
   NodeCrouchMini,
   NodeJumpMini,
 } from "./NodeSendIt";
-import { NodeMoveArmMini } from "./NodeTheZucc";
+import { NodeMoveArmMini, NodeMagneticSwitchMini } from "./NodeTheZucc";
 import {
   NodeAddMini,
   NodeSubtractMini,
@@ -74,6 +74,7 @@ const DndBar = ({ query }) => {
         <div className={classes.wrapper}>
           <h5>Actions</h5>
           <NodeMoveArmMini />
+          <NodeMagneticSwitchMini />
         </div>
       )}
     </aside>
