@@ -11,7 +11,7 @@
     "robot": "Player",
     "type": "start",
     "logic": [],
-    "executes": "if(sensorData){\n // console.log(sensorData);\nconst rawData=JSON.parse(sensorData);\nconst currentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleDistance.x;\n\tcurrentData.elevationOf=rawData.obstacleDistance.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n",
+    "executes": "if(sensorData){\n const rawData=JSON.parse(sensorData);\nconst currentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleDistance.x;\n\tcurrentData.elevationOf=rawData.obstacleDistance.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n",
     "simpleLogic":"",
     "simpleExecutes":"while(gameIsON){"
   },
@@ -24,7 +24,7 @@
       { "variable": "y", "type": "number", "value": 0 },
       { "variable": "z", "type": "number", "value": 0 }
     ],
-    "logic": "const point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 1000;\nconst maxtime = 5;\nconst maxRepeats = maxtime * 1000 / rate;\nconsole.log(maxRepeats);\nlet repeats = 0;\nlet interval = setInterval(() => {\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nconsole.log(repeats);\nconsole.log(position);\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}\n}, rate);\n"
+    "logic": "const point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 1000;\nconst maxtime = 5;\nconst maxRepeats = maxtime * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.z);\nerror[2] = Math.abs(z - position.y);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}\n}, rate);\n"
   },
   {
     "robot": "Arm",
