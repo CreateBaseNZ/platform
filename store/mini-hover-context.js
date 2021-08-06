@@ -1,4 +1,4 @@
-import { useState, useRef, createContext } from "react";
+import { useState, useRef, createContext, useMemo } from "react";
 
 const MiniHoverContext = createContext({
   activeNode: null,
@@ -58,15 +58,18 @@ export const MiniHoverContextProvider = (props) => {
     }
   };
 
+  const value = useMemo(
+    () => ({
+      activeNode: activeNode,
+      mouseEnterHandler: mouseEnterHandler,
+      mouseLeaveHandler: mouseLeaveHandler,
+      clearNow: clearNow,
+    }),
+    [activeNode]
+  );
+
   return (
-    <MiniHoverContext.Provider
-      value={{
-        activeNode: activeNode,
-        mouseEnterHandler: mouseEnterHandler,
-        mouseLeaveHandler: mouseLeaveHandler,
-        clearNow: clearNow,
-      }}
-    >
+    <MiniHoverContext.Provider value={value}>
       {props.children}
     </MiniHoverContext.Provider>
   );

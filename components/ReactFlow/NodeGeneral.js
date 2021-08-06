@@ -80,6 +80,7 @@ export const EntityDropdown = ({
 
 export const InputWithHandle = ({ data, blockId, handleId, inputName }) => {
   const changeHandler = (event) => {
+    console.log(blockId);
     data.callBack({ ...data.values, [inputName]: event.target.value }, blockId);
   };
   const prevent = data.connections.includes(handleId);

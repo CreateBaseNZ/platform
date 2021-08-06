@@ -86,6 +86,8 @@ const FlowEditor = (props) => {
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
+  console.log(props.elements);
+
   useEffect(() => {
     if (!systemAction) {
       setActionStack((state) => {
@@ -327,6 +329,7 @@ const FlowEditor = (props) => {
   };
 
   const pasteSelection = () => {
+    console.log(id);
     if (flowLocked) {
       flashLockIcon();
       props.setVisualBell((state) => ({
@@ -440,20 +443,21 @@ const FlowEditor = (props) => {
       window.localStorage.getItem("createbase__flow_save")
     );
     if (savedEls) {
-      const restoredEls = savedEls.map((el) => {
-        if (isNode(el)) {
-          const idNum = parseInt(el.id.split("_")[1]);
-          if (idNum && idNum >= id) {
+      const restoredEls = savedEls.map((savedEl) => {
+        if (isNode(savedEl)) {
+          const idNum = parseInt(savedEl.id.split("_")[1]);
+          if (!isNaN(idNum) && idNum >= id) {
+            console.log(idNum);
             id = idNum + 1;
           }
           return {
-            ...el,
+            ...savedEl,
             data: {
-              ...el.data,
-              callBack: (newValues) => {
+              ...savedEl.data,
+              callBack: (newValues, thisId) => {
                 props.setElements((els) =>
                   els.map((thisEl) => {
-                    if (thisEl.id === el.id) {
+                    if (thisEl.id === thisId) {
                       thisEl.data = {
                         ...thisEl.data,
                         values: newValues,

@@ -17,7 +17,6 @@ import classes from "./Workspace.module.scss";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import Config from "./Config";
 
-
 const findNextNode = (currentNode, path, elements) => {
   const nodes = [currentNode];
   let nodeCollection = getConnectedEdges(nodes, elements);
@@ -432,7 +431,9 @@ const Workspace = (props) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
-      eval("(async () => {" + text + "})()").catch((e) => { resolve('')});
+      eval("(async () => {" + text + "})()").catch((e) => {
+        resolve("");
+      });
       if (codeChanged) {
         resolve("");
       }
@@ -452,7 +453,6 @@ const Workspace = (props) => {
     if (!onceCode) {
       code += "\nresolve(' ');";
       let functionExecute = async () => {
-        
         await executeCode(code);
         if (codeChanged) {
           com = 0;
