@@ -18,7 +18,7 @@ const DUMMY_PROJECTS = [
   {
     name: "The Zucc",
     query: "the-zucc",
-    caption: "Lorem ipsum",
+    caption: "In this project, users will control a robotic arm using logical flow-based programming to clean up items of rubbish from a factory floor. Users will learn the basics of the Flow programming language as well as how to convert their thinking into explicit instructions for the robot. Along the way, they will also gain an understanding of the pros and cons of using robotic systems to carry out tasks traditionally performed by human beings.",
   },
 ];
 

@@ -184,7 +184,8 @@ const Research = ({ query }) => {
         <p className={classes.description}>
           {query === "send-it" &&
             "Work through the four modules above to complete your research. Make sure that you understand all of the content as you will need it to create your solution!"}
-          {query === "the-zucc" && "lorem ipsum"}
+          {query === "the-zucc" && 
+            "Work through the modules above to complete your individual research. Make sure that you understand all of the content as you will need it to create your own solution! if you get stuck, see if any of your classmates can lend a helping hand."}
         </p>
       </div>
     </section>
