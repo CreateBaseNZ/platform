@@ -471,7 +471,7 @@ const FlowEditor = (props) => {
             },
           };
         } else {
-          return el;
+          return savedEl;
         }
       });
       props.setElements(restoredEls);
