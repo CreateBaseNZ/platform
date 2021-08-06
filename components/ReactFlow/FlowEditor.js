@@ -86,8 +86,6 @@ const FlowEditor = (props) => {
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
-  console.log(props.elements);
-
   useEffect(() => {
     if (!systemAction) {
       setActionStack((state) => {
@@ -209,7 +207,6 @@ const FlowEditor = (props) => {
 
   // dropping
   const onDrop = (event) => {
-    console.log(event.target.classList);
     event.preventDefault();
     if (flowLocked) {
       flashLockIcon();
@@ -227,9 +224,9 @@ const FlowEditor = (props) => {
       y: event.clientY - reactFlowBounds.top,
     });
     // create new node
-    const id = getId();
+    const newId = getId();
     const newNode = {
-      id: id,
+      id: newId,
       type,
       position,
       data: {
@@ -254,70 +251,76 @@ const FlowEditor = (props) => {
       event.target.classList.contains("react-flow__handle") &&
       event.target.classList.contains("connectable")
     ) {
-      const handles = nodeTypeHandles[type];
-      const [droppedHandleType, droppedHandleDir] =
-        event.target.dataset.handleid.split("__").slice(0, 2);
-      for (const h of handles) {
-        if (
-          h.split("__")[0] === droppedHandleType &&
-          h.split("__")[1] !== droppedHandleDir
-        ) {
-          let sourceId, targetId, sourceHandle, targetHandle, dx, dy;
-          if (droppedHandleDir === "in") {
-            targetId = event.target.dataset.nodeid;
-            targetHandle = event.target.dataset.handleid;
-            sourceId = id;
-            sourceHandle = h;
-            dx = -176;
-            dy = -80;
-          } else {
-            targetId = id;
-            targetHandle = h;
-            sourceId = event.target.dataset.nodeid;
-            sourceHandle = event.target.dataset.handleid;
-            dx = 32;
-            dy = 16;
-          }
-          newNode.data.connections.push(h);
-          newNode.position.x += dx;
-          newNode.position.y += dy;
+      autoConnect(event, type, newNode, newId);
+    } else {
+      props.setElements((els) => els.concat(newNode));
+    }
+  };
 
-          props.setElements((els) =>
-            els
-              .map((_el) =>
-                _el.id === event.target.dataset.nodeid
-                  ? {
-                      ..._el,
-                      data: {
-                        ..._el.data,
-                        connections: _el.data.connections.concat(
-                          event.target.dataset.handleid
-                        ),
-                      },
-                    }
-                  : _el
-              )
-              .concat(newNode)
-              .concat(
-                getHandleObject(droppedHandleType, {
-                  id: `reactflow__edge-${sourceId}${sourceHandle}-${targetId}${targetHandle}`,
-                  source: sourceId,
-                  sourceHandle: sourceHandle,
-                  target: targetId,
-                  targetHandle: targetHandle,
-                  type: droppedHandleType,
-                })
-              )
-          );
-
-          return props.setVisualBell((state) => ({
-            message: "Blocks autoconnected",
-            switch: !state.switch,
-          }));
+  const autoConnect = (event, type, newNode, id) => {
+    const handles = nodeTypeHandles[type];
+    const [droppedHandleType, droppedHandleDir] = event.target.dataset.handleid
+      .split("__")
+      .slice(0, 2);
+    for (const h of handles) {
+      if (
+        h.split("__")[0] === droppedHandleType &&
+        h.split("__")[1] !== droppedHandleDir
+      ) {
+        let sourceId, targetId, sourceHandle, targetHandle, dx, dy;
+        if (droppedHandleDir === "in") {
+          targetId = event.target.dataset.nodeid;
+          targetHandle = event.target.dataset.handleid;
+          sourceId = id;
+          sourceHandle = h;
+          dx = -176;
+          dy = -80;
+        } else {
+          targetId = id;
+          targetHandle = h;
+          sourceId = event.target.dataset.nodeid;
+          sourceHandle = event.target.dataset.handleid;
+          dx = 32;
+          dy = 16;
         }
+        newNode.data.connections.push(h);
+        newNode.position.x += dx;
+        newNode.position.y += dy;
+
+        props.setElements((els) =>
+          els
+            .map((_el) =>
+              _el.id === event.target.dataset.nodeid
+                ? {
+                    ..._el,
+                    data: {
+                      ..._el.data,
+                      connections: _el.data.connections.concat(
+                        event.target.dataset.handleid
+                      ),
+                    },
+                  }
+                : _el
+            )
+            .concat(newNode)
+            .concat(
+              getHandleObject(droppedHandleType, {
+                id: `reactflow__edge-${sourceId}${sourceHandle}-${targetId}${targetHandle}`,
+                source: sourceId,
+                sourceHandle: sourceHandle,
+                target: targetId,
+                targetHandle: targetHandle,
+                type: droppedHandleType,
+              })
+            )
+        );
+
+        return props.setVisualBell((state) => ({
+          message: "Blocks autoconnected",
+          switch: !state.switch,
+        }));
       }
     }
-    props.setElements((els) => els.concat(newNode));
   };
 
   const copySelection = (selection) => {
@@ -329,7 +332,6 @@ const FlowEditor = (props) => {
   };
 
   const pasteSelection = () => {
-    console.log(id);
     if (flowLocked) {
       flashLockIcon();
       props.setVisualBell((state) => ({
@@ -447,7 +449,6 @@ const FlowEditor = (props) => {
         if (isNode(savedEl)) {
           const idNum = parseInt(savedEl.id.split("_")[1]);
           if (!isNaN(idNum) && idNum >= id) {
-            console.log(idNum);
             id = idNum + 1;
           }
           return {

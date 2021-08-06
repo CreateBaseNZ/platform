@@ -80,6 +80,7 @@ const comparisonHandles = ["float__in__a", "float__in__b", "boolean__out"];
 const logicalHandles = ["boolean__in__a", "boolean__in__b", "boolean__out"];
 
 export const nodeTypeHandles = {
+  start: ["execution__out"],
   distance: sensingHandles,
   speedOf: sensingHandles,
   heightOf: sensingHandles,
@@ -88,7 +89,8 @@ export const nodeTypeHandles = {
   jump: actionHandles,
   crouch: actionHandles,
   moveArm: [
-    "execution__in, float__in__x",
+    "execution__in",
+    "float__in__x",
     "float__in__y",
     "float__in__z",
     "execution__out",
