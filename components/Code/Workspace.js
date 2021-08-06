@@ -187,7 +187,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
     return [null, null, null, "One of the inputs has more than one entry"];
   }
   let block = {
-    robot: "Player",
+    robot: "Arm",
     id: currentNode.id,
     type: currentNode.type,
   };
@@ -341,7 +341,7 @@ const flow2Text = (elements) => {
   }
 
   const endNode = {
-    robot: "Player",
+    robot: "Arm",
     type: "end",
   };
   blocksConfig.push(endNode);
@@ -349,7 +349,7 @@ const flow2Text = (elements) => {
 };
 
 let codeChanged = false;
-let onceCode = false;
+let onceCode = true;
 let codesDone = 0;
 
 const TabBar = dynamic(() => import("./TabBar"), {
@@ -478,7 +478,7 @@ const Workspace = (props) => {
       } else {
         codeChanged = false;
       }
-      eval("(async () => {" + code + "})()");
+      eval("(async () => {" + code + "})()").catch((e) => { codesDone=-1});
     }
     codesDone++;
     setVisualBell((state) => ({
