@@ -29,13 +29,15 @@ const Project = ({ setLoaded, project }) => {
       <div className={classes.divider} />
       <Research query={project.query} />
       <div className={classes.divider} />
-      {project.query !== "magnebot" && <Plan query={project.query} />}
+      {/* {project.query !== "magnebot" && <Plan query={project.query} />} */}
+      <Plan query={project.query} />
       <div className={classes.divider} />
       <Create query={project.query} />
       <div className={classes.divider} />
       <Improve query={project.query} />
       <div className={classes.divider} />
-      {project.query !== "magnebot" && <Review />}
+      {/* {project.query !== "magnebot" && <Review />} */}
+      <Review />
     </div>
   );
 };
