@@ -1,6 +1,6 @@
 import Image from "next/image";
 import CloseIcon from "@material-ui/icons/Close";
-import classes from "../../components/Overview/overview.module.scss";
+import classes from "../../components/Project/project.module.scss";
 
 export const Delivery = ({ closeHandler }) => {
   return (

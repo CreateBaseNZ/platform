@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import classes from "/styles/View.module.scss";
-import Overview from "../../components/Overview/Overview";
+import Project from "../../components/Project/Project";
 import Code from "../../components/Code/Code";
 import Play from "../../components/Play";
 
@@ -33,14 +33,19 @@ const View = ({ setLoaded }) => {
   const [view, setView] = useState();
 
   useEffect(() => {
+    console.log(router.query);
     if (Object.keys(router.query).length) {
       setProject(DUMMY_QUERY[router.query.project]);
-      setView(router.query.view[0]);
+      if (router.query.view) {
+        setView(router.query.view[0]);
+      } else {
+        setView("project");
+      }
     }
   }, [router.query]);
 
   useEffect(() => {
-    if (view === "overview" && router.query.view[1]) {
+    if (view === "project" && router.query && router.query.view[1]) {
       console.log(router.query.view);
       document.querySelector(`#${router.query.view[1]}`).scrollIntoView({
         behavior: "smooth",
@@ -52,8 +57,8 @@ const View = ({ setLoaded }) => {
 
   return (
     <div className={classes.view}>
-      {project && view === "overview" && (
-        <Overview setLoaded={setLoaded} project={project} />
+      {project && view === "project" && (
+        <Project setLoaded={setLoaded} project={project} />
       )}
       {project && view === "play" && (
         <Play setLoaded={setLoaded} project={project} />

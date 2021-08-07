@@ -39,11 +39,11 @@ const Code = ({ setLoaded, mode, project }) => {
         >
           <Link
             href={{
-              pathname: `/${project.query}/overview/[step]`,
+              pathname: `/${project.query}/project/[step]`,
               query: { step: mode.toLowerCase() },
             }}
           >
-            <button className={classes.backButton} title="Back to overview">
+            <button className={classes.backButton} title="Back to project">
               <ExitToAppIcon />
             </button>
           </Link>

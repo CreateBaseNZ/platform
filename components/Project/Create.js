@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import GreenButton from "../UI/GreenButton";
 
-import classes from "./overview.module.scss";
+import classes from "./project.module.scss";
 
 const Create = ({ query }) => {
   return (
@@ -81,7 +81,7 @@ const Create = ({ query }) => {
         </div>
         <div className={classes.graphicContainer}>
           <Image
-            src="/overview-create.png"
+            src="/project-create.png"
             alt="Create"
             layout="fill"
             objectFit="contain"

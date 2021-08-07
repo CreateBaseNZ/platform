@@ -27,11 +27,11 @@ const Play = ({ setLoaded, project }) => {
       </Head>
       <Link
         href={{
-          pathname: `/${project.query}/overview/[step]`,
+          pathname: `/${project.query}/project/[step]`,
           query: { step: "research" },
         }}
       >
-        <button className={classes.backButton} title="Back to overview">
+        <button className={classes.backButton} title="Back to project">
           <ExitToAppIcon />
         </button>
       </Link>

@@ -12,7 +12,7 @@ import {
 import CloseIcon from "@material-ui/icons/Close";
 import { instructions } from "../../projects/send-it/research";
 
-import classes from "./overview.module.scss";
+import classes from "./project.module.scss";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";

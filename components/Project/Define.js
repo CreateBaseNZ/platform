@@ -8,7 +8,7 @@ import {
   Ethics,
 } from "../../projects/send-it/define";
 
-import classes from "./overview.module.scss";
+import classes from "./project.module.scss";
 
 const Define = ({ query }) => {
   const [activePrompt, setActivePrompt] = useState();

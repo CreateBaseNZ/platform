@@ -49,7 +49,7 @@ const Browse = ({ setLoaded }) => {
         <div className={classes.content}>
           <h2>{DUMMY_PROJECTS[activeIndex].name}</h2>
           <p>{DUMMY_PROJECTS[activeIndex].caption}</p>
-          <Link href={`/${DUMMY_PROJECTS[activeIndex].query}/overview`}>
+          <Link href={`/${DUMMY_PROJECTS[activeIndex].query}`}>
             <div>
               <GreenButton caption="Continue" />
             </div>

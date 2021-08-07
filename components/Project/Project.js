@@ -9,18 +9,18 @@ import Create from "./Create";
 import Improve from "./Improve";
 import Review from "./Review";
 
-import classes from "./overview.module.scss";
+import classes from "./project.module.scss";
 
-const Overview = ({ setLoaded, project }) => {
+const Project = ({ setLoaded, project }) => {
   useEffect(() => {
     setLoaded(true);
     return () => setLoaded(false);
   }, []);
 
   return (
-    <div className={classes.overview}>
+    <div className={classes.project}>
       <Head>
-        <title>Overview - {project.name} - CreateBase</title>
+        <title>{project.name} - CreateBase</title>
         <meta name="description" content={project.caption} />
       </Head>
       <Imagine query={project.query} />
@@ -40,4 +40,4 @@ const Overview = ({ setLoaded, project }) => {
   );
 };
 
-export default Overview;
+export default Project;
