@@ -27,25 +27,35 @@ const Improve = ({ query }) => {
                 <li>
                   Modify your code to take into account an accelerating robot.
                 </li>
-                <li>Modify your code to jump over obstacles of different sizes.</li>
+                <li>
+                  Modify your code to jump over obstacles of different sizes.
+                </li>
                 <li>Deliver that package with the highest possible score!</li>
               </ul>
             </>
           )}
-          {query === "the-zucc" && (
+          {query === "magnebot" && (
             <>
               <p>
-                Did you manage to clean up the facility? Uh oh, looks like there's now
-                even more items scattered across the floor! Lucky for us, this time
-                it is after hours! Have fun playing around with MagneBot with no rules to follow or
-                objectives to complete. However, if you want a challenge, try attempting
-                one of the following tasks and see if you can best your classmates.
+                Did you manage to clean up the facility? Uh oh, looks like
+                there's now even more items scattered across the floor! Lucky
+                for us, this time it is after hours! Have fun playing around
+                with MagneBot with no rules to follow or objectives to complete.
+                However, if you want a challenge, try attempting one of the
+                following tasks and see if you can best your classmates.
               </p>
               <ul>
-                <li>How many items can you stack on top of each other? (our record is five 😱)</li>
-                <li>Try and throw every object over the edge of the platform.</li>
-                <li>How many items can you place on top of the conveyor belt? (hint: you might need
-                  to create some kind of ramp)</li>
+                <li>
+                  How many items can you stack on top of each other? (our record
+                  is five 😱)
+                </li>
+                <li>
+                  Try and throw every object over the edge of the platform.
+                </li>
+                <li>
+                  How many items can you place on top of the conveyor belt?
+                  (hint: you might need to create some kind of ramp)
+                </li>
               </ul>
             </>
           )}
@@ -56,19 +66,20 @@ const Improve = ({ query }) => {
             <>
               <ul>
                 <li>
-                  Rather than trying to do solve them all at once, try turning on
-                  one modifier, updating your code until it works, and only then
-                  adding the next modifier until you have solved them all!
+                  Rather than trying to do solve them all at once, try turning
+                  on one modifier, updating your code until it works, and only
+                  then adding the next modifier until you have solved them all!
                 </li>
               </ul>
             </>
           )}
-          {query === "the-zucc" && (
+          {query === "magnebot" && (
             <>
               <ul>
                 <li>
-                  Challenge your friends to see who can complete one of the above tasks the best and/or
-                  fastest. If you are feeling especially spicy, you could even create your own tasks!
+                  Challenge your friends to see who can complete one of the
+                  above tasks the best and/or fastest. If you are feeling
+                  especially spicy, you could even create your own tasks!
                 </li>
               </ul>
             </>

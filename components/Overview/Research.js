@@ -160,7 +160,7 @@ const Research = ({ query }) => {
               </VideoModule>
             </>
           )}
-          {query === "the-zucc" && (
+          {query === "magnebot" && (
             <>
               <a
                 href="/intro-to-flow.pdf"
@@ -172,7 +172,7 @@ const Research = ({ query }) => {
                 </TutorialModule>
               </a>
               <Link href={`/${query}/play`}>
-                <div title="Play The Zucc">
+                <div title="Play MagneBot">
                   <SneakPeekModule>
                     Give it a <span>Go</span>
                   </SneakPeekModule>
@@ -184,7 +184,7 @@ const Research = ({ query }) => {
         <p className={classes.description}>
           {query === "send-it" &&
             "Work through the four modules above to complete your research. Make sure that you understand all of the content as you will need it to create your solution!"}
-          {query === "the-zucc" && 
+          {query === "magnebot" &&
             "Work through the modules above to complete your individual research. Make sure that you understand all of the content as you will need it to create your own solution! if you get stuck, see if any of your classmates can lend a helping hand."}
         </p>
       </div>

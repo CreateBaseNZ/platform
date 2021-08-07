@@ -18,14 +18,19 @@ const Imagine = ({ query }) => {
               think is happening here? Discuss with your peers!
             </p>
           )}
-          {query === "the-zucc" && (
+          {query === "magnebot" && (
             <>
               <p className={`${classes.description} ${classes.halfContainer}`}>
-                Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!
-
+                Introducing MagneBot, a robotic arm that can move objects with
+                its magnetic sphere attachment! This arm is located in our
+                autonomous recycling facility. Being autonomous means that the
+                entire facility is run by robots: there are no humans present!
               </p>
               <p className={`${classes.description} ${classes.halfContainer}`}>
-                Unfortunately, a self-driving cart has driven through our recycling facility and split bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...
+                Unfortunately, a self-driving cart has driven through our
+                recycling facility and split bags of rubbish all over the floor!
+                If those bags contain magnetic materials, we might be able to
+                clean up this mess without having to get our own hands dirty...
               </p>
             </>
           )}

@@ -16,9 +16,10 @@ const DUMMY_PROJECTS = [
       'In this project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
   },
   {
-    name: "The Zucc",
-    query: "the-zucc",
-    caption: "In this project, users will control a robotic arm using logical flow-based programming to clean up items of rubbish from a factory floor. Users will learn the basics of the Flow programming language as well as how to convert their thinking into explicit instructions for the robot. Along the way, they will also gain an understanding of the pros and cons of using robotic systems to carry out tasks traditionally performed by human beings.",
+    name: "MagneBot",
+    query: "magnebot",
+    caption:
+      "In this project, users will control a robotic arm using logical flow-based programming to clean up items of rubbish from a factory floor. Users will learn the basics of the Flow programming language as well as how to convert their thinking into explicit instructions for the robot. Along the way, they will also gain an understanding of the pros and cons of using robotic systems to carry out tasks traditionally performed by human beings.",
   },
 ];
 

@@ -16,9 +16,9 @@ const DUMMY_QUERY = {
     scenePrefix: "Project_Jump_0",
     runType: "loop",
   },
-  "the-zucc": {
-    name: "The Zucc",
-    query: "the-zucc",
+  magnebot: {
+    name: "MagneBot",
+    query: "magnebot",
     caption:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
     stacked: true,

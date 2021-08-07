@@ -11,7 +11,7 @@ import {
   NodeCrouchMini,
   NodeJumpMini,
 } from "./NodeSendIt";
-import { NodeMoveArmMini, NodeMagneticSwitchMini } from "./NodeTheZucc";
+import { NodeMoveArmMini, NodeMagneticSwitchMini } from "./NodeMagneBot";
 import {
   NodeAddMini,
   NodeSubtractMini,
@@ -70,7 +70,7 @@ const DndBar = ({ query }) => {
           <NodePrintMini />
         </div>
       )}
-      {query === "the-zucc" && (
+      {query === "magnebot" && (
         <div className={classes.wrapper}>
           <h5>Actions</h5>
           <NodeMoveArmMini />

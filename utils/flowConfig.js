@@ -15,7 +15,7 @@ import {
 import {
   NodeMoveArm,
   NodeMagneticSwitch,
-} from "../components/ReactFlow/NodeTheZucc";
+} from "../components/ReactFlow/NodeMagneBot";
 import {
   NodeAdd,
   NodeSubtract,
