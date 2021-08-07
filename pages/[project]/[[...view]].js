@@ -45,7 +45,7 @@ const View = ({ setLoaded }) => {
   }, [router.query]);
 
   useEffect(() => {
-    if (view === "project" && router.query && router.query.view[1]) {
+    if (view === "project" && router.query.view && router.query.view[1]) {
       console.log(router.query.view);
       document.querySelector(`#${router.query.view[1]}`).scrollIntoView({
         behavior: "smooth",
