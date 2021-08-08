@@ -126,7 +126,14 @@ const CheckPreviuos = (currentNode, elements) => {
   return true;
 };
 
-const findInputs = (blocksOrder, currentNode, elements, val,robotName, level = 0) => {
+const findInputs = (
+  blocksOrder,
+  currentNode,
+  elements,
+  val,
+  robotName,
+  level = 0
+) => {
   const nodes = [currentNode];
   let edgeCollection = getConnectedEdges(nodes, elements);
   let prevNodeList = getIncomers(currentNode, elements);
@@ -242,7 +249,7 @@ const findInputs = (blocksOrder, currentNode, elements, val,robotName, level = 0
   return [blocksOrder, val, outName, ""];
 };
 
-const flow2Text = (elements,projectName) => {
+const flow2Text = (elements, projectName) => {
   let blocksConfig = [];
   let currentNode = elements[0];
   let traverse = true;
@@ -251,11 +258,14 @@ const flow2Text = (elements,projectName) => {
   let maxPath = [];
   let nodeContext = [];
   const robotName = defineObject(projectName);
-  if (robotName == "") { console.log("G");return "Robot doesn't Exist"}
+  if (robotName == "") {
+    console.log("G");
+    return "Robot doesn't Exist";
+  }
   while (traverse) {
     if (currentNode) {
       if (!CheckPreviuos(currentNode, elements)) {
-        return ["One Node has more than one input",null,null];
+        return ["One Node has more than one input", null, null];
       }
       let f, message;
       [blocksConfig, val, f, message] = findInputs(
@@ -266,7 +276,7 @@ const flow2Text = (elements,projectName) => {
         robotName
       );
       if (!(blocksConfig || val || f)) {
-        return [message,null,null];
+        return [message, null, null];
       }
     }
     let nextNode;
@@ -297,7 +307,7 @@ const flow2Text = (elements,projectName) => {
       let state;
       [state, nextNode] = findNextNode(currentNode, executionNext, elements);
       if (!state) {
-        return [nextNode,null,null];
+        return [nextNode, null, null];
       }
     }
     if (nextNode) {
@@ -313,7 +323,7 @@ const flow2Text = (elements,projectName) => {
         let state;
         [state, nextNode] = findNextNode(currentNode, executionNext, elements);
         if (!state) {
-          return [nextNode,null,null];
+          return [nextNode, null, null];
         }
         let interBlock;
         if (path[path.length - 1] == maxPath[path.length - 1]) {
@@ -349,11 +359,14 @@ const flow2Text = (elements,projectName) => {
     type: "end",
   };
   if (blocksConfig.length == 1) {
-
-    return [blocksConfig, "warning", "You have no blocks connected. Nothing interesting will happen."];
+    return [
+      blocksConfig,
+      "warning",
+      "You have no blocks connected. Nothing interesting will happen.",
+    ];
   }
   blocksConfig.push(endNode);
-  return [blocksConfig,null,null];
+  return [blocksConfig, null, null];
 };
 
 let defineObject = (projectName) => {
@@ -364,7 +377,7 @@ let defineObject = (projectName) => {
       return "Arm";
   }
   return "";
-}
+};
 
 let isOnceCode = (projectName) => {
   switch (projectName) {
@@ -373,9 +386,7 @@ let isOnceCode = (projectName) => {
     case "magnebot":
       return true;
   }
-}
-
-
+};
 
 let codeChanged = false;
 
@@ -402,15 +413,14 @@ const Workspace = (props) => {
 
   sensorDataRef.current = props.sensorData;
 
-
-  
   useEffect(() => {
     const theme = localStorage.getItem("createbase__monaco-theme");
+    console.log(theme);
     if (theme) {
       setTheme(theme);
     } else {
-      setTheme("VSDark");
       localStorage.setItem("createbase__monaco-theme", "VSDark");
+      setTheme("VSDark");
     }
   }, []);
 
@@ -433,12 +443,9 @@ const Workspace = (props) => {
     }
   }, [visualBell.switch]);
 
-
-
   const compileCode = () => {
     const [blocks, type, message] = flow2Text(elements, props.query);
-    if (type
-      && type === "warning") {
+    if (type && type === "warning") {
       ctx.addWarning(message);
     }
     if (Array.isArray(blocks)) {
@@ -544,12 +551,15 @@ const Workspace = (props) => {
           />
         </ReactFlowProvider>
       </MiniHoverContextProvider>
-      <TextEditor show={activeTab === "text"} text={text} />
-      <Console
-        show={activeTab === "console"}
-        theme={theme}
-        setTheme={setTheme}
-      />
+      {theme && (
+        <TextEditor
+          theme={theme}
+          setTheme={setTheme}
+          show={activeTab === "text"}
+          text={text}
+        />
+      )}
+      <Console show={activeTab === "console"} />
       <Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
       <TabBar
         stacked={props.stacked}

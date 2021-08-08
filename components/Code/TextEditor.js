@@ -15,6 +15,7 @@ export const editorOptions = {
   formatOnPaste: true,
   fontSize: 14,
   fontFamily: "JetBrains Mono, mono",
+  readOnly: true,
 };
 
 const TextEditor = (props) => {

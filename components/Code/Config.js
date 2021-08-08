@@ -59,6 +59,10 @@ const Config = (props) => {
   };
 
   const themeClickHandler = (theme) => {
+    localStorage.setItem(
+      "createbase__monaco-theme",
+      theme.replace(/([\ +'])/g, "")
+    );
     props.setTheme(theme.replace(/([\ +'])/g, ""));
   };
 
