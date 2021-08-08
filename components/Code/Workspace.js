@@ -126,7 +126,7 @@ const CheckPreviuos = (currentNode, elements) => {
   return true;
 };
 
-const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
+const findInputs = (blocksOrder, currentNode, elements, val,robotName, level = 0) => {
   const nodes = [currentNode];
   let edgeCollection = getConnectedEdges(nodes, elements);
   let prevNodeList = getIncomers(currentNode, elements);
@@ -187,7 +187,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
     return [null, null, null, "One of the inputs has more than one entry"];
   }
   let block = {
-    robot: "Arm",
+    robot: robotName,
     id: currentNode.id,
     type: currentNode.type,
   };
@@ -203,6 +203,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
       IDlist[i],
       elements,
       val,
+      robotName,
       1
     );
     if (blocksOrder || val || output) {
@@ -241,7 +242,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, level = 0) => {
   return [blocksOrder, val, outName, ""];
 };
 
-const flow2Text = (elements) => {
+const flow2Text = (elements,projectName) => {
   let blocksConfig = [];
   let currentNode = elements[0];
   let traverse = true;
@@ -249,6 +250,8 @@ const flow2Text = (elements) => {
   let path = [];
   let maxPath = [];
   let nodeContext = [];
+  const robotName = defineObject(projectName);
+  if (robotName == "") { console.log("G");return "Robot doesn't Exist"}
   while (traverse) {
     if (currentNode) {
       if (!CheckPreviuos(currentNode, elements)) {
@@ -259,7 +262,8 @@ const flow2Text = (elements) => {
         blocksConfig,
         currentNode,
         elements,
-        val
+        val,
+        robotName
       );
       if (!(blocksConfig || val || f)) {
         return message;
@@ -341,15 +345,36 @@ const flow2Text = (elements) => {
   }
 
   const endNode = {
-    robot: "Arm",
+    robot: robotName,
     type: "end",
   };
   blocksConfig.push(endNode);
   return blocksConfig;
 };
 
+let defineObject = (projectName) => {
+  switch (projectName) {
+    case "send-it":
+      return "Player";
+    case "magnebot":
+      return "Arm";
+  }
+  return "";
+}
+
+let isOnceCode = (projectName) => {
+  switch (projectName) {
+    case "send-it":
+      return false;
+    case "magnebot":
+      return true;
+  }
+}
+
+
+
 let codeChanged = false;
-let onceCode = true;
+
 let codesDone = 0;
 
 const TabBar = dynamic(() => import("./TabBar"), {
@@ -374,6 +399,8 @@ const Workspace = (props) => {
 
   sensorDataRef.current = props.sensorData;
 
+
+  
   useEffect(() => {
     const theme = localStorage.getItem("createbase__monaco-theme");
     if (theme) {
@@ -398,8 +425,10 @@ const Workspace = (props) => {
     }
   }, [visualBell.switch]);
 
+
+
   const compileCode = () => {
-    const blocks = flow2Text(elements);
+    const blocks = flow2Text(elements,props.query);
     if (Array.isArray(blocks)) {
       const codeGen = new CodeGenerator();
       const [newText, type, message, dispCode] = codeGen.build(blocks);
@@ -449,6 +478,8 @@ const Workspace = (props) => {
   const compileHandler = async () => {
     let com;
     codeChanged = true;
+    const onceCode = isOnceCode(props.query);
+    console.log(onceCode)
     let [code, dispCode] = compileCode();
     if (!onceCode) {
       code += "\nresolve(' ');";
