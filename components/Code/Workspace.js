@@ -389,6 +389,15 @@ const Workspace = (props) => {
   }, [elements]);
 
   useEffect(() => {
+    if (activeTab === "text") {
+      const [newText, dispCode] = compileCode();
+      if (newText) {
+        setText(dispCode);
+      }
+    }
+  }, [activeTab]);
+
+  useEffect(() => {
     if (visualBell.message) {
       clearTimeout(visualBellTimer.current);
       visualBellTimer.current = setTimeout(
@@ -417,15 +426,7 @@ const Workspace = (props) => {
     }
   };
 
-  const changeTabHandler = (tab) => {
-    if (activeTab === "flow" && tab === "text") {
-      const [newText, dispCode] = compileCode();
-      if (newText) {
-        setText(dispCode);
-      }
-    }
-    setActiveTab(tab);
-  };
+  const changeTabHandler = (tab) => setActiveTab(tab);
 
   const executeCode = (text) => {
     return new Promise((resolve, reject) => {
@@ -478,7 +479,9 @@ const Workspace = (props) => {
       } else {
         codeChanged = false;
       }
-      eval("(async () => {" + code + "})()").catch((e) => { codesDone=-1});
+      eval("(async () => {" + code + "})()").catch((e) => {
+        codesDone = -1;
+      });
     }
     codesDone++;
     setVisualBell((state) => ({

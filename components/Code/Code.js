@@ -9,7 +9,7 @@ import Workspace from "./Workspace";
 
 import { ConsoleContextProvider } from "../../store/console-context";
 
-import classes from "/styles/Create.module.scss";
+import classes from "./code.module.scss";
 
 const Code = ({ setLoaded, mode, project }) => {
   const [unityContext, sensorData, gameState, resetScene] = useUnity({
