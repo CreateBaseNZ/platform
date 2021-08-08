@@ -1,7 +1,7 @@
 import { HintModule } from "../Modules";
 import classes from "./project.module.scss";
 
-const Review = () => {
+const Review = ({ query }) => {
   return (
     <section id="review">
       <div className={classes.wrapper}>

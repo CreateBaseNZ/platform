@@ -5,7 +5,7 @@ import classes from "../../components/Project/project.module.scss";
 export const Delivery = ({ closeHandler }) => {
   return (
     <div className={classes.definePrompt}>
-      <button className={classes.sendItClose} onClick={closeHandler}>
+      <button className={classes.howToClose} onClick={closeHandler}>
         <CloseIcon />
       </button>
       <h4>Types of delivery robots</h4>
@@ -74,7 +74,7 @@ export const Delivery = ({ closeHandler }) => {
 export const Mail = ({ closeHandler }) => {
   return (
     <div className={classes.definePrompt}>
-      <button className={classes.sendItClose} onClick={closeHandler}>
+      <button className={classes.howToClose} onClick={closeHandler}>
         <CloseIcon />
       </button>
       <h4>Delivering mail</h4>
@@ -137,7 +137,7 @@ export const Mail = ({ closeHandler }) => {
 export const Controlling = ({ closeHandler }) => {
   return (
     <div className={classes.definePrompt}>
-      <button className={classes.sendItClose} onClick={closeHandler}>
+      <button className={classes.howToClose} onClick={closeHandler}>
         <CloseIcon />
       </button>
       <h4>Controlling a robot</h4>
@@ -196,7 +196,7 @@ export const Controlling = ({ closeHandler }) => {
 export const Ethics = ({ closeHandler }) => {
   return (
     <div className={classes.definePrompt}>
-      <button className={classes.sendItClose} onClick={closeHandler}>
+      <button className={classes.howToClose} onClick={closeHandler}>
         <CloseIcon />
       </button>
       <h4>The ethics of automation</h4>

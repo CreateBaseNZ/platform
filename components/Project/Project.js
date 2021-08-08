@@ -25,18 +25,16 @@ const Project = ({ setLoaded, project }) => {
       </Head>
       <Imagine query={project.query} />
       <div className={classes.divider} />
-      {project.query !== "magnebot" && <Define query={project.query} />}
+      <Define query={project.query} />
       <div className={classes.divider} />
       <Research query={project.query} />
       <div className={classes.divider} />
-      {/* {project.query !== "magnebot" && <Plan query={project.query} />} */}
       <Plan query={project.query} />
       <div className={classes.divider} />
       <Create query={project.query} />
       <div className={classes.divider} />
       <Improve query={project.query} />
       <div className={classes.divider} />
-      {/* {project.query !== "magnebot" && <Review />} */}
       <Review />
     </div>
   );

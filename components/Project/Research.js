@@ -8,6 +8,7 @@ import {
   VideoModule,
   SneakPeekModule,
   HintModule,
+  ResourceModule,
 } from "../Modules";
 import CloseIcon from "@material-ui/icons/Close";
 import sendItSubtitles from "/public/send-it/tutorial/subtitles";
@@ -70,14 +71,27 @@ const HowTo = ({ closeHandler, query, subtitles }) => {
   );
 };
 
-const Situation = (props) => {
+const FlowTutorial = ({ closeHandler }) => {
   return (
     <div className={classes.situation}>
-      <button className={classes.situationClose} onClick={props.closeHandler}>
+      <button className={classes.situationClose} onClick={closeHandler}>
         <CloseIcon />
       </button>
       <video controls>
-        <source src="/situation.mp4" type="video/mp4" />
+        <source src="/flow-tut.mp4" type="video/mp4" />
+      </video>
+    </div>
+  );
+};
+
+const Situation = ({ query, closeHandler }) => {
+  return (
+    <div className={classes.situation}>
+      <button className={classes.situationClose} onClick={closeHandler}>
+        <CloseIcon />
+      </button>
+      <video controls>
+        <source src={`/${query}/vid/situation.mp4`} type="video/mp4" />
       </video>
     </div>
   );
@@ -105,6 +119,9 @@ const Research = ({ query }) => {
       case "situation":
         modal = <Situation closeHandler={closeModalHandler} />;
         break;
+      case "flow-tut":
+        modal = <FlowTutorial closeHandler={closeModalHandler} />;
+        break;
       default:
         return;
     }
@@ -119,6 +136,9 @@ const Research = ({ query }) => {
         <div className={classes.moduleContainer}>
           {query === "send-it" && (
             <>
+              <VideoModule onClick={openModal.bind(this, "flow-tut")} title="">
+                <span>Editing</span> with Flow
+              </VideoModule>
               <a
                 href="/intro-to-flow.pdf"
                 target="_blank"
@@ -160,15 +180,9 @@ const Research = ({ query }) => {
           )}
           {query === "magnebot" && (
             <>
-              <a
-                href="/intro-to-flow.pdf"
-                target="_blank"
-                title="Introduction to Flow Blocks PDF"
-              >
-                <TutorialModule>
-                  Introduction to <span>Flow</span> Blocks
-                </TutorialModule>
-              </a>
+              <VideoModule onClick={openModal.bind(this, "flow-tut")} title="">
+                <span>Editing</span> with Flow
+              </VideoModule>
               <TutorialModule
                 title="Watch the tutorial"
                 onClick={openModal.bind(this, "how-to", magnebotSubtitles)}
@@ -182,6 +196,15 @@ const Research = ({ query }) => {
                   </SneakPeekModule>
                 </div>
               </Link>
+              <a
+                href="https://www.recycleright.co.nz/"
+                target="_blank"
+                title="Play Recycle Right"
+              >
+                <ResourceModule>
+                  <span>Recycle Right</span> Game
+                </ResourceModule>
+              </a>
             </>
           )}
         </div>
