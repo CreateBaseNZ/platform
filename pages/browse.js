@@ -19,7 +19,7 @@ const DUMMY_PROJECTS = [
     name: "MagneBot",
     query: "magnebot",
     caption:
-      "In this project, users will control a robotic arm using logical flow-based programming to clean up items of rubbish from a factory floor. Users will learn the basics of the Flow programming language as well as how to convert their thinking into explicit instructions for the robot. Along the way, they will also gain an understanding of the pros and cons of using robotic systems to carry out tasks traditionally performed by human beings.",
+      "In this project, users will control the MagneBot robotic arm using logical flow-based programming to clean up a recycling facility. Users will learn the basics of the Flow programming language and how to convert their thinking into instructions for the robot. Along the way, they will also gain an understanding of recycling and how robotic systems can be used to carry out tasks traditionally performed by humans.",
   },
 ];
 

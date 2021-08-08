@@ -74,7 +74,10 @@ const Define = ({ query }) => {
           </>
         )}
         {query === "magnebot" && (
-          <p className={classes.description}>If you have time, discuss ...</p>
+          <>
+          <p className={classes.description}>As a class, dive into group discussions around the Project theme to fully define our problem.</p>
+          <p className={classes.description}>Don't have a teacher to guide you through? Check back soon for individual content!</p>
+          </>
         )}
       </div>
     </section>
