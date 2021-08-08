@@ -479,7 +479,6 @@ const Workspace = (props) => {
     let com;
     codeChanged = true;
     const onceCode = isOnceCode(props.query);
-    console.log(onceCode)
     let [code, dispCode] = compileCode();
     if (!onceCode) {
       code += "\nresolve(' ');";
