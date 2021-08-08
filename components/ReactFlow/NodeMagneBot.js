@@ -109,7 +109,7 @@ export const NodeMagneticSwitch = memo(
           isConnectable={isConnectable}
           connections={data ? data.connections : []}
         />
-        <h4>Magneitc Switch</h4>
+        <h4>Magnetic Switch</h4>
         <div className={classes.flexRow}>
           <div
             className={classes.label}

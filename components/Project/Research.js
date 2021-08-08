@@ -10,7 +10,8 @@ import {
   HintModule,
 } from "../Modules";
 import CloseIcon from "@material-ui/icons/Close";
-import { instructions } from "../../projects/send-it/research";
+import sendItSubtitles from "/public/send-it/tutorial/subtitles";
+import magnebotSubtitles from "/public/magnebot/tutorial/subtitles";
 
 import classes from "./project.module.scss";
 import "swiper/swiper.min.css";
@@ -35,45 +36,34 @@ const swiperOptions = {
   },
 };
 
-const SendIt = (props) => {
-  useEffect(() => {
-    document.querySelectorAll(".sendItVideo").forEach((v) => {
-      v.muted = true;
-      v.setAttribute("muted", "1");
-    });
-  }, []);
-
+const renderSwiperSlide = (caption, i, query) => {
   return (
-    <div className={classes.sendIt}>
-      <button className={classes.sendItClose} onClick={props.closeHandler}>
+    <SwiperSlide key={i} className={classes.howToSlide}>
+      <div className={classes.slideVideoWrapper}>
+        <video autoPlay={true} loop={true} muted={true} allow="autoplay">
+          <source
+            src={`/${query}/tutorial/vid-${i + 1}.mp4`}
+            type="video/mp4"
+          />
+        </video>
+      </div>
+      <div className={classes.howToCaption}>
+        {caption.map((x, i) => (
+          <span key={i}>{x}</span>
+        ))}
+      </div>
+    </SwiperSlide>
+  );
+};
+
+const HowTo = ({ closeHandler, query, subtitles }) => {
+  return (
+    <div className={classes.howTo}>
+      <button className={classes.howToClose} onClick={closeHandler}>
         <CloseIcon />
       </button>
-      <Swiper {...swiperOptions} className={classes.sendItContainer}>
-        {instructions.map((caption, i) => {
-          return (
-            <SwiperSlide key={i} className={classes.sendItSlide}>
-              <div className={classes.slideVideoWrapper}>
-                <video
-                  autoPlay={true}
-                  loop={true}
-                  muted={true}
-                  allow="autoplay"
-                  className="sendItVideo"
-                >
-                  <source
-                    src={"/send-it/tutorial/video-" + (i + 1) + ".mp4"}
-                    type="video/mp4"
-                  />
-                </video>
-              </div>
-              <div className={classes.sendItCaption}>
-                {caption.map((x, i) => (
-                  <span key={i}>{x}</span>
-                ))}
-              </div>
-            </SwiperSlide>
-          );
-        })}
+      <Swiper {...swiperOptions} className={classes.howToContainer}>
+        {subtitles.map((caption, i) => renderSwiperSlide(caption, i, query))}
       </Swiper>
       <div className={classes.pagination}></div>
     </div>
@@ -100,15 +90,23 @@ const Research = ({ query }) => {
     setActiveModal(null);
   };
 
-  const openModal = (id) => {
+  const openModal = (id, subtitles) => {
     let modal;
     switch (id) {
-      case "send-it__tutorial":
-        modal = <SendIt closeHandler={closeModalHandler} />;
+      case "how-to":
+        modal = (
+          <HowTo
+            query={query}
+            subtitles={subtitles}
+            closeHandler={closeModalHandler}
+          />
+        );
         break;
-      case "send-it__situation":
+      case "situation":
         modal = <Situation closeHandler={closeModalHandler} />;
         break;
+      default:
+        return;
     }
     setActiveModal(<Modal children={modal} closeHandler={closeModalHandler} />);
   };
@@ -141,7 +139,7 @@ const Research = ({ query }) => {
               </a>
               <TutorialModule
                 title="Watch the tutorial"
-                onClick={openModal.bind(this, "send-it__tutorial")}
+                onClick={openModal.bind(this, "how-to", sendItSubtitles)}
               >
                 How to <span>Send It</span>
               </TutorialModule>
@@ -153,7 +151,7 @@ const Research = ({ query }) => {
                 </div>
               </Link>
               <VideoModule
-                onClick={openModal.bind(this, "send-it__situation")}
+                onClick={openModal.bind(this, "situation")}
                 title="Play the situation video"
               >
                 Rewatch the <span>Situation</span> Video
@@ -171,6 +169,12 @@ const Research = ({ query }) => {
                   Introduction to <span>Flow</span> Blocks
                 </TutorialModule>
               </a>
+              <TutorialModule
+                title="Watch the tutorial"
+                onClick={openModal.bind(this, "how-to", magnebotSubtitles)}
+              >
+                How to <span>MagneBot</span>
+              </TutorialModule>
               <Link href={`/${query}/play`}>
                 <div title="Play MagneBot">
                   <SneakPeekModule>

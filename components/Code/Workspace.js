@@ -393,7 +393,6 @@ const Workspace = (props) => {
   const [activeTab, setActiveTab] = useState("flow");
   const [elements, setElements] = useState(initialElements);
   const [text, setText] = useState("// Let's code! 💡");
-  const [allowCompile, setAllowCompile] = useState(false);
   const [theme, setTheme] = useState(null);
   const [visualBell, setVisualBell] = useState({ message: "", switch: false });
 
@@ -414,10 +413,6 @@ const Workspace = (props) => {
       localStorage.setItem("createbase__monaco-theme", "VSDark");
     }
   }, []);
-
-  useEffect(() => {
-    setAllowCompile(true);
-  }, [elements]);
 
   useEffect(() => {
     if (activeTab === "text") {
@@ -526,16 +521,13 @@ const Workspace = (props) => {
       message: "Code is now running",
       switch: !state.switch,
     }));
-    setAllowCompile(false);
   };
 
   return (
     <div className={classes.workspace}>
       {activeTab === "flow" && (
         <GreenButton
-          className={`${classes.compileBtn} ${
-            allowCompile && classes.newChanges
-          } terminate-code`}
+          className={classes.compileBtn}
           clickHandler={compileHandler}
           caption="Compile"
         />

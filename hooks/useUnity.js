@@ -37,7 +37,7 @@ const useUnity = ({ scenePrefix, scene, project, setLoaded }) => {
         unityContext.send(
           "SceneController",
           "LoadScene",
-          `${scenePrefix},${scene}`
+          `${scenePrefix},${scene}` // e.g. Project_RoboticArm_1,improve
         );
         console.log("scene changed");
         setTimeout(() => {

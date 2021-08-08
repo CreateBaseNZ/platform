@@ -93,6 +93,8 @@
 .centerContainer {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   .description {
     text-align: center;
   }
@@ -123,13 +125,13 @@
   background: $light;
 }
 
-.sendIt {
+.howTo {
   overflow: visible;
-  .sendItContainer {
+  .howToContainer {
     width: 50vw;
     min-width: 600px;
   }
-  .sendItSlide {
+  .howToSlide {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -145,7 +147,7 @@
         width: 100%;
       }
     }
-    .sendItCaption {
+    .howToCaption {
       position: absolute;
       bottom: 1rem;
       left: 50%;
@@ -232,7 +234,7 @@
   }
 }
 
-.sendItClose,
+.howToClose,
 .situationClose {
   position: absolute;
   top: 0rem;

@@ -12,11 +12,4 @@
   padding: 0.5em 1em;
   z-index: 5;
   font-size: 1.25rem;
-  &:not(.newChanges) {
-    pointer-events: none;
-    box-shadow: none;
-    text-shadow: none;
-    opacity: 0.25;
-    filter: grayscale(1);
-  }
 }
