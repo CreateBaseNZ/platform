@@ -510,20 +510,14 @@ const Workspace = (props) => {
         codeChanged = false;
       }
       functionExecute();
+      codesDone++;
     } else {
       com = 0;
-      if (codesDone > 0) {
-        while (codeChanged) {
-          await delay(10);
-        }
-      } else {
-        codeChanged = false;
-      }
+      codesDone++
       eval("(async () => {" + code + "})()").catch((e) => {
         codesDone = -1;
       });
     }
-    codesDone++;
     setVisualBell((state) => ({
       message: "Code is now running",
       switch: !state.switch,
