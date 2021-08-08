@@ -35,6 +35,8 @@ const Browse = ({ setLoaded }) => {
     setActiveIndex(index);
   };
 
+  console.log(`/${DUMMY_PROJECTS[activeIndex].query}/vid/situation.mp4`);
+
   return (
     <div className={classes.browse}>
       <Head>
@@ -55,13 +57,14 @@ const Browse = ({ setLoaded }) => {
             </div>
           </Link>
         </div>
-        <div className={classes.coverImage}>
-          <Image
-            src={`/${DUMMY_PROJECTS[activeIndex].query}/img/cover.png`}
-            layout="fill"
-            objectFit="cover"
-            alt={DUMMY_PROJECTS[activeIndex].name}
-          />
+        <div className={classes.coverVid}>
+          <video
+            src={`/${DUMMY_PROJECTS[activeIndex].query}/vid/situation.mp4`}
+            controls
+            className={classes.vid}
+          >
+            <source type="video/mp4" />
+          </video>
         </div>
       </div>
       <div className={classes.allProjects}>

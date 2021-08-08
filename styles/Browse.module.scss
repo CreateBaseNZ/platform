@@ -72,10 +72,13 @@ $dot-space: 48px;
   }
 }
 
-.coverImage {
+.coverVid {
   width: 40vw;
-  height: 40vh;
   position: relative;
+  .vid {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .allProjects {
