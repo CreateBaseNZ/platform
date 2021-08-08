@@ -2,7 +2,7 @@
   {
     "robot": "Arm",
     "type": "start",
-    "logic": "let position;\nconst unityContext = props.unityContext;\nconst executeloop = (text) => {\nreturn new Promise((resolve, reject) => {\nconst SensorData =JSON.parse(sensorDataRef.current);\neval(\"(async () => {\" + text + \"})()\").catch((e) => { resolve();});\nif (codeChanged) { resolve(''); }\n})\n};\ntext = `if(SensorData){\nposition=SensorData.endEffectorPosition;\n}\nresolve();`\nlet Loop = async () => {\nawait executeloop(text);\nif (codeChanged) {\ncodeChanged = false;\n}\nelse {\ncom = setTimeout(Loop, 10);\n}\n}\nLoop()\n",
+    "logic": "let position;\nconst unityContext = props.unityContext;\nconst executeloop = (text) => {\nreturn new Promise((resolve, reject) => {\nconst SensorData =JSON.parse(sensorDataRef.current);\neval(\"(async () => {\" + text + \"})()\").catch((e) => { resolve();});\nif (codeChanged) { resolve(''); }\n})\n};\ntext = `if(SensorData){\nposition=SensorData.endEffectorPosition;\n}\nresolve();`\nlet Loop = async () => {\nawait executeloop(text);\nif (codeChanged) {\ncodeChanged = false;\n}\nelse {\ncom = setTimeout(Loop, 10);\n}\n}\nLoop()\nconst text2=`unityContext.send(\"SceneController\", \"ResetScene\")\nsetTimeout(resolve, 500);`;\nawait executeloop(text2)\n",
     "executes": [],
     "simpleLogic":"IntialiseRobot();",
     "simpleExecutes":""
