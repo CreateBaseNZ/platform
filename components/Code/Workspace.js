@@ -255,7 +255,7 @@ const flow2Text = (elements,projectName) => {
   while (traverse) {
     if (currentNode) {
       if (!CheckPreviuos(currentNode, elements)) {
-        return "One Node has more than one input";
+        return ["One Node has more than one input",null,null];
       }
       let f, message;
       [blocksConfig, val, f, message] = findInputs(
@@ -266,7 +266,7 @@ const flow2Text = (elements,projectName) => {
         robotName
       );
       if (!(blocksConfig || val || f)) {
-        return message;
+        return [message,null,null];
       }
     }
     let nextNode;
@@ -297,7 +297,7 @@ const flow2Text = (elements,projectName) => {
       let state;
       [state, nextNode] = findNextNode(currentNode, executionNext, elements);
       if (!state) {
-        return nextNode;
+        return [nextNode,null,null];
       }
     }
     if (nextNode) {
@@ -313,7 +313,7 @@ const flow2Text = (elements,projectName) => {
         let state;
         [state, nextNode] = findNextNode(currentNode, executionNext, elements);
         if (!state) {
-          return nextNode;
+          return [nextNode,null,null];
         }
         let interBlock;
         if (path[path.length - 1] == maxPath[path.length - 1]) {
@@ -348,8 +348,12 @@ const flow2Text = (elements,projectName) => {
     robot: robotName,
     type: "end",
   };
+  if (blocksConfig.length == 1) {
+
+    return [blocksConfig, "warning", "You have no blocks connected. Nothing interesting will happen."];
+  }
   blocksConfig.push(endNode);
-  return blocksConfig;
+  return [blocksConfig,null,null];
 };
 
 let defineObject = (projectName) => {
@@ -428,7 +432,11 @@ const Workspace = (props) => {
 
 
   const compileCode = () => {
-    const blocks = flow2Text(elements,props.query);
+    const [blocks, type, message] = flow2Text(elements, props.query);
+    if (type
+      && type === "warning") {
+      ctx.addWarning(message);
+    }
     if (Array.isArray(blocks)) {
       const codeGen = new CodeGenerator();
       const [newText, type, message, dispCode] = codeGen.build(blocks);
