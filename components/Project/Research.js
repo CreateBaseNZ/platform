@@ -170,12 +170,6 @@ const Research = ({ query }) => {
                   </SneakPeekModule>
                 </div>
               </Link>
-              <VideoModule
-                onClick={openModal.bind(this, "situation")}
-                title="Play the situation video"
-              >
-                Rewatch the <span>Situation</span> Video
-              </VideoModule>
             </>
           )}
           {query === "magnebot" && (

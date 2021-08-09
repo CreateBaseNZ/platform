@@ -45,29 +45,29 @@ const DndBar = ({ query }) => {
           <h5>Actions</h5>
           <NodeJumpMini />
           <NodeCrouchMini />
-          {/* <NodeDoubleJumpMini/> */}
-          {/* <NodeAttackMini /> */}
+          {/* <NodeDoubleJumpMini/> DO NOT ADD BACK */}
+          {/* <NodeAttackMini /> DO NOT ADD BACK */}
           <h5>Operators</h5>
           <NodeAddMini />
           <NodeSubtractMini />
           <NodeMultiplyMini />
           <NodeDivideMini />
-          {/* <NodeOperatorGeneralMini /> */}
+          {/* <NodeOperatorGeneralMini /> DO NOT ADD BACK */}
           <h5>Comparisons</h5>
           <NodeGreaterThanMini />
           <NodeLessThanMini />
-          <NodeNotEqualsMini />
-          {/* <NodeEqualsMini /> */}
+          {/* <NodeNotEqualsMini /> */}
+          {/* <NodeEqualsMini /> DO NOT ADD BACK */}
           <h5>Logicals</h5>
           <NodeAndMini />
           <NodeOrMini />
           <h5>Conditionals</h5>
           <NodeIfMini />
-          <NodeRepeatMini />
-          <NodeWhileMini />
-          <h5>Utilities</h5>
-          <NodeDelayMini />
-          <NodePrintMini />
+          {/* <NodeRepeatMini /> */}
+          {/* <NodeWhileMini /> */}
+          {/* <h5>Utilities</h5> */}
+          {/* <NodeDelayMini /> */}
+          {/* <NodePrintMini /> */}
         </div>
       )}
       {query === "magnebot" && (
