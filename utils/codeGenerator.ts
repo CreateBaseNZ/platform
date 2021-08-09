@@ -478,16 +478,16 @@ export class CodeGenerator {
       let str, simpleStr;
       if (this.checkVariable(input)) {
         str = `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
-        simpleStr = `Log(\`Print Number ${printNum}= \${${input}}\`)`;
+        simpleStr = `console.log(\`Print Number ${printNum}= \${${input}}\`)`;
       } else if (this.isNumber(input) || (this.isBool(input))) {
         str = `ctx.addLog(\`Print Number ${printNum}= ${input}\`)`;
-        simpleStr = `Log(\`Print Number ${printNum}= ${input}\`)`;
+        simpleStr = `console.log(\`Print Number ${printNum}= ${input}\`)`;
       } else {
         printNum--;
         return [false,printNum];
 
       }
-      this.simpleExecutes.push(str);
+      this.simpleExecutes.push(simpleStr);
       this.executes.push(str);
       return [true,printNum];
     } else {
