@@ -24,7 +24,11 @@ const TextEditor = (props) => {
 
   useEffect(() => {
     if (editorRef.current) {
-      editorRef.current.getAction("editor.action.formatDocument").run();
+      editorRef.current.updateOptions({ readOnly: false });
+      editorRef.current
+        .getAction("editor.action.formatDocument")
+        .run()
+        .then(() => editorRef.current.updateOptions({ readOnly: true }));
     }
   }, [props.text]);
 
@@ -46,7 +50,7 @@ const TextEditor = (props) => {
   return (
     <div className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}>
       <Editor
-        defaultLanguage="javascript"
+        language="javascript"
         value={props.text}
         onMount={editorDidMount}
         options={editorOptions}

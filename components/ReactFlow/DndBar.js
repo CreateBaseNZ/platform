@@ -65,9 +65,9 @@ const DndBar = ({ query }) => {
           <NodeIfMini />
           {/* <NodeRepeatMini /> */}
           {/* <NodeWhileMini /> */}
-          {/* <h5>Utilities</h5> */}
+          <h5>Utilities</h5>
           {/* <NodeDelayMini /> */}
-          {/* <NodePrintMini /> */}
+          <NodePrintMini />
         </div>
       )}
       {query === "magnebot" && (
