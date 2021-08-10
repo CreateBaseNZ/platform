@@ -116,7 +116,7 @@ const Config = (props) => {
       >
         <div className={classes.configEditorWrapper}>
           <Editor
-            defaultLanguage="javascript"
+            language="javascript"
             value={lorem}
             onMount={editorDidMount}
             options={editorOptions}
