@@ -358,14 +358,15 @@ const flow2Text = (elements, projectName) => {
     robot: robotName,
     type: "end",
   };
-  if (blocksConfig.length == 1) {
+  blocksConfig.push(endNode);
+
+  if (blocksConfig.length == 2) {
     return [
       blocksConfig,
       "warning",
       "You have no blocks connected. Nothing interesting will happen.",
     ];
   }
-  blocksConfig.push(endNode);
   return [blocksConfig, null, null];
 };
 
@@ -499,7 +500,7 @@ const Workspace = (props) => {
           com = 0;
           codeChanged = false;
         } else {
-          com = setTimeout(functionExecute, 10);
+          com = setTimeout(functionExecute, 50);
         }
       };
       if (codesDone > 0) {
