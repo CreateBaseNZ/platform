@@ -1,5 +1,6 @@
 import { memo, useEffect, useRef, useState } from "react";
-import Editor, { editorOptions } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
+import { editorOptions } from "./TextEditor";
 import classes from "./Config.module.scss";
 
 import themes, { themeFiles } from "../../utils/themes";
