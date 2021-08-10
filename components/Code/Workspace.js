@@ -429,7 +429,7 @@ const Workspace = (props) => {
     if (activeTab === "text") {
       const [newText, dispCode] = compileCode();
       if (newText) {
-        setText(dispCode);
+        setText(newText);
       }
     }
   }, [activeTab]);
@@ -468,7 +468,7 @@ const Workspace = (props) => {
 
   const changeTabHandler = (tab) => setActiveTab(tab);
 
-  const executeCode = (text) => {
+  const executeCode = (text,printing) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
@@ -495,7 +495,11 @@ const Workspace = (props) => {
     if (!onceCode) {
       code += "\nresolve(' ');";
       let functionExecute = async () => {
-        await executeCode(code);
+        printing++;
+        await executeCode(code,printing);
+        if (printing >= 10) {
+          printing = 0;
+        }
         if (codeChanged) {
           com = 0;
           codeChanged = false;
@@ -510,6 +514,7 @@ const Workspace = (props) => {
       } else {
         codeChanged = false;
       }
+      let printing = 0;
       functionExecute();
       codesDone++;
     } else {

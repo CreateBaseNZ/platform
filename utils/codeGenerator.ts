@@ -476,17 +476,24 @@ export class CodeGenerator {
       printNum++;
       const input = String(blockDetail.value.a);
       let str, simpleStr;
+      str =`
+      console.log(printing);
+
+            if(printing>=10){
+               `
       if (this.checkVariable(input)) {
-        str = `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
+        str += `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
         simpleStr = `console.log(\`Print Number ${printNum}= \${${input}}\`)`;
       } else if (this.isNumber(input) || (this.isBool(input))) {
-        str = `ctx.addLog(\`Print Number ${printNum}= ${input}\`)`;
+        str += `ctx.addLog(\`Print Number ${printNum}= ${input}\`)`;
         simpleStr = `console.log(\`Print Number ${printNum}= ${input}\`)`;
       } else {
         printNum--;
         return [false,printNum];
 
       }
+      str += `
+    }`;
       this.simpleExecutes.push(simpleStr);
       this.executes.push(str);
       return [true,printNum];
