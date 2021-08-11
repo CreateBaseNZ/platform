@@ -9,6 +9,8 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
+const choices = [1, 2, 3, 4];
+
 const Boost = ({ mode }) => {
   const visualBellTimer = useRef(null);
   const [elements, setElements] = useState([]);
@@ -23,6 +25,10 @@ const Boost = ({ mode }) => {
       );
     }
   }, [visualBell.switch]);
+
+  const choiceClickHandler = (i) => {
+    console.log(i);
+  };
 
   return (
     <div className={classes.boost}>
@@ -43,10 +49,15 @@ const Boost = ({ mode }) => {
       <div className={classes.questionWrapper}>
         <h1 className={classes.question}>What will be printed?</h1>
         <div className={classes.choiceContainer}>
-          <button className={classes.choice}>1</button>
-          <button className={classes.choice}>1</button>
-          <button className={classes.choice}>1</button>
-          <button className={classes.choice}>1</button>
+          {choices.map((choice, i) => (
+            <button
+              key={i}
+              onClick={choiceClickHandler.bind(this, i)}
+              className={classes.choice}
+            >
+              {choice}
+            </button>
+          ))}
         </div>
       </div>
     </div>

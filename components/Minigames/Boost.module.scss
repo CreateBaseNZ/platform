@@ -35,7 +35,7 @@
   font-size: 14px;
   color: $lightest;
   font-weight: 600;
-  margin: 0 0.5rem 0.2rem 0.5rem;
+  margin: 0.2rem 0.5rem;
 }
 
 .choiceContainer {
@@ -46,12 +46,12 @@
     flex: 1 1 0;
     margin: 0.5rem;
     border-radius: 4px;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
-    line-height: 3rem;
-    color: $darker;
-    background: rgba(255, 255, 255, 0.75);
-    transition: background-color 0.1s ease-out;
+    line-height: 2.5rem;
+    color: $lightest;
+    border: medium solid $lightest;
+    transition: background-color 0.1s ease-out, color 0.1s ease-out;
     &:hover {
       color: black;
       background: $lightest;
