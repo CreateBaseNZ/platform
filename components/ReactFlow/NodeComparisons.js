@@ -30,6 +30,13 @@ const NodeComparisons = ({
         isConnectable={isConnectable}
         connections={data.connections}
       />
+      <h4>{label}</h4>
+      <InputWithHandle
+        data={data}
+        blockId={id}
+        handleId="float__in__b"
+        inputName="b"
+      />
       <CustomHandle
         type="target"
         position="top"
@@ -37,13 +44,6 @@ const NodeComparisons = ({
         style={{ left: "auto", right: "34px", transform: "none" }}
         isConnectable={isConnectable}
         connections={data.connections}
-      />
-      <h4>{label}</h4>
-      <InputWithHandle
-        data={data}
-        blockId={id}
-        handleId="float__in__b"
-        inputName="b"
       />
       <CustomHandle
         type="source"

@@ -5,6 +5,7 @@ import classes from "/styles/View.module.scss";
 import Project from "../../components/Project/Project";
 import Code from "../../components/Code/Code";
 import Play from "../../components/Play";
+import Boost from "../../components/Minigames/Boost";
 
 const DUMMY_QUERY = {
   "send-it": {
@@ -32,6 +33,8 @@ const View = ({ setLoaded }) => {
   const [project, setProject] = useState();
   const [view, setView] = useState();
 
+  useEffect(() => setLoaded(true), []); //TODO remove this
+
   useEffect(() => {
     console.log(router.query);
     if (Object.keys(router.query).length) {
@@ -57,7 +60,7 @@ const View = ({ setLoaded }) => {
 
   return (
     <div className={classes.view}>
-      {project && view === "project" && (
+      {/* {project && view === "project" && (
         <Project setLoaded={setLoaded} project={project} />
       )}
       {project && view === "play" && (
@@ -68,7 +71,8 @@ const View = ({ setLoaded }) => {
       )}
       {project && view === "improve" && (
         <Code setLoaded={setLoaded} mode="Improve" project={project} />
-      )}
+      )} */}
+      <Boost mode="comparison-boost" />
     </div>
   );
 };

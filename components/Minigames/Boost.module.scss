@@ -1,0 +1,60 @@
+@import "/styles/variables";
+
+.boost {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $lighter;
+}
+
+.flowWrapper {
+  height: 60%;
+  width: 75%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.questionWrapper {
+  margin-top: 4vh;
+  height: 20%;
+  width: 75%;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fe757e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 5vw;
+}
+
+.question {
+  font-size: 14px;
+  color: $lightest;
+  font-weight: 600;
+  margin: 0 0.5rem 0.2rem 0.5rem;
+}
+
+.choiceContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .choice {
+    flex: 1 1 0;
+    margin: 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 3rem;
+    color: $darker;
+    background: rgba(255, 255, 255, 0.75);
+    transition: background-color 0.1s ease-out;
+    &:hover {
+      color: black;
+      background: $lightest;
+    }
+  }
+}
