@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import { ReactFlowProvider } from "react-flow-renderer";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ClearAllOutlinedIcon from "@material-ui/icons/ClearAllOutlined";
 
 import classes from "./Boost.module.scss";
 
@@ -11,7 +14,7 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 
 const choices = [1, 2, 3, 4];
 
-const Boost = ({ mode }) => {
+const Boost = ({ mode, query }) => {
   const visualBellTimer = useRef(null);
   const [elements, setElements] = useState([]);
   const [visualBell, setVisualBell] = useState({ message: "", switch: false });
@@ -32,6 +35,21 @@ const Boost = ({ mode }) => {
 
   return (
     <div className={classes.boost}>
+      <Link
+        href={{
+          pathname: `/${query}/project/[step]`,
+          query: { step: "research" },
+        }}
+      >
+        <button className={`${classes.button} ${classes.back}`}>
+          <ChevronLeftIcon />
+          <span>Back</span>
+        </button>
+      </Link>
+      <h1 className={classes.h1}>
+        <span className={classes.fill}>Comparison</span>
+        <span className={classes.stroke}>Boost</span>
+      </h1>
       <div className={classes.flowWrapper}>
         <MiniHoverContextProvider>
           <ReactFlowProvider>
@@ -47,7 +65,7 @@ const Boost = ({ mode }) => {
         </MiniHoverContextProvider>
       </div>
       <div className={classes.questionWrapper}>
-        <h1 className={classes.question}>What will be printed?</h1>
+        <h3 className={classes.question}>What will be printed?</h3>
         <div className={classes.choiceContainer}>
           {choices.map((choice, i) => (
             <button
@@ -55,11 +73,15 @@ const Boost = ({ mode }) => {
               onClick={choiceClickHandler.bind(this, i)}
               className={classes.choice}
             >
-              {choice}
+              <p>{choice}</p>
             </button>
           ))}
         </div>
       </div>
+      <button className={`${classes.button} ${classes.history}`}>
+        <ClearAllOutlinedIcon />
+        <span>History</span>
+      </button>
     </div>
   );
 };
