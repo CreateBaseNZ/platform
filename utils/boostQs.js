@@ -1,6 +1,7 @@
 export const comparisonBoostLvl1Item = () => {
   const a = Math.floor(Math.random() * 99);
   const b = Math.floor(Math.random() * 99);
+  const type = Math.random() > 0.5 ? "greaterThan" : "lessThan";
   return {
     q: [
       {
@@ -11,7 +12,7 @@ export const comparisonBoostLvl1Item = () => {
       },
       {
         id: "dndnode_0",
-        type: "greaterThan",
+        type: type,
         position: { x: -48, y: -144 },
         data: {
           connections: ["boolean__out"],
@@ -49,8 +50,7 @@ export const comparisonBoostLvl1Item = () => {
         id: "reactflow__edge-dndnode_1boolean__out-dndnode_0any__in__a",
       },
     ],
-    a: (a > b).toString(),
+    o: ["true", "false", a + b, a - b],
+    a: (type === "greaterThan" ? a > b : a < b).toString(),
   };
 };
-
-export const comparisonBoostLvl1Options = ["true", "false"];

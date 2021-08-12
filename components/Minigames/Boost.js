@@ -10,10 +10,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
-import {
-  comparisonBoostLvl1Item,
-  comparisonBoostLvl1Options,
-} from "../../utils/boostQs";
+import { comparisonBoostLvl1Item } from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
 
@@ -24,8 +21,10 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 const Boost = ({ mode, query }) => {
   const visualBellTimer = useRef(null);
   const [elements, setElements] = useState([]);
+  const [options, setOptions] = useState([]);
   const [answer, setAnswer] = useState("");
   const [visualBell, setVisualBell] = useState({ message: "", switch: false });
+  const [flash, setFlash] = useState();
   const [level, setLevel] = useState(1);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
@@ -47,8 +46,9 @@ const Boost = ({ mode, query }) => {
   const generateItem = (mode, level) => {
     if (mode === "Comparison") {
       if (level === 1) {
-        const { q, a } = comparisonBoostLvl1Item();
+        const { q, o, a } = comparisonBoostLvl1Item();
         setElements(q);
+        setOptions(o);
         setAnswer(a);
       }
     }
@@ -59,7 +59,7 @@ const Boost = ({ mode, query }) => {
       (canvas) => {
         setHistory((hist) =>
           hist.concat({
-            correct: answer === response,
+            correct: answer.toString() === response.toString(),
             capture: canvas.toDataURL(),
             a: answer,
             r: response,
@@ -99,7 +99,6 @@ const Boost = ({ mode, query }) => {
           className={`${classes.histWrapper} ${
             showHistory ? "" : classes.collapsed
           }`}
-          style={{ opacity: history.length ? 1 : 0 }}
         >
           {history.map((hist, i) => (
             <div className={classes.histItem} key={i}>
@@ -118,6 +117,16 @@ const Boost = ({ mode, query }) => {
               >
                 {i + 1}
               </div>
+              {hist.correct ? (
+                <div className={classes.histRecord}>
+                  <span className={classes.correctRecord}>{hist.a}</span>
+                </div>
+              ) : (
+                <div className={classes.histRecord}>
+                  <span className={classes.incorrectRecord}>{hist.r}</span>→
+                  <span className={classes.correctRecord}>{hist.a}</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -128,7 +137,7 @@ const Boost = ({ mode, query }) => {
           onClick={historyClickHandler}
         >
           {showHistory ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-          {showHistory ? "Lock history" : "Unlock history"}
+          {showHistory ? "Unlock history" : "Lock history"}
         </button>
       </aside>
       <div className={classes.game}>
@@ -152,7 +161,7 @@ const Boost = ({ mode, query }) => {
             {history.length + 1}: What does this print?
           </h3>
           <div className={classes.choiceContainer}>
-            {comparisonBoostLvl1Options.map((choice, i) => (
+            {options.map((choice, i) => (
               <button
                 key={i}
                 onClick={choiceClickHandler.bind(this, choice)}

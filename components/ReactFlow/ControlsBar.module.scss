@@ -9,7 +9,7 @@
   max-height: 160px;
   & > * {
     background: $light;
-    border: none !important;
+    border: thin solid $lighter !important;
     opacity: 0.75;
     position: relative;
     transition: opacity 0.1s ease-out;
@@ -19,16 +19,6 @@
       svg path {
         fill: $lightest !important;
       }
-    }
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      border: thin solid $lighter;
-      pointer-events: none;
     }
   }
   .customControl {
