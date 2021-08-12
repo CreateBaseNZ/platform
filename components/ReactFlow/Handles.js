@@ -1,8 +1,14 @@
 import { Handle, useStoreState } from "react-flow-renderer";
 
-import classes from "./Nodes.module.scss";
+import classes from "./Handles.module.scss";
 
 const isValidConnection = (connection) => {
+  if (
+    connection.targetHandle.split("__")[0] === "any" ||
+    connection.sourceHandle.split("__")[0] === "any"
+  ) {
+    return true;
+  }
   return (
     connection.targetHandle.split("__")[0] ===
     connection.sourceHandle.split("__")[0]

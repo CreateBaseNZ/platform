@@ -87,6 +87,7 @@ const DndBar = ({ query }) => {
           <h5>Comparisons</h5>
           <NodeGreaterThanMini />
           <NodeLessThanMini />
+          <NodePrintMini />
         </div>
       )}
     </aside>

@@ -227,77 +227,6 @@
   }
 }
 
-.handle.leftHandle {
-  height: 12px;
-  width: 12px;
-  left: -6px;
-}
-
-.handle.rightHandle {
-  height: 12px;
-  width: 12px;
-  right: -6px;
-}
-
-.handle.topHandle {
-  height: 12px;
-  width: 12px;
-  top: 2px;
-}
-.handle.bottomHandle {
-  height: 12px;
-  width: 12px;
-  bottom: 2px;
-}
-
-.handle.executionHandle {
-  border-radius: 0;
-  &.targetHandle {
-    background: $lightest;
-    border: 2px solid $amber;
-  }
-  &.sourceHandle {
-    background: $amber;
-    border: 2px solid $lightest;
-  }
-}
-
-.handle.paramHandle {
-  border-radius: 6px;
-  &.targetHandle {
-    background: $lightest;
-    border: 2px solid #b1b1b7;
-  }
-  &.sourceHandle {
-    background: #b1b1b7;
-    border: 2px solid $lightest;
-  }
-}
-
-.handle.booleanHandle {
-  border-radius: 6px;
-  &.targetHandle {
-    background: $lightest;
-    border: 2px solid #16e3f1;
-  }
-  &.sourceHandle {
-    background: #16e3f1;
-    border: 2px solid $lightest;
-  }
-}
-
-.handle.floatHandle {
-  border-radius: 6px;
-  &.targetHandle {
-    background: $lightest;
-    border: 2px solid #d869ea;
-  }
-  &.sourceHandle {
-    background: #d869ea;
-    border: 2px solid $lightest;
-  }
-}
-
 .label {
   font-size: 14px;
   line-height: 1em;
@@ -315,57 +244,6 @@
 }
 .rightHandleLabel {
   right: 14px;
-}
-
-.handle.sourceHandle.executionHandle:not(.hideEnd) {
-  &::before {
-    content: "";
-    height: 1px;
-    width: 8px;
-    background: $light;
-    position: absolute;
-    right: -10px;
-    top: 4px;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  &::after {
-    content: "END";
-    color: $light;
-    font-size: 7px;
-    font-weight: 600;
-    position: absolute;
-    right: -30px;
-    top: -1px;
-    padding: 1px 2px 0 2px;
-    line-height: 8px;
-    background: $lighter;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border: thin solid $light;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  &:active::before,
-  &:active::after {
-    opacity: 0.2;
-  }
-}
-
-.handle.targetHandle.executionHandle {
-  &::after {
-    content: "";
-    color: $light;
-    position: absolute;
-    left: -2px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 4px;
-    width: 4px;
-    background: $lightest;
-    pointer-events: none;
-  }
 }
 
 .toggle {
