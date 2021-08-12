@@ -16,65 +16,69 @@ import classes from "./ControlsBar.module.scss";
 const ControlsBar = (props) => {
   return (
     <Controls className={classes.controls} showInteractive={false}>
-      <ControlButton
-        className={`${classes.customControl} ${classes.prioritise} ${
-          !props.allowUndo && classes.deactive
-        }`}
-        onClick={props.undoHandler}
-      >
-        <UndoIcon />
-      </ControlButton>
-      <ControlButton
-        className={`${classes.customControl} ${classes.prioritise} ${
-          !props.allowRedo && classes.deactive
-        }`}
-        onClick={props.redoHandler}
-      >
-        <RedoIcon />
-      </ControlButton>
-      <ControlButton
-        className={`${classes.customControl} ${classes.prioritise}`}
-        onClick={props.saveHandler}
-      >
-        <SaveOutlinedIcon />
-      </ControlButton>
-      <ControlButton
-        className={`${classes.customControl} ${classes.prioritise}`}
-        onClick={props.restoreHandler}
-      >
-        <RestoreOutlinedIcon />
-      </ControlButton>
-      <ControlButton
-        className={`${classes.customControl} ${classes.prioritise}`}
-        onClick={props.selectAll}
-      >
-        <SelectAllOutlinedIcon />
-      </ControlButton>
-      <ControlButton
-        className={`${classes.customControl} ${classes.prioritise} ${classes.verySmall}`}
-        onClick={props.clearAll}
-      >
-        <BackspaceOutlinedIcon />
-      </ControlButton>
-      <ControlButton
-        className={`${classes.customControl} ${classes.small}`}
-        onClick={props.capture}
-      >
-        <CameraAltOutlinedIcon />
-      </ControlButton>
-      <ControlButton
-        className={`${classes.customControl} ${
-          props.flowLocked && classes.locked
-        }`}
-        id="lockButton"
-        onClick={props.lockHandler}
-        title={props.flowLocked ? "Unlock (Ctrl + L)" : "Lock (Ctrl + L)"}
-      >
-        {props.flowLocked ? <LockIcon /> : <LockOpenOutlinedIcon />}
-      </ControlButton>
-      <ControlButton className={classes.customControl} onClick={props.info}>
-        <InfoOutlinedIcon />
-      </ControlButton>
+      {!props.frozen && (
+        <>
+          <ControlButton
+            className={`${classes.customControl} ${classes.prioritise} ${
+              !props.allowUndo && classes.deactive
+            }`}
+            onClick={props.undoHandler}
+          >
+            <UndoIcon />
+          </ControlButton>
+          <ControlButton
+            className={`${classes.customControl} ${classes.prioritise} ${
+              !props.allowRedo && classes.deactive
+            }`}
+            onClick={props.redoHandler}
+          >
+            <RedoIcon />
+          </ControlButton>
+          <ControlButton
+            className={`${classes.customControl} ${classes.prioritise}`}
+            onClick={props.saveHandler}
+          >
+            <SaveOutlinedIcon />
+          </ControlButton>
+          <ControlButton
+            className={`${classes.customControl} ${classes.prioritise}`}
+            onClick={props.restoreHandler}
+          >
+            <RestoreOutlinedIcon />
+          </ControlButton>
+          <ControlButton
+            className={`${classes.customControl} ${classes.prioritise}`}
+            onClick={props.selectAll}
+          >
+            <SelectAllOutlinedIcon />
+          </ControlButton>
+          <ControlButton
+            className={`${classes.customControl} ${classes.prioritise} ${classes.verySmall}`}
+            onClick={props.clearAll}
+          >
+            <BackspaceOutlinedIcon />
+          </ControlButton>
+          <ControlButton
+            className={`${classes.customControl} ${classes.small}`}
+            onClick={props.capture}
+          >
+            <CameraAltOutlinedIcon />
+          </ControlButton>
+          <ControlButton
+            className={`${classes.customControl} ${
+              props.flowLocked && classes.locked
+            }`}
+            id="lockButton"
+            onClick={props.lockHandler}
+            title={props.flowLocked ? "Unlock (Ctrl + L)" : "Lock (Ctrl + L)"}
+          >
+            {props.flowLocked ? <LockIcon /> : <LockOpenOutlinedIcon />}
+          </ControlButton>
+          <ControlButton className={classes.customControl} onClick={props.info}>
+            <InfoOutlinedIcon />
+          </ControlButton>
+        </>
+      )}
     </Controls>
   );
 };

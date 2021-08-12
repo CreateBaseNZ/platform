@@ -116,11 +116,12 @@
     height: 100%;
     width: 100%;
     text-align: center;
-    position: relative;
     color: $lightest;
     line-height: 5vh;
     overflow: hidden;
-    &::after {
+    z-index: 1;
+    position: relative;
+    &::before {
       content: "";
       position: absolute;
       top: 0;
@@ -146,12 +147,10 @@
   }
   &:hover {
     border-color: $lightest;
-    p {
-      &::after {
-        width: calc(100% + 4vw);
-        opacity: 1;
-        transition: width 0.2s ease-out;
-      }
+    p::before {
+      width: calc(100% + 4vw);
+      opacity: 1;
+      transition: width 0.2s ease-out;
     }
     &::after {
       border-color: white;

@@ -10,7 +10,10 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
-import { comparisonBoostQs } from "../../utils/boostQs";
+import {
+  comparisonBoostLvl1Item,
+  comparisonBoostLvl1Options,
+} from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
 
@@ -18,26 +21,12 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
-const getQs = (mode) => {
-  switch (mode) {
-    case "Comparison":
-      return comparisonBoostQs;
-  }
-};
-
 const Boost = ({ mode, query }) => {
   const visualBellTimer = useRef(null);
-  const [elements, setElements] = useState([
-    {
-      id: "start",
-      type: "start",
-      position: { x: -80, y: -80 },
-      data: { connections: [] },
-    },
-  ]);
+  const [elements, setElements] = useState([]);
+  const [answer, setAnswer] = useState("");
   const [visualBell, setVisualBell] = useState({ message: "", switch: false });
-  const [qs, setQs] = useState(getQs(mode));
-  const [qIndex, setQIndex] = useState(0);
+  const [level, setLevel] = useState(1);
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
 
@@ -51,21 +40,33 @@ const Boost = ({ mode, query }) => {
     }
   }, [visualBell.switch]);
 
-  const choiceClickHandler = (i) => {
+  useEffect(() => {
+    generateItem(mode, level);
+  }, [history]);
+
+  const generateItem = (mode, level) => {
+    if (mode === "Comparison") {
+      if (level === 1) {
+        const { q, a } = comparisonBoostLvl1Item();
+        setElements(q);
+        setAnswer(a);
+      }
+    }
+  };
+
+  const choiceClickHandler = (response) => {
     html2canvas(document.querySelector(".react-flow__renderer")).then(
       (canvas) => {
-        if (qs[qIndex].a === i) {
-          setHistory((hist) =>
-            hist.concat({ correct: true, capture: canvas.toDataURL() })
-          );
-        } else {
-          setHistory((hist) =>
-            hist.concat({ correct: false, capture: canvas.toDataURL() })
-          );
-        }
+        setHistory((hist) =>
+          hist.concat({
+            correct: answer === response,
+            capture: canvas.toDataURL(),
+            a: answer,
+            r: response,
+          })
+        );
       }
     );
-    setQIndex((state) => state + 1);
   };
 
   const historyClickHandler = () => {
@@ -136,7 +137,7 @@ const Boost = ({ mode, query }) => {
             <ReactFlowProvider>
               <FlowEditor
                 show={true}
-                showDnd={true}
+                frozen={true}
                 elements={elements}
                 setElements={setElements}
                 visualBell={visualBell}
@@ -148,13 +149,13 @@ const Boost = ({ mode, query }) => {
         </div>
         <div className={classes.questionWrapper}>
           <h3 className={classes.question}>
-            {qIndex + 1}: {qs[qIndex].q}
+            {history.length + 1}: What does this print?
           </h3>
           <div className={classes.choiceContainer}>
-            {qs[qIndex].choices.map((choice, i) => (
+            {comparisonBoostLvl1Options.map((choice, i) => (
               <button
                 key={i}
-                onClick={choiceClickHandler.bind(this, i)}
+                onClick={choiceClickHandler.bind(this, choice)}
                 className={classes.choice}
               >
                 <p>{choice}</p>

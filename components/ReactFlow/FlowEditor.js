@@ -55,7 +55,7 @@ const getId = () => `dndnode_${id++}`;
 const FlowEditor = ({
   query,
   show,
-  showDnd = true,
+  frozen = false,
   elements,
   setElements,
   visualBell,
@@ -71,7 +71,7 @@ const FlowEditor = ({
   });
   const [systemAction, setSystemAction] = useState(false);
   const [clipBoard, setClipBoard] = useState();
-  const [flowLocked, setFlowLocked] = useState(false);
+  const [flowLocked, setFlowLocked] = useState(frozen);
   const [nodeCtxMenu, setNodeCtxMenu] = useState({
     show: false,
     x: 0,
@@ -93,8 +93,6 @@ const FlowEditor = ({
 
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
-
-  console.log(elements);
 
   useEffect(() => {
     if (!systemAction) {
@@ -511,6 +509,9 @@ const FlowEditor = ({
   };
 
   const keyDownHandler = (event) => {
+    if (frozen) {
+      return;
+    }
     if (event.ctrlKey || event.metaKey) {
       if (event.key === "c") {
         event.preventDefault();
@@ -649,7 +650,7 @@ const FlowEditor = ({
       onKeyDown={keyDownHandler}
       tabIndex={-1}
     >
-      {showDnd && <DndBar query={query} />}
+      {!frozen && <DndBar query={query} />}
       <div className={classes.editorWrapper} ref={wrapperRef}>
         <ReactFlow
           onLoad={onLoad}
@@ -659,6 +660,7 @@ const FlowEditor = ({
           nodesDraggable={!flowLocked}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
+          maxZoom={3}
           minZoom={0.25}
           snapToGrid={true}
           snapGrid={[16, 16]}
@@ -678,6 +680,7 @@ const FlowEditor = ({
           onPaneContextMenu={paneCtxMenuHandler}
         >
           <ControlsBar
+            frozen={frozen}
             undoHandler={undoAction}
             redoHandler={redoAction}
             saveHandler={saveFlow}
