@@ -243,12 +243,45 @@
   position: relative;
 }
 
+.leftMenu.histExpanded {
+  width: 30vw;
+}
+
+.histWrapper {
+  width: 100%;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+  background: rgba(0, 0, 0, 0.1);
+  * {
+    font-family: $jetbrains;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.hoverArea {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 15vw;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+}
+
 .button {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.75rem 1vw;
+  padding: 0.75rem 0.75vw;
   border-right: thin solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.75);
   font-size: calc(0.4rem + 0.4vw);
@@ -259,7 +292,8 @@
   overflow: hidden;
   transition: color 0.1s ease-out, background-color 0.1s ease-out;
   svg {
-    margin-right: 0.5rem;
+    width: 1vw;
+    margin-right: 0.5vw;
     transition: transform 0.1s ease-out;
   }
   path {
@@ -287,39 +321,79 @@
   }
 }
 
-.history.histExpanded {
+.lockHist.histExpanded {
   background: $darkest;
 }
 
-.back {
-  order: -1;
-  &:hover svg {
-    transform: translateX(-2px);
-  }
+.back:hover svg {
+  transform: translateX(-2px);
 }
 
-.histWrapper {
+.volumeWrapper {
+  padding: 0.75rem 0.75vw;
   width: 100%;
-  flex: 1 1 0;
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  position: relative;
-  background: rgba(0, 0, 0, 0.1);
-  * {
-    font-family: $jetbrains;
-  }
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  justify-content: center;
+  align-items: center;
 }
 
-.hoverArea {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 15vw;
+.volume {
+  flex: 0 0 3rem;
+  padding: 0;
+  position: relative;
+  overflow: visible;
+  &:hover {
+    background: $darkest;
+  }
+  svg {
+    margin: 0;
+    width: calc(1vw + 0.35rem);
+  }
+  .sliderWrapper {
+    background: $darkest;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.75rem 0 0.5rem;
+    transform: rotate(-90deg) translate(0, -50%);
+    transform-origin: left top;
+    cursor: default;
+    transition: opacity 0.1s ease-out;
+    .slider {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      cursor: pointer;
+      outline: none;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.75);
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px; /* Set a specific slider handle width */
+        height: 14px; /* Slider handle height */
+        transform: rotate(45deg);
+        background: #ec505b; /* Green background */
+        cursor: ns-resize; /* Cursor on hover */
+      }
+      &::-moz-range-thumb {
+        width: 14px; /* Set a specific slider handle width */
+        height: 14px; /* Slider handle height */
+        background: #ec505b; /* Green background */
+        cursor: ns-resize; /* Cursor on hover */
+      }
+    }
+  }
+  &:hover .sliderWrapper {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 .h1 {
@@ -348,8 +422,4 @@
     color: $lightest;
     opacity: 0.05;
   }
-}
-
-.leftMenu.histExpanded {
-  width: 30vw;
 }

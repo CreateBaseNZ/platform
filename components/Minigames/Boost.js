@@ -8,8 +8,12 @@ import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import { ReactFlowProvider } from "react-flow-renderer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import HistoryItem from "./HistoryItem";
+import VolumeUpOutlinedIcon from "@material-ui/icons/VolumeUpOutlined";
+import VolumeDownOutlinedIcon from "@material-ui/icons/VolumeDownOutlined";
+import VolumeOffOutlinedIcon from "@material-ui/icons/VolumeOffOutlined";
 import { comparisonBoostLvl1Item } from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
@@ -32,11 +36,18 @@ const Boost = ({ mode, query }) => {
     expanded: false,
     locked: false,
   });
-  const [playDonk] = useSound("/sounds/donk.mp3");
-  const [playFlick] = useSound("/sounds/flick.mp3");
-  const [playSynth, { stop: stopSynth }] = useSound("/sounds/synth.mp3");
-  const [playCorrect] = useSound("/sounds/correct.mp3");
-  const [playInCorrect] = useSound("/sounds/incorrect.mp3");
+  const [volume, setVolume] = useState({ curr: 0.5, prev: 0.5 });
+  const [playDonk] = useSound("/sounds/donk.mp3", { volume: volume.curr });
+  const [playFlick] = useSound("/sounds/flick.mp3", { volume: volume.curr });
+  const [playSynth, { stop: stopSynth }] = useSound("/sounds/synth.mp3", {
+    volume: volume.curr,
+  });
+  const [playCorrect] = useSound("/sounds/correct.mp3", {
+    volume: volume.curr,
+  });
+  const [playInCorrect] = useSound("/sounds/incorrect.mp3", {
+    volume: volume.curr,
+  });
 
   useEffect(() => {
     if (visualBell.message) {
@@ -113,9 +124,31 @@ const Boost = ({ mode, query }) => {
     }, 2000);
   };
 
-  const buttonMouseEnterHandler = () => {
-    playDonk();
-    histMouseEnterHandler();
+  const renderVolumeIcon = () => {
+    if (volume.curr === 0) {
+      return <VolumeOffOutlinedIcon />;
+    }
+    if (volume.curr < 0.5) {
+      return <VolumeDownOutlinedIcon />;
+    }
+    return <VolumeUpOutlinedIcon />;
+  };
+
+  const volumeClickHandler = () => {
+    if (volume.curr) {
+      setVolume((state) => ({ curr: 0, prev: state.curr }));
+    } else {
+      setVolume((state) => ({ curr: state.prev, prev: state.prev }));
+    }
+  };
+
+  const volumeChangeHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setVolume((state) => ({
+      curr: parseFloat(e.target.value),
+      prev: state.curr,
+    }));
   };
 
   const histLockClickHandler = () => {
@@ -169,31 +202,60 @@ const Boost = ({ mode, query }) => {
             />
           )}
         </div>
-        <Link
-          href={{
-            pathname: `/${query}/project/[step]`,
-            query: { step: "research" },
-          }}
-        >
-          <button
-            className={`${classes.button} ${classes.back}`}
-            onMouseEnter={buttonMouseEnterHandler}
-            onMouseLeave={histMouseLeaveHandler}
+        <div className={classes.buttonContainer} style={{ order: -1 }}>
+          <Link
+            href={{
+              pathname: `/${query}/project/[step]`,
+              query: { step: "research" },
+            }}
           >
-            <ChevronLeftIcon /> Back
+            <button
+              className={`${classes.button} ${classes.back}`}
+              onMouseEnter={playDonk}
+            >
+              <ChevronLeftIcon /> Back
+            </button>
+          </Link>
+          <button className={classes.button} onMouseEnter={playDonk}>
+            <AppsOutlinedIcon /> Levels
           </button>
-        </Link>
-        <button
-          className={`${classes.button} ${classes.history} ${
-            history.expanded || history.locked ? classes.histExpanded : ""
-          }`}
-          onClick={histLockClickHandler}
-          onMouseEnter={buttonMouseEnterHandler}
-          onMouseLeave={histMouseLeaveHandler}
-        >
-          {history.locked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-          {history.locked ? "Collapse" : "Expand"}
-        </button>
+        </div>
+        <div className={classes.buttonContainer}>
+          <button
+            className={`${classes.button} ${classes.lockHist} ${
+              history.locked ? classes.histExpanded : ""
+            }`}
+            onClick={histLockClickHandler}
+            onMouseEnter={playDonk}
+          >
+            {history.locked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+            {history.locked ? "Collapse" : "Expand"}
+          </button>
+          <button
+            className={`${classes.button} ${classes.volume}`}
+            onMouseEnter={playDonk}
+          >
+            <div className={classes.sliderWrapper}>
+              <input
+                type="range"
+                min="0"
+                step="0.01"
+                max="1"
+                value={volume.curr}
+                className={classes.slider}
+                onChange={volumeChangeHandler}
+                style={{
+                  background: `linear-gradient(to right, #ec505b 0%, #ec505b ${
+                    volume.curr * 100
+                  }%, #fff ${volume.curr * 100}%, white 100%)`,
+                }}
+              />
+            </div>
+            <div className={classes.volumeWrapper} onClick={volumeClickHandler}>
+              {renderVolumeIcon()}
+            </div>
+          </button>
+        </div>
       </aside>
       <div className={classes.game}>
         <div className={classes.flowWrapper}>
