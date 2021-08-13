@@ -329,25 +329,26 @@
   transform: translateX(-2px);
 }
 
-.volumeWrapper {
-  padding: 0.75rem 0.75vw;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .volume {
   flex: 0 0 3rem;
+  max-width: 3rem;
+  min-width: 3rem;
   padding: 0;
   position: relative;
   overflow: visible;
   &:hover {
     background: $darkest;
   }
+  .volumeIcon {
+    padding: 0.75rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   svg {
     margin: 0;
-    width: calc(1vw + 0.35rem);
+    width: calc(1vw + 0.3rem);
   }
   .sliderWrapper {
     background: $darkest;
@@ -376,17 +377,17 @@
       &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 14px; /* Set a specific slider handle width */
-        height: 14px; /* Slider handle height */
+        width: 14px;
+        height: 14px;
         transform: rotate(45deg);
-        background: #ec505b; /* Green background */
-        cursor: ns-resize; /* Cursor on hover */
+        background: #ec505b;
+        cursor: ns-resize;
       }
       &::-moz-range-thumb {
-        width: 14px; /* Set a specific slider handle width */
-        height: 14px; /* Slider handle height */
-        background: #ec505b; /* Green background */
-        cursor: ns-resize; /* Cursor on hover */
+        width: 14px;
+        height: 14px;
+        background: #ec505b;
+        cursor: ns-resize;
       }
     }
   }

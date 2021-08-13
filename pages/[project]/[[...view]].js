@@ -33,8 +33,6 @@ const View = ({ setLoaded }) => {
   const [project, setProject] = useState();
   const [view, setView] = useState();
 
-  useEffect(() => setLoaded(true), []); //TODO remove this
-
   useEffect(() => {
     console.log(router.query);
     if (Object.keys(router.query).length) {
@@ -61,19 +59,19 @@ const View = ({ setLoaded }) => {
   return (
     <div className={classes.view}>
       {project && view === "project" && (
-        <Project setLoaded={setLoaded} project={project} />
+        <Project project={project} setLoaded={setLoaded} />
       )}
       {project && view === "play" && (
-        <Play setLoaded={setLoaded} project={project} />
+        <Play project={project} setLoaded={setLoaded} />
       )}
       {project && view === "create" && (
-        <Code setLoaded={setLoaded} mode="Create" project={project} />
+        <Code mode="Create" project={project} setLoaded={setLoaded} />
       )}
       {project && view === "improve" && (
-        <Code setLoaded={setLoaded} mode="Improve" project={project} />
+        <Code mode="Improve" project={project} setLoaded={setLoaded} />
       )}
       {project && view === "boost" && (
-        <Boost mode="Comparison" query={project.query} />
+        <Boost mode="Comparison" query={project.query} setLoaded={setLoaded} />
       )}
     </div>
   );

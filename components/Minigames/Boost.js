@@ -22,7 +22,7 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
-const Boost = ({ mode, query }) => {
+const Boost = ({ mode, query, setLoaded }) => {
   const histWrapperRef = useRef();
   const histEndRef = useRef();
   const visualBellTimer = useRef(null);
@@ -48,6 +48,8 @@ const Boost = ({ mode, query }) => {
   const [playInCorrect] = useSound("/sounds/incorrect.mp3", {
     volume: volume.curr,
   });
+
+  useEffect(() => setLoaded(true), []);
 
   useEffect(() => {
     if (visualBell.message) {
@@ -251,7 +253,7 @@ const Boost = ({ mode, query }) => {
                 }}
               />
             </div>
-            <div className={classes.volumeWrapper} onClick={volumeClickHandler}>
+            <div className={classes.volumeIcon} onClick={volumeClickHandler}>
               {renderVolumeIcon()}
             </div>
           </button>
