@@ -128,7 +128,7 @@ const Boost = ({ mode, query, setLoaded }) => {
 
   const renderVolumeIcon = () => {
     if (volume.curr === 0) {
-      return <VolumeOffOutlinedIcon />;
+      return <VolumeOffOutlinedIcon style={{ color: "#fa6f6f" }} />;
     }
     if (volume.curr < 0.5) {
       return <VolumeDownOutlinedIcon />;
@@ -249,7 +249,9 @@ const Boost = ({ mode, query, setLoaded }) => {
                 style={{
                   background: `linear-gradient(to right, #ec505b 0%, #ec505b ${
                     volume.curr * 100
-                  }%, #fff ${volume.curr * 100}%, white 100%)`,
+                  }%, rgba(255,255,255,0.5) ${
+                    volume.curr * 100
+                  }%, rgba(255,255,255,0.5) 100%)`,
                 }}
               />
             </div>
