@@ -11,6 +11,7 @@
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@monaco-editor/react": "^4.2.1",
+    "howler": "^2.2.3",
     "html2canvas": "^1.1.4",
     "next": "11.0.0",
     "react": "17.0.2",
@@ -18,6 +19,7 @@
     "react-flow-renderer": "^9.6.5",
     "react-unity-webgl": "^8.4.2",
     "sass": "^1.35.1",
-    "swiper": "^6.7.5"
+    "swiper": "^6.7.5",
+    "use-sound": "^4.0.1"
   }
 }

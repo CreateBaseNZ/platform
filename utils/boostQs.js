@@ -3,7 +3,8 @@ export const comparisonBoostLvl1Item = () => {
   const b = Math.floor(Math.random() * 99);
   const type = Math.random() > 0.5 ? "greaterThan" : "lessThan";
   return {
-    q: [
+    q: "What does this print?",
+    els: [
       {
         id: "start",
         type: "start",

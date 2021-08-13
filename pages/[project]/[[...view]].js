@@ -60,7 +60,7 @@ const View = ({ setLoaded }) => {
 
   return (
     <div className={classes.view}>
-      {/* {project && view === "project" && (
+      {project && view === "project" && (
         <Project setLoaded={setLoaded} project={project} />
       )}
       {project && view === "play" && (
@@ -71,8 +71,10 @@ const View = ({ setLoaded }) => {
       )}
       {project && view === "improve" && (
         <Code setLoaded={setLoaded} mode="Improve" project={project} />
-      )} */}
-      {project && <Boost mode="Comparison" query={project.query} />}
+      )}
+      {project && view === "boost" && (
+        <Boost mode="Comparison" query={project.query} />
+      )}
     </div>
   );
 };

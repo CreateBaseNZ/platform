@@ -2,33 +2,41 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import useSound from "use-sound";
 import html2canvas from "html2canvas";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import { ReactFlowProvider } from "react-flow-renderer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
-
+import HistoryItem from "./HistoryItem";
 import { comparisonBoostLvl1Item } from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
-import HistoryItem from "./HistoryItem";
 
 const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
 const Boost = ({ mode, query }) => {
+  const histWrapperRef = useRef();
   const histEndRef = useRef();
   const visualBellTimer = useRef(null);
   const [elements, setElements] = useState([]);
-  const [options, setOptions] = useState([]);
-  const [answer, setAnswer] = useState("");
+  const [activeQ, setActiveQ] = useState({ q: "", o: [], a: "" });
   const [visualBell, setVisualBell] = useState({ message: "", switch: false });
-  const [flash, setFlash] = useState();
+  const [flash, setFlash] = useState("");
   const [level, setLevel] = useState(1);
-  const [history, setHistory] = useState([]);
-  const [showHistory, setShowHistory] = useState(false);
+  const [history, setHistory] = useState({
+    list: [],
+    expanded: false,
+    locked: false,
+  });
+  const [playDonk] = useSound("/sounds/donk.mp3");
+  const [playFlick] = useSound("/sounds/flick.mp3");
+  const [playSynth, { stop: stopSynth }] = useSound("/sounds/synth.mp3");
+  const [playCorrect] = useSound("/sounds/correct.mp3");
+  const [playInCorrect] = useSound("/sounds/incorrect.mp3");
 
   useEffect(() => {
     if (visualBell.message) {
@@ -47,26 +55,42 @@ const Boost = ({ mode, query }) => {
       block: "nearest",
       inline: "start",
     });
-  }, [history]);
+  }, [history.list]);
+
+  useEffect(() => {
+    const scroll = () =>
+      histEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    if (history.expanded || history.locked) {
+      setTimeout(scroll, [210]);
+    } else {
+      scroll();
+    }
+  }, [history.expanded, history.locked]);
 
   const generateItem = (mode, level) => {
     if (mode === "Comparison") {
       if (level === 1) {
-        const { q, o, a } = comparisonBoostLvl1Item();
-        setElements(q);
-        setOptions(o);
-        setAnswer(a);
+        const { q, els, o, a } = comparisonBoostLvl1Item();
+        setElements(els);
+        setActiveQ({ q: q, o: o, a: a });
       }
     }
   };
 
   const choiceClickHandler = (response, event) => {
-    const correct = answer.toString() === response.toString();
+    stopSynth();
+    const correct = activeQ.a.toString() === response.toString();
 
     if (correct) {
       setFlash("correct");
+      playCorrect();
     } else {
       setFlash("incorrect");
+      playInCorrect();
       event.target.classList.add(classes.incorrectResponse);
     }
 
@@ -75,21 +99,40 @@ const Boost = ({ mode, query }) => {
       html2canvas(document.querySelector(".react-flow__renderer")).then(
         (canvas) => {
           event.target.classList.remove(classes.incorrectResponse);
-          setHistory((hist) =>
-            hist.concat({
+          setHistory((state) => ({
+            ...state,
+            list: state.list.concat({
               correct: correct,
               capture: canvas.toDataURL(),
-              a: answer,
+              a: activeQ.a,
               r: response,
-            })
-          );
+            }),
+          }));
         }
       );
     }, 2000);
   };
 
-  const historyClickHandler = () => {
-    setShowHistory((state) => !state);
+  const buttonMouseEnterHandler = () => {
+    playDonk();
+    histMouseEnterHandler();
+  };
+
+  const histLockClickHandler = () => {
+    playFlick();
+    setHistory((state) => ({ ...state, locked: !state.locked }));
+  };
+
+  const histMouseEnterHandler = () => {
+    setHistory((state) => ({ ...state, expanded: true }));
+  };
+
+  const histMouseLeaveHandler = () => {
+    setHistory((state) => ({ ...state, expanded: false }));
+  };
+
+  const wheelHandler = (e) => {
+    histWrapperRef.current.scrollTop += e.deltaY;
   };
 
   return (
@@ -102,35 +145,54 @@ const Boost = ({ mode, query }) => {
         <span className={classes.fill}>{mode}</span>
         <span className={classes.stroke}>Boost</span>
       </h1>
-      <aside className={classes.histContainer}>
+      <aside
+        className={`${classes.leftMenu} ${
+          history.expanded || history.locked ? classes.histExpanded : ""
+        }`}
+      >
+        <div className={classes.histWrapper} ref={histWrapperRef}>
+          {history.list.map((item, i) => (
+            <HistoryItem
+              key={i}
+              item={item}
+              index={i}
+              expand={history.expanded || history.locked}
+            />
+          ))}
+          <div ref={histEndRef} />
+          {history.list.length > 0 && (
+            <div
+              className={classes.hoverArea}
+              onMouseEnter={histMouseEnterHandler}
+              onMouseLeave={histMouseLeaveHandler}
+              onWheel={wheelHandler}
+            />
+          )}
+        </div>
         <Link
           href={{
             pathname: `/${query}/project/[step]`,
             query: { step: "research" },
           }}
         >
-          <button className={`${classes.button} ${classes.back}`}>
+          <button
+            className={`${classes.button} ${classes.back}`}
+            onMouseEnter={buttonMouseEnterHandler}
+            onMouseLeave={histMouseLeaveHandler}
+          >
             <ChevronLeftIcon /> Back
           </button>
         </Link>
-        <div
-          className={`${classes.histWrapper} ${
-            showHistory ? "" : classes.collapsed
-          }`}
-        >
-          {history.map((item, i) => (
-            <HistoryItem key={i} item={item} index={i} />
-          ))}
-          <div ref={histEndRef} />
-        </div>
         <button
           className={`${classes.button} ${classes.history} ${
-            showHistory ? classes.active : ""
+            history.expanded || history.locked ? classes.histExpanded : ""
           }`}
-          onClick={historyClickHandler}
+          onClick={histLockClickHandler}
+          onMouseEnter={buttonMouseEnterHandler}
+          onMouseLeave={histMouseLeaveHandler}
         >
-          {showHistory ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-          {showHistory ? "Unlock history" : "Lock history"}
+          {history.locked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+          {history.locked ? "Collapse" : "Expand"}
         </button>
       </aside>
       <div className={classes.game}>
@@ -157,15 +219,16 @@ const Boost = ({ mode, query }) => {
           } `}
         >
           <h3 className={classes.question}>
-            {history.length + 1}: What does this print?
+            {history.list.length + 1}: {activeQ.q}
           </h3>
           <div className={classes.choiceContainer}>
-            {options.map((choice, i) => (
+            {activeQ.o.map((choice, i) => (
               <button
                 key={i}
                 onClick={choiceClickHandler.bind(this, choice)}
+                onMouseEnter={playSynth}
                 className={`${classes.choice} ${
-                  choice === answer ? classes.answer : classes.notAnswer
+                  choice === activeQ.a ? classes.answer : classes.notAnswer
                 }`}
               >
                 <p>{choice}</p>
