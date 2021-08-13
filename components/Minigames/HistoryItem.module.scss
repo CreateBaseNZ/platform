@@ -1,0 +1,65 @@
+@import "/styles/variables";
+
+.histItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 0 0 13vh;
+  width: 100%;
+  position: relative;
+  border-top: thin solid rgba(0, 0, 0, 0.75);
+  transition: height 0.2s ease-out, width 0.2s ease-out;
+  .histImg {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    opacity: 0.75;
+  }
+  .histIndex,
+  .histRecord {
+    position: absolute;
+    line-height: 1rem;
+    padding: 0 0.5rem;
+  }
+  .histIndex {
+    top: 0;
+    right: 0;
+    font-size: 10px;
+    width: 2rem;
+    text-align: right;
+    border-left: thin solid rgba(0, 0, 0, 0.75);
+    border-bottom: thin solid rgba(0, 0, 0, 0.75);
+  }
+  .histRecord {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    left: 0;
+    bottom: 0;
+    font-size: 12px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    border-top: thin solid rgba(0, 0, 0, 0.75);
+    color: $lightest;
+    span {
+      line-height: inherit;
+      font-size: 10px;
+      margin: 0 1em;
+    }
+    .correctRecord {
+      color: #1eda4d;
+    }
+    .incorrectRecord {
+      color: #ff6060;
+    }
+  }
+}
+
+.correct {
+  color: #01662b;
+  background: #1eda4d;
+}
+.incorrect {
+  color: #ff6060;
+  background: #4d1919;
+}

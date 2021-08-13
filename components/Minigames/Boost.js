@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import html2canvas from "html2canvas";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
@@ -13,12 +12,14 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { comparisonBoostLvl1Item } from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
+import HistoryItem from "./HistoryItem";
 
 const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
 const Boost = ({ mode, query }) => {
+  const histEndRef = useRef();
   const visualBellTimer = useRef(null);
   const [elements, setElements] = useState([]);
   const [options, setOptions] = useState([]);
@@ -41,6 +42,11 @@ const Boost = ({ mode, query }) => {
 
   useEffect(() => {
     generateItem(mode, level);
+    histEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
+    });
   }, [history]);
 
   const generateItem = (mode, level) => {
@@ -54,19 +60,32 @@ const Boost = ({ mode, query }) => {
     }
   };
 
-  const choiceClickHandler = (response) => {
-    html2canvas(document.querySelector(".react-flow__renderer")).then(
-      (canvas) => {
-        setHistory((hist) =>
-          hist.concat({
-            correct: answer.toString() === response.toString(),
-            capture: canvas.toDataURL(),
-            a: answer,
-            r: response,
-          })
-        );
-      }
-    );
+  const choiceClickHandler = (response, event) => {
+    const correct = answer.toString() === response.toString();
+
+    if (correct) {
+      setFlash("correct");
+    } else {
+      setFlash("incorrect");
+      event.target.classList.add(classes.incorrectResponse);
+    }
+
+    setTimeout(() => {
+      setFlash(null);
+      html2canvas(document.querySelector(".react-flow__renderer")).then(
+        (canvas) => {
+          event.target.classList.remove(classes.incorrectResponse);
+          setHistory((hist) =>
+            hist.concat({
+              correct: correct,
+              capture: canvas.toDataURL(),
+              a: answer,
+              r: response,
+            })
+          );
+        }
+      );
+    }, 2000);
   };
 
   const historyClickHandler = () => {
@@ -79,7 +98,6 @@ const Boost = ({ mode, query }) => {
         <title>{mode} Boost | CreateBase</title>
         <meta name="description" content={""} />
       </Head>
-
       <h1 className={classes.h1}>
         <span className={classes.fill}>{mode}</span>
         <span className={classes.stroke}>Boost</span>
@@ -100,35 +118,10 @@ const Boost = ({ mode, query }) => {
             showHistory ? "" : classes.collapsed
           }`}
         >
-          {history.map((hist, i) => (
-            <div className={classes.histItem} key={i}>
-              <div className={classes.histImg}>
-                <Image
-                  src={hist.capture}
-                  quality={100}
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-              <div
-                className={`${classes.histIndex} ${
-                  hist.correct ? classes.correct : classes.incorrect
-                }`}
-              >
-                {i + 1}
-              </div>
-              {hist.correct ? (
-                <div className={classes.histRecord}>
-                  <span className={classes.correctRecord}>{hist.a}</span>
-                </div>
-              ) : (
-                <div className={classes.histRecord}>
-                  <span className={classes.incorrectRecord}>{hist.r}</span>→
-                  <span className={classes.correctRecord}>{hist.a}</span>
-                </div>
-              )}
-            </div>
+          {history.map((item, i) => (
+            <HistoryItem key={i} item={item} index={i} />
           ))}
+          <div ref={histEndRef} />
         </div>
         <button
           className={`${classes.button} ${classes.history} ${
@@ -156,7 +149,13 @@ const Boost = ({ mode, query }) => {
             </ReactFlowProvider>
           </MiniHoverContextProvider>
         </div>
-        <div className={classes.questionWrapper}>
+        <div
+          className={`${classes.questionWrapper} ${
+            flash === "correct" ? classes.correctChoice : ""
+          } ${flash === "incorrect" ? classes.incorrectChoice : ""} ${
+            flash ? classes.flashing : ""
+          } `}
+        >
           <h3 className={classes.question}>
             {history.length + 1}: What does this print?
           </h3>
@@ -165,7 +164,9 @@ const Boost = ({ mode, query }) => {
               <button
                 key={i}
                 onClick={choiceClickHandler.bind(this, choice)}
-                className={classes.choice}
+                className={`${classes.choice} ${
+                  choice === answer ? classes.answer : classes.notAnswer
+                }`}
               >
                 <p>{choice}</p>
               </button>

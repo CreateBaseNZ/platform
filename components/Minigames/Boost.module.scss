@@ -53,17 +53,13 @@
 
 .questionWrapper {
   margin-top: 5vh;
-  border-radius: 1rem;
+  height: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0 5vw;
   position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-  }
   * {
     font-family: $jetbrains;
   }
@@ -113,6 +109,7 @@
   background: #fe757e;
   transition: background-color 0.1s ease-out;
   p {
+    pointer-events: none;
     height: 100%;
     width: 100%;
     text-align: center;
@@ -160,6 +157,81 @@
   }
 }
 
+.questionWrapper.correctChoice {
+  .question {
+    color: $green;
+  }
+  .choiceContainer {
+    &::before,
+    &::after {
+      background: $green;
+    }
+    &::before {
+      border-color: $green;
+    }
+    &::after {
+      border-color: $green;
+    }
+    .choice.answer {
+      background: $green;
+      &::after {
+        border-color: $green;
+      }
+    }
+    .choice.notAnswer {
+      background: rgba(255, 255, 255, 0.1);
+      opacity: 0.75;
+      &::after {
+        border-color: transparent;
+      }
+    }
+  }
+}
+
+.questionWrapper.incorrectChoice {
+  .question {
+    color: $red;
+  }
+  .choiceContainer {
+    &::before,
+    &::after {
+      background: $red;
+    }
+    &::before {
+      border-color: $red;
+    }
+    &::after {
+      border-color: $red;
+    }
+    .choice.answer {
+      background: $lightest;
+      p {
+        color: $darkest;
+      }
+      &::after {
+        border-color: $lightest;
+      }
+    }
+    .choice.notAnswer {
+      background: rgba(255, 255, 255, 0.1);
+      opacity: 0.75;
+      &::after {
+        border-color: transparent;
+      }
+    }
+    .choice.notAnswer.incorrectResponse {
+      background: $red;
+      &::after {
+        border-color: $red;
+      }
+    }
+  }
+}
+
+.questionWrapper.flashing {
+  pointer-events: none;
+}
+
 .histContainer {
   height: 100%;
   width: 15vw;
@@ -177,7 +249,7 @@
   padding: 0.75rem 1vw;
   border-right: thin solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.75);
-  font-size: calc(0.4rem + 0.5vw);
+  font-size: calc(0.4rem + 0.4vw);
   font-family: $jetbrains;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -236,70 +308,6 @@
   &::-webkit-scrollbar {
     display: none;
   }
-}
-
-.histItem {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 0 0 13vh;
-  width: 100%;
-  position: relative;
-  border-top: thin solid rgba(0, 0, 0, 0.75);
-  transition: height 0.2s ease-out, width 0.2s ease-out;
-  .histImg {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    opacity: 0.75;
-  }
-  .histIndex,
-  .histRecord {
-    position: absolute;
-    line-height: 1rem;
-    padding: 0 0.5rem;
-  }
-  .histIndex {
-    top: 0;
-    right: 0;
-    font-size: 10px;
-    width: 2rem;
-    text-align: right;
-    border-left: thin solid rgba(0, 0, 0, 0.75);
-    border-bottom: thin solid rgba(0, 0, 0, 0.75);
-  }
-  .histRecord {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    left: 0;
-    bottom: 0;
-    font-size: 12px;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    border-top: thin solid rgba(0, 0, 0, 0.75);
-    color: $lightest;
-    span {
-      line-height: inherit;
-      font-size: 10px;
-      margin: 0 1em;
-    }
-    .correctRecord {
-      color: #1eda4d;
-    }
-    .incorrectRecord {
-      color: #ff6060;
-    }
-  }
-}
-
-.correct {
-  color: #01662b;
-  background: #1eda4d;
-}
-.incorrect {
-  color: #ff6060;
-  background: #4d1919;
 }
 
 .h1 {
