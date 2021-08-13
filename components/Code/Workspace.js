@@ -51,7 +51,8 @@ const Workspace = (props) => {
 
   useEffect(() => {
     if (activeTab === "text") {
-      const [newText, dispCode] = compileCode();
+      const onceCode = isOnceCode(props.query);
+      const [newText, dispCode] = compileCode(onceCode);
       if (newText) {
         setText(dispCode);
       }
@@ -68,14 +69,14 @@ const Workspace = (props) => {
     }
   }, [visualBell.switch]);
 
-  const compileCode = () => {
+  const compileCode = (onceCode) => {
     const [blocks, type, message] = flow2Text(elements, props.query);
     if (type && type === "warning") {
       ctx.addWarning(message);
     }
     if (Array.isArray(blocks)) {
       const codeGen = new CodeGenerator();
-      const [newText, type, message, dispCode] = codeGen.build(blocks);
+      const [newText, type, message, dispCode] = codeGen.build(blocks,onceCode);
       if (type === "warning") {
         ctx.addWarning(message);
       } else if (type === "error") {
@@ -128,7 +129,7 @@ const Workspace = (props) => {
     let com;
     codeChanged = true;
     const onceCode = isOnceCode(props.query);
-    let [code, dispCode] = compileCode();
+    let [code, dispCode] = compileCode(onceCode);
     if (!onceCode) {
       code += "\nresolve(' ');";
       let functionExecute = async () => {
@@ -157,8 +158,7 @@ const Workspace = (props) => {
     } else {
       com = 0;
       codesDone++
-      eval("(async () => {" + code + "})()").catch((e) => {
-        codesDone = -1;
+      eval("(async () => {\nconst printing=100;\nlet done=false;" + code + "done=true;})()").catch((e) => {
       });
     }
     setVisualBell((state) => ({

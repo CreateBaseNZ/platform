@@ -75,9 +75,9 @@ export class CodeGenerator {
           return false;
         }
       } else if (varName[i] < "0" || varName[i] > "9") {
-        if(i!=0||varName[i]!='-'){
+        if (i != 0 || varName[i] != '-') {
           return false;
-        } 
+        }
       }
     }
     return true;
@@ -152,7 +152,7 @@ export class CodeGenerator {
     });
     if (blockFunction) {
       this.content += blockFunction.logic;
-      this.simpleContent+=blockFunction.simpleLogic;
+      this.simpleContent += blockFunction.simpleLogic;
       this.executes.push(blockFunction.executes);
       this.simpleExecutes.push(blockFunction.simpleExecutes);
       return true;
@@ -216,8 +216,8 @@ export class CodeGenerator {
         if (blockDetail) {
           if (!this.checkSign(val)) {
             return [false, "error", "Wrong Sign is Entered"];
-          } 
-        }else{
+          }
+        } else {
           return [false, "error", "Something Went Wrong"];
         }
       }
@@ -408,7 +408,7 @@ export class CodeGenerator {
     // Add to execute
     if (blockFunction) {
       this.content += blockFunction.logic;
-      this.simpleContent+=blockFunction.simpleLogic;
+      this.simpleContent += blockFunction.simpleLogic;
       this.executes.push(blockFunction.executes);
       this.simpleExecutes.push(blockFunction.simpleExecutes);
       return true;
@@ -471,15 +471,12 @@ export class CodeGenerator {
     }
   }
 
-  private printMessage(blockDetail,printNum) {
+  private printMessage(blockDetail, printNum) {
     if (blockDetail.value) {
       printNum++;
       const input = String(blockDetail.value.a);
       let str, simpleStr;
-      str =`
-      console.log(printing);
-
-            if(printing>=10){
+      str = `if(printing>=10){
                `
       if (this.checkVariable(input)) {
         str += `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
@@ -489,16 +486,16 @@ export class CodeGenerator {
         simpleStr = `console.log(\`Print Number ${printNum}= ${input}\`)`;
       } else {
         printNum--;
-        return [false,printNum];
+        return [false, printNum];
 
       }
       str += `
     }`;
       this.simpleExecutes.push(simpleStr);
       this.executes.push(str);
-      return [true,printNum];
+      return [true, printNum];
     } else {
-      return [false,printNum];
+      return [false, printNum];
     }
   }
 
@@ -512,7 +509,7 @@ export class CodeGenerator {
     this.execute += "";
   }
 
-  public build(blockDetails: Array<any> = []) {
+  public build(blockDetails: Array<any> = [], runOnce: boolean) {
     // Reset Values
     this.content = "";
     this.executes = [];
@@ -585,11 +582,16 @@ export class CodeGenerator {
           "// Oops! An error occurred, please check the Console for more info",
         ];
       }
+      if (runOnce && blockDetails.length-1!=i) {
+        const str="if(codeNum!=codesDone){resolve('');}"
+        this.simpleExecutes.push(str);
+        this.executes.push(str);
+      }
     }
 
     this.run();
     const runCode = this.intialiseVar() + this.content + this.execute;
     const simple = this.intialiseVar() + this.simpleContent + this.simpleExecute;
-    return [runCode, null, null,simple];
+    return [runCode, null, null, simple];
   }
 }
