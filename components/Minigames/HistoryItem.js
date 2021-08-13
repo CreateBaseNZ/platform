@@ -13,6 +13,16 @@ const HistoryItem = ({ item, index }) => {
           objectFit="cover"
         />
       </div>
+      {item.correct ? (
+        <div className={classes.histRecord}>
+          <span className={classes.correctRecord}>{item.a}</span>
+        </div>
+      ) : (
+        <div className={classes.histRecord}>
+          <span className={classes.incorrectRecord}>{item.r}</span>⇒
+          <span className={classes.correctRecord}>{item.a}</span>
+        </div>
+      )}
       <div
         className={`${classes.histIndex} ${
           item.correct ? classes.correct : classes.incorrect
@@ -20,16 +30,6 @@ const HistoryItem = ({ item, index }) => {
       >
         {index + 1}
       </div>
-      {item.correct ? (
-        <div className={classes.histRecord}>
-          <span className={classes.correctRecord}>{item.a}</span>
-        </div>
-      ) : (
-        <div className={classes.histRecord}>
-          <span className={classes.incorrectRecord}>{item.r}</span>→
-          <span className={classes.correctRecord}>{item.a}</span>
-        </div>
-      )}
     </div>
   );
 };

@@ -180,7 +180,7 @@
     }
     .choice.notAnswer {
       background: rgba(255, 255, 255, 0.1);
-      opacity: 0.75;
+      opacity: 0.5;
       &::after {
         border-color: transparent;
       }
@@ -214,7 +214,7 @@
     }
     .choice.notAnswer {
       background: rgba(255, 255, 255, 0.1);
-      opacity: 0.75;
+      opacity: 0.5;
       &::after {
         border-color: transparent;
       }
@@ -222,7 +222,7 @@
     .choice.notAnswer.incorrectResponse {
       background: $red;
       &::after {
-        border-color: $red;
+        border-color: transparent;
       }
     }
   }
