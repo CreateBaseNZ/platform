@@ -1,3 +1,5 @@
+@import "/styles/variables";
+
 .levelModal {
   position: absolute;
   top: 0;
@@ -5,22 +7,151 @@
   height: 100%;
   width: 100%;
   z-index: 6;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.menu {
-  max-width: 50vw;
-  max-height: 50vh;
-  background: rgba(255, 255, 255, 0.25);
+.menuContainer {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  * {
+    color: $lightest;
+    text-transform: uppercase;
+    font-family: $jetbrains;
+    text-align: center;
+  }
+}
+
+.menuWrapper {
+  width: 100%;
+  margin: 2vh 0;
   display: flex;
   flex-wrap: wrap;
 }
 
 .card {
-  width: 2rem;
-  height: 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  margin: 0.2rem;
+  transition: all 0.1s ease-out;
+}
+
+.buttonCard {
+  opacity: 0.65;
+  font-weight: 700;
+  flex: 1 1 0;
+  letter-spacing: 0.1em;
+  border: thin solid rgba(255, 255, 255, 0.4);
+  position: relative;
+  background: transparent;
+  &::before {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: calc(50% + 0.5px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: height 0.1s ease-out, width 0.1s ease-out;
+  }
+  &:hover {
+    opacity: 1;
+  }
+  &.selected {
+    opacity: 1;
+    pointer-events: none;
+    border-color: white;
+    &::before {
+      height: calc(100% - 6px);
+      width: calc(100% - 6px);
+    }
+  }
+  &.current {
+    &::after {
+      content: "ACTIVE";
+      font-size: 10px;
+      font-weight: 700;
+      color: #ec505b;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 100%);
+    }
+  }
+}
+
+.titleCard {
+  width: 100%;
+  height: 5vh;
+  font-weight: 400;
+  font-size: 14px;
+  color: #b4b4b4;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.levelCard {
+  height: 20vh;
+  &.complete {
+    border-color: $green;
+    color: $green;
+    &::before {
+      opacity: 0.25;
+      background: $green;
+    }
+  }
+}
+
+.modeCard {
+  height: 15vh;
+  font-size: 14px;
+}
+
+.proceed {
+  width: 50%;
+  flex: 0 0 8vh;
+  margin-top: 4vh;
+  font-size: 14px;
+  opacity: 1;
+  border: 0px solid transparent;
+  &::before {
+    background: #ec505b;
+  }
+  &:hover {
+    border: thin solid #ec505b;
+    &:before {
+      height: calc(100% - 6px);
+      width: calc(100% - 6px);
+    }
+  }
+}
+
+.close {
+  position: absolute;
+  top: -5vh;
+  right: -10vw;
+  z-index: 7;
+  opacity: 0.75;
+  padding: 0.25rem;
+  border: thin solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    padding: 0.1rem;
+  }
+  &:hover {
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 0.25);
+  }
 }

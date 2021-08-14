@@ -139,7 +139,7 @@ const Research = ({ query }) => {
               <VideoModule onClick={openModal.bind(this, "flow-tut")} title="">
                 <span>Editing</span> with Flow
               </VideoModule>
-              <Link href={`/${query}/boost`}>
+              <Link href={`/explore/comparison-boost`}>
                 <div title="Play Cpmparison Boost">
                   <TutorialModule>
                     Comparison <span>Boost</span>

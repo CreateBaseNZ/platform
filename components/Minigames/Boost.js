@@ -38,6 +38,7 @@ const Boost = ({ mode, setLoaded }) => {
     expanded: false,
     locked: false,
   });
+  const [showModal, setShowModal] = useState(false);
   const [volume, setVolume] = useState({ curr: 0.5, prev: 0.5 });
   const [playDonk] = useSound("/sounds/donk.mp3", { volume: volume.curr });
   const [playFlick] = useSound("/sounds/flick.mp3", { volume: volume.curr });
@@ -128,6 +129,11 @@ const Boost = ({ mode, setLoaded }) => {
     }, 2000);
   };
 
+  const levelsClickHandler = () => {
+    playFlick();
+    setShowModal(true);
+  };
+
   const renderVolumeIcon = () => {
     if (volume.curr === 0) {
       return <VolumeOffOutlinedIcon style={{ color: "#fa6f6f" }} />;
@@ -216,6 +222,7 @@ const Boost = ({ mode, setLoaded }) => {
           </button>
           <button
             className={`${classes.button} ${classes.levels}`}
+            onClick={levelsClickHandler}
             onMouseEnter={playDonk}
           >
             <AppsOutlinedIcon /> Levels
@@ -302,7 +309,15 @@ const Boost = ({ mode, setLoaded }) => {
           </div>
         </div>
       </div>
-      <LevelModal />
+      {showModal && (
+        <LevelModal
+          currLvl={level}
+          currMode={mode.toLowerCase()}
+          playFlick={playFlick}
+          playDonk={playDonk}
+          closeHandler={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };
