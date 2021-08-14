@@ -17,6 +17,7 @@ import VolumeOffOutlinedIcon from "@material-ui/icons/VolumeOffOutlined";
 import { comparisonBoostLvl1Item } from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
+import LevelModal from "./LevelModal";
 
 const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
@@ -213,7 +214,10 @@ const Boost = ({ mode, setLoaded }) => {
           >
             <ChevronLeftIcon /> Back
           </button>
-          <button className={classes.button} onMouseEnter={playDonk}>
+          <button
+            className={`${classes.button} ${classes.levels}`}
+            onMouseEnter={playDonk}
+          >
             <AppsOutlinedIcon /> Levels
           </button>
         </div>
@@ -298,6 +302,7 @@ const Boost = ({ mode, setLoaded }) => {
           </div>
         </div>
       </div>
+      <LevelModal />
     </div>
   );
 };

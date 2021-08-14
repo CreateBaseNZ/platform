@@ -1,0 +1,26 @@
+.levelModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 6;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+  max-width: 50vw;
+  max-height: 50vh;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 2rem;
+  height: 2rem;
+}

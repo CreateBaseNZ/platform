@@ -290,7 +290,8 @@
   letter-spacing: 0.1em;
   position: relative;
   overflow: hidden;
-  transition: color 0.1s ease-out, background-color 0.1s ease-out;
+  transition: color 0.1s ease-out, background-color 0.1s ease-out,
+    letter-spacing 0.1s ease-out;
   svg {
     width: 1vw;
     margin-right: 0.5vw;
@@ -328,12 +329,25 @@
   }
 }
 
-.lockHist.histExpanded {
-  background: $darkest;
+.lockHist {
+  &:hover {
+    letter-spacing: 0.3em;
+  }
+  &.histExpanded {
+    letter-spacing: 0.3em;
+    background: $darkest;
+    &:hover {
+      letter-spacing: 0.1em;
+    }
+  }
 }
 
 .back:hover svg {
   transform: translateX(-2px);
+}
+
+.levels:hover svg {
+  transform: rotate(90deg);
 }
 
 .volume {
