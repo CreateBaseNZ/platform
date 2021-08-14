@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import useSound from "use-sound";
 import html2canvas from "html2canvas";
@@ -22,7 +22,8 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
-const Boost = ({ mode, query, setLoaded }) => {
+const Boost = ({ mode, setLoaded }) => {
+  const router = useRouter();
   const histWrapperRef = useRef();
   const histEndRef = useRef();
   const visualBellTimer = useRef(null);
@@ -205,19 +206,13 @@ const Boost = ({ mode, query, setLoaded }) => {
           )}
         </div>
         <div className={classes.buttonContainer} style={{ order: -1 }}>
-          <Link
-            href={{
-              pathname: `/${query}/project/[step]`,
-              query: { step: "research" },
-            }}
+          <button
+            className={`${classes.button} ${classes.back}`}
+            onMouseEnter={playDonk}
+            onClick={() => router.back()}
           >
-            <button
-              className={`${classes.button} ${classes.back}`}
-              onMouseEnter={playDonk}
-            >
-              <ChevronLeftIcon /> Back
-            </button>
-          </Link>
+            <ChevronLeftIcon /> Back
+          </button>
           <button className={classes.button} onMouseEnter={playDonk}>
             <AppsOutlinedIcon /> Levels
           </button>

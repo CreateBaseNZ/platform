@@ -304,11 +304,18 @@
     content: "";
     position: absolute;
     top: 0;
-    right: 0;
-    height: 0;
-    width: 1px;
-    background: $lightest;
-    transition: height 0.2s ease-out;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, white 3px, transparent 3px) 0 0,
+      linear-gradient(to right, white 3px, transparent 3px) 0 100%,
+      linear-gradient(to left, white 3px, transparent 3px) 100% 0,
+      linear-gradient(to left, white 3px, transparent 3px) 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 3px 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease-out;
   }
   &:hover {
     color: $lightest;
@@ -316,7 +323,7 @@
       fill: $lightest;
     }
     &::after {
-      height: 100%;
+      opacity: 100%;
     }
   }
 }
@@ -338,6 +345,12 @@
   overflow: visible;
   &:hover {
     background: $darkest;
+  }
+  &::after {
+    background: linear-gradient(to right, white 3px, transparent 3px) 0 100%,
+      linear-gradient(to left, white 3px, transparent 3px) 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 3px 3px;
   }
   .volumeIcon {
     padding: 0.75rem 0;
@@ -361,8 +374,8 @@
     opacity: 0;
     pointer-events: none;
     position: absolute;
-    top: 0;
-    left: 50%;
+    top: 0px;
+    left: calc(50% + 1px);
     height: 3rem;
     display: flex;
     align-items: center;
@@ -385,9 +398,9 @@
         width: 14px;
         height: 14px;
         transform: rotate(45deg);
-        border: thin solid #ec505b;
-        box-shadow: inset 0 0 0 1px white;
-        background: #ec505b;
+        padding: 5px;
+        border: thin solid white;
+        box-shadow: inset 0 0 0 40px #ec505b;
         cursor: ns-resize;
       }
       &::-moz-range-thumb {
@@ -405,14 +418,15 @@
       content: "";
       position: absolute;
       top: 0;
-      height: 2px;
-      width: 2px;
+      height: 3px;
+      width: 3px;
       background: $lightest;
       right: 0;
     }
     &::after {
+      top: auto;
       right: 0;
-      top: calc(3rem - 2px);
+      bottom: 0;
     }
   }
   &:hover .sliderWrapper {
