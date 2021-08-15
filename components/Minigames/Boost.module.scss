@@ -53,12 +53,11 @@
 
 .questionWrapper {
   margin-top: 5vh;
-  height: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 5vw;
+  padding: 0 2vw;
   position: relative;
   * {
     font-family: $jetbrains;
@@ -72,11 +71,13 @@
   font-weight: 400;
   letter-spacing: 0.1em;
   font-size: 1rem;
+  text-align: center;
 }
 
 .choiceContainer {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   position: relative;
   &::before,
@@ -101,23 +102,29 @@
 }
 
 .choice {
-  width: 10vw;
+  flex: 1 1 0;
   min-width: 150px;
+  max-width: 350px;
   margin: 2vh 1vw;
   font-weight: 700;
   text-transform: uppercase;
   position: relative;
   transition: background-color 0.1s ease-out;
   p {
-    pointer-events: none;
+    padding: 2vh 0.5vw;
     height: 100%;
     width: 100%;
-    text-align: center;
-    color: $lightest;
-    line-height: 5vh;
+    pointer-events: none;
     overflow: hidden;
-    z-index: 1;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &::after {
+      content: attr(datachoice);
+      color: $lightest;
+      z-index: 1;
+    }
     &::before {
       content: "";
       position: absolute;
@@ -126,7 +133,6 @@
       height: 100%;
       width: 0;
       opacity: 0;
-      z-index: -1;
       transform: skew(-20deg);
       transition: opacity 0.1s ease-out, width 0.1s ease-out 0.1s;
     }
@@ -522,5 +528,25 @@
       border-color: #ff6bcd;
       background: #ff6bcd;
     }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .questionWrapper {
+    margin-top: 2vh;
+  }
+  .question {
+    margin: 1vh 0;
+  }
+  .choiceContainer {
+    padding: 0 5vw;
+  }
+  .choiceContainer::before,
+  .choiceContainer::after {
+    display: none;
+  }
+  .choice {
+    flex: 1 1 40%;
+    margin: 1.5vh 1vw;
   }
 }

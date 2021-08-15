@@ -3,7 +3,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import classes from "./LevelModal.module.scss";
 import { useRouter } from "next/router";
 
-const levels = { comparison: 3, conditional: 2 };
+const levels = { comparison: 3, conditional: 3 };
 const modes = ["comparison", "conditional"];
 
 const DUMMY_COMPLETE = 0;
@@ -16,7 +16,6 @@ const LevelModal = ({
   playDonk,
   closeHandler,
   setLevel,
-  setLoadLevel,
 }) => {
   const router = useRouter();
   const [selection, setSelection] = useState({
@@ -37,7 +36,6 @@ const LevelModal = ({
   const proceedClickHandler = () => {
     playFlick();
     if (selection.mode !== currMode) {
-      setLoadLevel = selection.level;
       router.push(`/explore/${selection.mode}-boost`);
     } else {
       setLevel(selection.level);

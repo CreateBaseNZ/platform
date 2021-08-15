@@ -7,7 +7,6 @@ import Boost from "../../components/Minigames/Boost";
 const ExploreView = ({ setLoaded }) => {
   const router = useRouter();
   const [view, setView] = useState();
-  const [loadLevel, setLoadLevel] = useState(0);
 
   useEffect(() => {
     console.log(router);
@@ -21,20 +20,10 @@ const ExploreView = ({ setLoaded }) => {
   return (
     <div className={classes.exploreView}>
       {view === "comparison-boost" && (
-        <Boost
-          mode="Comparison"
-          setLoaded={setLoaded}
-          loadLevel={loadLevel}
-          setLoadLevel={setLoadLevel}
-        />
+        <Boost mode="Comparison" setLoaded={setLoaded} />
       )}
       {view === "conditional-boost" && (
-        <Boost
-          mode="Conditional"
-          setLoaded={setLoaded}
-          loadLevel={loadLevel}
-          setLoadLevel={setLoadLevel}
-        />
+        <Boost mode="Conditional" setLoaded={setLoaded} />
       )}
       {view === "explore" && <div></div>}
     </div>

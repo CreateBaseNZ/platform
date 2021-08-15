@@ -19,6 +19,8 @@ import {
   comparisonBoostLvl2Item,
   comparisonBoostLvl3Item,
   conditionalBoostLvl1Item,
+  conditionalBoostLvl2Item,
+  conditionalBoostLvl3Item,
 } from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
@@ -39,11 +41,11 @@ const getColour = (mode) => {
   }
 };
 
-const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
+const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
   const router = useRouter();
   const histWrapperRef = useRef();
   const histEndRef = useRef();
-  const visualBellTimer = useRef(loadLevel);
+  const visualBellTimer = useRef(null);
   const [elements, setElements] = useState([]);
   const [activeQ, setActiveQ] = useState({ q: "", o: [], a: "" });
   const [visualBell, setVisualBell] = useState({ message: "", switch: false });
@@ -56,7 +58,7 @@ const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
   });
   const [showModal, setShowModal] = useState(false);
   const [volume, setVolume] = useState({ curr: 0.35, prev: 0.35 });
-  const [boostColor, setBoostColor] = useState(getColour(mode));
+  const [boostColor] = useState(getColour(mode));
   const [playDonk] = useSound("/sounds/donk.mp3", { volume: volume.curr });
   const [playFlick] = useSound("/sounds/flick.mp3", { volume: volume.curr });
   const [playSynth, { stop: stopSynth }] = useSound("/sounds/synth.mp3", {
@@ -117,6 +119,10 @@ const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
     } else if (mode === "Conditional") {
       if (level === 0) {
         fc = conditionalBoostLvl1Item;
+      } else if (level === 1) {
+        fc = conditionalBoostLvl2Item;
+      } else if (level === 2) {
+        fc = conditionalBoostLvl3Item;
       }
     }
     const { q, els, o, a } = fc();
@@ -330,7 +336,7 @@ const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
                   choice === activeQ.a ? classes.answer : classes.notAnswer
                 }`}
               >
-                <p>{choice}</p>
+                <p datachoice={choice} />
               </button>
             ))}
           </div>
@@ -345,7 +351,6 @@ const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
           playSynth={playSynth}
           setLevel={setLevel}
           closeHandler={() => setShowModal(false)}
-          setLoadLevel={setLoadLevel}
         />
       )}
     </div>
