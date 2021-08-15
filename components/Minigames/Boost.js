@@ -106,7 +106,6 @@ const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
 
   const generateItem = (mode, level) => {
     let fc;
-    console.log(mode, level);
     if (mode === "Comparison") {
       if (level === 0) {
         fc = comparisonBoostLvl1Item;

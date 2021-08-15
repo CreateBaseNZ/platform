@@ -35,7 +35,12 @@ import {
   NodeRepeat,
   NodeWhile,
 } from "../components/ReactFlow/NodeConditionals";
-import { NodeDelay, NodePrint } from "../components/ReactFlow/NodeUtils";
+import {
+  NodeDelay,
+  NodePrint,
+  NodeTrue,
+  NodeFalse,
+} from "../components/ReactFlow/NodeUtils";
 import {
   ExecutionEdge,
   BooleanEdge,
@@ -78,6 +83,8 @@ export const nodeTypes = {
   while: NodeWhile,
   delay: NodeDelay,
   print: NodePrint,
+  true: NodeTrue,
+  false: NodeFalse,
 };
 
 export const edgeTypes = {

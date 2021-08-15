@@ -91,6 +91,8 @@ const FlowEditor = ({
   const selectedElements = useStoreState((store) => store.selectedElements);
   const [x, y, zoom] = useStoreState((state) => state.transform);
 
+  console.log(elements);
+
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
@@ -139,7 +141,7 @@ const FlowEditor = ({
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
     console.log("flow loaded:", _reactFlowInstance);
-    _reactFlowInstance.fitView();
+    window.requestAnimationFrame(_reactFlowInstance.fitView);
     setReactFlowInstance(_reactFlowInstance);
     const controls = document.querySelector(".react-flow__controls").children;
     for (let i = 0; i < controls.length; i++) {
@@ -663,6 +665,7 @@ const FlowEditor = ({
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           maxZoom={3}
+          defaultZoom={1.5}
           minZoom={0.25}
           snapToGrid={true}
           snapGrid={[16, 16]}

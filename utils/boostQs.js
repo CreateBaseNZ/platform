@@ -234,28 +234,27 @@ export const comparisonBoostLvl3Item = () => {
 };
 
 export const conditionalBoostLvl1Item = () => {
-  const a = Math.floor(Math.random() * 100);
-  const b = Math.floor(Math.random() * 100);
-  const type = Math.random() > 0.5 ? "greaterThan" : "lessThan";
+  const condition = Math.random() < 0.5;
+  const handleId = Math.floor(Math.random() * 3);
+  const handleName = `execution__out__${handleId}`;
+
   return {
-    q: "Will Action 1 be executed?",
+    q: "Will 'Jump' be executed?",
     els: [
       {
-        data: {
-          connections: ["execution__out"],
-        },
+        data: { connections: ["execution__out"] },
         id: "start",
-        position: { x: 0, y: -32 },
+        position: { x: 64, y: 48 },
         type: "start",
       },
       {
         data: {
-          connections: ["execution__in", "any__in__a"],
-          values: { a: 0 },
+          values: {},
+          connections: ["execution__in", handleName, "boolean__in__condition"],
         },
         id: "dndnode_0",
-        position: { x: 144, y: -48 },
-        type: "print",
+        position: { x: 192, y: 16 },
+        type: "if",
       },
       {
         animated: true,
@@ -268,39 +267,42 @@ export const conditionalBoostLvl1Item = () => {
         type: "execution",
       },
       {
-        data: {
-          connections: ["boolean__out", "float__in__a"],
-          values: { a: 0, b: 0 },
-        },
-
+        data: { values: {}, connections: ["execution__in"] },
         id: "dndnode_1",
-        position: { x: 64, y: -112 },
-        type: "lessThan",
+        position: { x: 416, y: 48 },
+        type: "jump",
       },
       {
-        id: "reactflow__edge-dndnode_1boolean__out-dndnode_0any__in__a",
-        source: "dndnode_1",
+        animated: true,
+        arrowHeadType: "arrowclosed",
+        id: `reactflow__edge-dndnode_0${handleName}-dndnode_1execution__in`,
+        source: "dndnode_0",
+        sourceHandle: handleName,
+        target: "dndnode_1",
+        targetHandle: "execution__in",
+        type: "execution",
+      },
+      {
+        data: { values: {}, connections: ["boolean__out"] },
+        id: "dndnode_2",
+        position: { x: 128, y: -32 },
+        type: condition ? "true" : "false",
+      },
+      {
+        id: "reactflow__edge-dndnode_2boolean__out-dndnode_0boolean__in__condition",
+        source: "dndnode_2",
         sourceHandle: "boolean__out",
         target: "dndnode_0",
-        targetHandle: "any__in__a",
+        targetHandle: "boolean__in__condition",
         type: "boolean",
-      },
-      {
-        data: { connections: ["float__out"], values: { a: 0, b: 0 } },
-        id: "dndnode_2",
-        position: { x: -80, y: -176 },
-        type: "add",
-      },
-      {
-        id: "reactflow__edge-dndnode_2float__out-dndnode_1float__in__a",
-        source: "dndnode_2",
-        sourceHandle: "float__out",
-        target: "dndnode_1",
-        targetHandle: "float__in__a",
-        type: "float",
       },
     ],
     o: ["yes", "no"],
-    a: (type === "greaterThan" ? a > b : a < b).toString(),
+    a:
+      handleId === 2
+        ? "yes"
+        : (condition && handleId === 0) || (!condition && handleId === 1)
+        ? "yes"
+        : "no",
   };
 };
