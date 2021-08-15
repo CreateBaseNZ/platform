@@ -94,6 +94,8 @@ const FlowEditor = ({
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
+  console.log(elements);
+
   useEffect(() => {
     if (!systemAction) {
       setActionStack((state) => {

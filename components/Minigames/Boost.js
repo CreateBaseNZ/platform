@@ -14,7 +14,12 @@ import HistoryItem from "./HistoryItem";
 import VolumeUpOutlinedIcon from "@material-ui/icons/VolumeUpOutlined";
 import VolumeDownOutlinedIcon from "@material-ui/icons/VolumeDownOutlined";
 import VolumeOffOutlinedIcon from "@material-ui/icons/VolumeOffOutlined";
-import { comparisonBoostLvl1Item } from "../../utils/boostQs";
+import {
+  comparisonBoostLvl1Item,
+  comparisonBoostLvl2Item,
+  comparisonBoostLvl3Item,
+  conditionalBoostLvl1Item,
+} from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
 import LevelModal from "./LevelModal";
@@ -23,16 +28,16 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
-const Boost = ({ mode, setLoaded }) => {
+const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
   const router = useRouter();
   const histWrapperRef = useRef();
   const histEndRef = useRef();
-  const visualBellTimer = useRef(null);
+  const visualBellTimer = useRef(loadLevel);
   const [elements, setElements] = useState([]);
   const [activeQ, setActiveQ] = useState({ q: "", o: [], a: "" });
   const [visualBell, setVisualBell] = useState({ message: "", switch: false });
   const [flash, setFlash] = useState("");
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(loadLevel);
   const [history, setHistory] = useState({
     list: [],
     expanded: false,
@@ -71,7 +76,7 @@ const Boost = ({ mode, setLoaded }) => {
       block: "nearest",
       inline: "start",
     });
-  }, [history.list]);
+  }, [history.list, level]);
 
   useEffect(() => {
     const scroll = () =>
@@ -88,13 +93,24 @@ const Boost = ({ mode, setLoaded }) => {
   }, [history.expanded, history.locked]);
 
   const generateItem = (mode, level) => {
+    let fc;
+    console.log(mode, level);
     if (mode === "Comparison") {
-      if (level === 1) {
-        const { q, els, o, a } = comparisonBoostLvl1Item();
-        setElements(els);
-        setActiveQ({ q: q, o: o, a: a });
+      if (level === 0) {
+        fc = comparisonBoostLvl1Item;
+      } else if (level === 1) {
+        fc = comparisonBoostLvl2Item;
+      } else if (level === 2) {
+        fc = comparisonBoostLvl3Item;
+      }
+    } else if (mode === "Conditional") {
+      if (level === 0) {
+        fc = conditionalBoostLvl1Item;
       }
     }
+    const { q, els, o, a } = fc();
+    setElements(els);
+    setActiveQ({ q: q, o: o, a: a });
   };
 
   const choiceClickHandler = (response, event) => {
@@ -315,7 +331,10 @@ const Boost = ({ mode, setLoaded }) => {
           currMode={mode.toLowerCase()}
           playFlick={playFlick}
           playDonk={playDonk}
+          playSynth={playSynth}
+          setLevel={setLevel}
           closeHandler={() => setShowModal(false)}
+          setLoadLevel={setLoadLevel}
         />
       )}
     </div>

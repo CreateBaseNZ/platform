@@ -1,8 +1,9 @@
 import { useState } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import classes from "./LevelModal.module.scss";
+import { useRouter } from "next/router";
 
-const levels = { comparison: 3 };
+const levels = { comparison: 3, conditional: 2 };
 const modes = ["comparison", "conditional"];
 
 const DUMMY_COMPLETE = 0;
@@ -10,10 +11,14 @@ const DUMMY_COMPLETE = 0;
 const LevelModal = ({
   currLvl,
   currMode,
+  playSynth,
   playFlick,
   playDonk,
   closeHandler,
+  setLevel,
+  setLoadLevel,
 }) => {
+  const router = useRouter();
   const [selection, setSelection] = useState({
     level: currLvl,
     mode: currMode,
@@ -31,6 +36,13 @@ const LevelModal = ({
 
   const proceedClickHandler = () => {
     playFlick();
+    if (selection.mode !== currMode) {
+      setLoadLevel = selection.level;
+      router.push(`/explore/${selection.mode}-boost`);
+    } else {
+      setLevel(selection.level);
+    }
+    closeHandler();
   };
 
   const exitClickHandler = () => {
@@ -51,7 +63,7 @@ const LevelModal = ({
               }  ${i <= DUMMY_COMPLETE ? classes.complete : ""} ${
                 selection.level === i ? classes.selected : ""
               } ${currLvl === i ? classes.current : ""}`}
-              onMouseEnter={playDonk}
+              onMouseEnter={playSynth}
               onClick={levelClickHandler.bind(this, i)}
             >
               {i + 1}
@@ -70,7 +82,7 @@ const LevelModal = ({
               } ${selection.mode === m ? classes.selected : ""} ${
                 currMode === m ? classes.current : ""
               }`}
-              onMouseEnter={playDonk}
+              onMouseEnter={playSynth}
               onClick={modeClickHandler.bind(this, m)}
             >
               {m}
