@@ -82,7 +82,6 @@
       content: "ACTIVE";
       font-size: 10px;
       font-weight: 700;
-      color: #ec505b;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -124,11 +123,8 @@
   font-size: 14px;
   opacity: 1;
   border: 0px solid transparent;
-  &::before {
-    background: #ec505b;
-  }
   &:hover {
-    border: thin solid #ec505b;
+    border: thin solid;
     &:before {
       height: calc(100% - 6px);
       width: calc(100% - 6px);
@@ -153,5 +149,33 @@
   &:hover {
     opacity: 1;
     border-color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.levelModal.comparison {
+  .buttonCard.current::after {
+    color: #fe757e;
+  }
+  .proceed {
+    &::before {
+      background: #fe757e;
+    }
+    &:hover {
+      border-color: #fe757e;
+    }
+  }
+}
+
+.levelModal.conditional {
+  .buttonCard.current::after {
+    color: #ff6bcd;
+  }
+  .proceed {
+    &::before {
+      background: #ff6bcd;
+    }
+    &:hover {
+      border-color: #ff6bcd;
+    }
   }
 }

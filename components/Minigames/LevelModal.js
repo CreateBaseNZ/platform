@@ -51,7 +51,7 @@ const LevelModal = ({
   };
 
   return (
-    <div className={classes.levelModal}>
+    <div className={`${classes.levelModal} ${classes[currMode]}`}>
       <div className={classes.menuContainer}>
         <div className={classes.menuWrapper}>
           <h3 className={`${classes.card} ${classes.titleCard}`}>Levels</h3>

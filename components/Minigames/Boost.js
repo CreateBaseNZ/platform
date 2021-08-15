@@ -28,6 +28,17 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
   ssr: false,
 });
 
+const getColour = (mode) => {
+  switch (mode) {
+    case "Comparison":
+      return "#fe757e";
+    case "Conditional":
+      return "#ff6bcd";
+    default:
+      throw "No colour theme defined for this Boost mode";
+  }
+};
+
 const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
   const router = useRouter();
   const histWrapperRef = useRef();
@@ -44,7 +55,8 @@ const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
     locked: false,
   });
   const [showModal, setShowModal] = useState(false);
-  const [volume, setVolume] = useState({ curr: 0.5, prev: 0.5 });
+  const [volume, setVolume] = useState({ curr: 0.35, prev: 0.35 });
+  const [boostColor, setBoostColor] = useState(getColour(mode));
   const [playDonk] = useSound("/sounds/donk.mp3", { volume: volume.curr });
   const [playFlick] = useSound("/sounds/flick.mp3", { volume: volume.curr });
   const [playSynth, { stop: stopSynth }] = useSound("/sounds/synth.mp3", {
@@ -195,7 +207,7 @@ const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
   };
 
   return (
-    <div className={classes.boost}>
+    <div className={`${classes.boost} ${classes[mode.toLowerCase()]}`}>
       <Head>
         <title>{mode} Boost | CreateBase</title>
         <meta name="description" content={""} />
@@ -269,7 +281,7 @@ const Boost = ({ mode, setLoaded, loadLevel, setLoadLevel }) => {
                 className={classes.slider}
                 onChange={volumeChangeHandler}
                 style={{
-                  background: `linear-gradient(to right, #ec505b 0%, #ec505b ${
+                  background: `linear-gradient(to right, ${boostColor} 0%, ${boostColor} ${
                     volume.curr * 100
                   }%, rgba(255,255,255,0.5) ${
                     volume.curr * 100
