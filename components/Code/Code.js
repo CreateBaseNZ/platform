@@ -53,6 +53,7 @@ const Code = ({ setLoaded, mode, project }) => {
             unityContext={unityContext}
             sensorData={sensorData}
             query={project.query}
+            gameState={gameState}
           />
         </div>
       </ConsoleContextProvider>

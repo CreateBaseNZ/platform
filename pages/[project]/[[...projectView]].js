@@ -74,9 +74,6 @@ const ProjectView = ({ setLoaded }) => {
       {project && view === "improve" && (
         <Code mode="Improve" project={project} setLoaded={setLoaded} />
       )}
-      {project && view === "boost" && (
-        <Boost mode="Comparison" query={project.query} setLoaded={setLoaded} />
-      )}
     </div>
   );
 };
