@@ -51,7 +51,7 @@ export const comparisonBoostLvl1Item = () => {
         id: "reactflow__edge-dndnode_1boolean__out-dndnode_0any__in__a",
       },
     ],
-    o: ["true", "false", a + b, a - b],
+    o: ["true", "false", a + b, a - b, "skip"],
     a: (type === "greaterThan" ? a > b : a < b).toString(),
   };
 };
@@ -126,7 +126,7 @@ export const comparisonBoostLvl2Item = () => {
         type: "float",
       },
     ],
-    o: ["true", "false", a + b, a - b],
+    o: ["true", "false", a + b, a - b, "skip"],
     a: compAnswer.toString(),
   };
 };
@@ -228,7 +228,7 @@ export const comparisonBoostLvl3Item = () => {
         type: "float",
       },
     ],
-    o: options.concat("None of these"),
+    o: options.concat("None of these", "skip"),
     a: noneOfThese ? "None of these" : b,
   };
 };
@@ -296,7 +296,7 @@ export const conditionalBoostLvl1Item = () => {
         type: "boolean",
       },
     ],
-    o: ["yes", "no"],
+    o: ["yes", "no", "skip"],
     a:
       (condition && handleId === 0) || (!condition && handleId === 1)
         ? "yes"
@@ -389,7 +389,7 @@ export const conditionalBoostLvl2Item = () => {
         type: "boolean",
       },
     ],
-    o: ["jump", "crouch", "crouch ➞ jump", "jump ➞ crouch"],
+    o: ["jump", "crouch", "crouch ➞ jump", "jump ➞ crouch", "skip"],
     a: (condition && doJump) || (!condition && !doJump) ? "jump" : "crouch",
   };
 };
@@ -493,6 +493,7 @@ export const conditionalBoostLvl3Item = () => {
     elseOption,
     allBlocks.map((branch) => branch.join("➞")).join("➞"),
     condition ? allBlocks[0].join("➞") : allBlocks[1].join("➞"),
+    "skip",
   ];
 
   return {
