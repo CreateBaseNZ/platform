@@ -485,16 +485,14 @@ export const conditionalBoostLvl3Item = () => {
     ),
   ].flat();
 
-  const doOption = `${allBlocks[0].join(" ➞ ")} ➞ ${allBlocks[2].join(" ➞ ")}`;
-  const elseOption = `${allBlocks[1].join(" ➞ ")} ➞ ${allBlocks[2].join(
-    " ➞ "
-  )}`;
+  const doOption = `${allBlocks[0].join("➞")}➞${allBlocks[2].join("➞")}`;
+  const elseOption = `${allBlocks[1].join("➞")}➞${allBlocks[2].join("➞")}`;
   const answer = condition ? doOption : elseOption;
   const options = [
     doOption,
     elseOption,
-    allBlocks.map((branch) => branch.join(" ➞ ")).join(" ➞ "),
-    condition ? allBlocks[0].join(" ➞ ") : allBlocks[1].join(" ➞ "),
+    allBlocks.map((branch) => branch.join("➞")).join("➞"),
+    condition ? allBlocks[0].join("➞") : allBlocks[1].join("➞"),
   ];
 
   return {

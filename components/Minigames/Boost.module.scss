@@ -124,6 +124,7 @@
       content: attr(datachoice);
       color: $lightest;
       z-index: 1;
+      overflow-wrap: anywhere;
     }
     &::before {
       content: "";

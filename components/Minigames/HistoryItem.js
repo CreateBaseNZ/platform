@@ -3,6 +3,7 @@ import Image from "next/image";
 import classes from "./HistoryItem.module.scss";
 
 const HistoryItem = ({ item, index, expand }) => {
+  console.log(item);
   return (
     <div
       className={`${classes.histItem} ${expand ? classes.expanded : ""} ${
@@ -24,10 +25,8 @@ const HistoryItem = ({ item, index, expand }) => {
         </div>
       ) : (
         <div className={classes.histRecord}>
-          <p className={classes.incorrectRecord}>{item.r.replace(/\s/g, "")}</p>
-          <p className={classes.correctRecord}>
-            • Ans: {item.a.replace(/\s/g, "")}
-          </p>
+          <p className={classes.incorrectRecord}>{item.r}</p>
+          <p className={classes.correctRecord}>• Ans: {item.a}</p>
           <p className={classes.index}>{index + 1}</p>
         </div>
       )}
