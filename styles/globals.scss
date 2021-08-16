@@ -98,6 +98,10 @@ svg {
   }
 }
 
+.react-flow__edge.inactive * {
+  pointer-events: none !important;
+}
+
 .react-flow__edge-execution {
   &.updating {
     path {

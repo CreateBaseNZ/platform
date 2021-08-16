@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import classes from "/styles/View.module.scss";
+import classes from "/styles/projectView.module.scss";
 import Project from "../../components/Project/Project";
 import Code from "../../components/Code/Code";
 import Play from "../../components/Play";
+import Boost from "../../components/Minigames/Boost";
 
 const DUMMY_QUERY = {
   "send-it": {
@@ -27,7 +28,7 @@ const DUMMY_QUERY = {
   },
 };
 
-const View = ({ setLoaded }) => {
+const ProjectView = ({ setLoaded }) => {
   const router = useRouter();
   const [project, setProject] = useState();
   const [view, setView] = useState();
@@ -36,8 +37,8 @@ const View = ({ setLoaded }) => {
     console.log(router.query);
     if (Object.keys(router.query).length) {
       setProject(DUMMY_QUERY[router.query.project]);
-      if (router.query.view) {
-        setView(router.query.view[0]);
+      if (router.query.projectView) {
+        setView(router.query.projectView[0]);
       } else {
         setView("project");
       }
@@ -45,32 +46,36 @@ const View = ({ setLoaded }) => {
   }, [router.query]);
 
   useEffect(() => {
-    if (view === "project" && router.query.view && router.query.view[1]) {
-      console.log(router.query.view);
-      document.querySelector(`#${router.query.view[1]}`).scrollIntoView({
+    if (
+      view === "project" &&
+      router.query.projectView &&
+      router.query.projectView[1]
+    ) {
+      console.log(router.query.projectView);
+      document.querySelector(`#${router.query.projectView[1]}`).scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "nearest",
       });
     }
-  }, [view, router.query.view]);
+  }, [view, router.query.projectView]);
 
   return (
-    <div className={classes.view}>
+    <div className={classes.projectView}>
       {project && view === "project" && (
-        <Project setLoaded={setLoaded} project={project} />
+        <Project project={project} setLoaded={setLoaded} />
       )}
       {project && view === "play" && (
-        <Play setLoaded={setLoaded} project={project} />
+        <Play project={project} setLoaded={setLoaded} />
       )}
       {project && view === "create" && (
-        <Code setLoaded={setLoaded} mode="Create" project={project} />
+        <Code mode="Create" project={project} setLoaded={setLoaded} />
       )}
       {project && view === "improve" && (
-        <Code setLoaded={setLoaded} mode="Improve" project={project} />
+        <Code mode="Improve" project={project} setLoaded={setLoaded} />
       )}
     </div>
   );
 };
 
-export default View;
+export default ProjectView;

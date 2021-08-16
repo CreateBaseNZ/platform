@@ -52,7 +52,15 @@ import VisualBell from "./VisualBell";
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const FlowEditor = (props) => {
+const FlowEditor = ({
+  query,
+  show,
+  frozen = false,
+  elements,
+  setElements,
+  visualBell,
+  setVisualBell,
+}) => {
   const wrapperRef = useRef(null);
   const consoleCtx = useContext(ConsoleContext);
   const miniHoverCtx = useContext(MiniHoverContext);
@@ -63,7 +71,7 @@ const FlowEditor = (props) => {
   });
   const [systemAction, setSystemAction] = useState(false);
   const [clipBoard, setClipBoard] = useState();
-  const [flowLocked, setFlowLocked] = useState(false);
+  const [flowLocked, setFlowLocked] = useState(frozen);
   const [nodeCtxMenu, setNodeCtxMenu] = useState({
     show: false,
     x: 0,
@@ -90,21 +98,18 @@ const FlowEditor = (props) => {
     if (!systemAction) {
       setActionStack((state) => {
         return {
-          stack: [
-            ...state.stack.slice(0, state.currentIndex + 1),
-            props.elements,
-          ],
+          stack: [...state.stack.slice(0, state.currentIndex + 1), elements],
           currentIndex: state.currentIndex + 1,
         };
       });
     } else {
       setSystemAction(false);
     }
-  }, [props.elements]);
+  }, [elements]);
 
   useEffect(() => {
     if (clipBoard && clipBoard.length) {
-      props.setVisualBell((state) => ({
+      setVisualBell((state) => ({
         message: "Copied to clipboard",
         switch: !state.switch,
       }));
@@ -134,7 +139,7 @@ const FlowEditor = (props) => {
   // initialising flow editor
   const onLoad = useCallback((_reactFlowInstance) => {
     console.log("flow loaded:", _reactFlowInstance);
-    _reactFlowInstance.fitView();
+    window.requestAnimationFrame(_reactFlowInstance.fitView);
     setReactFlowInstance(_reactFlowInstance);
     const controls = document.querySelector(".react-flow__controls").children;
     for (let i = 0; i < controls.length; i++) {
@@ -146,9 +151,11 @@ const FlowEditor = (props) => {
     arrow.parentNode.appendChild(clone);
     document.querySelector(".react-flow").focus();
     window.onbeforeunload = (e) => {
-      e.preventDefault();
-      return (e.returnValue =
-        "You have unsaved changes, are you sure you want to exit?");
+      if (!frozen) {
+        e.preventDefault();
+        return (e.returnValue =
+          "You have unsaved changes, are you sure you want to exit?");
+      }
     };
   }, []);
 
@@ -160,7 +167,7 @@ const FlowEditor = (props) => {
         edges.push(el);
       }
       if (el.id === "start") {
-        props.setVisualBell((state) => ({
+        setVisualBell((state) => ({
           message: "Cannot delete Start block",
           switch: !state.switch,
         }));
@@ -168,7 +175,7 @@ const FlowEditor = (props) => {
       }
       return true;
     });
-    props.setElements((els) =>
+    setElements((els) =>
       removeElements(filteredElements, els).map((el) => {
         for (const edge of edges) {
           if (el.id === edge.source) {
@@ -185,12 +192,12 @@ const FlowEditor = (props) => {
   const onConnect = useCallback((params) => {
     // styling new edge
     const newEdge = getHandleObject(params.sourceHandle.split("__")[0], params);
-    props.setElements((els) => newConnection(addEdge(newEdge, els), params));
+    setElements((els) => newConnection(addEdge(newEdge, els), params));
   }, []);
 
   // updating edges
   const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
-    props.setElements((els) =>
+    setElements((els) =>
       updateConnections(
         updateEdge(oldEdge, newConnection, els),
         oldEdge,
@@ -210,7 +217,7 @@ const FlowEditor = (props) => {
     event.preventDefault();
     if (flowLocked) {
       flashLockIcon();
-      props.setVisualBell((state) => ({
+      setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -233,7 +240,7 @@ const FlowEditor = (props) => {
         values: getDefaultValues(type),
         connections: [],
         callBack: (newValues, thisId) => {
-          props.setElements((els) =>
+          setElements((els) =>
             els.map((el) => {
               if (el.id === thisId) {
                 el.data = {
@@ -253,7 +260,7 @@ const FlowEditor = (props) => {
     ) {
       autoConnect(event, type, newNode, newId);
     } else {
-      props.setElements((els) => els.concat(newNode));
+      setElements((els) => els.concat(newNode));
     }
   };
 
@@ -287,7 +294,7 @@ const FlowEditor = (props) => {
         newNode.position.x += dx;
         newNode.position.y += dy;
 
-        props.setElements((els) =>
+        setElements((els) =>
           els
             .map((_el) =>
               _el.id === event.target.dataset.nodeid
@@ -315,7 +322,7 @@ const FlowEditor = (props) => {
             )
         );
 
-        return props.setVisualBell((state) => ({
+        return setVisualBell((state) => ({
           message: "Blocks autoconnected",
           switch: !state.switch,
         }));
@@ -334,7 +341,7 @@ const FlowEditor = (props) => {
   const pasteSelection = () => {
     if (flowLocked) {
       flashLockIcon();
-      props.setVisualBell((state) => ({
+      setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -374,9 +381,9 @@ const FlowEditor = (props) => {
 
       const newNodes = Object.keys(mapping).map((key) => mapping[key]);
       const newEls = newNodes.concat(newEdges);
-      props.setElements((els) => els.concat(newEls));
+      setElements((els) => els.concat(newEls));
       setSelectedElements(newEls);
-      props.setVisualBell((state) => ({
+      setVisualBell((state) => ({
         message: "Code pasted",
         switch: !state.switch,
       }));
@@ -386,7 +393,7 @@ const FlowEditor = (props) => {
   const undoAction = () => {
     if (flowLocked) {
       flashLockIcon();
-      props.setVisualBell((state) => ({
+      setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -394,7 +401,7 @@ const FlowEditor = (props) => {
     }
     if (allowUndo) {
       setSystemAction(true);
-      props.setElements(actionStack.stack[actionStack.currentIndex - 1]);
+      setElements(actionStack.stack[actionStack.currentIndex - 1]);
       setActionStack((state) => {
         return { ...state, currentIndex: state.currentIndex - 1 };
       });
@@ -404,7 +411,7 @@ const FlowEditor = (props) => {
   const redoAction = () => {
     if (flowLocked) {
       flashLockIcon();
-      props.setVisualBell((state) => ({
+      setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -412,7 +419,7 @@ const FlowEditor = (props) => {
     }
     if (allowRedo) {
       setSystemAction(true);
-      props.setElements(actionStack.stack[actionStack.currentIndex + 1]);
+      setElements(actionStack.stack[actionStack.currentIndex + 1]);
       setActionStack((state) => {
         return { ...state, currentIndex: state.currentIndex + 1 };
       });
@@ -420,13 +427,13 @@ const FlowEditor = (props) => {
   };
 
   const saveFlow = () => {
-    if (props.elements) {
+    if (elements) {
       window.localStorage.setItem(
         "createbase__flow_save",
-        JSON.stringify(props.elements)
+        JSON.stringify(elements)
       );
     }
-    props.setVisualBell((state) => ({
+    setVisualBell((state) => ({
       message: "Code saved",
       switch: !state.switch,
     }));
@@ -435,7 +442,7 @@ const FlowEditor = (props) => {
   const restoreFlow = () => {
     if (flowLocked) {
       flashLockIcon();
-      props.setVisualBell((state) => ({
+      setVisualBell((state) => ({
         message: "Flow is locked",
         switch: !state.switch,
       }));
@@ -456,7 +463,7 @@ const FlowEditor = (props) => {
             data: {
               ...savedEl.data,
               callBack: (newValues, thisId) => {
-                props.setElements((els) =>
+                setElements((els) =>
                   els.map((thisEl) => {
                     if (thisEl.id === thisId) {
                       thisEl.data = {
@@ -474,7 +481,7 @@ const FlowEditor = (props) => {
           return savedEl;
         }
       });
-      props.setElements(restoredEls);
+      setElements(restoredEls);
       setCenter(0, 0, 1.25);
     }
   };
@@ -488,11 +495,11 @@ const FlowEditor = (props) => {
   };
 
   const clearAll = () => {
-    props.setElements(initialElements);
+    setElements(initialElements);
   };
 
   const selectAll = () => {
-    setSelectedElements(props.elements);
+    setSelectedElements(elements);
   };
 
   const capture = () => {
@@ -504,6 +511,9 @@ const FlowEditor = (props) => {
   };
 
   const keyDownHandler = (event) => {
+    if (frozen) {
+      return;
+    }
     if (event.ctrlKey || event.metaKey) {
       if (event.key === "c") {
         event.preventDefault();
@@ -547,7 +557,7 @@ const FlowEditor = (props) => {
 
   const edgeUpdateEndHandler = (event, edge) => {
     if (!event.target.classList.contains("react-flow__handle")) {
-      props.setElements((els) =>
+      setElements((els) =>
         removeElements([edge], els).map((el) => {
           if (el.id === edge.target) {
             return removeConnection(el, edge.targetHandle);
@@ -590,13 +600,11 @@ const FlowEditor = (props) => {
 
   const nodeDragStopHandler = (e, node) => {
     setEdgeMove({ move: false });
-    props.setElements((els) =>
-      els.map((el) => (el.id === node.id ? node : el))
-    );
+    setElements((els) => els.map((el) => (el.id === node.id ? node : el)));
   };
 
   const selectionDragStopHandler = (_, selectionNodes) => {
-    props.setElements((els) => {
+    setElements((els) => {
       return els.map((el) => {
         for (const node of selectionNodes) {
           if (node.id === el.id) {
@@ -640,20 +648,22 @@ const FlowEditor = (props) => {
 
   return (
     <div
-      className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}
+      className={`${classes.editorContainer} ${show ? "" : "hide"}`}
       onKeyDown={keyDownHandler}
       tabIndex={-1}
     >
-      <DndBar query={props.query} />
+      {!frozen && <DndBar query={query} />}
       <div className={classes.editorWrapper} ref={wrapperRef}>
         <ReactFlow
           onLoad={onLoad}
-          elements={props.elements}
+          elements={elements}
           elementsSelectable={!flowLocked}
           nodesConnectable={!flowLocked}
           nodesDraggable={!flowLocked}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
+          maxZoom={3}
+          defaultZoom={1.5}
           minZoom={0.25}
           snapToGrid={true}
           snapGrid={[16, 16]}
@@ -673,6 +683,7 @@ const FlowEditor = (props) => {
           onPaneContextMenu={paneCtxMenuHandler}
         >
           <ControlsBar
+            frozen={frozen}
             undoHandler={undoAction}
             redoHandler={redoAction}
             saveHandler={saveFlow}
@@ -706,9 +717,7 @@ const FlowEditor = (props) => {
             </aside>
           </div>
         )}
-        {props.visualBell.message && (
-          <VisualBell message={props.visualBell.message} />
-        )}
+        {visualBell.message && <VisualBell message={visualBell.message} />}
       </div>
       <ClientOnlyPortal selector="#ctx-menu-root">
         <NodeContextMenu

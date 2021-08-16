@@ -61,7 +61,6 @@ export const NodeDoubleJump = memo(({ data, isConnectable }) => {
   );
 });
 export const NodeCrouch = memo(({ data, isConnectable }) => {
-  console.log(data);
   return (
     <NodeSendIt
       data={data}
