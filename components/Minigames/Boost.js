@@ -90,6 +90,7 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
       block: "nearest",
       inline: "start",
     });
+    setFlash(null);
   }, [history.list, level]);
 
   useEffect(() => {
@@ -144,7 +145,6 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
     }
 
     setTimeout(() => {
-      setFlash(null);
       html2canvas(document.querySelector(".react-flow__renderer")).then(
         (canvas) => {
           event.target.classList.remove(classes.incorrectResponse);
