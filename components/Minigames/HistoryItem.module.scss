@@ -15,7 +15,6 @@
     opacity: 0.75;
     transition: opacity 0.2s ease-out;
   }
-  .histIndex,
   .histRecord {
     position: absolute;
     line-height: 1rem;
@@ -25,24 +24,25 @@
     transition: line-height 0.2s ease-out, padding 0.2s ease-out,
       font-size 0.2s ease-out;
   }
-  .histIndex {
-    padding: 0.2rem 0.4rem 0 0.4rem;
-    right: 0;
-    text-align: right;
-    border-left: thin solid rgba(255, 255, 255, 0.25);
-  }
   .histRecord {
-    padding-top: 0.2rem;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
     left: 0;
     width: 100%;
-    span {
+    max-width: 100%;
+    p {
+      padding-top: 0.2rem;
       line-height: inherit;
       font-size: inherit;
-      margin: 0 0.5em;
+      margin: 0 0.35em;
       color: inherit;
+      &.index {
+        margin-left: auto;
+        padding-left: 0.5rem;
+        border-left: thin solid rgba(255, 255, 255, 0.1);
+      }
     }
   }
   &:first-child {
@@ -78,7 +78,7 @@
   .histIndex,
   .histRecord {
     line-height: 1.5rem;
-    padding: 0.25rem 1rem 0 1rem;
+    padding: 0 0 0 1rem;
     font-size: 1rem;
   }
 }

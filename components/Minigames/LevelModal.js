@@ -51,7 +51,11 @@ const LevelModal = ({
   return (
     <div className={`${classes.levelModal} ${classes[currMode]}`}>
       <div className={classes.menuContainer}>
-        <div className={classes.menuWrapper}>
+        <div
+          className={`${classes.menuWrapper} ${
+            currMode !== selection.mode ? classes.disabled : ""
+          }`}
+        >
           <h3 className={`${classes.card} ${classes.titleCard}`}>Levels</h3>
           {[...Array(levels[currMode]).keys()].map((i) => (
             <button

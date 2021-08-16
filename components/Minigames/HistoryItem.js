@@ -19,15 +19,19 @@ const HistoryItem = ({ item, index, expand }) => {
       </div>
       {item.correct ? (
         <div className={classes.histRecord}>
-          <span className={classes.correctRecord}>{item.a}</span>
+          <p className={classes.correctRecord}>{item.a}</p>
+          <p className={classes.index}>{index + 1}</p>
         </div>
       ) : (
         <div className={classes.histRecord}>
-          <span className={classes.incorrectRecord}>{item.r}</span> ·
-          <span className={classes.correctRecord}>Ans: {item.a}</span>
+          <p className={classes.incorrectRecord}>{item.r.replace(/\s/g, "")}</p>
+          <p className={classes.correctRecord}>
+            • Ans: {item.a.replace(/\s/g, "")}
+          </p>
+          <p className={classes.index}>{index + 1}</p>
         </div>
       )}
-      <div className={classes.histIndex}>{index + 1}</div>
+      {/* <div className={classes.histIndex}>{index + 1}</div> */}
     </div>
   );
 };

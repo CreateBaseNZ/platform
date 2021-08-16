@@ -210,7 +210,7 @@
     }
     .choice.answer {
       background: $lightest;
-      p {
+      p::after {
         color: $darkest;
       }
       &::after {

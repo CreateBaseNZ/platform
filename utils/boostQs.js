@@ -396,95 +396,111 @@ export const conditionalBoostLvl2Item = () => {
 
 export const conditionalBoostLvl3Item = () => {
   const condition = Math.random() < 0.5;
-  const doJump = Math.random() < 0.5;
-  const swap = Math.random() < 0.5;
+
+  const randomBranch = () => [
+    Math.random() < 0.5 ? "jump" : "crouch",
+    ...(Math.random() < 0.5
+      ? Math.random() < 0.5
+        ? ["jump"]
+        : ["crouch"]
+      : []),
+  ];
+
+  const allBlocks = [...Array(3)].map((_) => randomBranch());
+
+  const els = [
+    {
+      data: { connections: ["execution__out"] },
+      id: "start",
+      position: { x: 64, y: 48 },
+      type: "start",
+    },
+    {
+      data: {
+        values: {},
+        connections: [
+          "execution__in",
+          "execution__out__0",
+          "execution__out__1",
+          "boolean__in__condition",
+        ],
+      },
+      id: "dndnode_0",
+      position: { x: 192, y: 16 },
+      type: "if",
+    },
+    {
+      animated: true,
+      arrowHeadType: "arrowclosed",
+      id: "reactflow__edge-startexecution__out-dndnode_0execution__in",
+      source: "start",
+      sourceHandle: "execution__out",
+      target: "dndnode_0",
+      targetHandle: "execution__in",
+      type: "execution",
+    },
+    {
+      data: { values: {}, connections: ["boolean__out"] },
+      id: "dndnode_1",
+      position: { x: 128, y: -32 },
+      type: condition ? "true" : "false",
+    },
+    {
+      id: "reactflow__edge-dndnode_1boolean__out-dndnode_0boolean__in__condition",
+      source: "dndnode_1",
+      sourceHandle: "boolean__out",
+      target: "dndnode_0",
+      targetHandle: "boolean__in__condition",
+      type: "boolean",
+    },
+    ...allBlocks.map((branch, branchInd) =>
+      branch
+        .map((block, blockInd) => {
+          const targetId = 2 + branchInd * 2 + blockInd;
+          const sourceId = blockInd === 0 ? 0 : targetId - 1;
+          return [
+            {
+              data: { values: {}, connections: ["execution__in"] },
+              id: `dndnode_${targetId}`,
+              position: { x: 416 + blockInd * 144, y: 48 * branchInd },
+              type: block,
+            },
+            {
+              animated: true,
+              arrowHeadType: "arrowclosed",
+              id: `reactflow__edge-dndnode_${sourceId}execution__out${
+                blockInd === 0 && `__${branchInd}`
+              }-dndnode_${targetId}execution__in`,
+              source: `dndnode_${sourceId}`,
+              sourceHandle: `execution__out${
+                blockInd === 0 && `__${branchInd}`
+              }`,
+              target: `dndnode_${targetId}`,
+              targetHandle: "execution__in",
+              type: "execution",
+            },
+          ];
+        })
+        .flat()
+    ),
+  ].flat();
+
+  const doOption = `${allBlocks[0].join(" ➞ ")} ➞ ${allBlocks[2].join(" ➞ ")}`;
+  const elseOption = `${allBlocks[1].join(" ➞ ")} ➞ ${allBlocks[2].join(
+    " ➞ "
+  )}`;
+  const answer = condition ? doOption : elseOption;
+  const options = [
+    doOption,
+    elseOption,
+    allBlocks.map((branch) => branch.join(" ➞ ")).join(" ➞ "),
+    condition ? allBlocks[0].join(" ➞ ") : allBlocks[1].join(" ➞ "),
+  ];
 
   return {
     q: "What is the correct sequence of actions?",
-    els: [
-      {
-        data: { connections: ["execution__out"] },
-        id: "start",
-        position: { x: 64, y: 48 },
-        type: "start",
-      },
-      {
-        data: {
-          values: {},
-          connections: [
-            "execution__in",
-            "execution__out__0",
-            "execution__out__1",
-            "boolean__in__condition",
-          ],
-        },
-        id: "dndnode_0",
-        position: { x: 192, y: 16 },
-        type: "if",
-      },
-      {
-        animated: true,
-        arrowHeadType: "arrowclosed",
-        id: "reactflow__edge-startexecution__out-dndnode_0execution__in",
-        source: "start",
-        sourceHandle: "execution__out",
-        target: "dndnode_0",
-        targetHandle: "execution__in",
-        type: "execution",
-      },
-      {
-        data: { values: {}, connections: ["execution__in"] },
-        id: "dndnode_1",
-        position: { x: 416, y: swap ? 32 : 80 },
-        type: doJump ? "jump" : "crouch",
-      },
-      {
-        animated: true,
-        arrowHeadType: "arrowclosed",
-        id: `reactflow__edge-dndnode_0execution__out__0-dndnode_1execution__in`,
-        source: "dndnode_0",
-        sourceHandle: "execution__out__0",
-        target: "dndnode_1",
-        targetHandle: "execution__in",
-        type: "execution",
-      },
-      {
-        data: { values: {}, connections: ["execution__in"] },
-        id: "dndnode_2",
-        position: { x: 416, y: swap ? 80 : 32 },
-        type: doJump ? "crouch" : "jump",
-      },
-      {
-        animated: true,
-        arrowHeadType: "arrowclosed",
-        id: `reactflow__edge-dndnode_0execution__out__1-dndnode_2execution__in`,
-        source: "dndnode_0",
-        sourceHandle: "execution__out__1",
-        target: "dndnode_2",
-        targetHandle: "execution__in",
-        type: "execution",
-      },
-      {
-        data: { values: {}, connections: ["boolean__out"] },
-        id: "dndnode_3",
-        position: { x: 128, y: -32 },
-        type: condition ? "true" : "false",
-      },
-      {
-        id: "reactflow__edge-dndnode_3boolean__out-dndnode_0boolean__in__condition",
-        source: "dndnode_3",
-        sourceHandle: "boolean__out",
-        target: "dndnode_0",
-        targetHandle: "boolean__in__condition",
-        type: "boolean",
-      },
-    ],
-    o: [
-      "jump ➞ crouch  ➞ crouch  ➞ crouch ➞ crouch ➞ crouch ➞ crouch ➞ crouch",
-      "crouch",
-      "crouch ➞ jump",
-      "jump ➞ crouch  ➞ crouch  ➞ crouch",
-    ],
-    a: (condition && doJump) || (!condition && !doJump) ? "jump" : "crouch",
+    els: els,
+    o: options,
+    a: answer,
   };
 };

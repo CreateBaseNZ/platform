@@ -91,8 +91,6 @@ const FlowEditor = ({
   const selectedElements = useStoreState((store) => store.selectedElements);
   const [x, y, zoom] = useStoreState((state) => state.transform);
 
-  console.log(elements);
-
   const allowUndo = actionStack.currentIndex !== 0;
   const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
