@@ -1,4 +1,45 @@
+@import "/styles/variables";
+
 .projectView {
   height: 100%;
   width: 100%;
+}
+
+.tabBar {
+  height: 100%;
+  width: 20vw;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 5vh 2vw;
+  .tab {
+    width: 100%;
+    margin: 1vh 0;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    color: $light;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.1s ease-out, color 0.1s ease-out,
+      padding 0.1s ease-out;
+    span {
+      margin-right: 1vw;
+      color: inherit;
+      transition: transform 0.1s ease-out;
+    }
+    &:hover {
+      color: $dark;
+      span {
+        transform: translateX(2px);
+      }
+    }
+    &.activeTab {
+      pointer-events: none;
+      color: $logo-mid;
+      background: #f7f3ff;
+      padding-left: 1.5rem;
+    }
+  }
 }

@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
 
-import classes from "/styles/projectView.module.scss";
-import Project from "../../components/Project/Project";
-import Code from "../../components/Code/Code";
-import Play from "../../components/Play";
-import Boost from "../../components/Minigames/Boost";
+import classes from "/styles/ProjectView.module.scss";
 
 const DUMMY_QUERY = {
   "send-it": {
@@ -28,52 +26,67 @@ const DUMMY_QUERY = {
   },
 };
 
+const steps = [
+  { title: "Imagine", icon: "movie" },
+  { title: "Define", icon: "biotech" },
+  { title: "Research", icon: "travel_explore" },
+  { title: "Plan", icon: "design_services" },
+  { title: "Create", icon: "smart_toy" },
+  { title: "Improve", icon: "auto_graph" },
+  { title: "Review", icon: "checklist" },
+];
+
 const ProjectView = ({ setLoaded }) => {
   const router = useRouter();
-  const [project, setProject] = useState();
-  const [view, setView] = useState();
+  const [project, setProject] = useState({});
+  const [step, setStep] = useState("Imagine");
+  const [view, setView] = useState("project");
+
+  useEffect(() => setLoaded(true), []);
 
   useEffect(() => {
-    console.log(router.query);
     if (Object.keys(router.query).length) {
       setProject(DUMMY_QUERY[router.query.project]);
       if (router.query.projectView) {
-        setView(router.query.projectView[0]);
+        const subQuery = router.query.projectView[0];
+        if (subQuery === "play" || subQuery === "code") {
+          setView(subQuery);
+        } else {
+          setView("project");
+          setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
+        }
       } else {
         setView("project");
       }
     }
   }, [router.query]);
 
-  useEffect(() => {
-    if (
-      view === "project" &&
-      router.query.projectView &&
-      router.query.projectView[1]
-    ) {
-      console.log(router.query.projectView);
-      document.querySelector(`#${router.query.projectView[1]}`).scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      });
-    }
-  }, [view, router.query.projectView]);
-
   return (
     <div className={classes.projectView}>
-      {project && view === "project" && (
-        <Project project={project} setLoaded={setLoaded} />
-      )}
-      {project && view === "play" && (
-        <Play project={project} setLoaded={setLoaded} />
-      )}
-      {project && view === "create" && (
-        <Code mode="Create" project={project} setLoaded={setLoaded} />
-      )}
-      {project && view === "improve" && (
-        <Code mode="Improve" project={project} setLoaded={setLoaded} />
-      )}
+      <Head>
+        <title>
+          {view === "project" ? step : view} • {project.name} | CreateBase
+        </title>
+        <meta name="description" content={project.caption} />
+      </Head>
+      <div className={classes.tabBar}>
+        {steps.map((s, i) => (
+          <button
+            key={i}
+            className={`${classes.tab} ${
+              step === s.title ? classes.activeTab : ""
+            }`}
+            onClick={() =>
+              router.push({
+                pathname: `/${project.query}/${s.title.toLowerCase()}`,
+              })
+            }
+          >
+            <span className="material-icons-outlined">{s.icon}</span>
+            {s.title}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
