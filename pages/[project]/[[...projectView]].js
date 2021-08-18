@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Link from "next/link";
 
 import classes from "/styles/ProjectView.module.scss";
+import Imagine from "../../components/Project/Imagine";
 
 const DUMMY_QUERY = {
   "send-it": {
@@ -69,11 +69,11 @@ const ProjectView = ({ setLoaded }) => {
         </title>
         <meta name="description" content={project.caption} />
       </Head>
-      <div className={classes.tabBar}>
+      <div className={classes.tabContainer}>
         {steps.map((s, i) => (
           <button
             key={i}
-            className={`${classes.tab} ${
+            className={`${classes.tabWrapper} ${
               step === s.title ? classes.activeTab : ""
             }`}
             onClick={() =>
@@ -82,10 +82,15 @@ const ProjectView = ({ setLoaded }) => {
               })
             }
           >
-            <span className="material-icons-outlined">{s.icon}</span>
-            {s.title}
+            <div className={classes.tab}>
+              <span className="material-icons-outlined">{s.icon}</span>
+              {s.title}
+            </div>
           </button>
         ))}
+      </div>
+      <div className={classes.viewContainer}>
+        {step === "Imagine" && <Imagine query={project.query} />}
       </div>
     </div>
   );

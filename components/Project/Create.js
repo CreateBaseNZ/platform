@@ -1,11 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import GreenButton from "../UI/GreenButton";
+// import Link from "next/link";
+// import Image from "next/image";
+// import GreenButton from "../UI/GreenButton";
 
-import classes from "./project.module.scss";
+import classes from "./Create.module.scss";
 
 const Create = ({ query }) => {
-  return <div></div>;
+  return <div classname={classes.container}></div>;
 };
 
 // const Create = ({ query }) => {

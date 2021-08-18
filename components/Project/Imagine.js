@@ -1,73 +1,148 @@
-import { ResourceModule } from "../Modules";
-import classes from "./project.module.scss";
+// import { ResourceModule } from "../Modules";
+import Image from "next/image";
+import classes from "./Imagine.module.scss";
 
 const Imagine = ({ query }) => {
   return (
-    <section id="imagine">
+    <div className={classes.container}>
       <div className={classes.wrapper}>
-        <h2>Imagine</h2>
-        <div className={classes.centerContainer}>
-          <video controls className={classes.video}>
+        <video controls className={classes.video}>
+          {query && (
             <source src={`/${query}/vid/situation.mp4`} type="video/mp4" />
-          </video>
+          )}
+        </video>
+        <div className={classes.caption}>
+          <span>
+            <b>Dive into the situation by watching this short video.</b>
+            <br />
+            What do you think is happening here? Discuss with your peers!
+          </span>
         </div>
-        <div className={classes.centerContainer}>
-          {query === "send-it" && (
-            <p className={`${classes.description} ${classes.halfContainer}`}>
-              Dive into the situation by watching this short video! What do you
-              think is happening here? Discuss with your peers!
+        <div className={classes.instructions}>
+          <div className={classes.imgContainer}>
+            <Image
+              src="/imagine.png"
+              alt="Imagine"
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
+          <div className={classes.content}>
+            <p>
+              Open one of the learning journals and save it somewhere that you
+              can access. Your teacher will tell you which file to open and
+              where to save your copy.
             </p>
-          )}
-          {query === "magnebot" && (
-            <>
-              <p className={`${classes.description} ${classes.halfContainer}`}>
-                Introducing MagneBot, a robotic arm that can move objects with
-                its magnetic sphere attachment! This arm is located in our
-                autonomous recycling facility. Being autonomous means that the
-                entire facility is run by robots: there are no humans present!
-              </p>
-              <p className={`${classes.description} ${classes.halfContainer}`}>
-                Unfortunately, a self-driving cart has driven through our
-                recycling facility and split bags of rubbish all over the floor!
-                If those bags contain magnetic materials, we might be able to
-                clean up this mess without having to get our own hands dirty...
-              </p>
-            </>
-          )}
-        </div>
-        {query === "send-it" && (
-          <>
-            <div className={classes.moduleContainer}>
+            <div className={classes.files}>
               <a
                 href="https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing"
                 target="_blank"
                 title="Learning Journal - Google Docs"
+                style={{ backgroundColor: "#3086F6" }}
               >
-                <ResourceModule>
-                  <span>Learning Journal</span> - Docs
-                </ResourceModule>
+                <div className={classes.iconContainer}>
+                  <Image
+                    src="/icons/docs.png"
+                    alt="Google Docs"
+                    height={16}
+                    width={16}
+                    objectFit="contain"
+                  />
+                </div>
+                Google Docs
               </a>
               <a
                 href="/Learning Journal.docx"
                 title="Learning Journal - Word"
                 download
+                style={{ backgroundColor: "#144EB2" }}
               >
-                <ResourceModule>
-                  <span>Learning Journal</span> - Word
-                </ResourceModule>
+                <div className={classes.iconContainer}>
+                  <Image
+                    src="/icons/word.png"
+                    alt="Google Docs"
+                    height={16}
+                    width={16}
+                    objectFit="contain"
+                  />
+                </div>
+                Word
               </a>
             </div>
-            <p className={classes.description}>
-              One made in Google Docs and the other in Word, open one of these
-              documents, create a copy and save it somewhere that you can
-              access. Your teacher will tell you which file to open and where to
-              save your copy.
-            </p>
-          </>
-        )}
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
+
+// const Imagine = ({ query }) => {
+//   return (
+//     <section id="imagine">
+//       <div className={classes.wrapper}>
+//         <h2>Imagine</h2>
+//         <div className={classes.centerContainer}>
+//           <video controls className={classes.video}>
+//             <source src={`/${query}/vid/situation.mp4`} type="video/mp4" />
+//           </video>
+//         </div>
+//         <div className={classes.centerContainer}>
+//           {query === "send-it" && (
+//             <p className={`${classes.description} ${classes.halfContainer}`}>
+//               Dive into the situation by watching this short video! What do you
+//               think is happening here? Discuss with your peers!
+//             </p>
+//           )}
+//           {query === "magnebot" && (
+//             <>
+//               <p className={`${classes.description} ${classes.halfContainer}`}>
+//                 Introducing MagneBot, a robotic arm that can move objects with
+//                 its magnetic sphere attachment! This arm is located in our
+//                 autonomous recycling facility. Being autonomous means that the
+//                 entire facility is run by robots: there are no humans present!
+//               </p>
+//               <p className={`${classes.description} ${classes.halfContainer}`}>
+//                 Unfortunately, a self-driving cart has driven through our
+//                 recycling facility and split bags of rubbish all over the floor!
+//                 If those bags contain magnetic materials, we might be able to
+//                 clean up this mess without having to get our own hands dirty...
+//               </p>
+//             </>
+//           )}
+//         </div>
+//         {query === "send-it" && (
+//           <>
+//             <div className={classes.moduleContainer}>
+//               <a
+//                 href="https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing"
+//                 target="_blank"
+//                 title="Learning Journal - Google Docs"
+//               >
+//                 <ResourceModule>
+//                   <span>Learning Journal</span> - Docs
+//                 </ResourceModule>
+//               </a>
+//               <a
+//                 href="/Learning Journal.docx"
+//                 title="Learning Journal - Word"
+//                 download
+//               >
+//                 <ResourceModule>
+//                   <span>Learning Journal</span> - Word
+//                 </ResourceModule>
+//               </a>
+//             </div>
+//             <p className={classes.description}>
+//               One made in Google Docs and the other in Word, open one of these
+//               documents, create a copy and save it somewhere that you can
+//               access. Your teacher will tell you which file to open and where to
+//               save your copy.
+//             </p>
+//           </>
+//         )}
+//       </div>
+//     </section>
+//   );
+// };
 
 export default Imagine;
