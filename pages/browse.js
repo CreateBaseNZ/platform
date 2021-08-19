@@ -6,6 +6,9 @@ import { ColourLogo } from "/components/UI/Icons";
 import GreenButton from "/components/UI/GreenButton";
 import Thumbnail from "../components/Thumbnail";
 
+// Session management functions
+import { useSession, signOut, getSession } from "next-auth/client";
+
 import classes from "/styles/Browse.module.scss";
 
 const DUMMY_PROJECTS = [
@@ -26,7 +29,15 @@ const DUMMY_PROJECTS = [
 const Browse = ({ setLoaded }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Accessing User Session
+  const [session, loading] = useSession();
+
   useEffect(() => {
+    // EXAMPLE: Fetch the identification of the authenticated user
+    getSession().then((session) => {
+      // Perform some actions if necessary
+      console.log(session);
+    });
     setLoaded(true);
     return () => setLoaded(false);
   }, []);
@@ -34,6 +45,11 @@ const Browse = ({ setLoaded }) => {
   const thumbnailHandler = (index) => {
     setActiveIndex(index);
   };
+
+  // EXAMPLE: Handling sign out requests
+  function logoutHandler() {
+    signOut();
+  }
 
   console.log(`/${DUMMY_PROJECTS[activeIndex].query}/vid/situation.mp4`);
 
@@ -46,6 +62,14 @@ const Browse = ({ setLoaded }) => {
       <div className={classes.logo}>
         <ColourLogo layout="fill" objectFit="contain" quality={100} />
       </div>
+      {
+        // EXAMPLE: Example code for managing the div based on authentication
+        !session && !loading && <Link href="/auth">Login</Link>
+      }
+      {
+        // EXAMPLE: Example code for managing the div based on authentication
+        session && <button onClick={logoutHandler}>Logout</button>
+      }
       <h1 className={classes.h1}>Select a project</h1>
       <div className={classes.selectedProject}>
         <div className={classes.content}>

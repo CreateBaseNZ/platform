@@ -56,7 +56,7 @@ const Index = ({ setLoaded }) => {
       <div className={classes.container}>
         <h2 className={classes.h2}>Welcome to</h2>
         <h1 className={classes.h1}>Open Alpha</h1>
-        <Link href="/browse">
+        <Link href="/auth">
           <div>
             <GreenButton caption="Get Started" />
           </div>
