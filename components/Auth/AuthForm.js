@@ -84,15 +84,25 @@ function AuthForm() {
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="organisation">Your Organisation</label>
-          <input type="text" id="organisation" ref={organisationInputRef} />
+          <input
+            type="text"
+            id="organisation"
+            required
+            ref={organisationInputRef}
+          />
         </div>
         <div className={classes.control}>
           <label htmlFor="username">Your Username</label>
-          <input type="text" id="username" ref={usernameInputRef} />
+          <input type="text" id="username" required ref={usernameInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Your Password</label>
-          <input type="password" id="password" ref={passwordInputRef} />
+          <input
+            type="password"
+            id="password"
+            required
+            ref={passwordInputRef}
+          />
         </div>
         <div className={classes.actions}>
           <button>{isLogin ? "Login" : "Create Account"}</button>
