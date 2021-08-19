@@ -19,7 +19,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    span {
+    div,
+    p {
       font-size: 13px;
     }
     .item {
@@ -32,7 +33,7 @@
       color: $light;
       font-weight: 300;
     }
-    svg {
+    span {
       margin-right: 0.5rem;
       font-size: 18px;
       width: 1.25rem;
@@ -40,7 +41,7 @@
     &:hover {
       background: #faf5ff;
       color: $logo-dark;
-      path {
+      span {
         color: $logo-dark;
       }
       .item {
@@ -54,7 +55,7 @@
   .deactive {
     pointer-events: none;
     opacity: 0.25;
-    svg {
+    span {
       opacity: 0.5;
     }
   }

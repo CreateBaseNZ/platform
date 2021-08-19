@@ -3,7 +3,6 @@ import Image from "next/image";
 import classes from "./HistoryItem.module.scss";
 
 const HistoryItem = ({ item, index, expand }) => {
-  console.log(item);
   return (
     <div
       className={`${classes.histItem} ${expand ? classes.expanded : ""} ${

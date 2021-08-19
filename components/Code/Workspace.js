@@ -1,17 +1,16 @@
 import { useRef, useContext, useState, useEffect, memo } from "react";
 import dynamic from "next/dynamic";
-import TextEditor from "./TextEditor";
-import { initialElements } from "../../utils/flowConfig";
-import Console from "./Console";
 import ConsoleContext from "../../store/console-context";
 import { ReactFlowProvider } from "react-flow-renderer";
-import GreenButton from "../UI/GreenButton";
-
-import { CodeGenerator } from "../../utils/codeGenerator.ts";
-import classes from "./Workspace.module.scss";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
+import { initialElements } from "../../utils/flowConfig";
+import TextEditor from "./TextEditor";
+import Console from "./Console";
 import Config from "./Config";
-import { flow2Text ,isOnceCode} from "../../utils/blockExtractionHelpers";
+import GreenButton from "../UI/GreenButton";
+import { CodeGenerator } from "../../utils/codeGenerator.ts";
+import { flow2Text, isOnceCode } from "../../utils/blockExtractionHelpers";
+import classes from "./Workspace.module.scss";
 
 let codeChanged = false;
 
@@ -40,7 +39,6 @@ const Workspace = (props) => {
 
   useEffect(() => {
     const theme = localStorage.getItem("createbase__monaco-theme");
-    console.log(theme);
     if (theme) {
       setTheme(theme);
     } else {
@@ -92,7 +90,7 @@ const Workspace = (props) => {
 
   const changeTabHandler = (tab) => setActiveTab(tab);
 
-  const executeCode = (text,printing) => {
+  const executeCode = (text, printing) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
@@ -120,7 +118,7 @@ const Workspace = (props) => {
       code += "\nresolve(' ');";
       let functionExecute = async () => {
         printing++;
-        await executeCode(code,printing);
+        await executeCode(code, printing);
         if (printing >= 10) {
           printing = 0;
         }
@@ -143,7 +141,7 @@ const Workspace = (props) => {
       codesDone++;
     } else {
       com = 0;
-      codesDone++
+      codesDone++;
       eval("(async () => {" + code + "})()").catch((e) => {
         codesDone = -1;
       });

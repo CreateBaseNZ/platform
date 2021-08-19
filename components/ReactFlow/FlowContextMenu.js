@@ -1,20 +1,5 @@
 import { memo, useEffect, useRef } from "react";
-
-import FilterNoneIcon from "@material-ui/icons/FilterNone";
-import CallToActionOutlinedIcon from "@material-ui/icons/CallToActionOutlined";
-import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import classes from "./FlowContextMenu.module.scss";
-import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
-import UndoOutlinedIcon from "@material-ui/icons/UndoOutlined";
-import RedoOutlinedIcon from "@material-ui/icons/RedoOutlined";
-import RestoreOutlinedIcon from "@material-ui/icons/RestoreOutlined";
-import SelectAllOutlinedIcon from "@material-ui/icons/SelectAllOutlined";
-import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
-import CropFreeOutlinedIcon from "@material-ui/icons/CropFreeOutlined";
-import CameraAltOutlinedIcon from "@material-ui/icons/CameraAltOutlined";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 
 export const NodeContextMenu = memo(
   ({
@@ -59,38 +44,39 @@ export const NodeContextMenu = memo(
         ref={ref}
       >
         <button onMouseDown={() => selectHandler(node)}>
-          <span className={classes.item}>
-            <CallToActionOutlinedIcon /> Select
-          </span>
-          <span className={classes.hotkey}>Left Click</span>
+          <div className={classes.item}>
+            <span className="material-icons-outlined">call_to_action</span>
+            Select
+          </div>
+          <p className={classes.hotkey}>Left Click</p>
         </button>
         <button onMouseDown={() => copyHandler([node])}>
-          <span className={classes.item}>
-            <FilterNoneIcon /> Copy
-          </span>
-          <span className={classes.hotkey}>Ctrl+C</span>
+          <div className={classes.item}>
+            <span className="material-icons-outlined">content_copy</span> Copy
+          </div>
+          <p className={classes.hotkey}>Ctrl+C</p>
         </button>
         <button onMouseDown={() => deleteHandler([node])}>
-          <span className={classes.item}>
-            <DeleteOutlinedIcon />
+          <div className={classes.item}>
+            <span className="material-icons-outlined">delete</span>
             Delete
-          </span>
-          <span className={classes.hotkey}>Backspace</span>
+          </div>
+          <p className={classes.hotkey}>Backspace</p>
         </button>
         <div className={classes.divider} />
         <button onMouseDown={selectAllHandler}>
-          <span className={classes.item}>
-            <SelectAllOutlinedIcon />
+          <div className={classes.item}>
+            <span className="material-icons-outlined">select_all</span>
             Select All
-          </span>
-          <span className={classes.hotkey}>Ctrl+A</span>
+          </div>
+          <p className={classes.hotkey}>Ctrl+A</p>
         </button>
         <button onMouseDown={clearAllHandler}>
-          <span className={classes.item}>
-            <BackspaceOutlinedIcon />
+          <div className={classes.item}>
+            <span className="material-icons-outlined">backspace</span>
             Clear All
-          </span>
-          <span className={classes.hotkey}>Ctrl+B</span>
+          </div>
+          <p className={classes.hotkey}>Ctrl+B</p>
         </button>
       </div>
     );
@@ -147,62 +133,66 @@ export const PaneContextMenu = memo(
           className={allowUndo ? "" : classes.deactive}
           onMouseDown={undoHandler}
         >
-          <span className={classes.item}>
-            <UndoOutlinedIcon /> Undo
-          </span>
-          <span className={classes.hotkey}>Ctrl+Z</span>
+          <div className={classes.item}>
+            <span className="material-icons-outlined">undo</span> Undo
+          </div>
+          <p className={classes.hotkey}>Ctrl+Z</p>
         </button>
         <button
           className={allowRedo ? "" : classes.deactive}
           onMouseDown={redoHandler}
         >
-          <span className={classes.item}>
-            <RedoOutlinedIcon /> Redo
-          </span>
-          <span className={classes.hotkey}>Ctrl+Y</span>
+          <div className={classes.item}>
+            <span className="material-icons-outlined">redo</span> Redo
+          </div>
+          <p className={classes.hotkey}>Ctrl+Y</p>
         </button>
         <button onMouseDown={saveHandler}>
-          <span className={classes.item}>
-            <SaveOutlinedIcon />
+          <div className={classes.item}>
+            <span className="material-icons-outlined">save</span>
             Save
-          </span>
-          <span className={classes.hotkey}>Ctrl+S</span>
+          </div>
+          <p className={classes.hotkey}>Ctrl+S</p>
         </button>
         <button onMouseDown={restoreHandler}>
-          <span className={classes.item}>
-            <RestoreOutlinedIcon />
+          <div className={classes.item}>
+            <span className="material-icons-outlined">restore</span>
             Restore
-          </span>
-          <span className={classes.hotkey}>Ctrl+R</span>
+          </div>
+          <p className={classes.hotkey}>Ctrl+R</p>
         </button>
         <div className={classes.divider} />
         <button onMouseDown={fitViewHandler}>
-          <span className={classes.item}>
-            <CropFreeOutlinedIcon />
+          <div className={classes.item}>
+            <span className="material-icons-outlined">crop_free</span>
             Fit View
-          </span>
-          <span className={classes.hotkey}>Space</span>
+          </div>
+          <p className={classes.hotkey}>Space</p>
         </button>
         <button onMouseDown={captureHandler}>
-          <span className={classes.item}>
-            <CameraAltOutlinedIcon />
+          <div className={classes.item}>
+            <span className="material-icons-outlined">photo_camera</span>
             Capture
-          </span>
-          <span className={classes.hotkey}>Ctrl+G</span>
+          </div>
+          <p className={classes.hotkey}>Ctrl+G</p>
         </button>
         <button onMouseDown={lockHandler}>
-          <span className={classes.item}>
-            {flowLocked ? <LockOpenOutlinedIcon /> : <LockOutlinedIcon />}
+          <div className={classes.item}>
+            {flowLocked ? (
+              <span className="material-icons-outlined">lock</span>
+            ) : (
+              <span className="material-icons-outlined">lock_open</span>
+            )}
             {flowLocked ? "Unlock" : "Lock"}
-          </span>
-          <span className={classes.hotkey}>Ctrl+L</span>
+          </div>
+          <p className={classes.hotkey}>Ctrl+L</p>
         </button>
         <div className={classes.divider} />
         <button onMouseDown={infoHandler}>
-          <span className={classes.item}>
-            <InfoOutlinedIcon />
+          <div className={classes.item}>
+            <span className="material-icons-outlined">info</span>
             Info
-          </span>
+          </div>
         </button>
       </div>
     );

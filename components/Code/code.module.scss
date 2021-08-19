@@ -45,8 +45,8 @@
   transform: rotate(180deg);
   background: rgba(0, 0, 0, 0.25);
   border: 2px solid rgba(255, 255, 255, 0.75);
-  path {
-    fill: $lightest;
+  span {
+    color: $lightest;
   }
   &:hover {
     opacity: 1;

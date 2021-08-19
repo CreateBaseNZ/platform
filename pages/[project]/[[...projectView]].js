@@ -1,29 +1,47 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Imagine from "../../components/Project/Imagine";
+import Define from "../../components/Project/Define";
+import Code from "../../components/Code/Code";
+import Play from "../../components/Play";
 
 import classes from "/styles/ProjectView.module.scss";
-import Imagine from "../../components/Project/Imagine";
+import { sendItData } from "../../data/send-it-data";
+import { lineFollowingData } from "../../data/line-following-data";
+import { magnebotData } from "../../data/magnetbot-data";
+import Research from "../../components/Project/Research";
 
-const DUMMY_QUERY = {
-  "send-it": {
-    name: "Send It",
-    query: "send-it",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
-    stacked: true,
-    scenePrefix: "Project_Jump_0",
-    runType: "loop",
-  },
-  magnebot: {
-    name: "MagneBot",
-    query: "magnebot",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
-    stacked: true,
-    scenePrefix: "Project_RoboticArm_1",
-    runType: "once",
-  },
+// const DUMMY_QUERY = {
+//   "send-it": {
+//     name: "Send It",
+//     query: "send-it",
+//     caption:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
+//     stacked: true,
+//     scenePrefix: "Project_Jump_0",
+//     runType: "loop",
+//   },
+//   magnebot: {
+//     name: "MagneBot",
+//     query: "magnebot",
+//     caption:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
+//     stacked: true,
+//     scenePrefix: "Project_RoboticArm_1",
+//     runType: "once",
+//   },
+// };
+
+const get_data = (query) => {
+  switch (query) {
+    case "send-it":
+      return sendItData;
+    case "line-following":
+      return lineFollowingData;
+    case "magnebot":
+      return magnebotData;
+  }
 };
 
 const steps = [
@@ -38,25 +56,33 @@ const steps = [
 
 const ProjectView = ({ setLoaded }) => {
   const router = useRouter();
-  const [project, setProject] = useState({});
+  const [data, setData] = useState({});
   const [step, setStep] = useState("Imagine");
-  const [view, setView] = useState("project");
+  const [view, setView] = useState("Project");
 
   useEffect(() => setLoaded(true), []);
 
   useEffect(() => {
     if (Object.keys(router.query).length) {
-      setProject(DUMMY_QUERY[router.query.project]);
+      setData(get_data(router.query.project));
       if (router.query.projectView) {
         const subQuery = router.query.projectView[0];
-        if (subQuery === "play" || subQuery === "code") {
-          setView(subQuery);
+        if (subQuery === "play") {
+          setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+          setLoaded(false);
+        } else if (subQuery === "code") {
+          setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+          setStep(
+            router.query.projectView[1][0].toUpperCase() +
+              router.query.projectView[1].substring(1)
+          );
+          setLoaded(false);
         } else {
-          setView("project");
+          setView("Project");
           setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
         }
       } else {
-        setView("project");
+        setView("Project");
       }
     }
   }, [router.query]);
@@ -65,33 +91,53 @@ const ProjectView = ({ setLoaded }) => {
     <div className={classes.projectView}>
       <Head>
         <title>
-          {view === "project" ? step : view} • {project.name} | CreateBase
+          {view === "Project" ? step : view} • {data.name} | CreateBase
         </title>
-        <meta name="description" content={project.caption} />
+        <meta name="description" content={data.caption} />
       </Head>
-      <div className={classes.tabContainer}>
-        {steps.map((s, i) => (
-          <button
-            key={i}
-            className={`${classes.tabWrapper} ${
-              step === s.title ? classes.activeTab : ""
-            }`}
-            onClick={() =>
-              router.push({
-                pathname: `/${project.query}/${s.title.toLowerCase()}`,
-              })
-            }
-          >
-            <div className={classes.tab}>
-              <span className="material-icons-outlined">{s.icon}</span>
-              {s.title}
-            </div>
-          </button>
-        ))}
-      </div>
-      <div className={classes.viewContainer}>
-        {step === "Imagine" && <Imagine query={project.query} />}
-      </div>
+      {view === "Project" && (
+        <>
+          <div className={classes.tabContainer}>
+            {steps.map((s, i) => (
+              <button
+                key={i}
+                className={`${classes.tabWrapper} ${
+                  step === s.title ? classes.activeTab : ""
+                }`}
+                onClick={() =>
+                  router.push({
+                    pathname: `/${data.query}/${s.title.toLowerCase()}`,
+                  })
+                }
+              >
+                <div className={classes.tab}>
+                  <span className="material-icons-outlined">{s.icon}</span>
+                  {s.title}
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className={classes.viewContainer}>
+            {step === "Imagine" && (
+              <Imagine name={data.name} query={data.query} />
+            )}
+            {step === "Define" && (
+              <Define
+                query={data.query}
+                data={data.define}
+                caption={data.defineCaption}
+              />
+            )}
+            {step === "Research" && (
+              <Research query={data.query} data={data.research} />
+            )}
+          </div>
+        </>
+      )}
+      {view === "Code" && (step === "Create" || step === "Improve") && (
+        <Code setLoaded={setLoaded} mode={step} project={data} />
+      )}
+      {view === "Play" && <Play setLoaded={setLoaded} project={data} />}
     </div>
   );
 };

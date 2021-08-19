@@ -1,0 +1,147 @@
+@import "/styles/variables";
+
+.container {
+  height: 100%;
+  width: 25vw;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 5vh 2vw;
+}
+
+.captionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 2vh 0;
+}
+
+.caption {
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  color: $dark;
+  margin-bottom: 0.5rem;
+}
+
+.card {
+  margin: 1vh 0;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
+  &:hover {
+    background: $lightest;
+  }
+  p {
+    margin-left: 1rem;
+    font-weight: 600;
+    color: $dark;
+    text-align: left;
+  }
+  &.activeCard {
+    background: $lightest;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
+    p {
+      color: $darker;
+    }
+  }
+}
+
+.cardImgWrapper {
+  height: 4rem;
+  flex: 0 0 4rem;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    color: $lightest;
+    font-size: 1.5rem;
+  }
+  .shapes::before,
+  .shapes::after,
+  &::before,
+  &::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    height: 75%;
+    width: 75%;
+  }
+  .shapes::before,
+  &::before {
+    background: rgba(255, 255, 255, 0.25);
+  }
+  .shapes::after,
+  &::after {
+    border: 2px solid rgba(255, 255, 255, 0.25);
+  }
+  &::before,
+  &::after {
+    top: 0;
+    left: 0;
+  }
+  .shapes::before,
+  .shapes::after {
+    bottom: 0;
+    right: 0;
+  }
+  &.pdf {
+    background: #7692f5;
+    &::before {
+      transform: translate(-50%, -50%) skew(-20deg);
+    }
+    &::after {
+      transform: translate(-65%, -46%) skew(-20deg) rotate(5deg);
+    }
+    .shapes::before {
+      transform: translate(50%, 50%) skew(-31deg);
+    }
+    .shapes::after {
+      transform: translate(24%, 67%) skew(-31deg) rotate(12deg);
+    }
+  }
+  &.video {
+    background: #ff6565;
+    &::before {
+      top: -15%;
+      left: 25%;
+      transform: translate(-50%, -50%) skew(-30deg) rotate(10deg);
+    }
+    &::after {
+      top: -15%;
+      left: 25%;
+      transform: translate(-47%, -54%) skew(-30deg) rotate(-4deg);
+    }
+    .shapes::before {
+      right: 25%;
+      bottom: -15%;
+      transform: translate(50%, 50%) skew(-18deg) rotate(2deg);
+    }
+    .shapes::after {
+      right: 25%;
+      bottom: -15%;
+      transform: translate(62%, 48%) skew(-18deg) rotate(9deg);
+    }
+  }
+  &.tut {
+    background: #ffb865;
+    &::before {
+      transform: translate(-100%, 28%) skew(-40deg) rotate(-48deg) scale(1.1);
+    }
+    &::after {
+      transform: translate(-98%, 37%) skew(-40deg) rotate(-54deg);
+    }
+    .shapes::before {
+      transform: translate(80%, 24%) skew(18deg) rotate(2deg);
+    }
+    .shapes::after {
+      transform: translate(75%, 37%) skew(18deg) rotate(-4deg);
+    }
+  }
+}

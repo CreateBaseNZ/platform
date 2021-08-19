@@ -3,7 +3,6 @@ import Link from "next/link";
 import Head from "next/head";
 import useUnity from "/hooks/useUnity";
 
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Game from "./Game";
 import Workspace from "./Workspace";
 
@@ -26,12 +25,12 @@ const Code = ({ setLoaded, mode, project }) => {
   return (
     <div className={classes.code}>
       <ConsoleContextProvider>
-        <Head>
+        {/* <Head>
           <title>
             {mode} - {project.name} | CreateBase
           </title>
           <meta name="description" content={project.caption} />
-        </Head>
+        </Head> */}
         <div
           className={`${classes.mainWindow} ${
             project.stacked ? classes.stackedView : classes.shelvedView
@@ -39,12 +38,12 @@ const Code = ({ setLoaded, mode, project }) => {
         >
           <Link
             href={{
-              pathname: `/${project.query}/project/[step]`,
+              pathname: `/${project.query}/[step]`,
               query: { step: mode.toLowerCase() },
             }}
           >
             <button className={classes.backButton} title="Back to project">
-              <ExitToAppIcon />
+              <span className="material-icons-outlined">exit_to_app</span>
             </button>
           </Link>
           <Game unityContext={unityContext} />

@@ -1,38 +1,33 @@
-import BugReportIcon from "@material-ui/icons/BugReport";
-import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import { useContext, memo, useState, useEffect, useRef } from "react";
 import ConsoleContext from "../../store/console-context";
-import DeleteSweepOutlinedIcon from "@material-ui/icons/DeleteSweepOutlined";
-import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
-import Brightness2OutlinedIcon from "@material-ui/icons/Brightness2Outlined";
 
 import classes from "./Console.module.scss";
 
 const Log = memo((props) => {
   return (
-    <p>
-      {props.message} <span className={classes.time}>{props.time}</span>
-    </p>
+    <div className={classes.log}>
+      {props.message} <p className={classes.time}>{props.time}</p>
+    </div>
   );
 });
 
 const Error = memo((props) => {
   return (
-    <p className={classes.error}>
-      <BugReportIcon style={{ fontSize: 16 }} />
+    <div className={classes.error}>
+      <span className="material-icons-outlined">bug_report</span>
       {props.message}
-      <span className={classes.time}>{props.time}</span>
-    </p>
+      <p className={classes.time}>{props.time}</p>
+    </div>
   );
 });
 
 const Warning = memo((props) => {
   return (
-    <p className={classes.warning}>
-      <WarningRoundedIcon style={{ fontSize: 16 }} />
+    <div className={classes.warning}>
+      <span className="material-icons-outlined">report_problem</span>
       {props.message}
-      <span className={classes.time}>{props.time}</span>
-    </p>
+      <p className={classes.time}>{props.time}</p>
+    </div>
   );
 });
 
@@ -100,7 +95,7 @@ const Console = (props) => {
             className={classes.warningIcon}
             title={`${warningCount} warning${warningCount > 1 ? "s" : ""}`}
           >
-            <WarningRoundedIcon style={{ fontSize: 16 }} />
+            <span className="material-icons-outlined">report_problem</span>
             {warningCount}
           </i>
         )}
@@ -109,7 +104,7 @@ const Console = (props) => {
             className={classes.errorIcon}
             title={`${errorCount} error${errorCount > 1 ? "s" : ""}`}
           >
-            <BugReportIcon style={{ fontSize: 20 }} />
+            <span className="material-icons-outlined">bug_report</span>
             {errorCount}
           </i>
         )}
@@ -120,14 +115,18 @@ const Console = (props) => {
             darkMode ? classes.toLight : classes.toDark
           }`}
         >
-          {darkMode ? <WbSunnyOutlinedIcon /> : <Brightness2OutlinedIcon />}
+          {darkMode ? (
+            <span className="material-icons-outlined">light_mode</span>
+          ) : (
+            <span className="material-icons-outlined">dark_mode</span>
+          )}
         </button>
         <button
           className={classes.clearConsole}
           title="Clear Console"
           onClick={ctx.clearLogs}
         >
-          <DeleteSweepOutlinedIcon />
+          <span className="material-icons-outlined">delete_sweep</span>
         </button>
       </div>
     </div>

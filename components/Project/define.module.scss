@@ -1,0 +1,127 @@
+@import "/styles/variables";
+
+.view {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.mainContainer {
+  flex: 1 1 0;
+  height: 100%;
+  background: $bg-light;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10vh;
+  position: relative;
+}
+
+.pdfContainer {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  .pdfWrapper {
+    height: 85%;
+    position: relative;
+  }
+  .pdfNav {
+    position: absolute;
+    bottom: calc(-5vh - 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    & > * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+    }
+    p {
+      font-size: 14px;
+      font-weight: 600;
+      color: $dark;
+      width: 4rem;
+      border: medium solid rgba(0, 0, 0, 0.05);
+      margin: 0 1.5rem;
+    }
+    button {
+      width: 1.75rem;
+      span {
+        font-size: 14px;
+        color: $logo-mid;
+      }
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+    a {
+      font-size: 12px;
+      font-weight: 600;
+      width: 8rem;
+      transition: background-color 0.1s ease-out, color 0.1s ease-out;
+      span {
+        font-size: 14px;
+        transition: color 0.1s ease-out;
+      }
+      &.download {
+        color: $logo-mid;
+        margin-right: auto;
+        border: thin solid $logo-mid;
+        span {
+          margin-right: 0.5rem;
+          color: inherit;
+        }
+        &:hover {
+          background: $logo-mid;
+          color: $lightest;
+        }
+      }
+      &.launch {
+        color: $light;
+        margin-left: auto;
+        span {
+          margin-left: 0.5rem;
+          color: $logo-mid;
+        }
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+          color: $dark;
+        }
+      }
+    }
+  }
+}
+
+.tocWrapper {
+  width: 10vw;
+  margin-left: 4vw;
+  max-height: calc(85% + 5vh + 1rem);
+}
+
+.loadScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: $bg-light;
+  pointer-events: none;
+  &.loaded {
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .tocWrapper {
+    display: none;
+  }
+}

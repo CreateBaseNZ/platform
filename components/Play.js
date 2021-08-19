@@ -3,7 +3,6 @@ import Link from "next/link";
 import useUnity from "/hooks/useUnity";
 import Head from "next/head";
 import Game from "./Code/Game";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import classes from "./Play.module.scss";
 
@@ -21,18 +20,14 @@ const Play = ({ setLoaded, project }) => {
 
   return (
     <div className={classes.play}>
-      <Head>
-        <title>Play - {project.name} | CreateBase</title>
-        <meta name="description" content={project.caption} />
-      </Head>
       <Link
         href={{
-          pathname: `/${project.query}/project/[step]`,
+          pathname: `/${project.query}/[step]`,
           query: { step: "research" },
         }}
       >
         <button className={classes.backButton} title="Back to project">
-          <ExitToAppIcon />
+          <span className="material-icons-outlined">exit_to_app</span>
         </button>
       </Link>
       <Game unityContext={unityContext} />
