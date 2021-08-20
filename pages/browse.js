@@ -96,6 +96,22 @@ const Browse = ({ setLoaded }) => {
     // }
     // console.log(data);
 
+    // EXAMPLE: Create a license
+    // const input = {
+    //   username: "student1",
+    //   password: "student1",
+    //   date: new Date().toString(),
+    //   status: "free", // Status of the license can either be free, lite, pro
+    //   access: { learner: true }, // Access can be admin, educator and learner
+    // };
+    // let data;
+    // try {
+    //   data = (await axios.post("/api/organisation/license/add", input))["data"];
+    // } catch (error) {
+    //   data = { status: "error", content: error };
+    // }
+    // console.log(data);
+
     setLoaded(true);
     return () => setLoaded(false);
   }, []);
