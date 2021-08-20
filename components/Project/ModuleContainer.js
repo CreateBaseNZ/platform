@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import Img from "../UI/Img";
 import classes from "./ModuleContainer.module.scss";
 
 const getIcon = (type) => {
@@ -12,7 +14,7 @@ const getIcon = (type) => {
   }
 };
 
-const ModuleContainer = ({ active, modules, clickHandler, caption }) => {
+const ModuleContainer = ({ active, modules, clickHandler, caption, play }) => {
   return (
     <div className={classes.container}>
       <div className={classes.captionContainer}>
@@ -33,7 +35,7 @@ const ModuleContainer = ({ active, modules, clickHandler, caption }) => {
         >
           <div className={`${classes.cardImgWrapper} ${classes[item.type]}`}>
             {item.img ? (
-              <Image src={item.img} layout="fill" objectFit="cover" />
+              <Img src={item.img} layout="fill" objectFit="cover" />
             ) : (
               <span className={`material-icons-outlined ${classes.shapes}`}>
                 {getIcon(item.type)}
@@ -43,6 +45,14 @@ const ModuleContainer = ({ active, modules, clickHandler, caption }) => {
           <p>{item.title}</p>
         </button>
       ))}
+      {play && (
+        <Link href={`/${play}/play`}>
+          <button className={classes.play}>
+            <span className="material-icons-outlined">sports_esports</span>Try
+            the Game
+          </button>
+        </Link>
+      )}
     </div>
   );
 };

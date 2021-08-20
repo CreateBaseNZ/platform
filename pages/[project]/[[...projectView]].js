@@ -11,27 +11,8 @@ import { sendItData } from "../../data/send-it-data";
 import { lineFollowingData } from "../../data/line-following-data";
 import { magnebotData } from "../../data/magnebot-data";
 import Research from "../../components/Project/Research";
-
-// const DUMMY_QUERY = {
-//   "send-it": {
-//     name: "Send It",
-//     query: "send-it",
-//     caption:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
-//     stacked: true,
-//     scenePrefix: "Project_Jump_0",
-//     runType: "loop",
-//   },
-//   magnebot: {
-//     name: "MagneBot",
-//     query: "magnebot",
-//     caption:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
-//     stacked: true,
-//     scenePrefix: "Project_RoboticArm_1",
-//     runType: "once",
-//   },
-// };
+import Plan from "../../components/Project/Plan";
+import Create from "../../components/Project/Create";
 
 const get_data = (query) => {
   switch (query) {
@@ -120,11 +101,7 @@ const ProjectView = ({ setLoaded }) => {
           <div className={classes.viewContainer}>
             {step === "Imagine" && <Imagine data={data.situation} />}
             {step === "Define" && (
-              <Define
-                query={data.query}
-                data={data.define}
-                caption={data.defineCaption}
-              />
+              <Define data={data.define} caption={data.defineCaption} />
             )}
             {step === "Research" && (
               <Research
@@ -132,6 +109,10 @@ const ProjectView = ({ setLoaded }) => {
                 data={data.research}
                 caption={data.researchCaption}
               />
+            )}
+            {step === "Plan" && <Plan data={data.plan} />}
+            {step === "Create" && (
+              <Create query={data.query} data={data.create} />
             )}
           </div>
         </>

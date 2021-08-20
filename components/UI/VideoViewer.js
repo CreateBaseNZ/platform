@@ -18,7 +18,7 @@ const VideoViewer = ({
         <div className={`${classes.caption} ${captionClass}`}>
           <span>
             <b>{data.h1}</b>
-            <br />
+            <span style={{ display: "block", height: 8 }} />
             {data.h2}
           </span>
           <YTIcon

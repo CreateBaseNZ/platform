@@ -67,7 +67,7 @@ const Index = ({ setLoaded }) => {
           onClick={helperClickHandler}
         >
           <div className={`${classes.what} span`}>What's this?</div>
-          <i class="material-icons-outlined">close</i>
+          <i className="material-icons-outlined">close</i>
         </button>
         <p className={showHelper ? "" : classes.hide}>
           At CreateBase, we want to change the world by enabling the next

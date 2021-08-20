@@ -10,17 +10,19 @@ export const sendItData = {
   stacked: true,
   scenePrefix: "Project_Jump_0",
   runType: "loop",
-  defineCaption: [
-    "Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
-    "When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
-  ],
   situation: {
     url: "https://youtu.be/iiWiwxxkq2Q",
     src: "/send-it/vid/situation.mp4",
     h1: "Dive into the situation by watching this short video.",
     h2: "What do you think is happening here? Discuss with your peers!",
     title: "Send It",
+    docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
+    word: "/send-it/files/learning-journal.docx",
   },
+  defineCaption: [
+    "Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
+    "When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
+  ],
   define: [
     {
       title: "Types of delivery robots",
@@ -74,29 +76,29 @@ export const sendItData = {
       title: "How to Send It",
       items: [
         {
-          src: "/send-it/tutorial/vid-1.mp4",
+          src: "/send-it/vid/tut-1.mp4",
           subtitle: <p>Run 1000m to deliver the Pizza</p>,
         },
         {
-          src: "/send-it/tutorial/vid-2.mp4",
+          src: "/send-it/vid/tut-2.mp4",
           subtitle: (
             <p>
               Jump over obstacles to avoid crashing into them
-              <span class="material-icons-outlined">arrow_upward</span>
+              <span className="material-icons-outlined">arrow_upward</span>
             </p>
           ),
         },
         {
-          src: "/send-it/tutorial/vid-3.mp4",
+          src: "/send-it/vid/tut-3.mp4",
           subtitle: (
             <p>
               Crouch under flying obstacles to avoid crashing into them
-              <span class="material-icons-outlined">arrow_downward</span>
+              <span className="material-icons-outlined">arrow_downward</span>
             </p>
           ),
         },
         {
-          src: "/send-it/tutorial/vid-4.mp4",
+          src: "/send-it/vid/tut-4.mp4",
           subtitle: (
             <p>
               Change the simulation speed to allow more time for your code to
@@ -107,6 +109,22 @@ export const sendItData = {
       ],
     },
   ],
+  plan: [
+    "Open up your learning journal and answer all of the questions in the Plan section.",
+    "If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+  ],
+  create: {
+    caption:
+      "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
+    tasks: [
+      "Write some code so that MagneBot can clean up the recycling facility for you",
+      "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!",
+    ],
+    hints: [
+      "Write some code so that MagneBot can clean up the recycling facility for you",
+      "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!",
+    ],
+  },
 };
 
 // export const Delivery = ({ closeHandler }) => {
