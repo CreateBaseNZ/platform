@@ -9,6 +9,9 @@ import Thumbnail from "../components/Thumbnail";
 // Session management functions
 import { useSession, signOut, getSession } from "next-auth/client";
 
+// Backend communication
+import axios from "axios";
+
 import classes from "/styles/Browse.module.scss";
 
 const DUMMY_PROJECTS = [
@@ -32,12 +35,67 @@ const Browse = ({ setLoaded }) => {
   // Accessing User Session
   const [session, loading] = useSession();
 
-  useEffect(() => {
+  useEffect(async () => {
     // EXAMPLE: Fetch the identification of the authenticated user
     getSession().then((session) => {
       // Perform some actions if necessary
       console.log(session);
     });
+    // EXAMPLE: Create data
+    // const input = {
+    //   test: "Hello World",
+    //   test2: "Hello World 2",
+    // }; // Object containing the properties, with values, we want to save
+    // const date = new Date().toString();
+    // let data;
+    // try {
+    //   data = (await axios.post("/api/user/data/create", { input, date }))[
+    //     "data"
+    //   ];
+    // } catch (error) {
+    //   data = { status: "error", content: error };
+    // }
+    // console.log(data);
+
+    // EXAMPLE: Read data
+    // const input = ["test", "test2"]; // Array of the properties which values we want to retrieve
+    // let data;
+    // try {
+    //   data = (await axios.post("/api/user/data/read", { input }))["data"];
+    // } catch (error) {
+    //   data = { status: "error", content: error };
+    // }
+    // console.log(data);
+
+    // EXAMPLE: Update data
+    // const input = {
+    //   test: "Hello World 3",
+    //   test2: "Hello World 4",
+    // };
+    // const date = new Date().toString();
+    // let data;
+    // try {
+    //   data = (await axios.post("/api/user/data/update", { input, date }))[
+    //     "data"
+    //   ];
+    // } catch (error) {
+    //   data = { status: "error", content: error };
+    // }
+    // console.log(data);
+
+    // EXAMPLE: Delete data
+    // const input = ["test", "test2"]; // Array of the properties which values we want to retrieve
+    // const date = new Date().toString();
+    // let data;
+    // try {
+    //   data = (await axios.post("/api/user/data/delete", { input, date }))[
+    //     "data"
+    //   ];
+    // } catch (error) {
+    //   data = { status: "error", content: error };
+    // }
+    // console.log(data);
+
     setLoaded(true);
     return () => setLoaded(false);
   }, []);

@@ -7,9 +7,7 @@ async function handler(req, res) {
   // Send the signup request
   let data;
   try {
-    data = (await axios.post("https://createbase.co.nz/signup", req.body))[
-      "data"
-    ];
+    data = (await axios.post("http://localhost/signup", req.body))["data"];
   } catch (error) {
     data = { status: "error", content: error };
   }

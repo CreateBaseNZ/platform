@@ -6,9 +6,7 @@ async function authenticate(credentials) {
   // Login authentication
   let data;
   try {
-    data = (await axios.post("https://createbase.co.nz/login", credentials))[
-      "data"
-    ];
+    data = (await axios.post("http://localhost/login", credentials))["data"];
   } catch (error) {
     data = { status: "error", content: error };
   }
