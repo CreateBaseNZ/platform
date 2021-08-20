@@ -12,7 +12,7 @@ import classes from "./Workspace.module.scss";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import Config from "./Config";
 import { flow2Text ,isOnceCode} from "../../utils/blockExtractionHelpers";
-
+import {convertCode} from "../../utils/textConvertor"
 let codeChanged = false;
 
 let codesDone = 0;
@@ -53,7 +53,7 @@ const Workspace = (props) => {
     if (activeTab === "text") {
       const [newText, dispCode] = compileCode();
       if (newText) {
-        setText(newText);
+        setText(dispCode);
       }
     }
   }, [activeTab]);
@@ -96,6 +96,7 @@ const Workspace = (props) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
+
       eval("(async () => {" + text + "})()").catch((e) => {
         resolve("");
       });
@@ -111,6 +112,18 @@ const Workspace = (props) => {
     });
   };
 
+  const compileHandlerTxt = () => {
+    let codeLines = 0;
+    let t =`let x=\`I wentHom;e\nlol\`;Lols();\n Jump();\n for(let i=0;i<5;i++){
+      if(i=5){
+        x=MoveArm(3,5,6);
+      }
+      intialiseRobot();
+    }`;
+    convertCode(t, props.query);
+    const onceCode = isOnceCode(props.query);
+
+  }
   const compileHandler = async () => {
     let com;
     codeChanged = true;
@@ -160,6 +173,13 @@ const Workspace = (props) => {
         <GreenButton
           className={classes.compileBtn}
           clickHandler={compileHandler}
+          caption="Compile"
+        />
+      )}
+      {activeTab === "text" && (
+        <GreenButton
+          className={classes.compileTxtBtn}
+          clickHandler={compileHandlerTxt}
           caption="Compile"
         />
       )}

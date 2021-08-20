@@ -15,7 +15,7 @@ export const editorOptions = {
   formatOnPaste: true,
   fontSize: 14,
   fontFamily: "JetBrains Mono, mono",
-  readOnly: true,
+  readOnly: false,
 };
 
 const TextEditor = (props) => {
@@ -28,7 +28,7 @@ const TextEditor = (props) => {
       editorRef.current
         .getAction("editor.action.formatDocument")
         .run()
-        .then(() => editorRef.current.updateOptions({ readOnly: true }));
+        .then(() => editorRef.current.updateOptions({ readOnly: false }));
     }
   }, [props.text]);
 
@@ -46,7 +46,7 @@ const TextEditor = (props) => {
     }
     monacoRef.current.editor.setTheme(props.theme);
   };
-
+  console.log(props.text);
   return (
     <div className={`${classes.editorContainer} ${props.show ? "" : "hide"}`}>
       <Editor
