@@ -48,7 +48,7 @@ export default async function (req, res) {
   let data;
   try {
     data = (
-      await axios.post("http://localhost/user-data/create", {
+      await axios.post("https://createbase.co.nz/user-data/create", {
         user,
         input,
         date,

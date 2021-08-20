@@ -43,7 +43,10 @@ export default async function (req, res) {
   let data;
   try {
     data = (
-      await axios.post("http://localhost/user-data/read", { user, input })
+      await axios.post("https://createbase.co.nz/user-data/read", {
+        user,
+        input,
+      })
     )["data"];
   } catch (error) {
     data = { status: "error", content: error };
