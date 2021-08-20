@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import ModuleContainer from "./ModuleContainer";
+import ModuleContainer from "../UI/ModuleContainer";
 
 import classes from "./Research.module.scss";
 

@@ -5,7 +5,7 @@ import classes from "./Create.module.scss";
 const Create = ({ query, data }) => {
   return (
     <div className={classes.view}>
-      <div className={classes.leftContainer}>
+      <div className={`${classes.leftContainer} roundScrollbar`}>
         {data && data.tasks && (
           <ul className={classes.tasks}>
             <h2>

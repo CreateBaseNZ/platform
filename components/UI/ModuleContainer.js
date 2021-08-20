@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Img from "../UI/Img";
+import Img from "./Img";
 import classes from "./ModuleContainer.module.scss";
 
 const getIcon = (type) => {
@@ -16,7 +16,7 @@ const getIcon = (type) => {
 
 const ModuleContainer = ({ active, modules, clickHandler, caption, play }) => {
   return (
-    <div className={classes.container}>
+    <div className={`${classes.container} roundScrollbar`}>
       <div className={classes.captionContainer}>
         {caption &&
           caption.map((c, i) => (

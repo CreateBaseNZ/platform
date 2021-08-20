@@ -19,9 +19,14 @@ export const magnebotData = {
   },
   define: [
     {
-      title: "TODO",
-      img: "/send-it/img/types-0.png",
-      url: "/send-it/pdf/types.pdf",
+      title: "Introduction to recycling",
+      img: "/magnebot/img/recycling.jpg",
+      url: "/magnebot/pdf/recycling.pdf",
+    },
+    {
+      title: "Introduction to robotics",
+      img: "/magnebot/img/robotics.png",
+      url: "/magnebot/pdf/robotics.pdf",
     },
   ],
   researchCaption: [
@@ -76,4 +81,31 @@ export const magnebotData = {
     "As a human, you had to decide which actions to perform in which order to move and control the magnetic sphere. Writing a program is the exact same thing! A program is simply a set of pre-written instructions that tell a robot or other device which action to perform in which order!",
     "In the Create step, you will write a program (a set of instructions) and upload it to MagneBot. The robot will then follow your exact instructions to automatically complete the same task! Unlike you, however, the robot is unable to make decisions on its own. You will need to tell it exactly what do, testing often to find and solve any problems along the way.",
   ],
+  create: {
+    caption:
+      "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
+    tasks: [
+      "Write some code so that MagneBot can clean up the recycling facility for you",
+      "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!",
+    ],
+    hints: [
+      "Write some code so that MagneBot can clean up the recycling facility for you",
+      "Deposit three bags of rubbish into either of the two recycling bins to complete the task",
+    ],
+  },
+  improve: {
+    caption:
+      "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+    alert:
+      "Did you manage to clean up the facility? Uh oh, looks like there's now even more items scattered across the floor! Lucky for us, this time it is after hours! Have fun playing around with MagneBot with no rules to follow or objectives to complete. However, if you want a challenge, try attempting one of the following tasks and see if you can best your classmates.",
+    tasks: [
+      "How many items can you stack on top of each other? (Our record is five)",
+      "Try and throw every object over the edge of the platform",
+      "How many items can you place on top of the conveyor belt?",
+    ],
+    hints: [
+      "You might need to create some kind of ramp to place items on top of the conveyor belt",
+      "Challenge your friends to see who can complete one of the above tasks the best and/or fastest. If you are feeling especially spicy, you could even create your own tasks",
+    ],
+  },
 };

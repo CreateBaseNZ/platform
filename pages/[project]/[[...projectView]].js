@@ -13,6 +13,7 @@ import { magnebotData } from "../../data/magnebot-data";
 import Research from "../../components/Project/Research";
 import Plan from "../../components/Project/Plan";
 import Create from "../../components/Project/Create";
+import Improve from "../../components/Project/Improve";
 
 const get_data = (query) => {
   switch (query) {
@@ -113,6 +114,9 @@ const ProjectView = ({ setLoaded }) => {
             {step === "Plan" && <Plan data={data.plan} />}
             {step === "Create" && (
               <Create query={data.query} data={data.create} />
+            )}
+            {step === "Improve" && (
+              <Improve query={data.query} data={data.improve} />
             )}
           </div>
         </>

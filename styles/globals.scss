@@ -52,6 +52,7 @@ svg {
 }
 
 .roundScrollbar {
+  overflow-y: auto;
   &::-webkit-scrollbar {
     width: 12px;
   }

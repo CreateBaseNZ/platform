@@ -75,12 +75,7 @@ const PdfViewer = memo(({ file }) => {
           onLoadSuccessHandler={onLoadSuccessHandler}
         />
         <div className={classes.pdfNav}>
-          <a
-            href="/intro-to-flow.pdf"
-            title="Download"
-            download
-            className={classes.download}
-          >
+          <a href={file} title="Download" download className={classes.download}>
             <span className="material-icons-outlined">file_download</span>
             Download
           </a>
@@ -100,7 +95,7 @@ const PdfViewer = memo(({ file }) => {
             <span className="material-icons-outlined">arrow_forward_ios</span>
           </button>
           <a
-            href="/intro-to-flow.pdf"
+            href={file}
             target="_blank"
             title="Open in new tab"
             className={classes.launch}

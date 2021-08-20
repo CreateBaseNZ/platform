@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import classes from "./Define.module.scss";
-import ModuleContainer from "./ModuleContainer";
+import ModuleContainer from "../UI/ModuleContainer";
 
 const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
 
