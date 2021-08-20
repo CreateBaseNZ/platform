@@ -14,17 +14,98 @@ export const sendItData = {
     "Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
     "When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
   ],
+  situation: {
+    url: "https://youtu.be/iiWiwxxkq2Q",
+    src: "/send-it/vid/situation.mp4",
+    h1: "Dive into the situation by watching this short video.",
+    h2: "What do you think is happening here? Discuss with your peers!",
+    title: "Send It",
+  },
   define: [
-    { title: "Types of delivery robots", id: "types" },
-    { title: "Delivering mail", id: "mail" },
-    { title: "Controlling a robot", id: "controlling" },
-    { title: "The ethics of automation", id: "ethics" },
+    {
+      title: "Types of delivery robots",
+      img: "/send-it/img/types-0.png",
+      url: "/send-it/pdf/types.pdf",
+    },
+    {
+      title: "Delivering mail",
+      img: "/send-it/img/mail-0.png",
+      url: "/send-it/pdf/mail.pdf",
+    },
+    {
+      title: "Controlling a robot",
+      img: "/send-it/img/controlling-0.png",
+      url: "/send-it/pdf/controlling.pdf",
+    },
+    {
+      title: "The ethics of automation",
+      img: "/send-it/img/ethics-0.png",
+      url: "/send-it/pdf/ethics.pdf",
+    },
+  ],
+  researchCaption: [
+    "Work through the four modules above to complete your research.",
+    "Make sure that you understand all of the content as you will need it to create your solution!",
   ],
   research: [
-    { type: "video", title: "Editing with Flow" },
-    { type: "pdf", title: "Introduction to Flow blocks" },
-    { type: "pdf", title: "Tips & tricks: sensing blocks" },
-    { type: "tut", title: "How to Send It" },
+    {
+      type: "video",
+      title: "Flow tutorial",
+      data: {
+        url: "https://youtu.be/2Ndwtpk7iN8",
+        src: "/flow-tut.mp4",
+        h1: "Flow Tutorial",
+        h2: "Get to know your way around Flow",
+        title: "Flow Tutorial",
+      },
+    },
+    {
+      type: "pdf",
+      title: "Introduction to Flow blocks",
+      url: "/intro-to-flow.pdf",
+    },
+    {
+      type: "pdf",
+      title: "Tips & tricks: sensing blocks",
+      url: "/sensing-blocks.pdf",
+    },
+    {
+      type: "tut",
+      title: "How to Send It",
+      items: [
+        {
+          src: "/send-it/tutorial/vid-1.mp4",
+          subtitle: <p>Run 1000m to deliver the Pizza</p>,
+        },
+        {
+          src: "/send-it/tutorial/vid-2.mp4",
+          subtitle: (
+            <p>
+              Jump over obstacles to avoid crashing into them
+              <span class="material-icons-outlined">arrow_upward</span>
+            </p>
+          ),
+        },
+        {
+          src: "/send-it/tutorial/vid-3.mp4",
+          subtitle: (
+            <p>
+              Crouch under flying obstacles to avoid crashing into them
+              <span class="material-icons-outlined">arrow_downward</span>
+            </p>
+          ),
+        },
+        {
+          src: "/send-it/tutorial/vid-4.mp4",
+          subtitle: (
+            <p>
+              Change the simulation speed to allow more time for your code to
+              react
+            </p>
+          ),
+        },
+      ],
+    },
   ],
 };
 

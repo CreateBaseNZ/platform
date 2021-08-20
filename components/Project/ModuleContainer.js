@@ -12,14 +12,7 @@ const getIcon = (type) => {
   }
 };
 
-const ModuleContainer = ({
-  active,
-  modules,
-  clickHandler,
-  query,
-  caption,
-  images = false,
-}) => {
+const ModuleContainer = ({ active, modules, clickHandler, caption }) => {
   return (
     <div className={classes.container}>
       <div className={classes.captionContainer}>
@@ -39,12 +32,8 @@ const ModuleContainer = ({
           onClick={clickHandler.bind(this, i)}
         >
           <div className={`${classes.cardImgWrapper} ${classes[item.type]}`}>
-            {images ? (
-              <Image
-                src={`/${query}/img/${item.id}-0.png`}
-                layout="fill"
-                objectFit="cover"
-              />
+            {item.img ? (
+              <Image src={item.img} layout="fill" objectFit="cover" />
             ) : (
               <span className={`material-icons-outlined ${classes.shapes}`}>
                 {getIcon(item.type)}

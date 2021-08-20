@@ -1,34 +1,14 @@
 // import { ResourceModule } from "../Modules";
 import Image from "next/image";
-import { useEffect } from "react";
-import { YTIcon } from "../UI/Icons";
+
+import VideoViewer from "../UI/VideoViewer";
 import classes from "./Imagine.module.scss";
 
-const Imagine = ({ name, query }) => {
+const Imagine = ({ data }) => {
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
-        <video controls className={classes.video}>
-          {query && (
-            <source src={`/${query}/vid/situation.mp4`} type="video/mp4" />
-          )}
-        </video>
-        <div className={classes.caption}>
-          <span>
-            <b>Dive into the situation by watching this short video.</b>
-            <br />
-            What do you think is happening here? Discuss with your peers!
-          </span>
-          <YTIcon
-            className={classes.yt}
-            title={`Watch ${name} on YouTube`}
-            fill="#cecece"
-            height="40"
-            width="40"
-            iconHeight="24"
-            iconWidth="24"
-          />
-        </div>
+        {data && <VideoViewer data={data} />}
         <div className={classes.instructions}>
           <div className={classes.imgContainer}>
             <Image

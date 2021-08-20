@@ -9,7 +9,7 @@ import Play from "../../components/Play";
 import classes from "/styles/ProjectView.module.scss";
 import { sendItData } from "../../data/send-it-data";
 import { lineFollowingData } from "../../data/line-following-data";
-import { magnebotData } from "../../data/magnetbot-data";
+import { magnebotData } from "../../data/magnebot-data";
 import Research from "../../components/Project/Research";
 
 // const DUMMY_QUERY = {
@@ -118,9 +118,7 @@ const ProjectView = ({ setLoaded }) => {
             ))}
           </div>
           <div className={classes.viewContainer}>
-            {step === "Imagine" && (
-              <Imagine name={data.name} query={data.query} />
-            )}
+            {step === "Imagine" && <Imagine data={data.situation} />}
             {step === "Define" && (
               <Define
                 query={data.query}
@@ -129,7 +127,11 @@ const ProjectView = ({ setLoaded }) => {
               />
             )}
             {step === "Research" && (
-              <Research query={data.query} data={data.research} />
+              <Research
+                query={data.query}
+                data={data.research}
+                caption={data.researchCaption}
+              />
             )}
           </div>
         </>

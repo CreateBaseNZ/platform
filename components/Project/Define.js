@@ -1,37 +1,23 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-
 import classes from "./Define.module.scss";
-import { PdfViewerAll } from "../UI/PdfViewer";
 import ModuleContainer from "./ModuleContainer";
 
 const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
 
 const Define = ({ query, data, caption }) => {
   const [active, setActive] = useState(0);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNum, setPageNum] = useState(1);
   const [pdfLoaded, setPdfLoaded] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setPdfLoaded(true), [500]);
+    data[active].type === "pdf"
+      ? setTimeout(() => setPdfLoaded(true), [250])
+      : setPdfLoaded(true);
   }, [active]);
 
   const cardClickHandler = (i) => {
     setPdfLoaded(false);
     setActive(i);
-  };
-
-  const onLoadSuccessHandler = ({ numPages }) => {
-    setNumPages(numPages);
-  };
-
-  const prevPage = () => {
-    setPageNum((state) => state - 1);
-  };
-
-  const nextPage = () => {
-    setPageNum((state) => state + 1);
   };
 
   return (
@@ -40,65 +26,10 @@ const Define = ({ query, data, caption }) => {
         active={active}
         clickHandler={cardClickHandler}
         modules={data}
-        query={query}
-        images={true}
         caption={caption}
       />
       <div className={classes.mainContainer}>
-        <div className={classes.pdfContainer}>
-          <div className={classes.pdfWrapper}>
-            <PdfViewer
-              file={`/${query}/pdf/${data[active].id}.pdf`}
-              pageNum={pageNum}
-              onLoadSuccessHandler={onLoadSuccessHandler}
-            />
-            <div className={classes.pdfNav}>
-              <a
-                href="/intro-to-flow.pdf"
-                title="Download"
-                download
-                className={classes.download}
-              >
-                <span className="material-icons-outlined">file_download</span>
-                Download
-              </a>
-              <button
-                disabled={pageNum <= 1}
-                onClick={prevPage}
-                title="Previous page"
-              >
-                <span className="material-icons-outlined">arrow_back_ios</span>
-              </button>
-              <p>{pageNum || (numPages ? 1 : "--")}</p>
-              <button
-                disabled={pageNum >= numPages}
-                onClick={nextPage}
-                title="Next page"
-              >
-                <span className="material-icons-outlined">
-                  arrow_forward_ios
-                </span>
-              </button>
-              <a
-                href="/intro-to-flow.pdf"
-                target="_blank"
-                title="Open in new tab"
-                className={classes.launch}
-              >
-                Open in tab
-                <span className="material-icons-outlined">launch</span>
-              </a>
-            </div>
-          </div>
-          <div className={classes.tocWrapper}>
-            <PdfViewerAll
-              file={`/${query}/pdf/${data[active].id}.pdf`}
-              numPages={numPages}
-              pageNum={pageNum}
-              setPageNum={setPageNum}
-            />
-          </div>
-        </div>
+        <PdfViewer file={data[active].url} />
         <div
           className={`${classes.loadScreen} ${pdfLoaded ? classes.loaded : ""}`}
         />

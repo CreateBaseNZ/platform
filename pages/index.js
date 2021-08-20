@@ -4,7 +4,6 @@ import Link from "next/link";
 import Head from "next/head";
 import GreenButton from "/components/UI/GreenButton";
 
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import WhiteLogo, {
   FBIcon,
   IGIcon,
@@ -67,8 +66,8 @@ const Index = ({ setLoaded }) => {
           className={showHelper ? classes.active : ""}
           onClick={helperClickHandler}
         >
-          <span className={`${classes.what} span`}>What's this?</span>
-          <CloseRoundedIcon style={{ fontSize: 16 }} />
+          <div className={`${classes.what} span`}>What's this?</div>
+          <i class="material-icons-outlined">close</i>
         </button>
         <p className={showHelper ? "" : classes.hide}>
           At CreateBase, we want to change the world by enabling the next

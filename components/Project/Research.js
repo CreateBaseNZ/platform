@@ -1,12 +1,17 @@
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import ModuleContainer from "./ModuleContainer";
 import SwiperCore, { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useEffect, useState } from "react";
 
-import classes from "./project.module.scss";
+import classes from "./Research.module.scss";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
-import ModuleContainer from "./ModuleContainer";
+import VideoViewer from "../UI/VideoViewer";
+
+const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
+
 SwiperCore.use([Pagination]);
 
 const renderBullet = (index, className) => {
@@ -86,14 +91,16 @@ const renderSwiperSlide = (caption, i, query) => {
 //   );
 // };
 
-const Research = ({ query, data }) => {
+const Research = ({ data, caption }) => {
   const [active, setActive] = useState(0);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNum, setPageNum] = useState(1);
   const [pdfLoaded, setPdfLoaded] = useState(false);
 
+  useEffect(() => {
+    setTimeout(() => setPdfLoaded(true), [250]);
+  }, [active]);
+
   const cardClickHandler = (i) => {
-    // setPdfLoaded(false);
+    setPdfLoaded(false);
     setActive(i);
   };
 
@@ -103,8 +110,43 @@ const Research = ({ query, data }) => {
         active={active}
         clickHandler={cardClickHandler}
         modules={data}
-        query={query}
+        caption={caption}
       />
+      <div className={classes.mainContainer}>
+        {data[active].type === "pdf" && (
+          <div style={{ width: "100%", paddingTop: "10vh" }}>
+            <PdfViewer file={data[active].url} />
+          </div>
+        )}
+        {data[active].type === "video" && (
+          <div style={{ width: "85%" }}>
+            <VideoViewer data={data[active].data} />
+          </div>
+        )}
+        {data[active].type === "tut" && (
+          <div className={classes.tutWrapper}>
+            {data[active].items &&
+              data[active].items.map((i) => (
+                <div className={classes.item}>
+                  <VideoViewer
+                    data={i}
+                    attributes={{
+                      autoPlay: true,
+                      loop: true,
+                      muted: true,
+                      allow: "autoplay",
+                    }}
+                    controls={false}
+                    captionClass={classes.caption}
+                  />
+                </div>
+              ))}
+          </div>
+        )}
+        <div
+          className={`${classes.loadScreen} ${pdfLoaded ? classes.loaded : ""}`}
+        />
+      </div>
     </div>
   );
 };
