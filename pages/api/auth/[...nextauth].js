@@ -46,10 +46,7 @@ export default NextAuth({
           );
         }
         // Success handler
-        return {
-          organisation: data.content.name,
-          username: data.content.username,
-        };
+        return data.content;
       },
     }),
   ],
