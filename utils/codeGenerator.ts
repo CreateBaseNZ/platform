@@ -151,10 +151,8 @@ export class CodeGenerator {
       );
     });
     if (blockFunction) {
-      this.content += blockFunction.logic;
-      this.simpleContent += blockFunction.simpleLogic;
-      this.executes.push(blockFunction.executes);
-      this.simpleExecutes.push(blockFunction.simpleExecutes);
+      this.executes.push(blockFunction.logic);
+      this.simpleExecutes.push(blockFunction.simpleLogic);
       return true;
     } else {
       return false;
@@ -407,10 +405,8 @@ export class CodeGenerator {
     });
     // Add to execute
     if (blockFunction) {
-      this.content += blockFunction.logic;
-      this.simpleContent += blockFunction.simpleLogic;
-      this.executes.push(blockFunction.executes);
-      this.simpleExecutes.push(blockFunction.simpleExecutes);
+      this.executes.push(blockFunction.logic);
+      this.simpleExecutes.push(blockFunction.simpleLogic);
       return true;
     }
     return false;

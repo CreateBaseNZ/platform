@@ -3,19 +3,15 @@
     "robot": "Arm",
     "type": "start",
     "functionName":"IntialiseRobot",
-    "logic": "const codeNum=codesDone;\nlet position;\nconst unityContext = props.unityContext;\nconst executeloop = (text) => {\nreturn new Promise((resolve, reject) => {\nconst SensorData =JSON.parse(sensorDataRef.current);\neval(\"(async () => {\" + text + \"})()\").catch((e) => { resolve();});\nif (codeNum!=codesDone) { resolve(''); }\n})\n};\ntext = `console.log(1);\nif(SensorData){\nposition=SensorData.endEffectorPosition;\n}\nresolve();`\nlet Loop = async () => {\nawait executeloop(text);\nif (codeNum==codesDone&&!done) {\ncom = setTimeout(Loop, 10);\n}\n}\nLoop()\nconst text2=`unityContext.send(\"SceneController\", \"ResetScene\")\nsetTimeout(resolve, 2500);`;\nawait executeloop(text2)\n",
-    "executes": [],
+    "logic": "const codeNum=codesDone;\nlet position;\nconst unityContext = props.unityContext;\nconst executeloop = (text) => {\nreturn new Promise((resolve, reject) => {\nconst SensorData =JSON.parse(sensorDataRef.current);\neval(\"(async () => {\" + text + \"})()\").catch((e) => { resolve();});\nif (codeNum!=codesDone) { resolve(''); }\n})\n};\ntext = `if(SensorData){\nposition=SensorData.endEffectorPosition;\n}\nresolve();`\nlet Loop = async () => {\nawait executeloop(text);\nif (codeNum==codesDone&&!done) {\ncom = setTimeout(Loop, 10);\n}\n}\nLoop()\nconst text2=`unityContext.send(\"SceneController\", \"ResetScene\")\nsetTimeout(resolve, 2500);`;\nawait executeloop(text2)\n",
     "simpleLogic":"IntialiseRobot();",
-    "simpleExecutes":"",
     "await":false
   },
   {
     "robot": "Player",
     "type": "start",
-    "logic": [],
-    "executes": "if(sensorData){\n const rawData=JSON.parse(sensorData);\nconst currentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleDistance.x;\n\tcurrentData.elevationOf=rawData.obstacleDistance.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n",
-    "simpleLogic":"",
-    "simpleExecutes":"while(gameIsON){",
+    "logic": "if(sensorData){\n const rawData=JSON.parse(sensorData);\nconst currentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleDistance.x;\n\tcurrentData.elevationOf=rawData.obstacleDistance.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n",
+    "simpleLogic":"while(gameIsON){",
     "await":false
   },
   {
@@ -43,25 +39,20 @@
   {
     "robot": "Arm",
     "type": "end",
-    "logic": [],
-    "executes": "",
-    "simpleLogic":"",
-    "simpleExecutes":""
+    "logic": "",
+    "simpleLogic":""
   },
   {
     "robot": "Player",
     "type": "end",
-    "logic": [],
-    "executes": "}",
-    "simpleLogic":"",
-    "simpleExecutes":"}"
+    "logic": "}",
+    "simpleLogic":"}"
   },{
     "name": "delay",
     "type": "specific",
     "functionName":"delay",
     "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
     "logic": "setTimeout(resolve, a*1000);",
-    "executes": "}",
     "await":true
   }
 ]
