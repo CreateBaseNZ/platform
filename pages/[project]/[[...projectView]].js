@@ -14,6 +14,7 @@ import Research from "../../components/Project/Research";
 import Plan from "../../components/Project/Plan";
 import Create from "../../components/Project/Create";
 import Improve from "../../components/Project/Improve";
+import Review from "../../components/Project/Review";
 
 const get_data = (query) => {
   switch (query) {
@@ -118,6 +119,7 @@ const ProjectView = ({ setLoaded }) => {
             {step === "Improve" && (
               <Improve query={data.query} data={data.improve} />
             )}
+            {step === "Review" && <Review />}
           </div>
         </>
       )}

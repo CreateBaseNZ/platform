@@ -34,7 +34,7 @@ const Create = ({ query, data }) => {
             layout="responsive"
             width={1000}
             height={1000}
-            objectFit="cover"
+            objectFit="contain"
           />
         </div>
         <div className={classes.caption}>{data.caption}</div>
