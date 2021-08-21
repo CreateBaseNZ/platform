@@ -11,7 +11,7 @@ import { CodeGenerator } from "../../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import Config from "./Config";
-import { flow2Text ,isOnceCode} from "../../utils/blockExtractionHelpers";
+import { flow2Text, isOnceCode, defineObject } from "../../utils/blockExtractionHelpers";
 import {convertCode} from "../../utils/textConvertor"
 let codeChanged = false;
 
@@ -117,11 +117,15 @@ const Workspace = (props) => {
     let codeLines = 0;
     let t =`let x=\`I wentHom;e\nlol\`;Lols();\n Jump();\n for(let i=0;i<5;i++){
       if(i=5){
-        x=MoveArm(3,5,6);
+        x=moveArm(3,5,6);
       }
-      intialiseRobot();
+      delay(10);
+      console.log('x=x');
     }`;
-    convertCode(t, props.query);
+    const systemName=defineObject(props.query)
+    const compliedText = convertCode(t, systemName);
+    setText(compliedText);
+    console.log(compliedText);
     const onceCode = isOnceCode(props.query);
 
   }

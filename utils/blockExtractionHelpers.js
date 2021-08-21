@@ -360,7 +360,7 @@ export  const flow2Text = (elements, projectName) => {
     return [blocksConfig, null, null];
   };
   
-  const  defineObject = (projectName) => {
+  export const  defineObject = (projectName) => {
     switch (projectName) {
       case "send-it":
         return "Player";

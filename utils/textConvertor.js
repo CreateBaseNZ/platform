@@ -1,19 +1,34 @@
 import blockFunctions from "../public/blocks.json";
 
-const awaitFunctions=['intialiseRobot','MoveArm']
-
+const awaitFunctions = ['intialiseRobot', 'MoveArm'];
+const unityDirectFunctions = ['Jump', 'Crouch'];
 export const convertCode = (text, system) => {
+    console.log(text);
+    let functions = '';
+    
+    let blocks = [], awaitFunctions = [],allFunctions=[];
+    for (let i = 0; i < blockFunctions.length; i++) {
+        const
+            element = blockFunctions[i];
+        if ((element.robot == undefined || element.robot === system)&&element.functionName) {
+            blocks.push(element);
+            allFunctions.push(element.functionName);
+            if (element.await == true) {
+                awaitFunctions.push(element.functionName);
+            }
+       }
+    }
+    console.log(blocks);
+    console.log(allFunctions);
+    console.log(awaitFunctions);
+    const usedFunctions = [];
   //divide the code Input 
     const doubledUpText = doubleUp(text);
     let splittedCode = doubledUpText.split('\n');
-    console.log(splittedCode);
     for (let i = 0; i < splittedCode.length; i++){
         let element = splittedCode[i].trim();
-        console.log(splittedCode[i])
         const dividedbyBracket=element.split("(")
         const beforeBracket=dividedbyBracket[0];
-
-        console.log(beforeBracket);
         const [elementSplitted, sides] = splitSingleEqual(beforeBracket);
         let LHS='',RHS=''
         if (sides == 0) {
@@ -24,12 +39,20 @@ export const convertCode = (text, system) => {
             LHS = elementSplitted[0];
             RHS = elementSplitted[1];
         }
-        console.log(RHS);
+        if (allFunctions.includes(RHS)&&!usedFunctions.includes(RHS)) {
+            usedFunctions.push(RHS);
+        }
         if(awaitFunctions.includes(RHS)){
             RHS='await '+RHS;
+        } else if (unityDirectFunctions.includes(RHS)) {
+            RHS = `unityContext.send("${system}","${RHS}");`
+            for (let i = 0; i < dividedbyBracket.length; i++){
+                dividedbyBracket[i] = '';
+            }
+        } else if (RHS == 'console.log') {
+            RHS = 'ctx.addLog';
         }
         const afterbraket=dividedbyBracket.splice(1).join('(');
-        console.log(afterbraket);
         if(afterbraket){
             afterbraket='('+afterbraket;
         }
@@ -39,13 +62,47 @@ export const convertCode = (text, system) => {
         element=LHS+RHS+afterbraket;
         splittedCode[i] = element;
     }
-    text= splittedCode.join('\n');
+    text = splittedCode.join('\n');
+
+    text += "\n\n";
+
+    usedFunctions.forEach((element, i, arr) => {
+        let functionDef = '';
+        const functionNeeded=blocks.find((el) => {
+            return (el.functionName == element);
+        })
+        let inputVariables  = "";
+        if (!functionNeeded) { return [false, "error", "Function does not exist"]; }
+        if (functionNeeded.inputs) {
+          for (let i = 0; i < functionNeeded.inputs.length; i++) {
+            const element = functionNeeded.inputs[i];
+            if (i === functionNeeded.inputs.length - 1) {
+              inputVariables += element.variable;
+            } else {
+              inputVariables += element.variable + ", ";
+            }
+          }
+        }
+        
+        // Build function
+        functionDef = `let ${element} = (${inputVariables}) => {\n`;
+        if (awaitFunctions.includes(element)) {
+            functionDef += `return new Promise((resolve, reject) => {\n`;
+        }
+        functionDef += `${functionNeeded.logic}\n`;
+        if (awaitFunctions.includes(element)) {
+            functionDef += `});\n`;
+        }  
+        functionDef += `}\n`
+        text += functionDef;
+    })
+
     // try {
     //     eval(text);
     // } catch (error) {
     //     console.log(error);
     // }
-    console.log(text);
+    return text;
 };
 
 
@@ -54,7 +111,6 @@ const splitSingleEqual = (input) => {
     const splittingIndex = [];
     for (let i = 1; i < input.length-1; i++){
         if (input[i] == "="&& input[i-1] != "="&& input[i+1] != "=") {
-            console.log(i);
             splittingIndex.push(i)
         }
     }

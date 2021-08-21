@@ -2,10 +2,12 @@
   {
     "robot": "Arm",
     "type": "start",
+    "functionName":"IntialiseRobot",
     "logic": "const codeNum=codesDone;\nlet position;\nconst unityContext = props.unityContext;\nconst executeloop = (text) => {\nreturn new Promise((resolve, reject) => {\nconst SensorData =JSON.parse(sensorDataRef.current);\neval(\"(async () => {\" + text + \"})()\").catch((e) => { resolve();});\nif (codeNum!=codesDone) { resolve(''); }\n})\n};\ntext = `console.log(1);\nif(SensorData){\nposition=SensorData.endEffectorPosition;\n}\nresolve();`\nlet Loop = async () => {\nawait executeloop(text);\nif (codeNum==codesDone&&!done) {\ncom = setTimeout(Loop, 10);\n}\n}\nLoop()\nconst text2=`unityContext.send(\"SceneController\", \"ResetScene\")\nsetTimeout(resolve, 2500);`;\nawait executeloop(text2)\n",
     "executes": [],
     "simpleLogic":"IntialiseRobot();",
-    "simpleExecutes":""
+    "simpleExecutes":"",
+    "await":false
   },
   {
     "robot": "Player",
@@ -13,26 +15,30 @@
     "logic": [],
     "executes": "if(sensorData){\n const rawData=JSON.parse(sensorData);\nconst currentData={};\ncurrentData.speedOf=rawData.obstacleSpeed;\n\tcurrentData.distance=rawData.obstacleDistance.x;\n\tcurrentData.elevationOf=rawData.obstacleDistance.y;\n\tcurrentData.widthOf=rawData.obstacleSize.x;\n\tcurrentData.heightOf=rawData.obstacleSize.y;\n",
     "simpleLogic":"",
-    "simpleExecutes":"while(gameIsON){"
+    "simpleExecutes":"while(gameIsON){",
+    "await":false
   },
   {
     "robot": "Arm",
     "type": "specific",
     "name": "moveArm",
+    "functionName":"moveArm",
     "inputs": [
       { "variable": "x", "type": "number", "value": 0 },
       { "variable": "y", "type": "number", "value": 0 },
       { "variable": "z", "type": "number", "value": 0 }
     ],
-    "logic": "const intialPoint=position;\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 0.5;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.1) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\nctx.addLog(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n"
+    "logic": "const intialPoint=position;\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 0.5;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.1) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\nctx.addLog(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
+    "await":true
   },
   {
     "robot": "Arm",
     "type": "specific",
     "name": "magneticSwitch",
+    "functionName":"magneticSwitch",
     "inputs": [{ "variable": "a", "type": "boolean", "value": true }],
-    "logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n"
-    
+    "logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
+    "await":true
   },
   {
     "robot": "Arm",
@@ -52,8 +58,10 @@
   },{
     "name": "delay",
     "type": "specific",
+    "functionName":"delay",
     "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
     "logic": "setTimeout(resolve, a*1000);",
-    "executes": "}"
+    "executes": "}",
+    "await":true
   }
 ]
