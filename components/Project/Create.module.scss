@@ -1,0 +1,107 @@
+@import "/styles/variables";
+
+.view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 5vw;
+}
+
+.leftContainer {
+  height: 100%;
+  flex: 1 1 0;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 3vw;
+  padding-right: 1rem;
+  ul {
+    width: 100%;
+    padding: 1.5rem 2rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    background: $lightest;
+    margin: 2vh 0;
+    box-shadow: 0 8px 24px -8px rgba(104, 83, 217, 0.1);
+    h2 {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      margin-left: -1.5rem;
+      margin-bottom: 0.5rem;
+      span {
+        color: inherit;
+        margin-right: 0.25em;
+      }
+    }
+    li {
+      font-weight: 500;
+      font-size: 14px;
+      color: $darker;
+      margin: 0.35em 0;
+    }
+  }
+}
+
+.tasks h2 {
+  color: $blue-light;
+}
+
+.hints h2 {
+  color: $amber;
+}
+
+.rightContainer {
+  flex: 1 1 0;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 3vw;
+}
+
+.imgContainer {
+  width: 100%;
+  position: relative;
+}
+
+.caption {
+  width: 90%;
+  font-weight: 500;
+  color: $dark;
+  font-size: 13px;
+  text-align: center;
+  margin: 2vh;
+}
+
+.btn {
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $lightest;
+  background: #5fe394;
+  padding: 0 2.5rem;
+  border-radius: 5rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-top: 5vh;
+  box-shadow: 0 4px 12px 2px rgba(95, 227, 148, 0.5);
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+  span {
+    color: inherit;
+    margin-left: 0.5rem;
+    transition: transform 0.1s ease-out;
+  }
+  &:hover {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 0 transparent;
+    span {
+      transform: translateX(2px);
+    }
+  }
+}

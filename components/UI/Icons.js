@@ -27,24 +27,35 @@ export default WhiteLogo;
 export const FBIcon = ({
   className,
   handler,
+  href = "https://www.facebook.com/CreateBaseNZ",
+  title = "/CreateBaseNZ",
   fill = "white",
   width = "32",
   height = "32",
+  iconWidth = "32",
+  iconHeight = "32",
 }) => {
   return (
     <a
       className={className}
       target="_blank"
-      href="https://www.facebook.com/CreateBaseNZ"
-      title="/CreateBaseNZ"
+      href={href}
+      title={title}
       onClick={handler}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: height + "px",
+        width: width + "px",
+      }}
     >
       <svg
         style={{
           display: "inline",
         }}
-        height={height}
-        width={width}
+        height={iconHeight}
+        width={iconWidth}
         fill={fill}
         viewBox="0 0 448 512"
       >
@@ -57,24 +68,35 @@ export const FBIcon = ({
 export const IGIcon = ({
   className,
   handler,
+  href = "https://www.instagram.com/createbasenz/",
+  title = "@createbasenz",
   fill = "white",
   width = "32",
   height = "32",
+  iconWidth = "32",
+  iconHeight = "32",
 }) => {
   return (
     <a
       className={className}
       target="_blank"
-      href="https://www.instagram.com/createbasenz/"
-      title="@createbasenz"
+      href={href}
+      title={title}
       onClick={handler}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: height + "px",
+        width: width + "px",
+      }}
     >
       <svg
         style={{
           display: "inline",
         }}
-        height={height}
-        width={width}
+        height={iconHeight}
+        width={iconWidth}
         fill={fill}
         viewBox="0 0 448 512"
       >
@@ -87,24 +109,35 @@ export const IGIcon = ({
 export const TwitterIcon = ({
   className,
   handler,
+  href = "https://twitter.com/CreateBaseNZ",
+  title = "@CreateBaseNZ",
   fill = "white",
   width = "32",
   height = "32",
+  iconWidth = "32",
+  iconHeight = "32",
 }) => {
   return (
     <a
       className={className}
       target="_blank"
-      href="https://twitter.com/CreateBaseNZ"
-      title="@CreateBaseNZ"
+      href={href}
+      title={title}
       onClick={handler}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: height + "px",
+        width: width + "px",
+      }}
     >
       <svg
         style={{
           display: "inline",
         }}
-        height={height}
-        width={width}
+        height={iconHeight}
+        width={iconWidth}
         fill={fill}
         viewBox="0 0 512 512"
       >
@@ -117,24 +150,35 @@ export const TwitterIcon = ({
 export const YTIcon = ({
   className,
   handler,
+  href = "https://www.youtube.com/channel/UClLBwFvHpGrRpxyRg1IOB0g",
+  title = "CreateBase Channel",
   fill = "white",
   width = "32",
   height = "32",
+  iconWidth = "32",
+  iconHeight = "32",
 }) => {
   return (
     <a
       className={className}
       target="_blank"
-      href="https://www.youtube.com/channel/UClLBwFvHpGrRpxyRg1IOB0g"
-      title="CreateBase"
+      href={href}
+      title={title}
       onClick={handler}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: height + "px",
+        width: width + "px",
+      }}
     >
       <svg
         style={{
           display: "inline",
         }}
-        height={height}
-        width={width}
+        height={iconHeight}
+        width={iconWidth}
         fill={fill}
         viewBox="0 0 576 512"
       >

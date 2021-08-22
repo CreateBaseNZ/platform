@@ -6,14 +6,7 @@ import useSound from "use-sound";
 import html2canvas from "html2canvas";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import { ReactFlowProvider } from "react-flow-renderer";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import HistoryItem from "./HistoryItem";
-import VolumeUpOutlinedIcon from "@material-ui/icons/VolumeUpOutlined";
-import VolumeDownOutlinedIcon from "@material-ui/icons/VolumeDownOutlined";
-import VolumeOffOutlinedIcon from "@material-ui/icons/VolumeOffOutlined";
 import {
   comparisonBoostLvl1Item,
   comparisonBoostLvl2Item,
@@ -169,12 +162,16 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 
   const renderVolumeIcon = () => {
     if (volume.curr === 0) {
-      return <VolumeOffOutlinedIcon style={{ color: "#fa6f6f" }} />;
+      return (
+        <span className="material-icons-outlined" style={{ color: "#fa6f6f" }}>
+          volume_off
+        </span>
+      );
     }
     if (volume.curr < 0.5) {
-      return <VolumeDownOutlinedIcon />;
+      return <span className="material-icons-outlined">volume_down</span>;
     }
-    return <VolumeUpOutlinedIcon />;
+    return <span className="material-icons-outlined">volume_up</span>;
   };
 
   const volumeClickHandler = () => {
@@ -251,14 +248,14 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
             onMouseEnter={playDonk}
             onClick={() => router.back()}
           >
-            <ChevronLeftIcon /> Back
+            <span className="material-icons-outlined">chevron_left</span> Back
           </button>
           <button
             className={`${classes.button} ${classes.levels}`}
             onClick={levelsClickHandler}
             onMouseEnter={playDonk}
           >
-            <AppsOutlinedIcon /> Levels
+            <span className="material-icons-outlined">apps</span> Levels
           </button>
         </div>
         <div className={classes.buttonContainer}>
@@ -269,7 +266,13 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
             onClick={histLockClickHandler}
             onMouseEnter={playDonk}
           >
-            {history.locked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+            {history.locked ? (
+              <span className="material-icons-outlined">check_box</span>
+            ) : (
+              <span className="material-icons-outlined">
+                check_box_outline_blank
+              </span>
+            )}
             {history.locked ? "Collapse" : "Expand"}
           </button>
           <button

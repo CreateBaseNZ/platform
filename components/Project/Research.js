@@ -1,222 +1,100 @@
-import SwiperCore, { Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Modal from "../UI/Modal";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  TutorialModule,
-  VideoModule,
-  SneakPeekModule,
-  HintModule,
-  ResourceModule,
-} from "../Modules";
-import CloseIcon from "@material-ui/icons/Close";
-import sendItSubtitles from "/public/send-it/tutorial/subtitles";
-import magnebotSubtitles from "/public/magnebot/tutorial/subtitles";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import ModuleContainer from "../UI/ModuleContainer";
+import VideoViewer from "../UI/VideoViewer";
+import Img from "../UI/Img";
 
-import classes from "./project.module.scss";
-import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css";
-import "swiper/components/navigation/navigation.min.css";
-SwiperCore.use([Pagination]);
+import classes from "./Research.module.scss";
 
-const renderBullet = (index, className) => {
-  return `<span class="${className}"></span>`;
-};
+const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
 
-const swiperOptions = {
-  observer: true,
-  observeParents: true,
-  pagination: {
-    type: "bullets",
-    el: `.${classes.pagination}`,
-    bulletClass: classes.bullet,
-    bulletActiveClass: classes.bulletActive,
-    renderBullet: renderBullet,
-    clickable: true,
-  },
-};
+const Research = ({ query, data, caption }) => {
+  const [active, setActive] = useState(0);
+  const [pdfLoaded, setPdfLoaded] = useState(false);
 
-const renderSwiperSlide = (caption, i, query) => {
-  return (
-    <SwiperSlide key={i} className={classes.howToSlide}>
-      <div className={classes.slideVideoWrapper}>
-        <video autoPlay={true} loop={true} muted={true} allow="autoplay">
-          <source
-            src={`/${query}/tutorial/vid-${i + 1}.mp4`}
-            type="video/mp4"
-          />
-        </video>
-      </div>
-      <div className={classes.howToCaption}>
-        {caption.map((x, i) => (
-          <span key={i}>{x}</span>
-        ))}
-      </div>
-    </SwiperSlide>
-  );
-};
+  useEffect(() => {
+    setTimeout(() => setPdfLoaded(true), [250]);
+  }, [active]);
 
-const HowTo = ({ closeHandler, query, subtitles }) => {
-  return (
-    <div className={classes.howTo}>
-      <button className={classes.howToClose} onClick={closeHandler}>
-        <CloseIcon />
-      </button>
-      <Swiper {...swiperOptions} className={classes.howToContainer}>
-        {subtitles.map((caption, i) => renderSwiperSlide(caption, i, query))}
-      </Swiper>
-      <div className={classes.pagination}></div>
-    </div>
-  );
-};
-
-const FlowTutorial = ({ closeHandler }) => {
-  return (
-    <div className={classes.situation}>
-      <button className={classes.situationClose} onClick={closeHandler}>
-        <CloseIcon />
-      </button>
-      <video controls>
-        <source src="/flow-tut.mp4" type="video/mp4" />
-      </video>
-    </div>
-  );
-};
-
-const Situation = ({ query, closeHandler }) => {
-  return (
-    <div className={classes.situation}>
-      <button className={classes.situationClose} onClick={closeHandler}>
-        <CloseIcon />
-      </button>
-      <video controls>
-        <source src={`/${query}/vid/situation.mp4`} type="video/mp4" />
-      </video>
-    </div>
-  );
-};
-
-const Research = ({ query }) => {
-  const [activeModal, setActiveModal] = useState();
-
-  const closeModalHandler = () => {
-    setActiveModal(null);
-  };
-
-  const openModal = (id, subtitles) => {
-    let modal;
-    switch (id) {
-      case "how-to":
-        modal = (
-          <HowTo
-            query={query}
-            subtitles={subtitles}
-            closeHandler={closeModalHandler}
-          />
-        );
-        break;
-      case "situation":
-        modal = <Situation closeHandler={closeModalHandler} />;
-        break;
-      case "flow-tut":
-        modal = <FlowTutorial closeHandler={closeModalHandler} />;
-        break;
-      default:
-        return;
-    }
-    setActiveModal(<Modal children={modal} closeHandler={closeModalHandler} />);
+  const cardClickHandler = (i) => {
+    setPdfLoaded(false);
+    setActive(i);
   };
 
   return (
-    <section id="research">
-      <div className={classes.wrapper}>
-        {activeModal}
-        <h2>Research</h2>
-        <div className={classes.moduleContainer}>
-          {query === "send-it" && (
-            <>
-              <VideoModule onClick={openModal.bind(this, "flow-tut")} title="">
-                <span>Editing</span> with Flow
-              </VideoModule>
-              <Link href={`/explore/comparison-boost`}>
-                <div title="Play Cpmparison Boost">
-                  <TutorialModule>
-                    Comparison <span>Boost</span>
-                  </TutorialModule>
+    <div className={classes.view}>
+      <ModuleContainer
+        active={active}
+        clickHandler={cardClickHandler}
+        modules={data}
+        caption={caption}
+        play={query}
+      />
+      <div className={classes.mainContainer}>
+        {data[active].type === "pdf" && (
+          <div style={{ width: "100%", paddingTop: "10vh" }}>
+            <PdfViewer file={data[active].url} />
+          </div>
+        )}
+        {data[active].type === "video" && (
+          <div style={{ width: "85%" }}>
+            <VideoViewer data={data[active].data} />
+          </div>
+        )}
+        {data[active].type === "tut" && (
+          <div className={`${classes.tutWrapper} roundScrollbar`}>
+            {data[active].items &&
+              data[active].items.map((i) => (
+                <div className={classes.item}>
+                  <VideoViewer
+                    data={i}
+                    attributes={{
+                      autoPlay: true,
+                      loop: true,
+                      muted: true,
+                      allow: "autoplay",
+                    }}
+                    controls={false}
+                    captionClass={classes.caption}
+                  />
                 </div>
-              </Link>
-              <a
-                href="/intro-to-flow.pdf"
-                target="_blank"
-                title="Introduction to Flow Blocks PDF"
-              >
-                <TutorialModule>
-                  Introduction to <span>Flow</span> Blocks
-                </TutorialModule>
-              </a>
-              <a
-                href="/sensing-blocks.pdf"
-                target="_blank"
-                title="I Sense a Disturbance in the Blocks PDF"
-              >
-                <HintModule>
-                  Tips &amp; Tricks: <span>Sensing</span> Blocks
-                </HintModule>
-              </a>
-              <TutorialModule
-                title="Watch the tutorial"
-                onClick={openModal.bind(this, "how-to", sendItSubtitles)}
-              >
-                How to <span>Send It</span>
-              </TutorialModule>
-              <Link href={`/${query}/play`}>
-                <div title="Play Send It">
-                  <SneakPeekModule>
-                    Give it a <span>Go</span>
-                  </SneakPeekModule>
-                </div>
-              </Link>
-            </>
-          )}
-          {query === "magnebot" && (
-            <>
-              <VideoModule onClick={openModal.bind(this, "flow-tut")} title="">
-                <span>Editing</span> with Flow
-              </VideoModule>
-              <TutorialModule
-                title="Watch the tutorial"
-                onClick={openModal.bind(this, "how-to", magnebotSubtitles)}
-              >
-                How to <span>MagneBot</span>
-              </TutorialModule>
-              <Link href={`/${query}/play`}>
-                <div title="Play MagneBot">
-                  <SneakPeekModule>
-                    Give it a <span>Go</span>
-                  </SneakPeekModule>
-                </div>
-              </Link>
-              <a
-                href="https://www.recycleright.co.nz/"
-                target="_blank"
-                title="Play Recycle Right"
-              >
-                <ResourceModule>
-                  <span>Recycle Right</span> Game
-                </ResourceModule>
-              </a>
-            </>
-          )}
-        </div>
-        <p className={classes.description}>
-          {query === "send-it" &&
-            "Work through the four modules above to complete your research. Make sure that you understand all of the content as you will need it to create your solution!"}
-          {query === "magnebot" &&
-            "Work through the modules above to complete your individual research. Make sure that you understand all of the content as you will need it to create your own solution! if you get stuck, see if any of your classmates can lend a helping hand."}
-        </p>
+              ))}
+          </div>
+        )}
+        {data[active].type === "explore" && (
+          <div className={classes.exploreWrapper}>
+            {data[active] &&
+              data[active].items.map((item, i) => (
+                <a
+                  key={i}
+                  href={item.url}
+                  target="_blank"
+                  className={classes.exploreItem}
+                  title={`Launch ${item.title}`}
+                >
+                  <div
+                    className={classes.imgContainer}
+                    style={{
+                      background: `linear-gradient(to bottom right, ${item.col1}, ${item.col2})`,
+                    }}
+                  >
+                    <div className={classes.imgWrapper}>
+                      <Img src={item.img} layout="fill" objectFit="cover" />
+                    </div>
+                    <span className="material-icons-outlined">launch</span>
+                    <h3>{item.title}</h3>
+                  </div>
+                  <div className={classes.caption}>{item.caption}</div>
+                </a>
+              ))}
+          </div>
+        )}
+        <div
+          className={`${classes.loadScreen} ${pdfLoaded ? classes.loaded : ""}`}
+        />
       </div>
-    </section>
+    </div>
   );
 };
 

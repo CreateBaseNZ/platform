@@ -51,6 +51,27 @@ svg {
   opacity: 0;
 }
 
+.roundScrollbar {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-out;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
 .react-flow__node.selected > div {
   box-shadow: 0 0 0 4px $amber;
 }

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   NodeDistanceMini,
   NodeHeightOfMini,
@@ -31,7 +32,7 @@ import { NodeDelayMini, NodePrintMini } from "./NodeUtils";
 
 import classes from "./DndBar.module.scss";
 
-const DndBar = ({ query }) => {
+const DndBar = memo(({ query }) => {
   return (
     <aside className={classes.dndbar}>
       {query === "send-it" && (
@@ -92,6 +93,6 @@ const DndBar = ({ query }) => {
       )}
     </aside>
   );
-};
+});
 
 export default DndBar;

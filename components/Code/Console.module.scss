@@ -19,25 +19,21 @@
   * {
     font-family: $jetbrains;
   }
-  p {
+  .log,
+  .warning,
+  .error {
     width: 100%;
     margin: -0.5px 0;
     display: flex;
-    width: 100%;
     padding: 0.4rem 6rem 0.4rem 2.5rem;
     font-size: 13px;
     position: relative;
     line-height: 1.25em;
-    svg {
+    span {
       position: absolute;
-      top: 0.3rem;
+      top: 0.4rem;
       left: 1rem;
-    }
-    &.error {
-      z-index: 2;
-    }
-    &.warning {
-      z-index: 1;
+      font-size: 16px;
     }
     .time {
       position: absolute;
@@ -49,6 +45,12 @@
       opacity: 0.75;
       font-weight: 200;
     }
+  }
+  .error {
+    z-index: 2;
+  }
+  .warning {
+    z-index: 1;
   }
 }
 
@@ -69,8 +71,8 @@
     align-items: center;
     justify-content: center;
     transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
-    path {
-      transition: fill 0.1s ease-out;
+    span {
+      transition: color 0.1s ease-out;
     }
     &:hover {
       opacity: 1;
@@ -81,8 +83,8 @@
     margin-bottom: 1rem;
   }
   .clearConsole:hover {
-    path {
-      fill: $red;
+    span {
+      color: $red;
     }
   }
   i {
@@ -91,13 +93,19 @@
     justify-content: center;
     font-style: normal;
     padding: 0.4rem;
-    svg {
+    span {
       margin-right: 0.1rem;
+      font-size: 18px;
     }
   }
 }
-.warningIcon path {
-  fill: #f4bc2b;
+
+.warningIcon span {
+  color: #f4bc2b;
+}
+
+.errorIcon span {
+  color: #e93545;
 }
 
 .darkMode {
@@ -121,32 +129,34 @@
     &::-webkit-scrollbar-thumb:active {
       background: rgba(255, 255, 255, 0.4);
     }
-    p {
+    .log,
+    .error,
+    .warning {
       color: #dadada;
       border-top: thin solid #252525;
       border-bottom: thin solid #252525;
-      &.error {
-        border-color: #5b0003;
-        color: #fd7f82;
-        background: #280001;
-        path {
-          fill: #e93545;
-        }
+    }
+    .error {
+      border-color: #5b0003;
+      color: #fd7f82;
+      background: #280001;
+      span {
+        color: #e93545;
       }
-      &.warning {
-        border-color: #66550d;
+    }
+    .warning {
+      border-color: #66550d;
+      color: #f4bc2b;
+      background: #332b03;
+      span {
         color: #f4bc2b;
-        background: #332b03;
-        path {
-          fill: #f4bc2b;
-        }
       }
     }
   }
   .controls {
     button {
-      path {
-        fill: $lightest;
+      span {
+        color: $lightest;
       }
       &:hover {
         background: $darker;
@@ -155,9 +165,6 @@
     i {
       color: $light;
     }
-  }
-  .errorIcon path {
-    fill: #e93545;
   }
 }
 
@@ -182,32 +189,34 @@
     &::-webkit-scrollbar-thumb:active {
       background: rgba(0, 0, 0, 0.4);
     }
-    p {
+    .log,
+    .warning,
+    .error {
       color: #333333;
       border-top: thin solid #ebebeb;
       border-bottom: thin solid #ebebeb;
-      &.error {
-        border-color: #fed6d6;
+    }
+    .error {
+      border-color: #fed6d6;
+      color: #e93545;
+      background: #fff0f0;
+      span {
         color: #e93545;
-        background: #fff0f0;
-        path {
-          fill: #e93545;
-        }
       }
-      &.warning {
-        border-color: #ffe66a;
-        color: #815a15;
-        background: #fffbe6;
-        path {
-          fill: #f4bc2b;
-        }
+    }
+    .warning {
+      border-color: #ffe66a;
+      color: #815a15;
+      background: #fffbe6;
+      span {
+        color: #f4bc2b;
       }
     }
   }
   .controls {
     button {
-      path {
-        fill: $darkest;
+      span {
+        color: $darkest;
       }
       &:hover {
         background: #ebebeb;
@@ -216,8 +225,5 @@
     i {
       color: $dark;
     }
-  }
-  .errorIcon path {
-    fill: #e93545;
   }
 }

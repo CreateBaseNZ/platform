@@ -151,8 +151,6 @@ export const getNearestGridPosition = (position) => {
 };
 
 export const removeConnection = (el, oldHandle) => {
-  console.log(el);
-  console.log(oldHandle);
   return {
     ...el,
     data: {
@@ -185,8 +183,6 @@ export const newConnection = (elements, edge) => {
 };
 
 export const updateConnections = (elements, oldEdge, newEdge) => {
-  console.log(oldEdge);
-  console.log(newEdge);
   if (oldEdge.sourceHandle === newEdge.sourceHandle) {
     return elements.map((el) => {
       if (oldEdge.target === newEdge.target) {

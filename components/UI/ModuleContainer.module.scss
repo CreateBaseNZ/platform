@@ -1,0 +1,198 @@
+@import "/styles/variables";
+
+.container {
+  height: 100%;
+  max-height: 100%;
+  width: 25vw;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 5vh 2vw;
+}
+
+.captionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 2vh 0;
+}
+
+.caption {
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  color: $dark;
+  margin-bottom: 0.5rem;
+}
+
+.card {
+  margin: 0.5vh 0;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
+  &:hover {
+    background: $lightest;
+  }
+  p {
+    margin-left: 1rem;
+    font-weight: 600;
+    color: $dark;
+    text-align: left;
+  }
+  &.activeCard {
+    background: $lightest;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
+    p {
+      color: $darker;
+    }
+  }
+  &:nth-last-child(2) {
+    margin-bottom: 2vh;
+  }
+}
+
+.cardImgWrapper {
+  height: 4rem;
+  flex: 0 0 4rem;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > :first-child {
+    z-index: 1;
+  }
+  span {
+    color: $lightest;
+    font-size: 1.5rem;
+    font-weight: 100;
+  }
+  .shapes::before,
+  .shapes::after,
+  &::before,
+  &::after {
+    z-index: 0;
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    height: 75%;
+    width: 75%;
+  }
+  .shapes::before,
+  &::before {
+    background: rgba(255, 255, 255, 0.25);
+  }
+  .shapes::after,
+  &::after {
+    border: thin solid rgba(255, 255, 255, 0.5);
+  }
+  &::before,
+  &::after {
+    top: 0;
+    left: 0;
+  }
+  .shapes::before,
+  .shapes::after {
+    bottom: 0;
+    right: 0;
+  }
+  &.pdf {
+    background: #7692f5;
+    &::before {
+      transform: translate(-50%, -50%) skew(-20deg);
+    }
+    &::after {
+      transform: translate(-65%, -46%) skew(-20deg) rotate(5deg);
+    }
+    .shapes::before {
+      transform: translate(50%, 50%) skew(-31deg);
+    }
+    .shapes::after {
+      transform: translate(24%, 67%) skew(-31deg) rotate(12deg);
+    }
+  }
+  &.video {
+    background: #ff6565;
+    &::before {
+      top: -15%;
+      left: 25%;
+      transform: translate(-50%, -50%) skew(-30deg) rotate(10deg);
+    }
+    &::after {
+      top: -15%;
+      left: 25%;
+      transform: translate(-47%, -54%) skew(-30deg) rotate(-4deg);
+    }
+    .shapes::before {
+      right: 25%;
+      bottom: -15%;
+      transform: translate(50%, 50%) skew(-18deg) rotate(2deg);
+    }
+    .shapes::after {
+      right: 25%;
+      bottom: -15%;
+      transform: translate(62%, 48%) skew(-18deg) rotate(9deg);
+    }
+  }
+  &.tut {
+    background: #ffb865;
+    &::before {
+      transform: translate(-100%, 28%) skew(-40deg) rotate(-48deg) scale(1.1);
+    }
+    &::after {
+      transform: translate(-98%, 37%) skew(-40deg) rotate(-54deg);
+    }
+    .shapes::before {
+      transform: translate(80%, 24%) skew(18deg) rotate(2deg);
+    }
+    .shapes::after {
+      transform: translate(75%, 37%) skew(18deg) rotate(-4deg);
+    }
+  }
+  &.explore {
+    background: #35ebd2;
+    &::before {
+      transform: translate(-80%, 83%) skew(-40deg) rotate(-48deg) scale(1.1);
+    }
+    &::after {
+      transform: translate(-87%, 79%) skew(-40deg) rotate(-52deg);
+    }
+    .shapes::before {
+      transform: translate(80%, -34%) skew(18deg) rotate(23deg);
+    }
+    .shapes::after {
+      transform: translate(80%, -43%) skew(18deg) rotate(28deg);
+    }
+  }
+}
+
+.play {
+  margin-top: auto;
+  width: 75%;
+  min-width: 200px;
+  align-self: center;
+  flex: 0 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $lightest;
+  background: #5fe394;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 3rem;
+  box-shadow: 0 8px 12px -2px rgba(95, 227, 148, 0.5);
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+  span {
+    color: $lightest;
+    margin-right: 0.5em;
+    font-size: 28px;
+  }
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 24px 0 rgba(95, 227, 148, 0.5);
+  }
+}

@@ -148,12 +148,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  svg {
+  transition: opacity 0.1s ease-out, border-color 0.1s ease-out;
+  span {
     padding: 0.1rem;
+    transition: color 0.1s ease-out;
   }
   &:hover {
     opacity: 1;
-    border-color: rgba(255, 255, 255, 0.25);
+    border-color: $red;
+    span {
+      color: $red;
+    }
   }
 }
 

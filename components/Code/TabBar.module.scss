@@ -16,7 +16,7 @@
 }
 
 .tab {
-  writing-mode: vertical-lr; /* ADDED */
+  writing-mode: vertical-lr;
   -webkit-writing-mode: vertical-lr;
   flex: 1 1 auto;
   position: relative;
@@ -40,38 +40,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  span {
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
     color: $light;
     transition: color 0.1s ease-out;
   }
-  svg {
-    margin-bottom: 0.5rem;
+  p {
+    color: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  span {
     font-size: 16px;
-    path {
-      fill: $light;
-      transition: fill 0.1s ease-out;
-    }
+    margin-bottom: 0.5rem;
+    color: inherit;
   }
   &:hover {
-    span {
+    label {
       color: $dark;
-    }
-    svg > path {
-      fill: $dark;
     }
   }
   &.activeTab {
     background: $lightest;
-    span {
+    label {
       color: $logo-mid;
-    }
-    svg > path {
-      fill: $logo-mid;
     }
   }
   &.hasLog {

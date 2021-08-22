@@ -1,8 +1,4 @@
 import { memo, useContext, useEffect, useRef, useState } from "react";
-import SwapCallsIcon from "@material-ui/icons/SwapCalls";
-import CodeIcon from "@material-ui/icons/Code";
-import CallToActionOutlinedIcon from "@material-ui/icons/CallToActionOutlined";
-import TuneOutlinedIcon from "@material-ui/icons/TuneOutlined";
 import ConsoleContext from "../../store/console-context";
 
 import classes from "./TabBar.module.scss";
@@ -42,7 +38,7 @@ const Tab = (props) => {
       />
       <label htmlFor={props.id}>
         {props.icon}
-        <span>{props.title}</span>
+        <p>{props.title}</p>
       </label>
     </div>
   );
@@ -105,7 +101,7 @@ const TabBar = (props) => {
         title="Flow"
         id="flow-tab"
         value="flow"
-        icon={<SwapCallsIcon />}
+        icon={<span className="material-icons-outlined">swap_calls</span>}
         onChangeHandler={onChangeHandler}
         active={props.active}
         innerRef={flowRef}
@@ -115,7 +111,7 @@ const TabBar = (props) => {
         title="Text"
         id="text-tab"
         value="text"
-        icon={<CodeIcon />}
+        icon={<span className="material-icons-outlined">code</span>}
         onChangeHandler={onChangeHandler}
         active={props.active}
         innerRef={textRef}
@@ -125,7 +121,7 @@ const TabBar = (props) => {
         title="Console"
         id="console-tab"
         value="console"
-        icon={<CallToActionOutlinedIcon />}
+        icon={<span className="material-icons-outlined">call_to_action</span>}
         onChangeHandler={onChangeHandler}
         onClickHandler={consoleClickHandler}
         active={props.active}
@@ -137,7 +133,7 @@ const TabBar = (props) => {
         title="Config"
         id="config-tab"
         value="config"
-        icon={<TuneOutlinedIcon />}
+        icon={<span className="material-icons-outlined">tune</span>}
         onChangeHandler={onChangeHandler}
         active={props.active}
         innerRef={configRef}

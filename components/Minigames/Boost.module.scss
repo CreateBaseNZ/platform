@@ -299,14 +299,11 @@
   overflow: hidden;
   transition: color 0.1s ease-out, background-color 0.1s ease-out,
     letter-spacing 0.1s ease-out;
-  svg {
-    width: 1vw;
+  span {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1vw;
     margin-right: 0.5vw;
-    transition: transform 0.1s ease-out;
-  }
-  path {
-    fill: rgba(255, 255, 255, 0.75);
-    transition: fill 0.1s ease-out;
+    transition: transform 0.1s ease-out, color 0.1s ease-out;
   }
   &::after {
     content: "";
@@ -327,8 +324,8 @@
   }
   &:hover {
     color: $lightest;
-    path {
-      fill: $lightest;
+    span {
+      color: $lightest;
     }
     &::after {
       opacity: 100%;
@@ -349,11 +346,11 @@
   }
 }
 
-.back:hover svg {
+.back:hover span {
   transform: translateX(-2px);
 }
 
-.levels:hover svg {
+.levels:hover span {
   transform: rotate(90deg);
 }
 
@@ -380,15 +377,10 @@
     justify-content: center;
     align-items: center;
   }
-  svg {
+  span {
     margin: 0;
     width: calc(1vw + 0.3rem);
     color: rgba(255, 255, 255, 0.75);
-  }
-  path,
-  &:hover path {
-    color: inherit;
-    fill: currentColor;
   }
   .sliderWrapper {
     background: $darkest;

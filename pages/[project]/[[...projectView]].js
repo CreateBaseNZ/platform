@@ -1,79 +1,139 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-
-import classes from "/styles/projectView.module.scss";
-import Project from "../../components/Project/Project";
+import Head from "next/head";
+import Link from "next/link";
+import Imagine from "../../components/Project/Imagine";
+import Define from "../../components/Project/Define";
 import Code from "../../components/Code/Code";
 import Play from "../../components/Play";
-import Boost from "../../components/Minigames/Boost";
 
-const DUMMY_QUERY = {
-  "send-it": {
-    name: "Send It",
-    query: "send-it",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
-    stacked: true,
-    scenePrefix: "Project_Jump_0",
-    runType: "loop",
-  },
-  magnebot: {
-    name: "MagneBot",
-    query: "magnebot",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
-    stacked: true,
-    scenePrefix: "Project_RoboticArm_1",
-    runType: "once",
-  },
+import classes from "/styles/ProjectView.module.scss";
+import { sendItData } from "../../data/send-it-data";
+import { lineFollowingData } from "../../data/line-following-data";
+import { magnebotData } from "../../data/magnebot-data";
+import Research from "../../components/Project/Research";
+import Plan from "../../components/Project/Plan";
+import Create from "../../components/Project/Create";
+import Improve from "../../components/Project/Improve";
+import Review from "../../components/Project/Review";
+
+const get_data = (query) => {
+  switch (query) {
+    case "send-it":
+      return sendItData;
+    case "line-following":
+      return lineFollowingData;
+    case "magnebot":
+      return magnebotData;
+  }
 };
+
+const steps = [
+  { title: "Imagine", icon: "movie" },
+  { title: "Define", icon: "biotech" },
+  { title: "Research", icon: "travel_explore" },
+  { title: "Plan", icon: "design_services" },
+  { title: "Create", icon: "smart_toy" },
+  { title: "Improve", icon: "auto_graph" },
+  { title: "Review", icon: "checklist" },
+];
 
 const ProjectView = ({ setLoaded }) => {
   const router = useRouter();
-  const [project, setProject] = useState();
-  const [view, setView] = useState();
+  const [data, setData] = useState({});
+  const [step, setStep] = useState("Imagine");
+  const [view, setView] = useState("Project");
+
+  useEffect(() => setLoaded(true), []);
 
   useEffect(() => {
-    console.log(router.query);
     if (Object.keys(router.query).length) {
-      setProject(DUMMY_QUERY[router.query.project]);
+      setData(get_data(router.query.project));
       if (router.query.projectView) {
-        setView(router.query.projectView[0]);
+        const subQuery = router.query.projectView[0];
+        if (subQuery === "play") {
+          setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+          setLoaded(false);
+        } else if (subQuery === "code") {
+          setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+          setStep(
+            router.query.projectView[1][0].toUpperCase() +
+              router.query.projectView[1].substring(1)
+          );
+          setLoaded(false);
+        } else {
+          setView("Project");
+          setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
+        }
       } else {
-        setView("project");
+        setView("Project");
       }
     }
   }, [router.query]);
 
-  useEffect(() => {
-    if (
-      view === "project" &&
-      router.query.projectView &&
-      router.query.projectView[1]
-    ) {
-      console.log(router.query.projectView);
-      document.querySelector(`#${router.query.projectView[1]}`).scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      });
-    }
-  }, [view, router.query.projectView]);
-
   return (
     <div className={classes.projectView}>
-      {project && view === "project" && (
-        <Project project={project} setLoaded={setLoaded} />
+      <Head>
+        <title>
+          {view === "Project" ? step : view} • {data.name} | CreateBase
+        </title>
+        <meta name="description" content={data.caption} />
+      </Head>
+      {view === "Project" && (
+        <>
+          <div className={classes.tabContainer}>
+            <Link href="/browse">
+              <button className={classes.backBtn}>
+                <span className="material-icons-outlined">arrow_back_ios</span>
+                Browse
+              </button>
+            </Link>
+            {steps.map((s, i) => (
+              <button
+                key={i}
+                className={`${classes.tabWrapper} ${
+                  step === s.title ? classes.activeTab : ""
+                }`}
+                onClick={() =>
+                  router.push({
+                    pathname: `/${data.query}/${s.title.toLowerCase()}`,
+                  })
+                }
+              >
+                <div className={classes.tab}>
+                  <span className="material-icons-outlined">{s.icon}</span>
+                  {s.title}
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className={classes.viewContainer}>
+            {step === "Imagine" && <Imagine data={data.situation} />}
+            {step === "Define" && (
+              <Define data={data.define} caption={data.defineCaption} />
+            )}
+            {step === "Research" && (
+              <Research
+                query={data.query}
+                data={data.research}
+                caption={data.researchCaption}
+              />
+            )}
+            {step === "Plan" && <Plan data={data.plan} />}
+            {step === "Create" && (
+              <Create query={data.query} data={data.create} />
+            )}
+            {step === "Improve" && (
+              <Improve query={data.query} data={data.improve} />
+            )}
+            {step === "Review" && <Review />}
+          </div>
+        </>
       )}
-      {project && view === "play" && (
-        <Play project={project} setLoaded={setLoaded} />
+      {view === "Code" && (step === "Create" || step === "Improve") && (
+        <Code setLoaded={setLoaded} mode={step} project={data} />
       )}
-      {project && view === "create" && (
-        <Code mode="Create" project={project} setLoaded={setLoaded} />
-      )}
-      {project && view === "improve" && (
-        <Code mode="Improve" project={project} setLoaded={setLoaded} />
-      )}
+      {view === "Play" && <Play setLoaded={setLoaded} project={data} />}
     </div>
   );
 };

@@ -1,72 +1,60 @@
-import { ResourceModule } from "../Modules";
-import classes from "./project.module.scss";
+import Img from "../UI/Img";
 
-const Imagine = ({ query }) => {
+import VideoViewer from "../UI/VideoViewer";
+import classes from "./Imagine.module.scss";
+
+const Imagine = ({ data }) => {
   return (
-    <section id="imagine">
+    <div className={classes.container}>
       <div className={classes.wrapper}>
-        <h2>Imagine</h2>
-        <div className={classes.centerContainer}>
-          <video controls className={classes.video}>
-            <source src={`/${query}/vid/situation.mp4`} type="video/mp4" />
-          </video>
-        </div>
-        <div className={classes.centerContainer}>
-          {query === "send-it" && (
-            <p className={`${classes.description} ${classes.halfContainer}`}>
-              Dive into the situation by watching this short video! What do you
-              think is happening here? Discuss with your peers!
-            </p>
-          )}
-          {query === "magnebot" && (
-            <>
-              <p className={`${classes.description} ${classes.halfContainer}`}>
-                Introducing MagneBot, a robotic arm that can move objects with
-                its magnetic sphere attachment! This arm is located in our
-                autonomous recycling facility. Being autonomous means that the
-                entire facility is run by robots: there are no humans present!
-              </p>
-              <p className={`${classes.description} ${classes.halfContainer}`}>
-                Unfortunately, a self-driving cart has driven through our
-                recycling facility and split bags of rubbish all over the floor!
-                If those bags contain magnetic materials, we might be able to
-                clean up this mess without having to get our own hands dirty...
-              </p>
-            </>
-          )}
-        </div>
-        {query === "send-it" && (
-          <>
-            <div className={classes.moduleContainer}>
-              <a
-                href="https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing"
-                target="_blank"
-                title="Learning Journal - Google Docs"
-              >
-                <ResourceModule>
-                  <span>Learning Journal</span> - Docs
-                </ResourceModule>
-              </a>
-              <a
-                href="/Learning Journal.docx"
-                title="Learning Journal - Word"
-                download
-              >
-                <ResourceModule>
-                  <span>Learning Journal</span> - Word
-                </ResourceModule>
-              </a>
+        {data && <VideoViewer data={data} />}
+        {data && data.word && data.docs && (
+          <div className={classes.instructions}>
+            <div className={classes.imgContainer}>
+              <Img
+                src="/imagine.svg"
+                alt="Imagine"
+                layout="fill"
+                objectFit="contain"
+              />
             </div>
-            <p className={classes.description}>
-              One made in Google Docs and the other in Word, open one of these
-              documents, create a copy and save it somewhere that you can
-              access. Your teacher will tell you which file to open and where to
-              save your copy.
-            </p>
-          </>
+            <div className={classes.content}>
+              <p>
+                Open one of the learning journals and save it somewhere that you
+                can access. Your teacher will tell you which file to open and
+                where to save your copy.
+              </p>
+              <div className={classes.files}>
+                <a
+                  href={data.docs}
+                  target="_blank"
+                  title="Learning Journal - Google Docs"
+                  style={{ backgroundColor: "#3086F6" }}
+                >
+                  <div className={classes.iconContainer}>
+                    <span className="material-icons-outlined">link</span>
+                  </div>
+                  Google Docs
+                </a>
+                <a
+                  href={data.word}
+                  title="Learning Journal - Word"
+                  download
+                  style={{ backgroundColor: "#144EB2" }}
+                >
+                  <div className={classes.iconContainer}>
+                    <span className="material-icons-outlined">
+                      file_download
+                    </span>
+                  </div>
+                  Word
+                </a>
+              </div>
+            </div>
+          </div>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 

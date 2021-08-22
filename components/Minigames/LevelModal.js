@@ -1,7 +1,6 @@
 import { useState } from "react";
-import CloseIcon from "@material-ui/icons/Close";
-import classes from "./LevelModal.module.scss";
 import { useRouter } from "next/router";
+import classes from "./LevelModal.module.scss";
 
 const levels = { comparison: 3, conditional: 3 };
 const modes = ["comparison", "conditional"];
@@ -103,7 +102,7 @@ const LevelModal = ({
           onMouseEnter={playDonk}
           onClick={exitClickHandler}
         >
-          <CloseIcon />
+          <span className="material-icons-outlined">close</span>
         </button>
       </div>
     </div>

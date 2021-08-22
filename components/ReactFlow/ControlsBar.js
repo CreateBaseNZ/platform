@@ -1,15 +1,5 @@
 import { memo } from "react";
 import { Controls, ControlButton } from "react-flow-renderer";
-import UndoIcon from "@material-ui/icons/Undo";
-import RedoIcon from "@material-ui/icons/Redo";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
-import RestoreOutlinedIcon from "@material-ui/icons/RestoreOutlined";
-import LockIcon from "@material-ui/icons/Lock";
-import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
-import SelectAllOutlinedIcon from "@material-ui/icons/SelectAllOutlined";
-import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
-import CameraAltOutlinedIcon from "@material-ui/icons/CameraAltOutlined";
 
 import classes from "./ControlsBar.module.scss";
 
@@ -24,7 +14,7 @@ const ControlsBar = (props) => {
             }`}
             onClick={props.undoHandler}
           >
-            <UndoIcon />
+            <span className="material-icons-outlined">undo</span>
           </ControlButton>
           <ControlButton
             className={`${classes.customControl} ${classes.prioritise} ${
@@ -32,37 +22,37 @@ const ControlsBar = (props) => {
             }`}
             onClick={props.redoHandler}
           >
-            <RedoIcon />
+            <span className="material-icons-outlined">redo</span>
           </ControlButton>
           <ControlButton
             className={`${classes.customControl} ${classes.prioritise}`}
             onClick={props.saveHandler}
           >
-            <SaveOutlinedIcon />
+            <span className="material-icons-outlined">save</span>
           </ControlButton>
           <ControlButton
             className={`${classes.customControl} ${classes.prioritise}`}
             onClick={props.restoreHandler}
           >
-            <RestoreOutlinedIcon />
+            <span className="material-icons-outlined">restore</span>
           </ControlButton>
           <ControlButton
             className={`${classes.customControl} ${classes.prioritise}`}
             onClick={props.selectAll}
           >
-            <SelectAllOutlinedIcon />
+            <span className="material-icons-outlined">select_all</span>
           </ControlButton>
           <ControlButton
             className={`${classes.customControl} ${classes.prioritise} ${classes.verySmall}`}
             onClick={props.clearAll}
           >
-            <BackspaceOutlinedIcon />
+            <span className="material-icons-outlined">backspace</span>
           </ControlButton>
           <ControlButton
             className={`${classes.customControl} ${classes.small}`}
             onClick={props.capture}
           >
-            <CameraAltOutlinedIcon />
+            <span className="material-icons-outlined">photo_camera</span>
           </ControlButton>
           <ControlButton
             className={`${classes.customControl} ${
@@ -72,10 +62,14 @@ const ControlsBar = (props) => {
             onClick={props.lockHandler}
             title={props.flowLocked ? "Unlock (Ctrl + L)" : "Lock (Ctrl + L)"}
           >
-            {props.flowLocked ? <LockIcon /> : <LockOpenOutlinedIcon />}
+            {props.flowLocked ? (
+              <span className="material-icons-outlined">lock</span>
+            ) : (
+              <span className="material-icons-outlined">lock_open</span>
+            )}
           </ControlButton>
           <ControlButton className={classes.customControl} onClick={props.info}>
-            <InfoOutlinedIcon />
+            <span className="material-icons-outlined">info</span>
           </ControlButton>
         </>
       )}
