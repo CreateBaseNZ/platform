@@ -2,6 +2,12 @@
 // import CloseIcon from "@material-ui/icons/Close";
 // import classes from "../../components/Project/project.module.scss";
 
+import {
+  comparisonBoostData,
+  conditionalBoostData,
+  recycleRightData,
+} from "./explore-data";
+
 export const sendItData = {
   name: "Send It",
   query: "send-it",
@@ -107,6 +113,11 @@ export const sendItData = {
           ),
         },
       ],
+    },
+    {
+      type: "explore",
+      title: "Explore more",
+      items: [comparisonBoostData, conditionalBoostData],
     },
   ],
   plan: [

@@ -153,6 +153,21 @@
       transform: translate(75%, 37%) skew(18deg) rotate(-4deg);
     }
   }
+  &.explore {
+    background: #35ebd2;
+    &::before {
+      transform: translate(-80%, 83%) skew(-40deg) rotate(-48deg) scale(1.1);
+    }
+    &::after {
+      transform: translate(-87%, 79%) skew(-40deg) rotate(-52deg);
+    }
+    .shapes::before {
+      transform: translate(80%, -34%) skew(18deg) rotate(23deg);
+    }
+    .shapes::after {
+      transform: translate(80%, -43%) skew(18deg) rotate(28deg);
+    }
+  }
 }
 
 .play {

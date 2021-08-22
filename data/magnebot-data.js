@@ -1,3 +1,9 @@
+import {
+  comparisonBoostData,
+  conditionalBoostData,
+  recycleRightData,
+} from "./explore-data";
+
 export const magnebotData = {
   name: "MagneBot",
   query: "magnebot",
@@ -74,6 +80,11 @@ export const magnebotData = {
           ),
         },
       ],
+    },
+    {
+      type: "explore",
+      title: "Explore more",
+      items: [recycleRightData],
     },
   ],
   plan: [

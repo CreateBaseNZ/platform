@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import ModuleContainer from "../UI/ModuleContainer";
+import VideoViewer from "../UI/VideoViewer";
+import Img from "../UI/Img";
 
 import classes from "./Research.module.scss";
-
-import VideoViewer from "../UI/VideoViewer";
 
 const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
 
@@ -58,6 +59,34 @@ const Research = ({ query, data, caption }) => {
                     captionClass={classes.caption}
                   />
                 </div>
+              ))}
+          </div>
+        )}
+        {data[active].type === "explore" && (
+          <div className={classes.exploreWrapper}>
+            {data[active] &&
+              data[active].items.map((item, i) => (
+                <a
+                  key={i}
+                  href={item.url}
+                  target="_blank"
+                  className={classes.exploreItem}
+                  title={`Launch ${item.title}`}
+                >
+                  <div
+                    className={classes.imgContainer}
+                    style={{
+                      background: `linear-gradient(to bottom right, ${item.col1}, ${item.col2})`,
+                    }}
+                  >
+                    <div className={classes.imgWrapper}>
+                      <Img src={item.img} layout="fill" objectFit="cover" />
+                    </div>
+                    <span className="material-icons-outlined">launch</span>
+                    <h3>{item.title}</h3>
+                  </div>
+                  <div className={classes.caption}>{item.caption}</div>
+                </a>
               ))}
           </div>
         )}

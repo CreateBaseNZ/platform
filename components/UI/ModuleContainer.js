@@ -11,6 +11,8 @@ const getIcon = (type) => {
       return "attach_file";
     case "tut":
       return "emoji_objects";
+    case "explore":
+      return "explore";
   }
 };
 

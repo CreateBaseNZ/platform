@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Link from "next/link";
 import Imagine from "../../components/Project/Imagine";
 import Define from "../../components/Project/Define";
 import Code from "../../components/Code/Code";
@@ -81,6 +82,12 @@ const ProjectView = ({ setLoaded }) => {
       {view === "Project" && (
         <>
           <div className={classes.tabContainer}>
+            <Link href="/browse">
+              <button className={classes.backBtn}>
+                <span className="material-icons-outlined">arrow_back_ios</span>
+                Browse
+              </button>
+            </Link>
             {steps.map((s, i) => (
               <button
                 key={i}
