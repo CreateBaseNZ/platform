@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { signIn } from "next-auth/client";
 import { useRouter } from "next/dist/client/router";
 
-import classes from "./AuthForm.module.css";
+import classes from "./AuthForm.module.scss";
 
 import axios from "axios";
 
@@ -55,6 +55,7 @@ function AuthForm() {
       });
       // Redirect if successful
       if (!result.error) {
+        console.log("success");
         router.replace("/browse");
       } else {
         // TO DO: Error handler

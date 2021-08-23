@@ -1,4 +1,4 @@
-export const lineFollowingData = {
+export default {
   name: "Line Following",
   query: "line-following",
   caption:

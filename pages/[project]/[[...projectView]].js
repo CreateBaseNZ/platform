@@ -8,9 +8,9 @@ import Code from "../../components/Code/Code";
 import Play from "../../components/Play";
 
 import classes from "/styles/ProjectView.module.scss";
-import { sendItData } from "../../data/send-it-data";
-import { lineFollowingData } from "../../data/line-following-data";
-import { magnebotData } from "../../data/magnebot-data";
+import sendItData from "../../data/send-it-data";
+import lineFollowingData from "../../data/line-following-data";
+import magnebotData from "../../data/magnebot-data";
 import Research from "../../components/Project/Research";
 import Plan from "../../components/Project/Plan";
 import Create from "../../components/Project/Create";
