@@ -113,7 +113,8 @@
     font-size: 20px;
     letter-spacing: 0.05em;
   }
-  .signUp {
+  .signUp,
+  .loggedIn {
     margin-right: 0.5vw;
     background: $green;
     box-shadow: 0 4px 12px 0 rgba(24, 219, 172, 0.5);
@@ -151,6 +152,9 @@
     &:hover {
       background: rgba(0, 0, 0, 0.35);
     }
+  }
+  .loggedIn {
+    flex: 0 0 20rem;
   }
 }
 

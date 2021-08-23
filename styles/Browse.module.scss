@@ -40,11 +40,11 @@
     .logIn,
     .signOut {
       color: $dark;
-      border: 2px solid transparent;
+      border: medium solid transparent;
       transition: border-color 0.1s ease-out, color 0.1s ease-out;
       &:hover {
-        color: $darkest;
-        border-color: $dark;
+        color: $blue-dark;
+        border-color: $blue-dark;
       }
     }
     .signOut {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import GreenButton from "/components/UI/GreenButton";
 
 import WhiteLogo, {
   FBIcon,
@@ -14,6 +14,7 @@ import WhiteLogo, {
 import classes from "/styles/Index.module.scss";
 
 const Index = ({ setLoaded }) => {
+  const [session, loading] = useSession();
   const [showHelper, setShowHelper] = useState(false);
 
   useEffect(() => setLoaded(true), []);
@@ -21,6 +22,8 @@ const Index = ({ setLoaded }) => {
   const helperClickHandler = () => {
     setShowHelper((state) => !state);
   };
+
+  if (loading) return null;
 
   return (
     <div className={classes.index}>
@@ -55,19 +58,27 @@ const Index = ({ setLoaded }) => {
       <div className={classes.container}>
         <h2 className={classes.h2}>Welcome to</h2>
         <h1 className={classes.h1}>Open Alpha</h1>
-        <div className={classes.btnContainer}>
-          <Link href="/auth/signup">
-            <button className={classes.signUp}>Sign Up</button>
-          </Link>
-          <Link href="/auth/login">
-            <button className={classes.logIn}>
-              Log In<i className="material-icons-outlined">login</i>
-            </button>
-          </Link>
-          <Link href="/browse">
-            <button className={classes.guest}>Continue as guest</button>
-          </Link>
-        </div>
+        {session ? (
+          <div className={classes.btnContainer}>
+            <Link href="/browse">
+              <button className={classes.loggedIn}>Continue as Lorem</button>
+            </Link>
+          </div>
+        ) : (
+          <div className={classes.btnContainer}>
+            <Link href="/auth/signup">
+              <button className={classes.signUp}>Sign Up</button>
+            </Link>
+            <Link href="/auth/login">
+              <button className={classes.logIn}>
+                Log In<i className="material-icons-outlined">login</i>
+              </button>
+            </Link>
+            <Link href="/browse">
+              <button className={classes.guest}>Continue as guest</button>
+            </Link>
+          </div>
+        )}
       </div>
       <div className={classes.help}>
         <button

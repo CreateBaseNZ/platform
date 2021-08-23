@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 import Head from "next/head";
 import Link from "next/link";
-import Imagine from "../../components/Project/Imagine";
-import Define from "../../components/Project/Define";
-import Code from "../../components/Code/Code";
-import Play from "../../components/Play";
 
-import classes from "/styles/ProjectView.module.scss";
 import sendItData from "../../data/send-it-data";
-import lineFollowingData from "../../data/line-following-data";
 import magnebotData from "../../data/magnebot-data";
+import lineFollowingData from "../../data/line-following-data";
+
 import Research from "../../components/Project/Research";
 import Plan from "../../components/Project/Plan";
 import Create from "../../components/Project/Create";
 import Improve from "../../components/Project/Improve";
+import Imagine from "../../components/Project/Imagine";
+import Define from "../../components/Project/Define";
 import Review from "../../components/Project/Review";
+import Play from "../../components/Play";
+import Code from "../../components/Code/Code";
+
+import classes from "/styles/ProjectView.module.scss";
 
 const get_data = (query) => {
   switch (query) {
@@ -40,6 +43,7 @@ const steps = [
 
 const ProjectView = ({ setLoaded }) => {
   const router = useRouter();
+  const [session, loading] = useSession();
   const [data, setData] = useState({});
   const [step, setStep] = useState("Imagine");
   const [view, setView] = useState("Project");
@@ -70,6 +74,15 @@ const ProjectView = ({ setLoaded }) => {
       }
     }
   }, [router.query]);
+
+  if (loading || !data.query) return null;
+
+  if (!session && view === "Project" && data.query !== "magnebot") {
+    router.replace("/auth");
+    return null;
+  }
+
+  console.log(session);
 
   return (
     <div className={classes.projectView}>

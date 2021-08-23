@@ -15,7 +15,7 @@ import axios from "axios";
 import classes from "/styles/Browse.module.scss";
 import { useRouter } from "next/router";
 
-const allData = [sendItData, magnebotData];
+const allData = [magnebotData, sendItData];
 
 const Browse = ({ setLoaded }) => {
   const router = useRouter();
@@ -111,32 +111,17 @@ const Browse = ({ setLoaded }) => {
   }, []);
 
   if (loading) {
-    console.log("loading");
     return null;
   }
-
-  console.log(loading);
-  console.log(session);
-
-  // if (!loading && !session) {
-  //   console.log("no login");
-  //   router.replace("/auth"); //TODO push or replace?
-  //   return null;
-  // }
 
   const thumbnailHandler = (index) => {
     setVideoLoaded(false);
     setActiveIndex(index);
   };
 
-  // EXAMPLE: Handling sign out requests
   const logoutHandler = () => {
     signOut();
   };
-
-  console.log("exposing");
-
-  console.log(allData);
 
   return (
     <div className={classes.browse}>
@@ -153,10 +138,10 @@ const Browse = ({ setLoaded }) => {
             </button>
           ) : (
             <>
-              <Link href="/auth">
+              <Link href="/auth/signup">
                 <button className={classes.signUp}>Sign up</button>
               </Link>
-              <Link href="/auth/signup">
+              <Link href="/auth/login">
                 <button className={classes.logIn}>Log in</button>
               </Link>
             </>
