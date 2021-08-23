@@ -3,9 +3,8 @@ import blockFunctions from "../public/blocks.json";
 const awaitFunctions = ['intialiseRobot', 'MoveArm'];
 const unityDirectFunctions = ['Jump', 'Crouch'];
 export const convertCode = (text, system) => {
-    console.log(text);
     let functions = '';
-    
+    let start = [], end = [];
     let blocks = [], awaitFunctions = [],allFunctions=[];
     for (let i = 0; i < blockFunctions.length; i++) {
         const
@@ -15,13 +14,15 @@ export const convertCode = (text, system) => {
             allFunctions.push(element.functionName);
             if (element.await == true) {
                 awaitFunctions.push(element.functionName);
+            } if (element.type == "start") {
+                start = element;
+            } else if (element.type == "end") {
+                end = element;
             }
        }
     }
-    console.log(blocks);
-    console.log(allFunctions);
-    console.log(awaitFunctions);
     const usedFunctions = [];
+    text = start.logic + text;
   //divide the code Input 
     const doubledUpText = doubleUp(text);
     let splittedCode = doubledUpText.split('\n');
@@ -62,8 +63,7 @@ export const convertCode = (text, system) => {
         element=LHS+RHS+afterbraket;
         splittedCode[i] = element;
     }
-    text = splittedCode.join('\n');
-
+    text = start.logic + splittedCode.join('\n') + end.logic;
     text += "\n\n";
 
     usedFunctions.forEach((element, i, arr) => {

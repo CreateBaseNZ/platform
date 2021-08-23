@@ -115,19 +115,54 @@ const Workspace = (props) => {
 
   const compileHandlerTxt = () => {
     let codeLines = 0;
-    let t =`let x=\`I wentHom;e\nlol\`;Lols();\n Jump();\n for(let i=0;i<5;i++){
-      if(i=5){
-        x=moveArm(3,5,6);
-      }
-      delay(10);
-      console.log('x=x');
-    }`;
-    const systemName=defineObject(props.query)
-    const compliedText = convertCode(t, systemName);
-    setText(compliedText);
-    console.log(compliedText);
-    const onceCode = isOnceCode(props.query);
-
+    let t = `
+    let f=10;
+    let c=f; f=10;
+     c=f;f=10;
+     c=f;f=10;
+     c=f;f=10;
+     c=f;f=10;
+     c=f;f=10;
+     c=f;f=10;
+     c=f;f=10;
+     c=f;setText("2");`;
+    try {
+      let func = new Function(t);
+      func();
+    } catch (error) {
+      let ErrorMessage = error.message;
+      let errorLine = error.stack.split("\n")[1].split(":")[2]-2;
+      // console.log(error.stack.split("\n")[1]);
+      ctx.addError(ErrorMessage+" at line "+errorLine)
+    }
+    // const systemName=defineObject(props.query)
+    // const compliedText = convertCode(t, systemName);
+    // setText(compliedText);
+    // console.log(compliedText);
+    // code += "\nresolve(' ');";
+    // let functionExecute = async () => {
+    //   printing++;
+    //   await executeCode(code,printing);
+    //   if (printing >= 10) {
+    //     printing = 0;
+    //   }
+    //   if (codeChanged) {
+    //     com = 0;
+    //     codeChanged = false;
+    //   } else {
+    //     com = setTimeout(functionExecute, 50);
+    //   }
+    // };
+    // if (codesDone > 0) {
+    //   while (codeChanged) {
+    //     await delay(10);
+    //   }
+    // } else {
+    //   codeChanged = false;
+    // }
+    // let printing = 0;
+    // functionExecute();
+    // codesDone++;
   }
   const compileHandler = async () => {
     let com;

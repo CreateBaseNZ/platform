@@ -580,7 +580,7 @@ export class CodeGenerator {
       }
       if (runOnce && blockDetails.length-1!=i) {
         const str="if(codeNum!=codesDone){resolve('');}"
-        this.simpleExecutes.push(str);
+        this.simpleExecutes.push("");
         this.executes.push(str);
       }
     }
