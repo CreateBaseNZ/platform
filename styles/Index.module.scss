@@ -74,9 +74,6 @@
   align-items: flex-start;
   z-index: 1;
   margin-right: 25vw;
-  button {
-    margin-top: 6vh;
-  }
 }
 
 .h2 {
@@ -99,6 +96,64 @@
   line-height: 1.25em;
 }
 
+.btnContainer {
+  margin-top: 6vh;
+  display: flex;
+  flex-wrap: wrap;
+  width: 28rem;
+  button {
+    flex: 1 1 0;
+    height: 4rem;
+    border-radius: 8px;
+    color: $lightest;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+  }
+  .signUp {
+    margin-right: 0.5vw;
+    background: $green;
+    box-shadow: 0 4px 12px 0 rgba(24, 219, 172, 0.5);
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -4px rgba(24, 219, 172, 0.5);
+    }
+  }
+  .logIn {
+    margin-left: 0.5vw;
+    border: medium solid #4bf0ea;
+    backdrop-filter: blur(2px);
+    i {
+      color: $lightest;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: width 0.2s ease-out, opacity 0.2s ease-out;
+    }
+    &:hover i {
+      opacity: 1;
+      width: 2rem;
+    }
+  }
+  .guest {
+    background: rgba(0, 0, 0, 0.25);
+    font-size: 15px;
+    margin-top: 4vh;
+    flex: 1 1 100%;
+    height: 3rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    transition: background-color 0.1s ease-out;
+    &:hover {
+      background: rgba(0, 0, 0, 0.35);
+    }
+  }
+}
+
 .help {
   position: absolute;
   bottom: 2rem;
@@ -112,46 +167,45 @@
     display: flex;
     align-items: center;
     transition: opacity 0.1s ease-out;
-    padding: 4px 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
     background: rgba(0, 0, 0, 0.05);
     transition: background-color 0.1s ease-out;
-    &:hover {
-      background: rgba(0, 0, 0, 0.25);
-    }
-    .what {
-      color: $lightest;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+    color: $lightest;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     i {
       overflow: hidden;
-      transition: width 0.1s ease-out;
       width: 0;
       font-size: 16px;
       font-weight: 200;
+      color: inherit;
       padding-left: 0.25rem;
+      transition: width 0.1s ease-out;
+    }
+    &:hover {
+      background: rgba(0, 0, 0, 0.25);
     }
     &.active {
       background: rgba(0, 0, 0, 0.4);
       i {
-        color: $lightest;
         width: 1.5rem;
       }
     }
   }
   p {
     pointer-events: none;
-    font-size: 0.75rem;
+    font-size: 12px;
     line-height: 1.75em;
-    padding: 1rem 1.25rem;
+    padding: 1.25rem 1.75rem;
     background: rgba(0, 0, 0, 0.75);
     width: 30vw;
     min-width: 300px;
     max-width: 650px;
     color: $lightest;
     margin-bottom: 0.5rem;
+    border-radius: 8px;
     transition: opacity 0.2s ease-out;
     * {
       color: $lightest;

@@ -55,18 +55,26 @@ const Index = ({ setLoaded }) => {
       <div className={classes.container}>
         <h2 className={classes.h2}>Welcome to</h2>
         <h1 className={classes.h1}>Open Alpha</h1>
-        <Link href="/browse">
-          <div>
-            <GreenButton caption="Get Started" />
-          </div>
-        </Link>
+        <div className={classes.btnContainer}>
+          <Link href="/auth/signup">
+            <button className={classes.signUp}>Sign Up</button>
+          </Link>
+          <Link href="/auth/login">
+            <button className={classes.logIn}>
+              Log In<i className="material-icons-outlined">login</i>
+            </button>
+          </Link>
+          <Link href="/browse">
+            <button className={classes.guest}>Continue as guest</button>
+          </Link>
+        </div>
       </div>
       <div className={classes.help}>
         <button
           className={showHelper ? classes.active : ""}
           onClick={helperClickHandler}
         >
-          <div className={`${classes.what} span`}>What's this?</div>
+          What's this?
           <i className="material-icons-outlined">close</i>
         </button>
         <p className={showHelper ? "" : classes.hide}>
