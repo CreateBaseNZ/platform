@@ -3,16 +3,52 @@ import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
 import Img from "../UI/Img";
 
+import axios from "axios";
+
 import classes from "./MyAccount.module.scss";
+import { useEffect } from "react";
 
 const MyAccount = ({ user }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      displayName: user.displayName,
+      email: user.email,
+      username: user.username,
+    },
+  });
 
-  const onSubmit = (data) => console.log(data);
+  useEffect(
+    () =>
+      reset({
+        displayName: user.displayName,
+        email: user.email,
+        username: user.username,
+      }),
+    [user]
+  );
+
+  const onSubmit = async (input) => {
+    const date = new Date().toString();
+    let data;
+    try {
+      data = (
+        await axios.post("/api/user/data/update", {
+          input: { email: input.email, displayName: input.displayName },
+          date,
+        })
+      )["data"];
+    } catch (error) {
+      data = { status: "error", content: error };
+    }
+    if (data.status === "error") {
+      alert("error!"); // TODO handle error
+    }
+  };
 
   return (
     <div className={classes.myAccount}>
@@ -31,7 +67,6 @@ const MyAccount = ({ user }) => {
             className={classes.input}
             label="Email"
             inputProps={{
-              defaultValue: "defaultemail@loremipsum.com",
               ...register("email", {
                 required: "An email is required",
                 pattern: {
@@ -47,7 +82,6 @@ const MyAccount = ({ user }) => {
             className={classes.input}
             label="Username"
             inputProps={{
-              defaultValue: user.username,
               ...register("username", {
                 required: "A username is required",
                 minLength: {
@@ -66,7 +100,6 @@ const MyAccount = ({ user }) => {
             className={classes.input}
             label="Display Name"
             inputProps={{
-              defaultValue: "Default Username Lorem",
               ...register("displayName", {
                 required: "A display name is required",
                 minLength: {

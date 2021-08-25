@@ -1,11 +1,12 @@
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
-
-import classes from "/styles/userView.module.scss";
-import { useEffect, useState } from "react";
+import Head from "next/head";
 import MyAccount from "../../components/User/MyAccount";
 import Header from "../../components/Header";
-import Head from "next/head";
+import axios from "axios";
+
+import classes from "/styles/userView.module.scss";
 
 const UserView = ({ setLoaded }) => {
   const router = useRouter();
@@ -29,22 +30,25 @@ const UserView = ({ setLoaded }) => {
     setView("my-account");
   }, [router.query]);
 
-  useEffect(() => {
-    let type;
+  useEffect(async () => {
     if (session) {
-      if (session.user.access.admin) {
-        type = "admin";
-      } else if (session.user.access.educator) {
-        type = "educator";
-      } else {
-        type = "student";
+      const input = ["email", "displayName"];
+      let data;
+      try {
+        data = (await axios.post("/api/user/data/read", { input }))["data"];
+      } catch (error) {
+        data = { status: "error", content: error };
+      }
+      console.log(data);
+      if (data.status === "error") {
+        console.log("error"); // TODO
       }
       setUser({
-        type: type,
+        type: session.user.access,
         org: session.user.organisation,
         username: session.user.username,
-        display: "lorem", //TODO
-        email: "lorem@ipsum.com", //TODO
+        displayName: data.content.displayName, //TODO
+        email: data.content.email, //TODO
       });
     }
   }, [session]);
@@ -56,11 +60,13 @@ const UserView = ({ setLoaded }) => {
     return null;
   }
 
+  console.log(session);
+
   return (
     <div className={classes.view}>
       <Head>
         <title style={{ textTransform: "capitalize" }}>
-          {user && user.displayName + " | "} CreateBase
+          {user.displayName && user.displayName + " | "} CreateBase
         </title>
         <meta name="description" content="CreateBase user settings" />
       </Head>
