@@ -1,7 +1,6 @@
 import classes from "./Input.module.scss";
 
 const Input = ({ className = "", inputProps = {}, label = "lorem", error }) => {
-  console.log(error);
   return (
     <div
       className={`${classes.inputWrapper} ${className} ${

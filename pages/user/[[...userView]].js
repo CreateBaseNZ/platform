@@ -24,10 +24,9 @@ const UserView = ({ setLoaded }) => {
       const query = router.query.userView;
       if (query) {
         setView(query[0]);
-      } else {
-        setView("my-account");
       }
     }
+    setView("my-account");
   }, [router.query]);
 
   useEffect(() => {
@@ -57,21 +56,15 @@ const UserView = ({ setLoaded }) => {
     return null;
   }
 
-  console.log(session);
-
   return (
     <div className={classes.view}>
       <Head>
         <title style={{ textTransform: "capitalize" }}>
-          {view
-            .split("-")
-            .map((word) => word[0].toUpperCase() + word.substring(1))
-            .join(" ")}{" "}
-          | CreateBase
+          {user && user.displayName + " | "} CreateBase
         </title>
         <meta name="description" content="CreateBase user settings" />
       </Head>
-      <Header type={user.type} />
+      <Header type={user.type} org={user.org} />
       {view === "my-account" && <MyAccount user={user} />}
     </div>
   );
