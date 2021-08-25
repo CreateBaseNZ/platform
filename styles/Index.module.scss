@@ -60,7 +60,7 @@
       &:hover {
         opacity: 1;
         svg {
-          background: rgba(0, 0, 0, 0.1);
+          background: rgba(black, 0.1);
         }
       }
     }
@@ -92,7 +92,7 @@
   letter-spacing: 0.05em;
   font-size: 5rem;
   font-weight: 900;
-  text-shadow: 0 6px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 6px rgba(black, 0.25);
   line-height: 1.25em;
 }
 
@@ -117,11 +117,11 @@
   .loggedIn {
     margin-right: 0.5vw;
     background: $green;
-    box-shadow: 0 4px 12px 0 rgba(24, 219, 172, 0.5);
+    box-shadow: 0 4px 12px 0 rgba($green, 0.5);
     transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px -4px rgba(24, 219, 172, 0.5);
+      box-shadow: 0 8px 24px -4px rgba($green, 0.5);
     }
   }
   .logIn {
@@ -141,7 +141,7 @@
     }
   }
   .guest {
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(black, 0.25);
     font-size: 15px;
     margin-top: 4vh;
     flex: 1 1 100%;
@@ -150,11 +150,11 @@
     letter-spacing: 0;
     transition: background-color 0.1s ease-out;
     &:hover {
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(black, 0.35);
     }
   }
   .loggedIn {
-    flex: 0 0 20rem;
+    flex: 0 0 18rem;
   }
 }
 
@@ -173,7 +173,7 @@
     transition: opacity 0.1s ease-out;
     padding: 8px 12px;
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(black, 0.05);
     transition: background-color 0.1s ease-out;
     color: $lightest;
     font-size: 14px;
@@ -189,10 +189,10 @@
       transition: width 0.1s ease-out;
     }
     &:hover {
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(black, 0.25);
     }
     &.active {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(black, 0.4);
       i {
         width: 1.5rem;
       }
@@ -203,7 +203,7 @@
     font-size: 12px;
     line-height: 1.75em;
     padding: 1.25rem 1.75rem;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(black, 0.75);
     width: 30vw;
     min-width: 300px;
     max-width: 650px;

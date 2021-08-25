@@ -31,7 +31,7 @@
     .signUp {
       background: $logo-mid;
       color: $lightest;
-      box-shadow: 0 4px 12px 0 rgba(104, 84, 217, 0.5);
+      box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
       transition: transform 0.1s ease-out;
       &:hover {
         transform: translateY(-1px);
@@ -50,9 +50,12 @@
     .signOut {
       opacity: 0.5;
       border: none;
-      transition: opacity 0.1s ease-out, color 0.1s ease-out;
+      transition: opacity 0.1s ease-out, color 0.1s ease-out,
+        background-color 0.1s ease-out;
       &:hover {
         opacity: 1;
+        color: $dark;
+        background: $light;
       }
     }
   }
@@ -107,7 +110,7 @@
     background: $green;
     letter-spacing: 0.05em;
     font-size: 18px;
-    box-shadow: 0 4px 16px 0 rgba(24, 219, 172, 0.5);
+    box-shadow: 0 4px 16px 0 rgba($green, 0.5);
     transition: box-shadow 0.1s ease-out;
     span {
       color: $lightest;
@@ -115,7 +118,7 @@
       transition: transform 0.1s ease-out;
     }
     &:hover {
-      box-shadow: 0 8px 16px 0 rgba(24, 219, 172, 0.75);
+      box-shadow: 0 8px 16px 0 rgba($green, 0.75);
       span {
         transform: translateX(2px);
       }

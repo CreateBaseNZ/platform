@@ -120,14 +120,14 @@
       border-right: thin solid $darker;
     }
     &::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(white, 0.1);
       transition: background-color 0.2s ease-out;
     }
     &::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(white, 0.25);
     }
     &::-webkit-scrollbar-thumb:active {
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(white, 0.4);
     }
     .log,
     .error,
@@ -180,14 +180,14 @@
       border-right: thin solid $lightest;
     }
     &::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(black, 0.1);
       transition: background-color 0.2s ease-out;
     }
     &::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(black, 0.25);
     }
     &::-webkit-scrollbar-thumb:active {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(black, 0.4);
     }
     .log,
     .warning,

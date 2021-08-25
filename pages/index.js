@@ -61,7 +61,9 @@ const Index = ({ setLoaded }) => {
         {session ? (
           <div className={classes.btnContainer}>
             <Link href="/browse">
-              <button className={classes.loggedIn}>Continue as Lorem</button>
+              <button className={classes.loggedIn} comment="//TODO">
+                Continue as Lorem
+              </button>
             </Link>
           </div>
         ) : (
