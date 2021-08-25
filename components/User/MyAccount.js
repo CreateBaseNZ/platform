@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
-import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
+import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
+import Img from "../UI/Img";
 
 import classes from "./MyAccount.module.scss";
 
@@ -8,15 +9,10 @@ const MyAccount = ({ user }) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
-
-  console.log(watch("username"));
-
-  console.log(errors);
 
   return (
     <div className={classes.myAccount}>
@@ -35,6 +31,7 @@ const MyAccount = ({ user }) => {
             className={classes.input}
             label="Email"
             inputProps={{
+              defaultValue: "defaultemail@loremipsum.com",
               ...register("email", {
                 required: "An email is required",
                 pattern: {
@@ -50,6 +47,7 @@ const MyAccount = ({ user }) => {
             className={classes.input}
             label="Username"
             inputProps={{
+              defaultValue: user.username,
               ...register("username", {
                 required: "A username is required",
                 minLength: {
@@ -68,6 +66,7 @@ const MyAccount = ({ user }) => {
             className={classes.input}
             label="Display Name"
             inputProps={{
+              defaultValue: "Default Username Lorem",
               ...register("displayName", {
                 required: "A display name is required",
                 minLength: {
@@ -75,7 +74,7 @@ const MyAccount = ({ user }) => {
                   message: "Display names must be at least 3 characters long",
                 },
                 pattern: {
-                  value: /^[a-zA-Z\-]+$/,
+                  value: /^[a-zA-Z\- ]+$/,
                   message: "Display names can only contain A—Z, a—z, and -",
                 },
               }),
@@ -97,8 +96,24 @@ const MyAccount = ({ user }) => {
           </TertiaryButton>
         </div>
       </div>
-      <div className={classes.ctaContainer}>
+      <div className={classes.rightArea}>
         <h1>My Account</h1>
+        <div className={classes.ctaContainer}>
+          <div className={`${classes.tallCta} ${classes.join}`}>
+            <div className={classes.img}>
+              <Img src="/join-org.svg" layout="fill" objectFit="contain" />
+            </div>
+            <p>Has your org already signed up?</p>
+            <SecondaryButton children="Join an Org" />
+          </div>
+          <div className={`${classes.tallCta} ${classes.create}`}>
+            <div className={classes.img}>
+              <Img src="/create-org.svg" layout="fill" objectFit="contain" />
+            </div>
+            <p>Signing up your org for the first time?</p>
+            <PrimaryButton children="Create an Org" />
+          </div>
+        </div>
       </div>
     </div>
   );

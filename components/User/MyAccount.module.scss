@@ -3,7 +3,6 @@
 .myAccount {
   height: 100%;
   width: 100%;
-  margin-top: 5vh;
   display: flex;
 }
 
@@ -15,8 +14,11 @@
 }
 
 .avatar {
+  margin-top: auto;
   height: 14vh;
   width: 14vh;
+  min-height: 6rem;
+  min-width: 6rem;
   border-radius: 32px;
   display: flex;
   align-items: center;
@@ -72,15 +74,83 @@
   }
 }
 
-.ctaContainer {
+.rightArea {
   margin-left: 5vw;
   width: 70%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   h1 {
+    margin-bottom: 5vh;
     font-size: 2rem;
     font-weight: 600;
     color: $darker;
+  }
+}
+
+.ctaContainer {
+  margin-bottom: 5vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  .tallCta {
+    height: 50vh;
+    width: 40vh;
+    max-height: 500px;
+    max-width: 400px;
+    min-width: 20vw;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .img {
+      height: 60%;
+      width: 85%;
+    }
+    p {
+      font-size: 14px;
+      color: $lightest;
+      margin: 2vh 0;
+    }
+    button {
+      margin-bottom: 2vh;
+      min-width: 220px;
+      width: 65%;
+      height: 4.5rem;
+      border-radius: 4.5rem;
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+  .join {
+    background: linear-gradient(to bottom right, $logo-dark, $magenta-light);
+    button {
+      border: medium solid $lightest;
+      color: $lightest;
+      transition: background-color 0.1s ease-out, color 0.1s ease-out;
+      &:hover {
+        background: $lightest;
+        color: $logo-mid;
+      }
+    }
+  }
+  .create {
+    background: linear-gradient(to bottom right, $blue-dark, $blue-light);
+    button {
+      background: $lightest;
+      color: $blue-mid;
+      box-shadow: 0 4px 24px 0 rgba($blue-dark, 0.25);
+    }
+  }
+  & > * {
+    margin: 0 1vw;
+  }
+  & > *:first-child {
+    margin-left: 0;
+  }
+  & > *:last-child {
+    margin-right: 0;
   }
 }

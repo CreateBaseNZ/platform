@@ -8,6 +8,14 @@ export const PrimaryButton = ({ children, className, ...rest }) => {
   );
 };
 
+export const SecondaryButton = ({ children, className, ...rest }) => {
+  return (
+    <button {...rest} className={`${classes.secondary} ${className}`}>
+      {children}
+    </button>
+  );
+};
+
 export const TertiaryButton = ({ children, className, ...rest }) => {
   return (
     <button {...rest} className={`${classes.tertiary} ${className}`}>

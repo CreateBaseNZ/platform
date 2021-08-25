@@ -5,6 +5,7 @@ import classes from "/styles/userView.module.scss";
 import { useEffect, useState } from "react";
 import MyAccount from "../../components/User/MyAccount";
 import Header from "../../components/Header";
+import Head from "next/head";
 
 const UserView = ({ setLoaded }) => {
   const router = useRouter();
@@ -60,6 +61,16 @@ const UserView = ({ setLoaded }) => {
 
   return (
     <div className={classes.view}>
+      <Head>
+        <title style={{ textTransform: "capitalize" }}>
+          {view
+            .split("-")
+            .map((word) => word[0].toUpperCase() + word.substring(1))
+            .join(" ")}{" "}
+          | CreateBase
+        </title>
+        <meta name="description" content="CreateBase user settings" />
+      </Head>
       <Header type={user.type} />
       {view === "my-account" && <MyAccount user={user} />}
     </div>
