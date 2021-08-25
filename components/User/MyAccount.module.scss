@@ -14,7 +14,7 @@
 }
 
 .avatar {
-  margin-top: auto;
+  margin-top: 4vh;
   height: 14vh;
   width: 14vh;
   min-height: 6rem;
@@ -35,23 +35,6 @@
   }
   &.learner {
     background: $blue-mid;
-  }
-}
-
-.form {
-  width: 100%;
-  margin: auto 0;
-  .input {
-    margin: 1vh 0;
-  }
-  .submit {
-    margin-top: 3vh;
-    font-size: 14px;
-    font-weight: 600;
-    i {
-      font-size: 20px;
-      margin-right: 0.5em;
-    }
   }
 }
 

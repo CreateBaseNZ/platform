@@ -41,14 +41,14 @@ const UserView = ({ setLoaded }) => {
       }
       console.log(data);
       if (data.status === "error") {
-        console.log("error"); // TODO
+        console.log("error"); // TODO handle error
       }
       setUser({
         type: session.user.access,
         org: session.user.organisation,
         username: session.user.username,
-        displayName: data.content.displayName, //TODO
-        email: data.content.email, //TODO
+        displayName: data.content.displayName,
+        email: data.content.email,
       });
     }
   }, [session]);

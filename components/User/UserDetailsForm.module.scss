@@ -1,0 +1,47 @@
+@import "/styles/variables";
+
+.form {
+  width: 100%;
+  margin: auto 0;
+  .input {
+    margin: 1vh 0;
+  }
+}
+
+.btnContainer {
+  margin-top: 3vh;
+  width: 100%;
+  display: flex;
+  .submit,
+  .cancel {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 2em;
+    i {
+      font-size: 20px;
+      margin-right: 0.5em;
+    }
+  }
+  .cancel {
+    margin-right: 1vw;
+  }
+}
+
+.loader {
+  border: 4px solid white; /* Light grey */
+  border-top: 4px solid transparent; /* Blue */
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

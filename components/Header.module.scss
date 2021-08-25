@@ -97,3 +97,10 @@
     pointer-events: auto;
   }
 }
+
+.divider {
+  height: 1px;
+  width: calc(100% - 3rem);
+  margin: 0.5rem 1.5rem;
+  background: rgba(black, 0.05);
+}

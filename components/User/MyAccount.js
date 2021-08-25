@@ -1,54 +1,14 @@
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
-import Input from "../UI/Input";
 import Img from "../UI/Img";
 
-import axios from "axios";
-
 import classes from "./MyAccount.module.scss";
-import { useEffect } from "react";
+import UserDetailsForm, { ChangePasswordForm } from "./UserDetailsForm";
 
 const MyAccount = ({ user }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      displayName: user.displayName,
-      email: user.email,
-      username: user.username,
-    },
-  });
+  const [changePassword, setChangePassword] = useState(false);
 
-  useEffect(
-    () =>
-      reset({
-        displayName: user.displayName,
-        email: user.email,
-        username: user.username,
-      }),
-    [user]
-  );
-
-  const onSubmit = async (input) => {
-    const date = new Date().toString();
-    let data;
-    try {
-      data = (
-        await axios.post("/api/user/data/update", {
-          input: { email: input.email, displayName: input.displayName },
-          date,
-        })
-      )["data"];
-    } catch (error) {
-      data = { status: "error", content: error };
-    }
-    if (data.status === "error") {
-      alert("error!"); // TODO handle error
-    }
-  };
+  const changePasswordHandler = () => setChangePassword(true);
 
   return (
     <div className={classes.myAccount}>
@@ -62,64 +22,17 @@ const MyAccount = ({ user }) => {
               : "backpack"}
           </i>
         </div>
-        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            className={classes.input}
-            label="Email"
-            inputProps={{
-              ...register("email", {
-                required: "An email is required",
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "Please enter a valid email address",
-                },
-              }),
-            }}
-            error={errors.email}
-          />
-          <Input
-            className={classes.input}
-            label="Username"
-            inputProps={{
-              ...register("username", {
-                required: "A username is required",
-                minLength: {
-                  value: 3,
-                  message: "Usernames must be at least 3 characters long",
-                },
-                pattern: {
-                  value: /^[a-zA-Z0-9]+$/,
-                  message: "Usernames can only contain alphanumeric characters",
-                },
-              }),
-            }}
-            error={errors.username}
-          />
-          <Input
-            className={classes.input}
-            label="Display Name"
-            inputProps={{
-              ...register("displayName", {
-                required: "A display name is required",
-                minLength: {
-                  value: 3,
-                  message: "Display names must be at least 3 characters long",
-                },
-                pattern: {
-                  value: /^[a-zA-Z\- ]+$/,
-                  message: "Display names can only contain A—Z, a—z, and -",
-                },
-              }),
-            }}
-            error={errors.displayName}
-          />
-          <PrimaryButton className={classes.submit}>
-            <i className="material-icons-outlined">save</i>Save
-          </PrimaryButton>
-        </form>
+        {changePassword ? (
+          <ChangePasswordForm setChangePassword={setChangePassword} />
+        ) : (
+          <UserDetailsForm user={user} />
+        )}
         <div className={classes.secondary}>
-          <TertiaryButton className={classes.changePass}>
+          <TertiaryButton
+            className={classes.changePass}
+            style={{ visibility: changePassword && "hidden" }}
+            onClick={changePasswordHandler}
+          >
             <i className="material-icons-outlined">password</i>
             Change password
           </TertiaryButton>

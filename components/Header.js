@@ -1,6 +1,7 @@
 import { useState } from "react";
 import router from "next/router";
 import { ColourLogo } from "./UI/Icons";
+import { signOut } from "next-auth/client";
 
 import classes from "./Header.module.scss";
 
@@ -50,6 +51,10 @@ const Header = ({ type, org }) => {
           )}
           <button onMouseDown={() => router.push("/user")}>
             <i className="material-icons-outlined">assignment_ind</i>My account
+          </button>
+          <div className={classes.divider} />
+          <button onMouseDown={() => signOut()}>
+            <i className="material-icons-outlined">logout</i>Sign out
           </button>
         </div>
       </div>
