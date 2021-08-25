@@ -5,6 +5,7 @@ import Input from "../UI/Input";
 import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 
 import classes from "./UserDetailsForm.module.scss";
+import blacklist from "../../utils/blacklist";
 
 const UserDetailsForm = ({ user }) => {
   const [isSaving, setIsSaving] = useState(false);
@@ -34,24 +35,29 @@ const UserDetailsForm = ({ user }) => {
 
   const onSubmit = async (input) => {
     setIsSaving(true);
-    const date = new Date().toString();
-    let data;
-    try {
-      data = (
-        await axios.post("/api/user/data/update", {
-          input: { email: input.email, displayName: input.displayName },
-          date,
-        })
-      )["data"];
-    } catch (error) {
-      data = { status: "error", content: error };
+    if (blacklist.some((v) => input.displayName.includes(v))) {
+      // TODO trigger an error
+      alert("no can do sir");
+    } else {
+      const date = new Date().toString();
+      let data;
+      try {
+        data = (
+          await axios.post("/api/user/data/update", {
+            input: { email: input.email, displayName: input.displayName },
+            date,
+          })
+        )["data"];
+      } catch (error) {
+        data = { status: "error", content: error };
+      }
+      if (data.status === "error") {
+        alert("error!"); // TODO handle error
+      }
+      // TODO change username
+      // TODO success handler
+      alert("nice, all done");
     }
-    if (data.status === "error") {
-      alert("error!"); // TODO handle error
-    }
-    // TODO change username
-    // TODO success handler
-
     setIsSaving(false);
   };
 
