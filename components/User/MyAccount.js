@@ -34,12 +34,12 @@ const MyAccount = ({ user }) => {
             className={classes.changePass}
             style={{ visibility: changePassword && "hidden" }}
             onClick={changePasswordHandler}
-            icon={<i className="material-icons-outlined">password</i>}
+            iconLeft={<i className="material-icons-outlined">password</i>}
             mainLabel="Change password"
           />
           <TertiaryButton
             className={classes.deleteAcc}
-            icon={<i className="material-icons-outlined">person_remove</i>}
+            iconLeft={<i className="material-icons-outlined">person_remove</i>}
             mainLabel="Delete account"
           />
         </div>

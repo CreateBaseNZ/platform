@@ -60,8 +60,6 @@ const UserView = ({ setLoaded }) => {
     return null;
   }
 
-  console.log(session);
-
   return (
     <div className={classes.view}>
       <Head>
@@ -70,7 +68,12 @@ const UserView = ({ setLoaded }) => {
         </title>
         <meta name="description" content="CreateBase user settings" />
       </Head>
-      <Header type={user.type} org={user.org} />
+      <Header
+        session={session}
+        type={user.type}
+        org={user.org}
+        name={user.displayName}
+      />
       {view === "my-account" && <MyAccount user={user} />}
     </div>
   );

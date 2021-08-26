@@ -119,7 +119,7 @@ const UserDetailsForm = ({ user }) => {
           className={classes.submit}
           isLoading={isSaving}
           type="submit"
-          icon={<i className="material-icons-outlined">done</i>}
+          iconLeft={<i className="material-icons-outlined">done</i>}
           loadingLabel="Saving ..."
           mainLabel="Update"
         />
@@ -202,7 +202,7 @@ export const ChangePasswordForm = ({ setChangePassword }) => {
         <PrimaryButton
           className={classes.submit}
           isLoading={isSaving}
-          icon={<i className="material-icons-outlined">save</i>}
+          iconLeft={<i className="material-icons-outlined">save</i>}
           type="submit"
           loadingLabel="Saving ..."
           mainLabel="Save"

@@ -3,6 +3,9 @@ import { useSession } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
+import { signOut } from "next-auth/client";
+import axios from "axios";
+import { SecondaryButton } from "../components/UI/Buttons";
 
 import WhiteLogo, {
   FBIcon,
@@ -15,9 +18,28 @@ import classes from "/styles/Index.module.scss";
 
 const Index = ({ setLoaded }) => {
   const [session, loading] = useSession();
+  const [name, setName] = useState("");
   const [showHelper, setShowHelper] = useState(false);
 
   useEffect(() => setLoaded(true), []);
+
+  useEffect(async () => {
+    if (session) {
+      let data;
+      try {
+        data = (
+          await axios.post("/api/user/data/read", { input: ["displayName"] })
+        )["data"];
+      } catch (error) {
+        data = { status: "error", content: error };
+      }
+      console.log(data);
+      if (data.status === "error") {
+        console.log("error"); // TODO handle error
+      }
+      setName(data.content.displayName);
+    }
+  }, [session]);
 
   const helperClickHandler = () => {
     setShowHelper((state) => !state);
@@ -59,12 +81,20 @@ const Index = ({ setLoaded }) => {
         <h2 className={classes.h2}>Welcome to</h2>
         <h1 className={classes.h1}>Open Alpha</h1>
         {session ? (
-          <div className={classes.btnContainer}>
+          <div
+            className={classes.btnContainer}
+            style={{ flexDirection: "column", width: "auto" }}
+          >
             <Link href="/browse">
               <button className={classes.loggedIn} comment="//TODO">
-                Continue as Lorem
+                Continue as {name}
               </button>
             </Link>
+            <SecondaryButton
+              className={classes.signOut}
+              mainLabel="Sign out"
+              onClick={() => signOut()}
+            />
           </div>
         ) : (
           <div className={classes.btnContainer}>

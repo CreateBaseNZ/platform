@@ -1,26 +1,24 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { ColourLogo } from "/components/UI/Icons";
 import BrowseThumb from "../components/BrowseThumb";
 import sendItData from "../data/send-it-data";
 import magnebotData from "../data/magnebot-data";
+import Header from "../components/Header";
 
-// Session management functions
-import { useSession, signOut, getSession } from "next-auth/client";
+import { useSession, getSession } from "next-auth/client";
 
 // Backend communication
 import axios from "axios";
 
 import classes from "/styles/Browse.module.scss";
-import { useRouter } from "next/router";
 
 const allData = [magnebotData, sendItData];
 
 const Browse = ({ setLoaded }) => {
-  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [user, setUser] = useState({});
 
   // Accessing User Session
   const [session, loading] = useSession();
@@ -110,6 +108,28 @@ const Browse = ({ setLoaded }) => {
     // console.log(data);
   }, []);
 
+  useEffect(async () => {
+    if (session) {
+      let data;
+      try {
+        data = (
+          await axios.post("/api/user/data/read", { input: ["displayName"] })
+        )["data"];
+      } catch (error) {
+        data = { status: "error", content: error };
+      }
+      console.log(data);
+      if (data.status === "error") {
+        console.log("error"); // TODO handle error
+      }
+      setUser({
+        type: session.user.access,
+        org: session.user.organisation,
+        name: data.content.displayName,
+      });
+    }
+  }, [session]);
+
   if (loading) {
     return null;
   }
@@ -119,35 +139,18 @@ const Browse = ({ setLoaded }) => {
     setActiveIndex(index);
   };
 
-  const logoutHandler = () => {
-    signOut();
-  };
-
   return (
     <div className={classes.browse}>
       <Head>
         <title>Browse | CreateBase</title>
         <meta name="description" content="Browse CreateBase projects" />
       </Head>
-      <div className={classes.nav}>
-        <ColourLogo layout="fill" objectFit="contain" quality={100} />
-        <div className={classes.navAuth}>
-          {session ? (
-            <button onClick={logoutHandler} className={classes.signOut}>
-              Sign out
-            </button>
-          ) : (
-            <>
-              <Link href="/auth/signup">
-                <button className={classes.signUp}>Sign up</button>
-              </Link>
-              <Link href="/auth/login">
-                <button className={classes.logIn}>Log in</button>
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
+      <Header
+        session={session}
+        type={user.type}
+        org={user.org}
+        name={user.name}
+      />
       <div className={classes.main}>
         <div className={classes.content}>
           <h2>Select a project</h2>

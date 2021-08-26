@@ -10,57 +10,6 @@
   background: $bg-light;
 }
 
-.nav {
-  flex: 0 0 3rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .navAuth {
-    height: 100%;
-    display: flex;
-    button {
-      height: 100%;
-      padding: 0 1.5rem;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      margin: 0 0.5vw;
-    }
-    .signUp {
-      background: $logo-mid;
-      color: $lightest;
-      box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
-      transition: transform 0.1s ease-out;
-      &:hover {
-        transform: translateY(-1px);
-      }
-    }
-    .logIn,
-    .signOut {
-      color: $dark;
-      border: medium solid transparent;
-      transition: border-color 0.1s ease-out, color 0.1s ease-out;
-      &:hover {
-        color: $blue-dark;
-        border-color: $blue-dark;
-      }
-    }
-    .signOut {
-      opacity: 0.5;
-      border: none;
-      transition: opacity 0.1s ease-out, color 0.1s ease-out,
-        background-color 0.1s ease-out;
-      &:hover {
-        opacity: 1;
-        color: $dark;
-        background: $light;
-      }
-    }
-  }
-}
-
 .main {
   margin-top: 10vh;
   flex: 1 1 0;

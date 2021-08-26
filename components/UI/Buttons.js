@@ -6,7 +6,8 @@ export const PrimaryButton = ({
   isLoading = false,
   loadingLabel = "Loading ...",
   mainLabel = "Button",
-  icon,
+  iconLeft,
+  iconRight,
   ...rest
 }) => {
   return (
@@ -16,15 +17,17 @@ export const PrimaryButton = ({
         isDisabled || isLoading ? classes.disabled : ""
       } ${className}`}
     >
-      {isLoading ? <div className={classes.loader} /> : icon}
+      {isLoading ? <div className={classes.loader} /> : iconLeft}
       {isLoading ? loadingLabel : mainLabel}
+      {!isLoading && iconRight}
     </button>
   );
 };
 
 export const SecondaryButton = ({
   className,
-  icon,
+  iconLeft,
+  iconRight,
   mainLabel,
   isDisabled,
   ...rest
@@ -36,7 +39,7 @@ export const SecondaryButton = ({
         isDisabled ? classes.disabled : ""
       } ${className}`}
     >
-      {icon} {mainLabel}
+      {iconLeft} {mainLabel} {iconRight}
     </button>
   );
 };
@@ -44,7 +47,8 @@ export const SecondaryButton = ({
 export const TertiaryButton = ({
   className,
   isDisabled,
-  icon,
+  iconLeft,
+  iconRight,
   mainLabel,
   ...rest
 }) => {
@@ -55,8 +59,9 @@ export const TertiaryButton = ({
         isDisabled ? classes.disabled : ""
       } ${className}`}
     >
-      {icon}
+      {iconLeft}
       {mainLabel}
+      {iconRight}
     </button>
   );
 };

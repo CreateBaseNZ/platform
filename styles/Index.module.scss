@@ -154,7 +154,19 @@
     }
   }
   .loggedIn {
-    flex: 0 0 18rem;
+    flex: 0 0 auto;
+    padding: 0 3rem;
+    margin: 0 0 2vh 0;
+  }
+  .signOut {
+    flex: 0 0 auto;
+    color: rgba(white, 60%);
+    border-color: rgba(white, 50%);
+    backdrop-filter: blur(2px);
+    &:hover {
+      color: $lightest;
+      border-color: $lightest;
+    }
   }
 }
 

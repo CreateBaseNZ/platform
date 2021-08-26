@@ -55,6 +55,7 @@
 }
 
 .menu {
+  z-index: 5;
   position: absolute;
   bottom: -1rem;
   right: 0;
@@ -68,6 +69,13 @@
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.05s ease-out;
+  .name {
+    padding: 0 1.5rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(black, 0.25);
+    text-align: right;
+  }
   button {
     display: flex;
     align-items: center;
@@ -103,4 +111,29 @@
   width: calc(100% - 3rem);
   margin: 0.5rem 1.5rem;
   background: rgba(black, 0.05);
+}
+
+.auth {
+  height: 100%;
+  display: flex;
+  button {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin: 0 0.5vw;
+  }
+  .signUp {
+    background: $logo-mid;
+    box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
+    &:hover {
+      box-shadow: 0 8px 24px 0 rgba($logo-mid, 0.5);
+    }
+  }
+  .logIn {
+    color: $dark;
+    border: medium solid transparent;
+    &:hover {
+      color: $blue-dark;
+      border-color: $blue-dark;
+    }
+  }
 }
