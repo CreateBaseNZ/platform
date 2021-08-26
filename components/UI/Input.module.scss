@@ -20,6 +20,10 @@
   color: $darker;
   border: 2px solid transparent;
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out;
+  &::placeholder {
+    font-weight: 300;
+    color: $light;
+  }
   &:hover {
     background: #eeeeee;
   }
@@ -55,6 +59,7 @@
 .hasError {
   .input {
     border-color: $red !important;
+    background: rgba($red, 0.05) !important;
   }
   .label {
     color: $red !important;

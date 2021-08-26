@@ -1,0 +1,147 @@
+@import "/styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabContainer {
+  position: relative;
+  display: flex;
+  height: 3rem;
+  .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 12rem;
+    font-weight: 500;
+    color: $light;
+    position: relative;
+    transition: color 0.1s ease-out;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background: $light;
+      transition: height 0.1s ease-out, background-color 0.1s ease-out;
+    }
+    &:hover {
+      color: $dark;
+      &::after {
+        background: $dark;
+      }
+    }
+  }
+  .joinActive,
+  .createActive {
+    pointer-events: none;
+    font-weight: 600;
+    &::after {
+      height: 4px;
+    }
+  }
+  .joinActive {
+    color: $logo-light;
+    &::after {
+      background: $logo-light;
+    }
+  }
+  .createActive {
+    color: $blue-mid;
+    &::after {
+      background: $blue-mid;
+    }
+  }
+}
+
+.form {
+  margin: 4vh 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.instruction {
+  font-size: 14px;
+  color: $darkest;
+  margin: 1vh 0;
+}
+
+.input {
+  margin: 1vh 0;
+}
+
+.joinInput:focus {
+  border-color: $logo-light;
+  background: rgba($logo-light, 0.05);
+}
+
+.joinBtn {
+  margin-top: 2vh;
+  background: $logo-light;
+  box-shadow: 0 4px 16px 0 rgba($logo-light, 0.25);
+  &:hover {
+    box-shadow: 0 8px 24px 0 rgba($logo-light, 0.25);
+  }
+}
+
+.invalidCode {
+  color: $red;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 2vh;
+}
+
+.joinConfirm {
+  margin-top: 4vh;
+  display: flex;
+  flex-direction: column;
+  .orgName {
+    margin-top: 2vh;
+    font-size: 24px;
+    color: $blue-mid;
+    font-weight: 600;
+  }
+  .orgLoc {
+    font-size: 14px;
+    font-weight: 500;
+    color: $dark;
+  }
+  .orgUsers {
+    display: flex;
+    flex-direction: column;
+    margin: 1vh 0;
+    & > div {
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      color: $dark;
+      font-weight: 500;
+      i {
+        margin-right: 0.5em;
+        color: inherit;
+        font-size: 20px;
+      }
+    }
+  }
+  .joinConfirmBtnContainer {
+    margin-top: 4vh;
+    display: flex;
+    align-items: center;
+    & > * {
+      margin: 0 1vw;
+    }
+    .joinCancelBtn {
+      border-color: $light;
+      color: $light;
+      &:hover {
+        border-color: $red;
+        color: $red;
+      }
+    }
+  }
+}

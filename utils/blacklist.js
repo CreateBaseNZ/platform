@@ -93,9 +93,9 @@ export default [
   "coon",
   "cox",
   "crap",
-  "cum",
+  "cum", // may have to whitelist
   "cummer",
-  "cumming",
+  "cumming", // may have to whitelist
   "cums",
   "cumshot",
   "cunilingus",
@@ -115,7 +115,7 @@ export default [
   "cyberfucking",
   "d1ck",
   "damn",
-  "dick",
+  "dick", // maybe whitelist
   "dickhead",
   "dildo",
   "dildos",

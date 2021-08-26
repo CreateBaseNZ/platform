@@ -117,16 +117,12 @@ const UserDetailsForm = ({ user }) => {
       <div className={classes.btnContainer}>
         <PrimaryButton
           className={classes.submit}
-          disabled={isSaving}
+          isLoading={isSaving}
           type="submit"
-        >
-          {isSaving ? (
-            <div className={classes.loader} />
-          ) : (
-            <i className="material-icons-outlined">done</i>
-          )}
-          {isSaving ? "Saving ..." : "Update"}
-        </PrimaryButton>
+          icon={<i className="material-icons-outlined">done</i>}
+          loadingLabel="Saving ..."
+          mainLabel="Update"
+        />
       </div>
     </form>
   );
@@ -200,22 +196,17 @@ export const ChangePasswordForm = ({ setChangePassword }) => {
             className={classes.cancel}
             type="button"
             onClick={() => setChangePassword(false)}
-          >
-            Cancel
-          </TertiaryButton>
+            mainLabel="Cancel"
+          />
         )}
         <PrimaryButton
           className={classes.submit}
-          disabled={isSaving}
+          isLoading={isSaving}
+          icon={<i className="material-icons-outlined">save</i>}
           type="submit"
-        >
-          {isSaving ? (
-            <div className={classes.loader} />
-          ) : (
-            <i className="material-icons-outlined">save</i>
-          )}
-          {isSaving ? "Saving ..." : "Save"}
-        </PrimaryButton>
+          loadingLabel="Saving ..."
+          mainLabel="Save"
+        />
       </div>
     </form>
   );
