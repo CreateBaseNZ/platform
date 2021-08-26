@@ -73,11 +73,17 @@
 
 .input {
   margin: 1vh 0;
+  max-width: 400px;
 }
 
 .joinInput:focus {
   border-color: $logo-light;
   background: rgba($logo-light, 0.05);
+}
+
+.createInput:focus {
+  border-color: $blue-mid;
+  background: rgba($blue-mid, 0.05);
 }
 
 .joinBtn {
@@ -86,6 +92,15 @@
   box-shadow: 0 4px 16px 0 rgba($logo-light, 0.25);
   &:hover {
     box-shadow: 0 8px 24px 0 rgba($logo-light, 0.25);
+  }
+}
+
+.createBtn {
+  margin-top: 2vh;
+  background: $blue-mid;
+  box-shadow: 0 4px 16px 0 rgba($blue-mid, 0.25);
+  &:hover {
+    box-shadow: 0 8px 24px 0 rgba($blue-mid, 0.25);
   }
 }
 

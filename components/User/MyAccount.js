@@ -48,7 +48,7 @@ const MyAccount = ({ user }) => {
         <h1>My Account</h1>
         <div className={classes.ctaContainer}>
           {cta ? (
-            <OrgForm action={cta} setCta={setCta} />
+            <OrgForm access={user.type} action={cta} setCta={setCta} />
           ) : (
             <>
               <div className={`${classes.tallCta} ${classes.join}`}>
@@ -61,20 +61,22 @@ const MyAccount = ({ user }) => {
                   onClick={() => setCta("join")}
                 />
               </div>
-              <div className={`${classes.tallCta} ${classes.create}`}>
-                <div className={classes.img}>
-                  <Img
-                    src="/create-org.svg"
-                    layout="fill"
-                    objectFit="contain"
+              {user.type !== "learner" && (
+                <div className={`${classes.tallCta} ${classes.create}`}>
+                  <div className={classes.img}>
+                    <Img
+                      src="/create-org.svg"
+                      layout="fill"
+                      objectFit="contain"
+                    />
+                  </div>
+                  <p>Signing up your org for the first time?</p>
+                  <PrimaryButton
+                    mainLabel="Create an Org"
+                    onClick={() => setCta("create")}
                   />
                 </div>
-                <p>Signing up your org for the first time?</p>
-                <PrimaryButton
-                  children="Create an Org"
-                  onClick={() => setCta("create")}
-                />
-              </div>
+              )}
             </>
           )}
         </div>

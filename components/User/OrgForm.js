@@ -4,7 +4,7 @@ import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
 import classes from "./OrgForm.module.scss";
 
-const JoinOrgForm = (props) => {
+const JoinOrgForm = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [loadingOrg, setLoadingOrg] = useState(false);
   const [joiningOrg, setJoiningOrg] = useState(false);
@@ -13,7 +13,6 @@ const JoinOrgForm = (props) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
@@ -83,12 +82,12 @@ const JoinOrgForm = (props) => {
             Enter your organisation code below:
           </p>
           <Input
-            className={`${classes.input} ${classes.joinInput}`}
+            className={classes.input}
             onFocus={() => setShowInvalidCode(false)}
             inputProps={{
               className: classes.joinInput,
               type: "text",
-              placeholder: "Organisation code",
+              placeholder: "Organisation code*",
               ...register("org", {
                 required: "Please enter an organisation code",
               }),
@@ -112,11 +111,80 @@ const JoinOrgForm = (props) => {
   );
 };
 
-const CreateOrgForm = (props) => {
-  return <form></form>;
+const CreateOrgForm = () => {
+  const [loadingOrg, setCreatingOrg] = useState(false);
+  const [invalidId, setInvalidId] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onTouched",
+  });
+
+  const onSubmit = async (input) => {
+    setCreatingOrg(true);
+    if (input.schoolId === "taken") {
+      // TODO
+      setInvalidId("School ID already registered");
+    } else if (input.schoolId === "absent") {
+      // TODO
+      setInvalidId("School ID does not exist");
+    } else {
+      // TODO create and join the org
+      alert("nice!");
+    }
+    setCreatingOrg(false);
+  };
+
+  return (
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <p className={classes.instruction}>
+        To sign up your school for the first time, enter its details below:
+      </p>
+      <Input
+        className={classes.input}
+        onFocus={() => setInvalidId(false)}
+        style={{ margin: "3vh 0 0.5vh 0" }}
+        inputProps={{
+          className: classes.createInput,
+          type: "text",
+          placeholder: "School ID*",
+          ...register("schoolId", {
+            required: "Please enter your school ID",
+          }),
+        }}
+        error={errors.schoolId || invalidId}
+      />
+      <Input
+        className={classes.input}
+        style={{ margin: "0.5vh 0 3vh 0" }}
+        inputProps={{
+          className: classes.createInput,
+          type: "text",
+          placeholder: "School Name*",
+          ...register("schoolName", {
+            required: "Please enter your school name",
+          }),
+        }}
+        error={errors.schoolName}
+      />
+      <PrimaryButton
+        className={classes.createBtn}
+        isLoading={loadingOrg}
+        type="submit"
+        mainLabel="Create Organisation"
+      />
+      {invalidId && (
+        <div className={classes.invalidCode}>
+          The code you entered is invalid. Please try again
+        </div>
+      )}
+    </form>
+  );
 };
 
-const OrgForm = ({ action, setCta }) => {
+const OrgForm = ({ access, action, setCta }) => {
   return (
     <div className={classes.container}>
       <div className={classes.tabContainer}>
@@ -128,14 +196,16 @@ const OrgForm = ({ action, setCta }) => {
         >
           Join an org
         </button>
-        <button
-          className={`${classes.tab} ${
-            action === "create" ? classes.createActive : ""
-          }`}
-          onClick={() => setCta("create")}
-        >
-          Create an org
-        </button>
+        {access !== "learner" && (
+          <button
+            className={`${classes.tab} ${
+              action === "create" ? classes.createActive : ""
+            }`}
+            onClick={() => setCta("create")}
+          >
+            Create an org
+          </button>
+        )}
       </div>
       {action === "join" ? <JoinOrgForm /> : <CreateOrgForm />}
     </div>
