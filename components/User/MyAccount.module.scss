@@ -142,10 +142,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40vw;
-  min-width: 550px;
-  max-width: 650px;
   border-radius: 32px;
+  position: relative;
   background: linear-gradient(to bottom right, $blue-dark, $blue-light);
   * {
     color: $lightest;
@@ -155,23 +153,28 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-right: 8%;
+    max-width: 250px;
   }
   .orgCaption {
     font-size: 14px;
     font-weight: 600;
     margin-top: 3vh;
     margin-bottom: 2vh;
+    opacity: 0.75;
   }
   .orgName {
     font-size: 26px;
     font-weight: 600;
+    line-height: 1em;
+    margin-bottom: 1vh;
   }
   .orgLocation {
     font-size: 14px;
+    opacity: 0.9;
   }
   .orgUsers {
     margin: 3vh 0;
+    opacity: 0.9;
     & > * {
       display: flex;
       align-items: center;
@@ -182,14 +185,82 @@
       margin-right: 0.5rem;
     }
   }
-  .leaveOrg {
-    margin-top: 2vh;
+  .leaveOrgBtn {
+    margin-top: 1vh;
     margin-bottom: 2vh;
     color: rgba(white, 0.75);
     border-color: rgba(white, 0.75);
     &:hover {
       border-color: $lightest;
       color: $lightest;
+    }
+  }
+  .img {
+    height: 20vw;
+    width: 20vw;
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 350px;
+    max-height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .leaveConfirm {
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 75%;
+    max-width: 500px;
+    transform: translate(-50%, -50%);
+    .leaveH1 {
+      font-size: 18px;
+      margin-bottom: 2vh;
+      span {
+        font-weight: 600;
+        font-size: inherit;
+      }
+    }
+    .leaveH2 {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 5vh;
+    }
+    .leaveCancelBtn {
+      height: auto;
+      padding: 2vh 1vw;
+      flex: 1 1 0;
+      border-color: $lightest;
+      margin-right: 1vw;
+      opacity: 0.85;
+      &:hover {
+        color: $lightest;
+        opacity: 1;
+      }
+    }
+    .leaveYesBtn {
+      height: auto;
+      padding: 2vh 1vw;
+      flex: 1 1 0;
+      background: $lightest;
+      box-shadow: 0 4px 12px 0 rgba($lightest, 0.25);
+      color: $red;
+      margin-left: 1vw;
+      &:hover {
+        box-shadow: 0 8px 16px 0 rgba($lightest, 0.25);
+      }
+    }
+  }
+  &.leavingOrg {
+    background: $red;
+    .orgDetails,
+    .leaveOrgBtn,
+    .img {
+      visibility: hidden;
+    }
+    .leaveConfirm {
+      visibility: visible;
     }
   }
 }

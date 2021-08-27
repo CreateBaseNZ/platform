@@ -46,7 +46,7 @@ const UserView = ({ setLoaded }) => {
       setUser({
         type: session.user.access,
         org: {
-          name: "Lorem Ipsum",
+          name: "Shelly Park Primary School",
           city: "Auckland",
           country: "New Zealand",
           educators: 69,

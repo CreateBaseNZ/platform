@@ -7,7 +7,8 @@ import OrgForm from "./OrgForm";
 import UserDetailsForm, { ChangePasswordForm } from "./UserDetailsForm";
 
 const MyAccount = ({ user, setUser }) => {
-  const [changePassword, setChangePassword] = useState(false);
+  const [changingPassword, setChangingPasssword] = useState(false);
+  const [leavingOrg, setLeavingOrg] = useState(false);
   const [cta, setCta] = useState(false);
 
   const leaveOrgHandler = () => {
@@ -34,9 +35,9 @@ const MyAccount = ({ user, setUser }) => {
               : "backpack"}
           </i>
         </div>
-        {changePassword ? (
+        {changingPassword ? (
           <ChangePasswordForm
-            setChangePassword={setChangePassword}
+            setChangingPasssword={setChangingPasssword}
             setUser={setUser}
           />
         ) : (
@@ -45,8 +46,8 @@ const MyAccount = ({ user, setUser }) => {
         <div className={classes.secondary}>
           <TertiaryButton
             className={classes.changePass}
-            style={{ visibility: changePassword && "hidden" }}
-            onClick={() => setChangePassword(true)}
+            style={{ visibility: changingPassword && "hidden" }}
+            onClick={() => setChangingPasssword(true)}
             iconLeft={<i className="material-icons-outlined">password</i>}
             mainLabel="Change password"
           />
@@ -61,7 +62,11 @@ const MyAccount = ({ user, setUser }) => {
         <h1>My Account</h1>
         <div className={classes.ctaContainer}>
           {user.org ? (
-            <div className={classes.orgCard}>
+            <div
+              className={`${classes.orgCard} ${
+                leavingOrg ? classes.leavingOrg : ""
+              }`}
+            >
               <div className={classes.orgDetails}>
                 <div className={classes.orgCaption}>Your organisation</div>
                 <div className={classes.orgName}>{user.org.name}</div>
@@ -79,17 +84,40 @@ const MyAccount = ({ user, setUser }) => {
                   </div>
                 </div>
                 <SecondaryButton
-                  className={classes.leaveOrg}
+                  className={classes.leaveOrgBtn}
                   mainLabel="Leave"
-                  onClick={leaveOrgHandler}
+                  onClick={() => setLeavingOrg(true)}
                 />
               </div>
-              <Img
-                src="/my-org.svg"
-                layout="responsive"
-                height={200}
-                width={200}
-              />
+              <div className={classes.img}>
+                <Img
+                  src="/my-org.svg"
+                  layout="responsive"
+                  height={300}
+                  width={300}
+                />
+              </div>
+              <div className={classes.leaveConfirm}>
+                <div className={classes.leaveH1}>
+                  Are you sure you want to leave <span>{user.org.name}</span>?
+                </div>
+                <div className={classes.leaveH2}>
+                  You will not be able to view contents available to the
+                  organisation
+                </div>
+                <div style={{ display: "flex" }}>
+                  <SecondaryButton
+                    className={classes.leaveCancelBtn}
+                    mainLabel="Cancel"
+                    onClick={() => setLeavingOrg(false)}
+                  />
+                  <PrimaryButton
+                    className={classes.leaveYesBtn}
+                    mainLabel="Yes, I want to leave"
+                    onClick={leaveOrgHandler}
+                  />
+                </div>
+              </div>
             </div>
           ) : cta ? (
             <OrgForm
