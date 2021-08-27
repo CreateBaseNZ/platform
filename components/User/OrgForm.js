@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
+
+import axios from "axios";
+
 import classes from "./OrgForm.module.scss";
 
 const JoinOrgForm = ({ resetCta, setUser }) => {
@@ -65,11 +68,14 @@ const JoinOrgForm = ({ resetCta, setUser }) => {
             <div className={classes.orgUsers}>
               <div>
                 <i className="material-icons-outlined">school</i>
-                {queriedOrg.educators} educators
+                {queriedOrg.educators} educator
+                {(queriedOrg.educators > 1 || queriedOrg.educators === 0) &&
+                  "s"}
               </div>
               <div>
                 <i className="material-icons-outlined">backpack</i>
-                {queriedOrg.learners} learners
+                {queriedOrg.learners} learner
+                {(queriedOrg.learners > 1 || queriedOrg.learners === 0) && "s"}
               </div>
             </div>
           </div>
@@ -125,7 +131,8 @@ const JoinOrgForm = ({ resetCta, setUser }) => {
 };
 
 const CreateOrgForm = ({ resetCta, setUser }) => {
-  const [loadingOrg, setCreatingOrg] = useState(false);
+  const [newOrg, setNewOrg] = useState({});
+  const [creatingOrg, setCreatingOrg] = useState(false);
   const [invalidId, setInvalidId] = useState(false);
   const {
     register,
@@ -137,18 +144,57 @@ const CreateOrgForm = ({ resetCta, setUser }) => {
 
   const onSubmit = async (input) => {
     setCreatingOrg(true);
+
+    let govData;
+    try {
+      govData = (
+        await axios(
+          `https://catalogue.data.govt.nz/api/3/action/datastore_search?resource_id=20b7c271-fd5a-4c9e-869b-481a0e2453cd&q=${input.schoolId} ${input.schoolName}`
+        )
+      )["data"];
+    } catch (error) {
+      govData = { status: "error", content: error };
+      alert("something went wrong while querying");
+      return setCreatingOrg(false);
+    }
+
+    console.log(govData);
+
+    if (!govData.success) {
+      alert("got a response but with an error status");
+      return setCreatingOrg(false);
+    }
+    if (govData.result.records.length === 0) {
+      alert("this org does not exist");
+      return setCreatingOrg(false);
+    }
+    if (govData.result.records.length > 1) {
+      alert("more than one result was found, please enter the correct info");
+      return setCreatingOrg(false);
+    }
+
+    const newOrg = {
+      id: govData.result.records[0].School_Id,
+      name: govData.result.records[0].Org_Name,
+      city: govData.result.records[0].Add1_City,
+      country: "Auckland",
+      educators: 1,
+      learners: 0,
+    };
+
+    // TODO send org id to backend
+
     if (input.schoolId === "taken") {
       // TODO
+      alert("school id is already registered");
       setInvalidId("School ID already registered");
-    } else if (input.schoolId === "absent") {
-      // TODO
-      setInvalidId("School ID does not exist");
-    } else {
-      // TODO create and join the org
-      resetCta();
-      alert("nice!");
+      return setCreatingOrg(false);
     }
-    setCreatingOrg(false);
+
+    // TODO
+    alert("nice!");
+    setUser((state) => ({ ...state, org: newOrg }));
+    resetCta();
   };
 
   return (
@@ -185,7 +231,7 @@ const CreateOrgForm = ({ resetCta, setUser }) => {
       />
       <PrimaryButton
         className={classes.createBtn}
-        isLoading={loadingOrg}
+        isLoading={creatingOrg}
         type="submit"
         mainLabel="Create Organisation"
       />

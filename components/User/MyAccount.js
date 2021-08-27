@@ -17,11 +17,15 @@ const MyAccount = ({ user, setUser }) => {
     if (error) {
       //TODO error
       alert("oops");
-    } else {
-      //TODO success message
-      setUser((state) => ({ ...state, org: undefined }));
+      return setLeavingOrg(false);
     }
+
+    //TODO success message
+    setUser((state) => ({ ...state, org: undefined }));
+    setLeavingOrg(false);
   };
+
+  console.log(leavingOrg);
 
   return (
     <div className={classes.myAccount}>
@@ -76,11 +80,14 @@ const MyAccount = ({ user, setUser }) => {
                 <div className={classes.orgUsers}>
                   <div>
                     <i className="material-icons-outlined">school</i>
-                    {user.org.educators} educators
+                    {user.org.educators} educator
+                    {(user.org.educators > 1 || user.org.educators === 0) &&
+                      "s"}
                   </div>
                   <div>
                     <i className="material-icons-outlined">backpack</i>
-                    {user.org.learners} learners
+                    {user.org.learners} learner
+                    {(user.org.learners > 1 || user.org.learners === 0) && "s"}
                   </div>
                 </div>
                 <SecondaryButton
