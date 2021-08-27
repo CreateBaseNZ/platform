@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import Head from "next/head";
-import MyAccount from "../../components/User/MyAccount";
+import MyAccount from "../../components/MyAccount/MyAccount";
 import Header from "../../components/Header";
 import axios from "axios";
 
