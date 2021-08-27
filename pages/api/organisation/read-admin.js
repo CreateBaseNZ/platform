@@ -7,7 +7,7 @@ export default async function (req, res) {
 	if (!session) {
 		return res.send({ status: "failed", content: "No user is logged in." });
 	}
-	if (session.user.access !== "admin") {
+	if (session.user.access !== "admin" || session.user.access !== "educator") {
 		return res.send({ status: "failed", content: "Invalid access." });
 	}
 	// Send the request
