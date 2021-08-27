@@ -1,6 +1,5 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
-import Img from "../UI/Img";
 import VisualBellContext from "../../store/visual-bell-context";
 import OrgForm from "./OrgForm";
 import UserDetailsForm, { ChangePasswordForm } from "./UserDetailsForm";
@@ -8,11 +7,13 @@ import UserDetailsForm, { ChangePasswordForm } from "./UserDetailsForm";
 import classes from "./MyAccount.module.scss";
 import OrgCard from "./OrgCard";
 import TallCta from "./TallCta";
+import DeleteAccModal from "./DeleteAccModal";
 
 const MyAccount = ({ user, setUser }) => {
   const ctx = useContext(VisualBellContext);
   const [changingPassword, setChangingPassword] = useState(false);
   const [leavingOrg, setLeavingOrg] = useState(false);
+  const [deletingAcc, setDeletingAcc] = useState(false);
   const [cta, setCta] = useState(false);
 
   const leaveOrgHandler = () => {
@@ -65,6 +66,7 @@ const MyAccount = ({ user, setUser }) => {
             className={classes.deleteAcc}
             iconLeft={<i className="material-icons-outlined">person_remove</i>}
             mainLabel="Delete account"
+            onClick={() => setDeletingAcc(true)}
           />
         </div>
       </div>
@@ -115,6 +117,7 @@ const MyAccount = ({ user, setUser }) => {
           )}
         </div>
       </div>
+      {deletingAcc && <DeleteAccModal setDeletingAcc={setDeletingAcc} />}
     </div>
   );
 };
