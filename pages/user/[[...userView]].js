@@ -11,7 +11,7 @@ import classes from "/styles/userView.module.scss";
 const UserView = ({ setLoaded }) => {
   const router = useRouter();
   const [session, loading] = useSession();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const [view, setView] = useState("my-account");
 
   useEffect(() => {
@@ -45,7 +45,13 @@ const UserView = ({ setLoaded }) => {
       }
       setUser({
         type: session.user.access,
-        org: session.user.organisation,
+        org: {
+          name: "Lorem Ipsum",
+          city: "Auckland",
+          country: "New Zealand",
+          educators: 69,
+          learners: 420,
+        },
         username: session.user.username,
         displayName: data.content.displayName,
         email: data.content.email,
@@ -53,7 +59,7 @@ const UserView = ({ setLoaded }) => {
     }
   }, [session]);
 
-  if (loading) return null;
+  if (loading || !user) return null;
 
   if (!session) {
     router.replace("/auth");
@@ -74,7 +80,7 @@ const UserView = ({ setLoaded }) => {
         org={user.org}
         name={user.displayName}
       />
-      {view === "my-account" && <MyAccount user={user} />}
+      {view === "my-account" && <MyAccount user={user} setUser={setUser} />}
     </div>
   );
 };

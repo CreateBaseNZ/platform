@@ -7,7 +7,7 @@ import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 import classes from "./UserDetailsForm.module.scss";
 import blacklist from "../../utils/blacklist";
 
-const UserDetailsForm = ({ user }) => {
+const UserDetailsForm = ({ user, setUser }) => {
   const [isSaving, setIsSaving] = useState(false);
   const {
     register,
@@ -38,6 +38,9 @@ const UserDetailsForm = ({ user }) => {
     if (blacklist.some((v) => input.displayName.includes(v))) {
       // TODO trigger an error
       alert("no can do sir");
+    } else if (blacklist.some((v) => input.username.includes(v))) {
+      // TODO trigger an error
+      alert("no can do sir");
     } else {
       const date = new Date().toString();
       let data;
@@ -55,7 +58,9 @@ const UserDetailsForm = ({ user }) => {
         alert("error!"); // TODO handle error
       }
       // TODO change username
+
       // TODO success handler
+      setUser((state) => ({ ...state, ...input }));
       alert("nice, all done");
     }
     setIsSaving(false);
@@ -138,14 +143,24 @@ export const ChangePasswordForm = ({ setChangePassword }) => {
     handleSubmit,
     trigger,
     watch,
-    formState: { errors, touchedFields, dirtyFields },
+    formState: { errors, touchedFields },
   } = useForm({ mode: "onTouched" });
   password.current = watch("newPassword", "");
 
   const onSubmit = async (input) => {
     setIsSaving(true);
+    // TODO validate password
     console.log(input); // TODO change password
+
     setIsSaving(false);
+    const error = false;
+    if (error) {
+      // TODO handle error
+      alert("nope");
+    } else {
+      setChangePassword(false);
+      alert("nice");
+    }
   };
 
   useEffect(() => {

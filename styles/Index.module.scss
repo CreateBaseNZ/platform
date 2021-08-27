@@ -164,8 +164,8 @@
     border-color: rgba(white, 50%);
     backdrop-filter: blur(2px);
     &:hover {
-      color: $lightest;
-      border-color: $lightest;
+      color: $red;
+      border-color: $red;
     }
   }
 }

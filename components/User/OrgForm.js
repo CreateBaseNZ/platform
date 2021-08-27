@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
+import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
 import classes from "./OrgForm.module.scss";
 
-const JoinOrgForm = () => {
+const JoinOrgForm = ({ resetCta, setUser }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [loadingOrg, setLoadingOrg] = useState(false);
   const [joiningOrg, setJoiningOrg] = useState(false);
@@ -26,9 +26,10 @@ const JoinOrgForm = () => {
       // TODO save queried org as state
       setQueriedOrg({
         name: "Lorem",
-        location: "Auckland, New Zealand",
-        educators: "8",
-        learners: "143",
+        city: "Auckland",
+        country: "New Zealand",
+        educators: 8,
+        learners: 143,
       });
       setShowConfirm(true);
     } else {
@@ -38,26 +39,38 @@ const JoinOrgForm = () => {
   };
 
   const joinOrgHandler = () => {
+    setJoiningOrg(true);
     // TODO join the org
-    // TODO fail handler
+    const success = true;
+    if (success) {
+      setUser((state) => ({ ...state, org: queriedOrg }));
+      resetCta();
+    } else {
+      // TODO fail handler
+    }
     // TODO success handler
+    setJoiningOrg(false);
   };
 
   return (
     <>
       {showConfirm ? (
         <div className={classes.joinConfirm}>
-          <div className={classes.instruction}>You are now joining</div>
-          <div className={classes.orgName}>{queriedOrg.name}</div>
-          <div className={classes.orgLoc}>{queriedOrg.location}</div>
-          <div className={classes.orgUsers}>
-            <div>
-              <i className="material-icons-outlined">school</i>
-              {queriedOrg.educators}
+          <div className={classes.instruction}>You are joining</div>
+          <div className={classes.orgPreview}>
+            <div className={classes.orgName}>{queriedOrg.name}</div>
+            <div className={classes.orgLoc}>
+              {queriedOrg.city}, {queriedOrg.country}
             </div>
-            <div>
-              <i className="material-icons-outlined">backpack</i>
-              {queriedOrg.learners}
+            <div className={classes.orgUsers}>
+              <div>
+                <i className="material-icons-outlined">school</i>
+                {queriedOrg.educators} educators
+              </div>
+              <div>
+                <i className="material-icons-outlined">backpack</i>
+                {queriedOrg.learners} learners
+              </div>
             </div>
           </div>
           <div className={classes.joinConfirmBtnContainer}>
@@ -111,7 +124,7 @@ const JoinOrgForm = () => {
   );
 };
 
-const CreateOrgForm = () => {
+const CreateOrgForm = ({ resetCta, setUser }) => {
   const [loadingOrg, setCreatingOrg] = useState(false);
   const [invalidId, setInvalidId] = useState(false);
   const {
@@ -132,6 +145,7 @@ const CreateOrgForm = () => {
       setInvalidId("School ID does not exist");
     } else {
       // TODO create and join the org
+      resetCta();
       alert("nice!");
     }
     setCreatingOrg(false);
@@ -184,7 +198,9 @@ const CreateOrgForm = () => {
   );
 };
 
-const OrgForm = ({ access, action, setCta }) => {
+const OrgForm = ({ access, action, setCta, setUser }) => {
+  const resetCta = () => setCta(false);
+
   return (
     <div className={classes.container}>
       <div className={classes.tabContainer}>
@@ -207,7 +223,11 @@ const OrgForm = ({ access, action, setCta }) => {
           </button>
         )}
       </div>
-      {action === "join" ? <JoinOrgForm /> : <CreateOrgForm />}
+      {action === "join" ? (
+        <JoinOrgForm resetCta={resetCta} setUser={setUser} />
+      ) : (
+        <CreateOrgForm resetCta={resetCta} setUser={setUser} />
+      )}
     </div>
   );
 };

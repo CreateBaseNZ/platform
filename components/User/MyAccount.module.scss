@@ -75,36 +75,6 @@
   width: 100%;
   display: flex;
   align-items: center;
-  .tallCta {
-    height: 50vh;
-    width: 40vh;
-    max-height: 500px;
-    max-width: 400px;
-    min-width: 20vw;
-    border-radius: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .img {
-      height: 60%;
-      width: 85%;
-    }
-    p {
-      font-size: 14px;
-      color: $lightest;
-      margin: 2vh 0;
-    }
-    button {
-      margin-bottom: 2vh;
-      min-width: 220px;
-      width: 65%;
-      height: 4.5rem;
-      border-radius: 4.5rem;
-      font-size: 20px;
-      font-weight: 600;
-    }
-  }
   .join {
     background: linear-gradient(to bottom right, $logo-dark, $magenta-light);
     button {
@@ -133,5 +103,93 @@
   }
   & > *:last-child {
     margin-right: 0;
+  }
+}
+
+.tallCta {
+  height: 50vh;
+  width: 40vh;
+  max-height: 500px;
+  max-width: 400px;
+  min-width: 20vw;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .img {
+    height: 60%;
+    width: 85%;
+  }
+  p {
+    font-size: 14px;
+    color: $lightest;
+    margin: 2vh 0;
+  }
+  button {
+    margin-bottom: 2vh;
+    min-width: 220px;
+    width: 65%;
+    height: 4.5rem;
+    border-radius: 4.5rem;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.orgCard {
+  padding: 1vh 2vw 1vh 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40vw;
+  min-width: 550px;
+  max-width: 650px;
+  border-radius: 32px;
+  background: linear-gradient(to bottom right, $blue-dark, $blue-light);
+  * {
+    color: $lightest;
+  }
+  .orgDetails {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 8%;
+  }
+  .orgCaption {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+  }
+  .orgName {
+    font-size: 26px;
+    font-weight: 600;
+  }
+  .orgLocation {
+    font-size: 14px;
+  }
+  .orgUsers {
+    margin: 3vh 0;
+    & > * {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+    }
+    i {
+      font-size: 20px;
+      margin-right: 0.5rem;
+    }
+  }
+  .leaveOrg {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    color: rgba(white, 0.75);
+    border-color: rgba(white, 0.75);
+    &:hover {
+      border-color: $lightest;
+      color: $lightest;
+    }
   }
 }

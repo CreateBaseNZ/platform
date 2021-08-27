@@ -6,11 +6,21 @@ import classes from "./MyAccount.module.scss";
 import OrgForm from "./OrgForm";
 import UserDetailsForm, { ChangePasswordForm } from "./UserDetailsForm";
 
-const MyAccount = ({ user }) => {
+const MyAccount = ({ user, setUser }) => {
   const [changePassword, setChangePassword] = useState(false);
   const [cta, setCta] = useState(false);
 
-  const changePasswordHandler = () => setChangePassword(true);
+  const leaveOrgHandler = () => {
+    // TODO leave org
+    const error = false;
+    if (error) {
+      //TODO error
+      alert("oops");
+    } else {
+      //TODO success message
+      setUser((state) => ({ ...state, org: undefined }));
+    }
+  };
 
   return (
     <div className={classes.myAccount}>
@@ -25,15 +35,18 @@ const MyAccount = ({ user }) => {
           </i>
         </div>
         {changePassword ? (
-          <ChangePasswordForm setChangePassword={setChangePassword} />
+          <ChangePasswordForm
+            setChangePassword={setChangePassword}
+            setUser={setUser}
+          />
         ) : (
-          <UserDetailsForm user={user} />
+          <UserDetailsForm user={user} setUser={setUser} />
         )}
         <div className={classes.secondary}>
           <TertiaryButton
             className={classes.changePass}
             style={{ visibility: changePassword && "hidden" }}
-            onClick={changePasswordHandler}
+            onClick={() => setChangePassword(true)}
             iconLeft={<i className="material-icons-outlined">password</i>}
             mainLabel="Change password"
           />
@@ -47,8 +60,44 @@ const MyAccount = ({ user }) => {
       <div className={classes.rightArea}>
         <h1>My Account</h1>
         <div className={classes.ctaContainer}>
-          {cta ? (
-            <OrgForm access={user.type} action={cta} setCta={setCta} />
+          {user.org ? (
+            <div className={classes.orgCard}>
+              <div className={classes.orgDetails}>
+                <div className={classes.orgCaption}>Your organisation</div>
+                <div className={classes.orgName}>{user.org.name}</div>
+                <div className={classes.orgLocation}>
+                  {user.org.city}, {user.org.country}
+                </div>
+                <div className={classes.orgUsers}>
+                  <div>
+                    <i className="material-icons-outlined">school</i>
+                    {user.org.educators} educators
+                  </div>
+                  <div>
+                    <i className="material-icons-outlined">backpack</i>
+                    {user.org.learners} learners
+                  </div>
+                </div>
+                <SecondaryButton
+                  className={classes.leaveOrg}
+                  mainLabel="Leave"
+                  onClick={leaveOrgHandler}
+                />
+              </div>
+              <Img
+                src="/my-org.svg"
+                layout="responsive"
+                height={200}
+                width={200}
+              />
+            </div>
+          ) : cta ? (
+            <OrgForm
+              access={user.type}
+              action={cta}
+              setCta={setCta}
+              setUser={setUser}
+            />
           ) : (
             <>
               <div className={`${classes.tallCta} ${classes.join}`}>

@@ -52,16 +52,6 @@ const Browse = ({ setLoaded }) => {
     // }
     // console.log(data);
 
-    // EXAMPLE: Read data
-    // const input = ["test", "test2"]; // Array of the properties which values we want to retrieve
-    // let data;
-    // try {
-    //   data = (await axios.post("/api/user/data/read", { input }))["data"];
-    // } catch (error) {
-    //   data = { status: "error", content: error };
-    // }
-    // console.log(data);
-
     // EXAMPLE: Update data
     // const input = {
     //   test: "Hello World 3",

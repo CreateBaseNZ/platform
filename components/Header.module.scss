@@ -59,7 +59,7 @@
   position: absolute;
   bottom: -1rem;
   right: 0;
-  transform: translateY(100%);
+  transform: translateY(calc(100% - 4px));
   padding: 1rem 0;
   display: flex;
   flex-direction: column;
@@ -68,7 +68,7 @@
   box-shadow: 0 8px 16px 0 rgba(black, 0.1);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.05s ease-out;
+  transition: opacity 0.05s ease-out, transform 0.1s ease-out;
   .name {
     padding: 0 1.5rem;
     font-size: 14px;
@@ -103,6 +103,7 @@
   &.active {
     opacity: 1;
     pointer-events: auto;
+    transform: translateY(100%);
   }
 }
 
