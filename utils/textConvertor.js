@@ -1,6 +1,5 @@
 import blockFunctions from "../public/blocks.json";
 
-const awaitFunctions = ['intialiseRobot', 'MoveArm'];
 const unityDirectFunctions = ['Jump', 'Crouch'];
 export const convertCode = (text, system,onceCode) => {
     let start = [], end = [];
@@ -30,43 +29,46 @@ export const convertCode = (text, system,onceCode) => {
     let quotesDone = 0;
     for (let i = 0; i < splittedCode.length; i++){
         let unity = false;
-
+        let LHS = '', RHS = '';
         let element = splittedCode[i].trim();
-        const dividedbyBracket=element.split("(")
-        const beforeBracket=dividedbyBracket[0];
-        const [elementSplitted, sides] = splitSingleEqual(beforeBracket);
-        let LHS='',RHS=''
-        if (sides == 0) {
-            continue;
-        } else if (sides == 1) {
-            RHS = elementSplitted;
-        } else if (sides == 2) {
-            LHS = elementSplitted[0];
-            RHS = elementSplitted[1];
-        }
-        if (allFunctions.includes(RHS)&&!usedFunctions.includes(RHS)) {
-            usedFunctions.push(RHS);
-        }
-        if(awaitFunctions.includes(RHS)){
-            RHS='await '+RHS;
-        } else if (unityDirectFunctions.includes(RHS)) {
-            RHS = `unityContext.send("${system}","${RHS}");`
-            for (let i = 0; i < dividedbyBracket.length; i++){
-                dividedbyBracket[i] = '';
+        if (element.length < 2 || element.substring(0, 2) != "//") {
+            const dividedbyBracket = element.split("(")
+            const beforeBracket = dividedbyBracket[0];
+            const [elementSplitted, sides] = splitSingleEqual(beforeBracket);
+            
+            if (sides == 0) {
+                continue;
+            } else if (sides == 1) {
+                RHS = elementSplitted;
+            } else if (sides == 2) {
+                LHS = elementSplitted[0];
+                RHS = elementSplitted[1];
             }
-            unity = true;
-        } else if (RHS == 'console.log') {
-            RHS = 'ctx.addLog';
-        }
+            if (allFunctions.includes(RHS) && !usedFunctions.includes(RHS)) {
+                usedFunctions.push(RHS);
+            }
+            if (awaitFunctions.includes(RHS)) {
+                RHS = 'await ' + RHS;
+            } else if (unityDirectFunctions.includes(RHS)) {
+                RHS = `unityContext.send("${system}","${RHS}");`
+                for (let i = 0; i < dividedbyBracket.length; i++) {
+                    dividedbyBracket[i] = '';
+                }
+                unity = true;
+            } else if (RHS == 'console.log') {
+                RHS = 'ctx.addLog';
+            }
 
-        const afterbraket=dividedbyBracket.splice(1).join('(');
-        if(afterbraket){
-            afterbraket='('+afterbraket;
+            let afterbraket = dividedbyBracket.splice(1).join('(');
+            if (afterbraket) {
+                afterbraket = '(' + afterbraket;
+            }
+            if (LHS) {
+                LHS += '=';
+            }
+            element = LHS + RHS + afterbraket;
         }
-        if(LHS){
-            LHS+='=';
-        }
-        element = LHS + RHS + afterbraket;
+        
         let startPoints, endPoints;
         if (unity) {
             [startPoints, endPoints] = findQuotePoints(LHS);

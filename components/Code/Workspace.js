@@ -125,9 +125,8 @@ const Workspace = (props) => {
     let codeLines = 0;
     codeChanged = true;
     const onceCode = isOnceCode(props.query);
-    let t = `moveArm(5.2,0.3,0.5);
-    magneticSwitch(true)
-    moveArm(2.7,-8.5,2.5);`;
+    let t = editorRef.current.getValue();
+    console.log(t);
     const systemName=defineObject(props.query)
     let code = convertCode(t, systemName, onceCode);
     let com;

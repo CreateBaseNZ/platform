@@ -1,5 +1,4 @@
 //import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-
 import classes from "./project.module.scss";
 
 const Plan = ({ query }) => {
