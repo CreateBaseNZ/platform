@@ -2,19 +2,20 @@ import blockFunctions from "../public/blocks.json";
 
 const awaitFunctions = ['intialiseRobot', 'MoveArm'];
 const unityDirectFunctions = ['Jump', 'Crouch'];
-export const convertCode = (text, system) => {
-    let functions = '';
+export const convertCode = (text, system,onceCode) => {
     let start = [], end = [];
     let blocks = [], awaitFunctions = [],allFunctions=[];
     for (let i = 0; i < blockFunctions.length; i++) {
-        const
-            element = blockFunctions[i];
-        if ((element.robot == undefined || element.robot === system)&&element.functionName) {
-            blocks.push(element);
-            allFunctions.push(element.functionName);
-            if (element.await == true) {
-                awaitFunctions.push(element.functionName);
-            } if (element.type == "start") {
+        const element = blockFunctions[i];
+        if ((element.robot == undefined || element.robot === system)) {
+            if (element.functionName) {
+                blocks.push(element);
+                allFunctions.push(element.functionName);
+                if (element.await == true) {
+                    awaitFunctions.push(element.functionName);
+                }
+            }
+            if (element.type == "start") {
                 start = element;
             } else if (element.type == "end") {
                 end = element;
@@ -22,11 +23,14 @@ export const convertCode = (text, system) => {
        }
     }
     const usedFunctions = [];
-    text = start.logic + text;
+    text =  text;
   //divide the code Input 
-    const doubledUpText = doubleUp(text);
+    const [doubledUpText, quotes] = doubleUp(text);
     let splittedCode = doubledUpText.split('\n');
+    let quotesDone = 0;
     for (let i = 0; i < splittedCode.length; i++){
+        let unity = false;
+
         let element = splittedCode[i].trim();
         const dividedbyBracket=element.split("(")
         const beforeBracket=dividedbyBracket[0];
@@ -50,9 +54,11 @@ export const convertCode = (text, system) => {
             for (let i = 0; i < dividedbyBracket.length; i++){
                 dividedbyBracket[i] = '';
             }
+            unity = true;
         } else if (RHS == 'console.log') {
             RHS = 'ctx.addLog';
         }
+
         const afterbraket=dividedbyBracket.splice(1).join('(');
         if(afterbraket){
             afterbraket='('+afterbraket;
@@ -60,10 +66,32 @@ export const convertCode = (text, system) => {
         if(LHS){
             LHS+='=';
         }
-        element=LHS+RHS+afterbraket;
+        element = LHS + RHS + afterbraket;
+        let startPoints, endPoints;
+        if (unity) {
+            [startPoints, endPoints] = findQuotePoints(LHS);
+        }
+        else {
+            [startPoints, endPoints] = findQuotePoints(element);
+        }
+        for (let j = 0; j < startPoints.length; j++) {
+            if (quotes.length > quotesDone) {
+                element = element.substring(0, startPoints[j]) + quotes[quotesDone] + element.substring(endPoints[j] + 1);
+                quotesDone++;
+            } else {
+                console.log("lol");
+            }
+        }
+        
+        
         splittedCode[i] = element;
     }
-    text = start.logic + splittedCode.join('\n') + end.logic;
+    // text = splittedCode.join('\n');
+    let intermediateCode = "\n"
+    if (onceCode) {
+        intermediateCode += "if (codeNum != codesDone) { resolve(''); } \n";
+    }
+    text = start.logic + splittedCode.join(intermediateCode) + end.logic;
     text += "\n\n";
 
     usedFunctions.forEach((element, i, arr) => {
@@ -94,7 +122,7 @@ export const convertCode = (text, system) => {
             functionDef += `});\n`;
         }  
         functionDef += `}\n`
-        text += functionDef;
+        text = functionDef + text;
     })
 
     // try {
@@ -127,55 +155,89 @@ const splitSingleEqual = (input) => {
     }
 }
 
+const findLine = (orignal,modifiedText, modifiedLine) => {
+    let editedLine = modifiedText[modifiedLine];
+
+}
+const findQuotePoints = (text) => {
+    let quoteStart = [];
+    let quoteEnd = [];
+    let inQuote = false;
+    let quoteSign = "";
+    for (let i = 0; i < text.length; i++){
+        if (text[i] == `"` || text[i] == "'" || text[i] == "`") {
+            if (inQuote) {
+                if (quoteSign == text[i] && text[i - 1] != "\\") {
+                    quoteEnd.push(i);
+                    inQuote = false;
+                }
+            } else {
+                quoteSign = text[i];
+                inQuote = true;
+                quoteStart.push(i);
+            }
+        }
+    }
+    if (quoteStart.length == quoteEnd.length) {
+        return [quoteStart, quoteEnd];
+    } else {
+        console.log("something is wrong");
+        return [[],[]];
+    }  
+}
+
 const doubleUp = (text) => {
-    let Quotes = false;
+    let quoteStart;
+    let quotes = [];
+    let inQuote = false;
     let withinBracket = false;
-    for (let i = 1; i < text.length; i++){
-        if (Quotes) {
+    let newText = "";
+    let quoteSign = "";
+    for (let i = 0; i < text.length; i++){
+        if (inQuote) {
             if (text[i] == "\n") {
-                const starttext = text.substring(0, i);
-                const endtext = text.substring(i + 1);
-                text = starttext + `\\n` + endtext;
-                i++;
+                const newLine = "\\n";
+                newText = newText.concat(newLine);
+            } else {
+                newText=newText.concat(text[i])
             }
         } else {
+            newText=newText.concat(text[i])
             if (withinBracket) {
                 if (text[i] == ')') {
                     withinBracket = false;
                 }
             } else {
-                if (text[i] == '(') {
-                    withinBracket = true;
-                } else {
-                    if (text[i] == ';') {
+                switch (text[i]) {
+                    case "(":
+                        withinBracket = true;
+                        break;
+                    case ";":
+                    case "{":
+                    case "}":
                         if (text[i + 1] != '\n') {
-                            const starttext = text.substring(0, i + 1);
-                            const endtext = text.substring(i + 1);
-                            text = starttext + `\n` + endtext;
+                            newText=newText.concat("\n")
                         }
-                    }
-                    else if (text[i] == '{') {
-                        if (text[i + 1] != '\n') {
-                            const starttext = text.substring(0, i + 1);
-                            const endtext = text.substring(i + 1);
-                            text = starttext + `\n` + endtext;
-                        }
-                    }
-                    if (text[i] == ';') {
-                        if (text[i -
-                            1] != '\n') {
-                            const starttext = text.substring(0, i + 1);
-                            const endtext = text.substring(i + 1);
-                            text = starttext + `\n` + endtext;
-                        }
-                    }
+                        break;
+                    default:
+                        break;
                 }
             }
         }
-        if (text[i] == "\"" || text[i] == "'" || text[i] == "`") {
-            Quotes = !Quotes;
+        if (text[i] == `"` || text[i] == "'" || text[i] == "`") {
+
+            if (inQuote) {
+                if (quoteSign == text[i] && text[i - 1] != "\\") {
+                    quotes.push(text.substring(quoteStart, i + 1));
+                    inQuote = false;
+                }
+            } else {
+                quoteSign = text[i];
+                quoteStart = i;
+                inQuote = true;
+            }
         }
     }
-    return text;
+    return [newText,quotes];
 }
 

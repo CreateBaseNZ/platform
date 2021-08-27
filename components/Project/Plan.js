@@ -1,4 +1,4 @@
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+//import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import classes from "./project.module.scss";
 

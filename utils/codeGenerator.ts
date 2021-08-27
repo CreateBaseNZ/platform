@@ -1,4 +1,3 @@
-import { FlareSharp } from "@material-ui/icons";
 import blockFunctions from "../public/blocks.json";
 
 export class CodeGenerator {

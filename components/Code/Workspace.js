@@ -113,56 +113,51 @@ const Workspace = (props) => {
     });
   };
 
-  const compileHandlerTxt = () => {
+  const compileHandlerTxt = async() => {
     let codeLines = 0;
-    let t = `
-    let f=10;
-    let c=f; f=10;
-     c=f;f=10;
-     c=f;f=10;
-     c=f;f=10;
-     c=f;f=10;
-     c=f;f=10;
-     c=f;f=10;
-     c=f;f=10;
-     c=f;setText("2");`;
-    try {
-      let func = new Function(t);
-      func();
-    } catch (error) {
-      let ErrorMessage = error.message;
-      let errorLine = error.stack.split("\n")[1].split(":")[2]-2;
-      // console.log(error.stack.split("\n")[1]);
-      ctx.addError(ErrorMessage+" at line "+errorLine)
+    codeChanged = true;
+    const onceCode = isOnceCode(props.query);
+    let t = `moveArm(5.2,0.3,0.5);
+    magneticSwitch(true)
+    moveArm(2.7,-8.5,2.5);`;
+    const systemName=defineObject(props.query)
+    let code = convertCode(t, systemName, onceCode);
+    let com;
+    setText(code);
+
+    
+    if (!onceCode) {
+      code += "\nresolve(' ');";
+      let functionExecute = async () => {
+        printing++;
+        await executeCode(code,printing);
+        if (printing >= 10) {
+          printing = 0;
+        }
+        if (codeChanged) {
+          com = 0;
+          codeChanged = false;
+        } else {
+          com = setTimeout(functionExecute, 50);
+        }
+      };
+      if (codesDone > 0) {
+        while (codeChanged) {
+          await delay(10);
+        }
+      } else {
+        codeChanged = false;
+      }
+      let printing = 0;
+      functionExecute();
+      codesDone++;
+    } else {
+      com = 0;
+      codesDone++
+      eval("(async () => {\nconst printing=100;\nlet done=false;" + code + "done=true;})()").catch((e) => {
+        console.log(e);
+      });
     }
-    // const systemName=defineObject(props.query)
-    // const compliedText = convertCode(t, systemName);
-    // setText(compliedText);
-    // console.log(compliedText);
-    // code += "\nresolve(' ');";
-    // let functionExecute = async () => {
-    //   printing++;
-    //   await executeCode(code,printing);
-    //   if (printing >= 10) {
-    //     printing = 0;
-    //   }
-    //   if (codeChanged) {
-    //     com = 0;
-    //     codeChanged = false;
-    //   } else {
-    //     com = setTimeout(functionExecute, 50);
-    //   }
-    // };
-    // if (codesDone > 0) {
-    //   while (codeChanged) {
-    //     await delay(10);
-    //   }
-    // } else {
-    //   codeChanged = false;
-    // }
-    // let printing = 0;
-    // functionExecute();
-    // codesDone++;
   }
   const compileHandler = async () => {
     let com;
