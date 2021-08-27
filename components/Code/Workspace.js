@@ -11,8 +11,12 @@ import { CodeGenerator } from "../../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import Config from "./Config";
-import { flow2Text, isOnceCode, defineObject } from "../../utils/blockExtractionHelpers";
-import {convertCode} from "../../utils/textConvertor"
+import {
+  flow2Text,
+  isOnceCode,
+  defineObject,
+} from "../../utils/blockExtractionHelpers";
+import { convertCode } from "../../utils/textConvertor";
 let codeChanged = false;
 
 let codesDone = 0;
@@ -26,6 +30,7 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 });
 
 const Workspace = (props) => {
+  const editorRef = useRef();
   const [activeTab, setActiveTab] = useState("flow");
   const [elements, setElements] = useState(initialElements);
   const [text, setText] = useState("// Let's code! 💡");
@@ -76,7 +81,10 @@ const Workspace = (props) => {
     }
     if (Array.isArray(blocks)) {
       const codeGen = new CodeGenerator();
-      const [newText, type, message, dispCode] = codeGen.build(blocks,onceCode);
+      const [newText, type, message, dispCode] = codeGen.build(
+        blocks,
+        onceCode
+      );
       if (type === "warning") {
         ctx.addWarning(message);
       } else if (type === "error") {
@@ -93,7 +101,7 @@ const Workspace = (props) => {
 
   const changeTabHandler = (tab) => setActiveTab(tab);
 
-  const executeCode = (text,printing) => {
+  const executeCode = (text, printing) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
@@ -160,6 +168,7 @@ const Workspace = (props) => {
     }
   }
   const compileHandler = async () => {
+    console.log(editorRef.current.getValue()); // @Salim
     let com;
     codeChanged = true;
     const onceCode = isOnceCode(props.query);
@@ -168,7 +177,7 @@ const Workspace = (props) => {
       code += "\nresolve(' ');";
       let functionExecute = async () => {
         printing++;
-        await executeCode(code,printing);
+        await executeCode(code, printing);
         if (printing >= 10) {
           printing = 0;
         }
@@ -191,9 +200,12 @@ const Workspace = (props) => {
       codesDone++;
     } else {
       com = 0;
-      codesDone++
-      eval("(async () => {\nconst printing=100;\nlet done=false;" + code + "done=true;})()").catch((e) => {
-      });
+      codesDone++;
+      eval(
+        "(async () => {\nconst printing=100;\nlet done=false;" +
+          code +
+          "done=true;})()"
+      ).catch((e) => {});
     }
     setVisualBell((state) => ({
       message: "Code is now running",
@@ -235,6 +247,7 @@ const Workspace = (props) => {
           setTheme={setTheme}
           show={activeTab === "text"}
           text={text}
+          ref={editorRef}
         />
       )}
       <Console show={activeTab === "console"} />
