@@ -20,8 +20,8 @@ const Browse = ({ setLoaded }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [user, setUser] = useState({});
 
-	// Accessing User Session
-	const [session, loading] = useSession();
+  // Accessing User Session
+  const [session, loading] = useSession();
 
   console.log("browse rerendered");
 
@@ -68,18 +68,18 @@ const Browse = ({ setLoaded }) => {
     // }
     // console.log(data);
 
-		// EXAMPLE: Delete data
-		// const input = ["test", "test2"]; // Array of the properties which values we want to retrieve
-		// const date = new Date().toString();
-		// let data;
-		// try {
-		//   data = (await axios.post("/api/user/data/delete", { input, date }))[
-		//     "data"
-		//   ];
-		// } catch (error) {
-		//   data = { status: "error", content: error };
-		// }
-		// console.log(data);
+    // EXAMPLE: Delete data
+    // const input = ["test", "test2"]; // Array of the properties which values we want to retrieve
+    // const date = new Date().toString();
+    // let data;
+    // try {
+    //   data = (await axios.post("/api/user/data/delete", { input, date }))[
+    //     "data"
+    //   ];
+    // } catch (error) {
+    //   data = { status: "error", content: error };
+    // }
+    // console.log(data);
 
     // EXAMPLE: Create a license
     // const input = {
@@ -94,6 +94,35 @@ const Browse = ({ setLoaded }) => {
     //   data = (await axios.post("/api/organisation/license/add", input))["data"];
     // } catch (error) {
     //   data = { status: "error", content: error };
+    // }
+    // console.log(data);
+
+    // EXAMPLE: Retrieve all organisation data using admin
+    // let data;
+    // try {
+    // 	data = (await axios.post("/api/organisation/read-admin"))["data"];
+    // } catch (error) {
+    // 	data = { status: "error", content: error };
+    // }
+    // console.log(data);
+
+    // EXAMPLE: Change username as an admin
+    // const input = { username: "louislin0", newUsername: "louislin1", date: new Date().toString() };
+    // let data;
+    // try {
+    // 	data = (await axios.post("/api/organisation/license/change-username-admin", input))["data"];
+    // } catch (error) {
+    // 	data = { status: "error", content: error };
+    // }
+    // console.log(data);
+
+    // EXAMPLE: Change password as an admin
+    // const input = { username: "louislin0", newPassword: "f", date: new Date().toString() };
+    // let data;
+    // try {
+    // 	data = (await axios.post("/api/organisation/license/change-password-admin", input))["data"];
+    // } catch (error) {
+    // 	data = { status: "error", content: error };
     // }
     // console.log(data);
   }, []);
@@ -128,15 +157,6 @@ const Browse = ({ setLoaded }) => {
     setVideoLoaded(false);
     setActiveIndex(index);
   };
-		// EXAMPLE: Change username as an admin
-		// const input = { username: "louislin0", newUsername: "louislin1", date: new Date().toString() };
-		// let data;
-		// try {
-		// 	data = (await axios.post("/api/organisation/license/change-username-admin", input))["data"];
-		// } catch (error) {
-		// 	data = { status: "error", content: error };
-		// }
-		// console.log(data);
 
   return (
     <div className={classes.browse}>
@@ -187,72 +207,6 @@ const Browse = ({ setLoaded }) => {
       </div>
     </div>
   );
-		// EXAMPLE: Change password as an admin
-		// const input = { username: "louislin0", newPassword: "f", date: new Date().toString() };
-		// let data;
-		// try {
-		// 	data = (await axios.post("/api/organisation/license/change-password-admin", input))["data"];
-		// } catch (error) {
-		// 	data = { status: "error", content: error };
-		// }
-		// console.log(data);
-
-		setLoaded(true);
-		return () => setLoaded(false);
-	}, []);
-
-	const thumbnailHandler = (index) => {
-		setActiveIndex(index);
-	};
-
-	// EXAMPLE: Handling sign out requests
-	function logoutHandler() {
-		signOut();
-	}
-
-	console.log(`/${DUMMY_PROJECTS[activeIndex].query}/vid/situation.mp4`);
-
-	return (
-		<div className={classes.browse}>
-			<Head>
-				<title>Browse | CreateBase</title>
-				<meta name="description" content="Browse CreateBase projects" />
-			</Head>
-			<div className={classes.logo}>
-				<ColourLogo layout="fill" objectFit="contain" quality={100} />
-			</div>
-			{
-				// EXAMPLE: Example code for managing the div based on authentication
-				!session && !loading && <Link href="/auth">Login</Link>
-			}
-			{
-				// EXAMPLE: Example code for managing the div based on authentication
-				session && <button onClick={logoutHandler}>Logout</button>
-			}
-			<h1 className={classes.h1}>Select a project</h1>
-			<div className={classes.selectedProject}>
-				<div className={classes.content}>
-					<h2>{DUMMY_PROJECTS[activeIndex].name}</h2>
-					<p>{DUMMY_PROJECTS[activeIndex].caption}</p>
-					<Link href={`/${DUMMY_PROJECTS[activeIndex].query}`}>
-						<div>
-							<GreenButton caption="Continue" />
-						</div>
-					</Link>
-				</div>
-				<div className={classes.coverVid}>
-					<video src={`/${DUMMY_PROJECTS[activeIndex].query}/vid/situation.mp4`} controls className={classes.vid}>
-						<source type="video/mp4" />
-					</video>
-				</div>
-			</div>
-			<div className={classes.allProjects}>
-				{DUMMY_PROJECTS.map((project, index) => (
-					<Thumbnail key={index} activeIndex={activeIndex} index={index} query={project.query} name={project.name} thumbnailHandler={thumbnailHandler} />
-				))}
-			</div>
-		</div>
-	);
 };
 
 export default Browse;
