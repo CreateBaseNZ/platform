@@ -7,7 +7,7 @@ import OrgForm from "./OrgForm";
 import UserDetailsForm, { ChangePasswordForm } from "./UserDetailsForm";
 
 const MyAccount = ({ user, setUser }) => {
-  const [changingPassword, setChangingPasssword] = useState(false);
+  const [changingPassword, setChangingPassword] = useState(false);
   const [leavingOrg, setLeavingOrg] = useState(false);
   const [cta, setCta] = useState(false);
 
@@ -41,7 +41,7 @@ const MyAccount = ({ user, setUser }) => {
         </div>
         {changingPassword ? (
           <ChangePasswordForm
-            setChangingPasssword={setChangingPasssword}
+            setChangingPassword={setChangingPassword}
             setUser={setUser}
           />
         ) : (
@@ -51,7 +51,7 @@ const MyAccount = ({ user, setUser }) => {
           <TertiaryButton
             className={classes.changePass}
             style={{ visibility: changingPassword && "hidden" }}
-            onClick={() => setChangingPasssword(true)}
+            onClick={() => setChangingPassword(true)}
             iconLeft={<i className="material-icons-outlined">password</i>}
             mainLabel="Change password"
           />

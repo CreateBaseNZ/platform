@@ -13,6 +13,11 @@ const Header = ({ session, type, org, name = "" }) => {
   return (
     <header className={classes.header}>
       <ColourLogo />
+      <Link href="/faq">
+        <button className={classes.help} title="FAQ">
+          ?
+        </button>
+      </Link>
       {session ? (
         type && (
           <div

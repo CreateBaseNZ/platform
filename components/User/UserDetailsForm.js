@@ -135,7 +135,7 @@ const UserDetailsForm = ({ user, setUser }) => {
 
 export default UserDetailsForm;
 
-export const ChangePasswordForm = ({ setChangePassword }) => {
+export const ChangePasswordForm = ({ setChangingPassword }) => {
   const [isSaving, setIsSaving] = useState(false);
   const password = useRef({});
   const {
@@ -158,7 +158,7 @@ export const ChangePasswordForm = ({ setChangePassword }) => {
       // TODO handle error
       alert("nope");
     } else {
-      setChangePassword(false);
+      setChangingPassword(false);
       alert("nice");
     }
   };
@@ -210,7 +210,7 @@ export const ChangePasswordForm = ({ setChangePassword }) => {
           <TertiaryButton
             className={classes.cancel}
             type="button"
-            onClick={() => setChangePassword(false)}
+            onClick={() => setChangingPassword(false)}
             mainLabel="Cancel"
           />
         )}

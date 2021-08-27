@@ -2,11 +2,30 @@
 
 .header {
   width: 100%;
-  flex: 0 0 3rem;
-  min-height: 3rem;
+  flex: 0 0 2rem;
+  min-height: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.help {
+  margin-left: auto;
+  margin-right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  background: rgba(black, 0.15);
+  color: $lightest;
+  transition: background-color 0.1s ease-out;
+  &:hover {
+    background: rgba($logo-mid, 0.5);
+  }
 }
 
 .avatar {
@@ -14,9 +33,9 @@
 }
 
 .icon {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 3rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,6 +43,7 @@
   transition: border-radius 0.1s ease-out, box-shadow 0.1s ease-out;
   i {
     color: $lightest;
+    font-size: 16px;
   }
   &.active {
     border-bottom-right-radius: 0;
@@ -34,7 +54,7 @@
   background: $magenta-light;
   &.active,
   &:hover {
-    box-shadow: 0 0 12px 0 rgba($magenta-light, 0.5);
+    box-shadow: 0 0 0 4px rgba($magenta-light, 0.2);
   }
 }
 
@@ -42,7 +62,7 @@
   background: $green;
   &.active,
   &:hover {
-    box-shadow: 0 0 12px 0 rgba($green, 0.5);
+    box-shadow: 0 0 0 4px rgba($green, 0.2);
   }
 }
 
@@ -50,7 +70,7 @@
   background: $blue-mid;
   &.active,
   &:hover {
-    box-shadow: 0 0 12px 0 rgba($blue-mid, 0.5);
+    box-shadow: 0 0 0 4px rgba($blue-mid, 0.2);
   }
 }
 
@@ -74,7 +94,6 @@
     font-size: 14px;
     font-weight: 500;
     color: rgba(black, 0.25);
-    text-align: right;
   }
   button {
     display: flex;
