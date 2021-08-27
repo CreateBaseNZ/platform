@@ -1,0 +1,49 @@
+@import "/styles/variables";
+
+.container {
+  position: absolute;
+  top: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bell {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0.5em 1em;
+  color: $lightest;
+  border-radius: 4px;
+  opacity: 0;
+  animation: animate 4s linear forwards;
+}
+
+.neutral {
+  background: rgba(black, 0.25);
+}
+
+.success {
+  background: $green;
+  box-shadow: 0 4px 12px 0 rgba($green, 0.2);
+}
+
+.error {
+  background: $red;
+  box-shadow: 0 4px 12px 0 rgba($red, 0.2);
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  5% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

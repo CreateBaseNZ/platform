@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import Img from "../UI/Img";
+import VisualBellContext from "../../store/visual-bell-context";
 
 import classes from "./MyAccount.module.scss";
 import OrgForm from "./OrgForm";
 import UserDetailsForm, { ChangePasswordForm } from "./UserDetailsForm";
 
 const MyAccount = ({ user, setUser }) => {
+  const ctx = useContext(VisualBellContext);
   const [changingPassword, setChangingPassword] = useState(false);
   const [leavingOrg, setLeavingOrg] = useState(false);
   const [cta, setCta] = useState(false);
@@ -21,6 +23,7 @@ const MyAccount = ({ user, setUser }) => {
     }
 
     //TODO success message
+    ctx.setBell({ type: "neutral", message: `Left ${user.org.name}` });
     setUser((state) => ({ ...state, org: undefined }));
     setLeavingOrg(false);
   };
@@ -43,9 +46,10 @@ const MyAccount = ({ user, setUser }) => {
           <ChangePasswordForm
             setChangingPassword={setChangingPassword}
             setUser={setUser}
+            ctx={ctx}
           />
         ) : (
-          <UserDetailsForm user={user} setUser={setUser} />
+          <UserDetailsForm user={user} setUser={setUser} ctx={ctx} />
         )}
         <div className={classes.secondary}>
           <TertiaryButton

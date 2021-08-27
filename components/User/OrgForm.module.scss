@@ -168,3 +168,13 @@
     }
   }
 }
+
+.contact {
+  margin-left: 0.3em;
+  font-size: inherit;
+  font-weight: inherit;
+  color: $logo-mid;
+  &:hover {
+    text-decoration: underline;
+  }
+}

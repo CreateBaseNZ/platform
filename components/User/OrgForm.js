@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
@@ -6,11 +6,12 @@ import Input from "../UI/Input";
 import axios from "axios";
 
 import classes from "./OrgForm.module.scss";
+import VisualBellContext from "../../store/visual-bell-context";
 
-const JoinOrgForm = ({ resetCta, setUser }) => {
+const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
   const [showConfirm, setShowConfirm] = useState(false);
-  const [loadingOrg, setLoadingOrg] = useState(false);
-  const [joiningOrg, setJoiningOrg] = useState(false);
+  const [loadingQueryOrg, setLoadingQueryOrg] = useState(false);
+  const [loadingJoinOrg, setLoadingJoinOrg] = useState(false);
   const [showInvalidCode, setShowInvalidCode] = useState(false);
   const [queriedOrg, setQueriedOrg] = useState({});
   const {
@@ -22,37 +23,41 @@ const JoinOrgForm = ({ resetCta, setUser }) => {
   });
 
   const onSubmit = async (input) => {
-    setLoadingOrg(true);
+    setLoadingQueryOrg(true);
     // TODO query if code is valid
-    const isValid = true;
-    if (isValid) {
-      // TODO save queried org as state
-      setQueriedOrg({
-        name: "Lorem",
-        city: "Auckland",
-        country: "New Zealand",
-        educators: 8,
-        learners: 143,
-      });
-      setShowConfirm(true);
-    } else {
+    const notValid = false;
+    if (notValid) {
       setShowInvalidCode(true);
+      return setLoadingQueryOrg(false);
     }
-    setLoadingOrg(false);
+    setQueriedOrg({
+      name: "Lorem",
+      city: "Auckland",
+      country: "New Zealand",
+      educators: 8,
+      learners: 143,
+    });
+    setShowConfirm(true);
+    setLoadingQueryOrg(false);
   };
 
   const joinOrgHandler = () => {
-    setJoiningOrg(true);
+    setLoadingJoinOrg(true);
     // TODO join the org
-    const success = true;
-    if (success) {
-      setUser((state) => ({ ...state, org: queriedOrg }));
-      resetCta();
-    } else {
+    const joinError = true;
+    if (joinError) {
       // TODO fail handler
+      setLoadingJoinOrg(false);
+      resetCta();
+      return alert("something went wrong");
     }
-    // TODO success handler
-    setJoiningOrg(false);
+    setUser((state) => ({ ...state, org: queriedOrg }));
+    setLoadingJoinOrg(false);
+    resetCta();
+    ctx.setBell({
+      type: "success",
+      message: `Successfully joined ${queriedOrg.name}`,
+    });
   };
 
   return (
@@ -80,7 +85,7 @@ const JoinOrgForm = ({ resetCta, setUser }) => {
             </div>
           </div>
           <div className={classes.joinConfirmBtnContainer}>
-            {!joiningOrg && (
+            {!loadingJoinOrg && (
               <SecondaryButton
                 className={classes.joinCancelBtn}
                 onClick={() => setShowConfirm(false)}
@@ -89,7 +94,7 @@ const JoinOrgForm = ({ resetCta, setUser }) => {
             )}
             <PrimaryButton
               className={classes.joinBtn}
-              isLoading={joiningOrg}
+              isLoading={loadingJoinOrg}
               mainLabel="Confirm"
               onClick={joinOrgHandler}
             />
@@ -115,13 +120,13 @@ const JoinOrgForm = ({ resetCta, setUser }) => {
           />
           <PrimaryButton
             className={classes.joinBtn}
-            isLoading={loadingOrg}
+            isLoading={loadingQueryOrg}
             type="submit"
             mainLabel="Join"
           />
           {showInvalidCode && (
             <div className={classes.invalidCode}>
-              The code you entered is invalid. Please try again
+              The code you entered is invalid - please try again
             </div>
           )}
         </form>
@@ -130,8 +135,7 @@ const JoinOrgForm = ({ resetCta, setUser }) => {
   );
 };
 
-const CreateOrgForm = ({ resetCta, setUser }) => {
-  const [newOrg, setNewOrg] = useState({});
+const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
   const [creatingOrg, setCreatingOrg] = useState(false);
   const [invalidId, setInvalidId] = useState(false);
   const {
@@ -149,58 +153,82 @@ const CreateOrgForm = ({ resetCta, setUser }) => {
     try {
       govData = (
         await axios(
-          `https://catalogue.data.govt.nz/api/3/action/datastore_search?resource_id=20b7c271-fd5a-4c9e-869b-481a0e2453cd&q=${input.schoolId} ${input.schoolName}`
+          `https://catalogue.data.govt.nz/api/3/action/datastore_search?resource_id=20b7c271-fd5a-4c9e-869b-481a0e2453cd&q=${input.schoolId}%20${input.schoolName}`
         )
       )["data"];
     } catch (error) {
       govData = { status: "error", content: error };
-      alert("something went wrong while querying");
+      ctx.setBell({
+        type: "error",
+        message: "Error - please refresh the page and try again",
+      });
       return setCreatingOrg(false);
     }
-
-    console.log(govData);
-
     if (!govData.success) {
-      alert("got a response but with an error status");
+      ctx.setBell({
+        type: "error",
+        message: "Unexpected error - please try again",
+      });
       return setCreatingOrg(false);
     }
     if (govData.result.records.length === 0) {
-      alert("this org does not exist");
+      setInvalidId("Incorrect details - make sure they match official records");
       return setCreatingOrg(false);
     }
     if (govData.result.records.length > 1) {
-      alert("more than one result was found, please enter the correct info");
+      setInvalidId("Error - more than one result was found");
+      return setCreatingOrg(false);
+    }
+    if (
+      govData.result.records[0].School_Id.toString() !== input.schoolId ||
+      govData.result.records[0].Org_Name.toLowerCase() !==
+        input.schoolName.toLowerCase()
+    ) {
+      setInvalidId("Incorrect details - make sure they match official records");
       return setCreatingOrg(false);
     }
 
     const newOrg = {
-      id: govData.result.records[0].School_Id,
+      id: govData.result.records[0].School_Id.toString(),
       name: govData.result.records[0].Org_Name,
       city: govData.result.records[0].Add1_City,
-      country: "Auckland",
+      country: "New Zealand",
       educators: 1,
       learners: 0,
     };
 
     // TODO send org id to backend
-
-    if (input.schoolId === "taken") {
-      // TODO
-      alert("school id is already registered");
-      setInvalidId("School ID already registered");
+    const taken = false;
+    if (taken) {
+      setInvalidId(
+        <>
+          This organisation has already registered. If this is a mistake, please
+          <a
+            href="https://createbase.co.nz/contact"
+            target="_blank"
+            className={classes.contact}
+          >
+            contact us
+          </a>
+        </>
+      );
       return setCreatingOrg(false);
     }
 
-    // TODO
-    alert("nice!");
     setUser((state) => ({ ...state, org: newOrg }));
     resetCta();
+    ctx.setBell({
+      type: "success",
+      message: `Successfully created and joined ${newOrg.name}`,
+    });
   };
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <p className={classes.instruction}>
-        To sign up your school for the first time, enter its details below:
+        To sign up your school for the first time, enter its details below.
+        <br />
+        The ID and name must both match official records.
       </p>
       <Input
         className={classes.input}
@@ -218,6 +246,7 @@ const CreateOrgForm = ({ resetCta, setUser }) => {
       />
       <Input
         className={classes.input}
+        onFocus={() => setInvalidId(false)}
         style={{ margin: "0.5vh 0 3vh 0" }}
         inputProps={{
           className: classes.createInput,
@@ -227,7 +256,7 @@ const CreateOrgForm = ({ resetCta, setUser }) => {
             required: "Please enter your school name",
           }),
         }}
-        error={errors.schoolName}
+        error={errors.schoolName || invalidId}
       />
       <PrimaryButton
         className={classes.createBtn}
@@ -235,16 +264,14 @@ const CreateOrgForm = ({ resetCta, setUser }) => {
         type="submit"
         mainLabel="Create Organisation"
       />
-      {invalidId && (
-        <div className={classes.invalidCode}>
-          The code you entered is invalid. Please try again
-        </div>
-      )}
+      {invalidId && <div className={classes.invalidCode}>{invalidId}</div>}
     </form>
   );
 };
 
 const OrgForm = ({ access, action, setCta, setUser }) => {
+  const ctx = useContext(VisualBellContext);
+
   const resetCta = () => setCta(false);
 
   return (
@@ -270,9 +297,9 @@ const OrgForm = ({ access, action, setCta, setUser }) => {
         )}
       </div>
       {action === "join" ? (
-        <JoinOrgForm resetCta={resetCta} setUser={setUser} />
+        <JoinOrgForm resetCta={resetCta} setUser={setUser} ctx={ctx} />
       ) : (
-        <CreateOrgForm resetCta={resetCta} setUser={setUser} />
+        <CreateOrgForm resetCta={resetCta} setUser={setUser} ctx={ctx} />
       )}
     </div>
   );

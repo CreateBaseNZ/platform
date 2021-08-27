@@ -7,8 +7,8 @@ import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 import classes from "./UserDetailsForm.module.scss";
 import blacklist from "../../utils/blacklist";
 
-const UserDetailsForm = ({ user, setUser }) => {
-  const [isSaving, setIsSaving] = useState(false);
+const UserDetailsForm = ({ user, setUser, ctx }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -34,36 +34,67 @@ const UserDetailsForm = ({ user, setUser }) => {
   );
 
   const onSubmit = async (input) => {
-    setIsSaving(true);
+    setIsLoading(true);
     if (blacklist.some((v) => input.displayName.includes(v))) {
       // TODO trigger an error
       alert("no can do sir");
-    } else if (blacklist.some((v) => input.username.includes(v))) {
+      return setIsLoading(false);
+    }
+    if (blacklist.some((v) => input.username.includes(v))) {
       // TODO trigger an error
       alert("no can do sir");
-    } else {
-      const date = new Date().toString();
-      let data;
-      try {
-        data = (
-          await axios.post("/api/user/data/update", {
-            input: { email: input.email, displayName: input.displayName },
-            date,
-          })
-        )["data"];
-      } catch (error) {
-        data = { status: "error", content: error };
-      }
-      if (data.status === "error") {
-        alert("error!"); // TODO handle error
-      }
-      // TODO change username
-
-      // TODO success handler
-      setUser((state) => ({ ...state, ...input }));
-      alert("nice, all done");
+      return setIsLoading(false);
     }
-    setIsSaving(false);
+
+    let data1;
+    try {
+      data1 = (
+        await axios.post("/api/user/data/update", {
+          input: { email: input.email, displayName: input.displayName },
+          date: new Date().toString(),
+        })
+      )["data"];
+    } catch (error) {
+      data1 = { status: "error", content: error };
+      alert(data1.content + "error error - refresh the page"); // TODO handle error
+      return setIsLoading(false);
+    }
+    if (data1.status === "failed") {
+      alert(data1.content + "expected error - please try again");
+      return setIsLoading(false);
+    }
+
+    let data2;
+    try {
+      data2 = (
+        await axios.post("/api/organisation/license/change-username-admin", {
+          username: user.username,
+          newUsername: input.username,
+          date: new Date().toString(),
+        })
+      )["data"];
+    } catch (error) {
+      data2 = { status: "error", content: error };
+      ctx.setBell({
+        type: "error",
+        message: "Error - please refresh the page and try again",
+      });
+      return setIsLoading(false);
+    }
+    if (data2.status === "failed") {
+      ctx.setBell({
+        type: "error",
+        message: "Unexpected error - please try again",
+      });
+      return setIsLoading(false);
+    }
+
+    setUser((state) => ({ ...state, ...input }));
+    ctx.setBell({
+      type: "success",
+      message: "Successfully updated details",
+    });
+    setIsLoading(false);
   };
 
   return (
@@ -122,7 +153,7 @@ const UserDetailsForm = ({ user, setUser }) => {
       <div className={classes.btnContainer}>
         <PrimaryButton
           className={classes.submit}
-          isLoading={isSaving}
+          isLoading={isLoading}
           type="submit"
           iconLeft={<i className="material-icons-outlined">done</i>}
           loadingLabel="Saving ..."
@@ -135,7 +166,7 @@ const UserDetailsForm = ({ user, setUser }) => {
 
 export default UserDetailsForm;
 
-export const ChangePasswordForm = ({ setChangingPassword }) => {
+export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
   const [isSaving, setIsSaving] = useState(false);
   const password = useRef({});
   const {
@@ -157,10 +188,14 @@ export const ChangePasswordForm = ({ setChangingPassword }) => {
     if (error) {
       // TODO handle error
       alert("nope");
-    } else {
-      setChangingPassword(false);
-      alert("nice");
+      return;
     }
+
+    setChangingPassword(false);
+    ctx.setBell({
+      type: "success",
+      message: "Successfully changed password",
+    });
   };
 
   useEffect(() => {
