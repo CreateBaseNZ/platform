@@ -6,7 +6,7 @@
 }
 
 .page {
-  border: medium solid rgba(0, 0, 0, 0.05);
+  border: medium solid rgba(black, 0.05);
   border-radius: 8px;
   height: 100%;
   width: 100%;
@@ -47,7 +47,7 @@
   transition: box-shadow 0.1s ease-out, border 0.1s ease-out;
   &.activeItem {
     opacity: 1;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 0 2px rgba(black, 0.05);
   }
   canvas {
     margin: auto 0;
@@ -87,7 +87,7 @@
       font-weight: 600;
       color: $dark;
       width: 4rem;
-      border: medium solid rgba(0, 0, 0, 0.05);
+      border: medium solid rgba(black, 0.05);
       margin: 0 1.5rem;
     }
     button {
@@ -97,7 +97,7 @@
         color: $logo-mid;
       }
       &:hover {
-        background: rgba(0, 0, 0, 0.05);
+        background: rgba(black, 0.05);
       }
     }
     a {
@@ -130,7 +130,7 @@
           color: $logo-mid;
         }
         &:hover {
-          background: rgba(0, 0, 0, 0.05);
+          background: rgba(black, 0.05);
           color: $dark;
         }
       }

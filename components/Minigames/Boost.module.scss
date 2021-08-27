@@ -87,7 +87,7 @@
     top: 50%;
     width: 8vw;
     height: 1px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(white, 0.5);
   }
   &::before {
     left: 0;
@@ -145,7 +145,7 @@
     left: -4px;
     height: calc(100% + 6px);
     width: calc(100% + 6px);
-    border: thin solid rgba(255, 255, 255, 0.5);
+    border: thin solid rgba(white, 0.5);
     transition: box-shadow 0.1s ease-out, border-color 0.1s ease-out;
   }
   &:hover {
@@ -157,8 +157,7 @@
     }
     &::after {
       border-color: white;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.75),
-        inset 0 0 8px rgba(255, 255, 255, 0.75);
+      box-shadow: 0 0 8px rgba(white, 0.75), inset 0 0 8px rgba(white, 0.75);
     }
   }
 }
@@ -185,7 +184,7 @@
       }
     }
     .choice.notAnswer {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(white, 0.1);
       opacity: 0.5;
       &::after {
         border-color: transparent;
@@ -219,7 +218,7 @@
       }
     }
     .choice.notAnswer {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(white, 0.1);
       opacity: 0.5;
       &::after {
         border-color: transparent;
@@ -261,7 +260,7 @@
   flex-direction: column;
   overflow-y: auto;
   position: relative;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(black, 0.1);
   * {
     font-family: $jetbrains;
   }
@@ -289,8 +288,8 @@
   align-items: center;
   justify-content: flex-start;
   padding: 0.75rem 0.75vw;
-  border-right: thin solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.75);
+  border-right: thin solid rgba(white, 0.1);
+  color: rgba(white, 0.75);
   font-size: calc(0.4rem + 0.4vw);
   font-family: $jetbrains;
   text-transform: uppercase;
@@ -300,7 +299,7 @@
   transition: color 0.1s ease-out, background-color 0.1s ease-out,
     letter-spacing 0.1s ease-out;
   span {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(white, 0.75);
     font-size: 1vw;
     margin-right: 0.5vw;
     transition: transform 0.1s ease-out, color 0.1s ease-out;
@@ -380,7 +379,7 @@
   span {
     margin: 0;
     width: calc(1vw + 0.3rem);
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(white, 0.75);
   }
   .sliderWrapper {
     background: $darkest;

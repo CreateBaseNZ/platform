@@ -1,0 +1,159 @@
+@import "/styles/variables";
+
+.header {
+  width: 100%;
+  flex: 0 0 2rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.help {
+  margin-left: auto;
+  margin-right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  background: rgba(black, 0.15);
+  color: $lightest;
+  transition: background-color 0.1s ease-out;
+  &:hover {
+    background: rgba($logo-mid, 0.5);
+  }
+}
+
+.avatar {
+  position: relative;
+}
+
+.icon {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-radius 0.1s ease-out, box-shadow 0.1s ease-out;
+  i {
+    color: $lightest;
+    font-size: 16px;
+  }
+  &.active {
+    border-bottom-right-radius: 0;
+  }
+}
+
+.admin {
+  background: $magenta-light;
+  &.active,
+  &:hover {
+    box-shadow: 0 0 0 4px rgba($magenta-light, 0.2);
+  }
+}
+
+.educator {
+  background: $green;
+  &.active,
+  &:hover {
+    box-shadow: 0 0 0 4px rgba($green, 0.2);
+  }
+}
+
+.learner {
+  background: $blue-mid;
+  &.active,
+  &:hover {
+    box-shadow: 0 0 0 4px rgba($blue-mid, 0.2);
+  }
+}
+
+.menu {
+  z-index: 5;
+  position: absolute;
+  bottom: -1rem;
+  right: 0;
+  transform: translateY(calc(100% - 4px));
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px 0 16px 16px;
+  background: $lightest;
+  box-shadow: 0 8px 16px 0 rgba(black, 0.1);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.05s ease-out, transform 0.1s ease-out;
+  .name {
+    padding: 0 1.5rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(black, 0.25);
+  }
+  button {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 0.5rem 1.5rem;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: $dark;
+    transition: color 0.1s ease-out, background-color 0.1s ease-out;
+    i {
+      width: 1.5rem;
+      margin-right: 0.75rem;
+      color: $dark;
+      transition: color 0.1s ease-out;
+    }
+    &:hover {
+      color: $logo-mid;
+      background: rgba(black, 0.025);
+      i {
+        color: $logo-mid;
+      }
+    }
+  }
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(100%);
+  }
+}
+
+.divider {
+  height: 1px;
+  width: calc(100% - 3rem);
+  margin: 0.5rem 1.5rem;
+  background: rgba(black, 0.05);
+}
+
+.auth {
+  height: 100%;
+  display: flex;
+  button {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin: 0 0.5vw;
+  }
+  .signUp {
+    background: $logo-mid;
+    box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
+    &:hover {
+      box-shadow: 0 8px 24px 0 rgba($logo-mid, 0.5);
+    }
+  }
+  .logIn {
+    color: $dark;
+    border: medium solid transparent;
+    &:hover {
+      color: $blue-dark;
+      border-color: $blue-dark;
+    }
+  }
+}

@@ -4,11 +4,11 @@ import {
   recycleRightData,
 } from "./explore-data";
 
-export const magnebotData = {
+export default {
   name: "MagneBot",
   query: "magnebot",
   caption:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
+    "In this project, users will control the MagneBot robotic arm using logical flow-based programming to clean up a recycling facility. Users will learn the basics of the Flow programming language and how to convert their thinking into instructions for the robot. Along the way, they will also gain an understanding of recycling and how robotic systems can be used to carry out tasks traditionally performed by humans.",
   stacked: true,
   scenePrefix: "Project_RoboticArm_1",
   runType: "once",

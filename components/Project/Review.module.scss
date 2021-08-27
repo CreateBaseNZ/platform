@@ -68,7 +68,7 @@
     color: $dark;
     font-weight: 500;
     max-width: 350px;
-    box-shadow: 0 4px 24px 0 rgba(104, 83, 217, 0.1);
+    box-shadow: 0 4px 24px 0 rgba($logo-mid, 0.1);
     h3 {
       font-size: 16px;
       color: $darker;
@@ -96,28 +96,28 @@
 
 .survey {
   span {
-    background: rgba(40, 207, 147, 0.75);
-    box-shadow: 0 4px 12px rgba(40, 207, 147, 0.25);
+    background: rgba(#28cf93, 0.75);
+    box-shadow: 0 4px 12px rgba(#28cf93, 0.25);
   }
   a {
-    background: rgba(40, 207, 147, 0.75);
-    box-shadow: 0 4px 12px rgba(40, 207, 147, 0.25);
+    background: rgba(#28cf93, 0.75);
+    box-shadow: 0 4px 12px rgba(#28cf93, 0.25);
     &:hover {
-      box-shadow: 0 4px 24px -4px rgba(40, 207, 147, 0.25);
+      box-shadow: 0 4px 24px -4px rgba(#28cf93, 0.25);
     }
   }
 }
 
 .message {
   span {
-    background: rgba(56, 182, 222, 0.75);
-    box-shadow: 0 4px 12px rgba(56, 182, 222, 0.25);
+    background: rgba(#38b6de, 0.75);
+    box-shadow: 0 4px 12px rgba(#38b6de, 0.25);
   }
   a {
-    background: rgba(56, 182, 222, 0.75);
-    box-shadow: 0 4px 12px rgba(56, 182, 222, 0.25);
+    background: rgba(#38b6de, 0.75);
+    box-shadow: 0 4px 12px rgba(#38b6de, 0.25);
     &:hover {
-      box-shadow: 0 4px 24px -4px rgba(56, 182, 222, 0.25);
+      box-shadow: 0 4px 24px -4px rgba(#38b6de, 0.25);
     }
   }
 }
