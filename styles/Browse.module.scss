@@ -7,11 +7,11 @@
   padding: 2vh 5vw 5vh 5vw;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background: $bg-light;
 }
 
 .main {
-  margin-top: 10vh;
   flex: 1 1 0;
   width: 100%;
   display: flex;
@@ -27,6 +27,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   h2 {
+    margin-top: 8vh;
     font-size: 1rem;
     font-weight: 600;
     color: $light;
@@ -46,8 +47,7 @@
     font-weight: 500;
   }
   .continue {
-    margin-top: auto;
-    margin-bottom: 4vh;
+    margin-top: 4vh;
     flex: 0 0 4rem;
     width: 13rem;
     border-radius: 12rem;
@@ -94,9 +94,9 @@
 }
 
 .allProjects {
-  margin-top: 6vh;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 25vh;
+  flex: 0 0 25vh;
+  overflow: hidden;
 }
