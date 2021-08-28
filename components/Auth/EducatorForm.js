@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
+import { isBlacklisted } from "../../utils/formValidation";
 
 import classes from "./AuthForm.module.scss";
 import {
@@ -330,6 +331,9 @@ export const EducatorLoginForm = ({ setIsSignup }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      username: window.localStorage.getItem("createbase__remember-me"),
+    },
     mode: "onTouched",
   });
 
@@ -344,6 +348,12 @@ export const EducatorLoginForm = ({ setIsSignup }) => {
     // TODO: login
 
     // TODO: Success handler
+    if (input.remember) {
+      window.localStorage.setItem("createbase__remember-me", input.username);
+    } else {
+      window.localStorage.removeItem("createbase__remember-me");
+      console.log("cleared");
+    }
     setIsLoading(false);
   };
 
@@ -371,8 +381,6 @@ export const EducatorLoginForm = ({ setIsSignup }) => {
           placeholder: "Password*",
           ...register("password", {
             required: "Please enter your password",
-            minLength: passwordMinLength,
-            validate: passwordValidate,
           }),
         }}
         error={errors.password}
@@ -393,10 +401,7 @@ export const EducatorLoginForm = ({ setIsSignup }) => {
       />
       <div className={classes.options}>
         <div className={classes.remember}>
-          <input
-            type="checkbox"
-            {...register("remember", { required: true })}
-          />
+          <input type="checkbox" {...register("remember")} />
           <div className={classes.checkbox}>
             <i className="material-icons-outlined">check</i>
           </div>

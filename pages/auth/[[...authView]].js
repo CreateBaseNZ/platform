@@ -20,6 +20,9 @@ const Auth = ({ setLoaded }) => {
   const [user, setUser] = useState("educator");
 
   useEffect(() => {
+    if (window.localStorage.getItem("createbase__remember-me")) {
+      setIsSignup(false);
+    }
     setLoaded(true);
     return () => setLoaded(false);
   }, []);
