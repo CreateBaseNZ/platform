@@ -2,6 +2,7 @@
 
 .form {
   flex: 1 1 auto;
+  height: 100%;
   padding-top: 3vh;
   display: flex;
   flex-direction: column;
@@ -123,7 +124,6 @@
 
 .switch {
   margin-top: auto;
-  padding-top: 4vh;
   align-self: center;
   font-size: 14px;
   color: $light;

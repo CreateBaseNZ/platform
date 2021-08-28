@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import Input from "../UI/Input";
+import Input, { PasswordInput } from "../UI/Input";
 import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 
 import classes from "./UserDetailsForm.module.scss";
@@ -220,11 +220,10 @@ export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
         }}
         error={errors.currentPassword}
       />
-      <Input
+      <PasswordInput
         className={classes.input}
         label="New Password"
         inputProps={{
-          type: "password",
           ...register("newPassword", {
             required: "Please enter your new password",
             minLength: passwordMinLength,
@@ -233,11 +232,10 @@ export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
         }}
         error={errors.newPassword}
       />
-      <Input
+      <PasswordInput
         className={classes.input}
         label="Confirm Password"
         inputProps={{
-          type: "password",
           ...register("confirmPassword", {
             required: "Please confirm your new password",
             validate: (value) =>

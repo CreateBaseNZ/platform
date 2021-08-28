@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import ClientOnlyPortal from "../UI/ClientOnlyPortal";
-import Input from "../UI/Input";
+import Input, { PasswordInput } from "../UI/Input";
 import classes from "./DeleteAccModal.module.scss";
 
 const DeleteModal = ({ setDeletingAcc }) => {
@@ -48,11 +48,10 @@ const DeleteModal = ({ setDeletingAcc }) => {
             If you're sure, confirm by typing your password below
           </div>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-            <Input
+            <PasswordInput
               className={classes.inputContainer}
               inputProps={{
                 className: classes.input,
-                type: "password",
                 placeholder: "Password*",
                 ...register("password", {
                   required: "Please enter your password",

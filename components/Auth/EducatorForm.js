@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
-import Input from "../UI/Input";
+import Input, { PasswordInput } from "../UI/Input";
 
 import classes from "./AuthForm.module.scss";
 import {
@@ -143,11 +143,10 @@ const EducatorSignupRegisterForm = ({
         }}
         error={errors.displayName}
       />
-      <Input
+      <PasswordInput
         inputProps={{
           className: classes.input,
           placeholder: "Password*",
-          type: "password",
           ...register("password", {
             required: "Please enter a password",
             minLength: passwordMinLength,
@@ -306,7 +305,7 @@ export const EducatorSignupForm = ({ setIsSignup }) => {
   console.log(isRegister);
 
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       {isRegister ? (
         <EducatorSignupRegisterForm
           setIsSignup={setIsSignup}
@@ -366,11 +365,10 @@ export const EducatorLoginForm = ({ setIsSignup }) => {
         }}
         error={errors.username}
       />
-      <Input
+      <PasswordInput
         inputProps={{
           className: classes.input,
           placeholder: "Password*",
-          type: "password",
           ...register("password", {
             required: "Please enter your password",
             minLength: passwordMinLength,

@@ -69,3 +69,15 @@
     opacity: 1 !important;
   }
 }
+
+.password {
+  position: relative;
+  i {
+    font-size: 1.25rem;
+    position: absolute;
+    right: 0.75rem;
+    top: 1.5rem;
+    color: grey;
+    cursor: pointer;
+  }
+}
