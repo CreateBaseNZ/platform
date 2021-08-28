@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
-import blacklist from "../../utils/blacklist";
 import Input from "../UI/Input";
 
 import classes from "./AuthForm.module.scss";
+import {
+  displayNameMinLength,
+  displayNamePattern,
+  usernameMinLength,
+  usernamePattern,
+} from "../../utils/formValidation";
 
 export const LearnerSignupForm = ({ setIsSignup }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,14 +26,14 @@ export const LearnerSignupForm = ({ setIsSignup }) => {
     setIsLoading(true);
     console.log(input);
     let frontEndError = false;
-    if (blacklist.some((v) => input.username.includes(v))) {
+    if (isBlacklisted(input.username)) {
       setError("displayName", {
         type: "manual",
         message: "Display name contains disallowed words",
       });
       frontEndError = true;
     }
-    if (blacklist.some((v) => input.displayName.includes(v))) {
+    if (isBlacklisted(input.displayName)) {
       setError("username", {
         type: "manual",
         message: "Username contains disallowed words",
@@ -44,7 +49,7 @@ export const LearnerSignupForm = ({ setIsSignup }) => {
     try {
       data = (
         await axios.post("/api/auth/signup", {
-          code: input.code,
+          code: input.orgCode,
           username: input.username,
           displayName: input.displayName,
           password: input.password,
@@ -78,25 +83,20 @@ export const LearnerSignupForm = ({ setIsSignup }) => {
           className: classes.input,
           placeholder: "Organisation code",
           type: "text",
-          ...register("code"),
+          ...register("orgCode"),
         }}
-        error={errors.code}
+        error={errors.orgCode}
       />
       <Input
         inputProps={{
           className: classes.input,
           placeholder: "Username*",
           type: "text",
+          maxLength: 254,
           ...register("username", {
-            required: "A username is required",
-            minLength: {
-              value: 3,
-              message: "Usernames must be at least 3 characters long",
-            },
-            pattern: {
-              value: /^[a-zA-Z0-9]+$/,
-              message: "Usernames can only contain alphanumeric characters",
-            },
+            required: "Please enter a username",
+            minLength: usernameMinLength,
+            pattern: usernamePattern,
           }),
         }}
         error={errors.username}
@@ -106,16 +106,11 @@ export const LearnerSignupForm = ({ setIsSignup }) => {
           className: classes.input,
           placeholder: "Display name*",
           type: "text",
+          maxLength: 254,
           ...register("displayName", {
             required: "A display name is required",
-            minLength: {
-              value: 3,
-              message: "Display names must be at least 3 characters long",
-            },
-            pattern: {
-              value: /^[a-zA-Z\- ]+$/,
-              message: "Display names can only contain A—Z, a—z, and -",
-            },
+            minLength: displayNameMinLength,
+            pattern: displayNamePattern,
           }),
         }}
         error={errors.displayName}
@@ -201,6 +196,7 @@ export const LearnerLoginForm = ({ setIsSignup }) => {
           className: classes.input,
           placeholder: "Username*",
           type: "text",
+          maxLength: 254,
           ...register("username", {
             required: "Please enter your username",
           }),

@@ -17,7 +17,7 @@ import classes from "/styles/authView.module.scss";
 const Auth = ({ setLoaded }) => {
   const router = useRouter();
   const [isSignup, setIsSignup] = useState(true);
-  const [user, setUser] = useState("learner");
+  const [user, setUser] = useState("educator");
 
   useEffect(() => {
     setLoaded(true);
@@ -64,7 +64,7 @@ const Auth = ({ setLoaded }) => {
         </div>
         <div className={`${classes.formContainer} roundScrollbar`}>
           <div className={classes.tabs}>
-            {["learner", "educator"].map((i) => (
+            {["educator"].map((i) => (
               <button
                 key={i}
                 className={`${classes[i]} ${user === i ? classes.active : ""}`}

@@ -7,6 +7,7 @@ import axios from "axios";
 
 import classes from "./OrgForm.module.scss";
 import VisualBellContext from "../../store/visual-bell-context";
+import { querySchoolAPI } from "../../utils/formValidation";
 
 const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
   const [showConfirm, setShowConfirm] = useState(false);
@@ -112,11 +113,11 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
               className: classes.joinInput,
               type: "text",
               placeholder: "Organisation code*",
-              ...register("org", {
+              ...register("orgCode", {
                 required: "Please enter an organisation code",
               }),
             }}
-            error={errors.org || showInvalidCode}
+            error={errors.orgCode || showInvalidCode}
           />
           <PrimaryButton
             className={classes.joinBtn}
@@ -149,21 +150,8 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
   const onSubmit = async (input) => {
     setCreatingOrg(true);
 
-    let govData;
-    try {
-      govData = (
-        await axios(
-          `https://catalogue.data.govt.nz/api/3/action/datastore_search?resource_id=20b7c271-fd5a-4c9e-869b-481a0e2453cd&q=${input.schoolId}%20${input.schoolName}`
-        )
-      )["data"];
-    } catch (error) {
-      govData = { status: "error", content: error };
-      ctx.setBell({
-        type: "error",
-        message: "Error - please refresh the page and try again",
-      });
-      return setCreatingOrg(false);
-    }
+    const govData = await querySchoolAPI(input.schoolId, input.schoolName);
+
     if (!govData.success) {
       ctx.setBell({
         type: "error",

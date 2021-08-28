@@ -1,11 +1,17 @@
-import { useForm, useFormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Input from "../UI/Input";
 import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 
 import classes from "./UserDetailsForm.module.scss";
-import blacklist from "../../utils/blacklist";
+import {
+  displayNameMinLength,
+  displayNamePattern,
+  emailPattern,
+  usernameMinLength,
+  usernamePattern,
+} from "../../utils/formValidation";
 
 const UserDetailsForm = ({ user, setUser, ctx }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,14 +43,14 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
   const onSubmit = async (input) => {
     setIsLoading(true);
     let frontendError = false;
-    if (blacklist.some((v) => input.displayName.includes(v))) {
+    if (isBlacklisted(input.displayName)) {
       setError("displayName", {
         type: "manual",
         message: "Display name contains disallowed words",
       });
       frontendError = true;
     }
-    // if (blacklist.some((v) => input.username.includes(v))) {
+    // if (isBlacklisted(input.username)) {
     //   setError("username", {
     //     type: "manual",
     //     message: "Username contains disallowed words",
@@ -112,13 +118,10 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
         className={classes.input}
         label="Email"
         inputProps={{
+          maxLength: 254,
           ...register("email", {
             required: "An email is required",
-            pattern: {
-              value:
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: "Please enter a valid email address",
-            },
+            pattern: emailPattern,
           }),
         }}
         error={errors.email}
@@ -127,16 +130,11 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
         className={classes.input}
         label="Username"
         inputProps={{
+          maxLength: 254,
           ...register("username", {
-            required: "A username is required",
-            minLength: {
-              value: 3,
-              message: "Usernames must be at least 3 characters long",
-            },
-            pattern: {
-              value: /^[a-zA-Z0-9]+$/,
-              message: "Usernames can only contain alphanumeric characters",
-            },
+            required: "Please enter a username",
+            minLength: usernameMinLength,
+            pattern: usernamePattern,
           }),
         }}
         error={errors.username}
@@ -145,17 +143,12 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
         className={classes.input}
         label="Display Name"
         inputProps={{
-          // onChange: () => clearErrors("displayName"),
+          type: "text",
+          maxLength: 254,
           ...register("displayName", {
             required: "A display name is required",
-            minLength: {
-              value: 3,
-              message: "Display names must be at least 3 characters long",
-            },
-            pattern: {
-              value: /^[a-zA-Z\- ]+$/,
-              message: "Display names can only contain A—Z, a—z, and -",
-            },
+            minLength: displayNameMinLength,
+            pattern: displayNamePattern,
           }),
         }}
         error={errors.displayName}
