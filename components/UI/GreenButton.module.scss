@@ -13,7 +13,7 @@
   transition: transform 0.1s ease-out, box-shadow 0.1s ease-out,
     background-color 0.1s ease-out;
   &:hover {
-    background: $green-darker;
+    background: $green-dark;
     transform: translate(-2px, -2px);
     box-shadow: 8px 10px 0 2px rgba(black, 0.15);
   }

@@ -13,6 +13,7 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -35,14 +36,22 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
 
   const onSubmit = async (input) => {
     setIsLoading(true);
+    let frontendError = false;
     if (blacklist.some((v) => input.displayName.includes(v))) {
-      // TODO trigger an error
-      alert("no can do sir");
-      return setIsLoading(false);
+      setError("displayName", {
+        type: "manual",
+        message: "Display name contains disallowed words",
+      });
+      frontendError = true;
     }
-    if (blacklist.some((v) => input.username.includes(v))) {
-      // TODO trigger an error
-      alert("no can do sir");
+    // if (blacklist.some((v) => input.username.includes(v))) {
+    //   setError("username", {
+    //     type: "manual",
+    //     message: "Username contains disallowed words",
+    //   });
+    //   frontendError = true;
+    // }
+    if (frontendError) {
       return setIsLoading(false);
     }
 
@@ -64,30 +73,30 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
       return setIsLoading(false);
     }
 
-    let data2;
-    try {
-      data2 = (
-        await axios.post("/api/organisation/license/change-username-admin", {
-          username: user.username,
-          newUsername: input.username,
-          date: new Date().toString(),
-        })
-      )["data"];
-    } catch (error) {
-      data2 = { status: "error", content: error };
-      ctx.setBell({
-        type: "error",
-        message: "Error - please refresh the page and try again",
-      });
-      return setIsLoading(false);
-    }
-    if (data2.status === "failed") {
-      ctx.setBell({
-        type: "error",
-        message: "Unexpected error - please try again",
-      });
-      return setIsLoading(false);
-    }
+    // let data2;
+    // try {
+    //   data2 = (
+    //     await axios.post("/api/organisation/license/change-username-admin", {
+    //       username: user.username,
+    //       newUsername: input.username,
+    //       date: new Date().toString(),
+    //     })
+    //   )["data"];
+    // } catch (error) {
+    //   data2 = { status: "error", content: error };
+    //   ctx.setBell({
+    //     type: "error",
+    //     message: "Error - please refresh the page and try again",
+    //   });
+    //   return setIsLoading(false);
+    // }
+    // if (data2.status === "failed") {
+    //   ctx.setBell({
+    //     type: "error",
+    //     message: "Unexpected error - please try again",
+    //   });
+    //   return setIsLoading(false);
+    // }
 
     setUser((state) => ({ ...state, ...input }));
     ctx.setBell({
@@ -114,7 +123,7 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
         }}
         error={errors.email}
       />
-      <Input
+      {/* <Input
         className={classes.input}
         label="Username"
         inputProps={{
@@ -131,11 +140,12 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
           }),
         }}
         error={errors.username}
-      />
+      /> */}
       <Input
         className={classes.input}
         label="Display Name"
         inputProps={{
+          // onChange: () => clearErrors("displayName"),
           ...register("displayName", {
             required: "A display name is required",
             minLength: {
