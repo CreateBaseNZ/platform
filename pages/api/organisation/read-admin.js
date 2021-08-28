@@ -2,12 +2,11 @@ import axios from "axios";
 import { getSession } from "next-auth/client";
 
 export default async function (req, res) {
-	// Validate Access
 	const session = await getSession({ req });
 	if (!session) {
 		return res.send({ status: "failed", content: "No user is logged in." });
 	}
-	if (session.user.access !== "admin" || session.user.access !== "educator") {
+	if (session.user.access !== "admin" && session.user.access !== "educator") {
 		return res.send({ status: "failed", content: "Invalid access." });
 	}
 	// Send the request
