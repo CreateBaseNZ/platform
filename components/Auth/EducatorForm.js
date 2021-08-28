@@ -8,6 +8,9 @@ import {
   displayNameMinLength,
   displayNamePattern,
   emailPattern,
+  passwordMinLength,
+  passwordPattern,
+  passwordValidate,
   usernameMinLength,
   usernamePattern,
 } from "../../utils/formValidation";
@@ -147,6 +150,8 @@ const EducatorSignupRegisterForm = ({
           type: "password",
           ...register("password", {
             required: "Please enter a password",
+            minLength: passwordMinLength,
+            validate: passwordValidate,
           }),
         }}
         error={errors.password}
@@ -368,6 +373,8 @@ export const EducatorLoginForm = ({ setIsSignup }) => {
           type: "password",
           ...register("password", {
             required: "Please enter your password",
+            minLength: passwordMinLength,
+            validate: passwordValidate,
           }),
         }}
         error={errors.password}

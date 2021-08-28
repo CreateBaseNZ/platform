@@ -7,6 +7,8 @@ import classes from "./AuthForm.module.scss";
 import {
   displayNameMinLength,
   displayNamePattern,
+  passwordMinLength,
+  passwordValidate,
   usernameMinLength,
   usernamePattern,
 } from "../../utils/formValidation";
@@ -122,6 +124,8 @@ export const LearnerSignupForm = ({ setIsSignup }) => {
           type: "password",
           ...register("password", {
             required: "Please enter a password",
+            minLength: passwordMinLength,
+            validate: passwordValidate,
           }),
         }}
         error={errors.password}
@@ -143,12 +147,10 @@ export const LearnerSignupForm = ({ setIsSignup }) => {
           <div className={classes.checkbox}>
             <i className="material-icons-outlined">check</i>
           </div>
-          <label>
-            Agree to{" "}
-            <a href="https://createbase.co.nz/terms" target="_blank">
-              Terms &amp; Conditions
-            </a>
-          </label>
+          <label>Agree to</label>
+          <a href="https://createbase.co.nz/terms" target="_blank">
+            Terms &amp; Conditions
+          </a>
         </div>
       </div>
       <div className={classes.switch}>

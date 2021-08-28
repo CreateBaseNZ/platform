@@ -9,6 +9,8 @@ import {
   displayNameMinLength,
   displayNamePattern,
   emailPattern,
+  passwordMinLength,
+  passwordValidate,
   usernameMinLength,
   usernamePattern,
 } from "../../utils/formValidation";
@@ -225,6 +227,8 @@ export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
           type: "password",
           ...register("newPassword", {
             required: "Please enter your new password",
+            minLength: passwordMinLength,
+            validate: passwordValidate,
           }),
         }}
         error={errors.newPassword}

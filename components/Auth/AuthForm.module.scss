@@ -101,10 +101,12 @@
     margin-left: 0.75rem;
   }
   a {
+    position: relative;
     color: $light;
     font-weight: 500;
     font-size: 13px;
     color: $blue-dark;
+    z-index: 1;
     &:hover {
       text-decoration: underline;
     }

@@ -44,3 +44,26 @@ export const querySchoolAPI = async (schoolId, schoolName) => {
 
   return data;
 };
+
+export const passwordMinLength = {
+  value: 8,
+  message: "Passwords must be at least 8 characters long",
+};
+
+export const passwordValidate = (v) => {
+  const errors = [];
+  if (!v.match(/(?=.*[a-z]){8,}/)) {
+    errors.push("lowercase letter");
+  }
+  if (!v.match(/(?=.*[A-Z]){8,}/)) {
+    errors.push("uppercase letter");
+  }
+  if (!v.match(/(?=.*?[0-9]){8,}/)) {
+    errors.push("digit");
+  }
+  if (!v.match(/(?=.*?[#?!@$%^&*-]){8,}/)) {
+    errors.push("special character");
+  }
+
+  return errors.length && "Requires at least one: " + errors.join(", ");
+};
