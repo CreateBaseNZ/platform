@@ -2,12 +2,22 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useEffect } from "react";
+import Image from "next/image";
+import {
+  LearnerLoginForm,
+  LearnerSignupForm,
+} from "../../components/Auth/LearnerForm";
+import {
+  EducatorLoginForm,
+  EducatorSignupForm,
+} from "../../components/Auth/EducatorForm";
 
-import AuthForm from "../../components/Auth/AuthForm";
+import classes from "/styles/authView.module.scss";
 
 const Auth = ({ setLoaded }) => {
   const router = useRouter();
-  const [isLogin, setIsLogin] = useState(false);
+  const [isSignup, setIsSignup] = useState(true);
+  const [user, setUser] = useState("learner");
 
   useEffect(() => {
     setLoaded(true);
@@ -18,21 +28,66 @@ const Auth = ({ setLoaded }) => {
     if (Object.keys(router.query).length) {
       const query = router.query.authView;
       if (query) {
-        setIsLogin(query[0] === "login");
+        setIsSignup(query[0] === "signup");
       } else {
-        setIsLogin(false);
+        setIsSignup(true);
       }
     }
   }, [router.query]);
 
   return (
-    <>
+    <div className={classes.authView}>
       <Head>
-        <title>{isLogin ? "Log In" : "Sign Up"} | CreateBase</title>
+        <title>{isSignup ? "Sign Up" : "Log In"} | CreateBase</title>
         <meta name="description" content="Log into your CreateBase account" />
       </Head>
-      <AuthForm isLogin={isLogin} />
-    </>
+      <div className={classes.squiggle}>
+        <Image
+          src="/auth/squiggle-thin.svg"
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
+      <div className={classes.triangle} />
+      <div className={classes.auth}>
+        <div
+          className={`${classes.imgContainer} ${
+            user === "learner" ? classes.learnerImg : classes.educatorImg
+          }`}
+        >
+          <div className={classes.imgWrapper}>
+            <Image src="/auth/turtle.svg" layout="fill" objectFit="cover" />
+          </div>
+          <i className="material-icons-outlined">
+            {isSignup ? (user === "learner" ? "backpack" : "school") : "login"}
+          </i>
+        </div>
+        <div className={`${classes.formContainer} roundScrollbar`}>
+          <div className={classes.tabs}>
+            {["learner", "educator"].map((i) => (
+              <button
+                key={i}
+                className={`${classes[i]} ${user === i ? classes.active : ""}`}
+                onClick={() => setUser(i)}
+              >
+                {i}
+              </button>
+            ))}
+          </div>
+          {user === "learner" ? (
+            isSignup ? (
+              <LearnerSignupForm setIsSignup={setIsSignup} />
+            ) : (
+              <LearnerLoginForm setIsSignup={setIsSignup} />
+            )
+          ) : isSignup ? (
+            <EducatorSignupForm setIsSignup={setIsSignup} />
+          ) : (
+            <EducatorLoginForm setIsSignup={setIsSignup} />
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -59,12 +59,14 @@ const UserView = ({ setLoaded }) => {
     }
   }, [session]);
 
-  if (loading || !user) return null;
+  if (loading) return null;
 
   if (!session) {
     router.replace("/auth");
     return null;
   }
+
+  if (!user) return null;
 
   return (
     <div className={classes.view}>

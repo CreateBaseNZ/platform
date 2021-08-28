@@ -45,7 +45,7 @@ const AuthForm = ({ isLogin }) => {
     const enteredPassword = passwordInputRef.current.value;
 
     if (isLogin) {
-      // TO DO: Validate login data
+      // TODO: Validate login data
       // Login the user
       const result = await signIn("credentials", {
         redirect: false,
@@ -58,10 +58,10 @@ const AuthForm = ({ isLogin }) => {
         console.log("success");
         router.replace("/browse");
       } else {
-        // TO DO: Error handler
+        // TODO: Error handler
       }
     } else {
-      // TO DO: Validate signup data
+      // TODO: Validate signup data
       // Send Signup Request
       let data;
       data = await createUser(
@@ -71,11 +71,11 @@ const AuthForm = ({ isLogin }) => {
       );
       // Perform validation
       if (data.status === "failed") {
-        // TO DO: Failed handler
+        // TODO: Failed handler
       } else if (data.status === "error") {
-        // TO DO: Error handler
+        // TODO: Error handler
       }
-      // TO DO: Success handler
+      // TODO: Success handler
     }
   };
 

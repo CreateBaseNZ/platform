@@ -31,8 +31,6 @@ const MyAccount = ({ user, setUser }) => {
     setLeavingOrg(false);
   };
 
-  console.log(leavingOrg);
-
   return (
     <div className={classes.myAccount}>
       <div className={classes.userDetails}>
