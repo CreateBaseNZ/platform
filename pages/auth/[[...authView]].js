@@ -13,17 +13,24 @@ import {
 } from "../../components/Auth/EducatorForm";
 
 import classes from "/styles/authView.module.scss";
+import { ColourLogo } from "../../components/UI/Icons";
+import { useSession } from "next-auth/client";
 
 const Auth = ({ setLoaded }) => {
   const router = useRouter();
+  const [session, loading] = useSession();
   const [isSignup, setIsSignup] = useState(true);
   const [user, setUser] = useState("educator");
 
   useEffect(() => {
-    if (window.localStorage.getItem("createbase__remember-me")) {
-      setIsSignup(false);
+    if (session) {
+      router.replace("/browse");
+    } else {
+      if (window.localStorage.getItem("createbase__remember-me")) {
+        setIsSignup(false);
+      }
+      setLoaded(true);
     }
-    setLoaded(true);
     return () => setLoaded(false);
   }, []);
 
@@ -38,6 +45,8 @@ const Auth = ({ setLoaded }) => {
     }
   }, [router.query]);
 
+  if (loading) return null;
+
   return (
     <div className={classes.authView}>
       <Head>
@@ -51,7 +60,18 @@ const Auth = ({ setLoaded }) => {
           objectFit="contain"
         />
       </div>
+      <div className={`${classes.squiggle} ${classes.squiggle2}`}>
+        <Image
+          src="/auth/squiggle-thin.svg"
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
       <div className={classes.triangle} />
+      <p className={classes.copy}>&copy; CreateBase 2021</p>
+      <div className={classes.logo}>
+        <ColourLogo />
+      </div>
       <div className={classes.auth}>
         <div
           className={`${classes.imgContainer} ${

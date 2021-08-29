@@ -3,6 +3,7 @@ import { useSession } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
+import { signIn } from "next-auth/client";
 import { signOut } from "next-auth/client";
 import axios from "axios";
 import { SecondaryButton } from "../components/UI/Buttons";
@@ -21,10 +22,14 @@ const Index = ({ setLoaded }) => {
   const [name, setName] = useState("");
   const [showHelper, setShowHelper] = useState(false);
 
-  useEffect(() => setLoaded(true), []);
+  useEffect(async () => {
+    setLoaded(true);
+    return () => setLoaded(false);
+  }, []);
 
   useEffect(async () => {
     if (session) {
+      console.log(session);
       let data;
       try {
         data = (
@@ -78,17 +83,17 @@ const Index = ({ setLoaded }) => {
         </div>
       </nav>
       <div className={classes.container}>
-        <h2 className={classes.h2}>Welcome to</h2>
-        <h1 className={classes.h1}>Open Alpha</h1>
+        <h2 className={classes.h2}>Welcome to the</h2>
+        <h1 className={classes.h1}>
+          Platform<div>Lite</div>
+        </h1>
         {session ? (
           <div
             className={classes.btnContainer}
             style={{ flexDirection: "column", width: "auto" }}
           >
             <Link href="/browse">
-              <button className={classes.loggedIn} comment="//TODO">
-                Continue as {name}
-              </button>
+              <button className={classes.loggedIn}>Continue as {name}</button>
             </Link>
             <SecondaryButton
               className={classes.signOut}

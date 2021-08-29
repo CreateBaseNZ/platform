@@ -3,6 +3,8 @@ import Img from "../components/UI/Img";
 import classes from "./BrowseThumb.module.scss";
 
 const BrowseThumb = ({ activeIndex, index, thumbnailHandler, query, name }) => {
+  console.log(`/${query}/img/thumbnail.png`);
+
   return (
     <div
       className={`${classes.container} ${

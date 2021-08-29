@@ -131,6 +131,20 @@
   }
 }
 
+.logo {
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+}
+
+.copy {
+  position: absolute;
+  bottom: 5vh;
+  right: 5vw;
+  font-size: 12px;
+  color: $light;
+}
+
 .squiggle {
   position: absolute;
   opacity: 0.5;
@@ -139,6 +153,12 @@
   height: 200vw;
   width: 200vw;
   animation: squiggle 240s infinite linear;
+}
+
+.squiggle2 {
+  top: 250%;
+  left: 200%;
+  animation: squiggle 260s infinite linear;
 }
 
 @keyframes squiggle {

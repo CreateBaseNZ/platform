@@ -46,30 +46,30 @@
     letter-spacing: 0.01em;
     font-weight: 500;
   }
-  .continue {
-    margin-top: 4vh;
+  .btnContainer {
     flex: 0 0 4rem;
-    width: 13rem;
-    border-radius: 12rem;
-    color: $lightest;
-    font-weight: 600;
+    margin-top: 4vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $green;
-    letter-spacing: 0.05em;
-    font-size: 18px;
-    box-shadow: 0 4px 16px 0 rgba($green, 0.5);
-    transition: box-shadow 0.1s ease-out;
-    span {
-      color: $lightest;
-      margin-left: 0.5rem;
-      transition: transform 0.1s ease-out;
+    .continue,
+    .lesson {
+      height: 4rem;
+      border-radius: 999px;
+      font-size: 16px;
+      padding: 0 3rem;
+      margin: 0 1vw;
+      i {
+        margin-left: 0.5rem;
+      }
     }
-    &:hover {
-      box-shadow: 0 8px 16px 0 rgba($green, 0.75);
-      span {
-        transform: translateX(2px);
+    .lesson {
+      background: $blue-light;
+      box-shadow: 0 4px 16px rgba($blue-light, 0.25);
+      i {
+        margin-left: 0;
+        margin-right: 0.5rem;
+      }
+      &:hover {
+        box-shadow: 0 8px 24px rgba($blue-light, 0.25);
       }
     }
   }

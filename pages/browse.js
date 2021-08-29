@@ -4,127 +4,30 @@ import Link from "next/link";
 import BrowseThumb from "../components/BrowseThumb";
 import sendItData from "../data/send-it-data";
 import magnebotData from "../data/magnebot-data";
+import lineFollowingData from "../data/line-following-data";
 import Header from "../components/Header";
 
-import { useSession, getSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 
 // Backend communication
 import axios from "axios";
 
 import classes from "/styles/Browse.module.scss";
+import { PrimaryButton } from "../components/UI/Buttons";
 
 const allData = [magnebotData, sendItData];
 
 const Browse = ({ setLoaded }) => {
+  const [session, loading] = useSession();
+  const [user, setUser] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [user, setUser] = useState({});
-
-  // Accessing User Session
-  const [session, loading] = useSession();
 
   console.log("browse rerendered");
 
   useEffect(() => {
     setLoaded(true);
     return () => setLoaded(false);
-  }, []);
-
-  useEffect(async () => {
-    // EXAMPLE: Fetch the identification of the authenticated user
-    getSession().then((session) => {
-      // Perform some actions if necessary
-      console.log(session);
-    });
-    // EXAMPLE: Create data
-    // const input = {
-    //   test: "Hello World",
-    //   test2: "Hello World 2",
-    // }; // Object containing the properties, with values, we want to save
-    // const date = new Date().toString();
-    // let data;
-    // try {
-    //   data = (await axios.post("/api/user/data/create", { input, date }))[
-    //     "data"
-    //   ];
-    // } catch (error) {
-    //   data = { status: "error", content: error };
-    // }
-    // console.log(data);
-
-    // EXAMPLE: Update data
-    // const input = {
-    //   test: "Hello World 3",
-    //   test2: "Hello World 4",
-    // };
-    // const date = new Date().toString();
-    // let data;
-    // try {
-    //   data = (await axios.post("/api/user/data/update", { input, date }))[
-    //     "data"
-    //   ];
-    // } catch (error) {
-    //   data = { status: "error", content: error };
-    // }
-    // console.log(data);
-
-    // EXAMPLE: Delete data
-    // const input = ["test", "test2"]; // Array of the properties which values we want to retrieve
-    // const date = new Date().toString();
-    // let data;
-    // try {
-    //   data = (await axios.post("/api/user/data/delete", { input, date }))[
-    //     "data"
-    //   ];
-    // } catch (error) {
-    //   data = { status: "error", content: error };
-    // }
-    // console.log(data);
-
-    // EXAMPLE: Create a license
-    // const input = {
-    //   username: "student1",
-    //   password: "student1",
-    //   date: new Date().toString(),
-    //   status: "free", // Status of the license can either be free, lite, pro
-    //   access: { learner: true }, // Access can be admin, educator and learner
-    // };
-    // let data;
-    // try {
-    //   data = (await axios.post("/api/organisation/license/add", input))["data"];
-    // } catch (error) {
-    //   data = { status: "error", content: error };
-    // }
-    // console.log(data);
-
-    // EXAMPLE: Retrieve all organisation data using admin
-    // let data;
-    // try {
-    // 	data = (await axios.post("/api/organisation/read-admin"))["data"];
-    // } catch (error) {
-    // 	data = { status: "error", content: error };
-    // }
-    // console.log(data);
-
-    // EXAMPLE: Change username as an admin
-    // const input = { username: "louislin0", newUsername: "louislin1", date: new Date().toString() };
-    // let data;
-    // try {
-    // 	data = (await axios.post("/api/organisation/license/change-username-admin", input))["data"];
-    // } catch (error) {
-    // 	data = { status: "error", content: error };
-    // }
-    // console.log(data);
-
-    // EXAMPLE: Change password as an admin
-    // const input = { username: "louislin0", newPassword: "f", date: new Date().toString() };
-    // let data;
-    // try {
-    // 	data = (await axios.post("/api/organisation/license/change-password-admin", input))["data"];
-    // } catch (error) {
-    // 	data = { status: "error", content: error };
-    // }
-    // console.log(data);
   }, []);
 
   useEffect(async () => {
@@ -175,12 +78,32 @@ const Browse = ({ setLoaded }) => {
           <h2>Select a project</h2>
           <h1>{allData[activeIndex].name}</h1>
           <p>{allData[activeIndex].caption}</p>
-          <Link href={`/${allData[activeIndex].query}`}>
-            <button className={classes.continue}>
-              Continue
-              <span className="material-icons-outlined">play_arrow</span>
-            </button>
-          </Link>
+          <div className={classes.btnContainer}>
+            {session && user && user.type !== "learner" && (
+              <Link href={`/${allData[activeIndex].query}`}>
+                <div>
+                  <PrimaryButton
+                    className={classes.lesson}
+                    mainLabel="Lesson Plan"
+                    iconLeft={
+                      <i className="material-icons-outlined">history_edu</i>
+                    }
+                  />
+                </div>
+              </Link>
+            )}
+            <Link href={`/${allData[activeIndex].query}`}>
+              <div>
+                <PrimaryButton
+                  className={classes.continue}
+                  mainLabel="Continue"
+                  iconRight={
+                    <i className="material-icons-outlined">play_arrow</i>
+                  }
+                />
+              </div>
+            </Link>
+          </div>
         </div>
         <div className={classes.vidContainer}>
           <video

@@ -7,6 +7,7 @@ const OrgCard = ({ user, leavingOrg, leaveOrgHandler, setLeavingOrg }) => {
   return (
     <div
       className={`${classes.orgCard} ${leavingOrg ? classes.leavingOrg : ""}`}
+      style={{ pointerEvents: "none", opacity: "0.5" }}
     >
       <div className={classes.orgDetails}>
         <div className={classes.orgCaption}>Your organisation</div>
