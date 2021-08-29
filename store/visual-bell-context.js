@@ -14,10 +14,12 @@ export const VisualBellContextProvider = (props) => {
   console.log(timer);
   useEffect(() => {
     if (bell.message) {
-      if (timer.current) {
+      if (timer.current && bell.type !== "catastrophe") {
         clearTimeout(timer.current);
       }
-      timer.current = setTimeout(() => setBell({}), 4100);
+      if (bell.type !== "catastrophe") {
+        timer.current = setTimeout(() => setBell({}), 4100);
+      }
     }
   }, [bell.message]);
 

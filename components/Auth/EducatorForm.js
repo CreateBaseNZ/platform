@@ -1,26 +1,45 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import { isBlacklisted } from "../../utils/formValidation";
-
-import classes from "./AuthForm.module.scss";
+import { signIn } from "next-auth/client";
 import {
   displayNameMinLength,
   displayNamePattern,
   emailPattern,
   passwordMinLength,
-  passwordPattern,
   passwordValidate,
   usernameMinLength,
   usernamePattern,
 } from "../../utils/formValidation";
+import VisualBellContext from "../../store/visual-bell-context";
+import classes from "./AuthForm.module.scss";
+import router from "next/router";
+import axios from "axios";
+
+// EXAMPLE: Create an educator account
+// const input = { email: "shellyparkdemo@gmail.com", username: "shellyparkdemo", displayName: "Shelly Park is Cool", password: "Wearec00l!", date: new Date().toString() };
+// let data;
+// try {
+// 	data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+// } catch (error) {
+// 	if (error.response) {
+// 		data = error.response.data;
+// 	} else if (error.request) {
+// 		data = { status: "error", content: error.request };
+// 	} else {
+// 		data = { status: "error", content: error.message };
+// 	}
+// }
+// console.log(data);
 
 const EducatorSignupRegisterForm = ({
   setIsSignup,
   setIsRegister,
   setUserDetails,
 }) => {
+  const ctx = useContext(VisualBellContext);
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -33,7 +52,6 @@ const EducatorSignupRegisterForm = ({
 
   const onSubmit = async (input) => {
     setIsLoading(true);
-    console.log(input);
     let frontEndError = false;
     if (isBlacklisted(input.username)) {
       setError("displayName", {
@@ -49,33 +67,53 @@ const EducatorSignupRegisterForm = ({
       });
       frontEndError = true;
     }
-    // TODO validate password
     if (frontEndError) {
       return setIsLoading(false);
     }
-
-    // let data;
-    // try {
-    //   data = (
-    //     await axios.post("/api/auth/signup", {
-    //       code: input.code,
-    //       username: input.username,
-    //       displayName: input.displayName,
-    //       password: input.password,
-    //       date: new Date().toString(),
-    //     })
-    //   )["data"];
-    // } catch (error) {
-    //   data = { status: "error", content: error };
-    // }
-    // // Perform validation
-    // if (data.status === "failed") {
-    //   // TODO: Failed handler
-    //   return setIsLoading(false);
-    // } else if (data.status === "error") {
-    //   // TODO: Error handler
-    //   return setIsLoading(false);
-    // }
+    let data;
+    try {
+      data = (
+        await axios.post("/api/signup/educator", {
+          PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+          input: {
+            email: input.email,
+            username: input.username,
+            displayName: input.displayName,
+            password: input.password,
+            date: new Date().toString(),
+          },
+        })
+      )["data"];
+    } catch (error) {
+      if (error.response) {
+        data = error.response.data;
+      } else if (error.request) {
+        data = { status: "error", content: error.request };
+      } else {
+        data = { status: "error", content: error.message };
+      }
+      ctx.setBell({
+        type: "catastrophe",
+        message:
+          "Oops! Something went wrong, please refresh the page and try again",
+      });
+      return setIsLoading(false);
+    }
+    if (data.status === "failed") {
+      if (data.content.email) {
+        setError("email", {
+          type: "manual",
+          message: "This email is already taken",
+        });
+      }
+      if (data.content.username) {
+        setError("username", {
+          type: "manual",
+          message: "This username is already taken",
+        });
+      }
+      return setIsLoading(false);
+    }
 
     // TODO: Success handler
     setUserDetails({
@@ -87,6 +125,7 @@ const EducatorSignupRegisterForm = ({
     });
     setIsLoading(false);
     setIsRegister(false);
+    setIsSignup(false);
   };
 
   return (
@@ -326,9 +365,11 @@ export const EducatorSignupForm = ({ setIsSignup }) => {
 
 export const EducatorLoginForm = ({ setIsSignup }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const ctx = useContext(VisualBellContext);
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -339,22 +380,43 @@ export const EducatorLoginForm = ({ setIsSignup }) => {
 
   const onSubmit = async (input) => {
     setIsLoading(true);
-    console.log(input);
-    let frontEndError = false;
-    // any front end validations
-    if (frontEndError) {
+    const result = await signIn("credentials", {
+      redirect: false,
+      username: input.username,
+      password: input.password,
+      type: "username",
+      PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+    });
+
+    if (result.error) {
+      // incorrect login
+      setError("username", {
+        type: "manual",
+        message: result.error,
+      });
+      setError("password", {
+        type: "manual",
+        message: result.error,
+      });
       return setIsLoading(false);
     }
-    // TODO: login
 
-    // TODO: Success handler
+    // TODO critical error
+    // if (criticalError) {
+    //   // ctx.setBell({
+    //   //   type: "error",
+    //   //   message: result.error,
+    //   // });
+    //   return setIsLoading(false);
+    // }
+
     if (input.remember) {
       window.localStorage.setItem("createbase__remember-me", input.username);
     } else {
       window.localStorage.removeItem("createbase__remember-me");
-      console.log("cleared");
     }
     setIsLoading(false);
+    router.replace("/browse");
   };
 
   return (
