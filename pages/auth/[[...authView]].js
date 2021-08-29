@@ -13,6 +13,8 @@ import {
 } from "../../components/Auth/EducatorForm";
 
 import classes from "/styles/authView.module.scss";
+import Img from "../../components/UI/Img";
+import { ColourLogo } from "../../components/UI/Icons";
 
 const Auth = ({ setLoaded }) => {
   const router = useRouter();
@@ -51,7 +53,18 @@ const Auth = ({ setLoaded }) => {
           objectFit="contain"
         />
       </div>
+      <div className={`${classes.squiggle} ${classes.squiggle2}`}>
+        <Image
+          src="/auth/squiggle-thin.svg"
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
       <div className={classes.triangle} />
+      <p className={classes.copy}>&copy; CreateBase 2021</p>
+      <div className={classes.logo}>
+        <ColourLogo />
+      </div>
       <div className={classes.auth}>
         <div
           className={`${classes.imgContainer} ${
