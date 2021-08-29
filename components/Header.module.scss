@@ -11,7 +11,7 @@
 
 .help {
   margin-left: auto;
-  margin-right: 1rem;
+  margin-right: 2.5vw;
   width: 2rem;
   height: 2rem;
   border-radius: 2rem;
@@ -139,9 +139,9 @@
   button {
     font-weight: 600;
     letter-spacing: 0.05em;
-    margin: 0 0.5vw;
   }
   .signUp {
+    margin-right: 1.5vw;
     background: $logo-mid;
     box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
     &:hover {
@@ -149,8 +149,8 @@
     }
   }
   .logIn {
-    color: $dark;
-    border: medium solid transparent;
+    color: $blue-mid;
+    border: medium solid $blue-mid;
     &:hover {
       color: $blue-dark;
       border-color: $blue-dark;
