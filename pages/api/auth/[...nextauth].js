@@ -115,7 +115,7 @@ async function emailLogin(object) {
 	// Send the data to the backend
 	let data;
 	try {
-		data = (await axios.post("http://localhost/email-login", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("https://createbase.co.nz/email-login", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		if (error.response) {
 			data = { status: "error", content: error.response.data };
@@ -141,7 +141,7 @@ async function usernameLogin(object) {
 	// Send the data to the backend
 	let data;
 	try {
-		data = (await axios.post("http://localhost/username-login", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("https://createbase.co.nz/username-login", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		if (error.response) {
 			data = { status: "error", content: error.response.data };
