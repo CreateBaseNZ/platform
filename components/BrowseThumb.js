@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Img from "../components/UI/Img";
 
 import classes from "./BrowseThumb.module.scss";
