@@ -67,28 +67,24 @@ export const convertCode = (text, system,onceCode) => {
                 LHS += '=';
             }
             element = LHS + RHS + afterbraket;
-        }
-        
-        let startPoints, endPoints;
-        if (unity) {
-            [startPoints, endPoints] = findQuotePoints(LHS);
-        }
-        else {
-            [startPoints, endPoints] = findQuotePoints(element);
-        }
-        for (let j = 0; j < startPoints.length; j++) {
-            if (quotes.length > quotesDone) {
-                element = element.substring(0, startPoints[j]) + quotes[quotesDone] + element.substring(endPoints[j] + 1);
-                quotesDone++;
-            } else {
-                console.log("lol");
+            let startPoints, endPoints;
+            if (unity) {
+                [startPoints, endPoints] = findQuotePoints(LHS);
+            }
+            else {
+                [startPoints, endPoints] = findQuotePoints(element);
+            }
+            for (let j = 0; j < startPoints.length; j++) {
+                if (quotes.length > quotesDone) {
+                    element = element.substring(0, startPoints[j]) + quotes[quotesDone] + element.substring(endPoints[j] + 1);
+                    quotesDone++;
+                } else {
+                    console.log("lol");
+                }
             }
         }
-        
-        
         splittedCode[i] = element;
     }
-    // text = splittedCode.join('\n');
     let intermediateCode = "\n"
     if (onceCode) {
         intermediateCode += "if (codeNum != codesDone) { resolve(''); } \n";
@@ -126,12 +122,6 @@ export const convertCode = (text, system,onceCode) => {
         functionDef += `}\n`
         text = functionDef + text;
     })
-
-    // try {
-    //     eval(text);
-    // } catch (error) {
-    //     console.log(error);
-    // }
     return text;
 };
 
@@ -161,6 +151,9 @@ const findLine = (orignal,modifiedText, modifiedLine) => {
     let editedLine = modifiedText[modifiedLine];
 
 }
+
+
+
 const findQuotePoints = (text) => {
     let quoteStart = [];
     let quoteEnd = [];
@@ -191,17 +184,18 @@ const findQuotePoints = (text) => {
 const doubleUp = (text) => {
     let quoteStart;
     let quotes = [];
+    let comment = checkCommentNextLine(text, 0);
     let inQuote = false;
     let withinBracket = false;
     let newText = "";
     let quoteSign = "";
     for (let i = 0; i < text.length; i++){
         if (inQuote) {
-            if (text[i] == "\n") {
+            if (text[i] == "\n"&& quoteSign=="`") {
                 const newLine = "\\n";
                 newText = newText.concat(newLine);
             } else {
-                newText=newText.concat(text[i])
+                newText = newText.concat(text[i])
             }
         } else {
             newText=newText.concat(text[i])
@@ -212,14 +206,22 @@ const doubleUp = (text) => {
             } else {
                 switch (text[i]) {
                     case "(":
-                        withinBracket = true;
+                        if (!comment) {
+                            withinBracket = true;
+                        }
                         break;
                     case ";":
                     case "{":
                     case "}":
-                        if (text[i + 1] != '\n') {
-                            newText=newText.concat("\n")
+                        if (!comment) {
+                            if (text[i + 1] != '\n') {
+                                newText = newText.concat("\n")
+                            }
+                            comment = checkCommentNextLine(text, i);
                         }
+                        break;
+                    case "\n":
+                        comment = checkCommentNextLine(text, i);
                         break;
                     default:
                         break;
@@ -227,13 +229,12 @@ const doubleUp = (text) => {
             }
         }
         if (text[i] == `"` || text[i] == "'" || text[i] == "`") {
-
             if (inQuote) {
                 if (quoteSign == text[i] && text[i - 1] != "\\") {
                     quotes.push(text.substring(quoteStart, i + 1));
                     inQuote = false;
                 }
-            } else {
+            } else if(!comment) {
                 quoteSign = text[i];
                 quoteStart = i;
                 inQuote = true;
@@ -243,3 +244,10 @@ const doubleUp = (text) => {
     return [newText,quotes];
 }
 
+const checkCommentNextLine = (text,i) => {
+    const intialI = i;
+    while (text[intialI]&&text[intialI] == " ") {
+        intialI++;
+    }
+    return (text.length>intialI+1&&(text[intialI] == '/' && text[intialI + 1] == '/'))
+}

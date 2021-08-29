@@ -1,0 +1,82 @@
+[
+  {
+    "robot": "Arm",
+    "sensors":{
+    },
+    "Actions":{
+    },
+    "function":{
+      "start":{
+        "simpleLogic": "IntialiseRobot",
+        "inputs":[],
+        "logic": "const codeNum=codesDone;\nlet position;\nconst unityContext = props.unityContext;\nconst executeloop = (text) => {\nreturn new Promise((resolve, reject) => {\nconst SensorData =JSON.parse(sensorDataRef.current);\neval(\"(async () => {\" + text + \"})()\").catch((e) => { resolve();});\nif (codeNum!=codesDone) { resolve(''); }\n})\n};\ntext = `if(SensorData){\nposition=SensorData.endEffectorPosition;\n}\nresolve();`\nlet Loop = async () => {\nawait executeloop(text);\nif (codeNum==codesDone&&!done) {\ncom = setTimeout(Loop, 10);\n}\n}\nLoop()\nconst text2=`unityContext.send(\"SceneController\", \"ResetScene\")\nsetTimeout(resolve, 2500);`;\nawait executeloop(text2)\n",
+        "await":false
+      },
+      "end":{        
+        "simpleLogic":"",
+        "inputs":[],
+        "logic": "",
+        "await":false
+      },
+      "moveArm":{
+        "inputs": [
+          { "variable": "x", "order":1},
+          { "variable": "y", "order":2},
+          { "variable": "z", "order":3}
+        ],
+        "logic": "const intialPoint=position;\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 0.5;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.1) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\nctx.addLog(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
+        "await":true
+      },
+      "magneticSwitch":{
+        "inputs": [{ "variable": "a", "order":1 }],
+        "logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
+        "await":true
+      }
+      
+    }
+  },
+  {
+    "robot": "Player",
+    "sensors":{
+      "speedOf":"obstacleSpeed",
+      "distance":"obstacleDistance.x",
+      "elevationOf":"obstacleDistance.y",
+      "widthOf":"obstacleSize.x",
+      "heightOf":"obstacleSize.y"
+    },
+    "Actions":{
+      "Jump":{
+        "inputs":[],
+        "syntax":"unityContext.send(\"Player\",\"Jump\");"
+      },
+      "Crouch":{
+        "inputs":[],
+        "syntax":"unityContext.send(\"Player\",\"Crouch\");"
+      }
+    },
+    "function":{
+      "start":{
+        "simpleLogic": "while(gameIsON){",
+        "inputs":[],
+        "logic": "if(sensorData){\n",
+        "await":false
+      },
+      "end":{        
+        "simpleLogic":"}",
+        "inputs":[],
+        "logic": "}",
+        "await":false
+
+      }
+    }
+  },
+  {
+    "function":{
+      "delay":{
+        "inputs": [{ "variable": "a", "order":1 }],
+        "logic": "setTimeout(resolve, a*1000);",
+        "await":true
+      }
+    }
+  }
+]

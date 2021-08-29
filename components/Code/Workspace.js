@@ -105,12 +105,32 @@ const Workspace = (props) => {
     return new Promise((resolve, reject) => {
       const sensorData = sensorDataRef.current;
       const unityContext = props.unityContext;
-
-      eval("(async () => {" + text + "})()").catch((e) => {
-        resolve("");
-      });
+      const dispError = (error) => {
+        if (error.name) {
+          ctx.addLog(error.message);
+          resolve(false);
+        }
+        else {
+          resolve(true);
+        }
+      }
+      try {
+        const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
+        let func = new AsyncFunction('sensorData', 'unityContext', text);
+        async function callAsync() {
+          let returnval = await func(sensorData, unityContext)
+          return returnval
+        }
+        callAsync().then(returnval => {
+          resolve(returnval)
+        }).catch(dispError)
+      }
+      catch (error) {
+        dispError(error);
+      }
+      
       if (codeChanged) {
-        resolve("");
+        resolve(true);
       }
     });
   };
@@ -123,64 +143,30 @@ const Workspace = (props) => {
 
   const compileHandlerTxt = async() => {
     let codeLines = 0;
-    codeChanged = true;
     const onceCode = isOnceCode(props.query);
     let t = editorRef.current.getValue();
-    console.log(t);
     const systemName=defineObject(props.query)
     let code = convertCode(t, systemName, onceCode);
-    let com;
-    setText(code);
-
-    
-    if (!onceCode) {
-      code += "\nresolve(' ');";
-      let functionExecute = async () => {
-        printing++;
-        await executeCode(code,printing);
-        if (printing >= 10) {
-          printing = 0;
-        }
-        if (codeChanged) {
-          com = 0;
-          codeChanged = false;
-        } else {
-          com = setTimeout(functionExecute, 50);
-        }
-      };
-      if (codesDone > 0) {
-        while (codeChanged) {
-          await delay(10);
-        }
-      } else {
-        codeChanged = false;
-      }
-      let printing = 0;
-      functionExecute();
-      codesDone++;
-    } else {
-      com = 0;
-      codesDone++
-      eval("(async () => {\nconst printing=100;\nlet done=false;" + code + "done=true;})()").catch((e) => {
-        console.log(e);
-      });
-    }
+    console.log(code);
+    runCode(code,onceCode);
   }
-  const compileHandler = async () => {
-    console.log(editorRef.current.getValue()); // @Salim
+
+  const runCode = async (code,onceCode) => {
     let com;
     codeChanged = true;
-    const onceCode = isOnceCode(props.query);
-    let [code, dispCode] = compileCode(onceCode);
     if (!onceCode) {
-      code += "\nresolve(' ');";
+      code += "\nreturn true;";
       let functionExecute = async () => {
         printing++;
-        await executeCode(code, printing);
+        const isRun = await executeCode(code, printing);
+        console.log(isRun);
         if (printing >= 10) {
           printing = 0;
         }
-        if (codeChanged) {
+        if (!isRun) {
+          codesDone = -1;
+        }
+        else if (codeChanged) {
           com = 0;
           codeChanged = false;
         } else {
@@ -206,6 +192,13 @@ const Workspace = (props) => {
           "done=true;})()"
       ).catch((e) => {});
     }
+  }
+
+
+  const compileHandler = () => {
+    const onceCode = isOnceCode(props.query);
+    let [code, dispCode] = compileCode(onceCode);
+    runCode(code,onceCode);
     setVisualBell((state) => ({
       message: "Code is now running",
       switch: !state.switch,
