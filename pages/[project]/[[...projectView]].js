@@ -32,7 +32,7 @@ const get_data = (query) => {
 };
 
 const steps = [
-  { title: "Imagine", icon: "movie" },
+  { title: "Imagine", icon: "filter_drama" },
   { title: "Define", icon: "biotech" },
   { title: "Research", icon: "travel_explore" },
   { title: "Plan", icon: "design_services" },
