@@ -174,7 +174,7 @@ export default NextAuth({
 			async authorize(credentials) {
 				// Validate PUBLIC_API_KEY
 				if (credentials.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-					return res.status(403).send({ status: "critical error", content: "Invalid API Key." });
+					throw new Error("Invalid API Key.");
 				}
 				// Perform authentication based on the type
 				let data;
