@@ -88,10 +88,7 @@ const Index = ({ setLoaded }) => {
           Platform<div>Lite</div>
         </h1>
         {session ? (
-          <div
-            className={classes.btnContainer}
-            style={{ flexDirection: "column", width: "auto" }}
-          >
+          <div className={classes.btnContainer}>
             <Link href="/browse">
               {/* //TODO <button className={classes.loggedIn}>Continue as {name}</button> */}
               <button className={classes.loggedIn}>Continue</button>
