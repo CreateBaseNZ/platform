@@ -89,15 +89,15 @@ const Index = ({ setLoaded }) => {
         </h1>
         {session ? (
           <div className={classes.btnContainer}>
-            <Link href="/browse">
-              {/* //TODO <button className={classes.loggedIn}>Continue as {name}</button> */}
-              <button className={classes.loggedIn}>Continue</button>
-            </Link>
             <SecondaryButton
               className={classes.signOut}
               mainLabel="Sign out"
               onClick={() => signOut()}
             />
+            <Link href="/browse">
+              {/* //TODO <button className={classes.loggedIn}>Continue as {name}</button> */}
+              <button className={classes.loggedIn}>Continue</button>
+            </Link>
           </div>
         ) : (
           <div className={classes.btnContainer}>
