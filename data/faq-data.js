@@ -5,35 +5,35 @@ export default [
     items: [
       {
         q: "How do I access lesson plans?",
-        a: "An example answer.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I use lesson plans in my classroom?",
-        a: ".",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I use lesson plans during online lessons?",
-        a: ".",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I use lesson plans in my classroom?",
-        a: ".",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I assess this content?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How long should my students be on the platform vs in class discussions?",
-        a: ".",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I get my students onto the platform?",
-        a: ".",
+        a: "Answer coming very very soon.",
       },
       {
         q: "What is Flow coding?",
-        a: ".",
+        a: "Answer coming very very soon.",
       },
     ],
   },
@@ -43,31 +43,31 @@ export default [
     items: [
       {
         q: "What are the different account types?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "What can my account access?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I upgrade my account?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I join an existing organisation?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I register a new organisation?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I invite other teachers to my organisation?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How do I invite students to my organisation?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
     ],
   },
@@ -77,15 +77,15 @@ export default [
     items: [
       {
         q: "Where can I learn more about the concepts I'm Teaching?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "What additional platform support is available?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
       {
         q: "How can I contact CreateBase?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
+        a: "Answer coming very very soon.",
       },
     ],
   },
