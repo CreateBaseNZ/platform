@@ -1,83 +1,95 @@
 @import "/styles/variables";
 
-$bg-color: #e9e9e9;
-$dot-color: #f1f1f1;
-$dot-size: 5px;
-$dot-space: 48px;
-
 .browse {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  padding: 5vh 10vw;
+  padding: 2vh 5vw 5vh 5vw;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: space-between;
-  background: linear-gradient(
-        90deg,
-        $bg-color ($dot-space - $dot-size),
-        transparent 1%
-      )
-      center,
-    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
-    $dot-color;
-  background-size: $dot-space $dot-space;
+  background: $bg-light;
 }
 
-.logo {
-  position: absolute;
-  top: 1rem;
-  right: 2rem;
-}
-
-.h1 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: $light;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: 4vh;
-}
-
-.selectedProject {
+.main {
+  flex: 1 1 0;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
 .content {
-  width: 35vw;
+  width: 45%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   h2 {
+    margin-top: 8vh;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $light;
+    letter-spacing: 0.05em;
+    margin-bottom: 4vh;
+  }
+  h1 {
     font-size: 3rem;
     font-weight: 800;
-    line-height: 1em;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 2vh;
+    letter-spacing: 0.01em;
+    margin-bottom: 1vh;
   }
   p {
-    font-size: 0.75rem;
+    font-size: 13px;
     line-height: 1.75em;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.01em;
     font-weight: 500;
   }
-  button {
-    margin-top: 3vh;
+  .continue {
+    margin-top: 4vh;
+    flex: 0 0 4rem;
+    width: 13rem;
+    border-radius: 12rem;
+    color: $lightest;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $green;
+    letter-spacing: 0.05em;
+    font-size: 18px;
+    box-shadow: 0 4px 16px 0 rgba($green, 0.5);
+    transition: box-shadow 0.1s ease-out;
+    span {
+      color: $lightest;
+      margin-left: 0.5rem;
+      transition: transform 0.1s ease-out;
+    }
+    &:hover {
+      box-shadow: 0 8px 16px 0 rgba($green, 0.75);
+      span {
+        transform: translateX(2px);
+      }
+    }
   }
 }
 
-.coverVid {
-  width: 40vw;
+.vidContainer {
+  width: 45%;
   position: relative;
+  align-self: center;
   .vid {
+    border-radius: 8px;
     width: 100%;
     height: 100%;
+    opacity: 0;
+    transform: translateX(1vw);
+    &.vidLoaded {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.2s ease-out 0.4s, transform 0.2s ease-out 0.4s;
+    }
   }
 }
 
@@ -85,5 +97,6 @@ $dot-space: 48px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 24vh;
+  flex: 0 0 25vh;
+  overflow: hidden;
 }

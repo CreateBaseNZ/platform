@@ -2,17 +2,13 @@
 // import CloseIcon from "@material-ui/icons/Close";
 // import classes from "../../components/Project/project.module.scss";
 
-import {
-  comparisonBoostData,
-  conditionalBoostData,
-  recycleRightData,
-} from "./explore-data";
+import { comparisonBoostData, conditionalBoostData } from "./explore-data";
 
-export const sendItData = {
+export default {
   name: "Send It",
   query: "send-it",
   caption:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non aliquam augue. Nullam nunc purus, iaculis at congue a, varius vel massa. Suspendisse eget pharetra ipsum. Praesent vulputate ipsum laoreet tempor viverra. Curabitur vehicula bibendum facilisis. Duis tincidunt mauris ac sem imperdiet imperdiet.",
+    'In this project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
   stacked: true,
   scenePrefix: "Project_Jump_0",
   runType: "loop",

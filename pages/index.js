@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import GreenButton from "/components/UI/GreenButton";
+import { signOut } from "next-auth/client";
+import axios from "axios";
+import { SecondaryButton } from "../components/UI/Buttons";
 
 import WhiteLogo, {
   FBIcon,
@@ -14,13 +17,35 @@ import WhiteLogo, {
 import classes from "/styles/Index.module.scss";
 
 const Index = ({ setLoaded }) => {
+  const [session, loading] = useSession();
+  const [name, setName] = useState("");
   const [showHelper, setShowHelper] = useState(false);
 
   useEffect(() => setLoaded(true), []);
 
+  useEffect(async () => {
+    if (session) {
+      let data;
+      try {
+        data = (
+          await axios.post("/api/user/data/read", { input: ["displayName"] })
+        )["data"];
+      } catch (error) {
+        data = { status: "error", content: error };
+      }
+      console.log(data);
+      if (data.status === "error") {
+        console.log("error"); // TODO handle error
+      }
+      setName(data.content.displayName);
+    }
+  }, [session]);
+
   const helperClickHandler = () => {
     setShowHelper((state) => !state);
   };
+
+  if (loading) return null;
 
   return (
     <div className={classes.index}>
@@ -55,18 +80,44 @@ const Index = ({ setLoaded }) => {
       <div className={classes.container}>
         <h2 className={classes.h2}>Welcome to</h2>
         <h1 className={classes.h1}>Open Alpha</h1>
-        <Link href="/auth">
-          <div>
-            <GreenButton caption="Get Started" />
+        {session ? (
+          <div
+            className={classes.btnContainer}
+            style={{ flexDirection: "column", width: "auto" }}
+          >
+            <Link href="/browse">
+              <button className={classes.loggedIn} comment="//TODO">
+                Continue as {name}
+              </button>
+            </Link>
+            <SecondaryButton
+              className={classes.signOut}
+              mainLabel="Sign out"
+              onClick={() => signOut()}
+            />
           </div>
-        </Link>
+        ) : (
+          <div className={classes.btnContainer}>
+            <Link href="/auth/signup">
+              <button className={classes.signUp}>Sign Up</button>
+            </Link>
+            <Link href="/auth/login">
+              <button className={classes.logIn}>
+                Log In<i className="material-icons-outlined">login</i>
+              </button>
+            </Link>
+            <Link href="/browse">
+              <button className={classes.guest}>Continue as guest</button>
+            </Link>
+          </div>
+        )}
       </div>
       <div className={classes.help}>
         <button
           className={showHelper ? classes.active : ""}
           onClick={helperClickHandler}
         >
-          <div className={`${classes.what} span`}>What's this?</div>
+          What's this?
           <i className="material-icons-outlined">close</i>
         </button>
         <p className={showHelper ? "" : classes.hide}>

@@ -31,7 +31,7 @@
   height: 100%;
   width: 100%;
   z-index: 5;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(black, 0.85);
   animation: appear 0.2s ease-out forwards;
   display: flex;
   flex-direction: row;
@@ -97,7 +97,7 @@
   z-index: 5;
   pointer-events: none;
   user-select: none;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 8px 0 rgba(black, 0.25);
   animation: visualbell 5s ease-out;
 }
 

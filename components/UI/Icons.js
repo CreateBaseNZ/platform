@@ -201,6 +201,11 @@ export const ColourLogo = ({
       className={className}
       title="createbase.co.nz"
       onClick={handler}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       <svg
         style={{

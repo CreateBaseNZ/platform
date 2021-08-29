@@ -2,11 +2,11 @@ import { useState, useRef } from "react";
 import { signIn } from "next-auth/client";
 import { useRouter } from "next/dist/client/router";
 
-import classes from "./AuthForm.module.css";
+import classes from "./AuthForm.module.scss";
 
 import axios from "axios";
 
-async function createUser(organisation, username, password) {
+const createUser = async (organisation, username, password) => {
   // Build signup input data
   const input = {
     name: organisation,
@@ -23,21 +23,21 @@ async function createUser(organisation, username, password) {
   }
   // Return the resulting data
   return data;
-}
+};
 
-function AuthForm() {
+const AuthForm = ({ isLogin }) => {
+  const router = useRouter();
   const organisationInputRef = useRef();
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
+  console.log(isLogin);
 
-  const [isLogin, setIsLogin] = useState(true);
-  const router = useRouter();
+  const switchAuthModeHandler = () => {
+    console.log("clicked");
+    isLogin ? router.push("/auth/signup") : router.push("/auth/login");
+  };
 
-  function switchAuthModeHandler() {
-    setIsLogin((prevState) => !prevState);
-  }
-
-  async function submitHandler(event) {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     const enteredOrganisation = organisationInputRef.current.value;
@@ -45,7 +45,7 @@ function AuthForm() {
     const enteredPassword = passwordInputRef.current.value;
 
     if (isLogin) {
-      // TO DO: Validate login data
+      // TODO: Validate login data
       // Login the user
       const result = await signIn("credentials", {
         redirect: false,
@@ -55,12 +55,13 @@ function AuthForm() {
       });
       // Redirect if successful
       if (!result.error) {
+        console.log("success");
         router.replace("/browse");
       } else {
-        // TO DO: Error handler
+        // TODO: Error handler
       }
     } else {
-      // TO DO: Validate signup data
+      // TODO: Validate signup data
       // Send Signup Request
       let data;
       data = await createUser(
@@ -70,17 +71,17 @@ function AuthForm() {
       );
       // Perform validation
       if (data.status === "failed") {
-        // TO DO: Failed handler
+        // TODO: Failed handler
       } else if (data.status === "error") {
-        // TO DO: Error handler
+        // TODO: Error handler
       }
-      // TO DO: Success handler
+      // TODO: Success handler
     }
-  }
+  };
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      <h1>{isLogin ? "Log In" : "Sign Up"}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="organisation">Your Organisation</label>
@@ -105,18 +106,18 @@ function AuthForm() {
           />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? "Login" : "Create Account"}</button>
+          <button>{isLogin ? "Log In" : "Create Account"}</button>
           <button
             type="button"
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
-            {isLogin ? "Create new account" : "Login with existing account"}
+            {isLogin ? "Create new account" : "Log in with existing account"}
           </button>
         </div>
       </form>
     </section>
   );
-}
+};
 
 export default AuthForm;
