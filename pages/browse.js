@@ -4,9 +4,10 @@ import Link from "next/link";
 import BrowseThumb from "../components/BrowseThumb";
 import sendItData from "../data/send-it-data";
 import magnebotData from "../data/magnebot-data";
+import lineFollowingData from "../data/line-following-data";
 import Header from "../components/Header";
 
-import { useSession, getSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 
 // Backend communication
 import axios from "axios";
@@ -78,23 +79,29 @@ const Browse = ({ setLoaded }) => {
           <h1>{allData[activeIndex].name}</h1>
           <p>{allData[activeIndex].caption}</p>
           <div className={classes.btnContainer}>
+            {session && user && user.type !== "learner" && (
+              <Link href={`/${allData[activeIndex].query}`}>
+                <div>
+                  <PrimaryButton
+                    className={classes.lesson}
+                    mainLabel="Lesson Plan"
+                    iconLeft={
+                      <i className="material-icons-outlined">history_edu</i>
+                    }
+                  />
+                </div>
+              </Link>
+            )}
             <Link href={`/${allData[activeIndex].query}`}>
-              <PrimaryButton
-                className={classes.lesson}
-                mainLabel="Lesson Plan"
-                iconLeft={
-                  <i className="material-icons-outlined">history_edu</i>
-                }
-              />
-            </Link>
-            <Link href={`/${allData[activeIndex].query}`}>
-              <PrimaryButton
-                className={classes.continue}
-                mainLabel="Continue"
-                iconRight={
-                  <i className="material-icons-outlined">play_arrow</i>
-                }
-              />
+              <div>
+                <PrimaryButton
+                  className={classes.continue}
+                  mainLabel="Continue"
+                  iconRight={
+                    <i className="material-icons-outlined">play_arrow</i>
+                  }
+                />
+              </div>
             </Link>
           </div>
         </div>

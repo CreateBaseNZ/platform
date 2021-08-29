@@ -87,13 +87,26 @@
 }
 
 .h1 {
+  display: flex;
+  align-items: flex-start;
   text-transform: uppercase;
   color: $lightest;
   letter-spacing: 0.05em;
   font-size: 5rem;
   font-weight: 900;
-  text-shadow: 0 6px rgba(black, 0.25);
+  text-shadow: 2px 6px rgba(black, 0.25);
   line-height: 1.25em;
+  div {
+    line-height: normal;
+    color: $magenta-light;
+    text-shadow: none;
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    margin-left: 1rem;
+    letter-spacing: 0.1em;
+    background: $lightest;
+    box-shadow: 2px 6px rgba(black, 0.25);
+  }
 }
 
 .btnContainer {
