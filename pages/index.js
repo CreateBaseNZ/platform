@@ -8,66 +8,79 @@ import { signOut } from "next-auth/client";
 import axios from "axios";
 import { SecondaryButton } from "../components/UI/Buttons";
 
-import WhiteLogo, { FBIcon, IGIcon, TwitterIcon, YTIcon } from "/components/UI/Icons";
+import WhiteLogo, {
+  FBIcon,
+  IGIcon,
+  TwitterIcon,
+  YTIcon,
+} from "/components/UI/Icons";
 
 import classes from "/styles/Index.module.scss";
 
 const Index = ({ setLoaded }) => {
-	const [session, loading] = useSession();
-	const [name, setName] = useState("");
-	const [showHelper, setShowHelper] = useState(false);
+  const [session, loading] = useSession();
+  const [name, setName] = useState("");
+  const [showHelper, setShowHelper] = useState(false);
 
-	useEffect(async () => {
-		// EXAMPLE: Create an educator account
-		// const input = { email: "shellyparkdemo@gmail.com", username: "shellyparkdemo", displayName: "Shelly Park is Cool", password: "Wearec00l!", date: new Date().toString() };
-		// let data;
-		// try {
-		// 	data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
-		// } catch (error) {
-		// 	if (error.response) {
-		// 		data = error.response.data;
-		// 	} else if (error.request) {
-		// 		data = { status: "error", content: error.request };
-		// 	} else {
-		// 		data = { status: "error", content: error.message };
-		// 	}
-		// }
-		// console.log(data);
+  useEffect(async () => {
+    // EXAMPLE: Create an educator account
+    // const input = { email: "shellyparkdemo@gmail.com", username: "shellyparkdemo", displayName: "Shelly Park is Cool", password: "Wearec00l!", date: new Date().toString() };
+    // let data;
+    // try {
+    // 	data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+    // } catch (error) {
+    // 	if (error.response) {
+    // 		data = error.response.data;
+    // 	} else if (error.request) {
+    // 		data = { status: "error", content: error.request };
+    // 	} else {
+    // 		data = { status: "error", content: error.message };
+    // 	}
+    // }
+    // console.log(data);
 
-		// EXAMPLE: Log in to the educator account
-		// const result = await signIn("credentials", {
-		// 	redirect: false,
-		// 	username: "shellyparkdemo",
-		// 	password: "Wearec00l!",
-		// 	type: "username",
-		// 	PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-		// });
-		// // Redirect if successful
-		// if (!result.error) {
-		// 	console.log("success");
-		// } else {
-		// 	console.log(result.error);
-		// }
+    // EXAMPLE: Log in to the educator account
+    // const result = await signIn("credentials", {
+    // 	redirect: false,
+    // 	username: "shellyparkdemo",
+    // 	password: "Wearec00l!",
+    // 	type: "username",
+    // 	PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+    // });
+    // // Redirect if successful
+    // if (!result.error) {
+    // 	console.log("success");
+    // } else {
+    // 	console.log(result.error);
+    // }
 
-		setLoaded(true);
-	}, []);
+    setLoaded(true);
+  }, []);
 
-	useEffect(async () => {
-		if (session) {
-			console.log(session);
-			let data;
-			try {
-				data = (await axios.post("/api/user/data/read", { input: ["displayName"] }))["data"];
-			} catch (error) {
-				data = { status: "error", content: error };
-			}
-			console.log(data);
-			if (data.status === "error") {
-				console.log("error"); // TODO handle error
-			}
-			setName(data.content.displayName);
-		}
-	}, [session]);
+  useEffect(async () => {
+    if (session) {
+      console.log(session);
+      let data;
+      try {
+        data = (
+          await axios.post("/api/user/data/read", { input: ["displayName"] })
+        )["data"];
+      } catch (error) {
+        data = { status: "error", content: error };
+      }
+      console.log(data);
+      if (data.status === "error") {
+        console.log("error"); // TODO handle error
+      }
+      setName(data.content.displayName);
+    }
+  }, [session]);
+
+  const helperClickHandler = () => {
+    setShowHelper((state) => !state);
+  };
+
+  if (loading) return null;
 
   return (
     <div className={classes.index}>
