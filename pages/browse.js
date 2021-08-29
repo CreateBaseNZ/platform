@@ -79,9 +79,11 @@ const Browse = ({ setLoaded }) => {
           <h1>{allData[activeIndex].name}</h1>
           <p>{allData[activeIndex].caption}</p>
           <div className={classes.btnContainer}>
-            {session && user && user.type !== "learner" && (
-              <Link href={`/${allData[activeIndex].query}`}>
-                <div>
+            {session &&
+              user &&
+              user.type !== "learner" &&
+              allData[activeIndex].lessonPlan && (
+                <a href={allData[activeIndex].lessonPlan} target="_blank">
                   <PrimaryButton
                     className={classes.lesson}
                     mainLabel="Lesson Plan"
@@ -89,9 +91,8 @@ const Browse = ({ setLoaded }) => {
                       <i className="material-icons-outlined">history_edu</i>
                     }
                   />
-                </div>
-              </Link>
-            )}
+                </a>
+              )}
             <Link href={`/${allData[activeIndex].query}`}>
               <div>
                 <PrimaryButton

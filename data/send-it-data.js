@@ -12,6 +12,7 @@ export default {
   stacked: true,
   scenePrefix: "Project_Jump_0",
   runType: "loop",
+  lessonPlan: "/send-it/files/lesson-plan.pdf",
   situation: {
     url: "https://youtu.be/iiWiwxxkq2Q",
     src: "/send-it/vid/situation.mp4",
