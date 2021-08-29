@@ -18,7 +18,7 @@ export default [
     icon: "account_box",
     items: [
       {
-        q: "Where can I learn about the concepts I'm Teaching?",
+        q: "Making a change in browser?",
         a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, nulla nec tempus faucibus, mauris sem interdum arcu, id condimentum est enim et ipsum. Vivamus non bibendum ante, vitae consequat massa. Aenean vitae bibendum metus, sagittis vestibulum purus. Morbi et gravida nibh. Morbi a neque eget ipsum iaculis pretium et eu nibh.",
       },
       {
