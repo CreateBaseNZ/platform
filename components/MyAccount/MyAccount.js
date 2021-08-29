@@ -33,7 +33,10 @@ const MyAccount = ({ user, setUser }) => {
 
   return (
     <div className={classes.myAccount}>
-      <div className={classes.userDetails}>
+      <div
+        className={classes.userDetails}
+        style={{ pointerEvents: "none", opacity: "0.5" }}
+      >
         <div className={`${classes.avatar} ${classes[user.type]}`}>
           <i className="material-icons-outlined">
             {user.type === "admin"
