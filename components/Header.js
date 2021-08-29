@@ -5,7 +5,7 @@ import { ColourLogo } from "./UI/Icons";
 import { signOut } from "next-auth/client";
 
 import classes from "./Header.module.scss";
-import { PrimaryButton, SecondaryButton } from "./UI/Buttons";
+import { PrimaryButton, SecondaryButton, TertiaryButton } from "./UI/Buttons";
 
 const Header = ({ session, type, org, name = "" }) => {
   const [active, setActive] = useState(false);
@@ -17,6 +17,13 @@ const Header = ({ session, type, org, name = "" }) => {
         <button className={classes.help} title="FAQ">
           ?
         </button>
+      </Link>
+      <Link href="/browse">
+        <TertiaryButton
+          className={classes.browse}
+          title="Browse projects"
+          mainLabel="Browse projects"
+        />
       </Link>
       {session ? (
         type && (
@@ -40,7 +47,8 @@ const Header = ({ session, type, org, name = "" }) => {
               </i>
             </div>
             <div className={`${classes.menu} ${active ? classes.active : ""}`}>
-              <div className={classes.name}>Hi, {name.split(" ")[0]}</div>
+              {/* //TODO <div className={classes.name}>Hi, {name.split(" ")[0]}</div> */}
+              <div className={classes.name}>Hello, User</div>
               <div className={classes.divider} />
               {type === "admin" && org && (
                 <button onMouseDown={() => router.push("/user/console")}>

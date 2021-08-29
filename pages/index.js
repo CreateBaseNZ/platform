@@ -93,7 +93,8 @@ const Index = ({ setLoaded }) => {
             style={{ flexDirection: "column", width: "auto" }}
           >
             <Link href="/browse">
-              <button className={classes.loggedIn}>Continue as {name}</button>
+              {/* //TODO <button className={classes.loggedIn}>Continue as {name}</button> */}
+              <button className={classes.loggedIn}>Continue</button>
             </Link>
             <SecondaryButton
               className={classes.signOut}
