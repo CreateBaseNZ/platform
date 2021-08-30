@@ -51,7 +51,7 @@ const Header = ({ session, type, org, name = "" }) => {
 								<i className="material-icons-outlined">assignment_ind</i>My account
 							</button>
 							<div className={classes.divider} />
-							<button onMouseDown={() => signOut()}>
+							<button onMouseDown={() => signOut({ callbackUrl: `${window.location.origin}` })}>
 								<i className="material-icons-outlined">logout</i>Sign out
 							</button>
 						</div>
