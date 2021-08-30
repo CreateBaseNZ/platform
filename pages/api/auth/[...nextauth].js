@@ -3,6 +3,7 @@ import Providers from "next-auth/providers";
 import axios from "axios";
 
 import { emailPattern, passwordMinLength, usernameMinLength, usernamePattern } from "../../../utils/formValidation";
+import { redirect } from "next/dist/server/api-utils";
 
 function passwordValidate(v) {
 	const errors = [];
@@ -180,6 +181,9 @@ export default NextAuth({
 		async session(session, token) {
 			session.user = token.user;
 			return session;
+		},
+		async redirect(url) {
+			return url;
 		},
 	},
 	providers: [
