@@ -126,6 +126,11 @@ const EducatorSignupRegisterForm = ({
     setIsLoading(false);
     setIsRegister(false);
     setIsSignup(false);
+    ctx.setBell({
+      type: "success",
+      message:
+        "Success! You account has been created, please log in to continue",
+    });
   };
 
   return (
@@ -202,6 +207,8 @@ const EducatorSignupRegisterForm = ({
         loadingLabel="Signing you up ..."
         mainLabel="Sign Up"
       />
+      {/* 
+      // TODO add this back in after demo
       <div className={classes.options}>
         <div
           className={`${classes.terms} ${
@@ -219,7 +226,7 @@ const EducatorSignupRegisterForm = ({
             </a>
           </label>
         </div>
-      </div>
+      </div> */}
       <div className={classes.switch}>
         Have an account?
         <button type="button" onClick={() => setIsSignup(false)}>
