@@ -15,7 +15,7 @@ import axios from "axios";
 import classes from "/styles/Browse.module.scss";
 import { PrimaryButton } from "../components/UI/Buttons";
 
-const allData = [magnebotData, sendItData];
+const allData = [sendItData, magnebotData];
 
 const Browse = ({ setLoaded }) => {
   const [session, loading] = useSession();

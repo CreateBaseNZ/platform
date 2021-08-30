@@ -48,7 +48,7 @@ const Header = ({ session, type, org, name = "" }) => {
             </div>
             <div className={`${classes.menu} ${active ? classes.active : ""}`}>
               {/* //TODO <div className={classes.name}>Hi, {name.split(" ")[0]}</div> */}
-              <div className={classes.name}>Hello, User</div>
+              <div className={classes.name}>Hello, Educator</div>
               <div className={classes.divider} />
               {type === "admin" && org && (
                 <button onMouseDown={() => router.push("/user/console")}>
