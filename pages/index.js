@@ -14,7 +14,7 @@ import classes from "/styles/Index.module.scss";
 
 const Index = ({ setLoaded }) => {
 	const [session, loading] = useSession();
-	const [name, setName] = useState("");
+	// const [name, setName] = useState("");
 	const [showHelper, setShowHelper] = useState(false);
 
 	useEffect(async () => {
@@ -22,22 +22,22 @@ const Index = ({ setLoaded }) => {
 		return () => setLoaded(false);
 	}, []);
 
-	useEffect(async () => {
-		if (session) {
-			console.log(session);
-			let data;
-			try {
-				data = (await axios.post("/api/user/data/read", { input: ["displayName"] }))["data"];
-			} catch (error) {
-				data = { status: "error", content: error };
-			}
-			console.log(data);
-			if (data.status === "error") {
-				console.log("error"); // TODO handle error
-			}
-			setName(data.content.displayName);
-		}
-	}, [session]);
+	// useEffect(async () => {
+	// 	if (session) {
+	// 		console.log(session);
+	// 		let data;
+	// 		try {
+	// 			data = (await axios.post("/api/user/data/read", { input: ["displayName"] }))["data"];
+	// 		} catch (error) {
+	// 			data = { status: "error", content: error };
+	// 		}
+	// 		console.log(data);
+	// 		if (data.status === "error") {
+	// 			console.log("error"); // TODO handle error
+	// 		}
+	// 		setName(data.content.displayName);
+	// 	}
+	// }, [session]);
 
 	const helperClickHandler = () => {
 		setShowHelper((state) => !state);
