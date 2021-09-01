@@ -6,16 +6,10 @@ import Console from "./Console";
 import ConsoleContext from "../../store/console-context";
 import { ReactFlowProvider } from "react-flow-renderer";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
-import { initialElements } from "../../utils/flowConfig";
-import TextEditor from "./TextEditor";
-import Console from "./Console";
 import Config from "./Config";
 import GreenButton from "../UI/GreenButton";
 import { CodeGenerator } from "../../utils/codeGenerator.ts";
-import { flow2Text, isOnceCode } from "../../utils/blockExtractionHelpers";
 import classes from "./Workspace.module.scss";
-import { MiniHoverContextProvider } from "../../store/mini-hover-context";
-import Config from "./Config";
 import {
   flow2Text,
   isOnceCode,
