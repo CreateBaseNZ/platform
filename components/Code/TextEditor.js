@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, forwardRef } from "react";
 import { memo } from "react";
 import Editor from "@monaco-editor/react";
 
@@ -15,20 +15,19 @@ export const editorOptions = {
   formatOnPaste: true,
   fontSize: 14,
   fontFamily: "JetBrains Mono, mono",
-  readOnly: true,
+  readOnly: false,
 };
 
-const TextEditor = (props) => {
-  const editorRef = useRef();
+const TextEditor = forwardRef((props, ref) => {
   const monacoRef = useRef();
 
   useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.updateOptions({ readOnly: false });
-      editorRef.current
+    if (ref.current) {
+      ref.current.updateOptions({ readOnly: false });
+      ref.current
         .getAction("editor.action.formatDocument")
         .run()
-        .then(() => editorRef.current.updateOptions({ readOnly: true }));
+        .then(() => ref.current.updateOptions({ readOnly: false }));
     }
   }, [props.text]);
 
@@ -39,7 +38,7 @@ const TextEditor = (props) => {
   }, [props.theme]);
 
   const editorDidMount = (editor, monaco) => {
-    editorRef.current = editor;
+    ref.current = editor;
     monacoRef.current = monaco;
     for (const t in themeFiles) {
       monacoRef.current.editor.defineTheme(t, themeFiles[t]);
@@ -57,6 +56,6 @@ const TextEditor = (props) => {
       />
     </div>
   );
-};
+});
 
 export default memo(TextEditor);

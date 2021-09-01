@@ -1,0 +1,110 @@
+[
+  {
+    "robot": "Arm",
+    "sensors":{
+    },
+    "actions":{
+    },
+    "functions":{
+      "start":{
+        "simpleLogic": "IntialiseRobot();",
+        "inputs":[],
+        "logic": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 2500);\n})\n};\nawait reset()\n",
+        "await":false
+      },
+      "end":{        
+        "simpleLogic":"",
+        "inputs":[],
+        "logic": "",
+        "await":false
+      },
+      "moveArm":{
+        "inputs": [
+          { "variable": "x", "type": "number", "value": 0 },
+          { "variable": "y", "type": "number", "value": 0 },
+          { "variable": "z", "type": "number", "value": 0 }
+        ],
+        "logic": "const intialPoint=JSON.parse(sensorData).endEffectorPosition;\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 0.5;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nconst position=JSON.parse(sensorData).endEffectorPosition;\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.1) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\nctx.addLog(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
+        "await":true
+      },
+      "magneticSwitch":{
+        "inputs": [{ "variable": "a", "type": "boolean", "value": true }],
+        "logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
+        "await":true
+      }
+      
+    }
+  },
+  {
+    "robot": "Player",
+    "sensors":{
+      "speedOf":{
+        "name":"obstacleSpeed",
+        "simpleName":"Speed"
+      },
+      "distance":{
+        "name":"obstacleDistance.x",
+        "simpleName":"Distance"
+      },
+      "elevationOf":{
+        "name":"obstacleDistance.y",
+        "simpleName":"Elevation"
+      },
+      "widthOf":{
+        "name":"obstacleSize.x",
+        "simpleName":"Width"
+      },
+      "heightOf":{
+        "name":"obstacleSize.y",
+        "simpleName":"Height"
+      }
+    },
+    "actions":{
+      "jump":{
+        "inputs":[],
+        "syntax":"unityContext.send(\"Player\",\"Jump\");"
+      },
+      "crouch":{
+        "inputs":[],
+        "syntax":"unityContext.send(\"Player\",\"Crouch\");"
+      }
+    },
+    "functions":{
+      "start":{
+        "simpleLogic": "while(gameIsON){",
+        "inputs":[],
+        "logic": "if(sensorData){\n",
+        "await":false
+      },
+      "end":{        
+        "simpleLogic":"}",
+        "inputs":[],
+        "logic": "}",
+        "await":false
+
+      }
+    }
+  },
+  {
+    "mathOps":{
+      "add":"+",
+      "subtract":"-",
+      "multiply":"*",
+      "divide":"/",
+      "greaterThan":">",
+      "lessThan":"<",
+      "equals":"==",
+      "notEquals":"!=",
+      "and":"&&",
+      "or":"||"
+    },
+    "general":["if", "intialise", "compare","while","for","num","repeat","operatorGeneral", "print"],
+    "functions":{
+      "delay":{
+        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+        "logic": "setTimeout(resolve, a*1000);",
+        "await":true
+      }
+    }
+  }
+]
