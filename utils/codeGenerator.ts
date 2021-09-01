@@ -251,8 +251,7 @@ export class CodeGenerator {
       this.content += func;
     }
     // Add execute
-    const execute = `// ${blockFunction.name}
-    ${output}await ${functionName}(${inputs});`;
+    const execute = `${output}await ${functionName}(${inputs});`;
     const simpleStr = ` ${output} ${functionName}(${inputs});`;
     this.executes.push(execute);
     this.simpleExecutes.push(simpleStr);
@@ -488,7 +487,7 @@ export class CodeGenerator {
           state = this.start(correctSystem);
           break;
         case "specific":
-          [state, type, message] = this.move(element,correctSystem,genralSystem);
+          [state, type, message] = this.move(element, correctSystem, genralSystem);
           break;
         case "end":
           state = this.end(correctSystem);
@@ -518,7 +517,7 @@ export class CodeGenerator {
           state = this.endCondition();
           break;
         case "sense":
-          state = this.readSensors(element,correctSystem);
+          state = this.readSensors(element, correctSystem);
           break;
         case "print":
           [state, printNum] = this.printMessage(element, printNum);
@@ -537,15 +536,9 @@ export class CodeGenerator {
           "// Oops! An error occurred, please check the Console for more info",
         ];
       }
-      if (runOnce && blockDetails.length-1!=i) {
-        const str="if(codeNum!=codesDone){resolve('');}"
-        this.simpleExecutes.push("");
-        this.executes.push(str);
-      } else if(!runOnce && blockDetails.length-1!=i){
-        const str="if(codeChanged){resolve('');}"
-        this.simpleExecutes.push("");
-        this.executes.push(str);
-      }
+      const str = "if(codeChanged){resolve(true);}"
+      this.simpleExecutes.push("");
+      this.executes.push(str);
     }
 
     this.run();

@@ -100,11 +100,7 @@ export const convertCode = (text, system, onceCode) => {
         splittedCode[i] = element;
     }
     let intermediateCode = "\n"
-    if (onceCode) {
-        intermediateCode += "if (codeNum != codesDone) { resolve(''); } \n";
-    } else {
-        intermediateCode += "if (codeChanged) { resolve(true); } \n";
-    }
+    intermediateCode += "if (codeChanged) { resolve(true); } \n";
     text = start.logic + splittedCode.join(intermediateCode) + end.logic;
     text += "\n\n";
 

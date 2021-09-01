@@ -142,46 +142,50 @@ const Workspace = (props) => {
     runCode(code,onceCode);
   }
 
-  const runCode = async (code,onceCode) => {
+  const runCode = async (code, onceCode) => {
     let com;
     codeChanged = true;
-    if (!onceCode) {
-      code += "\nresolve(true);";
-      let functionExecute = async () => {
-        printing++;
-        const isRun = await executeCode(code, printing);
-        if (printing >= 10) {
-          printing = 0;
-        }
-        if (!isRun) {
-          codesDone = -1;
-        }
-        else if (codeChanged) {
-          com = 0;
-          codeChanged = false;
-        } else {
-          com = setTimeout(functionExecute, 50);
-        }
-      };
-      if (codesDone > 0) {
-        while (codeChanged) {
-          await delay(10);
-        }
-      } else {
-        codeChanged = false;
+  
+    code += "\nresolve(true);";
+    let functionExecute = async () => {
+      printing++;
+      const isRun = await executeCode(code, printing);
+      if (printing >= 10) {
+        printing = 0;
       }
-      let printing = 0;
-      functionExecute();
-      codesDone++;
+      if (!isRun||onceCode) {
+        codesDone = -1;
+      }
+      else if (codeChanged) {
+        com = 0;
+        codeChanged = false;
+      } else {
+        com = setTimeout(functionExecute, 50);
+      }
+    };
+    if (codesDone > 0) {
+      while (codeChanged) {
+        await delay(10);
+      }
     } else {
-      com = 0;
-      codesDone++;
-      eval(
-        "(async () => {\nconst printing=100;\nlet done=false;" +
-          code +
-          "done=true;})()"
-      ).catch((e) => {});
+      codeChanged = false;
     }
+    let printing = 10;
+    functionExecute();
+    codesDone++;
+    // }else {
+    //   com = 0;
+    //   codesDone++;
+    //   codeChanged = false;
+
+    //   const sensorData = sensorDataRef.current;
+    //   const unityContext = props.unityContext;
+    //   eval(
+    //     "(async () => {\nconst printing=100;\nlet done=false;" +
+    //       code +
+    //       "done=true;})()"
+    //   ).catch((e) => {console.log(e)});
+    // }
   }
 
 
