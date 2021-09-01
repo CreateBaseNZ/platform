@@ -1,7 +1,7 @@
-import blockFunctions from "../public/blocks.json";
+import BlocksF from "../public/systemDefinitions.json"
+
 
 export class CodeGenerator {
-  private blockFunctions: Array<any>;
   private content: string;
   private simpleContent: string;
   private executes: Array<string>;
@@ -14,7 +14,6 @@ export class CodeGenerator {
   private functions: string[];
 
   constructor() {
-    this.blockFunctions = blockFunctions;
     this.content = "";
     this.executes = [];
     this.execute = "";
@@ -142,56 +141,13 @@ export class CodeGenerator {
     return false;
   }
 
-  private start(blockDetail: any) {
-    // Fetch the Block Function
-    const blockFunction = this.blockFunctions.find((element) => {
-      return (
-        element.robot === blockDetail.robot && blockDetail.type === "start"
-      );
-    });
-    if (blockFunction) {
-      this.executes.push(blockFunction.logic);
-      this.simpleExecutes.push(blockFunction.simpleLogic);
-      return true;
-    } else {
-      return false;
-    }
-    // Add to content
+  private start( correctSystem) {
+    this.executes.push(correctSystem.functions.start.logic);
+    this.simpleExecutes.push(correctSystem.functions.start.simpleLogic);
+    return true;
   }
 
   private mathOp(blockDetail: any) {
-    switch (blockDetail.name) {
-      case "add":
-        blockDetail.value.operator = "+";
-        break;
-      case "subtract":
-        blockDetail.value.operator = "-";
-        break;
-      case "multiply":
-        blockDetail.value.operator = "*";
-        break;
-      case "divide":
-        blockDetail.value.operator = "/";
-        break;
-      case "greaterThan":
-        blockDetail.value.operator = ">";
-        break;
-      case "lessThan":
-        blockDetail.value.operator = "<";
-        break;
-      case "equals":
-        blockDetail.value.operator = "==";
-        break;
-      case "or":
-        blockDetail.value.operator = "||";
-        break;
-      case "and":
-        blockDetail.value.operator = "&&";
-        break;
-      case "notEquals":
-        blockDetail.value.operator = "!=";
-        break;
-    }
     let mathInput = ["a", "operator", "b"];
     let inputs: string = "";
     for (let i = 0; i < mathInput.length; i++) {
@@ -229,17 +185,12 @@ export class CodeGenerator {
     return [true];
   }
 
-  private move(blockDetail: any) {
+  private move(blockDetail: any,correctSystem,genralSystem) {
     // Fetch the Block Function
-    const blockFunction = this.blockFunctions.find((element) => {
-      if (element.type === "specific") {
-        return (
-          element.name === blockDetail.name && (element.robot == undefined || element.robot === blockDetail.robot)
-        );
-      } else {
-        return false;
-      }
-    });
+    let blockFunction = correctSystem.functions[blockDetail.name];
+    if (!blockFunction) {
+      blockFunction=genralSystem.functions[blockDetail.name];
+    } 
     // Build input
     let inputVariables: string = "";
     let inputs: string = "";
@@ -284,7 +235,7 @@ export class CodeGenerator {
       );
     }
     // Function name
-    const functionName = blockFunction.name;
+    const functionName = blockDetail.name;
     const added = this.addFunction(functionName);
     //const functionName = blockFunction.function.name + String(this.increment);
     this.increment++;
@@ -397,23 +348,19 @@ export class CodeGenerator {
     return true;
   }
 
-  private end(blockDetail: any) {
-    // Fetch the Block Function
-    const blockFunction = this.blockFunctions.find((element) => {
-      return element.robot === blockDetail.robot && element.type === "end";
-    });
+  private end(correctSystem: any) {
+    
     // Add to execute
-    if (blockFunction) {
-      this.executes.push(blockFunction.logic);
-      this.simpleExecutes.push(blockFunction.simpleLogic);
-      return true;
-    }
-    return false;
+    this.executes.push(correctSystem.functions.end.logic);
+    this.simpleExecutes.push(correctSystem.functions.end.logic);
+    return true;
+    
   }
 
+
+  //TODO
   private doMove(blockDetail) {
-    const command =
-      blockDetail.name.charAt(0).toUpperCase() + blockDetail.name.slice(1);
+    const command = blockDetail.name.charAt(0).toUpperCase() + blockDetail.name.slice(1);
     if (blockDetail.value) {
       const target =
         blockDetail.value.entity.charAt(0).toUpperCase() +
@@ -428,15 +375,21 @@ export class CodeGenerator {
     }
   }
 
-  private readSensors(blockDetail) {
+  private readSensors(blockDetail,correctSystem) {
     if (blockDetail.value) {
       const output = this.checkCorrectVar(String(blockDetail.value.out));
       const target = blockDetail.name;
-      let str = `${output}currentData.${target};`;
-      const simpleStr = `${output} ${target};`;
-      this.simpleExecutes.push(simpleStr);
-      this.executes.push(str);
-      return true;
+      const sensorMethod = correctSystem.sensors[target];
+      if (sensorMethod) {
+        let str = `${output}JSON.parse(sensorData).${sensorMethod.name};`;
+        const simpleStr = `${output} ${sensorMethod.simpleName};`;
+        this.simpleExecutes.push(simpleStr);
+        this.executes.push(str);
+        return true;
+      } else {
+        return false;
+      }
+      
     } else {
       return false;
     }
@@ -521,17 +474,24 @@ export class CodeGenerator {
     let state: any = true;
     let type = null;
     let message = null;
+    const systemName = blockDetails[0].robot;
+    const correctSystem = BlocksF.filter((element) => {
+      return element.robot==systemName
+    })[0];
+    const genralSystem = BlocksF.filter((element) => {
+      return element.robot == undefined;
+    })[0];
     for (let i = 0; i < blockDetails.length; i++) {
       const element = blockDetails[i];
       switch (element.type) {
         case "start":
-          state = this.start(element);
+          state = this.start(correctSystem);
           break;
         case "specific":
-          [state, type, message] = this.move(element);
+          [state, type, message] = this.move(element,correctSystem,genralSystem);
           break;
         case "end":
-          state = this.end(element);
+          state = this.end(correctSystem);
           break;
         case "if":
           [state, type, message] = this.ifStart(element);
@@ -558,7 +518,7 @@ export class CodeGenerator {
           state = this.endCondition();
           break;
         case "sense":
-          state = this.readSensors(element);
+          state = this.readSensors(element,correctSystem);
           break;
         case "print":
           [state, printNum] = this.printMessage(element, printNum);
@@ -579,6 +539,10 @@ export class CodeGenerator {
       }
       if (runOnce && blockDetails.length-1!=i) {
         const str="if(codeNum!=codesDone){resolve('');}"
+        this.simpleExecutes.push("");
+        this.executes.push(str);
+      } else if(!runOnce && blockDetails.length-1!=i){
+        const str="if(codeChanged){resolve('');}"
         this.simpleExecutes.push("");
         this.executes.push(str);
       }

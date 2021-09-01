@@ -76,7 +76,7 @@ const Workspace = (props) => {
 
   const compileCode = (onceCode) => {
     const [blocks, type, message] = flow2Text(elements, props.query);
-    if (type && type === "warning") {
+    if (type && type === "warning"&& activeTab=="flow") {
       ctx.addWarning(message);
     }
     if (Array.isArray(blocks)) {
@@ -107,7 +107,7 @@ const Workspace = (props) => {
       const unityContext = props.unityContext;
       const dispError = (error) => {
         if (error.name) {
-          ctx.addLog(error.message);
+          ctx.addError(error.message);
           resolve(false);
         }
         else {
@@ -115,15 +115,7 @@ const Workspace = (props) => {
         }
       }
       try {
-        const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
-        let func = new AsyncFunction('sensorData', 'unityContext', text);
-        async function callAsync() {
-          let returnval = await func(sensorData, unityContext)
-          return returnval
-        }
-        callAsync().then(returnval => {
-          resolve(returnval)
-        }).catch(dispError)
+        eval("(async ()=>{" + text + "})()").catch((e)=>dispError(e));
       }
       catch (error) {
         dispError(error);
@@ -142,12 +134,11 @@ const Workspace = (props) => {
   };
 
   const compileHandlerTxt = async() => {
-    let codeLines = 0;
     const onceCode = isOnceCode(props.query);
     let t = editorRef.current.getValue();
     const systemName=defineObject(props.query)
     let code = convertCode(t, systemName, onceCode);
-    console.log(code);
+    setText(code);
     runCode(code,onceCode);
   }
 
@@ -155,11 +146,10 @@ const Workspace = (props) => {
     let com;
     codeChanged = true;
     if (!onceCode) {
-      code += "\nreturn true;";
+      code += "\nresolve(true);";
       let functionExecute = async () => {
         printing++;
         const isRun = await executeCode(code, printing);
-        console.log(isRun);
         if (printing >= 10) {
           printing = 0;
         }

@@ -1,41 +1,38 @@
-import blockFunctions from "../public/blocks.json";
+import BlocksF from "../public/systemDefinitions.json"
 
-const unityDirectFunctions = ['Jump', 'Crouch'];
-export const convertCode = (text, system,onceCode) => {
-    let start = [], end = [];
-    let blocks = [], awaitFunctions = [],allFunctions=[];
-    for (let i = 0; i < blockFunctions.length; i++) {
-        const element = blockFunctions[i];
-        if ((element.robot == undefined || element.robot === system)) {
-            if (element.functionName) {
-                blocks.push(element);
-                allFunctions.push(element.functionName);
-                if (element.await == true) {
-                    awaitFunctions.push(element.functionName);
-                }
-            }
-            if (element.type == "start") {
-                start = element;
-            } else if (element.type == "end") {
-                end = element;
-            }
-       }
-    }
+
+export const convertCode = (text, system, onceCode) => {
+    const correctSystem = BlocksF.filter((element) => {
+        return element.robot == system
+    })[0];
+    const genralSystem = BlocksF.filter((element) => {
+        return element.robot == undefined;
+    })[0];
+    let start = correctSystem.functions.start, end = correctSystem.functions.end;
+    const actions = [...Object.keys(correctSystem.actions)];
+    const sensors = [...Object.keys(correctSystem.sensors)];
+    const allFunctions = [...Object.keys(correctSystem.functions), ...Object.keys(genralSystem.functions)];
+    const awaitFunctions = allFunctions.filter((element) => {
+        if (correctSystem.functions[element]) {
+            return correctSystem.functions[element].await;
+        } else {
+            return genralSystem.functions[element].await;
+        }
+    })
     const usedFunctions = [];
-    text =  text;
-  //divide the code Input 
+    console.log(awaitFunctions);
+    //divide the code Input 
     const [doubledUpText, quotes] = doubleUp(text);
     let splittedCode = doubledUpText.split('\n');
     let quotesDone = 0;
     for (let i = 0; i < splittedCode.length; i++){
-        let unity = false;
         let LHS = '', RHS = '';
         let element = splittedCode[i].trim();
         if (element.length < 2 || element.substring(0, 2) != "//") {
             const dividedbyBracket = element.split("(")
             const beforeBracket = dividedbyBracket[0];
             const [elementSplitted, sides] = splitSingleEqual(beforeBracket);
-            
+            let unity = false;
             if (sides == 0) {
                 continue;
             } else if (sides == 1) {
@@ -44,20 +41,37 @@ export const convertCode = (text, system,onceCode) => {
                 LHS = elementSplitted[0];
                 RHS = elementSplitted[1];
             }
-            if (allFunctions.includes(RHS) && !usedFunctions.includes(RHS)) {
-                usedFunctions.push(RHS);
+            let isFunction = false;
+            if (dividedbyBracket.length > 1) {
+                isFunction = true;
             }
-            if (awaitFunctions.includes(RHS)) {
-                RHS = 'await ' + RHS;
-            } else if (unityDirectFunctions.includes(RHS)) {
-                RHS = `unityContext.send("${system}","${RHS}");`
-                for (let i = 0; i < dividedbyBracket.length; i++) {
-                    dividedbyBracket[i] = '';
+            if (isFunction) {
+                if (allFunctions.includes(RHS) && !usedFunctions.includes(RHS)) {
+                    usedFunctions.push(RHS);
                 }
-                unity = true;
-            } else if (RHS == 'console.log') {
-                RHS = 'ctx.addLog';
+                if (awaitFunctions.includes(RHS)) {
+                    RHS = 'await ' + RHS;
+                } else if (actions.includes(RHS)) {
+                    RHS=RHS.charAt(0).toUpperCase() + RHS.slice(1);
+                    RHS = `unityContext.send("${system}","${RHS}");`
+                    for (let i = 0; i < dividedbyBracket.length; i++) {
+                        dividedbyBracket[i] = '';
+                    }
+                    unity = true;
+                } else if (RHS == 'console.log') {
+                    RHS = 'ctx.addLog';
+                }
+            } else {
+                const correctSensor = sensors.filter((element) => {
+                    return correctSystem.sensors[element].simpleName == RHS;
+                });
+                if (correctSensor.length>0) {
+                    console.log(correctSensor);
+                    const name = correctSystem.sensors[correctSensor[0]].name;
+                    RHS = `JSON.parse(sensorData).${name}`;
+                }
             }
+            
 
             let afterbraket = dividedbyBracket.splice(1).join('(');
             if (afterbraket) {
@@ -88,15 +102,18 @@ export const convertCode = (text, system,onceCode) => {
     let intermediateCode = "\n"
     if (onceCode) {
         intermediateCode += "if (codeNum != codesDone) { resolve(''); } \n";
+    } else {
+        intermediateCode += "if (codeChanged) { resolve(true); } \n";
     }
     text = start.logic + splittedCode.join(intermediateCode) + end.logic;
     text += "\n\n";
 
-    usedFunctions.forEach((element, i, arr) => {
+    usedFunctions.forEach((element) => {
         let functionDef = '';
-        const functionNeeded=blocks.find((el) => {
-            return (el.functionName == element);
-        })
+        let functionNeeded = correctSystem.functions[element];
+        if (!functionNeeded) {
+            functionNeeded = genralSystem.functions[element];
+        }
         let inputVariables  = "";
         if (!functionNeeded) { return [false, "error", "Function does not exist"]; }
         if (functionNeeded.inputs) {
