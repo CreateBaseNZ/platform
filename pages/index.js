@@ -19,25 +19,85 @@ const Index = ({ setLoaded }) => {
 
 	useEffect(async () => {
 		setLoaded(true);
+
+		// const input = {
+		// 	name: "CreateBase School",
+		// 	type: "school",
+		//	city: "auckland",
+		// 	country: "new zealand",
+		// 	date: new Date().toString(),
+		// 	metadata: { id: "42069" },
+		// };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/read-admin", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/read-account", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// const input = {
+		// 	name: "CreateBase School",
+		// 	code: "32TjqU",
+		// 	type: "school",
+		// 	country: "new zealand",
+		// 	date: new Date().toString(),
+		// 	metadata: { id: "42069" },
+		// };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/join-educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
-	// useEffect(async () => {
-	// 	if (session) {
-	// 		console.log(session);
-	// 		let data;
-	// 		try {
-	// 			data = (await axios.post("/api/user/data/read", { input: ["displayName"] }))["data"];
-	// 		} catch (error) {
-	// 			data = { status: "error", content: error };
-	// 		}
-	// 		console.log(data);
-	// 		if (data.status === "error") {
-	// 			console.log("error"); // TODO handle error
-	// 		}
-	// 		setName(data.content.displayName);
-	// 	}
-	// }, [session]);
+	useEffect(async () => {
+		console.log(session);
+	}, [session]);
 
 	const helperClickHandler = () => {
 		setShowHelper((state) => !state);

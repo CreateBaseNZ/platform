@@ -3,7 +3,6 @@ import Providers from "next-auth/providers";
 import axios from "axios";
 
 import { emailPattern, passwordMinLength, usernameMinLength, usernamePattern } from "../../../utils/formValidation";
-import { redirect } from "next/dist/server/api-utils";
 
 function passwordValidate(v) {
 	const errors = [];
@@ -169,6 +168,30 @@ async function usernameLogin(object) {
 	return data;
 }
 
+async function updateSession(license, profile) {
+	return new Promise(async (resolve, reject) => {
+		let data;
+		try {
+			data = (
+				await axios.post("https://createbase.co.nz/update-session", {
+					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+					input: { license, profile },
+				})
+			)["data"];
+		} catch (error) {
+			if (error.response) {
+				data = { status: "error", content: error.response.data };
+			} else if (error.request) {
+				data = { status: "error", content: error.request };
+			} else {
+				data = { status: "error", content: error.message };
+			}
+		}
+		if (data.status === "failed" || data.status === "error") return reject(data);
+		return resolve(data.content);
+	});
+}
+
 export default NextAuth({
 	session: {
 		jwt: true,
@@ -179,7 +202,15 @@ export default NextAuth({
 			return token;
 		},
 		async session(session, token) {
+			if (!token) return session;
 			session.user = token.user;
+			let userSession;
+			try {
+				userSession = await updateSession(session.user.license, session.user.profile);
+			} catch (data) {
+				return session;
+			}
+			session.user = userSession;
 			return session;
 		},
 		async redirect(url) {

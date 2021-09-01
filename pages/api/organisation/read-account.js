@@ -13,7 +13,7 @@ export default async function (req, res) {
 		return res.status(400).send({ status: "critical error", content: "Please log in" });
 	}
 	// Validate if the user is an admin
-	if (session.user.access !== "admin" /*|| !session.user.verified*/) {
+	if (session.user.access !== "admin" && session.user.access !== "educator" /*|| !session.user.verified*/) {
 		return res.status(400).send({ status: "critical error", content: "Invalid access" });
 	}
 	// Create the input data
@@ -21,7 +21,7 @@ export default async function (req, res) {
 	// Send the request
 	let data;
 	try {
-		data = (await axios.post("https://createbase.co.nz/organisation/admin-read", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("https://createbase.co.nz/organisation/account-read", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
