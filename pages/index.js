@@ -20,6 +20,7 @@ const Index = ({ setLoaded }) => {
 	useEffect(async () => {
 		setLoaded(true);
 
+		// EXAMPLE: Create an organisation as an educator
 		// const input = {
 		// 	name: "CreateBase School",
 		// 	type: "school",
@@ -42,6 +43,7 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Read organisation data for the admin console page
 		// let data;
 		// try {
 		// 	data = (await axios.post("/api/organisation/read-admin", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
@@ -56,6 +58,7 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Read organisation data for the account settings page
 		// let data;
 		// try {
 		// 	data = (await axios.post("/api/organisation/read-account", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
@@ -70,6 +73,7 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Join an existing organisation as an educator
 		// const input = {
 		// 	name: "CreateBase School",
 		// 	code: "32TjqU",
@@ -94,10 +98,6 @@ const Index = ({ setLoaded }) => {
 
 		return () => setLoaded(false);
 	}, []);
-
-	useEffect(async () => {
-		console.log(session);
-	}, [session]);
 
 	const helperClickHandler = () => {
 		setShowHelper((state) => !state);
