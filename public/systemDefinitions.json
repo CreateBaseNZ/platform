@@ -7,7 +7,7 @@
     },
     "functions":{
       "start":{
-        "simpleLogic": "IntialiseRobot",
+        "simpleLogic": "IntialiseRobot();",
         "inputs":[],
         "logic": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 2500);\n})\n};\nawait reset()\n",
         "await":false

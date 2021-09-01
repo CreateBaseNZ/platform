@@ -138,7 +138,6 @@ const Workspace = (props) => {
     let t = editorRef.current.getValue();
     const systemName=defineObject(props.query)
     let code = convertCode(t, systemName, onceCode);
-    setText(code);
     runCode(code,onceCode);
   }
 
@@ -205,13 +204,6 @@ const Workspace = (props) => {
         <GreenButton
           className={classes.compileBtn}
           clickHandler={compileHandler}
-          caption="Compile"
-        />
-      )}
-      {activeTab === "text" && (
-        <GreenButton
-          className={classes.compileTxtBtn}
-          clickHandler={compileHandlerTxt}
           caption="Compile"
         />
       )}
