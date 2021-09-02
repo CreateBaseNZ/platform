@@ -5,6 +5,7 @@ import { signOut } from "next-auth/client";
 
 import classes from "./Header.module.scss";
 import { PrimaryButton, SecondaryButton } from "./UI/Buttons";
+import { ColourLogoIcon } from "./UI/Icons";
 
 const Header = ({
   session,
@@ -18,6 +19,9 @@ const Header = ({
 
   return (
     <header className={classes.header}>
+      <ColourLogoIcon
+        className={`${classes.home} ${collapseNav ? classes.collapsed : ""}`}
+      />
       <button
         className={`${classes.collapse} ${
           collapseNav ? classes.collapsed : ""

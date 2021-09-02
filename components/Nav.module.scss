@@ -11,6 +11,7 @@
   overflow: hidden;
   transition: width 0.2s ease-out, padding 0.2s ease-out, border 0.2s ease-out;
   & > :first-child {
+    margin-top: 0.25rem;
     margin-left: 0.5rem;
   }
   &.collapse {
@@ -22,7 +23,7 @@
 }
 
 .menu {
-  margin-top: 2rem;
+  margin-top: 8vh;
   width: 100%;
   display: flex;
   flex-direction: column;

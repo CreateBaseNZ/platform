@@ -18,7 +18,7 @@ const labels = [
 const Nav = ({ tabIndex, collapseNav }) => {
   return (
     <nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>
-      <ColourLogo />
+      <ColourLogo width="131.25" height="24" />
       <div className={classes.menu}>
         {labels.map((l, i) => (
           <Link key={i} href={l.route}>
