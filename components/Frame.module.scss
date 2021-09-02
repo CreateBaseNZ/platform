@@ -9,10 +9,8 @@
 
 .nav {
   height: 100%;
-  flex: 0 0 16rem;
+  flex: 0 0 auto;
   background: $lightest;
-  display: flex;
-  flex-direction: column;
 }
 
 .view {
@@ -29,5 +27,4 @@
   align-items: center;
   padding-right: 2rem;
   background: white;
-  border-bottom: 2px solid $lighter;
 }

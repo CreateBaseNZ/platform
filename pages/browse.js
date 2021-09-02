@@ -65,7 +65,13 @@ const Browse = ({ setLoaded }) => {
   };
 
   return (
-    <Frame session={session} type={user.type} org={user.org} name={user.name}>
+    <Frame
+      tabIndex={1}
+      session={session}
+      type={user.type}
+      org={user.org}
+      name={user.name}
+    >
       <OverlayScrollbarsComponent className={classes.browse}>
         <div className={classes.inner}>
           <Head>
