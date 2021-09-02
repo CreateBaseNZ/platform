@@ -144,6 +144,22 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Admin create an educator
+		// const input = { username: "student1", password: "Student1!", status: "free", date: new Date().toString(), displayName: "Student One" };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/license/create-learner", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
