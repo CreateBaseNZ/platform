@@ -3,6 +3,7 @@ import {
     getConnectedEdges,
     getIncomers,
   } from "react-flow-renderer";
+  import BlocksF from "../public/systemDefinitions.json"
 
 
 
@@ -45,57 +46,28 @@ import {
     return [true, false];
   };
   
- const determineType = (block, currentNode) => {
-    switch (currentNode.type) {
-      case "if":
-      case "intialise":
-      case "compare":
-      case "while":
-      case "for":
-      case "num":
-      case "repeat":
-      case "operatorGeneral":
-      case "print":
-        block.name = currentNode.type;
-        break;
-      case "add":
-      case "subtract":
-      case "multiply":
-      case "divide":
-      case "greaterThan":
-      case "lessThan":
-      case "equals":
-      case "notEquals":
-      case "and":
-      case "or":
-        block.type = "operatorGeneral";
-        block.name = currentNode.type;
-        break;
-      case "heightOf":
-      case "widthOf":
-      case "elevationOf":
-      case "speedOf":
-      case "distance":
-        block.type = "sense";
-        block.name = currentNode.type;
-        break;
-      case "start":
-      case "end":
-        break;
-      case "jump":
-      case "crouch":
-      case "attack":
-      case "crouch":
-      case "doubleJump":
-        block.type = "move";
-        block.name = currentNode.type;
-        break;
-      default:
-        block.type = "specific";
-        block.name = currentNode.type;
-        break;
-    }
-    return block;
+const determineType = (block, currentNode, generalBlocks, mathOperations, actions, sensors, allFunctions, genralSystem) => {
+  if (generalBlocks.includes(currentNode.type)) {
+    block.name = currentNode.type;
+  } else if (mathOperations.includes(currentNode.type)) {
+    block.type = "operatorGeneral";
+    block.name = currentNode.type;
+    block.value.operator = genralSystem.mathOps[currentNode.type];
+  } else if (actions.includes(currentNode.type)) {
+    block.type = "move";
+    block.name = currentNode.type;
+  } else if (sensors.includes(currentNode.type)) {
+    block.type = "sense";
+    block.name = currentNode.type;
+  } else if (currentNode.type == "start" || currentNode.type == "end") {
+    block.name = currentNode.type;
+  }else if (allFunctions.includes(currentNode.type)) {
+    block.type = "specific";
+    block.name = currentNode.type;
+  } else {
+    console.log(block, currentNode);
+  }
+  return block;
   };
   
   const CheckPreviuos = (currentNode, elements) => {
@@ -124,6 +96,17 @@ import {
     robotName,
     level = 0
   ) => {
+    const correctSystem = BlocksF.filter((element) => {
+      return element.robot==robotName
+    })[0];
+    const genralSystem = BlocksF.filter((element) => {
+      return element.robot == undefined;
+    })[0];
+    const generalBlocks = genralSystem.general;
+    const mathOperations = [...Object.keys(genralSystem.mathOps)];
+    const actions = [...Object.keys(correctSystem.actions)];
+    const sensors = [...Object.keys(correctSystem.sensors)];
+    const allFunctions = [...Object.keys(correctSystem.functions), ...Object.keys(genralSystem.functions)];
     const nodes = [currentNode];
     let edgeCollection = getConnectedEdges(nodes, elements);
     let prevNodeList = getIncomers(currentNode, elements);
@@ -191,7 +174,7 @@ import {
     if (currentNode.data != undefined) {
       block.value = { ...currentNode.data.values };
     }
-    block = determineType(block, currentNode);
+    block = determineType(block, currentNode,generalBlocks,mathOperations,actions,sensors,allFunctions,genralSystem);
     let output;
     for (let i = 0; i < IDlist.length; i++) {
       let message;
@@ -360,7 +343,7 @@ export  const flow2Text = (elements, projectName) => {
     return [blocksConfig, null, null];
   };
   
-  const  defineObject = (projectName) => {
+  export const  defineObject = (projectName) => {
     switch (projectName) {
       case "send-it":
         return "Player";
