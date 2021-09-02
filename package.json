@@ -14,6 +14,7 @@
 		"material-design-icons": "^3.0.1",
 		"next": "^11.1.0",
 		"next-auth": "^3.28.0",
+		"overlayscrollbars-react": "^0.2.3",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
 		"react-flow-renderer": "^9.6.5",

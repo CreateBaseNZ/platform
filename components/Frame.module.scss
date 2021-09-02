@@ -1,0 +1,33 @@
+@import "/styles/variables_new";
+
+.frame {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+}
+
+.nav {
+  height: 100%;
+  flex: 0 0 16rem;
+  background: $lightest;
+  display: flex;
+  flex-direction: column;
+}
+
+.view {
+  height: 100%;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  flex: 0 0 6rem;
+  display: flex;
+  align-items: center;
+  padding-right: 2rem;
+  background: white;
+  border-bottom: 2px solid $lighter;
+}

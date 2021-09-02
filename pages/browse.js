@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import Link from "next/link";
-import BrowseThumb from "../components/BrowseThumb";
+import BrowseThumb from "../components/Browse/BrowseThumb";
 import sendItData from "../data/send-it-data";
 import magnebotData from "../data/magnebot-data";
 import lineFollowingData from "../data/line-following-data";
 import Header from "../components/Header";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 
 import { useSession } from "next-auth/client";
 
@@ -13,7 +13,10 @@ import { useSession } from "next-auth/client";
 import axios from "axios";
 
 import classes from "/styles/Browse.module.scss";
-import { PrimaryButton } from "../components/UI/Buttons";
+import Frame from "../components/Frame";
+import BrowsePreview from "../components/Browse/BrowsePreview";
+
+import "overlayscrollbars/css/OverlayScrollbars.css";
 
 const allData = [sendItData, magnebotData];
 
@@ -23,7 +26,7 @@ const Browse = ({ setLoaded }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  console.log("browse rerendered");
+  console.log(videoLoaded);
 
   useEffect(() => {
     setLoaded(true);
@@ -62,74 +65,40 @@ const Browse = ({ setLoaded }) => {
   };
 
   return (
-    <div className={classes.browse}>
-      <Head>
-        <title>Browse | CreateBase</title>
-        <meta name="description" content="Browse CreateBase projects" />
-      </Head>
-      <Header
-        session={session}
-        type={user.type}
-        org={user.org}
-        name={user.name}
-      />
-      <div className={classes.main}>
-        <div className={classes.content}>
-          <h2>Select a project</h2>
-          <h1>{allData[activeIndex].name}</h1>
-          <p>{allData[activeIndex].caption}</p>
-          <div className={classes.btnContainer}>
-            {session &&
-              user &&
-              user.type !== "learner" &&
-              allData[activeIndex].lessonPlan && (
-                <a href={allData[activeIndex].lessonPlan} target="_blank">
-                  <PrimaryButton
-                    className={classes.lesson}
-                    mainLabel="Lesson Plan"
-                    iconLeft={
-                      <i className="material-icons-outlined">history_edu</i>
-                    }
-                  />
-                </a>
-              )}
-            <Link href={`/${allData[activeIndex].query}`}>
-              <div>
-                <PrimaryButton
-                  className={classes.continue}
-                  mainLabel="Continue"
-                  iconRight={
-                    <i className="material-icons-outlined">play_arrow</i>
-                  }
-                />
-              </div>
-            </Link>
+    <Frame session={session} type={user.type} org={user.org} name={user.name}>
+      <OverlayScrollbarsComponent className={classes.browse}>
+        <div className={classes.inner}>
+          <Head>
+            <title>Browse | CreateBase</title>
+            <meta name="description" content="Browse CreateBase projects" />
+          </Head>
+          <div className={classes.preview}>
+            <BrowsePreview
+              project={allData[activeIndex]}
+              videoLoaded={videoLoaded}
+              setVideoLoaded={setVideoLoaded}
+              paidAccess={session && user && user.type !== "learner"}
+            />
+          </div>
+          <h2 className={classes.h2}>All Projects</h2>
+          <div className={classes.allProjects}>
+            {allData.map((project, index) => (
+              <BrowseThumb
+                key={index}
+                isActive={activeIndex === index}
+                index={index}
+                query={project.query}
+                name={project.name}
+                thumbnailHandler={thumbnailHandler}
+              />
+            ))}
+            {[...Array(allData.length % 4).keys()].map((i) => (
+              <div key={i} className={classes.empty} />
+            ))}
           </div>
         </div>
-        <div className={classes.vidContainer}>
-          <video
-            src={`/${allData[activeIndex].query}/vid/situation.mp4`}
-            controls
-            className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`}
-            onCanPlay={() => setVideoLoaded(true)}
-          >
-            <source type="video/mp4" />
-          </video>
-        </div>
-      </div>
-      <div className={classes.allProjects}>
-        {allData.map((project, index) => (
-          <BrowseThumb
-            key={index}
-            activeIndex={activeIndex}
-            index={index}
-            query={project.query}
-            name={project.name}
-            thumbnailHandler={thumbnailHandler}
-          />
-        ))}
-      </div>
-    </div>
+      </OverlayScrollbarsComponent>
+    </Frame>
   );
 };
 
