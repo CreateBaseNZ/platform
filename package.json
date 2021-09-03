@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
+		"boring-avatars": "^1.5.8",
 		"html2canvas": "^1.1.4",
 		"material-design-icons": "^3.0.1",
 		"monaco-editor": "^0.26.1",

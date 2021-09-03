@@ -1,206 +1,197 @@
 @import "/styles/variables";
 
 .header {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  position: relative;
-  border-bottom: 2px solid $lighter;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	position: relative;
+	border-bottom: 2px solid $lighter;
 }
 
 .home {
-  margin-left: 4rem;
-  margin-right: auto;
-  opacity: 0;
-  transform: translateX(-16px);
-  transition: transform 0.1s ease-out 0.2s, opacity 0.1s ease-out 0.2s;
-  &.collapsed {
-    opacity: 1;
-    transform: none;
-  }
+	margin-left: 4rem;
+	margin-right: auto;
+	opacity: 0;
+	transform: translateX(-16px);
+	transition: transform 0.1s ease-out 0.2s, opacity 0.1s ease-out 0.2s;
+	&.collapsed {
+		opacity: 1;
+		transform: none;
+	}
 }
 
 .collapse {
-  position: absolute;
-  left: -2.5rem;
-  top: 1rem;
-  height: 4rem;
-  width: 2.5rem;
-  border-radius: 8px 0 0 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.1s ease-out, left 0.2s ease-out;
-  i {
-    color: $dark;
-  }
-  &:hover {
-    background: rgba(black, 0.05);
-    i {
-      color: $darkest;
-    }
-  }
-  &.collapsed {
-    left: 0;
-    border-radius: 8px;
-  }
+	position: absolute;
+	left: -2.5rem;
+	top: 1rem;
+	height: 4rem;
+	width: 2.5rem;
+	border-radius: 8px 0 0 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.1s ease-out, left 0.2s ease-out;
+	i {
+		color: $dark;
+	}
+	&:hover {
+		background: rgba(black, 0.05);
+		i {
+			color: $darkest;
+		}
+	}
+	&.collapsed {
+		left: 0;
+		border-radius: 8px;
+	}
 }
 
 .help {
-  margin-right: 2.5vw;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 1rem;
-  border: 2px solid $lighter;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 1rem;
-  color: $darker;
-  transition: color 0.1s ease-out, background-color 0.1s ease-out;
-  i {
-    font-size: 20px;
-    color: inherit;
-  }
-  &:hover {
-    background: $lighter;
-    color: $logo-mid;
-  }
+	margin-right: 2.5vw;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 1rem;
+	border: 2px solid $lighter;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	font-size: 1rem;
+	color: $darker;
+	transition: color 0.1s ease-out, background-color 0.1s ease-out;
+	i {
+		font-size: 20px;
+		color: inherit;
+	}
+	&:hover {
+		background: $lighter;
+		color: $logo-mid;
+	}
 }
 
 .browse {
-  margin-right: 2.5vw;
+	margin-right: 2.5vw;
 }
 
 .navUser {
-  position: relative;
+	position: relative;
 }
 
 .avatar {
-  height: 2rem;
-  width: 2rem;
-  border-radius: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: border-radius 0.1s ease-out, box-shadow 0.1s ease-out;
-  i {
-    color: $lightest;
-    font-size: 16px;
-  }
-  &.active {
-    border-bottom-right-radius: 0;
-  }
+	border-radius: 3rem;
+	cursor: pointer;
+	transition: border-radius 0.1s ease-out, box-shadow 0.1s ease-out;
+	&.avatarActive {
+		border-bottom-right-radius: 0;
+	}
 }
 
 .admin {
-  background: $magenta-light;
-  &.active,
-  &:hover {
-    box-shadow: 0 0 0 4px rgba($magenta-light, 0.2);
-  }
+	background: $magenta-light;
+	&.active,
+	&:hover {
+		box-shadow: 0 0 0 4px rgba($magenta-light, 0.2);
+	}
 }
 
 .educator {
-  background: $green;
-  &.active,
-  &:hover {
-    box-shadow: 0 0 0 4px rgba($green, 0.2);
-  }
+	background: $green;
+	&.active,
+	&:hover {
+		box-shadow: 0 0 0 4px rgba($green, 0.2);
+	}
 }
 
 .learner {
-  background: $blue-mid;
-  &.active,
-  &:hover {
-    box-shadow: 0 0 0 4px rgba($blue-mid, 0.2);
-  }
+	background: $blue-mid;
+	&.active,
+	&:hover {
+		box-shadow: 0 0 0 4px rgba($blue-mid, 0.2);
+	}
 }
 
 .menu {
-  z-index: 5;
-  position: absolute;
-  bottom: -1rem;
-  right: 0;
-  transform: translateY(calc(100% - 4px));
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  border-radius: 16px 0 16px 16px;
-  background: $lightest;
-  box-shadow: 0 8px 16px 0 rgba(black, 0.1);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.05s ease-out, transform 0.1s ease-out;
-  .name {
-    padding: 0 1.5rem;
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(black, 0.25);
-  }
-  button {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    padding: 0.5rem 1.5rem;
-    text-align: left;
-    font-size: 14px;
-    font-weight: 600;
-    color: $dark;
-    transition: color 0.1s ease-out, background-color 0.1s ease-out;
-    i {
-      width: 1.5rem;
-      margin-right: 0.75rem;
-      color: $dark;
-      transition: color 0.1s ease-out;
-    }
-    &:hover {
-      color: $logo-mid;
-      background: rgba(black, 0.025);
-      i {
-        color: $logo-mid;
-      }
-    }
-  }
-  &.active {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(100%);
-  }
+	z-index: 5;
+	position: absolute;
+	bottom: -1rem;
+	right: 0;
+	transform: translateY(calc(100% - 4px));
+	padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	border-radius: 16px 0 16px 16px;
+	background: $lightest;
+	box-shadow: 0 8px 16px 0 rgba(black, 0.1);
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.05s ease-out, transform 0.1s ease-out;
+	.name {
+		padding: 0 1.5rem;
+		font-size: 14px;
+		font-weight: 500;
+		color: rgba(black, 0.25);
+	}
+	button {
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+		padding: 0.5rem 1.5rem;
+		text-align: left;
+		font-size: 14px;
+		font-weight: 600;
+		color: $dark;
+		transition: color 0.1s ease-out, background-color 0.1s ease-out;
+		i {
+			width: 1.5rem;
+			margin-right: 0.75rem;
+			color: $dark;
+			transition: color 0.1s ease-out;
+		}
+		&:hover {
+			color: $logo-mid;
+			background: rgba(black, 0.025);
+			i {
+				color: $logo-mid;
+			}
+		}
+	}
+	&.active {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateY(100%);
+	}
 }
 
 .divider {
-  height: 1px;
-  width: calc(100% - 3rem);
-  margin: 0.5rem 1.5rem;
-  background: rgba(black, 0.05);
+	height: 1px;
+	width: calc(100% - 3rem);
+	margin: 0.5rem 1.5rem;
+	background: rgba(black, 0.05);
 }
 
 .auth {
-  height: 100%;
-  display: flex;
-  button {
-    font-weight: 600;
-    letter-spacing: 0.05em;
-  }
-  .signUp {
-    margin-right: 1.5vw;
-    background: $logo-mid;
-    box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
-    &:hover {
-      box-shadow: 0 8px 24px 0 rgba($logo-mid, 0.5);
-    }
-  }
-  .logIn {
-    color: $blue-mid;
-    border: medium solid $blue-mid;
-    &:hover {
-      color: $blue-dark;
-      border-color: $blue-dark;
-    }
-  }
+	height: 100%;
+	display: flex;
+	button {
+		font-weight: 600;
+		letter-spacing: 0.05em;
+	}
+	.signUp {
+		margin-right: 1.5vw;
+		background: $logo-mid;
+		box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
+		&:hover {
+			box-shadow: 0 8px 24px 0 rgba($logo-mid, 0.5);
+		}
+	}
+	.logIn {
+		color: $blue-mid;
+		border: medium solid $blue-mid;
+		&:hover {
+			color: $blue-dark;
+			border-color: $blue-dark;
+		}
+	}
 }
