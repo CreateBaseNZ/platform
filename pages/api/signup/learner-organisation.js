@@ -24,8 +24,7 @@ export default async function (req, res) {
 	}
 	// Create the input data
 	let input = {
-		// educator data
-		email: req.body.input.email,
+		// learner data
 		username: req.body.input.username,
 		displayName: req.body.input.displayName,
 		password: req.body.input.password,
@@ -42,7 +41,7 @@ export default async function (req, res) {
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post("https://createbase.co.nz/signup/educator-organisation", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("https://createbase.co.nz/signup/learner-organisation", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		if (error.response) {
 			return res.status(error.response.status).send({ status: "error", content: error.response.data });
@@ -73,12 +72,6 @@ function createOrganisationSearchObject(name, type, country, metadata) {
 function validate(object) {
 	let valid = true;
 	let errors = { email: "", username: "", displayName: "", password: "", date: "" };
-	// Validate email
-	const email = validateEmail(object.email);
-	if (!email.status) {
-		valid = false;
-		errors.email = email.content;
-	}
 	// Validate username
 	const username = validateUsername(object.username);
 	if (!username.status) {
@@ -142,15 +135,6 @@ function validate(object) {
 }
 
 // HELPER ===================================================
-
-function validateEmail(email) {
-	if (!email) {
-		return { status: false, content: "Please enter an email." };
-	} else if (!emailPattern.value.test(email)) {
-		return { status: false, content: emailPattern.message };
-	}
-	return { status: true, content: "" };
-}
 
 function validateUsername(username) {
 	if (!username) {
