@@ -24,10 +24,10 @@
 
 .collapse {
   position: absolute;
-  left: -3rem;
+  left: -2.5rem;
   top: 1rem;
   height: 4rem;
-  width: 3rem;
+  width: 2.5rem;
   border-radius: 8px 0 0 8px;
   display: flex;
   align-items: center;
@@ -75,11 +75,11 @@
   margin-right: 2.5vw;
 }
 
-.avatar {
+.navUser {
   position: relative;
 }
 
-.icon {
+.avatar {
   height: 2rem;
   width: 2rem;
   border-radius: 2rem;

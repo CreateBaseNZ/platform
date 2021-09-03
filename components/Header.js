@@ -41,12 +41,12 @@ const Header = ({
       {session ? (
         type && (
           <div
-            className={classes.avatar}
+            className={classes.navUser}
             tabIndex={-1}
             onBlur={() => setActive(false)}
           >
             <div
-              className={`${classes.icon} ${classes[type]} ${
+              className={`${classes.avatar} ${classes[type]} ${
                 active ? classes.active : ""
               }`}
               onClick={() => setActive((state) => !state)}
