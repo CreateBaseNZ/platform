@@ -1,191 +1,181 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .authView {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $bg-light;
-  position: relative;
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 60vh;
-    width: 60vh;
-    border-radius: 60vh;
-    background: rgba($magenta-light, 0.05);
-    transform: translate(35%, -35%);
-  }
-  &::after {
-    background: transparent;
-    transform: translate(40%, -30%);
-    border: thin solid rgba($magenta-light, 0.1);
-  }
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: $lightest;
+	position: relative;
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 60vh;
+		width: 60vh;
+		border-radius: 60vh;
+		background: rgba($magenta-light, 0.05);
+		transform: translate(35%, -35%);
+	}
+	&::after {
+		background: transparent;
+		transform: translate(40%, -30%);
+		border: thin solid rgba($magenta-light, 0.1);
+	}
 }
 
 .auth {
-  background: $lightest;
-  border-radius: 32px;
-  box-shadow: 0 8px 24px 0 rgba(black, 0.1);
-  display: flex;
-  overflow: hidden;
-  width: 70vw;
-  max-width: 1000px;
-  z-index: 1;
+	background: white;
+	border-radius: 32px;
+	box-shadow: 0 8px 24px 0 rgba(black, 0.1);
+	display: flex;
+	overflow: hidden;
+	width: 70vw;
+	max-width: 1000px;
+	z-index: 1;
 }
 
 .imgContainer {
-  position: relative;
-  width: 45%;
-  transition: background-color 0.1s ease-out;
-  &.learnerImg {
-    background: $blue-mid;
-  }
-  &.educatorImg {
-    background: $green;
-  }
-  .imgWrapper {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    opacity: 0.5;
-  }
-  i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: $lightest;
-    font-size: 10vw;
-  }
+	position: relative;
+	width: 45%;
+	transition: background-color 0.1s ease-out;
+	&.signup {
+		background: rgba($green-dark, 0.25);
+	}
+	&.login {
+		background: rgba($blue-mid, 0.2);
+	}
+	.imgWrapper {
+		position: relative;
+		height: 100%;
+		width: 100%;
+	}
 }
 
 .formContainer {
-  width: 55%;
-  max-height: 95vh;
-  min-height: 75vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 2vh 4vw;
+	width: 55%;
+	max-height: 95vh;
+	min-height: 75vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 2vh 4vw;
 }
 
-.tabs {
-  margin-top: 1vh;
-  justify-self: flex-start;
-  display: flex;
-  & > * {
-    flex: 1 1 0;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    color: $light;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    text-transform: capitalize;
-    transition: color 0.1s ease-out;
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 2px;
-      width: 100%;
-      opacity: 0.5;
-      background: $light;
-      transition: background-color 0.1s ease-out, height 0.1s ease-out,
-        opacity 0.1s ease-out;
-    }
-    &.active {
-      font-weight: 600;
-      &::after {
-        opacity: 1;
-        height: 4px;
-      }
-    }
-    &:hover {
-      color: $dark;
-      &::after {
-        background: $dark;
-      }
-    }
-  }
-  .learner.active {
-    color: $blue-mid;
-    &::after {
-      background: $blue-mid;
-    }
-  }
-  .educator.active {
-    color: $green;
-    &::after {
-      background: $green;
-    }
-  }
-}
+// .tabs {
+// 	margin-top: 1vh;
+// 	justify-self: flex-start;
+// 	display: flex;
+// 	& > * {
+// 		flex: 1 1 0;
+// 		height: 2.5rem;
+// 		display: flex;
+// 		align-items: center;
+// 		justify-content: center;
+// 		position: relative;
+// 		color: $light;
+// 		font-weight: 500;
+// 		letter-spacing: 0.02em;
+// 		text-transform: capitalize;
+// 		transition: color 0.1s ease-out;
+// 		&::after {
+// 			content: "";
+// 			position: absolute;
+// 			bottom: 0;
+// 			left: 0;
+// 			height: 2px;
+// 			width: 100%;
+// 			opacity: 0.5;
+// 			background: $light;
+// 			transition: background-color 0.1s ease-out, height 0.1s ease-out, opacity 0.1s ease-out;
+// 		}
+// 		&.active {
+// 			font-weight: 600;
+// 			&::after {
+// 				opacity: 1;
+// 				height: 4px;
+// 			}
+// 		}
+// 		&:hover {
+// 			color: $dark;
+// 			&::after {
+// 				background: $dark;
+// 			}
+// 		}
+// 	}
+// 	.learner.active {
+// 		color: $blue-mid;
+// 		&::after {
+// 			background: $blue-mid;
+// 		}
+// 	}
+// 	.educator.active {
+// 		color: $green-dark;
+// 		&::after {
+// 			background: $green-dark;
+// 		}
+// 	}
+// }
 
 .logo {
-  position: absolute;
-  top: 5vh;
-  left: 5vw;
+	position: absolute;
+	top: 5vh;
+	left: 5vw;
 }
 
 .copy {
-  position: absolute;
-  bottom: 5vh;
-  right: 5vw;
-  font-size: 12px;
-  color: $light;
+	position: absolute;
+	bottom: 5vh;
+	right: 5vw;
+	font-size: 12px;
+	color: $light;
 }
 
 .squiggle {
-  position: absolute;
-  opacity: 0.5;
-  top: 0;
-  left: 0;
-  height: 200vw;
-  width: 200vw;
-  animation: squiggle 240s infinite linear;
+	position: absolute;
+	opacity: 0.5;
+	top: 0;
+	left: 0;
+	height: 200vw;
+	width: 200vw;
+	animation: squiggle 240s infinite linear;
 }
 
 .squiggle2 {
-  top: 250%;
-  left: 200%;
-  animation: squiggle 260s infinite linear;
+	top: 250%;
+	left: 200%;
+	animation: squiggle 260s infinite linear;
 }
 
 @keyframes squiggle {
-  0% {
-    transform: translate(-70%, -70%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-70%, -70%) rotate(360deg);
-  }
+	0% {
+		transform: translate(-70%, -70%) rotate(0deg);
+	}
+	100% {
+		transform: translate(-70%, -70%) rotate(360deg);
+	}
 }
 
 .triangle {
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 50vw;
-    width: 50vw;
-    background: rgba($blue-light, 0.08);
-    border-radius: 5vw;
-    transform: translate(25%, 100%) rotate(115deg);
-  }
-  &::after {
-    background: transparent;
-    transform: translate(0, 100%) rotate(115deg);
-    border: thin solid rgba($blue-light, 0.2);
-  }
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 50vw;
+		width: 50vw;
+		background: rgba($blue-light, 0.08);
+		border-radius: 5vw;
+		transform: translate(25%, 100%) rotate(115deg);
+	}
+	&::after {
+		background: transparent;
+		transform: translate(0, 100%) rotate(115deg);
+		border: thin solid rgba($blue-light, 0.2);
+	}
 }

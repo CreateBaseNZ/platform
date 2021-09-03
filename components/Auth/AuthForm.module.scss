@@ -1,196 +1,213 @@
 @import "/styles/variables";
 
 .form {
-  flex: 1 1 auto;
-  height: 100%;
-  padding-top: 3vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  h1 {
-    font-size: 20px;
-    font-weight: 500;
-    margin: 2vh 0;
-    line-height: 1.2em;
-  }
+	flex: 1 1 auto;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	h1 {
+		font-size: 20px;
+		font-weight: 500;
+		margin: 4vh 0;
+		line-height: 1.2em;
+	}
 }
 
 .instructions {
-  font-size: 14px;
-  color: $darker;
+	font-size: 14px;
+	color: $darker;
 }
 
 .input {
-  margin: 0.5vh 0 0 0;
+	margin: 0.5vh 0 0 0;
 }
 
 .submit {
-  margin-top: 2vh;
-  height: 3.5rem;
-  font-size: 16px;
-  i {
-    margin-right: 0.5em;
-  }
+	margin-top: 4vh;
+	height: 3.5rem;
+	font-size: 16px;
+	i {
+		margin-right: 0.5em;
+	}
 }
 
 .signupBtn {
-  font-size: 16px;
-  margin-top: 1vh;
-  height: calc(3.5rem - 4px);
+	font-size: 16px;
+	margin-top: 1vh;
+	height: calc(3.5rem - 4px);
 }
 
 .options {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 2vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 2vh;
 }
 
 .forgot {
-  font-size: 13px;
-  font-weight: 500;
-  color: $blue-dark;
+	font-size: 13px;
+	font-weight: 500;
+	color: $blue-dark;
 }
 
 .forgot,
 .remember {
-  margin-top: 2vh;
+	margin-top: 2vh;
 }
 
 .terms,
 .remember {
-  display: flex;
-  align-items: center;
-  position: relative;
-  input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 100%;
-    opacity: 0;
-    cursor: pointer;
-    &:hover ~ .checkbox {
-      background: rgba(black, 0.05);
-    }
-    &:checked ~ .checkbox {
-      background: $blue-dark;
-      i {
-        display: block;
-      }
-    }
-  }
-  .checkbox {
-    order: -1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20px;
-    width: 20px;
-    border: thin solid $blue-dark;
-    pointer-events: none;
-    border-radius: 4px;
-    i {
-      font-size: 16px;
-      color: $lightest;
-      display: none;
-    }
-  }
-  label {
-    color: $light;
-    font-size: 13px;
-    margin-left: 0.75rem;
-  }
-  a {
-    position: relative;
-    color: $light;
-    font-weight: 500;
-    font-size: 13px;
-    color: $blue-dark;
-    z-index: 1;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  &.termsError {
-    * {
-      color: $red !important;
-    }
-    .checkbox {
-      border-color: $red;
-    }
-  }
+	display: flex;
+	align-items: center;
+	position: relative;
+	input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 20px;
+		width: 100%;
+		opacity: 0;
+		cursor: pointer;
+		&:hover ~ .checkbox {
+			background: rgba(black, 0.05);
+		}
+		&:checked ~ .checkbox {
+			background: $blue-dark;
+			i {
+				display: block;
+			}
+		}
+	}
+	.checkbox {
+		order: -1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 20px;
+		width: 20px;
+		border: thin solid $blue-dark;
+		pointer-events: none;
+		border-radius: 4px;
+		i {
+			font-size: 16px;
+			color: $lightest;
+			display: none;
+		}
+	}
+	label {
+		color: $light;
+		font-size: 13px;
+		margin-left: 0.75rem;
+	}
+	a {
+		position: relative;
+		color: $light;
+		font-weight: 500;
+		font-size: 13px;
+		color: $blue-dark;
+		z-index: 1;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	&.termsError {
+		* {
+			color: $red !important;
+		}
+		.checkbox {
+			border-color: $red;
+		}
+	}
 }
 
 .switch {
-  margin-top: auto;
-  align-self: center;
-  font-size: 14px;
-  color: $light;
-  button {
-    font-size: 14px;
-    font-weight: 500;
-    color: $blue-dark;
-    margin-left: 0.5em;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+	margin-top: auto;
+	align-self: center;
+	font-size: 14px;
+	color: $light;
+	button {
+		font-size: 14px;
+		font-weight: 500;
+		color: $blue-dark;
+		margin-left: 0.5em;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 .skipOrg {
-  font-size: 14px;
-  color: $light;
-  margin-top: 4vh;
-  &:hover {
-    text-decoration: underline;
-  }
+	font-size: 14px;
+	color: $light;
+	margin-top: 4vh;
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .learnerForm {
-  .input:focus {
-    border-color: $blue-mid;
-    background: rgba($blue-mid, 0.05);
-  }
-  .submit {
-    background: $blue-mid;
-    box-shadow: 0 4px 16px rgba($blue-mid, 0.25);
-    &:hover {
-      box-shadow: 0 8px 24px rgba($blue-mid, 0.25);
-    }
-  }
-  .signupBtn {
-    border-color: $blue-mid;
-    color: $blue-mid;
-    &:hover {
-      border-color: $blue-dark;
-      color: $blue-dark;
-    }
-  }
+	.input:focus {
+		border-color: $blue-mid;
+		background: rgba($blue-mid, 0.05);
+	}
+	.submit {
+		background: $blue-mid;
+		box-shadow: 0 4px 16px rgba($blue-mid, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($blue-mid, 0.25);
+		}
+	}
+	.signupBtn {
+		border-color: $blue-mid;
+		color: $blue-mid;
+		&:hover {
+			border-color: $blue-dark;
+			color: $blue-dark;
+		}
+	}
 }
 
 .loginForm {
-  margin-bottom: 2vh;
+	.input:focus {
+		border-color: $blue-mid;
+		background: rgba($blue-mid, 0.05);
+	}
+	.submit {
+		background: $blue-mid;
+		box-shadow: 0 4px 16px rgba($blue-mid, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($blue-mid, 0.25);
+		}
+	}
+	.signupBtn {
+		border-color: $blue-mid;
+		color: $blue-mid;
+		&:hover {
+			border-color: $blue-dark;
+			color: $blue-dark;
+		}
+	}
 }
 
 .educatorForm {
-  .input:focus {
-    border-color: $green;
-    background: rgba($green, 0.05);
-  }
-  .submit {
-    background: $green;
-    box-shadow: 0 4px 16px rgba($green, 0.25);
-    &:hover {
-      box-shadow: 0 8px 24px rgba($green, 0.25);
-    }
-  }
-  .signupBtn {
-    border-color: $green;
-    color: $green;
-    &:hover {
-      border-color: $green-dark;
-      color: $green-dark;
-    }
-  }
+	.input:focus {
+		border-color: $green;
+		background: rgba($green, 0.05);
+	}
+	.submit {
+		background: $green;
+		box-shadow: 0 4px 16px rgba($green, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($green, 0.25);
+		}
+	}
+	.signupBtn {
+		border-color: $green;
+		color: $green;
+		&:hover {
+			border-color: $green-dark;
+			color: $green-dark;
+		}
+	}
 }
