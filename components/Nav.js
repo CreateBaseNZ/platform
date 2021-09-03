@@ -4,37 +4,38 @@ import { ColourLogo } from "./UI/Icons";
 import classes from "./Nav.module.scss";
 
 const labels = [
-  { route: "/onboarding", label: "Onboarding", icon: "skateboarding" },
-  { route: "/browse", label: "Browse", icon: "camera_roll" },
-  { route: "my-account", label: "My Account", icon: "person" },
-  {
-    route: "/admin-console",
-    label: "Admin Console",
-    icon: "admin_panel_settings",
-  },
-  { route: "/faq", label: "FAQ", icon: "help_outline" },
+	{ route: "/onboarding", label: "Onboarding", icon: "skateboarding", access: ["educator", "admin"] },
+	{ route: "/browse", label: "Browse", icon: "camera_roll", access: ["learner", "educator", "admin"] },
+	{ route: "/user/my-account", label: "My Account", icon: "person", access: ["educator", "admin"] },
+	{
+		route: "/admin-console",
+		label: "Admin Console",
+		icon: "admin_panel_settings",
+		access: ["admin"],
+	},
+	{ route: "/faq", label: "FAQ", icon: "help_outline", access: ["learner", "educator", "admin"] },
 ];
 
-const Nav = ({ tabIndex, collapseNav }) => {
-  return (
-    <nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>
-      <ColourLogo width="131.25" height="24" />
-      <div className={classes.menu}>
-        {labels.map((l, i) => (
-          <Link key={i} href={l.route}>
-            <button
-              className={`${classes.tab} ${
-                tabIndex === i ? classes.active : ""
-              }`}
-            >
-              <i className="material-icons-outlined">{l.icon}</i>
-              {l.label}
-            </button>
-          </Link>
-        ))}
-      </div>
-    </nav>
-  );
+const Nav = ({ tabIndex, collapseNav, type }) => {
+	console.log(type);
+	return (
+		<nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>
+			<ColourLogo width="131.25" height="24" />
+			<div className={classes.menu}>
+				{labels.map(
+					(l, i) =>
+						l.access.includes(type) && (
+							<Link key={i} href={l.route}>
+								<button className={`${classes.tab} ${tabIndex === i ? classes.active : ""}`}>
+									<i className="material-icons-outlined">{l.icon}</i>
+									{l.label}
+								</button>
+							</Link>
+						)
+				)}
+			</div>
+		</nav>
+	);
 };
 
 export default Nav;

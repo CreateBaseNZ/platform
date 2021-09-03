@@ -1,4 +1,4 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .header {
 	width: 100%;
@@ -49,7 +49,7 @@
 }
 
 .help {
-	margin-right: 2.5vw;
+	margin-right: 2rem;
 	width: 3rem;
 	height: 3rem;
 	border-radius: 1rem;
@@ -75,44 +75,52 @@
 	margin-right: 2.5vw;
 }
 
-.navUser {
+.headerUserContainer {
 	position: relative;
-}
-
-.avatar {
-	border-radius: 3rem;
-	cursor: pointer;
-	transition: border-radius 0.1s ease-out, box-shadow 0.1s ease-out;
-	&.avatarActive {
-		border-bottom-right-radius: 0;
+	.headerUser {
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		height: 3.8rem;
+		padding: 0 1rem;
+		border-radius: 1rem;
+		background: transparent;
+		transition: background-color 0.1s ease-out;
+		&:hover,
+		&.active {
+			background: rgba(black, 0.05);
+			i {
+				color: $darkest;
+			}
+		}
+		i {
+			margin-left: 2rem;
+			color: $darker;
+		}
 	}
-}
-
-.admin {
-	background: $magenta-light;
-	&.active,
-	&:hover {
-		box-shadow: 0 0 0 4px rgba($magenta-light, 0.2);
+	.avatar {
+		border-radius: 3rem;
+		overflow: hidden;
 	}
-}
-
-.educator {
-	background: $green;
-	&.active,
-	&:hover {
-		box-shadow: 0 0 0 4px rgba($green, 0.2);
-	}
-}
-
-.learner {
-	background: $blue-mid;
-	&.active,
-	&:hover {
-		box-shadow: 0 0 0 4px rgba($blue-mid, 0.2);
+	.headerName {
+		margin-left: 1rem;
+		display: flex;
+		flex-direction: column;
+		& > :first-child {
+			font-size: 14px;
+			font-weight: 600;
+			line-height: 1.25em;
+		}
+		& > :last-child {
+			font-size: 12px;
+			color: $light;
+			text-transform: capitalize;
+		}
 	}
 }
 
 .menu {
+	min-width: 100%;
 	z-index: 5;
 	position: absolute;
 	bottom: -1rem;
@@ -121,8 +129,8 @@
 	padding: 1rem 0;
 	display: flex;
 	flex-direction: column;
-	border-radius: 16px 0 16px 16px;
-	background: $lightest;
+	border-radius: 16px;
+	background: white;
 	box-shadow: 0 8px 16px 0 rgba(black, 0.1);
 	pointer-events: none;
 	opacity: 0;
@@ -144,6 +152,7 @@
 		color: $dark;
 		transition: color 0.1s ease-out, background-color 0.1s ease-out;
 		i {
+			font-size: 20px;
 			width: 1.5rem;
 			margin-right: 0.75rem;
 			color: $dark;
@@ -179,7 +188,7 @@
 		letter-spacing: 0.05em;
 	}
 	.signUp {
-		margin-right: 1.5vw;
+		margin-right: 1rem;
 		background: $logo-mid;
 		box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
 		&:hover {

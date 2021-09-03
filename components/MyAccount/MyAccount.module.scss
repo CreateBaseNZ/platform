@@ -1,113 +1,101 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .myAccount {
-  height: 100%;
-  width: 100%;
-  display: flex;
+	height: 100%;
+	width: 100%;
+	padding: 2vh 2vw;
+	display: flex;
+	background: white;
 }
 
-.userDetails {
-  width: 30%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.leftArea {
+	width: 40%;
+	height: 100%;
+	max-width: 400px;
+	display: flex;
+	flex-direction: column;
 }
 
 .avatar {
-  margin-top: 4vh;
-  height: 14vh;
-  width: 14vh;
-  min-height: 6rem;
-  min-width: 6rem;
-  border-radius: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  i {
-    font-size: 6vh;
-    color: $lightest;
-  }
-  &.admin {
-    background: $magenta-light;
-  }
-  &.educator {
-    background: $green;
-  }
-  &.learner {
-    background: $blue-mid;
-  }
+	height: 10rem;
+	width: 10rem;
+	border-radius: 32px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .secondary {
-  align-self: flex-start;
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  button {
-    i {
-      margin-right: 0.75em;
-      font-size: 16px;
-    }
-    &.deleteAcc:hover {
-      color: $red;
-      background: rgba($red, 0.1);
-    }
-  }
+	align-self: flex-start;
+	margin-top: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	button {
+		i {
+			margin-right: 0.75em;
+			font-size: 16px;
+		}
+		&.deleteAcc:hover {
+			color: $red;
+			background: rgba($red, 0.1);
+		}
+	}
 }
 
 .rightArea {
-  margin-left: 5vw;
-  width: 70%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  h1 {
-    margin-top: 5vh;
-    font-size: 2rem;
-    font-weight: 600;
-    color: $darker;
-  }
+	margin-left: 4vw;
+	width: 60%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	h1 {
+		margin-top: 2vh;
+		font-size: 2rem;
+		font-weight: 600;
+		color: $darker;
+	}
 }
 
 .ctaContainer {
-  margin-top: 5vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  & > * {
-    margin: 0 1vw;
-  }
-  & > *:first-child {
-    margin-left: 0;
-  }
-  & > *:last-child {
-    margin-right: 0;
-  }
+	margin-top: 2vh;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	& > * {
+		margin: 0 1vw;
+	}
+	& > *:first-child {
+		margin-left: 0;
+	}
+	& > *:last-child {
+		margin-right: 0;
+	}
 }
 
 .join {
-  background: linear-gradient(to bottom right, $logo-dark, $magenta-light);
-  button {
-    border: medium solid $lightest;
-    color: $lightest;
-    transition: background-color 0.1s ease-out, color 0.1s ease-out;
-    &:hover {
-      border-color: $lightest;
-      background: $lightest;
-      color: $logo-mid;
-    }
-  }
+	background: linear-gradient(to bottom right, $logo-dark, $magenta-light);
+	button {
+		border: medium solid $lightest;
+		color: $lightest;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
+		&:hover {
+			border-color: $lightest;
+			background: $lightest;
+			color: $logo-mid;
+		}
+	}
 }
 
 .create {
-  background: linear-gradient(to bottom right, $blue-dark, $blue-light);
-  button {
-    background: $lightest;
-    color: $blue-mid;
-    box-shadow: 0 4px 16px 0 rgba($blue-dark, 0.25);
-    &:hover {
-      box-shadow: 0 8px 24px 0 rgba($blue-dark, 0.25);
-    }
-  }
+	background: linear-gradient(to bottom right, $blue-dark, $blue-light);
+	button {
+		background: $lightest;
+		color: $blue-mid;
+		box-shadow: 0 4px 16px 0 rgba($blue-dark, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px 0 rgba($blue-dark, 0.25);
+		}
+	}
 }
