@@ -3,28 +3,28 @@ import { getSession } from "next-auth/client";
 
 function validateName(name) {
 	if (!name) {
-		return { status: false, content: "Please enter your name" };
+		return { status: false, content: "Please enter the name of the organisation" };
 	}
 	return { status: true, content: "" };
 }
 
 function validateCode(code) {
 	if (!code) {
-		return { status: false, content: "Please enter the code" };
+		return { status: false, content: "Please enter the code for educators" };
 	}
 	return { status: true, content: "" };
 }
 
 function validateType(type) {
 	if (!type) {
-		return { status: false, content: "Please provide a type" };
+		return { status: false, content: "Please provide the type of the organisation" };
 	}
 	return { status: true, content: "" };
 }
 
 function validateCountry(country) {
 	if (!country) {
-		return { status: false, content: "Please provide a country" };
+		return { status: false, content: "Please provide the country of the organisation" };
 	}
 	return { status: true, content: "" };
 }
@@ -142,7 +142,7 @@ export default async function (req, res) {
 		}
 	}
 	// Validate response
-	if (data.content === "Invalid Private API Key.") {
+	if (data.content === "Invalid Private API Key") {
 		return res.status(403).send(data);
 	}
 	// Success handler

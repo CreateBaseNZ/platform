@@ -160,6 +160,36 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Educator Signup and Join an Organisation
+		// const input = {
+		// 	// educator data
+		// 	email: "newtestemail1@gmail.com",
+		// 	username: "newtestuser1",
+		// 	displayName: "New Test User",
+		// 	password: "Testuser1!",
+		// 	// organisation data
+		// 	name: "CreateBase School",
+		// 	code: "32TjqU",
+		// 	type: "school",
+		// 	country: "new zealand",
+		// 	metadata: { id: "42069" },
+		// 	// other data
+		// 	date: new Date().toString(),
+		// };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/signup/educator-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 

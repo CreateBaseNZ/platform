@@ -145,7 +145,7 @@ export default async function (req, res) {
 		}
 	}
 	// Validate response
-	if (data.content === "Invalid Private API Key.") {
+	if (data.content === "Invalid Private API Key") {
 		return res.status(403).send(data);
 	}
 	// Success handler
