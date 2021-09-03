@@ -163,8 +163,8 @@ const Index = ({ setLoaded }) => {
 		// EXAMPLE: Educator Signup and Join an Organisation
 		// const input = {
 		// 	// educator data
-		// 	email: "newtestemail1@gmail.com",
-		// 	username: "newtestuser1",
+		// 	email: "newtestemail2@gmail.com",
+		// 	username: "newtestuser2",
 		// 	displayName: "New Test User",
 		// 	password: "Testuser1!",
 		// 	// organisation data
