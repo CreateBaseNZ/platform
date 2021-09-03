@@ -30,6 +30,8 @@ const UserView = ({ setLoaded }) => {
 		setView("my-account");
 	}, [router.query]);
 
+	console.log(session);
+
 	useEffect(async () => {
 		initSession(session, setUser);
 	}, [session]);
@@ -42,6 +44,8 @@ const UserView = ({ setLoaded }) => {
 	}
 
 	if (!user) return null;
+
+	console.log(user);
 
 	return (
 		<Frame tabIndex={2} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName}>

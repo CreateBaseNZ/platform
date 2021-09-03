@@ -9,6 +9,8 @@ import { querySchoolAPI } from "../../utils/formValidation";
 import axios from "axios";
 
 import classes from "./OrgForm.module.scss";
+import { getSession } from "next-auth/client";
+import { getOrgData } from "../../utils/initSession";
 
 const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 	const [showConfirm, setShowConfirm] = useState(false);
@@ -25,22 +27,62 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 	});
 
 	const onSubmit = async (input) => {
+		// delete this ------------------------------------
 		setLoadingQueryOrg(true);
-		// TODO query if code is valid
-		const notValid = false;
-		if (notValid) {
-			setShowInvalidCode(true);
+		const orgValues = {
+			name: input.orgName,
+			code: input.orgCode,
+			type: "school",
+			country: "New Zealand",
+			date: new Date().toString(),
+			metadata: { id: input.orgId },
+		};
+		let data;
+		try {
+			data = (await axios.post("/api/organisation/join-educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: orgValues }))["data"];
+		} catch (error) {
+			// TODO error handler
+			if (error.response) {
+				data = error.response.data;
+			} else if (error.request) {
+				data = { status: "error", content: error.request };
+			} else {
+				data = { status: "error", content: error.message };
+			}
+			alert("there was an error");
 			return setLoadingQueryOrg(false);
 		}
-		setQueriedOrg({
-			name: "Lorem",
-			city: "Auckland",
-			country: "New Zealand",
-			educators: 8,
-			learners: 143,
-		});
-		setShowConfirm(true);
+
+		const org = await getOrgData();
+
+		setUser((state) => ({ ...state, org: org }));
 		setLoadingQueryOrg(false);
+		resetCta();
+		ctx.setBell({
+			type: "success",
+			message: `Successfully joined ${queriedOrg.name}`,
+		});
+
+		// uncomment this ---------------------------------
+
+		// setLoadingQueryOrg(true);
+		// // TODO query if code is valid
+		// const notValid = false;
+		// if (notValid) {
+		// 	setShowInvalidCode(true);
+		// 	return setLoadingQueryOrg(false);
+		// }
+		// setQueriedOrg({
+		// 	name: "Lorem",
+		// 	city: "Auckland",
+		// 	country: "New Zealand",
+		// 	educators: 8,
+		// 	learners: 143,
+		// });
+		// setLoadingQueryOrg(false);
+		// setShowConfirm(true);
+
+		// ------------------------------------------------
 	};
 
 	const joinOrgHandler = () => {
@@ -106,8 +148,34 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 						}}
 						error={errors.orgCode || showInvalidCode}
 					/>
+					<Input
+						className={classes.input}
+						onFocus={() => setShowInvalidCode(false)}
+						inputProps={{
+							className: classes.joinInput,
+							type: "text",
+							placeholder: "School ID*",
+							...register("orgId", {
+								required: "Please enter the organisation ID",
+							}),
+						}}
+						error={errors.orgId || showInvalidCode}
+					/>
+					<Input
+						className={classes.input}
+						onFocus={() => setShowInvalidCode(false)}
+						inputProps={{
+							className: classes.joinInput,
+							type: "text",
+							placeholder: "School Name*",
+							...register("orgName", {
+								required: "Please enter the organisation name",
+							}),
+						}}
+						error={errors.orgName || showInvalidCode}
+					/>
 					<PrimaryButton className={classes.joinBtn} isLoading={loadingQueryOrg} type="submit" mainLabel="Join" />
-					{showInvalidCode && <div className={classes.invalidCode}>The code you entered is invalid - please try again</div>}
+					{showInvalidCode && <div className={classes.invalidCode}>The details you entered are invalid</div>}
 				</form>
 			)}
 		</>
@@ -128,7 +196,7 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 	const onSubmit = async (input) => {
 		setCreatingOrg(true);
 
-		const govData = await querySchoolAPI(input.schoolId, input.schoolName);
+		const govData = await querySchoolAPI(input.orgId, input.orgName);
 
 		if (!govData.success) {
 			setInvalidId("An unexpected error occurred - please try again");
@@ -142,7 +210,7 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 			setInvalidId("Error - more than one result was found");
 			return setCreatingOrg(false);
 		}
-		if (govData.result.records[0].School_Id.toString() !== input.schoolId || govData.result.records[0].Org_Name.toLowerCase() !== input.schoolName.toLowerCase()) {
+		if (govData.result.records[0].School_Id.toString() !== input.orgId || govData.result.records[0].Org_Name.toLowerCase() !== input.orgName.toLowerCase()) {
 			setInvalidId("Incorrect details - make sure they match official records");
 			return setCreatingOrg(false);
 		}
@@ -171,6 +239,8 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 			alert("TODO an error occurred");
 			return resetCta();
 		}
+
+		console.log("hello");
 		console.log(data);
 
 		// TODO check if taken
@@ -187,7 +257,7 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 			return setCreatingOrg(false);
 		}
 
-		setUser((state) => ({ ...state, org: newOrg }));
+		setUser((state) => ({ ...state, type: "admin", org: { ...newOrg, admins: 1, educators: 0, learners: 0 } }));
 		resetCta();
 		ctx.setBell({
 			type: "success",
@@ -198,7 +268,7 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 	return (
 		<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 			<p className={classes.instruction}>
-				To sign up your school for the first time, enter its details below.
+				To sign up your organisation for the first time, enter its details below.
 				<br />
 				The ID and name must both match official records.
 			</p>
@@ -210,11 +280,11 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 					className: classes.createInput,
 					type: "text",
 					placeholder: "School ID*",
-					...register("schoolId", {
-						required: "Please enter your school ID",
+					...register("orgId", {
+						required: "Please enter your organisation ID",
 					}),
 				}}
-				error={errors.schoolId || invalidId}
+				error={errors.orgId || invalidId}
 			/>
 			<Input
 				className={classes.input}
@@ -224,11 +294,11 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 					className: classes.createInput,
 					type: "text",
 					placeholder: "School Name*",
-					...register("schoolName", {
-						required: "Please enter your school name",
+					...register("orgName", {
+						required: "Please enter your organisation name",
 					}),
 				}}
-				error={errors.schoolName || invalidId}
+				error={errors.orgName || invalidId}
 			/>
 			<PrimaryButton className={classes.createBtn} isLoading={creatingOrg} type="submit" mainLabel="Create Organisation" />
 			{invalidId && <div className={classes.invalidCode}>{invalidId}</div>}
