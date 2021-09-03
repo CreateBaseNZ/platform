@@ -219,6 +219,35 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/auth/account-verification-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// const input = { code: "JzwdoH" };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/auth/account-verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
