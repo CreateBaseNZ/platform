@@ -1,26 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import router from "next/router";
+import { signIn } from "next-auth/client";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
-import { signIn } from "next-auth/client";
-import router from "next/router";
 import classes from "./AuthForm.module.scss";
-
-// EXAMPLE: Create an educator account
-// const input = { email: "shellyparkdemo@gmail.com", username: "shellyparkdemo", displayName: "Shelly Park is Cool", password: "Wearec00l!", date: new Date().toString() };
-// let data;
-// try {
-// 	data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
-// } catch (error) {
-// 	if (error.response) {
-// 		data = error.response.data;
-// 	} else if (error.request) {
-// 		data = { status: "error", content: error.request };
-// 	} else {
-// 		data = { status: "error", content: error.message };
-// 	}
-// }
-// console.log(data);
 
 export const LoginForm = ({ setIsSignup }) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -94,7 +78,7 @@ export const LoginForm = ({ setIsSignup }) => {
 				error={errors.password}
 			/>
 			<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Logging you in ..." mainLabel="Log In" />
-			<SecondaryButton className={classes.signupBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => setIsSignup(true)} />
+			<SecondaryButton className={classes.secondaryBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => setIsSignup(true)} />
 			<div className={classes.options}>
 				<div className={classes.remember}>
 					<input type="checkbox" {...register("remember")} />

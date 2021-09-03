@@ -1,22 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { useEffect } from "react";
 import Image from "next/image";
-import { LearnerLoginForm, LearnerSignupForm } from "../../components/Auth/LearnerForm";
-import { EducatorLoginForm, EducatorSignupForm } from "../../components/Auth/EducatorForm";
-
-import classes from "/styles/authView.module.scss";
-import { ColourLogo } from "../../components/UI/Icons";
 import { useSession } from "next-auth/client";
+import { ColourLogo } from "../../components/UI/Icons";
 import { LoginForm } from "../../components/Auth/LoginForm";
 import Img from "../../components/UI/Img";
+import SignupForm from "../../components/Auth/SignupForm";
+
+import classes from "/styles/authView.module.scss";
 
 const Auth = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
 	const [isSignup, setIsSignup] = useState(true);
-	const [user, setUser] = useState("educator");
 
 	useEffect(() => {
 		if (session) {
@@ -74,27 +71,7 @@ const Auth = ({ setLoaded }) => {
 						</div>
 					</div>
 				</div>
-				<div className={`${classes.formContainer} roundScrollbar`}>
-					{/* <div className={classes.tabs}>
-						{["educator", "learner"].map((i) => (
-							<button key={i} className={`${classes[i]} ${user === i ? classes.active : ""}`} onClick={() => setUser(i)}>
-								{i}
-							</button>
-						))}
-					</div> */}
-					{/* {user === "learner" ? (
-						isSignup ? (
-							<LearnerSignupForm setIsSignup={setIsSignup} />
-						) : (
-							<LearnerLoginForm setIsSignup={setIsSignup} />
-						)
-					) : isSignup ? (
-						<EducatorSignupForm setIsSignup={setIsSignup} />
-					) : (
-						<EducatorLoginForm setIsSignup={setIsSignup} />
-					)} */}
-					{isSignup ? <div /> : <LoginForm setIsSignup={setIsSignup} />}
-				</div>
+				<div className={`${classes.formContainer} roundScrollbar`}>{isSignup ? <SignupForm setIsSignup={setIsSignup} /> : <LoginForm setIsSignup={setIsSignup} />}</div>
 			</div>
 		</div>
 	);
