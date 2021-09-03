@@ -1,4 +1,4 @@
-@import "variables";
+@import "variables_new";
 
 * {
   margin: 0;
@@ -8,7 +8,7 @@
   box-sizing: border-box;
   text-decoration: none;
   background: transparent;
-  color: $darker;
+  color: $darkest;
   font-size: 1rem;
   user-select: none;
 }
@@ -20,7 +20,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   min-height: 100vh;
-  background: $bg-light;
+  background: $lightest;
   font-family: $poppins;
 }
 
@@ -140,4 +140,18 @@ svg {
 
 .monaco-editor * {
   font-family: $jetbrains;
+}
+
+.os-scrollbar {
+  width: 12px !important;
+}
+
+.os-scrollbar-handle {
+  border: thin solid rgba(white, 0.4);
+  &:hover {
+    border-color: rgba(white, 0.6);
+  }
+  &:active {
+    border-color: rgba(white, 0.75);
+  }
 }

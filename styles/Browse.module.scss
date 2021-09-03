@@ -1,102 +1,42 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .browse {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  padding: 2vh 5vw 5vh 5vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: $bg-light;
+  height: 100%;
+  width: 100%;
+  background: white;
 }
 
-.main {
-  flex: 1 1 0;
+.inner {
+  height: 100%;
   width: 100%;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.content {
-  width: 45%;
-  height: 100%;
-  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  h2 {
-    margin-top: 8vh;
-    font-size: 1rem;
-    font-weight: 600;
-    color: $light;
-    letter-spacing: 0.05em;
-    margin-bottom: 4vh;
-  }
-  h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    margin-bottom: 1vh;
-  }
-  p {
-    font-size: 13px;
-    line-height: 1.75em;
-    letter-spacing: 0.01em;
-    font-weight: 500;
-  }
-  .btnContainer {
-    flex: 0 0 4rem;
-    margin-top: 4vh;
-    display: flex;
-    .continue,
-    .lesson {
-      height: 4rem;
-      border-radius: 999px;
-      font-size: 16px;
-      padding: 0 3rem;
-      margin: 0 1vw;
-      i {
-        margin-left: 0.5rem;
-      }
-    }
-    .lesson {
-      background: $blue-light;
-      box-shadow: 0 4px 16px rgba($blue-light, 0.25);
-      i {
-        margin-left: 0;
-        margin-right: 0.5rem;
-      }
-      &:hover {
-        box-shadow: 0 8px 24px rgba($blue-light, 0.25);
-      }
-    }
-  }
 }
 
-.vidContainer {
-  width: 45%;
-  position: relative;
-  align-self: center;
-  .vid {
-    border-radius: 8px;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transform: translateX(1vw);
-    &.vidLoaded {
-      opacity: 1;
-      transform: none;
-      transition: opacity 0.2s ease-out 0.4s, transform 0.2s ease-out 0.4s;
-    }
-  }
+.preview {
+  width: 100%;
+  flex: 0 0 70%;
+  overflow: hidden;
+}
+
+.h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  margin-left: 3vw;
 }
 
 .allProjects {
+  margin: 1rem 5vw 1rem 2vw;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 0 0 25vh;
-  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+}
+
+.empty {
+  flex: 1 1 20%;
+  min-width: 200px;
+  margin: 0 1vw 4vh 1vw;
 }
