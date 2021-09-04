@@ -12,7 +12,7 @@ export default async function (req, res) {
 		return res.status(403).send({ status: "critical error", content: "Invalid API Key" });
 	}
 	// Create the input data
-	const input = { email: "louiscflin@gmail.com" };
+	const input = { email: req.body.input.email };
 	// Send the data to the main backend
 	let data;
 	try {
