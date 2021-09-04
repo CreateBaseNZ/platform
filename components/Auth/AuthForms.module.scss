@@ -89,13 +89,18 @@
 	margin-top: 2vh;
 }
 
-.forgot {
+.forgot,
+.backToLogin {
 	font-size: 13px;
 	font-weight: 500;
 	color: $blue-dark;
 	&:hover {
 		text-decoration: underline;
 	}
+}
+
+.backToLogin {
+	margin-bottom: 4vh;
 }
 
 .forgot,
@@ -266,5 +271,30 @@
 	&:hover {
 		background: $lighter;
 		color: $darker;
+	}
+}
+
+.forgotPass {
+	height: 65vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.forgotPassForm {
+	width: 75%;
+	max-width: 500px;
+	.input:focus {
+		border-color: $amber;
+		background: rgba($amber, 0.05);
+	}
+	.submit {
+		background: $amber;
+		box-shadow: 0 4px 16px rgba($amber, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($amber, 0.25);
+		}
 	}
 }

@@ -8,6 +8,7 @@ import AuthForm from "../../components/Auth/AuthForm";
 import ResetPassword from "../../components/Auth/ResetPassword";
 
 import classes from "/styles/authView.module.scss";
+import ForgotPassword from "../../components/Auth/ForgotPassword";
 
 const Auth = ({ setLoaded }) => {
 	const router = useRouter();
@@ -74,6 +75,7 @@ const Auth = ({ setLoaded }) => {
 				{view === "signup" && <AuthForm isSignup={true} />}
 				{view === "login" && <AuthForm isSignup={false} />}
 				{view === "recover" && <ResetPassword />}
+				{view === "forgot-password" && <ForgotPassword />}
 			</div>
 		</div>
 	);

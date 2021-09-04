@@ -81,7 +81,7 @@ export const LoginForm = () => {
 				error={errors.password}
 			/>
 			<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Logging you in ..." mainLabel="Log In" />
-			<SecondaryButton className={classes.secondaryBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => router.replace("/auth/signup")} />
+			<SecondaryButton className={classes.secondaryBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => router.push("/auth/signup")} />
 			<div className={classes.options}>
 				<div className={classes.remember}>
 					<input type="checkbox" {...register("remember")} />
@@ -90,7 +90,7 @@ export const LoginForm = () => {
 					</div>
 					<label>Remember me</label>
 				</div>
-				<button type="button" className={classes.forgot} onClick={() => router.replace("/auth/reset-password")}>
+				<button type="button" className={classes.forgot} onClick={() => router.push("/auth/forgot-password")}>
 					Forgot your password?
 				</button>
 			</div>
