@@ -36,7 +36,7 @@ export default async function (req, res) {
 	// Send the request to the main backend
 	let data;
 	try {
-		data = (await axios.post("http://localhost/organisation/admin/update-learner-license", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("https://createbase.co.nz/organisation/admin/update-learner-license", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}

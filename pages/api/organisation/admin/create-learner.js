@@ -10,25 +10,19 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.send({ status: "critical error", content: "Invalid API key" });
+		return res.send({ status: "critical error", content: "" });
 	}
-	// Check if a session exist
+	// Perform access validation
 	const session = await getSession({ req });
 	if (!session) {
-		return res.send({ status: "critical error", content: "This user is not logged in" });
-	}
-	// Check if there is an organisation
-	if (!session.user.organisation) {
-		return res.send({ status: "critical error", content: "This user does not have an organisation" });
-	}
-	// Validate if the user is an admin
-	if (session.user.access !== "admin" /*|| !session.user.verified*/) {
-		return res.send({ status: "critical error", content: "Invalid access" });
-	}
-	// Validate the input data
-	const validity = validate(req.body.input);
-	if (validity.status === "failed") {
-		return res.send(validity);
+		// Validate a user is logged in
+		return res.send({ status: "critical error", content: "" });
+	} else if (!session.user.organisation) {
+		// Validate the user is in an organisation
+		return res.send({ status: "critical error", content: "" });
+	} else if (session.user.access !== "admin" /*|| !session.user.verified*/) {
+		// Validate if the user is an admin
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Create the input data
 	let input = {
@@ -40,10 +34,15 @@ export default async function (req, res) {
 		displayName: req.body.input.displayName,
 	};
 	if (req.body.input.saves) input.saves = req.body.input.saves;
+	// Validate the input data
+	const validity = validate(input);
+	if (validity.status === "failed") {
+		return res.send(validity);
+	}
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post("https://createbase.co.nz/organisation/admin-create-learner", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("https://createbase.co.nz/organisation/admin/create-learner", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
