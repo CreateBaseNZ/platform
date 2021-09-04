@@ -10,17 +10,17 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.status(403).send({ status: "critical error", content: "Invalid API Key" });
+		return res.send({ status: "critical error", content: "Invalid API key" });
 	}
 	// Check if there is no user logged in
 	const session = await getSession({ req });
 	if (session) {
-		return res.status(400).send({ status: "critical error", content: "A user is already logged in" });
+		return res.send({ status: "critical error", content: "This user is already logged in" });
 	}
 	// Validate the input data
 	const validity = validate(req.body.input);
 	if (validity.status === "failed") {
-		return res.status(400).send(validity);
+		return res.send(validity);
 	}
 	// Create the input data
 	let input = {
@@ -44,20 +44,10 @@ export default async function (req, res) {
 	try {
 		data = (await axios.post("https://createbase.co.nz/signup/educator-organisation", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
-		if (error.response) {
-			return res.status(error.response.status).send({ status: "error", content: error.response.data });
-		} else if (error.request) {
-			return res.status(504).send({ status: "error", content: error.request });
-		} else {
-			return res.status(500).send({ status: "error", content: error.message });
-		}
+		return res.send({ status: "error", content: error });
 	}
-	// Validate response
-	if (data.content === "Invalid Private API Key") {
-		return res.status(403).send(data);
-	}
-	// Success handler
-	return res.status(200).send(data);
+	// Return outcome of the request
+	return res.send(data);
 }
 
 // SECONDARY ================================================

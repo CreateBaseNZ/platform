@@ -9,7 +9,7 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.send({ status: "critical error", content: "Invalid API Key" });
+		return res.send({ status: "critical error", content: "Invalid API key" });
 	}
 	// Create the input data
 	const input = { email: req.body.input.email };

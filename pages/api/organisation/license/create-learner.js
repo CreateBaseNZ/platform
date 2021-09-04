@@ -10,25 +10,25 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.status(403).send({ status: "critical error", content: "Invalid API Key" });
+		return res.send({ status: "critical error", content: "Invalid API key" });
 	}
 	// Check if a session exist
 	const session = await getSession({ req });
 	if (!session) {
-		return res.status(400).send({ status: "critical error", content: "Please log in" });
+		return res.send({ status: "critical error", content: "This user is not logged in" });
 	}
 	// Check if there is an organisation
 	if (!session.user.organisation) {
-		return res.status(400).send({ status: "critical error", content: "There is no organisation" });
+		return res.send({ status: "critical error", content: "This user does not have an organisation" });
 	}
 	// Validate if the user is an admin
 	if (session.user.access !== "admin" /*|| !session.user.verified*/) {
-		return res.status(400).send({ status: "critical error", content: "Invalid access" });
+		return res.send({ status: "critical error", content: "Invalid access" });
 	}
 	// Validate the input data
 	const validity = validate(req.body.input);
 	if (validity.status === "failed") {
-		return res.status(400).send(validity);
+		return res.send(validity);
 	}
 	// Create the input data
 	let input = {
@@ -45,20 +45,10 @@ export default async function (req, res) {
 	try {
 		data = (await axios.post("https://createbase.co.nz/organisation/admin-create-learner", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
-		if (error.response) {
-			return res.status(error.response.status).send({ status: "error", content: error.response.data });
-		} else if (error.request) {
-			return res.status(504).send({ status: "error", content: error.request });
-		} else {
-			return res.status(500).send({ status: "error", content: error.message });
-		}
-	}
-	// Validate response
-	if (data.content === "Invalid Private API Key") {
-		return res.status(403).send(data);
+		return res.send({ status: "error", content: error });
 	}
 	// Success handler
-	return res.status(200).send(data);
+	return res.send(data);
 }
 
 // SECONDARY ================================================
