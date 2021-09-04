@@ -20,7 +20,6 @@ export const convertCode = (text, system, onceCode) => {
         }
     })
     const usedFunctions = [];
-    console.log(awaitFunctions);
     //divide the code Input 
     const [doubledUpText, quotes] = doubleUp(text);
     let splittedCode = doubledUpText.split('\n');
@@ -66,9 +65,8 @@ export const convertCode = (text, system, onceCode) => {
                     return correctSystem.sensors[element].simpleName == RHS;
                 });
                 if (correctSensor.length>0) {
-                    console.log(correctSensor);
                     const name = correctSystem.sensors[correctSensor[0]].name;
-                    RHS = `JSON.parse(sensorData).${name}`;
+                    RHS = `JSON.parse(sensorDataRef.current).${name}`;
                 }
             }
             
@@ -101,7 +99,18 @@ export const convertCode = (text, system, onceCode) => {
     }
     let intermediateCode = "\n"
     intermediateCode += "if (codeChanged) { resolve(true); } \n";
-    text = start.logic + splittedCode.join(intermediateCode) + end.logic;
+    let middleCode = splittedCode.reduce((accumulator, element, i) => {
+        accumulator += element;
+        if (i != splittedCode.length - 1&&element.length>0) {
+            if (element[element.length - 1] != "}") {
+                accumulator += intermediateCode;
+            } else {
+                accumulator += "\n";
+            }
+        }
+        return accumulator;
+    },"")
+    text = start.logic + middleCode + end.logic;
     text += "\n\n";
 
     usedFunctions.forEach((element) => {
