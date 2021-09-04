@@ -1,39 +1,41 @@
+import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
-import Image from "next/image";
 import { useSession } from "next-auth/client";
+import Image from "next/image";
 import { ColourLogo } from "../../components/UI/Icons";
-import { LoginForm } from "../../components/Auth/LoginForm";
-import Img from "../../components/UI/Img";
-import SignupForm from "../../components/Auth/SignupForm";
+import AuthForm from "../../components/Auth/AuthForm";
+import ResetPassword from "../../components/Auth/ResetPassword";
 
 import classes from "/styles/authView.module.scss";
 
 const Auth = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
-	const [isSignup, setIsSignup] = useState(true);
+	const [view, setView] = useState("");
+
+	console.log(view);
 
 	useEffect(() => {
-		if (session) {
-			router.replace("/browse");
-		} else {
-			if (window.localStorage.getItem("createbase__remember-me")) {
-				setIsSignup(false);
-			}
-			setLoaded(true);
-		}
 		return () => setLoaded(false);
 	}, []);
 
 	useEffect(() => {
+		if (!loading && session) {
+			router.replace("/browse");
+		} else {
+			setLoaded(true);
+		}
+	}, [loading]);
+
+	useEffect(() => {
 		if (Object.keys(router.query).length) {
-			const query = router.query.authView;
-			if (query) {
-				setIsSignup(query[0] === "signup");
+			setView(router.query.authView[0]);
+		} else {
+			if (window.localStorage.getItem("createbase__remember-me")) {
+				setView("login");
 			} else {
-				setIsSignup(true);
+				setView("signup");
 			}
 		}
 	}, [router.query]);
@@ -43,7 +45,14 @@ const Auth = ({ setLoaded }) => {
 	return (
 		<div className={classes.authView}>
 			<Head>
-				<title>{isSignup ? "Sign Up" : "Log In"} | CreateBase</title>
+				<title>
+					{view &&
+						view
+							.split("-")
+							.map((w) => w[0].toUpperCase() + w.substring(1))
+							.join(" ")}{" "}
+					| CreateBase
+				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
 			<div className={classes.squiggle}>
@@ -61,21 +70,10 @@ const Auth = ({ setLoaded }) => {
 			<div className={classes.logo}>
 				<ColourLogo />
 			</div>
-			<div className={classes.auth}>
-				<div className={`${classes.imgContainer} ${isSignup ? classes.signup : classes.login}`}>
-					<div className={classes.imgWrapper}>
-						<Image src="/auth/turtle.svg" layout="fill" objectFit="cover" />
-						<div style={{ marginLeft: "-10%", height: "100%", width: "140%" }}>
-							<Img
-								src={isSignup ? "/auth/signup.svg" : "/auth/login.svg"}
-								layout="fill"
-								objectFit="contain"
-								style={{ transform: isSignup ? "rotate(-45deg) scaleX(-1) translate(-2%, -8%)" : "scaleX(-1)" }}
-							/>
-						</div>
-					</div>
-				</div>
-				<div className={`${classes.formContainer} roundScrollbar`}>{isSignup ? <SignupForm setIsSignup={setIsSignup} /> : <LoginForm setIsSignup={setIsSignup} />}</div>
+			<div className={classes.authMain}>
+				{view === "signup" && <AuthForm isSignup={true} />}
+				{view === "login" && <AuthForm isSignup={false} />}
+				{view === "recover" && <ResetPassword />}
 			</div>
 		</div>
 	);

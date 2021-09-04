@@ -63,7 +63,7 @@ export default async function (req, res) {
 // SECONDARY ================================================
 
 function createOrganisationSearchObject(name, type, country, metadata) {
-	if (type === "school" && country === "new zealand") {
+	if (type === "school" && country === "New Zealand") {
 		return { name, "metadata.id": metadata.id };
 	} else {
 		return { name, type: "other" };
@@ -235,7 +235,7 @@ function validateCountry(country) {
 }
 
 function validateMetadata(metadata, type, country) {
-	if (type === "school" && country === "new zealand") {
+	if (type === "school" && country === "New Zealand") {
 		if (!metadata) {
 			return { status: false, content: "Please provide a metadata" };
 		} else if (!metadata.id) {

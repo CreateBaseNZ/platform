@@ -37,7 +37,7 @@ function validateDate(date) {
 }
 
 function validateMetadata(metadata, type, country) {
-	if (type === "school" && country === "new zealand") {
+	if (type === "school" && country === "New Zealand") {
 		if (!metadata) {
 			return { status: false, content: "Please provide a metadata" };
 		} else if (!metadata.id) {

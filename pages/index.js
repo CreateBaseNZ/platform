@@ -3,15 +3,13 @@ import { useSession } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import { signIn } from "next-auth/client";
 import { signOut } from "next-auth/client";
-import axios from "axios";
 import { SecondaryButton } from "../components/UI/Buttons";
+import { initSession } from "../utils/authHelpers";
 
 import WhiteLogo, { FBIcon, IGIcon, TwitterIcon, YTIcon } from "/components/UI/Icons";
 
 import classes from "/styles/Index.module.scss";
-import initSession from "../utils/initSession";
 
 const Index = ({ setLoaded }) => {
 	const [session, loading] = useSession();

@@ -7,7 +7,7 @@ import lineFollowingData from "../data/line-following-data";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { useSession } from "next-auth/client";
 import "overlayscrollbars/css/OverlayScrollbars.css";
-import initSession from "../utils/initSession";
+import { initSession } from "../utils/authHelpers";
 import Frame from "../components/Frame";
 import BrowsePreview from "../components/Browse/BrowsePreview";
 
