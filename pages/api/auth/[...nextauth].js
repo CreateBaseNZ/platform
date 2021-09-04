@@ -222,7 +222,7 @@ export default NextAuth({
 			async authorize(credentials) {
 				// Validate PUBLIC_API_KEY
 				if (credentials.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-					throw new Error("Invalid API Key.");
+					throw new Error("critical error");
 				}
 				// Perform authentication based on the type
 				let data;
@@ -232,8 +232,12 @@ export default NextAuth({
 					data = await usernameLogin(credentials);
 				}
 				// Validate the authentication
-				if (data.status === "failed" || data.status === "error") {
-					throw new Error("You have entered an invalid username or password");
+				if (data.status === "failed") {
+					throw new Error("failed");
+				} else if (data.status === "error") {
+					throw new Error("error");
+				} else if (data.status === "critical error") {
+					throw new Error("critical error");
 				}
 				// Success handler
 				return data.content;

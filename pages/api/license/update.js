@@ -17,12 +17,17 @@ export default async function (req, res) {
 		return res.status(400).send({ status: "critical error", content: "Please log in" });
 	}
 	// Create the input data
-	let input = { license: session.user.license };
-	if (req.body.input.properties) input.properties = req.body.input.properties;
+	let input = { license: session.user.license, date: req.body.input.date };
+	if (req.body.input.username) input.username = req.body.input.username;
+	if (req.body.input.password) {
+		if (session.user.account) input.account = session.user.account;
+		input.password = req.body.input.password;
+		input.oldPassword = req.body.input.oldPassword;
+	}
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post("http://localhost/license/read", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("http://localhost/license/update", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		if (error.response) {
 			return res.status(error.response.status).send({ status: "error", content: error.response.data });

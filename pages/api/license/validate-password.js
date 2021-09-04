@@ -16,13 +16,12 @@ export default async function (req, res) {
 	if (!session) {
 		return res.status(400).send({ status: "critical error", content: "Please log in" });
 	}
-	// Create the input data
-	let input = { license: session.user.license };
-	if (req.body.input.properties) input.properties = req.body.input.properties;
+	// Create the input object
+	const input = { license: session.user.license, password: req.body.input.password };
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post("http://localhost/license/read", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("http://localhost/license/validate-password", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		if (error.response) {
 			return res.status(error.response.status).send({ status: "error", content: error.response.data });

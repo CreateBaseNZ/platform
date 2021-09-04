@@ -307,6 +307,21 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// const input = { properties: ["username"] };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/license/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
