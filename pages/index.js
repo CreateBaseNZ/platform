@@ -340,11 +340,13 @@ const Index = ({ setLoaded }) => {
 				<meta name="description" content="Unleash your inner creator. CreateBase." />
 			</Head>
 			<div className={classes.bg}>
-				<Image src="/landing.png" layout="fill" objectFit="contain" quality={100} objectPosition={"75% 100%"} alt="Landing image" />
+				<div style={{ height: "100%", width: "100%", position: "relative" }}>
+					<Image src="/landing.png" layout="fill" objectFit="contain" quality={100} objectPosition={"75% 100%"} alt="Landing image" />
+				</div>
 			</div>
 			<nav className={classes.nav}>
 				<div className={classes.logo}>
-					<WhiteLogo layout="fill" objectFit="contain" quality={100} />
+					<WhiteLogo height={32} width={180} quality={100} />
 				</div>
 				<div className={classes.socials}>
 					<FBIcon height={28} width={28} />

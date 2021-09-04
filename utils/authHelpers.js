@@ -1,3 +1,5 @@
+import router from "next/router";
+import { signIn } from "next-auth/client";
 import axios from "axios";
 
 export const getOrgData = async () => {
@@ -14,6 +16,7 @@ export const getOrgData = async () => {
 			orgData = { status: "error", content: error.message };
 		}
 	}
+	console.log(orgData);
 	return {
 		name: orgData.content.name,
 		city: orgData.content.location.city,
