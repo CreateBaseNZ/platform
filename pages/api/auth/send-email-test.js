@@ -1,7 +1,6 @@
 // IMPORT ===================================================
 
 import axios from "axios";
-import { getSession } from "next-auth/client";
 
 // MAIN =====================================================
 
@@ -9,25 +8,16 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.status(403).send({ status: "critical error", content: "Invalid API key" });
+		return res.status(403).send({ status: "critical error", content: "Invalid API Key" });
 	}
 	// Create the input data
-	let input;
-	// Check if a session exist
-	const session = await getSession({ req });
-	if (session) {
-		if (session.user.verified) {
-			return res.status(400).send({ status: "critical error", content: "This user is already verified" });
-		}
-		input = { account: session.user.account };
-	} else {
-		input = { email: req.body.input.email };
-	}
-	input.code = req.body.input.code;
+	// const input = { email: "clin750@aucklanduni.ac.nz" };
+	// const input = { email: "bbur543@uoa.auckland.ac.nz" };
+	// const input = { email: "cvel317@aucklanduni.ac.nz" };
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post("https://createbase.co.nz/verify-account", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post("https://createbase.co.nz/send-test-email", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		if (error.response) {
 			return res.status(error.response.status).send({ status: "error", content: error.response.data });
@@ -38,7 +28,7 @@ export default async function (req, res) {
 		}
 	}
 	// Validate response
-	if (data.content === "Invalid Private API key") {
+	if (data.content === "Invalid Private API Key") {
 		return res.status(403).send(data);
 	}
 	// Success handler
