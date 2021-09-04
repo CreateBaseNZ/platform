@@ -9,6 +9,8 @@ import { initSession } from "../utils/authHelpers";
 
 import WhiteLogo, { FBIcon, IGIcon, TwitterIcon, YTIcon } from "/components/UI/Icons";
 
+import axios from "axios";
+
 import classes from "/styles/Index.module.scss";
 
 const Index = ({ setLoaded }) => {
@@ -276,6 +278,7 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Reset the password
 		// const input = { email: "carlvelasco96@gmail.com", password: "Newpassword1!", code: "d78Vvy" };
 		// let data;
 		// try {
