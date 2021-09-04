@@ -119,7 +119,7 @@ async function emailLogin(object) {
 	let data;
 	try {
 		data = (
-			await axios.post("https://createbase.co.nz/email-login", {
+			await axios.post(process.env.ROUTE_URL + "/email-login", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input,
 			})
@@ -150,7 +150,7 @@ async function usernameLogin(object) {
 	let data;
 	try {
 		data = (
-			await axios.post("https://createbase.co.nz/username-login", {
+			await axios.post(process.env.ROUTE_URL + "/username-login", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input,
 			})
@@ -173,7 +173,7 @@ async function updateSession(license, profile) {
 		let data;
 		try {
 			data = (
-				await axios.post("https://createbase.co.nz/update-session", {
+				await axios.post(process.env.ROUTE_URL + "/update-session", {
 					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 					input: { license, profile },
 				})

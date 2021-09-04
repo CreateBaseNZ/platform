@@ -27,7 +27,7 @@ export default async function (req, res) {
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post("https://createbase.co.nz/verify-account", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/verify-account", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}

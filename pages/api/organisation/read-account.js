@@ -28,7 +28,7 @@ export default async function (req, res) {
 	// Send the request
 	let data;
 	try {
-		data = (await axios.post("https://createbase.co.nz/organisation/account-read", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/organisation/account-read", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
