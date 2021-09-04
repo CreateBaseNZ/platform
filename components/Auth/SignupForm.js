@@ -7,7 +7,6 @@ import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLeng
 import VisualBellContext from "../../store/visual-bell-context";
 import router from "next/router";
 import axios from "axios";
-import { signIn } from "next-auth/client";
 import classes from "./AuthForms.module.scss";
 import { logIn } from "../../utils/authHelpers";
 
@@ -140,7 +139,7 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 					});
 				},
 				() => {
-					router.replace("/auth/login");
+					router.push("/auth/login");
 					ctx.setBell({
 						type: "success",
 						message: "Success! Your account has been created, log in to continue",
@@ -308,7 +307,7 @@ const SignupStepThree = ({ learner, setLearner }) => {
 				});
 			},
 			() => {
-				router.replace("/auth/login");
+				router.push("/auth/login");
 				ctx.setBell({
 					type: "success",
 					message: "Success! Your account has been created, log in to continue",
@@ -329,7 +328,7 @@ const SignupStepThree = ({ learner, setLearner }) => {
 			<Input
 				inputProps={{
 					className: classes.input,
-					placeholder: "Organisation code",
+					placeholder: "Organisation code*",
 					type: "text",
 					onFocus: () => setError(""),
 					...register("orgCode", { required: "Please enter an organisation code" }),
@@ -340,7 +339,7 @@ const SignupStepThree = ({ learner, setLearner }) => {
 				inputProps={{
 					className: classes.input,
 					type: "number",
-					placeholder: "Organisation ID",
+					placeholder: "Organisation ID*",
 					onFocus: () => setError(""),
 					...register("orgId", { required: "Please enter the organisation ID" }),
 				}}
@@ -350,7 +349,7 @@ const SignupStepThree = ({ learner, setLearner }) => {
 				inputProps={{
 					className: classes.input,
 					type: "text",
-					placeholder: "Organisation name",
+					placeholder: "Organisation name*",
 					onFocus: () => setError(""),
 					...register("orgName", { required: "Please enter the organisation name" }),
 				}}
@@ -381,7 +380,7 @@ const SignupForm = () => {
 			{step === 2 && <SignupStepThree learner={learner} setLearner={setLearner} />}
 			<div className={classes.switch}>
 				Have an account?
-				<button type="button" onClick={() => router.replace("/auth/login")}>
+				<button type="button" onClick={() => router.push("/auth/login")}>
 					Log in
 				</button>
 			</div>
