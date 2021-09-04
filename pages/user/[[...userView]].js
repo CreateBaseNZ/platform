@@ -6,7 +6,7 @@ import MyAccount from "../../components/MyAccount/MyAccount";
 
 import classes from "/styles/userView.module.scss";
 import Frame from "../../components/Frame";
-import initSession from "../../utils/initSession";
+import { initSession } from "../../utils/authHelpers";
 
 const UserView = ({ setLoaded }) => {
 	const router = useRouter();

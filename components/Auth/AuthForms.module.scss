@@ -67,6 +67,23 @@
 	}
 }
 
+.smallFont {
+	font-size: 13px;
+	color: $light;
+	* {
+		font-size: inherit;
+		color: inherit;
+	}
+}
+
+.linkBtn {
+	color: $blue-dark;
+	font-weight: 500;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
 .submit {
 	margin-top: 4vh;
 	height: 3.5rem;
@@ -82,29 +99,11 @@
 	height: calc(3.5rem - 4px);
 }
 
-.options {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-top: 2vh;
-}
-
-.forgot,
-.backToLogin {
-	font-size: 13px;
-	font-weight: 500;
-	color: $blue-dark;
-	&:hover {
-		text-decoration: underline;
-	}
-}
-
 .backToLogin {
 	margin-bottom: 4vh;
 }
 
-.forgot,
-.remember {
+.rememberMe {
 	margin-top: 2vh;
 }
 
@@ -116,8 +115,7 @@
 	font-weight: 500;
 }
 
-.terms,
-.remember {
+.smallCheckbox {
 	display: flex;
 	align-items: center;
 	position: relative;
@@ -156,45 +154,20 @@
 		}
 	}
 	label {
-		color: $light;
-		font-size: 13px;
-		margin-left: 0.75rem;
+		margin-left: 0.5rem;
+		line-height: 1em;
 	}
 	a {
 		position: relative;
-		color: $light;
-		font-weight: 500;
-		font-size: 13px;
-		color: $blue-dark;
 		z-index: 1;
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-	&.termsError {
-		* {
-			color: $red !important;
-		}
-		.checkbox {
-			border-color: $red;
-		}
 	}
 }
 
-.switch {
-	margin-top: auto;
-	align-self: center;
-	font-size: 14px;
-	color: $light;
-	button {
-		font-size: 14px;
-		font-weight: 500;
-		color: $blue-dark;
-		margin-left: 0.5em;
-		&:hover {
-			text-decoration: underline;
-		}
-	}
+.options {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 2vh;
 }
 
 .loginForm {
@@ -224,6 +197,23 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	.switch {
+		margin-top: auto;
+		align-self: center;
+		font-size: 14px;
+		button {
+			font-size: inherit;
+			margin-left: 0.5rem;
+		}
+	}
+	.termsError {
+		* {
+			color: $red !important;
+		}
+		.checkbox {
+			border-color: $red;
+		}
+	}
 }
 
 .signupForm {
@@ -236,14 +226,6 @@
 		box-shadow: 0 4px 16px rgba($green-dark, 0.25);
 		&:hover {
 			box-shadow: 0 8px 24px rgba($green-dark, 0.25);
-		}
-	}
-	.secondaryBtn {
-		border-color: $green-dark;
-		color: $green-dark;
-		&:hover {
-			border-color: $green-dark;
-			color: $green-dark;
 		}
 	}
 }
@@ -297,4 +279,10 @@
 			box-shadow: 0 8px 24px rgba($amber, 0.25);
 		}
 	}
+}
+.forgotOptions {
+	width: 75%;
+	max-width: 500px;
+	display: flex;
+	justify-content: space-between;
 }

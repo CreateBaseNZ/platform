@@ -85,7 +85,8 @@
 		padding: 0 1rem;
 		border-radius: 1rem;
 		background: transparent;
-		transition: background-color 0.1s ease-out;
+		border: thin solid transparent;
+		transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
 		&:hover,
 		&.active {
 			background: rgba(black, 0.05);
@@ -94,8 +95,12 @@
 			}
 		}
 		i {
-			margin-left: 2rem;
+			margin-left: 0.5rem;
+			margin-right: -0.5rem;
 			color: $darker;
+		}
+		&.active {
+			border-color: rgba(black, 0.05);
 		}
 	}
 	.avatar {
@@ -106,10 +111,15 @@
 		margin-left: 1rem;
 		display: flex;
 		flex-direction: column;
+		width: calc(5rem + 5vw);
 		& > :first-child {
+			width: 100%;
 			font-size: 14px;
 			font-weight: 600;
 			line-height: 1.25em;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 		& > :last-child {
 			font-size: 12px;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useSession } from "next-auth/client";
-import initSession from "../utils/initSession";
+import { initSession } from "../utils/authHelpers";
 
 import classes from "/styles/Faq.module.scss";
 import Img from "../components/UI/Img";

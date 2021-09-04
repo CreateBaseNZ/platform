@@ -1,15 +1,14 @@
+import { useEffect, useState } from "react";
 import router from "next/router";
-import { useEffect } from "react";
 
 import classes from "./AuthForms.module.scss";
 
 const ResetPassword = () => {
-	const [inputs, setInputs] = useState();
+	const [inputs, setInputs] = useState({});
 
 	useEffect(() => {
 		if (router.query.authView.length > 1) {
-			setInputs(router.query.authView[1]);
-			setInputs(router.query.authView[2]);
+			setInputs({ email: router.query.authView[1], code: router.query.authView[2] });
 		}
 	}, []);
 
