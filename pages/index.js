@@ -263,10 +263,10 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
-		// const input = { email: "carlvelasco96@gmail.com" }
+		// const input = { email: "carlvelasco96@gmail.com" };
 		// let data;
 		// try {
-		// 	data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// 	data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
 		// } catch (error) {
 		// 	if (error.response) {
 		// 		data = error.response.data;
@@ -278,7 +278,7 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
-		// const input = { email: "carlvelasco96@gmail.com", password: "Newpassword1!", code: "62aD87" };
+		// const input = { email: "carlvelasco96@gmail.com", password: "Newpassword1!", code: "d78Vvy" };
 		// let data;
 		// try {
 		// 	data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
@@ -307,10 +307,27 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Retrieving user's username
 		// const input = { properties: ["username"] };
 		// let data;
 		// try {
 		// 	data = (await axios.post("/api/license/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Changing user's username
+		// const input = { username: "carlvelasco", date: new Date().toString() };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/license/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
 		// } catch (error) {
 		// 	if (error.response) {
 		// 		data = error.response.data;
