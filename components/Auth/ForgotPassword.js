@@ -74,12 +74,12 @@ const ForgotPassword = () => {
 				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Loading ..." mainLabel="Continue" />
 			</form>
 			<div className={classes.forgotOptions}>
-				<button type="button" className={classes.backToLogin} onClick={() => router.push("/auth/login")}>
+				<button type="button" className={`${classes.smallFont} ${classes.linkBtn}`} onClick={() => router.push("/auth/login")}>
 					Back to Login
 				</button>
-				<div className={classes.switch}>
+				<div className={classes.smallFont}>
 					Received a code?
-					<button type="button" className={classes.backToLogin} onClick={() => router.push("/auth/reset-password")}>
+					<button type="button" className={`${classes.linkBtn} ${classes.enterCode}`} onClick={() => router.push("/auth/reset-password")}>
 						Enter it here
 					</button>
 				</div>

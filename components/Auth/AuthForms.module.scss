@@ -103,10 +103,6 @@
 	margin-bottom: 4vh;
 }
 
-.rememberMe {
-	margin-top: 2vh;
-}
-
 .errorMessage {
 	height: 1em;
 	font-size: 12px;
@@ -263,26 +259,29 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
-}
-
-.forgotPassForm {
-	width: 75%;
-	max-width: 500px;
-	.input:focus {
-		border-color: $amber;
-		background: rgba($amber, 0.05);
-	}
-	.submit {
-		background: $amber;
-		box-shadow: 0 4px 16px rgba($amber, 0.25);
-		&:hover {
-			box-shadow: 0 8px 24px rgba($amber, 0.25);
+	.forgotPassForm {
+		width: 75%;
+		max-width: 500px;
+		.input:focus {
+			border-color: $amber;
+			background: rgba($amber, 0.05);
+		}
+		.submit {
+			background: $amber;
+			box-shadow: 0 4px 16px rgba($amber, 0.25);
+			&:hover {
+				box-shadow: 0 8px 24px rgba($amber, 0.25);
+			}
 		}
 	}
-}
-.forgotOptions {
-	width: 75%;
-	max-width: 500px;
-	display: flex;
-	justify-content: space-between;
+	.forgotOptions {
+		width: 75%;
+		max-width: 500px;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 4vh;
+		.enterCode {
+			margin-left: 0.5em;
+		}
+	}
 }

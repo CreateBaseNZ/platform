@@ -18,6 +18,7 @@ export const LoginForm = () => {
 	} = useForm({
 		defaultValues: {
 			username: window.localStorage.getItem("createbase__remember-me"),
+			remember: window.localStorage.getItem("createbase__remember-me") && true,
 		},
 		mode: "onTouched",
 	});
