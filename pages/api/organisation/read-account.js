@@ -16,8 +16,8 @@ export default async function (req, res) {
 	if (session.user.access !== "admin" && session.user.access !== "educator") {
 	}
 	if (session.user.access === "learner") {
-	} else if (session.user.access === "admin" /*&& !session.user.verified*/) {
-	} else if (session.user.access === "educator" /*&& !session.user.verified*/) {
+	} else if (session.user.access === "admin" /*&& session.user.verified*/) {
+	} else if (session.user.access === "educator" /*&& session.user.verified*/) {
 	} else {
 		return res.status(400).send({ status: "critical error", content: "Invalid access" });
 	}
