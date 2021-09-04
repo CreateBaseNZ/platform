@@ -47,10 +47,14 @@ const Auth = ({ setLoaded }) => {
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
 			<div className={classes.squiggle}>
-				<Image src="/auth/squiggle-thin.svg" layout="fill" objectFit="contain" />
+				<div>
+					<Image src="/auth/squiggle-thin.svg" layout="fill" objectFit="contain" />
+				</div>
 			</div>
 			<div className={`${classes.squiggle} ${classes.squiggle2}`}>
-				<Image src="/auth/squiggle-thin.svg" layout="fill" objectFit="contain" />
+				<div>
+					<Image src="/auth/squiggle-thin.svg" layout="fill" objectFit="contain" />
+				</div>
 			</div>
 			<div className={classes.triangle} />
 			<p className={classes.copy}>&copy; CreateBase 2021</p>

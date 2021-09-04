@@ -143,6 +143,11 @@
 	height: 200vw;
 	width: 200vw;
 	animation: squiggle 240s infinite linear;
+	& > div {
+		position: relative;
+		height: 100%;
+		width: 100%;
+	}
 }
 
 .squiggle2 {

@@ -5,7 +5,7 @@ import classes from "./Nav.module.scss";
 
 const labels = [
 	{ route: "/onboarding", label: "Onboarding", icon: "skateboarding", access: ["educator", "admin"] },
-	{ route: "/browse", label: "Browse", icon: "camera_roll", access: ["learner", "educator", "admin"] },
+	{ route: "/browse", label: "Browse", icon: "camera_roll", access: [undefined, "learner", "educator", "admin"] },
 	{ route: "/user/my-account", label: "My Account", icon: "person", access: ["educator", "admin"] },
 	{
 		route: "/admin-console",
@@ -13,10 +13,11 @@ const labels = [
 		icon: "admin_panel_settings",
 		access: ["admin"],
 	},
-	{ route: "/faq", label: "FAQ", icon: "help_outline", access: ["learner", "educator", "admin"] },
+	{ route: "/faq", label: "FAQ", icon: "help_outline", access: [undefined, "learner", "educator", "admin"] },
 ];
 
 const Nav = ({ tabIndex, collapseNav, type }) => {
+	console.log(type);
 	console.log(type);
 	return (
 		<nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>
