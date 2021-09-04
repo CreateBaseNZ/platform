@@ -8,7 +8,7 @@ import classes from "./Header.module.scss";
 import { PrimaryButton, SecondaryButton } from "./UI/Buttons";
 import { ColourLogoIcon } from "./UI/Icons";
 
-const Header = ({ session, type, org, name = "", collapseNav, toggleNavHandler }) => {
+const Header = ({ session, type, org, displayName = "", username, collapseNav, toggleNavHandler }) => {
 	const [active, setActive] = useState(false);
 
 	return (
@@ -24,11 +24,16 @@ const Header = ({ session, type, org, name = "", collapseNav, toggleNavHandler }
 			</Link>
 			{session ? (
 				type && (
-					<div className={classes.navUser} tabIndex={-1} onBlur={() => setActive(false)}>
-						<UserAvatar size={40} name={name} type={type} className={`${classes.avatar} ${active ? classes.avatarActive : ""}`} onClick={() => setActive((state) => !state)} />
+					<div className={classes.headerUserContainer} tabIndex={-1} onBlur={() => setActive(false)}>
+						<div className={`${classes.headerUser} ${active ? classes.active : ""}`} onClick={() => setActive((state) => !state)}>
+							<UserAvatar size={40} name={username} type={type} className={classes.avatar} />
+							<div className={classes.headerName}>
+								<div>{displayName}</div>
+								<div>{type}</div>
+							</div>
+							<i className="material-icons-outlined">expand_more</i>
+						</div>
 						<div className={`${classes.menu} ${active ? classes.active : ""}`}>
-							<div className={classes.name}>Hi, {name.split(" ")[0]}</div>
-							<div className={classes.divider} />
 							{type === "admin" && org && (
 								<button onMouseDown={() => router.push("/user/console")}>
 									<i className="material-icons-outlined">admin_panel_settings</i>

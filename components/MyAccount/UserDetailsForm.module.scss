@@ -1,27 +1,27 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .form {
-  width: 100%;
-  margin: auto 0;
-  .input {
-    margin: 1vh 0;
-  }
+	width: 100%;
+	margin-top: 3vh;
+	.input {
+		margin: 1vh 0;
+	}
 }
 
 .btnContainer {
-  margin-top: 3vh;
-  width: 100%;
-  display: flex;
-  .submit,
-  .cancel {
-    font-weight: 600;
-    padding: 0 2em;
-    i {
-      font-size: 20px;
-      margin-right: 0.5em;
-    }
-  }
-  .cancel {
-    margin-right: 1vw;
-  }
+	margin-top: 3vh;
+	width: 100%;
+	display: flex;
+	.submit,
+	.cancel {
+		font-weight: 600;
+		padding: 0 2em;
+		i {
+			font-size: 20px;
+			margin-right: 0.5em;
+		}
+	}
+	.cancel {
+		margin-right: 1vw;
+	}
 }

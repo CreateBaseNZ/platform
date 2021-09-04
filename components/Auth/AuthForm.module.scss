@@ -1,196 +1,269 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .form {
-  flex: 1 1 auto;
-  height: 100%;
-  padding-top: 3vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  h1 {
-    font-size: 20px;
-    font-weight: 500;
-    margin: 2vh 0;
-    line-height: 1.2em;
-  }
+	min-height: 0;
+	z-index: 2;
+	flex: 1 1 auto;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	h1 {
+		font-size: 20px;
+		font-weight: 500;
+		margin-bottom: 4vh;
+		line-height: 1.2em;
+	}
 }
 
 .instructions {
-  font-size: 14px;
-  color: $darker;
+	font-size: 14px;
+	color: $darker;
 }
 
 .input {
-  margin: 0.5vh 0 0 0;
+	margin: 0.5vh 0 0 0;
+}
+
+.inputCheckbox {
+	margin: 0.5vh 0;
+	width: 100%;
+	position: relative;
+	input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		z-index: 1;
+		cursor: pointer;
+	}
+	label {
+		font-weight: 600;
+		color: rgba(black, 0.4);
+		height: 3.5rem;
+		width: 100%;
+		border-radius: 16px;
+		padding-left: 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		border: medium solid rgba(black, 0.1);
+	}
+	input:hover ~ label {
+		border-color: $light;
+		color: $dark;
+		transition: background-color 0.1s ease-out, border-color 0.1s ease-out, color 0.1s ease-out;
+	}
+	input:checked ~ label {
+		background: rgba($green-dark, 0.05);
+		border-color: $green-dark;
+		color: $green-dark;
+	}
+	&.inputError label {
+		border-color: $red;
+	}
 }
 
 .submit {
-  margin-top: 2vh;
-  height: 3.5rem;
-  font-size: 16px;
-  i {
-    margin-right: 0.5em;
-  }
+	margin-top: 4vh;
+	height: 3.5rem;
+	font-size: 16px;
+	i {
+		margin-right: 0.5em;
+	}
 }
 
-.signupBtn {
-  font-size: 16px;
-  margin-top: 1vh;
-  height: calc(3.5rem - 4px);
+.secondaryBtn {
+	font-size: 16px;
+	margin-top: 1vh;
+	height: calc(3.5rem - 4px);
 }
 
 .options {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 2vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 2vh;
 }
 
 .forgot {
-  font-size: 13px;
-  font-weight: 500;
-  color: $blue-dark;
+	font-size: 13px;
+	font-weight: 500;
+	color: $blue-dark;
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .forgot,
 .remember {
-  margin-top: 2vh;
+	margin-top: 2vh;
+}
+
+.errorMessage {
+	height: 1em;
+	font-size: 12px;
+	margin-top: 0.5vh;
+	color: $red;
+	font-weight: 500;
 }
 
 .terms,
 .remember {
-  display: flex;
-  align-items: center;
-  position: relative;
-  input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 100%;
-    opacity: 0;
-    cursor: pointer;
-    &:hover ~ .checkbox {
-      background: rgba(black, 0.05);
-    }
-    &:checked ~ .checkbox {
-      background: $blue-dark;
-      i {
-        display: block;
-      }
-    }
-  }
-  .checkbox {
-    order: -1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20px;
-    width: 20px;
-    border: thin solid $blue-dark;
-    pointer-events: none;
-    border-radius: 4px;
-    i {
-      font-size: 16px;
-      color: $lightest;
-      display: none;
-    }
-  }
-  label {
-    color: $light;
-    font-size: 13px;
-    margin-left: 0.75rem;
-  }
-  a {
-    position: relative;
-    color: $light;
-    font-weight: 500;
-    font-size: 13px;
-    color: $blue-dark;
-    z-index: 1;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  &.termsError {
-    * {
-      color: $red !important;
-    }
-    .checkbox {
-      border-color: $red;
-    }
-  }
+	display: flex;
+	align-items: center;
+	position: relative;
+	input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 20px;
+		width: 100%;
+		opacity: 0;
+		cursor: pointer;
+		&:hover ~ .checkbox {
+			background: rgba(black, 0.05);
+		}
+		&:checked ~ .checkbox {
+			background: $blue-dark;
+			i {
+				display: block;
+			}
+		}
+	}
+	.checkbox {
+		order: -1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 20px;
+		width: 20px;
+		border: thin solid $blue-dark;
+		pointer-events: none;
+		border-radius: 4px;
+		i {
+			font-size: 16px;
+			color: $lightest;
+			display: none;
+		}
+	}
+	label {
+		color: $light;
+		font-size: 13px;
+		margin-left: 0.75rem;
+	}
+	a {
+		position: relative;
+		color: $light;
+		font-weight: 500;
+		font-size: 13px;
+		color: $blue-dark;
+		z-index: 1;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	&.termsError {
+		* {
+			color: $red !important;
+		}
+		.checkbox {
+			border-color: $red;
+		}
+	}
 }
 
 .switch {
-  margin-top: auto;
-  align-self: center;
-  font-size: 14px;
-  color: $light;
-  button {
-    font-size: 14px;
-    font-weight: 500;
-    color: $blue-dark;
-    margin-left: 0.5em;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.skipOrg {
-  font-size: 14px;
-  color: $light;
-  margin-top: 4vh;
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.learnerForm {
-  .input:focus {
-    border-color: $blue-mid;
-    background: rgba($blue-mid, 0.05);
-  }
-  .submit {
-    background: $blue-mid;
-    box-shadow: 0 4px 16px rgba($blue-mid, 0.25);
-    &:hover {
-      box-shadow: 0 8px 24px rgba($blue-mid, 0.25);
-    }
-  }
-  .signupBtn {
-    border-color: $blue-mid;
-    color: $blue-mid;
-    &:hover {
-      border-color: $blue-dark;
-      color: $blue-dark;
-    }
-  }
+	margin-top: auto;
+	align-self: center;
+	font-size: 14px;
+	color: $light;
+	button {
+		font-size: 14px;
+		font-weight: 500;
+		color: $blue-dark;
+		margin-left: 0.5em;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 .loginForm {
-  margin-bottom: 2vh;
+	.input:focus {
+		border-color: $blue-mid;
+		background: rgba($blue-mid, 0.05);
+	}
+	.submit {
+		background: $blue-mid;
+		box-shadow: 0 4px 16px rgba($blue-mid, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($blue-mid, 0.25);
+		}
+	}
+	.secondaryBtn {
+		border-color: $blue-mid;
+		color: $blue-mid;
+		&:hover {
+			border-color: $blue-dark;
+			color: $blue-dark;
+		}
+	}
 }
 
-.educatorForm {
-  .input:focus {
-    border-color: $green;
-    background: rgba($green, 0.05);
-  }
-  .submit {
-    background: $green;
-    box-shadow: 0 4px 16px rgba($green, 0.25);
-    &:hover {
-      box-shadow: 0 8px 24px rgba($green, 0.25);
-    }
-  }
-  .signupBtn {
-    border-color: $green;
-    color: $green;
-    &:hover {
-      border-color: $green-dark;
-      color: $green-dark;
-    }
-  }
+.signupContainer {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.signupForm {
+	.input:focus {
+		border-color: $green-dark;
+		background: rgba($green-dark, 0.05);
+	}
+	.submit {
+		background: $green-dark;
+		box-shadow: 0 4px 16px rgba($green-dark, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($green-dark, 0.25);
+		}
+	}
+	.secondaryBtn {
+		border-color: $green-dark;
+		color: $green-dark;
+		&:hover {
+			border-color: $green-dark;
+			color: $green-dark;
+		}
+	}
+}
+
+.backBtn {
+	z-index: 3;
+	font-size: 12px;
+	color: $light;
+	align-self: flex-start;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 2rem;
+	margin-left: -1rem;
+	margin-bottom: -2rem;
+	cursor: pointer;
+	border-radius: 8px;
+	padding: 0 0.75rem 0 0.5rem;
+	transition: background-color 0.1s ease-out, color 0.1s ease-out;
+	i {
+		margin-right: 0.25em;
+		font-size: 16px;
+		color: inherit;
+	}
+	&:hover {
+		background: $lighter;
+		color: $darker;
+	}
 }

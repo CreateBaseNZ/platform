@@ -11,10 +11,11 @@ import { SecondaryButton } from "../components/UI/Buttons";
 import WhiteLogo, { FBIcon, IGIcon, TwitterIcon, YTIcon } from "/components/UI/Icons";
 
 import classes from "/styles/Index.module.scss";
+import initSession from "../utils/initSession";
 
 const Index = ({ setLoaded }) => {
 	const [session, loading] = useSession();
-	// const [name, setName] = useState("");
+	const [user, setUser] = useState({});
 	const [showHelper, setShowHelper] = useState(false);
 
 	useEffect(async () => {
@@ -309,6 +310,10 @@ const Index = ({ setLoaded }) => {
 		return () => setLoaded(false);
 	}, []);
 
+	useEffect(async () => {
+		initSession(session, setUser);
+	}, [session]);
+
 	const helperClickHandler = () => {
 		setShowHelper((state) => !state);
 	};
@@ -344,8 +349,7 @@ const Index = ({ setLoaded }) => {
 					<div className={classes.btnContainer}>
 						<SecondaryButton className={classes.signOut} mainLabel="Sign out" onClick={() => signOut({ callbackUrl: `${window.location.origin}` })} />
 						<Link href="/browse">
-							{/* //TODO <button className={classes.loggedIn}>Continue as {name}</button> */}
-							<button className={classes.loggedIn}>Continue</button>
+							<button className={classes.loggedIn}>Continue as {user.displayName}</button>
 						</Link>
 					</div>
 				) : (

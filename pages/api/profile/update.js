@@ -16,6 +16,7 @@ export default async function (req, res) {
 	let input = { profile: session.user.profile, date: req.body.input.date };
 	if (req.body.input.displayName) input.displayName = req.body.input.displayName;
 	if (req.body.input.saves) input.saves = req.body.input.saves;
+	console.log(input);
 	// Send the data to the main backend
 	let data;
 	try {

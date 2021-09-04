@@ -5,15 +5,13 @@ import sendItData from "../data/send-it-data";
 import magnebotData from "../data/magnebot-data";
 import lineFollowingData from "../data/line-following-data";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-
 import { useSession } from "next-auth/client";
-import axios from "axios";
-
-import classes from "/styles/Browse.module.scss";
+import "overlayscrollbars/css/OverlayScrollbars.css";
+import initSession from "../utils/initSession";
 import Frame from "../components/Frame";
 import BrowsePreview from "../components/Browse/BrowsePreview";
 
-import "overlayscrollbars/css/OverlayScrollbars.css";
+import classes from "/styles/Browse.module.scss";
 
 const allData = [sendItData, magnebotData];
 
@@ -29,27 +27,7 @@ const Browse = ({ setLoaded }) => {
 	}, []);
 
 	useEffect(async () => {
-		if (session) {
-			const input = { properties: ["displayName"] };
-			let data;
-			try {
-				data = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
-			} catch (error) {
-				// TODO handle errors
-				if (error.response) {
-					data = error.response.data;
-				} else if (error.request) {
-					data = { status: "error", content: error.request };
-				} else {
-					data = { status: "error", content: error.message };
-				}
-			}
-			setUser({
-				type: session.user.access,
-				org: session.user.organisation,
-				name: data.content.displayName,
-			});
-		}
+		initSession(session, setUser);
 	}, [session]);
 
 	if (loading) {
@@ -62,7 +40,7 @@ const Browse = ({ setLoaded }) => {
 	};
 
 	return (
-		<Frame tabIndex={1} session={session} type={user.type} org={user.org} name={user.name}>
+		<Frame tabIndex={1} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName}>
 			<OverlayScrollbarsComponent className={classes.browse}>
 				<div className={classes.inner}>
 					<Head>
