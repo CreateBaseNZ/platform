@@ -47,7 +47,7 @@ const Index = ({ setLoaded }) => {
 		// EXAMPLE: Read organisation data for the admin console page
 		// let data;
 		// try {
-		// 	data = (await axios.post("/api/organisation/read-admin", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// 	data = (await axios.post("/api/organisation/admin/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
 		// } catch (error) {
 		// 	if (error.response) {
 		// 		data = error.response.data;
@@ -149,7 +149,7 @@ const Index = ({ setLoaded }) => {
 		// const input = { username: "student1", password: "Student1!", status: "free", date: new Date().toString(), displayName: "Student One" };
 		// let data;
 		// try {
-		// 	data = (await axios.post("/api/organisation/license/create-learner", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// 	data = (await axios.post("/api/organisation/admin/create-learner", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
 		// } catch (error) {
 		// 	if (error.response) {
 		// 		data = error.response.data;
