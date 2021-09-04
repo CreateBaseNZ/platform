@@ -31,7 +31,7 @@
 		"use-sound": "^4.0.1"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.15.4",
+		"@babel/core": "^7.15.5",
 		"@monaco-editor/react": "^4.2.2",
 		"sharp": "^0.29.0"
 	}

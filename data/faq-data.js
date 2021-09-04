@@ -5,8 +5,10 @@ export default [
     items: [
       {
         q: "How do I access lesson plans?",
-        a: ["Each Project has its own set of 5-10 lesson plans to guide you through the whole Project. To find lesson plans, click on the Project image at the bottom of the screen that you are interested in and the ‘Lesson Plan’ button will appear. Clicking it will open all the lesson plans for that Project.", 
-          "/faq-1.jpg"],
+        a: ["Each Project has its own set of 5-10 lesson plans. To access a Project’s lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are interested in. The ‘Lesson Plan’ button will then appear. Clicking that button will open all the lesson plans for that Project in a new tab.", 
+          "/faq-1.jpg",
+          "The lesson plan button will only appear if you are signed in with an educator account. If you cannot see the button and are not signed in, you can sign in with an educator account in the top right of the screen.",
+          "/faq-4.jpg"],
       },
       {
         q: "How do I use lesson plans in my classroom?",
@@ -22,8 +24,32 @@ export default [
           "If your school is not running regular lessons or has poor turnout, then you can instead skip over the class discussion parts of the lesson plans and assign students individual tasks (e.g. complete the Research step by DD/MM/YYYY). We recommend you use the learning journal to set completion targets for your class and have them share with you their progress by making their learning journals available to you through email or google classroom."],
       },
       {
+        q: "Where can I learn about the concepts I’m teaching?",
+        a: ["Each lesson plan includes a glossary at the start of each section. This contains explanations for all of the terminology that you need to know in order to be able to effectively deliver the Project and have class discussions.",
+          "/faq-7.jpg",
+          "Each Project will include links to additional resources. Reading and understanding this content is optional; however, they are an excellent place to start if you want to learn more about any of the content covered in the Project.",
+          "If you would like to have extended discussions on any of the topics covered in the Project, you can supplement the Project content with your own research."],
+      },
+      {
+        q: "What can I do to be comfortable teaching this content?",
+        a: ["Lesson plans contain everything required to teach a Project.",
+          "We recommend going through the Project lesson plan and content on the platform yourself before you start teaching the lesson to familiarise yourself with its content and structure.",
+          "If you want to feel more confident with a Project’s content and topics, then try reading through some of the additional resources supplied throughout each Project’s lesson plan."],
+      },
+    ],
+  },
+  {
+    header: "Projects",
+    icon: "foundation",
+    items: [
+      {
+        q: "What is a Project?",
+        a: ["business"],
+      },
+      {
         q: "What is Flow coding?",
         a: ["All of our Projects use the Flow programming language purposefully built by CreateBase to enable students and teachers to learn about coding concepts and code solutions to our Projects.",
+          "/faq-6.jpg",
           "Flow coding is designed to be easy to learn for teachers and students, being analogous to creating a logic-based flowchart. This is because we want the coding section of each Project to be based around learning logical thinking, information flow, computational skills, and problem-solving, without the need for memorising lots of arbitrary syntaxes.",
           "If you want to gain some hands-on experience with Flow coding, visit the Create or Improve steps of any Project. Additionally, check out any of the following links (a full introductory tutorial is coming soon):",
           "https://app.createbase.co.nz/intro-to-flow.pdf",
@@ -34,6 +60,7 @@ export default [
         q: "What are learning journals?",
         a: ["Learning journals are where students document what they’ve done throughout their Project journey.",
           "Learning journals are found under the Imagine step in each Project and are available as either a Google Doc or Microsoft Word file.",
+          "/faq-8.jpg",
           "Like with most content in a Project, learning journals are optional for teachers. If you do not want your students to complete a learning journal or you want to replace them with your own, then you are free to do so. If you are going to do either of these, then make sure that you communicate it clearly to your class. We would also appreciate you sending us a message explaining why you are skipping them so that we can improve our product."],
       },
       {
@@ -42,22 +69,11 @@ export default [
           "If your students don’t have CreateBase accounts, tell them to click sign up and fill out each field. If your students already have CreateBase accounts, they can click log in and enter their account details.",
           "/faq-2.jpg",
           "Once they are logged in, they will need to navigate to the Browse page and select the Project you’re teaching. In the example below, the Send It Project has been selected. They can then click continue to start the Project.",
-          "/faq-3.jpg"],
+          "/faq-5.jpg"],
       },
       {
         q: "How much time should my students spend on the platform compared to group/class discussions?",
         a: ["The easy answer is as much as you’re comfortable with. If you prefer class discussions, you may decide you want your students to do all the class discussion activities and even add some of your own. Instead, you may want to be hands-off and skip over class discussions and get your students to complete tasks on the platform as much as possible. There is no correct approach; teach as you please. The platform and lesson plans are here to help as much as required."],
-      },
-      {
-        q: "Where can I learn about the concepts I’m teaching?",
-        a: ["Each lesson plan includes the minimum amount of content you need as a teacher to deliver that Project. If you would like to have extended discussions on any of the topics covered in the Project, you can supplement the Project content with your own research.",
-          "Each Project will include links to additional resources. Reading and understanding this content is optional; however, they are an excellent place to start if you want to learn more about any of the content covered in the Project."],
-      },
-      {
-        q: "What can I do to be comfortable teaching this content?",
-        a: ["Lesson plans contain everything required to teach a Project.",
-          "We recommend going through the Project lesson plan and content on the platform yourself before you start teaching the lesson to familiarise yourself with its content and structure.",
-          "If you want to feel more confident with a Project’s content and topics, then try reading through some of the additional resources supplied throughout each Project’s lesson plan."],
       },
     ],
   },
@@ -88,18 +104,19 @@ export default [
       },
       {
         q: "How do I join an existing organisation?",
-        a: ["To join an organisation, go to My Account > Join an Organisation and enter your code. If you don’t know your code, talk to one of your organisation's admin users. They can generate a code for you from their admin console.",
-          "/landing.png",
-          "/landing.png"],
+        a: ["To join an organisation, go to the My Account page (http://app.createbase.co.nz/user) and click Join an Org. You will then be prompted to enter your organisation’s code, your school’s ID and your school’s name.  If you don’t know your organisation’s code, talk to one of your organisation's admin users. They can generate a code for you from their admin console.",
+          "/faq-9.jpg"],
       },
       {
         q: "How do I register a new organisation?",
         a: ["At the end of your platform tutorial, there will be a prompt to create or join an organisation. You will need your school email address, school name, and school ID number to register a new organisation.", 
-          "********Check here if you need to delete or change your organisation.*******"],
+          "To join an organisation with an existing account, you can also go to the My Account page (http://app.createbase.co.nz/user) and click Create an Org. You will then be prompted to enter your school’s ID and name.",
+          "/faq-10.jpg",
+          "If an organisation has already been created for your school and you think that this was a mistake, then contact CreateBase via our email for support."],
       },
       {
         q: "What do I do if myself or one of my students has forgotten their account details?",
-        a: ["There is currently no way to reset an account's password (feature coming soon). If you or one of your students has forgotten either your username or password, you will need to create a new CreateBase account."],
+        a: ["If you know the email of the account, you can reset your password by clicking the “Forgot your password?” button at the bottom right log-in screen."],
       },
       {
         q: "How do I invite other teachers to my organisation?",
