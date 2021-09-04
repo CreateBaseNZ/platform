@@ -268,15 +268,15 @@ const Index = ({ setLoaded }) => {
 		// try {
 		// 	data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
 		// } catch (error) {
-		// 	if (error.response) {
-		// 		data = error.response.data;
-		// 	} else if (error.request) {
-		// 		data = { status: "error", content: error.request };
-		// 	} else {
-		// 		data = { status: "error", content: error.message };
-		// 	}
+		// 	data = { status: "error", content: error };
 		// }
-		// console.log(data);
+		// if (data.status === "critical error") {
+		// 	// Critical Error Handling
+		// } else if (data.status === "error") {
+		// 	// Error Handling
+		// } else if (data.status === "failed") {
+		// 	// Failed Handling
+		// }
 
 		// EXAMPLE: Reset the password
 		// const input = { email: "carlvelasco96@gmail.com", password: "Newpassword1!", code: "d78Vvy" };
@@ -284,15 +284,15 @@ const Index = ({ setLoaded }) => {
 		// try {
 		// 	data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
 		// } catch (error) {
-		// 	if (error.response) {
-		// 		data = error.response.data;
-		// 	} else if (error.request) {
-		// 		data = { status: "error", content: error.request };
-		// 	} else {
-		// 		data = { status: "error", content: error.message };
-		// 	}
+		// 	data = { status: "error", content: error };
 		// }
-		// console.log(data);
+		// if (data.status === "critical error") {
+		// 	// Critical Error Handling
+		// } else if (data.status === "error") {
+		// 	// Error Handling
+		// } else if (data.status === "failed") {
+		// 	// Failed Handling
+		// }
 
 		// let data;
 		// try {
