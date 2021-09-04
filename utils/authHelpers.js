@@ -24,7 +24,7 @@ export const getOrgData = async () => {
 	};
 };
 
-const initSession = async (session, callback) => {
+export const initSession = async (session, callback) => {
 	if (session) {
 		const input = { properties: ["displayName"] };
 		let userData;
@@ -53,4 +53,24 @@ const initSession = async (session, callback) => {
 	}
 };
 
-export default initSession;
+export const logIn = async (username, password, catastropheHandler, failHandler, successHandler) => {
+	const result = await signIn("credentials", {
+		redirect: false,
+		username: username,
+		password: password,
+		type: "username",
+		PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+	});
+
+	if (result.error) {
+		const error = result.error;
+		if (error === "failed") {
+			return failHandler();
+		} else {
+			return catastropheHandler();
+		}
+	}
+
+	router.replace("/browse");
+	successHandler();
+};

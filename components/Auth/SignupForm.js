@@ -5,10 +5,11 @@ import Input, { PasswordInput } from "../UI/Input";
 import { isBlacklisted } from "../../utils/formValidation";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate, usernameMinLength, usernamePattern } from "../../utils/formValidation";
 import VisualBellContext from "../../store/visual-bell-context";
-import classes from "./AuthForm.module.scss";
 import router from "next/router";
 import axios from "axios";
 import { signIn } from "next-auth/client";
+import classes from "./AuthForms.module.scss";
+import { logIn } from "../../utils/authHelpers";
 
 const SignupStepOne = ({ setStep, access, setAccess }) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -49,19 +50,27 @@ const SignupStepOne = ({ setStep, access, setAccess }) => {
 	);
 };
 
-const SignupStepTwo = ({ access, setStep }) => {
+const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 	const ctx = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
 		handleSubmit,
 		setError,
+		getValues,
 		formState: { errors },
 	} = useForm({
 		mode: "onTouched",
+		defaultValues: { username: learner.username, password: learner.password, terms: learner.terms },
 	});
 
+	useEffect(() => {
+		return () => access === "learner" && setLearner((state) => ({ ...state, username: getValues("username"), password: getValues("password"), terms: getValues("terms") }));
+	}, []);
+
 	const onSubmit = async (input) => {
+		console.log(input);
+
 		setIsLoading(true);
 		let frontEndError = false;
 		if (isBlacklisted(input.username)) {
@@ -80,7 +89,7 @@ const SignupStepTwo = ({ access, setStep }) => {
 				frontEndError = true;
 			}
 		} else {
-			input.displayName = "//TODO set a pseudonym";
+			input.displayName = "TODO set a pseudonym";
 		}
 		if (frontEndError) {
 			return setIsLoading(false);
@@ -90,7 +99,7 @@ const SignupStepTwo = ({ access, setStep }) => {
 		console.log(newUser);
 		let data;
 		try {
-			data = (await axios.post(`/api/signup/${access === "educator" ? "educator" : "learner-organisation"}`, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: newUser }))["data"];
+			data = (await axios.post(`/api/signup/${access === "educator" ? "educator" : "validate-username"}`, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: newUser }))["data"];
 		} catch (error) {
 			if (error.response) {
 				data = error.response.data;
@@ -103,46 +112,55 @@ const SignupStepTwo = ({ access, setStep }) => {
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			});
-			return setIsLoading(false);
 		}
-		if (data.status === "failed") {
-			if (data.content.email) {
-				setError("email", {
-					type: "manual",
-					message: "This email is already taken",
-				});
+
+		if (access === "educator") {
+			if (data.status === "failed") {
+				if (data.content.email) {
+					setError("email", {
+						type: "manual",
+						message: "This email is already taken",
+					});
+				}
+				if (data.content.username) {
+					setError("username", {
+						type: "manual",
+						message: "This username is already taken",
+					});
+				}
+				return setIsLoading(false);
 			}
-			if (data.content.username) {
+			await logIn(
+				input.username,
+				input.password,
+				() => {
+					ctx.setBell({
+						type: "catastrophe",
+						message: "Something unexpected happened, please reload the page",
+					});
+				},
+				() => {
+					router.replace("/auth/login");
+					ctx.setBell({
+						type: "success",
+						message: "Success! Your account has been created, log in to continue",
+					});
+				},
+				() =>
+					ctx.setBell({
+						type: "success",
+						message: "Success! Your account has been created",
+					})
+			);
+		} else {
+			if (data.status === "failed") {
 				setError("username", {
 					type: "manual",
 					message: "This username is already taken",
 				});
-			}
-			return setIsLoading(false);
-		}
-
-		if (access === "educator") {
-			const result = await signIn("credentials", {
-				redirect: false,
-				username: input.username,
-				password: input.password,
-				type: "username",
-				PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-			});
-			if (result.error) {
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				});
 				return setIsLoading(false);
 			}
-			router.replace("/browse");
-			ctx.setBell({
-				type: "success",
-				message: "Success! You account has been created",
-			});
-		} else {
-			// TODO validate username and password for learner
+			setLearner((state) => ({ ...state, username: input.username, displayName: input.displayName, password: input.password, terms: input.terms }));
 			setStep(2);
 			setIsLoading(false);
 		}
@@ -226,28 +244,82 @@ const SignupStepTwo = ({ access, setStep }) => {
 	);
 };
 
-const SignupStepThree = () => {
+const SignupStepThree = ({ learner, setLearner }) => {
+	const ctx = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const {
 		register,
 		handleSubmit,
+		getValues,
 		formState: { errors },
 	} = useForm({
 		mode: "onTouched",
+		defaultValues: { orgCode: learner.orgCode, orgId: learner.orgId, orgName: learner.orgName },
 	});
+
+	useEffect(() => {
+		return () => setLearner((state) => ({ ...state, orgCode: getValues("orgCode"), orgId: getValues("orgId"), orgName: getValues("orgName") }));
+	}, []);
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		console.log(input);
 
-		const anError = true;
-		if (anError) {
-			setError("Incorrect details, please try again");
+		const newLearner = {
+			username: learner.username,
+			displayName: learner.displayName,
+			password: learner.password,
+			name: input.orgName,
+			code: input.orgCode,
+			type: "school",
+			country: "New Zealand",
+			metadata: { id: input.orgId },
+			date: new Date().toString(),
+		};
+		let data;
+		try {
+			data = (await axios.post("/api/signup/learner-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: newLearner }))["data"];
+		} catch (error) {
+			if (error.response) {
+				data = error.response.data;
+			} else if (error.request) {
+				data = { status: "error", content: error.request };
+			} else {
+				data = { status: "error", content: error.message };
+			}
+			ctx.setBell({
+				type: "catastrophe",
+				message: "Oops! Something went wrong, please refresh the page and try again",
+			});
+		}
+
+		if (data.status === "failed") {
+			setError("No organisations were found with these details");
 			return setIsLoading(false);
 		}
 
-		// TODO: Success handler
+		await logIn(
+			input.username,
+			input.password,
+			() => {
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				});
+			},
+			() => {
+				router.replace("/auth/login");
+				ctx.setBell({
+					type: "success",
+					message: "Success! Your account has been created, log in to continue",
+				});
+			},
+			() =>
+				ctx.setBell({
+					type: "success",
+					message: "Success! Your account has been created",
+				})
+		);
 	};
 
 	return (
@@ -260,19 +332,19 @@ const SignupStepThree = () => {
 					placeholder: "Organisation code",
 					type: "text",
 					onFocus: () => setError(""),
-					...register("orgCode", { required: true }),
+					...register("orgCode", { required: "Please enter an organisation code" }),
 				}}
-				error={errors.orgCode}
+				error={errors.orgCode || error}
 			/>
 			<Input
 				inputProps={{
 					className: classes.input,
-					type: "text",
+					type: "number",
 					placeholder: "Organisation ID",
 					onFocus: () => setError(""),
-					...register("orgId", { required: true }),
+					...register("orgId", { required: "Please enter the organisation ID" }),
 				}}
-				error={errors.orgId}
+				error={errors.orgId || error}
 			/>
 			<Input
 				inputProps={{
@@ -280,9 +352,9 @@ const SignupStepThree = () => {
 					type: "text",
 					placeholder: "Organisation name",
 					onFocus: () => setError(""),
-					...register("orgName", { required: true }),
+					...register("orgName", { required: "Please enter the organisation name" }),
 				}}
-				error={errors.orgName}
+				error={errors.orgName || error}
 			/>
 			<div className={classes.errorMessage} style={{ opacity: !error && 0 }}>
 				{error}
@@ -292,9 +364,10 @@ const SignupStepThree = () => {
 	);
 };
 
-const SignupForm = ({ setIsSignup }) => {
+const SignupForm = () => {
 	const [step, setStep] = useState(0);
 	const [access, setAccess] = useState();
+	const [learner, setLearner] = useState({});
 
 	return (
 		<div className={classes.signupContainer}>
@@ -304,11 +377,11 @@ const SignupForm = ({ setIsSignup }) => {
 				</button>
 			)}
 			{step === 0 && <SignupStepOne access={access} setAccess={setAccess} setStep={setStep} />}
-			{step === 1 && <SignupStepTwo access={access} setStep={setStep} />}
-			{step === 2 && <SignupStepThree />}
+			{step === 1 && <SignupStepTwo access={access} setStep={setStep} learner={learner} setLearner={setLearner} />}
+			{step === 2 && <SignupStepThree learner={learner} setLearner={setLearner} />}
 			<div className={classes.switch}>
 				Have an account?
-				<button type="button" onClick={() => setIsSignup(false)}>
+				<button type="button" onClick={() => router.replace("/auth/login")}>
 					Log in
 				</button>
 			</div>

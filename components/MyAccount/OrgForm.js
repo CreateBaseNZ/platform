@@ -9,8 +9,7 @@ import { querySchoolAPI } from "../../utils/formValidation";
 import axios from "axios";
 
 import classes from "./OrgForm.module.scss";
-import { getSession } from "next-auth/client";
-import { getOrgData } from "../../utils/initSession";
+import { getOrgData } from "../../utils/authHelpers";
 
 const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 	const [showConfirm, setShowConfirm] = useState(false);
@@ -153,7 +152,7 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 						onFocus={() => setShowInvalidCode(false)}
 						inputProps={{
 							className: classes.joinInput,
-							type: "text",
+							type: "number",
 							placeholder: "School ID*",
 							...register("orgId", {
 								required: "Please enter the organisation ID",
