@@ -18,6 +18,7 @@ export const LoginForm = () => {
 	} = useForm({
 		defaultValues: {
 			username: window.localStorage.getItem("createbase__remember-me"),
+			remember: window.localStorage.getItem("createbase__remember-me") && true,
 		},
 		mode: "onTouched",
 	});
@@ -37,11 +38,11 @@ export const LoginForm = () => {
 			() => {
 				setError("username", {
 					type: "manual",
-					message: result.error,
+					message: "The details you entered are incorrect",
 				});
 				setError("password", {
 					type: "manual",
-					message: result.error,
+					message: "The details you entered are incorrect",
 				});
 				setIsLoading(false);
 			},
@@ -83,14 +84,14 @@ export const LoginForm = () => {
 			<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Logging you in ..." mainLabel="Log In" />
 			<SecondaryButton className={classes.secondaryBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => router.push("/auth/signup")} />
 			<div className={classes.options}>
-				<div className={classes.remember}>
+				<div className={classes.smallCheckbox}>
 					<input type="checkbox" {...register("remember")} />
 					<div className={classes.checkbox}>
 						<i className="material-icons-outlined">check</i>
 					</div>
-					<label>Remember me</label>
+					<label className={classes.smallFont}>Remember me</label>
 				</div>
-				<button type="button" className={classes.forgot} onClick={() => router.push("/auth/forgot-password")}>
+				<button type="button" className={`${classes.smallFont} ${classes.linkBtn}`} onClick={() => router.push("/auth/forgot-password")}>
 					Forgot your password?
 				</button>
 			</div>

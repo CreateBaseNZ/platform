@@ -226,14 +226,14 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 			/>
 			<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Signing you up ..." mainLabel="Sign Up" />
 			<div className={classes.options}>
-				<div className={`${classes.terms} ${errors.terms ? classes.termsError : ""}`}>
+				<div className={`${classes.smallFont} ${classes.smallCheckbox} ${errors.terms ? classes.termsError : ""}`}>
 					<input type="checkbox" {...register("terms", { required: true })} />
 					<div className={classes.checkbox}>
 						<i className="material-icons-outlined">check</i>
 					</div>
 					<label>
 						Agree to{" "}
-						<a href="https://createbase.co.nz/terms" target="_blank">
+						<a className={classes.linkBtn} href="https://createbase.co.nz/terms" target="_blank">
 							Terms &amp; Conditions
 						</a>
 					</label>
@@ -378,9 +378,9 @@ const SignupForm = () => {
 			{step === 0 && <SignupStepOne access={access} setAccess={setAccess} setStep={setStep} />}
 			{step === 1 && <SignupStepTwo access={access} setStep={setStep} learner={learner} setLearner={setLearner} />}
 			{step === 2 && <SignupStepThree learner={learner} setLearner={setLearner} />}
-			<div className={classes.switch}>
+			<div className={`${classes.smallFont} ${classes.switch}`}>
 				Have an account?
-				<button type="button" onClick={() => router.push("/auth/login")}>
+				<button type="button" className={classes.linkBtn} onClick={() => router.push("/auth/login")}>
 					Log in
 				</button>
 			</div>

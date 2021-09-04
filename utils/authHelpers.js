@@ -29,18 +29,30 @@ export const getOrgData = async () => {
 
 export const initSession = async (session, callback) => {
 	if (session) {
-		const input = { properties: ["displayName"] };
-		let userData;
+		let profileData;
 		try {
-			userData = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"];
+			profileData = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { properties: ["displayName"] } }))["data"];
 		} catch (error) {
 			// TODO handle errors
 			if (error.response) {
-				userData = error.response.data;
+				profileData = error.response.data;
 			} else if (error.request) {
-				userData = { status: "error", content: error.request };
+				profileData = { status: "error", content: error.request };
 			} else {
-				userData = { status: "error", content: error.message };
+				profileData = { status: "error", content: error.message };
+			}
+		}
+		let licenseData;
+		try {
+			licenseData = (await axios.post("/api/license/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { properties: ["username"] } }))["data"];
+		} catch (error) {
+			// TODO handle errors
+			if (error.response) {
+				licenseData = error.response.data;
+			} else if (error.request) {
+				licenseData = { status: "error", content: error.request };
+			} else {
+				licenseData = { status: "error", content: error.message };
 			}
 		}
 		let org = null;
@@ -50,8 +62,9 @@ export const initSession = async (session, callback) => {
 
 		return callback({
 			type: session.user.access,
+			username: licenseData.content.username,
+			displayName: profileData.content.displayName,
 			org: org,
-			displayName: userData.content.displayName,
 		});
 	}
 };

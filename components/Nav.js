@@ -17,8 +17,6 @@ const labels = [
 ];
 
 const Nav = ({ tabIndex, collapseNav, type }) => {
-	console.log(type);
-	console.log(type);
 	return (
 		<nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>
 			<ColourLogo width="131.25" height="24" />

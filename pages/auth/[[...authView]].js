@@ -74,8 +74,8 @@ const Auth = ({ setLoaded }) => {
 			<div className={classes.authMain}>
 				{view === "signup" && <AuthForm isSignup={true} />}
 				{view === "login" && <AuthForm isSignup={false} />}
-				{view === "recover" && <ResetPassword />}
 				{view === "forgot-password" && <ForgotPassword />}
+				{view === "reset-password" && <ResetPassword />}
 			</div>
 		</div>
 	);

@@ -13,6 +13,8 @@ const UserAvatar = ({ type, name, size, className, ...rest }) => {
 		}
 	};
 
+	console.log("my username is " + name);
+
 	return (
 		<div {...rest} className={`${classes.avatar} ${className}`} style={{ height: size, width: size }}>
 			<Avatar variant="beam" name={name} size={size} square={true} colors={getColors()} />
