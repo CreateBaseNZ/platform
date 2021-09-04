@@ -380,7 +380,7 @@ export class CodeGenerator {
       const target = blockDetail.name;
       const sensorMethod = correctSystem.sensors[target];
       if (sensorMethod) {
-        let str = `${output}JSON.parse(sensorData).${sensorMethod.name};`;
+        let str = `${output}JSON.parse(sensorDataRef.current).${sensorMethod.name};`;
         const simpleStr = `${output} ${sensorMethod.simpleName};`;
         this.simpleExecutes.push(simpleStr);
         this.executes.push(str);

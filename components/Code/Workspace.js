@@ -172,19 +172,6 @@ const Workspace = (props) => {
     let printing = 10;
     functionExecute();
     codesDone++;
-    // }else {
-    //   com = 0;
-    //   codesDone++;
-    //   codeChanged = false;
-
-    //   const sensorData = sensorDataRef.current;
-    //   const unityContext = props.unityContext;
-    //   eval(
-    //     "(async () => {\nconst printing=100;\nlet done=false;" +
-    //       code +
-    //       "done=true;})()"
-    //   ).catch((e) => {console.log(e)});
-    // }
   }
 
 
