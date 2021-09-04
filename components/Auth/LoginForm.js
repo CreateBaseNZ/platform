@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import router from "next/router";
 import { signIn } from "next-auth/client";
+import { logIn } from "../../utils/authHelpers";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
-import classes from "./AuthForm.module.scss";
+import classes from "./AuthForms.module.scss";
 
-export const LoginForm = ({ setIsSignup }) => {
+export const LoginForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -22,34 +23,39 @@ export const LoginForm = ({ setIsSignup }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		const result = await signIn("credentials", {
-			redirect: false,
-			username: input.username,
-			password: input.password,
-			type: "username",
-			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-		});
 
-		if (result.error) {
-			// incorrect login
-			setError("username", {
-				type: "manual",
-				message: result.error,
-			});
-			setError("password", {
-				type: "manual",
-				message: result.error,
-			});
-			return setIsLoading(false);
-		}
-
-		if (input.remember) {
-			window.localStorage.setItem("createbase__remember-me", input.username);
-		} else {
-			window.localStorage.removeItem("createbase__remember-me");
-		}
-		// setIsLoading(false);
-		router.replace("/browse");
+		await logIn(
+			input.username,
+			input.password,
+			() => {
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				});
+			},
+			() => {
+				setError("username", {
+					type: "manual",
+					message: result.error,
+				});
+				setError("password", {
+					type: "manual",
+					message: result.error,
+				});
+				setIsLoading(false);
+			},
+			() => {
+				if (input.remember) {
+					window.localStorage.setItem("createbase__remember-me", input.username);
+				} else {
+					window.localStorage.removeItem("createbase__remember-me");
+				}
+				ctx.setBell({
+					type: "success",
+					message: "Success! Your account has been created",
+				});
+			}
+		);
 	};
 
 	return (
@@ -78,7 +84,7 @@ export const LoginForm = ({ setIsSignup }) => {
 				error={errors.password}
 			/>
 			<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Logging you in ..." mainLabel="Log In" />
-			<SecondaryButton className={classes.secondaryBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => setIsSignup(true)} />
+			<SecondaryButton className={classes.secondaryBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => router.replace("/auth/signup")} />
 			<div className={classes.options}>
 				<div className={classes.remember}>
 					<input type="checkbox" {...register("remember")} />
