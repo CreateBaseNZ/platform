@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import router from "next/router";
-import { signIn } from "next-auth/client";
 import { logIn } from "../../utils/authHelpers";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import classes from "./AuthForms.module.scss";
+import VisualBellContext from "../../store/visual-bell-context";
 
 export const LoginForm = () => {
+	const ctx = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -50,10 +51,6 @@ export const LoginForm = () => {
 				} else {
 					window.localStorage.removeItem("createbase__remember-me");
 				}
-				ctx.setBell({
-					type: "success",
-					message: "Success! Your account has been created",
-				});
 			}
 		);
 	};
@@ -93,7 +90,7 @@ export const LoginForm = () => {
 					</div>
 					<label>Remember me</label>
 				</div>
-				<button type="button" className={classes.forgot} onClick={() => console.log("//TODO")}>
+				<button type="button" className={classes.forgot} onClick={() => router.replace("/auth/reset-password")}>
 					Forgot your password?
 				</button>
 			</div>

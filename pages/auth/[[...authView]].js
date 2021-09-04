@@ -14,19 +14,19 @@ const Auth = ({ setLoaded }) => {
 	const [session, loading] = useSession();
 	const [view, setView] = useState("");
 
-	console.log(view);
-
 	useEffect(() => {
 		return () => setLoaded(false);
 	}, []);
 
 	useEffect(() => {
-		if (!loading && session) {
-			router.replace("/browse");
-		} else {
-			setLoaded(true);
+		if (!loading) {
+			if (session) {
+				router.replace("/browse");
+			} else {
+				setLoaded(true);
+			}
 		}
-	}, [loading]);
+	}, [loading, session]);
 
 	useEffect(() => {
 		if (Object.keys(router.query).length) {

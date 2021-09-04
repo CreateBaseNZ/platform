@@ -299,8 +299,8 @@ const SignupStepThree = ({ learner, setLearner }) => {
 		}
 
 		await logIn(
-			input.username,
-			input.password,
+			learner.username,
+			learner.password,
 			() => {
 				ctx.setBell({
 					type: "catastrophe",

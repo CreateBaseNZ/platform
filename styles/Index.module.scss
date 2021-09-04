@@ -33,8 +33,8 @@
 	.logo {
 		width: 180px;
 		height: 32px;
-		position: relative;
 		opacity: 0.75;
+		display: flex;
 		transition: opacity 0.1s ease-out;
 		&:hover {
 			opacity: 1;
