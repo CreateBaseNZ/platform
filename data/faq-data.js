@@ -208,14 +208,17 @@ export default [
 				a: (
 					<>
 						<p>
-							Every student needs their own CreateBase account. In a future update, they will gain the ability to sign in using their Google account. To get your students on the platform, get them to visit <Link href="/">https://app.createbase.co.nz/</Link>
+							Every student needs their own CreateBase account. In a future update, they will gain the ability to sign in using their Google account. To get your students on the platform, get them to
+							visit{" "}
+							<a href="/" target="_blank">
+								https://app.createbase.co.nz/
+							</a>
 						</p>
 						<p>
-							If your students don’t have CreateBase accounts, tell them to click sign up and fill out each field. They will need to fill enter your organisation's student code when they create their account. If you do not know what this is, ask your organisation's admin.
+							If your students don’t have CreateBase accounts, tell them to click sign up and fill out each field. They will need to fill enter your organisation's student code when they create their
+							account. If you do not know what this is, ask your organisation's admin.
 						</p>
-						<p>
-							If your students already have CreateBase accounts, they can click log in and enter their account details.
-						</p>
+						<p>If your students already have CreateBase accounts, they can click log in and enter their account details.</p>
 						<img src="/faq/faq-2.jpg" />
 						<p>
 							Once they are logged in, they will need to navigate to the Browse page and select the Project you’re teaching. In the example below, the Send It Project has been selected. They can then
@@ -340,15 +343,12 @@ export default [
 				q: "How do I invite other teachers to my organisation?",
 				a: (
 					<>
+						<p>When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.</p>
 						<p>
-							When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.
+							To invite other teachers to your organisation, you must share your organsiation’s educator code with them. If you are the organisation’s admin, it will be in your email inbox. If you are
+							not, then contact your admin and ask for the code.
 						</p>
-						<p>
-							To invite other teachers to your organisation, you must share your organsiation’s educator code with them. If you are the organisation’s admin, it will be in your email inbox. If you are not, then contact your admin and ask for the code.
-						</p>
-						<p>
-							The ability to view and generate educator codes is coming soon to the admin dashboard.
-						</p>
+						<p>The ability to view and generate educator codes is coming soon to the admin dashboard.</p>
 					</>
 				),
 			},
@@ -356,15 +356,12 @@ export default [
 				q: "How do I invite students to my organisation?",
 				a: (
 					<>
+						<p>When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.</p>
 						<p>
-							When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.
+							To invite students to your organisation, you must share your organsiation’s student code with them. If you are the organisation’s admin, it will be in your email inbox. If you are not,
+							then contact your admin and ask for the code.
 						</p>
-						<p>
-							To invite students to your organisation, you must share your organsiation’s student code with them. If you are the organisation’s admin, it will be in your email inbox. If you are not, then contact your admin and ask for the code.
-						</p>
-						<p>
-							The ability to view and generate student codes will be made available soon to all educator accounts in the organisation.
-						</p>
+						<p>The ability to view and generate student codes will be made available soon to all educator accounts in the organisation.</p>
 					</>
 				),
 			},
