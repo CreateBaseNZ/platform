@@ -222,19 +222,12 @@
 	a {
 		color: $blue-dark;
 		text-decoration: underline;
+		margin-left: 0.25em;
 	}
-	// ol,
-	// ul {
-	// 	display: flex;
-	// 	flex-direction: column;
-	// }
 	li {
 		margin-left: 2em;
 		padding-left: 0.5em;
 	}
-}
-
-.answer {
 }
 
 .imgAnswer {

@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
-import { initSession } from "../utils/authHelpers";
+import { initSession } from "../../utils/authHelpers";
 
 import classes from "/styles/Faq.module.scss";
-import Img from "../components/UI/Img";
-import faqData from "../data/faq-data";
-import Frame from "../components/Frame";
+import Img from "../../components/UI/Img";
+import faqData from "../../data/faq-data";
+import Frame from "../../components/Frame";
+
+const sectionLength = faqData.length;
 
 const Faq = ({ setLoaded }) => {
+	const router = useRouter();
 	const [session, loading] = useSession();
 	const [user, setUser] = useState({});
 	const [activeSectionIndex, setActiveSectionIndex] = useState(0);
@@ -23,6 +27,20 @@ const Faq = ({ setLoaded }) => {
 	useEffect(async () => {
 		initSession(session, setUser);
 	}, [session]);
+
+	useEffect(() => {
+		const query = router.query;
+		if (Object.keys(query).length) {
+			const section = parseInt(query.faq[0].split("-")[0]);
+			const index = parseInt(query.faq[0].split("-")[1]);
+			if (section && section >= 0 && section <= sectionLength) {
+				setActiveSectionIndex(section);
+				if (index && index >= 0 && index <= faqData[section].items.length) {
+					setActiveSectionIndex(index);
+				}
+			}
+		}
+	}, [router.query]);
 
 	if (loading) {
 		return null;
@@ -82,20 +100,7 @@ const Faq = ({ setLoaded }) => {
 											style={{
 												height: activeItemIndex === i ? activeHeight + "px" : 0,
 											}}>
-											<div className={classes.overflowContainer}>
-												{/* {item.a.map((ans, i) =>
-													ans[0] === "/" ? (
-														<div key={i} className={classes.imgAnswer}>
-															<Img src={ans} layout="fill" objectFit="contain" objectPosition="left" />
-														</div>
-													) : (
-														<p key={i} className={classes.answer}>
-															{ans}
-														</p>
-													)
-												)} */}
-												{item.a}
-											</div>
+											<div className={classes.overflowContainer}>{item.a}</div>
 										</div>
 									</div>
 								))}
