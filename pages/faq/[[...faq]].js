@@ -15,13 +15,11 @@ const awaitImages = (images, callback) => {
 	let count = 0;
 	const addLoaded = () => {
 		count++;
-		console.log(count);
 		if (count === images.length) {
 			callback();
 		}
 	};
 	images.forEach((img) => {
-		console.log(img);
 		img.addEventListener("load", addLoaded, false);
 	});
 };
@@ -59,14 +57,11 @@ const Faq = ({ setLoaded }) => {
 	}, [router.query]);
 
 	useEffect(() => {
-		console.log("running this" + activeIndex.item);
 		if (!loading && activeIndex.item !== null && activeIndex.item !== undefined) {
 			const el = document.querySelectorAll("." + classes.overflowContainer)[activeIndex.item];
 			const images = el.querySelectorAll("img");
 			if (!imagesLoaded && images.length) {
-				console.log("first run");
 				awaitImages(images, () => {
-					console.log(el.clientHeight);
 					setImagesLoaded(true);
 					setActiveHeight(el.clientHeight);
 				});
@@ -74,7 +69,6 @@ const Faq = ({ setLoaded }) => {
 				setImagesLoaded(true);
 				console.log(el);
 				if (el) {
-					console.log("am i working" + el.clientHeight);
 					setActiveHeight(el.clientHeight);
 				}
 			}
@@ -109,7 +103,7 @@ const Faq = ({ setLoaded }) => {
 					<div className={classes.main}>
 						<aside className={classes.aside}>
 							<div className={classes.toc}>
-								<div className={classes.slider} style={{ top: `calc(4rem * ${activeIndex.section})` }} />
+								<div className={classes.slider} style={{ top: `calc(7vh * ${activeIndex.section})` }} />
 								{faqData.map((sect, i) => (
 									<button key={i} className={activeIndex.section === i ? classes.active : ""} onClick={tocClickHandler.bind(this, i)}>
 										<i className="material-icons-outlined">{sect.icon}</i>
