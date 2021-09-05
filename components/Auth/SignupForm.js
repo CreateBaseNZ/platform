@@ -8,7 +8,7 @@ import VisualBellContext from "../../store/visual-bell-context";
 import router from "next/router";
 import axios from "axios";
 import classes from "./AuthForms.module.scss";
-import { logIn } from "../../utils/authHelpers";
+import { logIn, signUpEducator, signUpLearner, validateUsername } from "../../utils/authHelpers";
 import getRandomName from "../../utils/randomNames";
 
 const SignupStepOne = ({ setStep, access, setAccess }) => {
@@ -69,8 +69,6 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 	}, []);
 
 	const onSubmit = async (input) => {
-		console.log(input);
-
 		setIsLoading(true);
 		let frontEndError = false;
 		if (isBlacklisted(input.username)) {
@@ -95,74 +93,82 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 			return setIsLoading(false);
 		}
 
-		const newUser = { ...{ username: input.username, displayName: input.displayName, password: input.password, date: new Date().toString() }, ...(access === "educator" && { email: input.email }) };
-		console.log(newUser);
-		let data;
-		try {
-			data = (await axios.post(`/api/signup/${access === "educator" ? "educator" : "validate-username"}`, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: newUser }))["data"];
-		} catch (error) {
-			if (error.response) {
-				data = error.response.data;
-			} else if (error.request) {
-				data = { status: "error", content: error.request };
-			} else {
-				data = { status: "error", content: error.message };
-			}
-			ctx.setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			});
-		}
-
 		if (access === "educator") {
-			if (data.status === "failed") {
-				if (data.content.email) {
-					setError("email", {
-						type: "manual",
-						message: "This email is already taken",
-					});
-				}
-				if (data.content.username) {
+			await signUpEducator(
+				{ email: input.email, username: input.username, displayName: input.displayName, password: input.password, date: new Date().toString() },
+				() =>
+					ctx.setBell({
+						type: "catastrophe",
+						message: "Oops! Something went wrong, please refresh the page and try again",
+					}),
+				() =>
+					ctx.setBell({
+						type: "catastrophe",
+						message: "Oops! Something went wrong, please refresh the page and try again",
+					}),
+				(content) => {
+					if (content.email)
+						setError("email", {
+							type: "manual",
+							message: "This email is already taken",
+						});
+					if (content.username)
+						setError("username", {
+							type: "manual",
+							message: "This username is already taken",
+						});
+					setIsLoading(false);
+				},
+				async () =>
+					await logIn(
+						input.username,
+						input.password,
+						() => {
+							ctx.setBell({
+								type: "catastrophe",
+								message: "Something unexpected happened, please reload the page",
+							});
+						},
+						() => {
+							router.push("/auth/login");
+							ctx.setBell({
+								type: "success",
+								message: "Success! Your account has been created, log in to continue",
+							});
+						},
+						() =>
+							ctx.setBell({
+								type: "success",
+								message: "Success! Your account has been created",
+							})
+					)
+			);
+		} else {
+			console.log("hello");
+			validateUsername(
+				{ username: input.username },
+				() =>
+					ctx.setBell({
+						type: "catastrophe",
+						message: "Oops! Something went wrong, please refresh the page and try again",
+					}),
+				() =>
+					ctx.setBell({
+						type: "catastrophe",
+						message: "Oops! Something went wrong, please refresh the page and try again",
+					}),
+				() => {
 					setError("username", {
 						type: "manual",
 						message: "This username is already taken",
 					});
+					setIsLoading(false);
+				},
+				() => {
+					setLearner((state) => ({ ...state, username: input.username, displayName: input.displayName, password: input.password, terms: input.terms }));
+					setStep(2);
 				}
-				return setIsLoading(false);
-			}
-			await logIn(
-				input.username,
-				input.password,
-				() => {
-					ctx.setBell({
-						type: "catastrophe",
-						message: "Something unexpected happened, please reload the page",
-					});
-				},
-				() => {
-					router.push("/auth/login");
-					ctx.setBell({
-						type: "success",
-						message: "Success! Your account has been created, log in to continue",
-					});
-				},
-				() =>
-					ctx.setBell({
-						type: "success",
-						message: "Success! Your account has been created",
-					})
 			);
-		} else {
-			if (data.status === "failed") {
-				setError("username", {
-					type: "manual",
-					message: "This username is already taken",
-				});
-				return setIsLoading(false);
-			}
-			setLearner((state) => ({ ...state, username: input.username, displayName: input.displayName, password: input.password, terms: input.terms }));
-			setStep(2);
-			setIsLoading(false);
 		}
 	};
 
@@ -276,49 +282,46 @@ const SignupStepThree = ({ learner, setLearner }) => {
 			metadata: { id: input.orgId },
 			date: new Date().toString(),
 		};
-		let data;
-		try {
-			data = (await axios.post("/api/signup/learner-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: newLearner }))["data"];
-		} catch (error) {
-			if (error.response) {
-				data = error.response.data;
-			} else if (error.request) {
-				data = { status: "error", content: error.request };
-			} else {
-				data = { status: "error", content: error.message };
-			}
-			ctx.setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			});
-		}
 
-		if (data.status === "failed") {
-			setError("No organisations were found with these details");
-			return setIsLoading(false);
-		}
-
-		await logIn(
-			learner.username,
-			learner.password,
-			() => {
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				});
-			},
-			() => {
-				router.push("/auth/login");
-				ctx.setBell({
-					type: "success",
-					message: "Success! Your account has been created, log in to continue",
-				});
-			},
+		signUpLearner(
+			newLearner,
 			() =>
 				ctx.setBell({
-					type: "success",
-					message: "Success! Your account has been created",
-				})
+					type: "catastrophe",
+					message: "Oops! Something went wrong, please refresh the page and try again",
+				}),
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Oops! Something went wrong, please refresh the page and try again",
+				}),
+			() => {
+				setError("No organisations were found with these details");
+				setIsLoading(false);
+			},
+			async () =>
+				await logIn(
+					learner.username,
+					learner.password,
+					() => {
+						ctx.setBell({
+							type: "catastrophe",
+							message: "Something unexpected happened, please reload the page",
+						});
+					},
+					() => {
+						router.push("/auth/login");
+						ctx.setBell({
+							type: "success",
+							message: "Success! Your account has been created, log in to continue",
+						});
+					},
+					() =>
+						ctx.setBell({
+							type: "success",
+							message: "Success! Your account has been created",
+						})
+				)
 		);
 	};
 
@@ -330,6 +333,7 @@ const SignupStepThree = ({ learner, setLearner }) => {
 				inputProps={{
 					className: classes.input,
 					placeholder: "Organisation code*",
+					maxLength: 254,
 					type: "text",
 					onFocus: () => setError(""),
 					...register("orgCode", { required: "Please enter an organisation code" }),
@@ -341,6 +345,7 @@ const SignupStepThree = ({ learner, setLearner }) => {
 					className: classes.input,
 					type: "number",
 					placeholder: "Organisation ID*",
+					maxLength: 254,
 					onFocus: () => setError(""),
 					...register("orgId", { required: "Please enter the organisation ID" }),
 				}}
@@ -351,6 +356,7 @@ const SignupStepThree = ({ learner, setLearner }) => {
 					className: classes.input,
 					type: "text",
 					placeholder: "Organisation name*",
+					maxLength: 254,
 					onFocus: () => setError(""),
 					...register("orgName", { required: "Please enter the organisation name" }),
 				}}

@@ -5,10 +5,9 @@ import Input, { PasswordInput } from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
 import { emailPattern } from "../../utils/formValidation";
 import VisualBellContext from "../../store/visual-bell-context";
-import { sendForgotPasswordCode } from "../../utils/authHelpers";
+import { resetPassword, sendForgotPasswordCode } from "../../utils/authHelpers";
 import { passwordMinLength, passwordValidate } from "../../utils/formValidation";
 
-import axios from "axios";
 const codeLength = 6;
 
 import classes from "./AuthForms.module.scss";
@@ -76,7 +75,8 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	);
 };
 
-const ForgotPasswordStepTwo = ({ setStep, setInputValues }) => {
+const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
+	const ctx = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const [code, setCode] = useState([...Array(codeLength)].map(() => ""));
@@ -85,19 +85,27 @@ const ForgotPasswordStepTwo = ({ setStep, setInputValues }) => {
 	const submitCode = async (code) => {
 		setIsLoading(true);
 
-		const correct = true;
-
-		// TODO send request
-		// TODO handle fail
-		// TODO handle success
-		if (!correct) {
-			setError("The code you entered is invalid");
-		}
-
-		if (correct) {
-			setStep(2);
-			setInputValues((state) => ({ ...state, code: code }));
-		}
+		resetPassword(
+			{ email: inputValues.email, code: code, password: "" },
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() => {
+				setError("The code you entered is invalid");
+				setIsLoading(false);
+			},
+			() => {
+				setStep(2);
+				setInputValues((state) => ({ ...state, code: code }));
+			}
+		);
 	};
 
 	const changeHandler = (e, idx) => {
@@ -112,6 +120,7 @@ const ForgotPasswordStepTwo = ({ setStep, setInputValues }) => {
 		}
 		if (newCode.every((char) => char !== "")) {
 			const verifCode = newCode.join("");
+			console.log(verifCode);
 			submitCode(verifCode);
 		}
 	};
@@ -155,7 +164,7 @@ const ForgotPasswordStepTwo = ({ setStep, setInputValues }) => {
 	);
 };
 
-const ForgotPasswordStepThree = () => {
+const ForgotPasswordStepThree = ({ inputValues }) => {
 	const ctx = useContext(VisualBellContext);
 	const newPassword = useRef({});
 	const [isLoading, setIsLoading] = useState(false);
@@ -177,16 +186,27 @@ const ForgotPasswordStepThree = () => {
 	const onSubmit = (input) => {
 		setIsLoading(true);
 
-		// TODO reset password
-		const error = false;
-		if (error) {
-			// TODO handle error
-			return setIsLoading(false);
-		}
-
-		// TODO success handler
-		router.push("/auth/login");
-		ctx.setBell({ type: "success", message: "Successfully reset password, please log in to continue" });
+		resetPassword(
+			{ email: inputValues.email, code: inputValues.code, password: input.newPassword },
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() => {
+				setError("An error occurred, please try again");
+				setIsLoading(false);
+			},
+			() => {
+				router.push("/auth/login");
+				ctx.setBell({ type: "success", message: "Successfully reset password, please log in to continue" });
+			}
+		);
 	};
 
 	return (
@@ -210,7 +230,7 @@ const ForgotPasswordStepThree = () => {
 					placeholder: "Confirm password*",
 					...register("confirmPassword", {
 						required: "Please confirm your password",
-						validate: (value) => value === password.current || "Passwords do not match",
+						validate: (value) => value === newPassword.current || "Passwords do not match",
 					}),
 				}}
 				error={errors.confirmPassword}
@@ -256,7 +276,7 @@ const ForgotPassword = () => {
 	return (
 		<div className={`${classes.forgotContainer} roundScrollbar`}>
 			{step === 0 && <ForgotPasswordStepOne setStep={setStep} setInputValues={setInputValues} />}
-			{step === 1 && <ForgotPasswordStepTwo setStep={setStep} setInputValues={setInputValues} />}
+			{step === 1 && <ForgotPasswordStepTwo setStep={setStep} inputValues={inputValues} setInputValues={setInputValues} />}
 			{step === 2 && <ForgotPasswordStepThree inputValues={inputValues} />}
 			<div className={classes.forgotOptions}>
 				<button type="button" className={`${classes.smallFont} ${classes.linkBtn}`} onClick={() => router.push("/auth/login")}>
