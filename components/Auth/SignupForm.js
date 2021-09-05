@@ -9,6 +9,7 @@ import router from "next/router";
 import axios from "axios";
 import classes from "./AuthForms.module.scss";
 import { logIn } from "../../utils/authHelpers";
+import getRandomName from "../../utils/randomNames";
 
 const SignupStepOne = ({ setStep, access, setAccess }) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -88,7 +89,7 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 				frontEndError = true;
 			}
 		} else {
-			input.displayName = "TODO set a pseudonym";
+			input.displayName = getRandomName();
 		}
 		if (frontEndError) {
 			return setIsLoading(false);

@@ -1,7 +1,7 @@
 @import "/styles/variables_new";
 
 .form {
-	min-height: 0;
+	min-height: 400px;
 	z-index: 2;
 	flex: 1 1 auto;
 	height: 100%;
@@ -79,6 +79,7 @@
 .linkBtn {
 	color: $blue-dark;
 	font-weight: 500;
+	line-height: 1.25em;
 	&:hover {
 		text-decoration: underline;
 	}
@@ -88,6 +89,7 @@
 	margin-top: 4vh;
 	height: 3.5rem;
 	font-size: 16px;
+	flex-shrink: 0;
 	i {
 		margin-right: 0.5em;
 	}
@@ -252,36 +254,67 @@
 	}
 }
 
-.forgotPass {
+.forgotPassContainer,
+.resetPassContainer {
 	height: 65vh;
+	padding-top: 4vh;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: flex-end;
-	.forgotPassForm {
-		width: 75%;
-		max-width: 500px;
-		.input:focus {
-			border-color: $amber;
-			background: rgba($amber, 0.05);
+}
+
+.forgotPassForm,
+.resetPassForm {
+	height: 100%;
+	width: 75%;
+	max-width: 500px;
+	min-height: 200px;
+	.input:focus {
+		border-color: $amber;
+		background: rgba($amber, 0.05);
+	}
+	.submit {
+		background: $amber;
+		box-shadow: 0 4px 16px rgba($amber, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($amber, 0.25);
 		}
-		.submit {
-			background: $amber;
-			box-shadow: 0 4px 16px rgba($amber, 0.25);
-			&:hover {
-				box-shadow: 0 8px 24px rgba($amber, 0.25);
+	}
+}
+
+.forgotOptions,
+.resetPassOptions {
+	margin-top: 2vh;
+	width: 75%;
+	max-width: 500px;
+	margin-bottom: 4vh;
+}
+
+.resetPassForm {
+	align-items: center;
+	.verifCode {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		.verifCodeInput {
+			flex: 0 0 3rem;
+			margin: 0 0.4rem;
+			input {
+				text-align: center;
+				padding: 0;
 			}
 		}
 	}
-	.forgotOptions {
-		width: 75%;
-		max-width: 500px;
-		display: flex;
-		justify-content: space-between;
-		margin-bottom: 4vh;
-		.enterCode {
-			margin-left: 0.5em;
+	.loadingVerifCode {
+		opacity: 0;
+		pointer-events: none;
+		background: transparent;
+		color: $light;
+		box-shadow: none;
+		& > :first-child {
+			border-color: $light;
+			border-top-color: transparent;
 		}
 	}
 }
