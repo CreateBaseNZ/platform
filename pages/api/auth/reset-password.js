@@ -1,7 +1,6 @@
 // IMPORT ===================================================
 
 import axios from "axios";
-import { getSession } from "next-auth/client";
 
 // MAIN =====================================================
 
@@ -9,7 +8,7 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.send({ status: "critical error", content: "Invalid API key" });
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Create the input data
 	const input = {
@@ -17,6 +16,7 @@ export default async function (req, res) {
 		password: req.body.input.password,
 		code: req.body.input.code,
 	};
+	// TODO: Validate the input data
 	// Send the data to the main backend
 	let data;
 	try {
