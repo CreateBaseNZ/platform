@@ -14,7 +14,6 @@ const Auth = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
 	const [view, setView] = useState("");
-	const [passEmail, setPassEmail] = useState();
 
 	useEffect(() => {
 		return () => setLoaded(false);
@@ -75,8 +74,7 @@ const Auth = ({ setLoaded }) => {
 			<div className={classes.authMain}>
 				{view === "signup" && <AuthForm isSignup={true} />}
 				{view === "login" && <AuthForm isSignup={false} />}
-				{view === "forgot-password" && <ForgotPassword setPassEmail={setPassEmail} />}
-				{view === "reset-password" && <ResetPassword passEmail={passEmail} />}
+				{view === "forgot-password" && <ForgotPassword />}
 			</div>
 		</div>
 	);

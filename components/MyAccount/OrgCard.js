@@ -17,7 +17,7 @@ const OrgCard = ({ user, leavingOrg, leaveOrgHandler, setLeavingOrg }) => {
 						<div>
 							<i className="material-icons-outlined">verified_user</i>
 							{user.org.admins} admin
-							{(user.org.educators > 1 || user.org.educators === 0) && "s"}
+							{(user.org.admins > 1 || user.org.admins === 0) && "s"}
 						</div>
 					)}
 					<div>

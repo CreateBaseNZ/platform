@@ -254,18 +254,27 @@
 	}
 }
 
-.forgotPassContainer,
-.resetPassContainer {
+.forgotContainer {
 	height: 65vh;
 	padding-top: 4vh;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	.forgotOptions {
+		margin-top: 2vh;
+		width: 75%;
+		max-width: 500px;
+		margin-bottom: 4vh;
+		display: flex;
+		justify-content: space-between;
+		button {
+			margin-left: 0.5rem;
+		}
+	}
 }
 
-.forgotPassForm,
-.resetPassForm {
+.forgotForm {
 	height: 100%;
 	width: 75%;
 	max-width: 500px;
@@ -283,15 +292,7 @@
 	}
 }
 
-.forgotOptions,
-.resetPassOptions {
-	margin-top: 2vh;
-	width: 75%;
-	max-width: 500px;
-	margin-bottom: 4vh;
-}
-
-.resetPassForm {
+.forgotTwoForm {
 	align-items: center;
 	.verifCode {
 		width: 100%;

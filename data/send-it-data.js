@@ -30,7 +30,7 @@ export default {
     {
       title: "Types of delivery robots",
       img: "/send-it/img/types-0.png",
-      url: "/send-it/pdf/types.pdf",
+      url: "/send-it/pdf/delivery.pdf",
     },
     {
       title: "Delivering mail",
@@ -39,8 +39,13 @@ export default {
     },
     {
       title: "Controlling a robot",
-      img: "/send-it/img/controlling-0.png",
+      img: "/send-it/img/controlling-1.png",
       url: "/send-it/pdf/controlling.pdf",
+    },
+    {
+      title: "Sensing Sensors",
+      img: "/send-it/img/controlling-0.png",
+      url: "/send-it/pdf/sensors.pdf",
     },
     {
       title: "The ethics of automation",
