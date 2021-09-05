@@ -13,7 +13,7 @@ import BrowsePreview from "../components/Browse/BrowsePreview";
 
 import classes from "/styles/Browse.module.scss";
 
-const allData = [sendItData, magnebotData];
+const allData = [sendItData];
 
 const Browse = ({ setLoaded }) => {
 	const [session, loading] = useSession();
