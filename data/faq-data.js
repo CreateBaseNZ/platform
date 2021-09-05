@@ -341,6 +341,7 @@ export default [
 			},
 			{
 				q: "How do I invite other teachers to my organisation?",
+				a: <p>Coming soon.</p>,
 				a: (
 					<>
 						<p>When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.</p>
@@ -354,6 +355,7 @@ export default [
 			},
 			{
 				q: "How do I invite students to my organisation?",
+				a: <p>Coming soon.</p>,
 				a: (
 					<>
 						<p>When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.</p>
