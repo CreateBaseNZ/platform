@@ -63,7 +63,7 @@ const Faq = ({ setLoaded }) => {
 								))}
 							</div>
 							<div className={classes.img}>
-								<Img src="/faq.svg" height={200} width={200} layout="responsive" />
+								<Img src="/faq/get-in-touch.svg" height={200} width={200} layout="responsive" />
 								<p>
 									Still got questions?
 									<a href="https://createbase.co.nz/contact" target="_blank" title="https://createbase.co.nz/contact">
@@ -83,7 +83,7 @@ const Faq = ({ setLoaded }) => {
 												height: activeItemIndex === i ? activeHeight + "px" : 0,
 											}}>
 											<div className={classes.overflowContainer}>
-												{item.a.map((ans, i) =>
+												{/* {item.a.map((ans, i) =>
 													ans[0] === "/" ? (
 														<div key={i} className={classes.imgAnswer}>
 															<Img src={ans} layout="fill" objectFit="contain" objectPosition="left" />
@@ -93,7 +93,8 @@ const Faq = ({ setLoaded }) => {
 															{ans}
 														</p>
 													)
-												)}
+												)} */}
+												{item.a}
 											</div>
 										</div>
 									</div>

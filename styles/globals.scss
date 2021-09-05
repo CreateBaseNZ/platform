@@ -155,3 +155,19 @@ svg {
 		border-color: rgba(white, 0.75);
 	}
 }
+
+.faq__bold {
+	font-weight: 600 !important;
+}
+
+.faq__italic {
+	font-style: italic !important;
+}
+
+.faq__highlight {
+	color: $blue-light !important;
+}
+
+.faq__indent {
+	margin-left: 1em !important;
+}
