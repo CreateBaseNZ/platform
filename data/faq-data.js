@@ -24,8 +24,9 @@ export default [
 						</p>
 						<p>
 							Links can be added using `a` tags and the associated hyperlink (as `href`). For internal links, just use the relative path, e.g. this one goes to the <a href="/browse">Browse page</a>.
-							For external sites, just paste the regular URL, e.g. our <a href="https://createbase.co.nz/">website</a>. To add tooltips, just use the `title` attribute, and this will be handles
-							natively <span title="You found the secret tooltip">(hover here)</span>.
+							For external sites, just paste the regular URL, e.g. our <a href="https://createbase.co.nz/">website</a>. To link to another item on this page, set an `href` with `#X-Y` where X is the
+							section and Y is the item. Keep in mind that indices begin at 0, <a href="#0-1">e.g. this link goes to section 0 item 1</a>. To add tooltips, just use the `title` attribute, and this
+							will be handles natively <span title="You found the secret tooltip">(hover here)</span>.
 						</p>
 						<ol>
 							Ordered and unordered lists are `ol` and `ul` tags, respectively.
