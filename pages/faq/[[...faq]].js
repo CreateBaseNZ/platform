@@ -10,13 +10,28 @@ import faqData from "../../data/faq-data";
 import Frame from "../../components/Frame";
 
 const sectionLength = faqData.length;
+let imagesLoaded = false;
+
+const awaitImages = (images, callback) => {
+	let count = 0;
+	const addLoaded = () => {
+		count++;
+		if (count === images.length) {
+			imagesLoaded = true;
+			callback();
+		}
+	};
+	images.forEach((img) => {
+		console.log(img);
+		img.addEventListener("load", addLoaded, false);
+	});
+};
 
 const Faq = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
 	const [user, setUser] = useState({});
-	const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-	const [activeItemIndex, setActiveItemIndex] = useState();
+	const [activeIndex, setActiveIndex] = useState({ section: 0, item: null });
 	const [activeHeight, setActiveHeight] = useState();
 
 	useEffect(() => {
@@ -32,31 +47,44 @@ const Faq = ({ setLoaded }) => {
 		const query = router.query;
 		if (Object.keys(query).length) {
 			const section = parseInt(query.faq[0].split("-")[0]);
-			const index = parseInt(query.faq[0].split("-")[1]);
-			if (section && section >= 0 && section <= sectionLength) {
-				setActiveSectionIndex(section);
-				if (index && index >= 0 && index <= faqData[section].items.length) {
-					setActiveSectionIndex(index);
+			const item = parseInt(query.faq[0].split("-")[1]);
+			if (section >= 0 && section <= sectionLength) {
+				if (item >= 0 && item <= faqData[section].items.length) {
+					setActiveIndex({ section: section, item: item });
+				} else {
+					setActiveIndex({ section: section, item: null });
 				}
 			}
 		}
 	}, [router.query]);
+
+	useEffect(() => {
+		if (!loading && activeIndex.item !== null && activeIndex.item !== undefined) {
+			const el = document.querySelectorAll("." + classes.overflowContainer)[activeIndex.item];
+			const images = el.querySelectorAll("img");
+			if (!imagesLoaded && images.length) {
+				awaitImages(images, () => setActiveHeight(el.clientHeight));
+			} else {
+				if (el && activeIndex.item !== undefined && activeIndex.item !== null) {
+					setActiveHeight(el.clientHeight);
+				}
+			}
+		}
+	}, [activeIndex.item, loading]);
 
 	if (loading) {
 		return null;
 	}
 
 	const tocClickHandler = (index) => {
-		setActiveSectionIndex(index);
-		setActiveItemIndex(null);
+		setActiveIndex({ section: index, item: null });
 	};
 
 	const itemClickHandler = (index) => {
-		if (index === activeItemIndex) {
-			setActiveItemIndex(null);
+		if (index === activeIndex.item) {
+			setActiveIndex((state) => ({ ...state, item: null }));
 		} else {
-			setActiveHeight(document.querySelectorAll("." + classes.overflowContainer)[index].clientHeight);
-			setActiveItemIndex(index);
+			setActiveIndex((state) => ({ ...state, item: index }));
 		}
 	};
 
@@ -72,9 +100,9 @@ const Faq = ({ setLoaded }) => {
 					<div className={classes.main}>
 						<aside className={classes.aside}>
 							<div className={classes.toc}>
-								<div className={classes.slider} style={{ top: `calc(4rem * ${activeSectionIndex})` }} />
+								<div className={classes.slider} style={{ top: `calc(4rem * ${activeIndex.section})` }} />
 								{faqData.map((sect, i) => (
-									<button key={i} className={activeSectionIndex === i ? classes.active : ""} onClick={tocClickHandler.bind(this, i)}>
+									<button key={i} className={activeIndex.section === i ? classes.active : ""} onClick={tocClickHandler.bind(this, i)}>
 										<i className="material-icons-outlined">{sect.icon}</i>
 										{sect.header}
 									</button>
@@ -92,13 +120,13 @@ const Faq = ({ setLoaded }) => {
 						</aside>
 						<div className={classes.contentContainer}>
 							<div className={`${classes.contentWrapper} roundScrollbar`}>
-								{faqData[activeSectionIndex].items.map((item, i) => (
-									<div key={i} className={`${classes.item} ${activeItemIndex === i ? classes.active : ""}`}>
+								{faqData[activeIndex.section].items.map((item, i) => (
+									<div key={i} className={`${classes.item} ${activeIndex.item === i ? classes.active : ""}`}>
 										<button onClick={itemClickHandler.bind(this, i)}>{item.q}</button>
 										<div
 											className={classes.collapseWrapper}
 											style={{
-												height: activeItemIndex === i ? activeHeight + "px" : 0,
+												height: activeIndex.item === i ? activeHeight + "px" : 0,
 											}}>
 											<div className={classes.overflowContainer}>{item.a}</div>
 										</div>
