@@ -9,20 +9,22 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.send({ status: "critical error", content: "Invalid API key" });
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Check if a session exist
 	const session = await getSession({ req });
 	if (!session) {
-		return res.send({ status: "critical error", content: "This user is not logged in" });
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Validate if the user is an admin
 	if (session.user.access === "learner") {
 	} else if (session.user.access === "admin" /*&& session.user.verified*/) {
 	} else if (session.user.access === "educator" /*&& session.user.verified*/) {
 	} else {
-		return res.send({ status: "critical error", content: "Invalid access" });
+		return res.send({ status: "critical error", content: "" });
 	}
+	// Validate if the user has no organisation
+	if (!session.user.organisation) return res.send({ status: "critical error", content: "" });
 	// Create the input data
 	const input = { organisation: session.user.organisation };
 	// Send the request

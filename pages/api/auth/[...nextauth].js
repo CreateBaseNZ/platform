@@ -83,27 +83,28 @@ function validateEmailLogin(object) {
 }
 
 function validateUsernameLogin(object) {
-	let valid = true;
-	let errors = { username: "", password: "" };
-	// Validate username
-	const username = validateUsername(object.username);
-	if (!username.status) {
-		valid = false;
-		errors.username = username.content;
-	}
-	console.log("Username Login");
-	// Validate password
-	const password = validatePassword(object.password);
-	if (!password.status) {
-		valid = false;
-		errors.password = password.content;
-	}
-	// Evaluate outcome
-	if (!valid) {
-		return { status: "failed", content: errors };
-	} else {
-		return { status: "succeeded", content: errors };
-	}
+	return new Promise((resolve, reject) => {
+		let valid = true;
+		let errors = new Object();
+		// Validate username
+		const username = validateUsername(object.username);
+		if (!username.status) {
+			valid = false;
+			errors.username = username.content;
+		}
+		// Validate password
+		const password = validatePassword(object.password);
+		if (!password.status) {
+			valid = false;
+			errors.password = password.content;
+		}
+		// Evaluate outcome
+		if (!valid) {
+			return reject({ status: "failed", content: errors });
+		} else {
+			return resolve();
+		}
+	});
 }
 
 async function emailLogin(object) {
@@ -149,20 +150,9 @@ async function usernameLogin(object) {
 	// Send the data to the backend
 	let data;
 	try {
-		data = (
-			await axios.post(process.env.ROUTE_URL + "/username-login", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input,
-			})
-		)["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/username-login", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
-		if (error.response) {
-			data = { status: "error", content: error.response.data };
-		} else if (error.request) {
-			data = { status: "error", content: error.request };
-		} else {
-			data = { status: "error", content: error.message };
-		}
+		data = { status: "error", content: error };
 	}
 	// Return data to the main function
 	return data;
@@ -222,7 +212,7 @@ export default NextAuth({
 			async authorize(credentials) {
 				// Validate PUBLIC_API_KEY
 				if (credentials.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-					throw new Error("critical error");
+					throw new Error(JSON.stringify({ status: "critical error", content: "" }));
 				}
 				// Perform authentication based on the type
 				let data;
@@ -232,12 +222,8 @@ export default NextAuth({
 					data = await usernameLogin(credentials);
 				}
 				// Validate the authentication
-				if (data.status === "failed") {
-					throw new Error("failed");
-				} else if (data.status === "error") {
-					throw new Error("error");
-				} else if (data.status === "critical error") {
-					throw new Error("critical error");
+				if (data.status === "critical error" || data.status === "error" || data.status === "failed") {
+					throw new Error(JSON.stringify(data));
 				}
 				// Success handler
 				return data.content;

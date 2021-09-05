@@ -9,12 +9,7 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.send({ status: "critical error", content: "Invalid API key" });
-	}
-	// Validate the input data
-	const validity = validate(req.body.input);
-	if (validity.status === "failed") {
-		return res.send(validity);
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Create the input data
 	const input = {
@@ -24,6 +19,12 @@ export default async function (req, res) {
 		password: req.body.input.password,
 		date: req.body.input.date,
 	};
+	// Validate the input data
+	try {
+		await validate(input);
+	} catch (data) {
+		return res.send(data);
+	}
 	// Send the data to the main backend
 	let data;
 	try {
@@ -38,44 +39,46 @@ export default async function (req, res) {
 // SECONDARY ================================================
 
 function validate(object) {
-	let valid = true;
-	let errors = { email: "", username: "", displayName: "", password: "", date: "" };
-	// Validate email
-	const email = validateEmail(object.email);
-	if (!email.status) {
-		valid = false;
-		errors.email = email.content;
-	}
-	// Validate username
-	const username = validateUsername(object.username);
-	if (!username.status) {
-		valid = false;
-		errors.username = username.content;
-	}
-	// Validate display name
-	const displayName = validateDisplayName(object.displayName);
-	if (!displayName.status) {
-		valid = false;
-		errors.displayName = displayName.content;
-	}
-	// Validate password
-	const password = validatePassword(object.password);
-	if (!password.status) {
-		valid = false;
-		errors.password = password.content;
-	}
-	// Validate date
-	const date = validateDate(object.date);
-	if (!date.status) {
-		valid = false;
-		errors.date = date.content;
-	}
-	// Evaluate outcome
-	if (!valid) {
-		return { status: "failed", content: errors };
-	} else {
-		return { status: "succeeded", content: errors };
-	}
+	return new Promise((resolve, reject) => {
+		let valid = true;
+		let errors = {};
+		// Validate email
+		const email = validateEmail(object.email);
+		if (!email.status) {
+			valid = false;
+			errors.email = email.content;
+		}
+		// Validate username
+		const username = validateUsername(object.username);
+		if (!username.status) {
+			valid = false;
+			errors.username = username.content;
+		}
+		// Validate display name
+		const displayName = validateDisplayName(object.displayName);
+		if (!displayName.status) {
+			valid = false;
+			errors.displayName = displayName.content;
+		}
+		// Validate password
+		const password = validatePassword(object.password);
+		if (!password.status) {
+			valid = false;
+			errors.password = password.content;
+		}
+		// Validate date
+		const date = validateDate(object.date);
+		if (!date.status) {
+			valid = false;
+			errors.date = date.content;
+		}
+		// Evaluate outcome
+		if (!valid) {
+			return reject({ status: "failed", content: errors });
+		} else {
+			return resolve();
+		}
+	});
 }
 
 // HELPER ===================================================

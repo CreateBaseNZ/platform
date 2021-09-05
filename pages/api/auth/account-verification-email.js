@@ -9,7 +9,7 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.send({ status: "critical error", content: "Invalid API key" });
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Create the input data
 	let input;
@@ -17,7 +17,7 @@ export default async function (req, res) {
 	const session = await getSession({ req });
 	if (session) {
 		if (session.user.verified) {
-			return res.send({ status: "critical error", content: "This user is already verified" });
+			return res.send({ status: "critical error", content: "" });
 		}
 		input = { account: session.user.account };
 	} else {

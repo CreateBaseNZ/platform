@@ -9,25 +9,20 @@ export default async function (req, res) {
 	if (req.method !== "POST") return;
 	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-		return res.send({ status: "critical error", content: "Invalid API key" });
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Check if a session exist
 	const session = await getSession({ req });
 	if (!session) {
-		return res.send({ status: "critical error", content: "This user is not logged in" });
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Validate if the user is an educator
 	if (session.user.access !== "educator" /*|| !session.user.verified*/) {
-		return res.send({ status: "critical error", content: "Invalid access" });
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Validate if the user is already part of an organisation
 	if (session.user.organisation) {
-		return res.send({ status: "critical error", content: "This user is already in an organisation" });
-	}
-	// Validate the input data
-	const validity = validate(req.body.input);
-	if (validity.status === "failed") {
-		return res.send(validity);
+		return res.send({ status: "critical error", content: "" });
 	}
 	// Create the input data
 	const input = {
@@ -39,6 +34,12 @@ export default async function (req, res) {
 		date: req.body.input.date,
 		metadata: req.body.input.metadata,
 	};
+	// Validate the input data
+	try {
+		await validate(input);
+	} catch (data) {
+		return res.send(data);
+	}
 	// Send the data to the main backend
 	let data;
 	try {
@@ -53,50 +54,52 @@ export default async function (req, res) {
 // SECONDARY ================================================
 
 function validate(object) {
-	let valid = true;
-	let errors = { name: "", code: "", type: "", country: "", date: "", metadata: "" };
-	// Validate name
-	const name = validateName(object.name);
-	if (!name.status) {
-		valid = false;
-		errors.name = name.content;
-	}
-	// Validate code
-	const code = validateCode(object.code);
-	if (!code.status) {
-		valid = false;
-		errors.code = code.content;
-	}
-	// Validate type
-	const type = validateType(object.type);
-	if (!type.status) {
-		valid = false;
-		errors.type = type.content;
-	}
-	// Validate country
-	const country = validateCountry(object.country);
-	if (!country.status) {
-		valid = false;
-		errors.country = country.content;
-	}
-	// Validate date
-	const date = validateDate(object.date);
-	if (!date.status) {
-		valid = false;
-		errors.date = date.content;
-	}
-	// Validate metadata
-	const metadata = validateMetadata(object.metadata);
-	if (!metadata.status) {
-		valid = false;
-		errors.metadata = metadata.content;
-	}
-	// Evaluate outcome
-	if (!valid) {
-		return { status: "failed", content: errors };
-	} else {
-		return { status: "succeeded", content: errors };
-	}
+	return new Promise((resolve, reject) => {
+		let valid = true;
+		let errors = {};
+		// Validate name
+		const name = validateName(object.name);
+		if (!name.status) {
+			valid = false;
+			errors.name = name.content;
+		}
+		// Validate code
+		const code = validateCode(object.code);
+		if (!code.status) {
+			valid = false;
+			errors.code = code.content;
+		}
+		// Validate type
+		const type = validateType(object.type);
+		if (!type.status) {
+			valid = false;
+			errors.type = type.content;
+		}
+		// Validate country
+		const country = validateCountry(object.country);
+		if (!country.status) {
+			valid = false;
+			errors.country = country.content;
+		}
+		// Validate date
+		const date = validateDate(object.date);
+		if (!date.status) {
+			valid = false;
+			errors.date = date.content;
+		}
+		// Validate metadata
+		const metadata = validateMetadata(object.metadata);
+		if (!metadata.status) {
+			valid = false;
+			errors.metadata = metadata.content;
+		}
+		// Evaluate outcome
+		if (!valid) {
+			return reject({ status: "failed", content: errors });
+		} else {
+			return resolve();
+		}
+	});
 }
 
 // HELPER ===================================================

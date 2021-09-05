@@ -17,11 +17,6 @@ export default async function (req, res) {
 	if (session) {
 		return res.send({ status: "critical error", content: "This user is already logged in" });
 	}
-	// Validate the input data
-	const validity = validate(req.body.input);
-	if (validity.status === "failed") {
-		return res.send(validity);
-	}
 	// Create the input data
 	let input = {
 		// learner data
@@ -38,6 +33,12 @@ export default async function (req, res) {
 		date: req.body.input.date,
 	};
 	input.search = createOrganisationSearchObject(req.body.input.name, req.body.input.type, req.body.input.country, req.body.input.metadata);
+	// Validate the input data
+	try {
+		await validate(input);
+	} catch (data) {
+		return res.send(data);
+	}
 	// Send the data to the main backend
 	let data;
 	try {
@@ -60,68 +61,70 @@ function createOrganisationSearchObject(name, type, country, metadata) {
 }
 
 function validate(object) {
-	let valid = true;
-	let errors = { email: "", username: "", displayName: "", password: "", date: "" };
-	// Validate username
-	const username = validateUsername(object.username);
-	if (!username.status) {
-		valid = false;
-		errors.username = username.content;
-	}
-	// Validate display name
-	const displayName = validateDisplayName(object.displayName);
-	if (!displayName.status) {
-		valid = false;
-		errors.displayName = displayName.content;
-	}
-	// Validate password
-	const password = validatePassword(object.password);
-	if (!password.status) {
-		valid = false;
-		errors.password = password.content;
-	}
-	// Validate name
-	const name = validateName(object.name);
-	if (!name.status) {
-		valid = false;
-		errors.name = name.content;
-	}
-	// Validate code
-	const code = validateCode(object.code);
-	if (!code.status) {
-		valid = false;
-		errors.code = code.content;
-	}
-	// Validate type
-	const type = validateType(object.type);
-	if (!type.status) {
-		valid = false;
-		errors.type = type.content;
-	}
-	// Validate country
-	const country = validateCountry(object.country);
-	if (!country.status) {
-		valid = false;
-		errors.country = country.content;
-	}
-	// Validate metadata
-	const metadata = validateMetadata(object.metadata);
-	if (!metadata.status) {
-		valid = false;
-		errors.metadata = metadata.content;
-	}
-	// Validate date
-	const date = validateDate(object.date);
-	if (!date.status) {
-		valid = false;
-		errors.date = date.content;
-	}
-	// Evaluate outcome
-	if (!valid) {
-		return { status: "failed", content: errors };
-	} else {
-		return { status: "succeeded", content: errors };
-	}
+	return new Promise((resolve, reject) => {
+		let valid = true;
+		let errors = {};
+		// Validate username
+		const username = validateUsername(object.username);
+		if (!username.status) {
+			valid = false;
+			errors.username = username.content;
+		}
+		// Validate display name
+		const displayName = validateDisplayName(object.displayName);
+		if (!displayName.status) {
+			valid = false;
+			errors.displayName = displayName.content;
+		}
+		// Validate password
+		const password = validatePassword(object.password);
+		if (!password.status) {
+			valid = false;
+			errors.password = password.content;
+		}
+		// Validate name
+		const name = validateName(object.name);
+		if (!name.status) {
+			valid = false;
+			errors.name = name.content;
+		}
+		// Validate code
+		const code = validateCode(object.code);
+		if (!code.status) {
+			valid = false;
+			errors.code = code.content;
+		}
+		// Validate type
+		const type = validateType(object.type);
+		if (!type.status) {
+			valid = false;
+			errors.type = type.content;
+		}
+		// Validate country
+		const country = validateCountry(object.country);
+		if (!country.status) {
+			valid = false;
+			errors.country = country.content;
+		}
+		// Validate metadata
+		const metadata = validateMetadata(object.metadata);
+		if (!metadata.status) {
+			valid = false;
+			errors.metadata = metadata.content;
+		}
+		// Validate date
+		const date = validateDate(object.date);
+		if (!date.status) {
+			valid = false;
+			errors.date = date.content;
+		}
+		// Evaluate outcome
+		if (!valid) {
+			return reject({ status: "failed", content: errors });
+		} else {
+			return resolve();
+		}
+	});
 }
 
 // HELPER ===================================================
