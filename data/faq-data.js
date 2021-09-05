@@ -1,5 +1,3 @@
-import Img from "../components/UI/Img";
-
 export default [
 	{
 		header: "Teacher Aid",
@@ -25,7 +23,9 @@ export default [
 							here is one using <span className="faq__bold faq__italic faq__highlight">all three</span> of the prior classes.
 						</p>
 						<p>
-							Links can be added using `a` tags and the associated hyperlink (as `href`), like <a href="/faq">so</a>, and they're automatically styled.
+							Links can be added using `a` tags and the associated hyperlink (as `href`). For internal links, just use the relative path, e.g. this one goes to the <a href="/browse">Browse page</a>.
+							For external sites, just paste the regular URL, e.g. our <a href="https://createbase.co.nz/">website</a>. To add tooltips, just use the `title` attribute, and this will be handles
+							natively <span title="You found the secret tooltip">(hover here)</span>.
 						</p>
 						<ol>
 							Ordered and unordered lists are `ol` and `ul` tags, respectively.
@@ -57,7 +57,10 @@ export default [
 							image url's should begin with `/faq/...`
 						</p>
 						<img src="/faq/faq-1.jpg" />
-						<p>Be sure to wrap the entire answer in empty tags. If you need any more styling options, let Louis know.</p>
+						<p>
+							Be sure to wrap the entire answer in empty tags. Look at the code for an example of <span style={{ color: "red", textDecoration: "underline" }}>custom styling</span>. If you need any
+							more styling options, let Louis know.
+						</p>
 					</>
 				),
 			},

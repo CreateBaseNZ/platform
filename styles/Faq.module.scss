@@ -207,6 +207,7 @@
 	padding: 0 2.5vw 2rem 2.5vw;
 	* {
 		font-size: 13px;
+		user-select: auto !important;
 	}
 	& > * {
 		margin: 0.25em 0;
