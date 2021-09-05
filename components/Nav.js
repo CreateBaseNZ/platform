@@ -21,17 +21,18 @@ const Nav = ({ tabIndex, collapseNav, type }) => {
 		<nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>
 			<ColourLogo width="131.25" height="24" />
 			<div className={classes.menu}>
-				{labels.map(
-					(l, i) =>
-						l.access.includes(type) && (
-							<Link key={i} href={l.route}>
-								<button className={`${classes.tab} ${tabIndex === i ? classes.active : ""}`}>
-									<i className="material-icons-outlined">{l.icon}</i>
-									{l.label}
-								</button>
-							</Link>
-						)
-				)}
+				{type &&
+					labels.map(
+						(l, i) =>
+							l.access.includes(type) && (
+								<Link key={i} href={l.route}>
+									<button className={`${classes.tab} ${tabIndex === i ? classes.active : ""}`}>
+										<i className="material-icons-outlined">{l.icon}</i>
+										{l.label}
+									</button>
+								</Link>
+							)
+					)}
 			</div>
 		</nav>
 	);

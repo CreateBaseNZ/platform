@@ -11,6 +11,8 @@ import { ColourLogoIcon } from "./UI/Icons";
 const Header = ({ session, type, org, displayName = "", username, collapseNav, toggleNavHandler }) => {
 	const [active, setActive] = useState(false);
 
+	console.log(active);
+
 	return (
 		<header className={classes.header}>
 			<ColourLogoIcon className={`${classes.home} ${collapseNav ? classes.collapsed : ""}`} />
@@ -23,43 +25,41 @@ const Header = ({ session, type, org, displayName = "", username, collapseNav, t
 				</button>
 			</Link>
 			{session ? (
-				type && (
-					<div className={classes.headerUserContainer} tabIndex={-1} onBlur={() => setActive(false)}>
-						<div className={`${classes.headerUser} ${active ? classes.active : ""}`} onClick={() => setActive((state) => !state)}>
-							<UserAvatar size={40} name={username} type={type} className={classes.avatar} />
-							<div className={classes.headerName}>
-								<div>{displayName}</div>
-								<div>{type}</div>
-							</div>
-							<i className="material-icons-outlined">expand_more</i>
+				<div className={`${classes.headerUserContainer} ${type ? classes.loaded : ""}`} tabIndex={-1} onBlur={() => setActive(false)}>
+					<div className={`${classes.headerUser} ${active ? classes.active : ""}`} onClick={() => setActive((state) => !state)}>
+						<UserAvatar size={40} name={username} type={type} className={classes.avatar} />
+						<div className={classes.headerName}>
+							<div>{displayName}</div>
+							<div>{type}</div>
 						</div>
-						<div className={`${classes.menu} ${active ? classes.active : ""}`}>
-							{type === "admin" && org && (
-								<button onMouseDown={() => router.push("/user/console")}>
-									<i className="material-icons-outlined">admin_panel_settings</i>
-									Admin console
-								</button>
-							)}
-							{(type === "admin" || type === "create") && !org && (
-								<>
-									<button onMouseDown={() => router.push("/user")}>
-										<i className="material-icons-outlined">group_add</i> Join an org
-									</button>
-									<button onMouseDown={() => router.push("/user")}>
-										<i className="material-icons-outlined">groups</i>Create an org
-									</button>
-								</>
-							)}
-							<button onMouseDown={() => router.push("/user")}>
-								<i className="material-icons-outlined">assignment_ind</i>My account
-							</button>
-							<div className={classes.divider} />
-							<button onMouseDown={() => signOut({ callbackUrl: `${window.location.origin}` })}>
-								<i className="material-icons-outlined">logout</i>Sign out
-							</button>
-						</div>
+						<i className="material-icons-outlined">expand_more</i>
 					</div>
-				)
+					<div className={`${classes.menu} ${active ? classes.active : ""}`}>
+						{type === "admin" && org && (
+							<button onMouseDown={() => router.push("/user/console")}>
+								<i className="material-icons-outlined">admin_panel_settings</i>
+								Admin console
+							</button>
+						)}
+						{(type === "admin" || type === "create") && !org && (
+							<>
+								<button onMouseDown={() => router.push("/user")}>
+									<i className="material-icons-outlined">group_add</i> Join an org
+								</button>
+								<button onMouseDown={() => router.push("/user")}>
+									<i className="material-icons-outlined">groups</i>Create an org
+								</button>
+							</>
+						)}
+						<button onMouseDown={() => router.push("/user")}>
+							<i className="material-icons-outlined">assignment_ind</i>My account
+						</button>
+						<div className={classes.divider} />
+						<button onMouseDown={() => signOut({ callbackUrl: `${window.location.origin}` })}>
+							<i className="material-icons-outlined">logout</i>Sign out
+						</button>
+					</div>
+				</div>
 			) : (
 				<div className={classes.auth}>
 					<Link href="/auth/signup">
