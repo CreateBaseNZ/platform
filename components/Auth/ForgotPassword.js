@@ -10,7 +10,7 @@ import axios from "axios";
 
 import classes from "./AuthForms.module.scss";
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ setPassEmail }) => {
 	const ctx = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -48,13 +48,13 @@ const ForgotPassword = () => {
 			});
 			return setIsLoading(false);
 		}
-
+		setPassEmail(input.email);
 		router.push("/auth/reset-password");
 		ctx.setBell({ type: "neutral", message: "Recovery code sent" });
 	};
 
 	return (
-		<div className={classes.forgotPass}>
+		<div className={`${classes.forgotPassContainer} roundScrollbar`}>
 			<form className={`${classes.form} ${classes.forgotPassForm}`} onSubmit={handleSubmit(onSubmit)}>
 				<h1>Forgot your password?</h1>
 				<div className={classes.instructions}>Enter your email and we will send you instructions to reset your password</div>
@@ -77,12 +77,6 @@ const ForgotPassword = () => {
 				<button type="button" className={`${classes.smallFont} ${classes.linkBtn}`} onClick={() => router.push("/auth/login")}>
 					Back to Login
 				</button>
-				<div className={classes.smallFont}>
-					Received a code?
-					<button type="button" className={`${classes.linkBtn} ${classes.enterCode}`} onClick={() => router.push("/auth/reset-password")}>
-						Enter it here
-					</button>
-				</div>
 			</div>
 		</div>
 	);
