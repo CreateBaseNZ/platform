@@ -5,7 +5,6 @@ import { useSession } from "next-auth/client";
 import Image from "next/image";
 import { ColourLogo } from "../../components/UI/Icons";
 import AuthForm from "../../components/Auth/AuthForm";
-import ResetPassword from "../../components/Auth/ResetPassword";
 
 import classes from "/styles/authView.module.scss";
 import ForgotPassword from "../../components/Auth/ForgotPassword";

@@ -115,7 +115,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 		const newCode = [...code];
 		newCode[idx] = char;
 		setCode(newCode);
-		if (idx !== codeLength - 1) {
+		if (idx !== codeLength - 1 && e.target.value) {
 			refs.current[idx + 1].focus();
 		}
 		if (newCode.every((char) => char !== "")) {
@@ -158,6 +158,9 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 						error={error}
 					/>
 				))}
+			</div>
+			<div className={classes.errorMessage} style={{ opacity: error ? 1 : 0 }}>
+				The code you entered is incorrect or expired
 			</div>
 			<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
 		</form>
@@ -261,13 +264,10 @@ const ForgotPassword = () => {
 			() => {
 				setError("email", {
 					type: "manual",
-					message: "We could not find an account with that email",
+					message: "Something went wrong, please reload the page",
 				});
-				setIsLoading(false);
 			},
 			() => {
-				setInputValues((state) => ({ ...state, email: input.email }));
-				setStep(1);
 				ctx.setBell({ type: "neutral", message: "Recovery code sent" });
 			}
 		);

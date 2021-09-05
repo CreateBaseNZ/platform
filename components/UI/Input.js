@@ -26,15 +26,18 @@ export const PasswordInput = ({ className, inputProps, label, error, ...rest }) 
 			label={label}
 			error={error}
 			children={
-				show ? (
-					<i className="material-icons" style={{ top: label ? "2.5rem" : "1.5rem" }} title="Hide password" onClick={() => setShow((state) => !state)}>
+				<>
+					<i className="material-icons" style={{ top: label ? "2.5rem" : "1.5rem", opacity: show ? 0.75 : 0, zIndex: show ? 2 : 1 }} title="Hide password" onClick={() => setShow((state) => !state)}>
 						visibility
 					</i>
-				) : (
-					<i className="material-icons-outlined" style={{ opacity: 0.5, top: label ? "2.5rem" : "1.5rem" }} title="Show password" onClick={() => setShow((state) => !state)}>
+					<i
+						className="material-icons-outlined"
+						style={{ top: label ? "2.5rem" : "1.5rem", opacity: show ? 0 : 0.5, zIndex: show ? 1 : 2 }}
+						title="Show password"
+						onClick={() => setShow((state) => !state)}>
 						visibility
 					</i>
-				)
+				</>
 			}
 			{...rest}
 		/>

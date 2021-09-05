@@ -6,6 +6,7 @@ import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate, usernameMinLength, usernamePattern, isBlacklisted } from "../../utils/formValidation";
 
 import classes from "./UserDetailsForm.module.scss";
+import { changePassword, updateProfile } from "../../utils/profileHelpers";
 
 const UserDetailsForm = ({ user, setUser, ctx }) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -55,33 +56,34 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
 			return setIsLoading(false);
 		}
 
-		// EXAMPLE: Update data
-		const newDetails = { date: new Date().toString(), displayName: input.displayName };
-		console.log(newDetails);
-		let data;
-		try {
-			data = (await axios.post("/api/profile/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: newDetails }))["data"];
-		} catch (error) {
-			// TODO handle error
-			console.log(error);
-			if (error.response) {
-				data = error.response.data;
-			} else if (error.request) {
-				data = { status: "error", content: error.request };
-			} else {
-				data = { status: "error", content: error.message };
-			}
-			alert("TODO: an error occurred");
-			return setIsLoading(false);
-		}
-		console.log(data);
+		const newDetails = { displayName: input.displayName, date: new Date().toString() };
 
-		setUser((state) => ({ ...state, ...input }));
-		ctx.setBell({
-			type: "success",
-			message: "Successfully updated details",
-		});
-		setIsLoading(false);
+		updateProfile(
+			newDetails,
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() => {
+				setUser((state) => ({ ...state, ...input }));
+				ctx.setBell({
+					type: "success",
+					message: "Successfully updated details",
+				});
+				setIsLoading(false);
+			}
+		);
 	};
 
 	return (
@@ -135,35 +137,45 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
 export default UserDetailsForm;
 
 export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
-	const [isSaving, setIsSaving] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const password = useRef({});
 	const {
 		register,
 		handleSubmit,
 		trigger,
 		watch,
+		setError,
 		formState: { errors, touchedFields },
 	} = useForm({ mode: "onTouched" });
 	password.current = watch("newPassword", "");
 
 	const onSubmit = async (input) => {
-		setIsSaving(true);
-		// TODO validate password
-		console.log(input); // TODO change password
-
-		setIsSaving(false);
-		const error = false;
-		if (error) {
-			// TODO handle error
-			alert("nope");
-			return;
-		}
-
-		setChangingPassword(false);
-		ctx.setBell({
-			type: "success",
-			message: "Successfully changed password",
-		});
+		setIsLoading(true);
+		const details = { oldPassword: input.currentPassword, password: input.newPassword, date: new Date().toString() };
+		changePassword(
+			details,
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			(content) => {
+				if (content.password) setError("currentPassword", { type: "manual", message: "Incorrect password" }, { shouldFocus: true });
+				setIsLoading(false);
+			},
+			() => {
+				setChangingPassword(false);
+				ctx.setBell({
+					type: "success",
+					message: "Successfully changed password",
+				});
+			}
+		);
 	};
 
 	useEffect(() => {
@@ -172,7 +184,7 @@ export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
 
 	return (
 		<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-			<Input
+			<PasswordInput
 				className={classes.input}
 				label="Current Password"
 				inputProps={{
@@ -201,14 +213,14 @@ export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
 				inputProps={{
 					...register("confirmPassword", {
 						required: "Please confirm your new password",
-						validate: (value) => value === password.current || "Confirmation does not match new password",
+						validate: (value) => value === password.current || "Passwords do not match",
 					}),
 				}}
 				error={errors.confirmPassword}
 			/>
 			<div className={classes.btnContainer}>
-				{!isSaving && <TertiaryButton className={classes.cancel} type="button" onClick={() => setChangingPassword(false)} mainLabel="Cancel" />}
-				<PrimaryButton className={classes.submit} isLoading={isSaving} iconLeft={<i className="material-icons-outlined">save</i>} type="submit" loadingLabel="Saving ..." mainLabel="Save" />
+				{!isLoading && <TertiaryButton className={classes.cancel} type="button" onClick={() => setChangingPassword(false)} mainLabel="Cancel" />}
+				<PrimaryButton className={classes.submit} isLoading={isLoading} iconLeft={<i className="material-icons-outlined">save</i>} type="submit" loadingLabel="Saving ..." mainLabel="Save" />
 			</div>
 		</form>
 	);

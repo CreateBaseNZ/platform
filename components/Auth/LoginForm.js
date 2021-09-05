@@ -29,12 +29,11 @@ export const LoginForm = () => {
 		await logIn(
 			input.username,
 			input.password,
-			() => {
+			() =>
 				ctx.setBell({
 					type: "catastrophe",
 					message: "Something unexpected happened, please reload the page",
-				});
-			},
+				}),
 			() => {
 				setError("username", {
 					type: "manual",
@@ -46,13 +45,7 @@ export const LoginForm = () => {
 				});
 				setIsLoading(false);
 			},
-			() => {
-				if (input.remember) {
-					window.localStorage.setItem("createbase__remember-me", input.username);
-				} else {
-					window.localStorage.removeItem("createbase__remember-me");
-				}
-			}
+			() => (input.remember ? window.localStorage.setItem("createbase__remember-me", input.username) : window.localStorage.removeItem("createbase__remember-me"))
 		);
 	};
 

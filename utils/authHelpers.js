@@ -175,7 +175,7 @@ export const resetPassword = async (inputs, criticalHandler, errorHandler, failH
 	} else if (data.status === "error") {
 		return errorHandler();
 	} else if (data.status === "failed") {
-		return data.content === "Incorrect code" ? failHandler() : successHandler();
+		return data.content.code ? failHandler() : successHandler();
 	}
 	return successHandler();
 };

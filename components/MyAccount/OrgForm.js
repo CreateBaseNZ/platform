@@ -153,6 +153,7 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 						inputProps={{
 							className: classes.joinInput,
 							type: "number",
+							maxLength: 254,
 							placeholder: "School ID*",
 							...register("orgId", {
 								required: "Please enter the organisation ID",
@@ -166,6 +167,7 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 						inputProps={{
 							className: classes.joinInput,
 							type: "text",
+							maxLength: 254,
 							placeholder: "School Name*",
 							...register("orgName", {
 								required: "Please enter the organisation name",
