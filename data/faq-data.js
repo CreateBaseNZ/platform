@@ -20,7 +20,7 @@ export default [
 						</p>
 						<p>
 							Links can be added using `a` tags and the associated hyperlink (as `href`). For internal links, just use the relative path, e.g. this one goes to the
-							<a href="/browse" target='_blank'>Browse page</a>. For external sites, just paste the regular URL, e.g. our <Link href="https://createbase.co.nz/">website</Link>. Note that `target='_blank'` has been set in order to open the link in a new tab (which is important for retaining users on our platform). To link to another item on
+							<a href="/browse" target='_blank'>Browse page</a>. For external sites, just paste the regular URL, e.g. our <a href="https://createbase.co.nz/">website</a>. Note that `target='_blank'` has been set in order to open the link in a new tab (which is important for retaining users on our platform). To link to another item on
 							this page, use the `Link` element and set an `href` with `/faq/X-Y` where X is the section and Y is the item (and note `target='_blank'` is not set here as we want to view another item and not open a new tab). Keep in mind that indices begin at 0,
 							<Link href="/faq/0-1">e.g. this link goes to section 0 item 1</Link>. To add tooltips, just use the `title` attribute, and this will be handles natively{" "}
 							<span title="You found the secret tooltip">(hover here)</span>.

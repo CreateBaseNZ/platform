@@ -10,14 +10,13 @@ import faqData from "../../data/faq-data";
 import Frame from "../../components/Frame";
 
 const sectionLength = faqData.length;
-let imagesLoaded = false;
 
 const awaitImages = (images, callback) => {
 	let count = 0;
 	const addLoaded = () => {
 		count++;
+		console.log(count);
 		if (count === images.length) {
-			imagesLoaded = true;
 			callback();
 		}
 	};
@@ -33,6 +32,7 @@ const Faq = ({ setLoaded }) => {
 	const [user, setUser] = useState({});
 	const [activeIndex, setActiveIndex] = useState({ section: 0, item: null });
 	const [activeHeight, setActiveHeight] = useState();
+	const [imagesLoaded, setImagesLoaded] = useState(false);
 
 	useEffect(() => {
 		setLoaded(true);
@@ -59,13 +59,22 @@ const Faq = ({ setLoaded }) => {
 	}, [router.query]);
 
 	useEffect(() => {
+		console.log("running this" + activeIndex.item);
 		if (!loading && activeIndex.item !== null && activeIndex.item !== undefined) {
 			const el = document.querySelectorAll("." + classes.overflowContainer)[activeIndex.item];
 			const images = el.querySelectorAll("img");
 			if (!imagesLoaded && images.length) {
-				awaitImages(images, () => setActiveHeight(el.clientHeight));
+				console.log("first run");
+				awaitImages(images, () => {
+					console.log(el.clientHeight);
+					setImagesLoaded(true);
+					setActiveHeight(el.clientHeight);
+				});
 			} else {
-				if (el && activeIndex.item !== undefined && activeIndex.item !== null) {
+				setImagesLoaded(true);
+				console.log(el);
+				if (el) {
+					console.log("am i working" + el.clientHeight);
 					setActiveHeight(el.clientHeight);
 				}
 			}
