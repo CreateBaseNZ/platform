@@ -68,7 +68,7 @@ export default [
 					<>
 						<p>
 							Each Project has its own set of 5-10 lesson plans. To access a Project’s lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are
-							interested in. The ‘Lesson Plan’ button will then appear. Clicking that button will open all the lesson plans for that Project in a new tab. <Link href="/faq/1-3">Yeap</Link>
+							interested in. The ‘Lesson Plan’ button will then appear. Clicking that button will open all the lesson plans for that Project in a new tab.
 						</p>
 						<img src="/faq/faq-1.jpg" />
 						<p>
@@ -209,7 +209,7 @@ export default [
 					<>
 						<p>
 							Every student needs their own CreateBase account. In a future update, they will gain the ability to sign in using their Google account. To get your students on the platform, get them to
-							visit{" "}
+							visit
 							<a href="/" target="_blank">
 								https://app.createbase.co.nz/
 							</a>
@@ -279,7 +279,7 @@ export default [
 				a: (
 					<>
 						<p>
-							If you are the admin for your organisation, you can upgrade your account from the 18th of October through our website{" "}
+							If you are the admin for your organisation, you can upgrade your account from the 18th of October through our website
 							<a href="https://createbase.co.nz/" target="_blank">
 								https://createbase.co.nz/
 							</a>{" "}
@@ -304,7 +304,7 @@ export default [
 				a: (
 					<>
 						<p>
-							To join an organisation, go to the{" "}
+							To join an organisation, go to the
 							<a href="/user" target="_blank">
 								My Account
 							</a>{" "}
@@ -324,7 +324,7 @@ export default [
 							new organisation.
 						</p>
 						<p>
-							To join an organisation with an existing account, you can also go to the{" "}
+							To join an organisation with an existing account, you can also go to the
 							<a href="/user" target="_blank">
 								My Account
 							</a>{" "}
@@ -393,7 +393,7 @@ export default [
 				a: (
 					<>
 						<p>
-							You can contact us for any reason via email at admin@createbase.co.nz or send us a message from our{" "}
+							You can contact us for any reason via email at admin@createbase.co.nz or send us a message from our
 							<a href="https://createbase.co.nz/contact" target="_blank">
 								website
 							</a>
