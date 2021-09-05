@@ -78,35 +78,104 @@ export const logIn = async (username, password, catastropheHandler, failHandler,
 		PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
 	});
 
-	console.log(result);
-
-	// TODO update after streamline
 	if (result.error) {
-		const error = result.error;
-		if (error === "failed") {
+		const error = JSON.parse(result.error);
+		if (error.status === "failed") {
 			return failHandler();
 		} else {
 			return catastropheHandler();
 		}
 	}
 
-	router.replace("/browse");
 	successHandler();
+	router.replace("/browse");
+};
+
+export const signUpEducator = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	if (data.status === "critical error") {
+		return criticalHandler();
+	} else if (data.status === "error") {
+		return errorHandler();
+	} else if (data.status === "failed") {
+		return failHandler(data.content);
+	}
+	return successHandler();
+};
+
+export const validateUsername = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/signup/validate-username", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	if (data.status === "critical error") {
+		return criticalHandler();
+	} else if (data.status === "error") {
+		return errorHandler();
+	} else if (data.status === "failed") {
+		return failHandler(data.content);
+	}
+	return successHandler();
+};
+
+export const signUpLearner = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/signup/learner-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	console.log(data);
+	if (data.status === "critical error") {
+		return criticalHandler();
+	} else if (data.status === "error") {
+		return errorHandler();
+	} else if (data.status === "failed") {
+		return failHandler(data.content);
+	}
+	return successHandler();
 };
 
 export const sendForgotPasswordCode = async (email, criticalHandler, errorHandler, failHandler, successHandler) => {
-	// let data;
-	// try {
-	// 	data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { email: email } }))["data"];
-	// } catch (error) {
-	// 	data = { status: "error", content: error };
-	// }
-	// if (data.status === "critical error") {
-	// 	return criticalHandler()
-	// } else if (data.status === "error") {
-	// 	return errorHandler()
-	// } else if (data.status === "failed") {
-	// 	return failHandler();
-	// }
-	successHandler();
+	let data;
+	try {
+		data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { email: email } }))["data"];
+	} catch (error) {
+		console.log(data);
+		return criticalHandler();
+	}
+	console.log(data);
+	if (data.status === "critical error") {
+		return criticalHandler();
+	} else if (data.status === "error") {
+		return errorHandler();
+	} else if (data.status === "failed") {
+		return failHandler(data.content);
+	}
+	return successHandler();
+};
+
+export const resetPassword = async (inputs, criticalHandler, errorHandler, failHandler, successHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	console.log(data);
+	if (data.status === "critical error") {
+		return criticalHandler();
+	} else if (data.status === "error") {
+		return errorHandler();
+	} else if (data.status === "failed") {
+		return data.content === "Incorrect code" ? failHandler() : successHandler();
+	}
+	return successHandler();
 };
