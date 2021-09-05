@@ -60,12 +60,12 @@ const Faq = ({ setLoaded }) => {
 		if (!loading && activeIndex.item !== null && activeIndex.item !== undefined) {
 			const el = document.querySelectorAll("." + classes.overflowContainer)[activeIndex.item];
 			const images = el.querySelectorAll("img");
-			if (!imagesLoaded && images.length) {
+			if (images.length && !images[0].clientHeight) {
 				awaitImages(images, () => {
-					setImagesLoaded(true);
 					setActiveHeight(el.clientHeight);
 				});
 			} else {
+				console.log("running second");
 				setImagesLoaded(true);
 				console.log(el);
 				if (el) {
