@@ -54,7 +54,7 @@ const MyAccount = ({ user, setUser }) => {
 						iconLeft={<i className="material-icons-outlined">password</i>}
 						mainLabel="Change password"
 					/>
-					<TertiaryButton className={classes.deleteAcc} iconLeft={<i className="material-icons-outlined">person_remove</i>} mainLabel="Delete account" onClick={() => setDeletingAcc(true)} />
+					{/* <TertiaryButton className={classes.deleteAcc} iconLeft={<i className="material-icons-outlined">person_remove</i>} mainLabel="Delete account" onClick={() => setDeletingAcc(true)} /> */}
 				</div>
 			</div>
 			<div className={classes.rightArea}>

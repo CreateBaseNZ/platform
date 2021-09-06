@@ -11,7 +11,7 @@ import { ColourLogoIcon } from "./UI/Icons";
 const Header = ({ session, type, org, displayName = "", username, collapseNav, toggleNavHandler }) => {
 	const [active, setActive] = useState(false);
 
-	console.log(active);
+	console.log(org);
 
 	return (
 		<header className={classes.header}>
@@ -35,13 +35,13 @@ const Header = ({ session, type, org, displayName = "", username, collapseNav, t
 						<i className="material-icons-outlined">expand_more</i>
 					</div>
 					<div className={`${classes.menu} ${active ? classes.active : ""}`}>
-						{type === "admin" && org && (
+						{/* {type === "admin" && org && (
 							<button onMouseDown={() => router.push("/user/console")}>
 								<i className="material-icons-outlined">admin_panel_settings</i>
 								Admin console
 							</button>
-						)}
-						{(type === "admin" || type === "create") && !org && (
+						)} */}
+						{(type === "admin" || type === "educator") && !org && (
 							<>
 								<button onMouseDown={() => router.push("/user")}>
 									<i className="material-icons-outlined">group_add</i> Join an org
