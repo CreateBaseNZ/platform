@@ -1,113 +1,113 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .overlay {
-  z-index: 10;
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  background: rgba(black, 0.8);
-  backdrop-filter: blur(2px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	z-index: 10;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	background: rgba(black, 0.8);
+	backdrop-filter: blur(2px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .modal {
-  max-width: 75vw;
-  background: $lightest;
-  border-radius: 32px;
-  padding: 5vh 5vw;
-  box-shadow: 0 8px 24px 0 rgba(black, 0.25);
-  border: thick solid $red;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  * {
-    color: $red;
-  }
-  i {
-    font-size: 25vh;
-  }
-  .close {
-    margin-top: -2vh;
-    margin-bottom: -2vh;
-    margin-right: -3vw;
-    align-self: flex-end;
-    font-size: 30px;
-    color: $dark;
-    padding: 0.5rem;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: color 0.1s ease-out, background-color 0.1s ease-out;
-    &:hover {
-      color: $darker;
-      background: rgba(black, 0.1);
-    }
-  }
+	max-width: 75vw;
+	background: white;
+	border-radius: 32px;
+	padding: 5vh 5vw;
+	box-shadow: 0 8px 24px 0 rgba(black, 0.25);
+	border: thick solid $red;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	* {
+		color: $red;
+	}
+	i {
+		font-size: 25vh;
+	}
+	.close {
+		margin-top: -2vh;
+		margin-bottom: -2vh;
+		margin-right: -3vw;
+		align-self: flex-end;
+		font-size: 30px;
+		color: $dark;
+		padding: 0.5rem;
+		cursor: pointer;
+		border-radius: 8px;
+		transition: color 0.1s ease-out, background-color 0.1s ease-out;
+		&:hover {
+			color: $darker;
+			background: rgba(black, 0.1);
+		}
+	}
 }
 
 .h1 {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 2vh;
+	font-size: 24px;
+	font-weight: 600;
+	margin-bottom: 2vh;
 }
 
 .ul {
-  margin: 1vh 0;
-  font-size: 14px;
-  font-weight: 500;
-  li {
-    font-size: inherit;
-    margin: 0.25em 0;
-    margin-left: 2em;
-  }
+	margin: 1vh 0;
+	font-size: 14px;
+	font-weight: 500;
+	li {
+		font-size: inherit;
+		margin: 0.25em 0;
+		margin-left: 2em;
+	}
 }
 
 .confirm {
-  font-size: 14px;
-  font-weight: 500;
-  margin: 1vh 0;
-  align-self: flex-start;
+	font-size: 14px;
+	font-weight: 500;
+	margin: 1vh 0;
+	align-self: flex-start;
 }
 
 .form {
-  align-self: flex-start;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  .inputContainer {
-    margin-bottom: 2vh;
-    .input:focus {
-      background: rgba(black, 0.05);
-      border-color: rgba(black, 0.2);
-    }
-  }
-  .btnContainer {
-    display: flex;
-    button {
-      flex: 1 1 0;
-      height: 3.5rem;
-    }
-    .cancelBtn {
-      margin-right: 1vw;
-      color: $dark;
-      &:hover {
-        color: $darker;
-      }
-    }
-    .deleteBtn {
-      margin-left: 1vw;
-      color: $lightest;
-      background: $red;
-      box-shadow: 0 4px 16px 0 rgba($red, 0.25);
-      i {
-        color: inherit;
-        font-size: 20px;
-        margin-right: 0.5em;
-      }
-      &:hover {
-        box-shadow: 0 8px 24px 0 rgba($red, 0.25);
-      }
-    }
-  }
+	align-self: flex-start;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	.inputContainer {
+		margin-bottom: 2vh;
+		.input:focus {
+			background: rgba(black, 0.05);
+			border-color: rgba(black, 0.2);
+		}
+	}
+	.btnContainer {
+		display: flex;
+		button {
+			flex: 1 1 0;
+			height: 3.5rem;
+		}
+		.cancelBtn {
+			margin-right: 1vw;
+			color: $dark;
+			&:hover {
+				color: $darker;
+			}
+		}
+		.deleteBtn {
+			margin-left: 1vw;
+			color: white;
+			background: $red;
+			box-shadow: 0 4px 16px 0 rgba($red, 0.25);
+			i {
+				color: inherit;
+				font-size: 20px;
+				margin-right: 0.5em;
+			}
+			&:hover {
+				box-shadow: 0 8px 24px 0 rgba($red, 0.25);
+			}
+		}
+	}
 }

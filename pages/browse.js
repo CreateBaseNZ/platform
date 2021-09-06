@@ -40,7 +40,7 @@ const Browse = ({ setLoaded }) => {
 	};
 
 	return (
-		<Frame tabIndex={1} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName}>
+		<Frame tabIndex={1} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName} isVerified={user.verified} setUser={setUser}>
 			<OverlayScrollbarsComponent className={classes.browse}>
 				<div className={classes.inner}>
 					<Head>

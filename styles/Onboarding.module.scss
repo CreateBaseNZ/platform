@@ -28,6 +28,7 @@
 }
 
 .tasks {
+	flex: 0 0 auto;
 	margin: 2vh 4vw 2vh 0;
 	display: flex;
 	flex-direction: column;
@@ -49,6 +50,7 @@
 	}
 	.task {
 		width: 400px;
+		min-width: 400px;
 		padding-right: 1rem;
 		cursor: pointer;
 		display: flex;

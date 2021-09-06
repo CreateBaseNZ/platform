@@ -3,7 +3,7 @@ import classes from "./Frame.module.scss";
 import Header from "./Header";
 import Nav from "./Nav";
 
-const Frame = ({ children, tabIndex, session, type, org, displayName, username }) => {
+const Frame = ({ children, tabIndex, session, type, org, displayName, username, isVerified, showVerifyModal, setShowVerifyModal, setUser }) => {
 	const [collapseNav, setCollapseNav] = useState(false);
 
 	const toggleNavHandler = () => {
@@ -17,7 +17,19 @@ const Frame = ({ children, tabIndex, session, type, org, displayName, username }
 			</div>
 			<div className={classes.view}>
 				<div className={classes.header}>
-					<Header session={session} type={type} org={org} displayName={displayName} username={username} collapseNav={collapseNav} toggleNavHandler={toggleNavHandler} />
+					<Header
+						session={session}
+						type={type}
+						org={org}
+						displayName={displayName}
+						username={username}
+						setUser={setUser}
+						isVerified={isVerified}
+						showExternal={showVerifyModal}
+						setShowExternal={setShowVerifyModal}
+						collapseNav={collapseNav}
+						toggleNavHandler={toggleNavHandler}
+					/>
 				</div>
 				{children}
 			</div>

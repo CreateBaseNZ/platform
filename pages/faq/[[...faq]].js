@@ -93,7 +93,7 @@ const Faq = ({ setLoaded }) => {
 	};
 
 	return (
-		<Frame tabIndex={3} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName}>
+		<Frame tabIndex={3} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName} isVerified={user.verified} setUser={setUser}>
 			<Head>
 				<title>FAQ | CreateBase</title>
 				<meta name="description" content="Frequently asked questions about the CreateBase platform" />

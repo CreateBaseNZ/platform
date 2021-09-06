@@ -48,7 +48,7 @@ const UserView = ({ setLoaded }) => {
 	console.log(user);
 
 	return (
-		<Frame tabIndex={2} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName}>
+		<Frame tabIndex={2} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName} isVerified={user.verified} setUser={setUser}>
 			<Head>
 				<title style={{ textTransform: "capitalize" }}>{user.displayName && user.displayName + " | "} CreateBase</title>
 				<meta name="description" content="Edit account settings for your CreateBase account. Join an existing organisation or create your own." />

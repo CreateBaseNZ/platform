@@ -76,6 +76,7 @@
 
 .btnContainer {
 	display: flex;
+	justify-content: flex-start;
 }
 
 .continueBtn {
@@ -149,7 +150,7 @@
 		padding: 10px;
 		border-radius: 20px;
 		border: 2px solid;
-		margin: 2px;
+		margin: 3px 2px;
 		&.Technology {
 			color: #36c4e8;
 		}
@@ -209,16 +210,23 @@
 }
 
 .lessonBtn {
+	align-self: flex-start;
+	justify-self: flex-start;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-top: 2vh;
-	height: 3.5rem;
-	color: $green-mid;
-	border-color: $green-mid;
-	i {
-		margin-right: 0.5em;
-	}
-	&:hover {
-		color: $green-light;
-		border-color: $green-light;
+	button {
+		height: 3.5rem;
+		color: $green-mid;
+		border-color: $green-mid;
+		i {
+			margin-right: 0.5em;
+		}
+		&:hover {
+			color: $green-light;
+			border-color: $green-light;
+		}
 	}
 }
 
@@ -240,10 +248,11 @@
 		font-weight: 600;
 		font-size: 13px;
 		letter-spacing: 0.05em;
+		border-radius: 8px 8px 0 0;
 		text-transform: uppercase;
 		opacity: 0.5;
 		color: white;
-		transition: opacity 0.1s ease-out;
+		transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
 		&::after {
 			content: "";
 			margin-top: 0.25em;
@@ -254,9 +263,11 @@
 		}
 		&:hover {
 			opacity: 1;
+			background: rgba(white, 0.05);
 		}
 		&.active {
 			opacity: 1;
+			background: rgba(white, 0.2);
 			&::after {
 				height: 4px;
 			}

@@ -43,14 +43,15 @@ export const initSession = async (session, callback) => {
 
 		console.log(profileData);
 
-		const type = (await getSession())["user"]["access"];
+		const { access, verified } = (await getSession())["user"];
 
 		return callback({
-			type: type,
+			type: access,
 			username: licenseData.content.username,
 			displayName: profileData.content.displayName,
 			org: org,
 			saves: profileData.content.saves,
+			verified: verified,
 		});
 	}
 };
@@ -160,4 +161,31 @@ export const resetPassword = async (inputs, criticalHandler, errorHandler, failH
 		return data.content.code ? failHandler() : successHandler();
 	}
 	return successHandler();
+};
+
+export const verifyAccount = async (code, criticalHandler, errorHandler, failHandler, successHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/auth/account-verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: code }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	if (data.status === "critical error") {
+		return criticalHandler();
+	} else if (data.status === "error") {
+		return errorHandler();
+	} else if (data.status === "failed") {
+		return failHandler(data.content);
+	}
+	return successHandler();
+};
+
+export const resendVerificationCode = async (successHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/auth/account-verification-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+	} catch (error) {
+		alert("An unexpected error occurred, please reload the page and try again. If this problem persists, please contact us.");
+	}
+	successHandler();
 };

@@ -74,8 +74,8 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 							</div>
 						</div>
 						{project.lessonPlan && (
-							<a href={project.lessonPlan} target="_blank">
-								<SecondaryButton className={classes.lessonBtn} mainLabel="Lesson Plan" iconLeft={<i className="material-icons-outlined">history_edu</i>} />
+							<a href={project.lessonPlan} target="_blank" className={classes.lessonBtn}>
+								<SecondaryButton mainLabel="Lesson Plan" iconLeft={<i className="material-icons-outlined">history_edu</i>} />
 							</a>
 						)}
 					</>

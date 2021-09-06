@@ -35,6 +35,7 @@ const Onboarding = ({ setLoaded }) => {
 	const [user, setUser] = useState({});
 	const [tasks, setTasks] = useState([]);
 	const [popup, setPopup] = useState();
+	const [showVerifyModal, setShowVerifyModal] = useState(false);
 
 	console.log(user);
 
@@ -50,6 +51,7 @@ const Onboarding = ({ setLoaded }) => {
 	useEffect(() => {
 		if (user.type) {
 			setTasks([
+				{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => setShowVerifyModal(true) },
 				{ title: "Join or create an org", progress: user.org ? 100 : 0, clickHandler: () => router.replace("/user/my-account") },
 				{
 					title: "Teaching my first project",
@@ -73,7 +75,7 @@ const Onboarding = ({ setLoaded }) => {
 								console.log(content);
 							},
 							() => {
-								setTasks((state) => state.map((task, i) => (i === 1 ? { ...task, progress: 100 } : task)));
+								setTasks((state) => state.map((task, i) => (i === 2 ? { ...task, progress: 100 } : task)));
 							}
 						);
 					},
@@ -82,6 +84,10 @@ const Onboarding = ({ setLoaded }) => {
 			]);
 		}
 	}, [user.type]);
+
+	useEffect(() => {
+		if (user.verified) setTasks((state) => state.map((task, i) => (i === 0 ? { ...task, progress: 100 } : task)));
+	}, [user.verified]);
 
 	console.log(tasks);
 
@@ -95,7 +101,17 @@ const Onboarding = ({ setLoaded }) => {
 	}
 
 	return (
-		<Frame tabIndex={0} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName}>
+		<Frame
+			tabIndex={0}
+			session={session}
+			type={user.type}
+			org={user.org}
+			username={user.username}
+			displayName={user.displayName}
+			isVerified={user.verified}
+			setUser={setUser}
+			showVerifyModal={showVerifyModal}
+			setShowVerifyModal={setShowVerifyModal}>
 			<Head>
 				<title>FAQ | CreateBase</title>
 				<meta name="description" content="Frequently asked questions about the CreateBase platform" />

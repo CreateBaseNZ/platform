@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import router from "next/router";
 import Link from "next/link";
 import { signOut } from "next-auth/client";
@@ -7,9 +7,11 @@ import UserAvatar from "./UI/UserAvatar";
 import classes from "./Header.module.scss";
 import { PrimaryButton, SecondaryButton } from "./UI/Buttons";
 import { ColourLogoIcon } from "./UI/Icons";
+import VerifyModal from "./VerifyModal";
 
-const Header = ({ session, type, org, displayName = "", username, collapseNav, toggleNavHandler }) => {
+const Header = ({ session, type, org, displayName = "", username, isVerified, showExternal, setShowExternal = () => {}, setUser, collapseNav, toggleNavHandler }) => {
 	const [active, setActive] = useState(false);
+	const [showVerifyModal, setShowVerifyModal] = useState(false);
 
 	return (
 		<header className={classes.header}>
@@ -17,6 +19,11 @@ const Header = ({ session, type, org, displayName = "", username, collapseNav, t
 			<button className={`${classes.collapse} ${collapseNav ? classes.collapsed : ""}`} title={collapseNav ? "Expand" : "Collapse"} onClick={toggleNavHandler}>
 				<i className="material-icons-outlined">{collapseNav ? "chevron_right" : "chevron_left"}</i>
 			</button>
+			{!isVerified && type !== "learner" && (
+				<button className={classes.verifyBtn} onClick={() => setShowVerifyModal(true)}>
+					Verify
+				</button>
+			)}
 			<Link href="/faq">
 				<button className={classes.help} title="FAQ">
 					<i className="material-icons-outlined">live_help</i>
@@ -28,7 +35,10 @@ const Header = ({ session, type, org, displayName = "", username, collapseNav, t
 						<UserAvatar size={40} name={username} type={type} className={classes.avatar} />
 						<div className={classes.headerName}>
 							<div>{displayName}</div>
-							<div>{type}</div>
+							<div>
+								{type}
+								{isVerified && <i className="material-icons">check_circle</i>}
+							</div>
 						</div>
 						<i className="material-icons-outlined">expand_more</i>
 					</div>
@@ -72,6 +82,7 @@ const Header = ({ session, type, org, displayName = "", username, collapseNav, t
 					</Link>
 				</div>
 			)}
+			{(showVerifyModal || showExternal) && <VerifyModal setIsShown={setShowVerifyModal} setShowExternal={setShowExternal} setUser={setUser} />}
 		</header>
 	);
 };
