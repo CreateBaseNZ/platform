@@ -7,12 +7,12 @@ const labels = [
 	{ route: "/onboarding", label: "Onboarding", icon: "skateboarding", access: ["educator", "admin"] },
 	{ route: "/browse", label: "Browse", icon: "camera_roll", access: [undefined, "learner", "educator", "admin"] },
 	{ route: "/user/my-account", label: "My Account", icon: "person", access: ["educator", "admin"] },
-	{
-		route: "/admin-console",
-		label: "Admin Console",
-		icon: "admin_panel_settings",
-		access: ["admin"],
-	},
+	// {
+	// 	route: "/admin-console",
+	// 	label: "Admin Console",
+	// 	icon: "admin_panel_settings",
+	// 	access: ["admin"],
+	// },
 	{ route: "/faq", label: "FAQ", icon: "help_outline", access: [undefined, "learner", "educator", "admin"] },
 ];
 

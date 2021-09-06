@@ -10,16 +10,17 @@ import axios from "axios";
 
 import classes from "./OrgForm.module.scss";
 import { getOrgData } from "../../utils/authHelpers";
+import { joinOrgEducator } from "../../utils/orgHelpers";
 
 const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 	const [showConfirm, setShowConfirm] = useState(false);
-	const [loadingQueryOrg, setLoadingQueryOrg] = useState(false);
-	const [loadingJoinOrg, setLoadingJoinOrg] = useState(false);
-	const [showInvalidCode, setShowInvalidCode] = useState(false);
-	const [queriedOrg, setQueriedOrg] = useState({});
+	const [isLoading, setIsLoading] = useState(false);
+	const [invalidDetails, setInvalidDetails] = useState(false);
 	const {
 		register,
 		handleSubmit,
+		setError,
+		setFocus,
 		formState: { errors },
 	} = useForm({
 		mode: "onTouched",
@@ -27,7 +28,7 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 
 	const onSubmit = async (input) => {
 		// delete this ------------------------------------
-		setLoadingQueryOrg(true);
+		setIsLoading(true);
 		const orgValues = {
 			name: input.orgName,
 			code: input.orgCode,
@@ -36,40 +37,49 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 			date: new Date().toString(),
 			metadata: { id: input.orgId },
 		};
-		let data;
-		try {
-			data = (await axios.post("/api/organisation/join-educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: orgValues }))["data"];
-		} catch (error) {
-			// TODO error handler
-			if (error.response) {
-				data = error.response.data;
-			} else if (error.request) {
-				data = { status: "error", content: error.request };
-			} else {
-				data = { status: "error", content: error.message };
+		joinOrgEducator(
+			orgValues,
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			(content) => {
+				if (content.code) {
+					setError("orgCode", { type: "manual", message: "Invalid code" }, { shouldFocus: true });
+				}
+				if (content.organisation) {
+					setFocus("orgId");
+					setInvalidDetails("Incorrect organisation details");
+				}
+				setIsLoading(false);
+				console.log(content);
+			},
+			async () => {
+				const org = await getOrgData();
+				setUser((state) => ({ ...state, org: org }));
+				setIsLoading(false);
+				resetCta();
+				ctx.setBell({
+					type: "success",
+					message: `Successfully joined ${org.name}`,
+				});
 			}
-			alert("there was an error");
-			return setLoadingQueryOrg(false);
-		}
-
-		const org = await getOrgData();
-
-		setUser((state) => ({ ...state, org: org }));
-		setLoadingQueryOrg(false);
-		resetCta();
-		ctx.setBell({
-			type: "success",
-			message: `Successfully joined ${queriedOrg.name}`,
-		});
+		);
 
 		// uncomment this ---------------------------------
 
-		// setLoadingQueryOrg(true);
+		// setIsLoading(true);
 		// // TODO query if code is valid
 		// const notValid = false;
 		// if (notValid) {
-		// 	setShowInvalidCode(true);
-		// 	return setLoadingQueryOrg(false);
+		// 	setInvalidDetails(true);
+		// 	return setIsLoading(false);
 		// }
 		// setQueriedOrg({
 		// 	name: "Lorem",
@@ -78,30 +88,30 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 		// 	educators: 8,
 		// 	learners: 143,
 		// });
-		// setLoadingQueryOrg(false);
+		// setIsLoading(false);
 		// setShowConfirm(true);
 
 		// ------------------------------------------------
 	};
 
-	const joinOrgHandler = () => {
-		setLoadingJoinOrg(true);
-		// TODO join the org
-		const joinError = true;
-		if (joinError) {
-			// TODO fail handler
-			setLoadingJoinOrg(false);
-			resetCta();
-			return alert("something went wrong");
-		}
-		setUser((state) => ({ ...state, org: queriedOrg }));
-		setLoadingJoinOrg(false);
-		resetCta();
-		ctx.setBell({
-			type: "success",
-			message: `Successfully joined ${queriedOrg.name}`,
-		});
-	};
+	// const joinOrgHandler = () => {
+	// 	setIsLoading(true);
+	// 	// TODO join the org
+	// 	const joinError = true;
+	// 	if (joinError) {
+	// 		// TODO fail handler
+	// 		setIsLoading(false);
+	// 		resetCta();
+	// 		return alert("something went wrong");
+	// 	}
+	// 	setUser((state) => ({ ...state, org: queriedOrg }));
+	// 	setIsLoading(false);
+	// 	resetCta();
+	// 	ctx.setBell({
+	// 		type: "success",
+	// 		message: `Successfully joined ${queriedOrg.name}`,
+	// 	});
+	// };
 
 	return (
 		<>
@@ -127,8 +137,8 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 						</div>
 					</div>
 					<div className={classes.joinConfirmBtnContainer}>
-						{!loadingJoinOrg && <SecondaryButton className={classes.joinCancelBtn} onClick={() => setShowConfirm(false)} mainLabel="Cancel" />}
-						<PrimaryButton className={classes.joinBtn} isLoading={loadingJoinOrg} mainLabel="Confirm" onClick={joinOrgHandler} />
+						{!isLoading && <SecondaryButton className={classes.joinCancelBtn} onClick={() => setShowConfirm(false)} mainLabel="Cancel" />}
+						<PrimaryButton className={classes.joinBtn} isLoading={isLoading} mainLabel="Confirm" onClick={joinOrgHandler} />
 					</div>
 				</div>
 			) : (
@@ -136,7 +146,7 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 					<p className={classes.instruction}>Enter your organisation code below:</p>
 					<Input
 						className={classes.input}
-						onFocus={() => setShowInvalidCode(false)}
+						onFocus={() => setInvalidDetails(false)}
 						inputProps={{
 							className: classes.joinInput,
 							type: "text",
@@ -145,11 +155,11 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 								required: "Please enter an organisation code",
 							}),
 						}}
-						error={errors.orgCode || showInvalidCode}
+						error={errors.orgCode}
 					/>
 					<Input
 						className={classes.input}
-						onFocus={() => setShowInvalidCode(false)}
+						onFocus={() => setInvalidDetails(false)}
 						inputProps={{
 							className: classes.joinInput,
 							type: "number",
@@ -159,11 +169,11 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 								required: "Please enter the organisation ID",
 							}),
 						}}
-						error={errors.orgId || showInvalidCode}
+						error={errors.orgId || invalidDetails}
 					/>
 					<Input
 						className={classes.input}
-						onFocus={() => setShowInvalidCode(false)}
+						onFocus={() => setInvalidDetails(false)}
 						inputProps={{
 							className: classes.joinInput,
 							type: "text",
@@ -173,10 +183,10 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 								required: "Please enter the organisation name",
 							}),
 						}}
-						error={errors.orgName || showInvalidCode}
+						error={errors.orgName || invalidDetails}
 					/>
-					<PrimaryButton className={classes.joinBtn} isLoading={loadingQueryOrg} type="submit" mainLabel="Join" />
-					{showInvalidCode && <div className={classes.invalidCode}>The details you entered are invalid</div>}
+					<PrimaryButton className={classes.joinBtn} isLoading={isLoading} type="submit" mainLabel="Join" />
+					{invalidDetails && <div className={classes.invalidCode}>The details you entered are invalid</div>}
 				</form>
 			)}
 		</>
