@@ -17,7 +17,7 @@ export default {
 	subjects: ["Technology", "Engineering", "Computer Science", "Automation", "AI", "Ethics"],
 	learningOutcome: "/send-it/learning_outcomes.pdf",
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
-	lessonPlan: "/send-it/files/lesson-plan.pdf",
+	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	situation: {
 		url: "https://youtu.be/iiWiwxxkq2Q",
 		src: "/send-it/vid/situation.mp4",
