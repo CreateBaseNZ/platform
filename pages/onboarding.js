@@ -89,8 +89,6 @@ const Onboarding = ({ setLoaded }) => {
 		if (user.verified) setTasks((state) => state.map((task, i) => (i === 0 ? { ...task, progress: 100 } : task)));
 	}, [user.verified]);
 
-	console.log(tasks);
-
 	if (loading || !user.type) {
 		return null;
 	}
@@ -134,7 +132,7 @@ const Onboarding = ({ setLoaded }) => {
 						))}
 					</div>
 					{popup && (
-						<div className={classes.popup}>
+						<div className={`${classes.popup} roundScrollbar`}>
 							<h2 className={classes.h2}>{popup.title}</h2>
 							<p>{popup.content}</p>
 						</div>
