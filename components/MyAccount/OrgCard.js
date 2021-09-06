@@ -20,11 +20,13 @@ const OrgCard = ({ user, leavingOrg, leaveOrgHandler, setLeavingOrg }) => {
 							{(user.org.admins > 1 || user.org.admins === 0) && "s"}
 						</div>
 					)}
-					<div>
-						<i className="material-icons-outlined">school</i>
-						{user.org.educators} educator
-						{(user.org.educators > 1 || user.org.educators === 0) && "s"}
-					</div>
+					{user.type !== "learner" && (
+						<div>
+							<i className="material-icons-outlined">school</i>
+							{user.org.educators} educator
+							{(user.org.educators > 1 || user.org.educators === 0) && "s"}
+						</div>
+					)}
 					<div>
 						<i className="material-icons-outlined">backpack</i>
 						{user.org.learners} learner

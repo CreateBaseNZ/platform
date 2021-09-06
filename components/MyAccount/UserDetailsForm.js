@@ -2,20 +2,23 @@ import { useForm } from "react-hook-form";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Input, { PasswordInput } from "../UI/Input";
-import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
+import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate, usernameMinLength, usernamePattern, isBlacklisted } from "../../utils/formValidation";
 
 import classes from "./UserDetailsForm.module.scss";
 import { changePassword, updateProfile } from "../../utils/profileHelpers";
+import getRandomName from "../../utils/randomNames";
 
 const UserDetailsForm = ({ user, setUser, ctx }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const [learnerName, setLearnerName] = useState(user.displayName);
 	const {
 		register,
 		handleSubmit,
 		reset,
 		setError,
-		formState: { errors },
+		setValue,
+		formState: { errors, isDirty },
 	} = useForm({
 		defaultValues: {
 			displayName: user.displayName,
@@ -34,6 +37,12 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
 			}),
 		[user]
 	);
+
+	const newNameHandler = () => {
+		const randomName = getRandomName();
+		setLearnerName(randomName);
+		setValue("displayName", randomName, { shouldDirty: true });
+	};
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
@@ -113,23 +122,34 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
         }}
         error={errors.username}
       /> */}
-			<Input
-				className={classes.input}
-				label="Display Name"
-				inputProps={{
-					type: "text",
-					maxLength: 254,
-					...register("displayName", {
-						required: "A display name is required",
-						minLength: displayNameMinLength,
-						pattern: displayNamePattern,
-					}),
-				}}
-				error={errors.displayName}
-			/>
+			{user.type === "learner" ? (
+				<div className={classes.learnerNameContainer}>
+					<input {...register("displayName")} style={{ visibility: "hidden" }} />
+					<div className={classes.caption}>Display name</div>
+					<div className={classes.learnerName}>
+						{learnerName} <SecondaryButton type="button" className={classes.changeNameBtn} mainLabel="Randomise!" onClick={newNameHandler} />
+					</div>
+				</div>
+			) : (
+				<Input
+					className={classes.input}
+					label="Display Name"
+					inputProps={{
+						type: "text",
+						maxLength: 254,
+						...register("displayName", {
+							required: "A display name is required",
+							minLength: displayNameMinLength,
+							pattern: displayNamePattern,
+						}),
+					}}
+					error={errors.displayName}
+				/>
+			)}
 			<div className={classes.btnContainer}>
 				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" iconLeft={<i className="material-icons-outlined">done</i>} loadingLabel="Saving ..." mainLabel="Update" />
 			</div>
+			{isDirty && <div className={classes.unsavedChanges}>You have unsaved changes</div>}
 		</form>
 	);
 };

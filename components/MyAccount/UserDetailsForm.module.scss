@@ -25,3 +25,41 @@
 		margin-right: 1vw;
 	}
 }
+
+.learnerNameContainer {
+	display: flex;
+	flex-direction: column;
+	.caption {
+		font-size: 12px;
+		color: $light;
+	}
+	.learnerName {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-weight: 600;
+		font-size: 1.25rem;
+		height: 3rem;
+		.changeNameBtn {
+			margin: 0;
+			height: 1.75rem;
+			width: auto;
+			padding: 0 1rem;
+			font-size: 11px;
+			border: none;
+			color: rgba(black, 0.5);
+			background: rgba(black, 0.06);
+			transition: background-color 0.1s ease-out, color 0.1s ease-out;
+			&:hover {
+				color: white;
+				background: rgba($logo-mid, 0.75);
+			}
+		}
+	}
+}
+
+.unsavedChanges {
+	margin-top: 1vh;
+	color: $light;
+	font-size: 11px;
+}
