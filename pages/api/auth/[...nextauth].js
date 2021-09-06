@@ -3,7 +3,6 @@ import Providers from "next-auth/providers";
 import axios from "axios";
 
 import { emailPattern, passwordMinLength, usernameMinLength, usernamePattern } from "../../../utils/formValidation";
-import { redirect } from "next/dist/server/api-utils";
 
 function passwordValidate(v) {
 	const errors = [];
@@ -84,27 +83,28 @@ function validateEmailLogin(object) {
 }
 
 function validateUsernameLogin(object) {
-	let valid = true;
-	let errors = { username: "", password: "" };
-	// Validate username
-	const username = validateUsername(object.username);
-	if (!username.status) {
-		valid = false;
-		errors.username = username.content;
-	}
-	console.log("Username Login");
-	// Validate password
-	const password = validatePassword(object.password);
-	if (!password.status) {
-		valid = false;
-		errors.password = password.content;
-	}
-	// Evaluate outcome
-	if (!valid) {
-		return { status: "failed", content: errors };
-	} else {
-		return { status: "succeeded", content: errors };
-	}
+	return new Promise((resolve, reject) => {
+		let valid = true;
+		let errors = new Object();
+		// Validate username
+		const username = validateUsername(object.username);
+		if (!username.status) {
+			valid = false;
+			errors.username = username.content;
+		}
+		// Validate password
+		const password = validatePassword(object.password);
+		if (!password.status) {
+			valid = false;
+			errors.password = password.content;
+		}
+		// Evaluate outcome
+		if (!valid) {
+			return reject({ status: "failed", content: errors });
+		} else {
+			return resolve();
+		}
+	});
 }
 
 async function emailLogin(object) {
@@ -120,7 +120,7 @@ async function emailLogin(object) {
 	let data;
 	try {
 		data = (
-			await axios.post("https://createbase.co.nz/email-login", {
+			await axios.post(process.env.ROUTE_URL + "/email-login", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input,
 			})
@@ -150,23 +150,36 @@ async function usernameLogin(object) {
 	// Send the data to the backend
 	let data;
 	try {
-		data = (
-			await axios.post("https://createbase.co.nz/username-login", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input,
-			})
-		)["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/username-login", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
-		if (error.response) {
-			data = { status: "error", content: error.response.data };
-		} else if (error.request) {
-			data = { status: "error", content: error.request };
-		} else {
-			data = { status: "error", content: error.message };
-		}
+		data = { status: "error", content: error };
 	}
 	// Return data to the main function
 	return data;
+}
+
+async function updateSession(license, profile) {
+	return new Promise(async (resolve, reject) => {
+		let data;
+		try {
+			data = (
+				await axios.post(process.env.ROUTE_URL + "/update-session", {
+					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+					input: { license, profile },
+				})
+			)["data"];
+		} catch (error) {
+			if (error.response) {
+				data = { status: "error", content: error.response.data };
+			} else if (error.request) {
+				data = { status: "error", content: error.request };
+			} else {
+				data = { status: "error", content: error.message };
+			}
+		}
+		if (data.status === "failed" || data.status === "error") return reject(data);
+		return resolve(data.content);
+	});
 }
 
 export default NextAuth({
@@ -179,7 +192,15 @@ export default NextAuth({
 			return token;
 		},
 		async session(session, token) {
+			if (!token) return session;
 			session.user = token.user;
+			let userSession;
+			try {
+				userSession = await updateSession(session.user.license, session.user.profile);
+			} catch (data) {
+				return session;
+			}
+			session.user = userSession;
 			return session;
 		},
 		async redirect(url) {
@@ -191,7 +212,7 @@ export default NextAuth({
 			async authorize(credentials) {
 				// Validate PUBLIC_API_KEY
 				if (credentials.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
-					throw new Error("Invalid API Key.");
+					throw new Error(JSON.stringify({ status: "critical error", content: "" }));
 				}
 				// Perform authentication based on the type
 				let data;
@@ -201,8 +222,8 @@ export default NextAuth({
 					data = await usernameLogin(credentials);
 				}
 				// Validate the authentication
-				if (data.status === "failed" || data.status === "error") {
-					throw new Error("You have entered an invalid username or password");
+				if (data.status === "critical error" || data.status === "error" || data.status === "failed") {
+					throw new Error(JSON.stringify(data));
 				}
 				// Success handler
 				return data.content;

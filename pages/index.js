@@ -3,41 +3,228 @@ import { useSession } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import { signIn } from "next-auth/client";
 import { signOut } from "next-auth/client";
-import axios from "axios";
 import { SecondaryButton } from "../components/UI/Buttons";
+import { initSession } from "../utils/authHelpers";
 
 import WhiteLogo, { FBIcon, IGIcon, TwitterIcon, YTIcon } from "/components/UI/Icons";
+
+import axios from "axios";
 
 import classes from "/styles/Index.module.scss";
 
 const Index = ({ setLoaded }) => {
 	const [session, loading] = useSession();
-	// const [name, setName] = useState("");
+	const [user, setUser] = useState({});
 	const [showHelper, setShowHelper] = useState(false);
 
 	useEffect(async () => {
 		setLoaded(true);
+
+		// EXAMPLE: Read organisation data for the admin console page
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/admin/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Read organisation data for the account settings page
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/read-account", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Read data
+		// const input = { properties: ["displayName"], saves: ["test", "test2"] };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Update data
+		// const input = { date: new Date().toString(), displayName: "Test", saves: { test2: "test2" } };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/profile/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Delete data
+		// const input = { date: new Date().toString(), saves: ["test2"] };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/profile/delete-saves", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Admin create an educator
+		// const input = { username: "student1", password: "Student1!", status: "free", date: new Date().toString(), displayName: "Student One" };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/admin/create-learner", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/auth/account-verification-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// const input = { code: "JzwdoH" };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/auth/account-verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/auth/send-email-test", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// const input = { email: "carlvelasco96@gmail.com" };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	data = { status: "error", content: error };
+		// }
+		// if (data.status === "critical error") {
+		// 	// Critical Error Handling
+		// } else if (data.status === "error") {
+		// 	// Error Handling
+		// } else if (data.status === "failed") {
+		// 	// Failed Handling
+		// }
+
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/signup/validate-username", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Retrieving user's username
+		// const input = { properties: ["username"] };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/license/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Changing user's username
+		// const input = { username: "carlvelasco", date: new Date().toString() };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/license/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	if (error.response) {
+		// 		data = error.response.data;
+		// 	} else if (error.request) {
+		// 		data = { status: "error", content: error.request };
+		// 	} else {
+		// 		data = { status: "error", content: error.message };
+		// 	}
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
-	// useEffect(async () => {
-	// 	if (session) {
-	// 		console.log(session);
-	// 		let data;
-	// 		try {
-	// 			data = (await axios.post("/api/user/data/read", { input: ["displayName"] }))["data"];
-	// 		} catch (error) {
-	// 			data = { status: "error", content: error };
-	// 		}
-	// 		console.log(data);
-	// 		if (data.status === "error") {
-	// 			console.log("error"); // TODO handle error
-	// 		}
-	// 		setName(data.content.displayName);
-	// 	}
-	// }, [session]);
+	useEffect(async () => {
+		initSession(session, setUser);
+	}, [session]);
 
 	const helperClickHandler = () => {
 		setShowHelper((state) => !state);
@@ -52,11 +239,13 @@ const Index = ({ setLoaded }) => {
 				<meta name="description" content="Unleash your inner creator. CreateBase." />
 			</Head>
 			<div className={classes.bg}>
-				<Image src="/landing.png" layout="fill" objectFit="contain" quality={100} objectPosition={"75% 100%"} alt="Landing image" />
+				<div style={{ height: "100%", width: "100%", position: "relative" }}>
+					<Image src="/landing.png" layout="fill" objectFit="contain" quality={100} objectPosition={"75% 100%"} alt="Landing image" />
+				</div>
 			</div>
 			<nav className={classes.nav}>
 				<div className={classes.logo}>
-					<WhiteLogo layout="fill" objectFit="contain" quality={100} />
+					<WhiteLogo height={32} width={180} quality={100} />
 				</div>
 				<div className={classes.socials}>
 					<FBIcon height={28} width={28} />
@@ -73,9 +262,8 @@ const Index = ({ setLoaded }) => {
 				{session ? (
 					<div className={classes.btnContainer}>
 						<SecondaryButton className={classes.signOut} mainLabel="Sign out" onClick={() => signOut({ callbackUrl: `${window.location.origin}` })} />
-						<Link href="/browse">
-							{/* //TODO <button className={classes.loggedIn}>Continue as {name}</button> */}
-							<button className={classes.loggedIn}>Continue</button>
+						<Link href="/onboarding">
+							<button className={classes.loggedIn}>Continue as {user.displayName}</button>
 						</Link>
 					</div>
 				) : (
@@ -88,7 +276,7 @@ const Index = ({ setLoaded }) => {
 								Log In<i className="material-icons-outlined">login</i>
 							</button>
 						</Link>
-						<Link href="/browse">
+						<Link href="/onboarding">
 							<button className={classes.guest}>Continue as guest</button>
 						</Link>
 					</div>

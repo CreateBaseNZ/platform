@@ -1,0 +1,321 @@
+@import "/styles/variables_new";
+
+.form {
+	min-height: 400px;
+	z-index: 2;
+	flex: 1 1 auto;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	h1 {
+		font-size: 20px;
+		font-weight: 500;
+		margin-bottom: 4vh;
+		line-height: 1.2em;
+	}
+}
+
+.instructions {
+	font-size: 14px;
+	color: $darker;
+	margin: 1vh 0;
+}
+
+.input {
+	margin: 0.5vh 0 0 0;
+}
+
+.inputCheckbox {
+	margin: 0.5vh 0;
+	width: 100%;
+	position: relative;
+	input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		z-index: 1;
+		cursor: pointer;
+	}
+	label {
+		font-weight: 600;
+		color: rgba(black, 0.4);
+		height: 3.5rem;
+		width: 100%;
+		border-radius: 16px;
+		padding-left: 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		border: medium solid rgba(black, 0.1);
+	}
+	input:hover ~ label {
+		border-color: $light;
+		color: $dark;
+		transition: background-color 0.1s ease-out, border-color 0.1s ease-out, color 0.1s ease-out;
+	}
+	input:checked ~ label {
+		background: rgba($green-dark, 0.05);
+		border-color: $green-dark;
+		color: $green-dark;
+	}
+	&.inputError label {
+		border-color: $red;
+	}
+}
+
+.smallFont {
+	font-size: 13px;
+	color: $light;
+	* {
+		font-size: inherit;
+		color: inherit;
+	}
+}
+
+.linkBtn {
+	color: $blue-dark;
+	font-weight: 500;
+	line-height: 1.25em;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.submit {
+	margin-top: 4vh;
+	height: 3.5rem;
+	font-size: 16px;
+	flex-shrink: 0;
+	i {
+		margin-right: 0.5em;
+	}
+}
+
+.secondaryBtn {
+	font-size: 16px;
+	margin-top: 1vh;
+	height: calc(3.5rem - 4px);
+}
+
+.backToLogin {
+	margin-bottom: 4vh;
+}
+
+.errorMessage {
+	height: 1em;
+	font-size: 12px;
+	margin-top: 0.5vh;
+	color: $red;
+	font-weight: 500;
+}
+
+.smallCheckbox {
+	display: flex;
+	align-items: center;
+	position: relative;
+	input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 20px;
+		width: 100%;
+		opacity: 0;
+		cursor: pointer;
+		&:hover ~ .checkbox {
+			background: rgba(black, 0.05);
+		}
+		&:checked ~ .checkbox {
+			background: $blue-dark;
+			i {
+				display: block;
+			}
+		}
+	}
+	.checkbox {
+		order: -1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 20px;
+		width: 20px;
+		border: thin solid $blue-dark;
+		pointer-events: none;
+		border-radius: 4px;
+		i {
+			font-size: 16px;
+			color: $lightest;
+			display: none;
+		}
+	}
+	label {
+		margin-left: 0.5rem;
+		line-height: 1em;
+	}
+	a {
+		position: relative;
+		z-index: 1;
+	}
+}
+
+.options {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 2vh;
+}
+
+.loginForm {
+	.input:focus {
+		border-color: $blue-mid;
+		background: rgba($blue-mid, 0.05);
+	}
+	.submit {
+		background: $blue-mid;
+		box-shadow: 0 4px 16px rgba($blue-mid, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($blue-mid, 0.25);
+		}
+	}
+	.secondaryBtn {
+		border-color: $blue-mid;
+		color: $blue-mid;
+		&:hover {
+			border-color: $blue-dark;
+			color: $blue-dark;
+		}
+	}
+}
+
+.signupContainer {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	.switch {
+		margin-top: auto;
+		align-self: center;
+		font-size: 14px;
+		button {
+			font-size: inherit;
+			margin-left: 0.5rem;
+		}
+	}
+	.termsError {
+		* {
+			color: $red !important;
+		}
+		.checkbox {
+			border-color: $red;
+		}
+	}
+}
+
+.signupForm {
+	.input:focus {
+		border-color: $green-dark;
+		background: rgba($green-dark, 0.05);
+	}
+	.submit {
+		background: $green-dark;
+		box-shadow: 0 4px 16px rgba($green-dark, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($green-dark, 0.25);
+		}
+	}
+}
+
+.backBtn {
+	z-index: 3;
+	font-size: 12px;
+	color: $light;
+	align-self: flex-start;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 2rem;
+	margin-left: -1rem;
+	margin-bottom: -2rem;
+	cursor: pointer;
+	border-radius: 8px;
+	padding: 0 0.75rem 0 0.5rem;
+	transition: background-color 0.1s ease-out, color 0.1s ease-out;
+	i {
+		margin-right: 0.25em;
+		font-size: 16px;
+		color: inherit;
+	}
+	&:hover {
+		background: $lighter;
+		color: $darker;
+	}
+}
+
+.forgotContainer {
+	height: 65vh;
+	padding-top: 4vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	.forgotOptions {
+		margin-top: 2vh;
+		width: 75%;
+		max-width: 500px;
+		margin-bottom: 4vh;
+		display: flex;
+		justify-content: space-between;
+		button {
+			margin-left: 0.5rem;
+		}
+	}
+}
+
+.forgotForm {
+	height: 100%;
+	width: 75%;
+	max-width: 500px;
+	min-height: 200px;
+	.input:focus {
+		border-color: $amber;
+		background: rgba($amber, 0.05);
+	}
+	.submit {
+		background: $amber;
+		box-shadow: 0 4px 16px rgba($amber, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($amber, 0.25);
+		}
+	}
+}
+
+.forgotTwoForm {
+	align-items: center;
+	.verifCode {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		.verifCodeInput {
+			flex: 0 0 3rem;
+			margin: 0 0.4rem;
+			input {
+				text-align: center;
+				padding: 0;
+			}
+		}
+	}
+	.loadingVerifCode {
+		opacity: 0;
+		pointer-events: none;
+		background: transparent;
+		color: $light;
+		box-shadow: none;
+		& > :first-child {
+			border-color: $light;
+			border-top-color: transparent;
+		}
+	}
+}
