@@ -11,8 +11,6 @@ import { ColourLogoIcon } from "./UI/Icons";
 const Header = ({ session, type, org, displayName = "", username, collapseNav, toggleNavHandler }) => {
 	const [active, setActive] = useState(false);
 
-	console.log(org);
-
 	return (
 		<header className={classes.header}>
 			<ColourLogoIcon className={`${classes.home} ${collapseNav ? classes.collapsed : ""}`} />

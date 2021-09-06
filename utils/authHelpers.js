@@ -1,6 +1,7 @@
 import router from "next/router";
 import { signIn } from "next-auth/client";
 import axios from "axios";
+import { getSession } from "next-auth/client";
 
 export const getOrgData = async () => {
 	let orgData;
@@ -16,7 +17,6 @@ export const getOrgData = async () => {
 			orgData = { status: "error", content: error.message };
 		}
 	}
-	console.log(orgData);
 	return {
 		name: orgData.content.name,
 		city: orgData.content.location.city,
@@ -33,35 +33,25 @@ export const initSession = async (session, callback) => {
 		try {
 			profileData = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { properties: ["displayName"] } }))["data"];
 		} catch (error) {
-			// TODO handle errors
-			if (error.response) {
-				profileData = error.response.data;
-			} else if (error.request) {
-				profileData = { status: "error", content: error.request };
-			} else {
-				profileData = { status: "error", content: error.message };
-			}
+			alert("Something went wrong, please reload the page and try again. If this problem persists, please get in touch with us.");
 		}
+
 		let licenseData;
 		try {
 			licenseData = (await axios.post("/api/license/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { properties: ["username"] } }))["data"];
 		} catch (error) {
-			// TODO handle errors
-			if (error.response) {
-				licenseData = error.response.data;
-			} else if (error.request) {
-				licenseData = { status: "error", content: error.request };
-			} else {
-				licenseData = { status: "error", content: error.message };
-			}
+			alert("Something went wrong, please reload the page and try again. If this problem persists, please get in touch with us.");
 		}
+
 		let org = null;
 		if (session.user.organisation) {
 			org = await getOrgData();
 		}
 
+		const type = (await getSession())["user"]["access"];
+
 		return callback({
-			type: session.user.access,
+			type: type,
 			username: licenseData.content.username,
 			displayName: profileData.content.displayName,
 			org: org,
@@ -132,7 +122,6 @@ export const signUpLearner = async (details, criticalHandler, errorHandler, fail
 	} catch (error) {
 		return criticalHandler();
 	}
-	console.log(data);
 	if (data.status === "critical error") {
 		return criticalHandler();
 	} else if (data.status === "error") {
@@ -148,10 +137,8 @@ export const sendForgotPasswordCode = async (email, criticalHandler, errorHandle
 	try {
 		data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { email: email } }))["data"];
 	} catch (error) {
-		console.log(data);
 		return criticalHandler();
 	}
-	console.log(data);
 	if (data.status === "critical error") {
 		return criticalHandler();
 	} else if (data.status === "error") {
@@ -169,7 +156,6 @@ export const resetPassword = async (inputs, criticalHandler, errorHandler, failH
 	} catch (error) {
 		return criticalHandler();
 	}
-	console.log(data);
 	if (data.status === "critical error") {
 		return criticalHandler();
 	} else if (data.status === "error") {

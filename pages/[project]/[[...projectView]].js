@@ -72,16 +72,12 @@ const ProjectView = ({ setLoaded }) => {
 		}
 	}, [router.query]);
 
-	console.log(data);
-
 	if (loading || !data.query) return null;
 
 	if (!session && view === "Project" && data.query !== "magnebot") {
 		router.replace("/auth");
 		return null;
 	}
-
-	console.log(session);
 
 	return (
 		<div className={classes.projectView}>

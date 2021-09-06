@@ -185,7 +185,6 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 							</a>
 						</>
 					);
-				console.log(content);
 				setIsLoading(false);
 			},
 			async () => {

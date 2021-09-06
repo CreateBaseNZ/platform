@@ -36,6 +36,8 @@ const Faq = ({ setLoaded }) => {
 	const [activeHeight, setActiveHeight] = useState();
 	const [imagesLoaded, setImagesLoaded] = useState(false);
 
+	console.log("this is a new session" + session);
+
 	useEffect(() => {
 		setLoaded(true);
 		return () => setLoaded(false);

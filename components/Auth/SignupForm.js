@@ -144,7 +144,6 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 					)
 			);
 		} else {
-			console.log("hello");
 			validateUsername(
 				{ username: input.username },
 				() =>

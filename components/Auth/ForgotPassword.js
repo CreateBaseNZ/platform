@@ -24,9 +24,6 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 		mode: "onTouched",
 	});
 
-	console.log("hello");
-	console.log(router.query);
-
 	const onSubmit = async (input) => {
 		setIsLoading(true);
 		await sendForgotPasswordCode(
@@ -123,7 +120,6 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 		}
 		if (newCode.every((char) => char !== "")) {
 			const verifCode = newCode.join("");
-			console.log(verifCode);
 			submitCode(verifCode);
 		}
 	};

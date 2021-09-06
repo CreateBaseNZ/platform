@@ -24,7 +24,6 @@ export const changePassword = async (details, criticalHandler, errorHandler, fai
 	} catch (error) {
 		return criticalHandler();
 	}
-	console.log(data);
 	if (data.status === "critical error") {
 		return criticalHandler();
 	} else if (data.status === "error") {
