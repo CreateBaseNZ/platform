@@ -9,7 +9,10 @@ import classes from "/styles/Onboarding.module.scss";
 import router from "next/router";
 import { updateProfile } from "../utils/profileHelpers";
 
-const teachingContent = { title: "Teaching my first project", content: "Yeap" };
+const teachingContent = {
+	title: "Teaching my first project",
+	content: "Projects are delivered through a combination of teachers, like yourself, and our platform. To help you deliver a Project to your class, each one comes with a detailed lesson plan.  <new paragraph> We recommend going through the Project lesson plan and even the Project on the platform yourself before you start teaching the lesson to familiarise yourself with its content and structure. Key things to look out for in the lesson plan are glossaries and useful resources at the start of each section. <new paragraph> If it is your first time delivering a lesson like this, then we recommend following the lesson plan step-by-step. If you feel more confident, you are also free to adapt the lesson plans to suit your teaching style. There are no restrictions or pre-requisites in place on the platform so feel free to skip over any content or add in your own throughout the Project! <new paragraph> Most importantly, let your students dictate the flow of class discussions and don’t be afraid to go off track!",
+};
 
 const Onboarding = ({ setLoaded }) => {
 	const ctx = useContext(VisualBellContext);
@@ -60,7 +63,7 @@ const Onboarding = ({ setLoaded }) => {
 						);
 					},
 				},
-				{ title: "Platform Lite in 60 seconds (coming soon)", progress: "Coming soon", clickHandler: () => {} },
+				{ title: "Platform Lite in 60 seconds (coming soon)", progress: "Coming soon", clickHandler: () => { } },
 			]);
 		}
 	}, [user.type]);
