@@ -24,6 +24,9 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 		mode: "onTouched",
 	});
 
+	console.log("hello");
+	console.log(router.query);
+
 	const onSubmit = async (input) => {
 		setIsLoading(true);
 		await sendForgotPasswordCode(
@@ -243,10 +246,10 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 	);
 };
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ ocl }) => {
 	const ctx = useContext(VisualBellContext);
-	const [step, setStep] = useState(0);
-	const [inputValues, setInputValues] = useState();
+	const [step, setStep] = useState(ocl[1] && ocl[2] ? 2 : 0);
+	const [inputValues, setInputValues] = useState(ocl[1] && ocl[2] ? { email: ocl[1], code: ocl[2] } : null);
 
 	const resendCode = async () => {
 		await sendForgotPasswordCode(
