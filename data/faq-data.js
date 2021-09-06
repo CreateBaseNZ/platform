@@ -67,8 +67,11 @@ export default [
 				a: (
 					<>
 						<p>
-							Each Project has its own set of 5-10 lesson plans. To access a Project's lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are
-							interested in. The "Lesson Plan" button will then appear. Clicking that button will open all the lesson plans for that Project in a new tab.
+						Each Project has its own set of 5-10 lesson plans. To access a Project’s lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are interested in. The ‘Teaching’ tab will then appear. Click on that tab to reveal the teaching resources.
+						</p>
+						<img src="/faq/faq-1-1.jpg" />
+						<p>
+						You can now click on the “Lesson Plan” button to open all the lesson plans for that Project in a new tab.
 						</p>
 						<img src="/faq/faq-1.jpg" />
 						<p>
