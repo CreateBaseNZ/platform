@@ -80,7 +80,7 @@ export const logIn = async (username, password, catastropheHandler, failHandler,
 export const signUpEducator = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}
@@ -114,7 +114,7 @@ export const validateUsername = async (details, criticalHandler, errorHandler, f
 export const signUpLearner = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/signup/learner-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		data = (await axios.post("/api/signup/learner-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}

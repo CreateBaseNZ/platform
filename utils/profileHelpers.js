@@ -3,7 +3,7 @@ import axios from "axios";
 export const updateProfile = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/profile/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		data = (await axios.post("/api/profile/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}
@@ -20,7 +20,7 @@ export const updateProfile = async (details, criticalHandler, errorHandler, fail
 export const changePassword = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/license/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		data = (await axios.post("/api/license/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}

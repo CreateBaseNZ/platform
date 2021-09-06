@@ -64,11 +64,8 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
 		if (frontendError) {
 			return setIsLoading(false);
 		}
-
-		const newDetails = { displayName: input.displayName, date: new Date().toString() };
-
 		updateProfile(
-			newDetails,
+			{ displayName: input.displayName },
 			() =>
 				ctx.setBell({
 					type: "catastrophe",
@@ -171,7 +168,7 @@ export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		const details = { oldPassword: input.currentPassword, password: input.newPassword, date: new Date().toString() };
+		const details = { oldPassword: input.currentPassword, password: input.newPassword };
 		changePassword(
 			details,
 			() =>

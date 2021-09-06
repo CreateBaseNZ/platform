@@ -95,7 +95,7 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 
 		if (access === "educator") {
 			await signUpEducator(
-				{ email: input.email, username: input.username, displayName: input.displayName, password: input.password, date: new Date().toString() },
+				{ email: input.email, username: input.username, displayName: input.displayName, password: input.password },
 				() =>
 					ctx.setBell({
 						type: "catastrophe",
@@ -279,7 +279,6 @@ const SignupStepThree = ({ learner, setLearner }) => {
 			type: "school",
 			country: "New Zealand",
 			metadata: { id: input.orgId },
-			date: new Date().toString(),
 		};
 
 		signUpLearner(

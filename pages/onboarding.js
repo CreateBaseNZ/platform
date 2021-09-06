@@ -39,7 +39,7 @@ const Onboarding = ({ setLoaded }) => {
 					clickHandler: () => {
 						setPopup(teachingContent);
 						updateProfile(
-							{ saves: { teachingFirst: "done" }, date: new Date().toString() },
+							{ saves: { teachingFirst: "done" } },
 							() =>
 								ctx.setBell({
 									type: "catastrophe",

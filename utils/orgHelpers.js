@@ -3,7 +3,7 @@ import axios from "axios";
 const createOrg = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/organisation/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		data = (await axios.post("/api/organisation/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}
@@ -22,7 +22,7 @@ export default createOrg;
 export const joinOrgEducator = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/organisation/join-educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		data = (await axios.post("/api/organisation/join-educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}

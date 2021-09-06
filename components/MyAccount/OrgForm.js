@@ -32,7 +32,6 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 			code: input.orgCode,
 			type: "school",
 			country: "New Zealand",
-			date: new Date().toString(),
 			metadata: { id: input.orgId },
 		};
 		joinOrgEducator(
@@ -159,7 +158,6 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 			type: "school",
 			city: govData.result.records[0].Add1_City,
 			country: "New Zealand",
-			date: new Date().toString(),
 			metadata: { id: govData.result.records[0].School_Id.toString() },
 		};
 

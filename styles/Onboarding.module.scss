@@ -61,6 +61,7 @@
 			width: 1rem;
 			height: 1rem;
 			font-size: 20px;
+			transition: color 0.1s ease-out;
 		}
 		span {
 			font-size: 14px;
@@ -68,6 +69,7 @@
 			margin-right: auto;
 			margin-left: 0.75rem;
 			line-height: 1.25em;
+			transition: opacity 0.1s ease-out;
 		}
 		.dot::after {
 			content: "";
