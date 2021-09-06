@@ -20,7 +20,11 @@ const awaitImages = (images, callback) => {
 		}
 	};
 	images.forEach((img) => {
-		img.addEventListener("load", addLoaded, false);
+		if (!img.clientHeight) {
+			img.addEventListener("load", addLoaded, false);
+		} else {
+			count++;
+		}
 	});
 };
 
@@ -60,17 +64,14 @@ const Faq = ({ setLoaded }) => {
 		if (!loading && activeIndex.item !== null && activeIndex.item !== undefined) {
 			const el = document.querySelectorAll("." + classes.overflowContainer)[activeIndex.item];
 			const images = el.querySelectorAll("img");
-			if (images.length && !images[0].clientHeight) {
+			if (!imagesLoaded && images.length && !images[0].clientHeight) {
 				awaitImages(images, () => {
 					setActiveHeight(el.clientHeight);
+					setImagesLoaded(true);
 				});
 			} else {
-				console.log("running second");
 				setImagesLoaded(true);
-				console.log(el);
-				if (el) {
-					setActiveHeight(el.clientHeight);
-				}
+				if (el) setActiveHeight(el.clientHeight);
 			}
 		}
 	}, [activeIndex.item, loading]);

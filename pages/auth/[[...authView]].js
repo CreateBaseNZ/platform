@@ -73,7 +73,7 @@ const Auth = ({ setLoaded }) => {
 			<div className={classes.authMain}>
 				{view === "signup" && <AuthForm isSignup={true} />}
 				{view === "login" && <AuthForm isSignup={false} />}
-				{view === "forgot-password" && <ForgotPassword />}
+				{view === "forgot-password" && <ForgotPassword ocl={router.query.authView} />}
 			</div>
 		</div>
 	);
