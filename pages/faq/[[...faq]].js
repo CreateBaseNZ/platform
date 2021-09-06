@@ -36,8 +36,6 @@ const Faq = ({ setLoaded }) => {
 	const [activeHeight, setActiveHeight] = useState();
 	const [imagesLoaded, setImagesLoaded] = useState(false);
 
-	console.log("this is a new session" + session);
-
 	useEffect(() => {
 		setLoaded(true);
 		return () => setLoaded(false);
@@ -96,11 +94,11 @@ const Faq = ({ setLoaded }) => {
 
 	return (
 		<Frame tabIndex={4} session={session} type={user.type} org={user.org} username={user.username} displayName={user.displayName}>
+			<Head>
+				<title>FAQ | CreateBase</title>
+				<meta name="description" content="Frequently asked questions about the CreateBase platform" />
+			</Head>
 			<div className={classes.faq}>
-				<Head>
-					<title>FAQ | CreateBase</title>
-					<meta name="description" content="Frequently asked questions about the CreateBase platform" />
-				</Head>
 				<div className={classes.view}>
 					<h1>Frequently Asked Questions</h1>
 					<div className={classes.main}>

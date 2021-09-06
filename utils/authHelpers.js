@@ -8,14 +8,7 @@ export const getOrgData = async () => {
 	try {
 		orgData = (await axios.post("/api/organisation/read-account", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
 	} catch (error) {
-		// TODO handle errors
-		if (error.response) {
-			orgData = error.response.data;
-		} else if (error.request) {
-			orgData = { status: "error", content: error.request };
-		} else {
-			orgData = { status: "error", content: error.message };
-		}
+		alert("Something went wrong, please reload the page and try again. If this problem persists, please get in touch with us.");
 	}
 	return {
 		name: orgData.content.name,
