@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
+import { PrimaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
 
 import VisualBellContext from "../../store/visual-bell-context";
@@ -10,10 +10,9 @@ import axios from "axios";
 
 import classes from "./OrgForm.module.scss";
 import { getOrgData } from "../../utils/authHelpers";
-import { joinOrgEducator } from "../../utils/orgHelpers";
+import createOrg, { joinOrgEducator } from "../../utils/orgHelpers";
 
 const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
-	const [showConfirm, setShowConfirm] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [invalidDetails, setInvalidDetails] = useState(false);
 	const {
@@ -27,7 +26,6 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 	});
 
 	const onSubmit = async (input) => {
-		// delete this ------------------------------------
 		setIsLoading(true);
 		const orgValues = {
 			name: input.orgName,
@@ -58,7 +56,6 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 					setInvalidDetails("Incorrect organisation details");
 				}
 				setIsLoading(false);
-				console.log(content);
 			},
 			async () => {
 				const org = await getOrgData();
@@ -71,130 +68,61 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 				});
 			}
 		);
-
-		// uncomment this ---------------------------------
-
-		// setIsLoading(true);
-		// // TODO query if code is valid
-		// const notValid = false;
-		// if (notValid) {
-		// 	setInvalidDetails(true);
-		// 	return setIsLoading(false);
-		// }
-		// setQueriedOrg({
-		// 	name: "Lorem",
-		// 	city: "Auckland",
-		// 	country: "New Zealand",
-		// 	educators: 8,
-		// 	learners: 143,
-		// });
-		// setIsLoading(false);
-		// setShowConfirm(true);
-
-		// ------------------------------------------------
 	};
 
-	// const joinOrgHandler = () => {
-	// 	setIsLoading(true);
-	// 	// TODO join the org
-	// 	const joinError = true;
-	// 	if (joinError) {
-	// 		// TODO fail handler
-	// 		setIsLoading(false);
-	// 		resetCta();
-	// 		return alert("something went wrong");
-	// 	}
-	// 	setUser((state) => ({ ...state, org: queriedOrg }));
-	// 	setIsLoading(false);
-	// 	resetCta();
-	// 	ctx.setBell({
-	// 		type: "success",
-	// 		message: `Successfully joined ${queriedOrg.name}`,
-	// 	});
-	// };
-
 	return (
-		<>
-			{showConfirm ? (
-				<div className={classes.joinConfirm}>
-					<div className={classes.instruction}>You are joining</div>
-					<div className={classes.orgPreview}>
-						<div className={classes.orgName}>{queriedOrg.name}</div>
-						<div className={classes.orgLoc}>
-							{queriedOrg.city}, {queriedOrg.country}
-						</div>
-						<div className={classes.orgUsers}>
-							<div>
-								<i className="material-icons-outlined">school</i>
-								{queriedOrg.educators} educator
-								{(queriedOrg.educators > 1 || queriedOrg.educators === 0) && "s"}
-							</div>
-							<div>
-								<i className="material-icons-outlined">backpack</i>
-								{queriedOrg.learners} learner
-								{(queriedOrg.learners > 1 || queriedOrg.learners === 0) && "s"}
-							</div>
-						</div>
-					</div>
-					<div className={classes.joinConfirmBtnContainer}>
-						{!isLoading && <SecondaryButton className={classes.joinCancelBtn} onClick={() => setShowConfirm(false)} mainLabel="Cancel" />}
-						<PrimaryButton className={classes.joinBtn} isLoading={isLoading} mainLabel="Confirm" onClick={joinOrgHandler} />
-					</div>
-				</div>
-			) : (
-				<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-					<p className={classes.instruction}>Enter your organisation code below:</p>
-					<Input
-						className={classes.input}
-						onFocus={() => setInvalidDetails(false)}
-						inputProps={{
-							className: classes.joinInput,
-							type: "text",
-							placeholder: "Organisation code*",
-							...register("orgCode", {
-								required: "Please enter an organisation code",
-							}),
-						}}
-						error={errors.orgCode}
-					/>
-					<Input
-						className={classes.input}
-						onFocus={() => setInvalidDetails(false)}
-						inputProps={{
-							className: classes.joinInput,
-							type: "number",
-							maxLength: 254,
-							placeholder: "School ID*",
-							...register("orgId", {
-								required: "Please enter the organisation ID",
-							}),
-						}}
-						error={errors.orgId || invalidDetails}
-					/>
-					<Input
-						className={classes.input}
-						onFocus={() => setInvalidDetails(false)}
-						inputProps={{
-							className: classes.joinInput,
-							type: "text",
-							maxLength: 254,
-							placeholder: "School Name*",
-							...register("orgName", {
-								required: "Please enter the organisation name",
-							}),
-						}}
-						error={errors.orgName || invalidDetails}
-					/>
-					<PrimaryButton className={classes.joinBtn} isLoading={isLoading} type="submit" mainLabel="Join" />
-					{invalidDetails && <div className={classes.invalidCode}>The details you entered are invalid</div>}
-				</form>
-			)}
-		</>
+		<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+			<p className={classes.instruction}>Enter your organisation code below:</p>
+			<Input
+				className={classes.input}
+				onFocus={() => setInvalidDetails(false)}
+				inputProps={{
+					className: classes.joinInput,
+					type: "text",
+					maxLength: 254,
+					placeholder: "Organisation code*",
+					...register("orgCode", {
+						required: "Please enter an organisation code",
+					}),
+				}}
+				error={errors.orgCode}
+			/>
+			<Input
+				className={classes.input}
+				onFocus={() => setInvalidDetails(false)}
+				inputProps={{
+					className: classes.joinInput,
+					type: "number",
+					maxLength: 254,
+					placeholder: "School ID*",
+					...register("orgId", {
+						required: "Please enter the organisation ID",
+					}),
+				}}
+				error={errors.orgId || invalidDetails}
+			/>
+			<Input
+				className={classes.input}
+				onFocus={() => setInvalidDetails(false)}
+				inputProps={{
+					className: classes.joinInput,
+					type: "text",
+					maxLength: 254,
+					placeholder: "School Name*",
+					...register("orgName", {
+						required: "Please enter the organisation name",
+					}),
+				}}
+				error={errors.orgName || invalidDetails}
+			/>
+			<PrimaryButton className={classes.joinBtn} isLoading={isLoading} type="submit" mainLabel="Join" />
+			{invalidDetails && <div className={classes.invalidCode}>The details you entered are invalid</div>}
+		</form>
 	);
 };
 
 const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
-	const [creatingOrg, setCreatingOrg] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [invalidId, setInvalidId] = useState(false);
 	const {
 		register,
@@ -205,25 +133,25 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 	});
 
 	const onSubmit = async (input) => {
-		setCreatingOrg(true);
+		setIsLoading(true);
 
 		const govData = await querySchoolAPI(input.orgId, input.orgName);
 
 		if (!govData.success) {
 			setInvalidId("An unexpected error occurred - please try again");
-			return setCreatingOrg(false);
+			return setIsLoading(false);
 		}
 		if (govData.result.records.length === 0) {
 			setInvalidId("Incorrect details - make sure they match official records");
-			return setCreatingOrg(false);
+			return setIsLoading(false);
 		}
 		if (govData.result.records.length > 1) {
 			setInvalidId("Error - more than one result was found");
-			return setCreatingOrg(false);
+			return setIsLoading(false);
 		}
 		if (govData.result.records[0].School_Id.toString() !== input.orgId || govData.result.records[0].Org_Name.toLowerCase() !== input.orgName.toLowerCase()) {
 			setInvalidId("Incorrect details - make sure they match official records");
-			return setCreatingOrg(false);
+			return setIsLoading(false);
 		}
 
 		const newOrg = {
@@ -234,46 +162,43 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 			date: new Date().toString(),
 			metadata: { id: govData.result.records[0].School_Id.toString() },
 		};
-		let data;
-		try {
-			data = (await axios.post("/api/organisation/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: newOrg }))["data"];
-		} catch (error) {
-			// TODO handle error
-			if (error.response) {
-				data = error.response.data;
-			} else if (error.request) {
-				data = { status: "error", content: error.request };
-			} else {
-				data = { status: "error", content: error.message };
+
+		createOrg(
+			newOrg,
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			() =>
+				ctx.setBell({
+					type: "catastrophe",
+					message: "Something unexpected happened, please reload the page",
+				}),
+			(content) => {
+				if (content.organisation)
+					setInvalidId(
+						<>
+							This organisation has already registered. If this is a mistake, please
+							<a href="https://createbase.co.nz/contact" title="https://createbase.co.nz/contact" target="_blank" className={classes.contact}>
+								contact us
+							</a>
+						</>
+					);
+				console.log(content);
+				setIsLoading(false);
+			},
+			async () => {
+				const org = await getOrgData();
+				setUser((state) => ({ ...state, type: "admin", org: org }));
+				setIsLoading(false);
+				resetCta();
+				ctx.setBell({
+					type: "success",
+					message: `Successfully created and joined ${org.name}`,
+				});
 			}
-			console.log(data);
-			alert("TODO an error occurred");
-			return resetCta();
-		}
-
-		console.log("hello");
-		console.log(data);
-
-		// TODO check if taken
-		const taken = false;
-		if (taken) {
-			setInvalidId(
-				<>
-					This organisation has already registered. If this is a mistake, please
-					<a href="https://createbase.co.nz/contact" target="_blank" className={classes.contact}>
-						contact us
-					</a>
-				</>
-			);
-			return setCreatingOrg(false);
-		}
-
-		setUser((state) => ({ ...state, type: "admin", org: { ...newOrg, admins: 1, educators: 0, learners: 0 } }));
-		resetCta();
-		ctx.setBell({
-			type: "success",
-			message: `Successfully created and joined ${newOrg.name}`,
-		});
+		);
 	};
 
 	return (
@@ -311,7 +236,7 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 				}}
 				error={errors.orgName || invalidId}
 			/>
-			<PrimaryButton className={classes.createBtn} isLoading={creatingOrg} type="submit" mainLabel="Create Organisation" />
+			<PrimaryButton className={classes.createBtn} isLoading={isLoading} type="submit" mainLabel="Create Organisation" />
 			{invalidId && <div className={classes.invalidCode}>{invalidId}</div>}
 		</form>
 	);
