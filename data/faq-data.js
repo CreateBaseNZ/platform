@@ -67,8 +67,8 @@ export default [
 				a: (
 					<>
 						<p>
-							Each Project has its own set of 5-10 lesson plans. To access a Project’s lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are
-							interested in. The ‘Lesson Plan’ button will then appear. Clicking that button will open all the lesson plans for that Project in a new tab.
+							Each Project has its own set of 5-10 lesson plans. To access a Project's lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are
+							interested in. The "Lesson Plan" button will then appear. Clicking that button will open all the lesson plans for that Project in a new tab.
 						</p>
 						<img src="/faq/faq-1.jpg" />
 						<p>
@@ -109,7 +109,7 @@ export default [
 				),
 			},
 			{
-				q: "Where can I learn about the concepts I’m teaching?",
+				q: "Where can I learn about the concepts I'm teaching?",
 				a: (
 					<>
 						<p>
@@ -130,7 +130,7 @@ export default [
 				a: (
 					<>
 						<p>We recommend going through the Project lesson plan and content on the platform yourself before you start teaching the lesson to familiarise yourself with its content and structure.</p>
-						<p>If you want to feel more confident with a Project’s content and topics, then try reading through some of the additional resources supplied throughout each Project’s lesson plan.</p>
+						<p>If you want to feel more confident with a Project's content and topics, then try reading through some of the additional resources supplied throughout each Project's lesson plan.</p>
 					</>
 				),
 			},
@@ -192,7 +192,7 @@ export default [
 				q: "What are learning journals?",
 				a: (
 					<>
-						<p>Learning journals are where students document what they’ve done throughout their Project journey.</p>
+						<p>Learning journals are where students document what they've done throughout their Project journey.</p>
 						<p>Learning journals are found under the Imagine step in each Project and are available as either a Google Doc or Microsoft Word file.</p>
 						<img src="/faq/faq-8.jpg" />
 						<p>
@@ -215,7 +215,7 @@ export default [
 							</a>
 						</p>
 						<p>
-							If your students don’t have CreateBase accounts, tell them to click sign up and fill out each field. They will need to enter your organisation's learner code when they create their
+							If your students don't have CreateBase accounts, tell them to click sign up and fill out each field. They will need to enter your organisation's learner code when they create their
 							account. If you do not know what this is or how to get a learner code,
 							<Link href="/faq/2-8">
 								click here
@@ -224,7 +224,7 @@ export default [
 						<p>If your students already have CreateBase accounts, they can click log in and enter their account details.</p>
 						<img src="/faq/faq-2.jpg" />
 						<p>
-							Once they are logged in, they will need to navigate to the Browse page and select the Project you’re teaching. In the example below, the Send It Project has been selected. They can then
+							Once they are logged in, they will need to navigate to the Browse page and select the Project you're teaching. In the example below, the Send It Project has been selected. They can then
 							click continue to start the Project.
 						</p>
 						<img src="/faq/faq-5.jpg" />
@@ -236,7 +236,7 @@ export default [
 				a: (
 					<>
 						<p>
-							The easy answer is as much as you’re comfortable with. If you prefer class discussions, you may decide you want your students to do all the class discussion activities and even add some
+							The easy answer is as much as you're comfortable with. If you prefer class discussions, you may decide you want your students to do all the class discussion activities and even add some
 							of your own. Instead, you may want to be hands-off and skip over class discussions and get your students to complete tasks on the platform as much as possible. There is no correct
 							approach; teach as you please. The platform and lesson plans are here to help as much as required.
 						</p>
@@ -271,7 +271,7 @@ export default [
 				q: "What can my account access?",
 				a: (
 					<>
-						<p>Admin accounts have access to the entire platform, including their organisation’s admin page.</p>
+						<p>Admin accounts have access to the entire platform, including their organisation's admin page.</p>
 						<p>Educator accounts have access to Projects, lesson plans and FAQs.</p>
 						<p>Learner accounts can only access Projects.</p>
 					</>
@@ -311,7 +311,7 @@ export default [
 							<a href="/user" target="_blank">
 								My Account
 							</a>{" "}
-							page and click "Join an Org". You will then be prompted to enter your organisation’s code, your school’s ID and your school’s name. If you don’t know your organisation’s code, talk to
+							page and click "Join an Org". You will then be prompted to enter your organisation's code, your school's ID and your school's name. If you don't know your organisation's code, talk to
 							one of your organisation's admin users. They can generate a code for you from their admin console.
 						</p>
 						<img src="/faq/faq-9.jpg" />
@@ -331,7 +331,7 @@ export default [
 							<a href="/user" target="_blank">
 								My Account
 							</a>{" "}
-							page and click Create an Org. You will then be prompted to enter your school’s ID and name.
+							page and click Create an Org. You will then be prompted to enter your school's ID and name.
 						</p>
 						<img src="/faq/faq-10.jpg" />
 						<p>If an organisation has already been created for your school and you think that this was a mistake, then contact CreateBase via our email for support.</p>
@@ -348,7 +348,7 @@ export default [
 					<>
 						<p>When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.</p>
 						<p>
-							To invite other teachers to your organisation, you must share your organsiation’s educator code with them. If you are the organisation’s admin, it will be in your email inbox. If you are
+							To invite other teachers to your organisation, you must share your organsiation's educator code with them. If you are the organisation's admin, it will be in your email inbox. If you are
 							not, then contact your admin and ask for the code.
 						</p>
 						<p>The ability to view and generate educator codes is coming soon to the admin dashboard.</p>
@@ -361,7 +361,7 @@ export default [
 					<>
 						<p>When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.</p>
 						<p>
-							To invite students to your organisation, you must share your organsiation’s learner code with them. If you are the organisation’s admin, it will be in your email inbox. If you are not,
+							To invite students to your organisation, you must share your organsiation's learner code with them. If you are the organisation's admin, it will be in your email inbox. If you are not,
 							then contact your admin and ask for the code.
 						</p>
 						<p>The ability to view and generate learner codes will be made available soon to all educator accounts in the organisation.</p>
@@ -379,7 +379,7 @@ export default [
 				a: (
 					<>
 						<p>
-							Our platform is still under development. If you encounter any issues or things that you think could be optimised, then don’t hesitate to contact us, and we will fix your problem or
+							Our platform is still under development. If you encounter any issues or things that you think could be optimised, then don't hesitate to contact us, and we will fix your problem or
 							potentially add your feature/change request to our development pipeline.
 						</p>
 						<p>
