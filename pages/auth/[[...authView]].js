@@ -21,7 +21,7 @@ const Auth = ({ setLoaded }) => {
 	useEffect(() => {
 		if (!loading) {
 			if (session) {
-				router.replace("/browse");
+				router.replace("/onboarding");
 			} else {
 				setLoaded(true);
 			}

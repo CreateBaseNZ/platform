@@ -24,7 +24,7 @@ export const initSession = async (session, callback) => {
 	if (session) {
 		let profileData;
 		try {
-			profileData = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { properties: ["displayName"] } }))["data"];
+			profileData = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { properties: ["displayName"], saves: ["teachingFirst"] } }))["data"];
 		} catch (error) {
 			alert("Something went wrong, please reload the page and try again. If this problem persists, please get in touch with us.");
 		}
@@ -41,6 +41,8 @@ export const initSession = async (session, callback) => {
 			org = await getOrgData();
 		}
 
+		console.log(profileData);
+
 		const type = (await getSession())["user"]["access"];
 
 		return callback({
@@ -48,6 +50,7 @@ export const initSession = async (session, callback) => {
 			username: licenseData.content.username,
 			displayName: profileData.content.displayName,
 			org: org,
+			saves: profileData.content.saves,
 		});
 	}
 };
@@ -71,7 +74,7 @@ export const logIn = async (username, password, catastropheHandler, failHandler,
 	}
 
 	successHandler();
-	router.replace("/browse");
+	router.replace("/onboarding");
 };
 
 export const signUpEducator = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
