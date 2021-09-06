@@ -29,7 +29,7 @@ export const convertCode = (text, system, onceCode) => {
         let element = splittedCode[i].trim();
         if (element.length < 2 || element.substring(0, 2) != "//") {
             const dividedbyBracket = element.split("(")
-            const beforeBracket = dividedbyBracket[0];
+            const beforeBracket = dividedbyBracket[0].trim();
             const [elementSplitted, sides] = splitSingleEqual(beforeBracket);
             let unity = false;
             if (sides == 0) {
@@ -61,6 +61,11 @@ export const convertCode = (text, system, onceCode) => {
                     RHS = 'ctx.addLog';
                 }
             } else {
+                const finalSemiColon = RHS[RHS.length - 1] == ";";
+                if (finalSemiColon) {
+                    RHS = RHS.substring(0, RHS.length - 1);
+                }
+
                 const correctSensor = sensors.filter((element) => {
                     return correctSystem.sensors[element].simpleName == RHS;
                 });
@@ -157,10 +162,10 @@ const splitSingleEqual = (input) => {
         }
     }
     if (splittingIndex.length == 0) {
-        return [input,1]
+        return [input.trim(), 1];
     } else if (splittingIndex.length == 1) {
-        const LHS = input.substring(0, splittingIndex[0]);
-        const RHS=input.substring(splittingIndex[0]+1);
+        const LHS = input.substring(0, splittingIndex[0]).trim();
+        const RHS = input.substring(splittingIndex[0] + 1).trim();
 
         return [[LHS, RHS], 2];
     }else{
