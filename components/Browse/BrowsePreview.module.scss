@@ -97,8 +97,119 @@
 	}
 }
 
+.teachingCaption {
+	margin: 1vh 0;
+	display: flex;
+	align-items: center;
+	&,
+	* {
+		font-size: 14px;
+		color: white;
+	}
+	span {
+		font-weight: 600;
+		margin-right: 0.25em;
+	}
+	.pipe {
+		height: 100%;
+		width: 1px;
+		margin: 0 0.5em;
+		background: rgba(white, 0.25);
+	}
+	&.Introductory {
+		span {
+			color: $green-dark;
+		}
+	}
+	&.Proficient {
+		span {
+			color: $amber;
+		}
+	}
+	&.Advanced {
+		span {
+			color: $red;
+		}
+	}
+}
+
+.subjects {
+	margin: 1vh 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: flex-start;
+	.tag {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		font-weight: 600;
+		height: 20px;
+		padding: 10px;
+		border-radius: 20px;
+		border: 2px solid;
+		margin: 2px;
+		&.Technology {
+			color: #36c4e8;
+		}
+		&.Engineering {
+			color: #18dbac;
+		}
+		&.ComputerScience {
+			color: #fa6f6f;
+		}
+		&.Automation {
+			color: #fdb554;
+		}
+		&.AI {
+			color: #8dcbee;
+		}
+		&.Ethics {
+			color: #7f21b3;
+		}
+	}
+}
+
+.moreBtnContainer {
+	align-self: flex-start;
+	margin: 1vh 0;
+	display: flex;
+	flex-direction: column;
+	.moreBtnWrapper {
+		display: flex;
+		align-items: center;
+		width: 18rem;
+		font-size: 14px;
+		color: white;
+		a {
+			height: 2rem;
+			width: 2rem;
+			border-radius: 4px;
+			margin-left: 0.5rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(white, 0.25);
+			i {
+				color: white;
+				font-size: 16px;
+				font-weight: 0;
+			}
+			&:first-child {
+				margin-left: auto;
+			}
+		}
+	}
+	.divider {
+		margin: 0.5vh 0;
+		height: 1px;
+		background: rgba(white, 0.25);
+	}
+}
+
 .lessonBtn {
-	margin-right: 1rem;
+	margin-top: 2vh;
 	height: 3.5rem;
 	color: $green-mid;
 	border-color: $green-mid;
@@ -108,5 +219,47 @@
 	&:hover {
 		color: $green-light;
 		border-color: $green-light;
+	}
+}
+
+.tabContainer {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	align-items: flex-end;
+	.tab {
+		margin: 0 2px;
+		padding-top: 0.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 8vw;
+		min-width: 7rem;
+		font-weight: 600;
+		font-size: 13px;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		opacity: 0.5;
+		color: white;
+		transition: opacity 0.1s ease-out;
+		&::after {
+			content: "";
+			margin-top: 0.25em;
+			width: 100%;
+			height: 0px;
+			background: $logo-mid;
+			transition: height 0.1s ease-out;
+		}
+		&:hover {
+			opacity: 1;
+		}
+		&.active {
+			opacity: 1;
+			&::after {
+				height: 4px;
+			}
+		}
 	}
 }
