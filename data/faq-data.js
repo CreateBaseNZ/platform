@@ -216,7 +216,10 @@ export default [
 						</p>
 						<p>
 							If your students don’t have CreateBase accounts, tell them to click sign up and fill out each field. They will need to enter your organisation's learner code when they create their
-							account. If you do not know what this is or how to get a learner code, <Link href="/faq/2-8">click here</Link>.
+							account. If you do not know what this is or how to get a learner code,
+							<Link href="/faq/2-8">
+								click here
+							</Link>.
 						</p>
 						<p>If your students already have CreateBase accounts, they can click log in and enter their account details.</p>
 						<img src="/faq/faq-2.jpg" />
@@ -341,7 +344,6 @@ export default [
 			},
 			{
 				q: "How do I invite other teachers to my organisation?",
-				a: <p>Coming soon.</p>,
 				a: (
 					<>
 						<p>When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.</p>
@@ -355,7 +357,6 @@ export default [
 			},
 			{
 				q: "How do I invite students to my organisation?",
-				a: <p>Coming soon.</p>,
 				a: (
 					<>
 						<p>When an organisation is created, the admin of that organsiation will be sent an email containing an educator code and a learner code.</p>
