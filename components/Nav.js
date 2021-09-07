@@ -17,22 +17,23 @@ const labels = [
 ];
 
 const Nav = ({ tabIndex, collapseNav, type }) => {
+	console.log("type is" + type);
+
 	return (
 		<nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>
 			<ColourLogo width="131.25" height="24" />
 			<div className={classes.menu}>
-				{type &&
-					labels.map(
-						(l, i) =>
-							l.access.includes(type) && (
-								<Link key={i} href={l.route}>
-									<button className={`${classes.tab} ${tabIndex === i ? classes.active : ""}`}>
-										<i className="material-icons-outlined">{l.icon}</i>
-										{l.label}
-									</button>
-								</Link>
-							)
-					)}
+				{labels.map(
+					(l, i) =>
+						l.access.includes(type) && (
+							<Link key={i} href={l.route}>
+								<button className={`${classes.tab} ${tabIndex === i ? classes.active : ""}`}>
+									<i className="material-icons-outlined">{l.icon}</i>
+									{l.label}
+								</button>
+							</Link>
+						)
+				)}
 			</div>
 		</nav>
 	);

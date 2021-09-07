@@ -89,11 +89,11 @@ const Onboarding = ({ setLoaded }) => {
 		if (user.verified) setTasks((state) => state.map((task, i) => (i === 0 ? { ...task, progress: 100 } : task)));
 	}, [user.verified]);
 
-	if (loading || !user.type) {
+	if (loading) {
 		return null;
 	}
 
-	if (user.type === "learner") {
+	if (!session || user.type === "learner") {
 		router.replace("/browse");
 		return null;
 	}

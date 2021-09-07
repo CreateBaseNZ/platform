@@ -19,7 +19,7 @@ const Header = ({ session, type, org, displayName = "", username, isVerified, sh
 			<button className={`${classes.collapse} ${collapseNav ? classes.collapsed : ""}`} title={collapseNav ? "Expand" : "Collapse"} onClick={toggleNavHandler}>
 				<i className="material-icons-outlined">{collapseNav ? "chevron_right" : "chevron_left"}</i>
 			</button>
-			{!isVerified && type !== "learner" && (
+			{session && !isVerified && type !== "learner" && (
 				<button className={classes.verifyBtn} onClick={() => setShowVerifyModal(true)}>
 					Verify
 				</button>
