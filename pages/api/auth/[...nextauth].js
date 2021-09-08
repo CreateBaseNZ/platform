@@ -115,7 +115,7 @@ async function emailLogin(object) {
 		return data;
 	}
 	// Create the input data
-	const input = { email: object.email, password: object.password };
+	const input = { email: object.user, password: object.password };
 	// Send the data to the backend
 	let data;
 	try {
@@ -146,7 +146,7 @@ async function usernameLogin(object) {
 		return data;
 	}
 	// Create the input data
-	const input = { username: object.username, password: object.password };
+	const input = { username: object.user, password: object.password };
 	// Send the data to the backend
 	let data;
 	try {
@@ -214,11 +214,13 @@ export default NextAuth({
 				if (credentials.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 					throw new Error(JSON.stringify({ status: "critical error", content: "" }));
 				}
+				// Check if the input is an email
+				const type = emailPattern.value.test(credentials.user) ? "email" : "username";
 				// Perform authentication based on the type
 				let data;
-				if (credentials.type === "email") {
+				if (type === "email") {
 					data = await emailLogin(credentials);
-				} else if (credentials.type === "username") {
+				} else if (type === "username") {
 					data = await usernameLogin(credentials);
 				}
 				// Validate the authentication

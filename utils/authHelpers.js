@@ -61,9 +61,8 @@ export const initSession = async (loading, session, callback) => {
 export const logIn = async (username, password, catastropheHandler, failHandler, successHandler) => {
 	const result = await signIn("credentials", {
 		redirect: false,
-		username: username,
+		user: username,
 		password: password,
-		type: "username",
 		PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
 	});
 
