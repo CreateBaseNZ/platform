@@ -55,7 +55,7 @@ export const LoginForm = () => {
 			<Input
 				inputProps={{
 					className: classes.input,
-					placeholder: "Username*",
+					placeholder: "Email or Username*",
 					type: "text",
 					maxLength: 254,
 					...register("username", {
