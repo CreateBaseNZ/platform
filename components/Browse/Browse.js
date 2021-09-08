@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BrowseThumb from "./BrowseThumb";
 import sendItData from "../../data/send-it-data";
+import Head from "next/head";
 import magnebotData from "../../data/magnebot-data";
 import lineFollowingData from "../../data/line-following-data";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
