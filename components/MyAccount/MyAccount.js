@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import Head from "next/head";
 import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import VisualBellContext from "../../store/visual-bell-context";
 import OrgForm from "./OrgForm";
@@ -34,6 +35,10 @@ const MyAccount = ({ user, setUser }) => {
 
 	return (
 		<div className={classes.myAccount}>
+			<Head>
+				<title>{user.displayName && user.displayName + " | "} CreateBase</title>
+				<meta name="description" content="Edit account settings for your CreateBase account. Join an existing organisation or create your own." />
+			</Head>
 			<div className={classes.leftArea}>
 				<div className={`${classes.avatar} ${classes[user.type]}`}>
 					<UserAvatar size={160} type={user.type} name={user.username} />

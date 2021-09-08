@@ -223,8 +223,8 @@ const Index = ({ setLoaded }) => {
 	}, []);
 
 	useEffect(async () => {
-		initSession(session, setUser);
-	}, [session]);
+		initSession(loading, session, setUser);
+	}, [loading, session]);
 
 	const helperClickHandler = () => {
 		setShowHelper((state) => !state);

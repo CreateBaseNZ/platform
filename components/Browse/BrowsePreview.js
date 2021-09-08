@@ -9,6 +9,8 @@ const tabs = ["Overview", "Teaching"];
 const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => {
 	const [tab, setTab] = useState(0);
 
+	console.log(paidAccess);
+
 	const clickHandler = (i) => {
 		setTab(i);
 	};
@@ -16,13 +18,7 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 	return (
 		<div className={classes.preview}>
 			<div className={classes.vidContainer}>
-				<video
-					// key={Math.random()}
-					src={`/${project.query}/vid/situation.mp4`}
-					autoPlay={true}
-					muted={true}
-					className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`}
-					onCanPlay={() => setVideoLoaded(true)}>
+				<video src={`/${project.query}/vid/situation.mp4`} autoPlay={true} muted={true} className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`} onCanPlay={() => setVideoLoaded(true)}>
 					<source type="video/mp4" />
 				</video>
 			</div>

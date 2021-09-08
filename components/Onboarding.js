@@ -1,11 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import Head from "next/head";
-import { useSession } from "next-auth/client";
-import { initSession } from "../utils/authHelpers";
-import Frame from "../components/Frame";
 import VisualBellContext from "../store/visual-bell-context";
 
-import classes from "/styles/Onboarding.module.scss";
+import classes from "./Onboarding.module.scss";
 import router from "next/router";
 import { updateProfile } from "../utils/profileHelpers";
 
@@ -29,24 +25,11 @@ const teachingContent = {
 	),
 };
 
-const Onboarding = ({ setLoaded }) => {
+const Onboarding = ({ user }) => {
 	const ctx = useContext(VisualBellContext);
-	const [session, loading] = useSession();
-	const [user, setUser] = useState({});
 	const [tasks, setTasks] = useState([]);
 	const [popup, setPopup] = useState();
 	const [showVerifyModal, setShowVerifyModal] = useState(false);
-
-	console.log(user);
-
-	useEffect(() => {
-		setLoaded(true);
-		return () => setLoaded(false);
-	}, []);
-
-	useEffect(async () => {
-		initSession(session, setUser);
-	}, [session]);
 
 	useEffect(() => {
 		if (user.type) {
@@ -89,57 +72,32 @@ const Onboarding = ({ setLoaded }) => {
 		if (user.verified) setTasks((state) => state.map((task, i) => (i === 0 ? { ...task, progress: 100 } : task)));
 	}, [user.verified]);
 
-	if (loading) {
-		return null;
-	}
-
-	if (!session || user.type === "learner") {
-		router.replace("/browse");
-		return null;
-	}
-
 	return (
-		<Frame
-			tabIndex={0}
-			session={session}
-			type={user.type}
-			org={user.org}
-			username={user.username}
-			displayName={user.displayName}
-			isVerified={user.verified}
-			setUser={setUser}
-			showVerifyModal={showVerifyModal}
-			setShowVerifyModal={setShowVerifyModal}>
-			<Head>
-				<title>FAQ | CreateBase</title>
-				<meta name="description" content="Frequently asked questions about the CreateBase platform" />
-			</Head>
-			<div className={classes.onboarding}>
-				<h1 className={classes.h1}>
-					Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {user.displayName} 👋
-				</h1>
-				<div className={classes.main}>
-					<div className={classes.tasks}>
-						<h2 className={classes.h2}>Onboarding tasks</h2>
-						<div className={classes.divider} />
-						{tasks.map((task, i) => (
-							<div key={i} className={`${classes.task} ${task.progress === 100 ? classes.done : task.progress > 0 ? classes.inProgress : ""}`} onClick={task.clickHandler}>
-								{task.progress > 0 ? <i className="material-icons-outlined">{task.progress === 100 ? "done" : "hourglass_top"}</i> : <i className={classes.dot} />}
-								<span>{task.title}</span>
-								{task.progress > 0 && <div className={classes.progress}>{task.progress}%</div>}
-								<i className={`material-icons-outlined ${classes.arrow}`}>chevron_right</i>
-							</div>
-						))}
-					</div>
-					{popup && (
-						<div className={`${classes.popup} roundScrollbar`}>
-							<h2 className={classes.h2}>{popup.title}</h2>
-							<p>{popup.content}</p>
+		<div className={classes.onboarding}>
+			<h1 className={classes.h1}>
+				Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {user.displayName} 👋
+			</h1>
+			<div className={classes.main}>
+				<div className={classes.tasks}>
+					<h2 className={classes.h2}>Onboarding tasks</h2>
+					<div className={classes.divider} />
+					{tasks.map((task, i) => (
+						<div key={i} className={`${classes.task} ${task.progress === 100 ? classes.done : task.progress > 0 ? classes.inProgress : ""}`} onClick={task.clickHandler}>
+							{task.progress > 0 ? <i className="material-icons-outlined">{task.progress === 100 ? "done" : "hourglass_top"}</i> : <i className={classes.dot} />}
+							<span>{task.title}</span>
+							{task.progress > 0 && <div className={classes.progress}>{task.progress}%</div>}
+							<i className={`material-icons-outlined ${classes.arrow}`}>chevron_right</i>
 						</div>
-					)}
+					))}
 				</div>
+				{popup && (
+					<div className={`${classes.popup} roundScrollbar`}>
+						<h2 className={classes.h2}>{popup.title}</h2>
+						<p>{popup.content}</p>
+					</div>
+				)}
 			</div>
-		</Frame>
+		</div>
 	);
 };
 
