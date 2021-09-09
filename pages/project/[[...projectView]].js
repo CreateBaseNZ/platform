@@ -34,8 +34,6 @@ const ProjectView = ({ setLoaded }) => {
 	const [step, setStep] = useState("Imagine");
 	const [view, setView] = useState("Project");
 
-	console.log(view, step);
-
 	useEffect(() => setLoaded(true), []);
 
 	useEffect(() => {
@@ -47,7 +45,7 @@ const ProjectView = ({ setLoaded }) => {
 				return null;
 			}
 			setData(projectData);
-			const subQuery = router.query.projectView[1];
+			const subQuery = router.query.projectView[1] || "";
 			if (subQuery === "play") {
 				setView(subQuery[0].toUpperCase() + subQuery.substring(1));
 				setLoaded(false);

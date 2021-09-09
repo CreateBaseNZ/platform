@@ -6,7 +6,7 @@ import lineFollowingData from "../data/line-following-data";
 //
 // 1. import it above
 // 2. add a case clause
-// 3. assign the route as a string
+// 3. assign the route as a string (app.createbase.co.nz/project/...)
 // 4. add it to the allData array
 
 const getProjectData = (query) => {

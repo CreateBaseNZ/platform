@@ -1,7 +1,3 @@
-// import Image from "next/image";
-// import CloseIcon from "@material-ui/icons/Close";
-// import classes from "../../components/Project/project.module.scss";
-
 import { comparisonBoostData, conditionalBoostData } from "./explore-data";
 
 export default {
