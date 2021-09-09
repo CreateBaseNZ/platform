@@ -25,7 +25,7 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 			<div className={classes.details}>
 				<h1 className={classes.h1}>{project.name}</h1>
 				{tab === 0 && (
-					<>
+					<div className={classes.overview}>
 						<p className={classes.caption}>{project.caption}</p>
 						<div className={classes.btnContainer}>
 							<Link href={`/${project.query}`}>
@@ -34,10 +34,10 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 								</div>
 							</Link>
 						</div>
-					</>
+					</div>
 				)}
 				{tab === 1 && (
-					<>
+					<div className={classes.teaching}>
 						<div className={`${classes.teachingCaption} ${classes[project.difficulty]}`}>
 							<span>{project.nLessons}</span> lessons <div className={classes.pipe} /> <span>{project.difficulty}</span> level
 						</div>
@@ -74,7 +74,7 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 								<SecondaryButton mainLabel="Lesson Plan" iconLeft={<i className="material-icons-outlined">history_edu</i>} />
 							</a>
 						)}
-					</>
+					</div>
 				)}
 			</div>
 			{paidAccess && (

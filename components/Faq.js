@@ -50,7 +50,7 @@ const Faq = ({ user }) => {
 		if (activeIndex.item !== null && activeIndex.item !== undefined) {
 			const el = document.querySelectorAll("." + classes.overflowContainer)[activeIndex.item];
 			const images = el.querySelectorAll("img");
-			if (!imagesLoaded && images.length && !images[0].clientHeight) {
+			if (!imagesLoaded && images.length) {
 				awaitImages(images, () => {
 					setActiveHeight(el.clientHeight);
 					setImagesLoaded(true);

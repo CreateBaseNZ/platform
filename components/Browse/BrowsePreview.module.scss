@@ -65,6 +65,25 @@
 	color: white;
 }
 
+.overview,
+.teaching {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	animation: fade-in 0.2s ease-out forwards;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+		transform: translateX(-4px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
 .caption {
 	font-size: 13px;
 	font-weight: 300;

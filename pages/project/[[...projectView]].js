@@ -4,10 +4,6 @@ import { useSession } from "next-auth/client";
 import Head from "next/head";
 import Link from "next/link";
 
-import sendItData from "../../data/send-it-data";
-import magnebotData from "../../data/magnebot-data";
-import lineFollowingData from "../../data/line-following-data";
-
 import Research from "../../components/Project/Research";
 import Plan from "../../components/Project/Plan";
 import Create from "../../components/Project/Create";
@@ -19,17 +15,7 @@ import Play from "../../components/Play";
 import Code from "../../components/Code/Code";
 
 import classes from "/styles/ProjectView.module.scss";
-
-const get_data = (query) => {
-	switch (query) {
-		case "send-it":
-			return sendItData;
-		// case "line-following":
-		// 	return lineFollowingData;
-		// case "magnebot":
-		// 	return magnebotData;
-	}
-};
+import getProjectData from "../../utils/getProjectData";
 
 const steps = [
 	{ title: "Imagine", icon: "filter_drama" },
@@ -52,7 +38,7 @@ const ProjectView = ({ setLoaded }) => {
 
 	useEffect(() => {
 		if (Object.keys(router.query).length) {
-			setData(get_data(router.query.project));
+			setData(getProjectData(router.query.project));
 			if (router.query.projectView) {
 				const subQuery = router.query.projectView[0];
 				if (subQuery === "play") {

@@ -1,16 +1,12 @@
 import { useState } from "react";
 import BrowseThumb from "./BrowseThumb";
-import sendItData from "../../data/send-it-data";
 import Head from "next/head";
-import magnebotData from "../../data/magnebot-data";
-import lineFollowingData from "../../data/line-following-data";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import "overlayscrollbars/css/OverlayScrollbars.css";
 import BrowsePreview from "./BrowsePreview";
+import { allData } from "../../utils/getProjectData";
 
 import classes from "./Browse.module.scss";
-
-const allData = [sendItData];
 
 const Browse = ({ user }) => {
 	const [activeIndex, setActiveIndex] = useState(0);
