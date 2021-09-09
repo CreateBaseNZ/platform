@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import router from "next/router";
 import VisualBellContext from "../store/visual-bell-context";
-import useProfileHelper from "../hooks/useProfileHelpers";
+import useProfileHelper from "../hooks/useProfileHelper";
 
 import classes from "./Onboarding.module.scss";
 

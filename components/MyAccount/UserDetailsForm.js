@@ -5,7 +5,8 @@ import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate, usernameMinLength, usernamePattern, isBlacklisted } from "../../utils/formValidation";
 
 import classes from "./UserDetailsForm.module.scss";
-import useProfileHelper from "../../hooks/useProfileHelpers";
+import useProfileHelper from "../../hooks/useProfileHelper";
+import useLicenseHelper from "../../hooks/useLicenseHelper";
 import getRandomName from "../../utils/randomNames";
 
 const UserDetailsForm = ({ user, setUser, ctx }) => {
@@ -139,7 +140,7 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
 export default UserDetailsForm;
 
 export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
-	const { changePassword } = useProfileHelper({ ...ctx });
+	const { changePassword } = useLicenseHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const password = useRef({});
 	const {

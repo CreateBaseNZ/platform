@@ -6,9 +6,9 @@ import { isBlacklisted } from "../../utils/formValidation";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate, usernameMinLength, usernamePattern } from "../../utils/formValidation";
 import VisualBellContext from "../../store/visual-bell-context";
 import router from "next/router";
-import axios from "axios";
 import classes from "./AuthForms.module.scss";
-import { logIn, signUpEducator, signUpLearner, validateUsername } from "../../utils/authHelpers";
+import { logIn, signUpLearner } from "../../utils/authHelpers";
+import useSignupHelper from "../../hooks/useSignupHelper";
 import getRandomName from "../../utils/randomNames";
 
 const SignupStepOne = ({ setStep, access, setAccess }) => {
@@ -52,6 +52,7 @@ const SignupStepOne = ({ setStep, access, setAccess }) => {
 
 const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 	const ctx = useContext(VisualBellContext);
+	const { signUpEducator, validateUsername } = useSignupHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -94,19 +95,9 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 		}
 
 		if (access === "educator") {
-			await signUpEducator(
-				{ email: input.email, username: input.username, displayName: input.displayName, password: input.password },
-				() =>
-					ctx.setBell({
-						type: "catastrophe",
-						message: "Oops! Something went wrong, please refresh the page and try again",
-					}),
-				() =>
-					ctx.setBell({
-						type: "catastrophe",
-						message: "Oops! Something went wrong, please refresh the page and try again",
-					}),
-				(content) => {
+			signUpEducator({
+				details: { email: input.email, username: input.username, displayName: input.displayName, password: input.password },
+				failHandler: (content) => {
 					if (content.email)
 						setError("email", {
 							type: "manual",
@@ -119,7 +110,7 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 						});
 					setIsLoading(false);
 				},
-				async () =>
+				successHandler: async () =>
 					await logIn(
 						input.username,
 						input.password,
@@ -141,33 +132,23 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 								type: "success",
 								message: "Success! Your account has been created",
 							})
-					)
-			);
+					),
+			});
 		} else {
-			validateUsername(
-				{ username: input.username },
-				() =>
-					ctx.setBell({
-						type: "catastrophe",
-						message: "Oops! Something went wrong, please refresh the page and try again",
-					}),
-				() =>
-					ctx.setBell({
-						type: "catastrophe",
-						message: "Oops! Something went wrong, please refresh the page and try again",
-					}),
-				() => {
+			validateUsername({
+				details: { username: input.username },
+				failHandler: () => {
 					setError("username", {
 						type: "manual",
 						message: "This username is already taken",
 					});
 					setIsLoading(false);
 				},
-				() => {
+				successHandler: () => {
 					setLearner((state) => ({ ...state, username: input.username, displayName: input.displayName, password: input.password, terms: input.terms }));
 					setStep(2);
-				}
-			);
+				},
+			});
 		}
 	};
 
@@ -251,6 +232,7 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 
 const SignupStepThree = ({ learner, setLearner }) => {
 	const ctx = useContext(VisualBellContext);
+	const { signUpLearner } = useSignupHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const {
@@ -270,34 +252,22 @@ const SignupStepThree = ({ learner, setLearner }) => {
 	const onSubmit = async (input) => {
 		setIsLoading(true);
 
-		const newLearner = {
-			username: learner.username,
-			displayName: learner.displayName,
-			password: learner.password,
-			name: input.orgName,
-			code: input.orgCode,
-			type: "school",
-			country: "New Zealand",
-			metadata: { id: input.orgId },
-		};
-
-		signUpLearner(
-			newLearner,
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Oops! Something went wrong, please refresh the page and try again",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Oops! Something went wrong, please refresh the page and try again",
-				}),
-			() => {
+		signUpLearner({
+			details: {
+				username: learner.username,
+				displayName: learner.displayName,
+				password: learner.password,
+				name: input.orgName,
+				code: input.orgCode,
+				type: "school",
+				country: "New Zealand",
+				metadata: { id: input.orgId },
+			},
+			failHandler: () => {
 				setError("No organisations were found with these details");
 				setIsLoading(false);
 			},
-			async () =>
+			successHandler: async () =>
 				await logIn(
 					learner.username,
 					learner.password,
@@ -319,8 +289,8 @@ const SignupStepThree = ({ learner, setLearner }) => {
 							type: "success",
 							message: "Success! Your account has been created",
 						})
-				)
-		);
+				),
+		});
 	};
 
 	return (

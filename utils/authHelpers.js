@@ -79,57 +79,6 @@ export const logIn = async (username, password, catastropheHandler, failHandler,
 	router.replace("/onboarding");
 };
 
-export const signUpEducator = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
-	}
-	return successHandler();
-};
-
-export const validateUsername = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/signup/validate-username", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
-	}
-	return successHandler();
-};
-
-export const signUpLearner = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/signup/learner-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
-	}
-	return successHandler();
-};
-
 export const sendForgotPasswordCode = async (email, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
