@@ -246,6 +246,15 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Generate invitation link
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/invite-educator/generate-link", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		// } catch (error) {
+		// 	data = { status: "error", content: error };
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
