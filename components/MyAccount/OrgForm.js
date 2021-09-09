@@ -6,13 +6,11 @@ import Input from "../UI/Input";
 import VisualBellContext from "../../store/visual-bell-context";
 import { querySchoolAPI } from "../../utils/formValidation";
 
-import axios from "axios";
-
 import classes from "./OrgForm.module.scss";
-import { getOrgData } from "../../utils/authHelpers";
-import createOrg, { joinOrgEducator } from "../../utils/orgHelpers";
+import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 
 const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
+	const { getOrgData, joinOrgEducator } = useOrganisationHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const [invalidDetails, setInvalidDetails] = useState(false);
 	const {
@@ -34,19 +32,9 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 			country: "New Zealand",
 			metadata: { id: input.orgId },
 		};
-		joinOrgEducator(
-			orgValues,
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			(content) => {
+		joinOrgEducator({
+			details: orgValues,
+			failHandler: (content) => {
 				if (content.code) {
 					setError("orgCode", { type: "manual", message: "Invalid code" }, { shouldFocus: true });
 				}
@@ -56,7 +44,7 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 				}
 				setIsLoading(false);
 			},
-			async () => {
+			successHandler: async () => {
 				const org = await getOrgData();
 				setUser((state) => ({ ...state, org: org }));
 				setIsLoading(false);
@@ -65,8 +53,8 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 					type: "success",
 					message: `Successfully joined ${org.name}`,
 				});
-			}
-		);
+			},
+		});
 	};
 
 	return (
@@ -121,6 +109,7 @@ const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 };
 
 const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
+	const { getOrgData, createOrg } = useOrganisationHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const [invalidId, setInvalidId] = useState(false);
 	const {
@@ -161,19 +150,9 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 			metadata: { id: govData.result.records[0].School_Id.toString() },
 		};
 
-		createOrg(
-			newOrg,
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			(content) => {
+		createOrg({
+			details: newOrg,
+			failHandler: (content) => {
 				if (content.organisation)
 					setInvalidId(
 						<>
@@ -185,7 +164,7 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 					);
 				setIsLoading(false);
 			},
-			async () => {
+			successHandler: async () => {
 				const org = await getOrgData();
 				setUser((state) => ({ ...state, type: "admin", org: org }));
 				setIsLoading(false);
@@ -194,8 +173,8 @@ const CreateOrgForm = ({ resetCta, setUser, ctx }) => {
 					type: "success",
 					message: `Successfully created and joined ${org.name}`,
 				});
-			}
-		);
+			},
+		});
 	};
 
 	return (

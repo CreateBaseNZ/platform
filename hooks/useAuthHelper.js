@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const signUpEducatorAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+const sendForgotPasswordCodeAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
+		data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}
@@ -17,10 +17,27 @@ const signUpEducatorAPI = async (details, criticalHandler, errorHandler, failHan
 	return successHandler();
 };
 
-const validateUsernameAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+const resetPasswordAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/signup/validate-username", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	if (data.status === "critical error") {
+		return criticalHandler();
+	} else if (data.status === "error") {
+		return errorHandler();
+	} else if (data.status === "failed") {
+		return data.content.code ? failHandler() : successHandler();
+	}
+	return successHandler();
+};
+
+const verifyAccountAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/auth/account-verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}
@@ -34,25 +51,18 @@ const validateUsernameAPI = async (details, criticalHandler, errorHandler, failH
 	return successHandler();
 };
 
-const signUpLearnerAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+const resendVerificationCodeAPI = async (criticalHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/signup/learner-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
+		data = (await axios.post("/api/auth/account-verification-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
 	} catch (error) {
 		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
 	}
 	return successHandler();
 };
 
-const useSignupHelper = ({ setBell }) => {
-	const signUpEducator = ({
+const useAuthHelper = ({ setBell }) => {
+	const sendForgotPasswordCode = ({
 		details,
 		criticalHandler = () =>
 			setBell({
@@ -75,10 +85,10 @@ const useSignupHelper = ({ setBell }) => {
 				message: "Success!",
 			}),
 	}) => {
-		signUpEducatorAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+		sendForgotPasswordCodeAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	const validateUsername = ({
+	const resetPassword = ({
 		details,
 		criticalHandler = () =>
 			setBell({
@@ -101,10 +111,10 @@ const useSignupHelper = ({ setBell }) => {
 				message: "Success!",
 			}),
 	}) => {
-		validateUsernameAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+		resetPasswordAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	const signUpLearner = ({
+	const verifyAccount = ({
 		details,
 		criticalHandler = () =>
 			setBell({
@@ -127,10 +137,25 @@ const useSignupHelper = ({ setBell }) => {
 				message: "Success!",
 			}),
 	}) => {
-		signUpLearnerAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+		verifyAccountAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	return { signUpEducator, validateUsername, signUpLearner };
+	const resendVerificationCode = ({
+		criticalHandler = () =>
+			setBell({
+				type: "catastrophe",
+				message: "Oops! Something went wrong, please refresh the page and try again",
+			}),
+		successHandler = () =>
+			setBell({
+				type: "success",
+				message: "Success!",
+			}),
+	}) => {
+		resendVerificationCodeAPI(criticalHandler, successHandler);
+	};
+
+	return { sendForgotPasswordCode, resetPassword, verifyAccount, resendVerificationCode };
 };
 
-export default useSignupHelper;
+export default useAuthHelper;

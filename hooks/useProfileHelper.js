@@ -30,18 +30,16 @@ const useProfileHelper = ({ setBell }) => {
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
-		failHandler = () => {
+		failHandler = () =>
 			setBell({
 				type: "error",
 				message: "Oops! An error occurred, please try again",
-			});
-		},
-		successHandler = () => {
+			}),
+		successHandler = () =>
 			setBell({
 				type: "success",
 				message: "Success!",
-			});
-		},
+			}),
 	}) => {
 		updateProfileAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};

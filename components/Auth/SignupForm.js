@@ -7,7 +7,7 @@ import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLeng
 import VisualBellContext from "../../store/visual-bell-context";
 import router from "next/router";
 import classes from "./AuthForms.module.scss";
-import { logIn, signUpLearner } from "../../utils/authHelpers";
+import { logIn } from "../../utils/authHelpers";
 import useSignupHelper from "../../hooks/useSignupHelper";
 import getRandomName from "../../utils/randomNames";
 

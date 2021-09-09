@@ -2,23 +2,7 @@ import router from "next/router";
 import { signIn } from "next-auth/client";
 import axios from "axios";
 import { getSession } from "next-auth/client";
-
-export const getOrgData = async () => {
-	let orgData;
-	try {
-		orgData = (await axios.post("/api/organisation/read-account", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
-	} catch (error) {
-		alert("Something went wrong, please reload the page and try again. If this problem persists, please get in touch with us.");
-	}
-	return {
-		name: orgData.content.name,
-		city: orgData.content.location.city,
-		country: orgData.content.location.country,
-		admins: orgData.content.numberOfLicenses.admin,
-		educators: orgData.content.numberOfLicenses.educator,
-		learners: orgData.content.numberOfLicenses.learner,
-	};
-};
+import { getOrgDataAPI } from "../hooks/useOrganisationHelper";
 
 export const initSession = async (loading, session, callback) => {
 	if (!loading) {
@@ -37,7 +21,7 @@ export const initSession = async (loading, session, callback) => {
 			}
 			let org = null;
 			if (session.user.organisation) {
-				org = await getOrgData();
+				org = await getOrgDataAPI();
 			}
 			const { access, verified } = (await getSession())["user"];
 			return callback({
@@ -77,65 +61,4 @@ export const logIn = async (username, password, catastropheHandler, failHandler,
 
 	successHandler();
 	router.replace("/onboarding");
-};
-
-export const sendForgotPasswordCode = async (email, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { email: email } }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
-	}
-	return successHandler();
-};
-
-export const resetPassword = async (inputs, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return data.content.code ? failHandler() : successHandler();
-	}
-	return successHandler();
-};
-
-export const verifyAccount = async (code, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/auth/account-verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: code }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
-	}
-	return successHandler();
-};
-
-export const resendVerificationCode = async (successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/auth/account-verification-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
-	} catch (error) {
-		alert("An unexpected error occurred, please reload the page and try again. If this problem persists, please contact us.");
-	}
-	successHandler();
 };

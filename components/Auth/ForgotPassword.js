@@ -5,8 +5,8 @@ import Input, { PasswordInput } from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
 import { emailPattern } from "../../utils/formValidation";
 import VisualBellContext from "../../store/visual-bell-context";
-import { resetPassword, sendForgotPasswordCode } from "../../utils/authHelpers";
 import { passwordMinLength, passwordValidate } from "../../utils/formValidation";
+import useAuthHelper from "../../hooks/useAuthHelper";
 
 const codeLength = 6;
 
@@ -14,6 +14,7 @@ import classes from "./AuthForms.module.scss";
 
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	const ctx = useContext(VisualBellContext);
+	const { sendForgotPasswordCode } = useAuthHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -26,31 +27,21 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		await sendForgotPasswordCode(
-			input.email,
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() => {
+		sendForgotPasswordCode({
+			details: { email: input.email },
+			failHandler: () => {
 				setError("email", {
 					type: "manual",
 					message: "We could not find an account with that email",
 				});
 				setIsLoading(false);
 			},
-			() => {
+			successHandler: () => {
 				setInputValues((state) => ({ ...state, email: input.email }));
 				setStep(1);
 				ctx.setBell({ type: "neutral", message: "Recovery code sent" });
-			}
-		);
+			},
+		});
 	};
 
 	return (
@@ -77,6 +68,7 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 
 const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 	const ctx = useContext(VisualBellContext);
+	const { resetPassword } = useAuthHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const [code, setCode] = useState([...Array(codeLength)].map(() => ""));
@@ -85,27 +77,17 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 	const submitCode = async (code) => {
 		setIsLoading(true);
 
-		resetPassword(
-			{ email: inputValues.email, code: code, password: "" },
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() => {
+		resetPassword({
+			details: { email: inputValues.email, code: code, password: "" },
+			failHandler: () => {
 				setError("The code you entered is invalid");
 				setIsLoading(false);
 			},
-			() => {
+			successHandler: () => {
 				setStep(2);
 				setInputValues((state) => ({ ...state, code: code }));
-			}
-		);
+			},
+		});
 	};
 
 	const changeHandler = (e, idx) => {
@@ -168,6 +150,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 
 const ForgotPasswordStepThree = ({ inputValues }) => {
 	const ctx = useContext(VisualBellContext);
+	const { resetPassword } = useAuthHelper({ ...ctx });
 	const newPassword = useRef({});
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -188,27 +171,19 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 	const onSubmit = (input) => {
 		setIsLoading(true);
 
-		resetPassword(
-			{ email: inputValues.email, code: inputValues.code, password: input.newPassword },
-			() =>
+		resetPassword({
+			details: { email: inputValues.email, code: inputValues.code, password: input.newPassword },
+			failHandler: () =>
 				ctx.setBell({
 					type: "catastrophe",
 					message: "Something unexpected happened, please reload the page",
 				}),
-			() =>
+			successHandler: () =>
 				ctx.setBell({
 					type: "catastrophe",
 					message: "Something unexpected happened, please reload the page",
 				}),
-			() => {
-				setError("An error occurred, please try again");
-				setIsLoading(false);
-			},
-			() => {
-				router.push("/auth/login");
-				ctx.setBell({ type: "success", message: "Successfully reset password, please log in to continue" });
-			}
-		);
+		});
 	};
 
 	return (
@@ -244,32 +219,23 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 
 const ForgotPassword = ({ ocl }) => {
 	const ctx = useContext(VisualBellContext);
+	const { sendForgotPasswordCode } = useAuthHelper({ ...ctx });
 	const [step, setStep] = useState(ocl[1] && ocl[2] ? 2 : 0);
 	const [inputValues, setInputValues] = useState(ocl[1] && ocl[2] ? { email: ocl[1], code: ocl[2] } : null);
 
 	const resendCode = async () => {
-		await sendForgotPasswordCode(
-			inputValues.email,
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() => {
+		sendForgotPasswordCode({
+			details: { email: inputValues.email },
+			failHandler: () => {
 				setError("email", {
 					type: "manual",
 					message: "Something went wrong, please reload the page",
 				});
 			},
-			() => {
-				ctx.setBell({ type: "neutral", message: "Recovery code sent" });
-			}
-		);
+			successHandler: () => {
+				ctx.setBell({ type: "neutral", message: "Another recovery code was sent to your email" });
+			},
+		});
 	};
 
 	return (
