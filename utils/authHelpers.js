@@ -66,6 +66,8 @@ export const logIn = async (username, password, catastropheHandler, failHandler,
 		PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
 	});
 
+	console.log(result);
+
 	if (result.error) {
 		const error = JSON.parse(result.error);
 		if (error.status === "failed") {

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import Head from "next/head";
 import VisualBellContext from "../store/visual-bell-context";
 
 import classes from "./Onboarding.module.scss";
@@ -74,6 +75,10 @@ const Onboarding = ({ user }) => {
 
 	return (
 		<div className={classes.onboarding}>
+			<Head>
+				<title>Onboarding | CreateBase</title>
+				<meta name="description" content="Get to know the platform by completing all the onboarding tasks" />
+			</Head>
 			<h1 className={classes.h1}>
 				Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {user.displayName} 👋
 			</h1>

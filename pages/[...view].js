@@ -9,13 +9,6 @@ import Onboarding from "../components/onboarding";
 import Faq from "../components/Faq";
 import User from "../components/User";
 
-const viewFormat = {
-	onboarding: { title: "Onboarding |", metacontent: "Get to know the platform by completing all the onboarding tasks" },
-	browse: { title: "Browse |", metaContent: "Browse CreateBase projects" },
-	faq: { title: "FAQ |", metaContent: "Frequently asked questions about the CreateBase platform" },
-	user: {},
-};
-
 const View = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
@@ -54,8 +47,8 @@ const View = ({ setLoaded }) => {
 	return (
 		<Frame route={router.asPath} user={user} setUser={setUser}>
 			<Head>
-				<title>{view && viewFormat[view].title} CreateBase</title>
-				<meta name="description" content={view && viewFormat[view].metaContent} />
+				<title>CreateBase</title>
+				<meta name="description" content="Welcome to CreateBase" />
 			</Head>
 			{view === "onboarding" && <Onboarding user={user} />}
 			{view === "browse" && <Browse user={user} />}

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Img from "./UI/Img";
 import faqData from "../data/faq-data";
+import Head from "next/head";
 
 import classes from "./Faq.module.scss";
 
@@ -75,6 +76,10 @@ const Faq = ({ user }) => {
 
 	return (
 		<div className={classes.faq}>
+			<Head>
+				<title>FAQ | CreateBase</title>
+				<meta name="description" content="Frequently asked questions about the CreateBase platform" />
+			</Head>
 			<div className={classes.view}>
 				<h1>Frequently Asked Questions</h1>
 				<div className={classes.main}>
