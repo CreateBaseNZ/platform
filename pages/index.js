@@ -255,6 +255,26 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Sending the request to join an organisation
+		// const input = { orgId: "20", orgName: "Bream Bay College" };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/invite-educator/request", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	data = { status: "error", content: error };
+		// }
+		// console.log(data);
+
+		// Accept request to join the organisation
+		// const input = { email: "test1.createbase@gmail.com", eduCode: "m6S2Nn", orgName: "Bream Bay College", orgId: "20", joinCode: "S8DcNJ", date: new Date().toString() };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/invite-educator/accept", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	data = { status: "error", content: error };
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
