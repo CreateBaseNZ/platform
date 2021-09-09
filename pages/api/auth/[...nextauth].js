@@ -108,14 +108,14 @@ function validateUsernameLogin(object) {
 }
 
 async function emailLogin(object) {
+	// Create the input data
+	const input = { email: object.user, password: object.password };
 	// Validate input data
 	try {
-		await validateEmailLogin(object);
+		await validateEmailLogin(input);
 	} catch (data) {
 		return data;
 	}
-	// Create the input data
-	const input = { email: object.user, password: object.password };
 	// Send the data to the backend
 	let data;
 	try {
@@ -139,14 +139,14 @@ async function emailLogin(object) {
 }
 
 async function usernameLogin(object) {
+	// Create the input data
+	const input = { username: object.user, password: object.password };
 	// Validate input data
 	try {
-		await validateUsernameLogin(object);
+		await validateUsernameLogin(input);
 	} catch (data) {
 		return data;
 	}
-	// Create the input data
-	const input = { username: object.user, password: object.password };
 	// Send the data to the backend
 	let data;
 	try {
