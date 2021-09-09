@@ -6,7 +6,7 @@ const getProjectData = (query) => {
 	switch (query) {
 		case "send-it":
 			return sendItData;
-		case "magnetbot":
+		case "magnebot":
 			return magnebotData;
 	}
 };

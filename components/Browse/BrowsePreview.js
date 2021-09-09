@@ -26,7 +26,7 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 					<div className={classes.overview}>
 						<p className={classes.caption}>{project.caption}</p>
 						<div className={classes.btnContainer}>
-							<Link href={`/${project.query}`}>
+							<Link href={`/project/${project.query}`}>
 								<div>
 									<SecondaryButton className={classes.continueBtn} mainLabel="Continue" iconRight={<i className="material-icons-outlined">play_arrow</i>} />
 								</div>

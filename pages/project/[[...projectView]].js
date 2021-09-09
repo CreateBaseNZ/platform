@@ -37,24 +37,28 @@ const ProjectView = ({ setLoaded }) => {
 	useEffect(() => setLoaded(true), []);
 
 	useEffect(() => {
-		if (Object.keys(router.query).length) {
-			setData(getProjectData(router.query.project));
-			if (router.query.projectView) {
-				const subQuery = router.query.projectView[0];
-				if (subQuery === "play") {
-					setView(subQuery[0].toUpperCase() + subQuery.substring(1));
-					setLoaded(false);
-				} else if (subQuery === "code") {
-					setView(subQuery[0].toUpperCase() + subQuery.substring(1));
-					setStep(router.query.projectView[1][0].toUpperCase() + router.query.projectView[1].substring(1));
-					setLoaded(false);
-				} else {
-					setView("Project");
-					setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
-				}
+		console.log(router.query);
+		if (router.query.projectView) {
+			const query = router.query.projectView[0];
+			setData(getProjectData(query));
+			const subQuery = router.query.projectView[1];
+			if (subQuery === "play") {
+				setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+				setLoaded(false);
+			} else if (subQuery === "code") {
+				setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+				setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
+				setLoaded(false);
 			} else {
 				setView("Project");
+				if (subQuery) {
+					setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
+				} else {
+					router.replace(router.asPath + "/imagine");
+				}
 			}
+		} else {
+			router.replace("/browse");
 		}
 	}, [router.query]);
 
@@ -88,7 +92,7 @@ const ProjectView = ({ setLoaded }) => {
 								className={`${classes.tabWrapper} ${step === s.title ? classes.activeTab : ""}`}
 								onClick={() =>
 									router.push({
-										pathname: `/${data.query}/${s.title.toLowerCase()}`,
+										pathname: `/project/${data.query}/${s.title.toLowerCase()}`,
 									})
 								}>
 								<div className={classes.tab}>
