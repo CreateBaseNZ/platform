@@ -173,16 +173,14 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 
 		resetPassword({
 			details: { email: inputValues.email, code: inputValues.code, password: input.newPassword },
-			failHandler: () =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			successHandler: () =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
+			failHandler: () => {
+				setError("An error occurred, please try again");
+				setIsLoading(false);
+			},
+			successHandler: () => {
+				router.push("/auth/login");
+				ctx.setBell({ type: "success", message: "Successfully reset password, please log in to continue" });
+			},
 		});
 	};
 

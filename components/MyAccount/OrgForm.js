@@ -4,10 +4,10 @@ import { PrimaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
 
 import VisualBellContext from "../../store/visual-bell-context";
+import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import { querySchoolAPI } from "../../utils/formValidation";
 
 import classes from "./OrgForm.module.scss";
-import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 
 const JoinOrgForm = ({ resetCta, setUser, ctx }) => {
 	const { getOrgData, joinOrgEducator } = useOrganisationHelper({ ...ctx });
