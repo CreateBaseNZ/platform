@@ -219,6 +219,33 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Sending Educators an Email Invitation
+		// const input = { emails: ["carlvelasco96@gmail.com", "cvel317@aucklanduni.ac.nz", "brydonburnett@gmail.com"] };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/invite-educator/send", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	data = { status: "error", content: error };
+		// }
+		// console.log(data);
+
+		// EXAMPLE: Joining an Organisation using the Invite Link
+		// const input = {
+		// 	email: "cvel317@aucklanduni.ac.nz",
+		// 	eduCode: "m6S2Nn",
+		// 	orgName: "Bream Bay College",
+		// 	orgId: "20",
+		// 	invCode: "Bvs6To",
+		// 	date: new Date().toString(),
+		// };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/invite-educator/join", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	data = { status: "error", content: error };
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
