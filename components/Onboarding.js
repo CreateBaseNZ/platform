@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
+import router from "next/router";
 import VisualBellContext from "../store/visual-bell-context";
+import useProfileHelper from "../hooks/useProfileHelpers";
 
 import classes from "./Onboarding.module.scss";
-import router from "next/router";
-import { updateProfile } from "../utils/profileHelpers";
 
 const teachingContent = {
 	title: "Teaching my first project",
@@ -26,14 +26,14 @@ const teachingContent = {
 	),
 };
 
-const Onboarding = ({ user }) => {
+const Onboarding = ({ user, setShowVerifyModal }) => {
 	const ctx = useContext(VisualBellContext);
 	const [tasks, setTasks] = useState([]);
 	const [popup, setPopup] = useState();
-	const [showVerifyModal, setShowVerifyModal] = useState(false);
+	const { updateProfile } = useProfileHelper({ ...ctx });
 
 	useEffect(() => {
-		if (user.type) {
+		if (user.loaded) {
 			setTasks([
 				{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => setShowVerifyModal(true) },
 				{ title: "Join or create an org", progress: user.org ? 100 : 0, clickHandler: () => router.replace("/user/my-account") },
@@ -42,32 +42,18 @@ const Onboarding = ({ user }) => {
 					progress: user.saves.teachingFirst === "done" ? 100 : 0,
 					clickHandler: () => {
 						setPopup(teachingContent);
-						updateProfile(
-							{ saves: { teachingFirst: "done" } },
-							() =>
-								ctx.setBell({
-									type: "catastrophe",
-									message: "Oops! Something went wrong, please refresh the page and try again",
-								}),
-							() =>
-								ctx.setBell({
-									type: "catastrophe",
-									message: "Oops! Something went wrong, please refresh the page and try again",
-								}),
-							(content) => {
-								//TODO
-								console.log(content);
-							},
-							() => {
+						updateProfile({
+							details: { saves: { teachingFirst: "done" } },
+							successHandler: () => {
 								setTasks((state) => state.map((task, i) => (i === 2 ? { ...task, progress: 100 } : task)));
-							}
-						);
+							},
+						});
 					},
 				},
 				{ title: "Platform Lite in 60 seconds (coming soon)", progress: "Coming soon", clickHandler: () => {} },
 			]);
 		}
-	}, [user.type]);
+	}, [user.loaded]);
 
 	useEffect(() => {
 		if (user.verified) setTasks((state) => state.map((task, i) => (i === 0 ? { ...task, progress: 100 } : task)));

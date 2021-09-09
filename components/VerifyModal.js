@@ -9,7 +9,7 @@ import { resendVerificationCode, verifyAccount } from "../utils/authHelpers";
 
 const codeLength = 6;
 
-const VerifyModal = ({ setIsShown, setShowExternal, setUser }) => {
+const VerifyModal = ({ setIsShown, setUser }) => {
 	const ctx = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
@@ -18,7 +18,6 @@ const VerifyModal = ({ setIsShown, setShowExternal, setUser }) => {
 
 	const skipHandler = () => {
 		setIsShown(false);
-		setShowExternal(false);
 	};
 
 	const submitCode = async (code) => {

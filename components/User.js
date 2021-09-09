@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import MyAccount from "./MyAccount/MyAccount";
 
 const User = ({ user, setUser }) => {
@@ -9,7 +8,6 @@ const User = ({ user, setUser }) => {
 
 	useEffect(() => {
 		const query = router.query.view[1];
-		console.log(router.query);
 		if (query) {
 			setUserView(query);
 		} else {

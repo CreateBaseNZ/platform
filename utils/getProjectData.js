@@ -2,11 +2,15 @@ import sendItData from "../data/send-it-data";
 import magnebotData from "../data/magnebot-data";
 import lineFollowingData from "../data/line-following-data";
 
-export default getProjectData = (query) => {
+const getProjectData = (query) => {
 	switch (query) {
 		case "send-it":
 			return sendItData;
+		case "magnetbot":
+			return magnebotData;
 	}
 };
 
-export const allData = [sendItData];
+export default getProjectData;
+
+export const allData = [sendItData, magnebotData];

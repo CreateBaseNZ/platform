@@ -8,12 +8,14 @@ import { initSession } from "../utils/authHelpers";
 import Onboarding from "../components/onboarding";
 import Faq from "../components/Faq";
 import User from "../components/User";
+import VerifyModal from "../components/VerifyModal";
 
 const View = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
 	const [view, setView] = useState();
 	const [user, setUser] = useState({ loaded: false });
+	const [showVerifyModal, setShowVerifyModal] = useState(false);
 
 	useEffect(() => {
 		setLoaded(true);
@@ -25,35 +27,37 @@ const View = ({ setLoaded }) => {
 	}, [loading, session]);
 
 	useEffect(() => {
-		console.log(router);
-		const query = router.query.view && router.query.view[0].toLowerCase();
-		console.log(query);
-		if (query && query === "onboarding") {
-			console.log(user.type);
-			if (user.type === "educator" || user.type === "admin") {
-				setView("onboarding");
-			} else {
-				router.replace("browse");
+		if (user.loaded) {
+			const query = router.query.view && router.query.view[0].toLowerCase();
+			console.log(query);
+			if (query && query === "onboarding") {
+				console.log(user.type);
+				if (user.type === "educator" || user.type === "admin") {
+					setView("onboarding");
+				} else {
+					router.replace("browse");
+				}
+			} else if (query) {
+				setView(query);
 			}
-		} else if (query) {
-			setView(query);
 		}
-	}, [router]);
+	}, [router, user.loaded]);
 
 	if (loading) {
 		return null;
 	}
 
 	return (
-		<Frame route={router.asPath} user={user} setUser={setUser}>
+		<Frame route={router.asPath} user={user} setShowVerifyModal={setShowVerifyModal}>
 			<Head>
 				<title>CreateBase</title>
 				<meta name="description" content="Welcome to CreateBase" />
 			</Head>
-			{view === "onboarding" && <Onboarding user={user} />}
+			{view === "onboarding" && <Onboarding user={user} setShowVerifyModal={setShowVerifyModal} />}
 			{view === "browse" && <Browse user={user} />}
 			{view === "faq" && <Faq user={user} />}
 			{view === "user" && <User user={user} setUser={setUser} />}
+			{showVerifyModal && <VerifyModal setIsShown={setShowVerifyModal} setUser={setUser} />}
 		</Frame>
 	);
 };

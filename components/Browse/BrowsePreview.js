@@ -9,8 +9,6 @@ const tabs = ["Overview", "Teaching"];
 const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => {
 	const [tab, setTab] = useState(0);
 
-	console.log(paidAccess);
-
 	const clickHandler = (i) => {
 		setTab(i);
 	};

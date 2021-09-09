@@ -1,17 +1,17 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import Input, { PasswordInput } from "../UI/Input";
 import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate, usernameMinLength, usernamePattern, isBlacklisted } from "../../utils/formValidation";
 
 import classes from "./UserDetailsForm.module.scss";
-import { changePassword, updateProfile } from "../../utils/profileHelpers";
+import useProfileHelper from "../../hooks/useProfileHelpers";
 import getRandomName from "../../utils/randomNames";
 
 const UserDetailsForm = ({ user, setUser, ctx }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [learnerName, setLearnerName] = useState(user.displayName);
+	const { updateProfile } = useProfileHelper({ ...ctx });
 	const {
 		register,
 		handleSubmit,
@@ -64,32 +64,17 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
 		if (frontendError) {
 			return setIsLoading(false);
 		}
-		updateProfile(
-			{ displayName: input.displayName },
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() => {
+		updateProfile({
+			details: { displayName: input.displayName },
+			successHandler: () => {
 				setUser((state) => ({ ...state, ...input }));
 				ctx.setBell({
 					type: "success",
 					message: "Successfully updated details",
 				});
 				setIsLoading(false);
-			}
-		);
+			},
+		});
 	};
 
 	return (
@@ -154,6 +139,7 @@ const UserDetailsForm = ({ user, setUser, ctx }) => {
 export default UserDetailsForm;
 
 export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
+	const { changePassword } = useProfileHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const password = useRef({});
 	const {
@@ -168,31 +154,20 @@ export const ChangePasswordForm = ({ setChangingPassword, ctx }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		const details = { oldPassword: input.currentPassword, password: input.newPassword };
-		changePassword(
-			details,
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			(content) => {
+		changePassword({
+			details: { oldPassword: input.currentPassword, password: input.newPassword },
+			failHandler: (content) => {
 				if (content.password) setError("currentPassword", { type: "manual", message: "Incorrect password" }, { shouldFocus: true });
 				setIsLoading(false);
 			},
-			() => {
+			successHandler: () => {
 				setChangingPassword(false);
 				ctx.setBell({
 					type: "success",
 					message: "Successfully changed password",
 				});
-			}
-		);
+			},
+		});
 	};
 
 	useEffect(() => {

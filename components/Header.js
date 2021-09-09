@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import router from "next/router";
 import Link from "next/link";
 import { signOut } from "next-auth/client";
@@ -7,11 +7,9 @@ import UserAvatar from "./UI/UserAvatar";
 import classes from "./Header.module.scss";
 import { PrimaryButton, SecondaryButton } from "./UI/Buttons";
 import { ColourLogoIcon } from "./UI/Icons";
-import VerifyModal from "./VerifyModal";
 
-const Header = ({ user, setUser, showExternal, setShowExternal = () => {}, collapseNav, toggleNavHandler }) => {
+const Header = ({ user, setShowVerifyModal, collapseNav, toggleNavHandler }) => {
 	const [active, setActive] = useState(false);
-	const [showVerifyModal, setShowVerifyModal] = useState(false);
 
 	return (
 		<header className={classes.header}>
@@ -86,7 +84,6 @@ const Header = ({ user, setUser, showExternal, setShowExternal = () => {}, colla
 					)}
 				</>
 			)}
-			{(showVerifyModal || showExternal) && <VerifyModal setIsShown={setShowVerifyModal} setShowExternal={setShowExternal} setUser={setUser} />}
 		</header>
 	);
 };

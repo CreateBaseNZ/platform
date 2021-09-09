@@ -3,7 +3,7 @@ import classes from "./Frame.module.scss";
 import Header from "./Header";
 import Nav from "./Nav";
 
-const Frame = ({ children, route, user, setUser, showVerifyModal, setShowVerifyModal }) => {
+const Frame = ({ children, route, user, setShowVerifyModal }) => {
 	const [collapseNav, setCollapseNav] = useState(false);
 
 	const toggleNavHandler = () => {
@@ -17,7 +17,7 @@ const Frame = ({ children, route, user, setUser, showVerifyModal, setShowVerifyM
 			</div>
 			<div className={classes.view}>
 				<div className={classes.header}>
-					<Header user={user} setUser={setUser} showExternal={showVerifyModal} setShowExternal={setShowVerifyModal} collapseNav={collapseNav} toggleNavHandler={toggleNavHandler} />
+					<Header user={user} setShowVerifyModal={setShowVerifyModal} collapseNav={collapseNav} toggleNavHandler={toggleNavHandler} />
 				</div>
 				{children}
 			</div>
