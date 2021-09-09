@@ -1,9 +1,26 @@
 import axios from "axios";
 
-const signUpEducatorAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+export const getOrgDataAPI = async (criticalHandler) => {
+	let orgData;
+	try {
+		orgData = (await axios.post("/api/organisation/read-account", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	return {
+		name: orgData.content.name,
+		city: orgData.content.location.city,
+		country: orgData.content.location.country,
+		admins: orgData.content.numberOfLicenses.admin,
+		educators: orgData.content.numberOfLicenses.educator,
+		learners: orgData.content.numberOfLicenses.learner,
+	};
+};
+
+const createOrgAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
+		data = (await axios.post("/api/organisation/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}
@@ -17,10 +34,10 @@ const signUpEducatorAPI = async (details, criticalHandler, errorHandler, failHan
 	return successHandler();
 };
 
-const validateUsernameAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+const joinOrgEducatorAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
-		data = (await axios.post("/api/signup/validate-username", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		data = (await axios.post("/api/organisation/join-educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}
@@ -34,25 +51,18 @@ const validateUsernameAPI = async (details, criticalHandler, errorHandler, failH
 	return successHandler();
 };
 
-const signUpLearnerAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/signup/learner-organisation", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
-	}
-	return successHandler();
-};
+const useOrganisationHelper = ({ setBell }) => {
+	const getOrgData = async (
+		criticalHandler = () =>
+			setBell({
+				type: "catastrophe",
+				message: "Oops! Something went wrong, please refresh the page and try again",
+			})
+	) => {
+		return getOrgDataAPI(criticalHandler);
+	};
 
-const useSignupHelper = ({ setBell }) => {
-	const signUpEducator = ({
+	const createOrg = ({
 		details,
 		criticalHandler = () =>
 			setBell({
@@ -75,10 +85,10 @@ const useSignupHelper = ({ setBell }) => {
 				message: "Success!",
 			}),
 	}) => {
-		signUpEducatorAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+		createOrgAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	const validateUsername = ({
+	const joinOrgEducator = ({
 		details,
 		criticalHandler = () =>
 			setBell({
@@ -101,36 +111,10 @@ const useSignupHelper = ({ setBell }) => {
 				message: "Success!",
 			}),
 	}) => {
-		validateUsernameAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+		joinOrgEducatorAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	const signUpLearner = ({
-		details,
-		criticalHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		errorHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		failHandler = () =>
-			setBell({
-				type: "error",
-				message: "Oops! An error occurred, please try again",
-			}),
-		successHandler = () =>
-			setBell({
-				type: "success",
-				message: "Success!",
-			}),
-	}) => {
-		signUpLearnerAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
-	};
-
-	return { signUpEducator, validateUsername, signUpLearner };
+	return { getOrgData, createOrg, joinOrgEducator };
 };
 
-export default useSignupHelper;
+export default useOrganisationHelper;

@@ -3,14 +3,15 @@ import VisualBellContext from "../store/visual-bell-context";
 import ClientOnlyPortal from "./UI/ClientOnlyPortal";
 import Input from "./UI/Input";
 import { PrimaryButton } from "./UI/Buttons";
+import useAuthHelper from "../hooks/useAuthHelper";
 
 import classes from "./VerifyModal.module.scss";
-import { resendVerificationCode, verifyAccount } from "../utils/authHelpers";
 
 const codeLength = 6;
 
 const VerifyModal = ({ setIsShown, setUser }) => {
 	const ctx = useContext(VisualBellContext);
+	const { verifyAccount, resendVerificationCode } = useAuthHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const [code, setCode] = useState([...Array(codeLength)].map(() => ""));
@@ -23,23 +24,13 @@ const VerifyModal = ({ setIsShown, setUser }) => {
 	const submitCode = async (code) => {
 		setIsLoading(true);
 
-		verifyAccount(
-			{ code: code },
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			() =>
-				ctx.setBell({
-					type: "catastrophe",
-					message: "Something unexpected happened, please reload the page",
-				}),
-			(content) => {
+		verifyAccount({
+			details: { code: code },
+			failHandler: (content) => {
 				if (content.code) setError(true);
 				setIsLoading(false);
 			},
-			() => {
+			successHandler: () => {
 				setUser((state) => ({ ...state, verified: true }));
 				setIsShown(false);
 				setShowExternal(false);
@@ -47,12 +38,12 @@ const VerifyModal = ({ setIsShown, setUser }) => {
 					type: "success",
 					message: "Congratulations! Your account is now verified",
 				});
-			}
-		);
+			},
+		});
 	};
 
 	const resendCodeHandler = () => {
-		resendVerificationCode(() => ctx.setBell({ type: "neutral", message: "New code sent" }));
+		resendVerificationCode({ successHandler: () => ctx.setBell({ type: "neutral", message: "New code sent" }) });
 	};
 
 	const changeHandler = (e, idx) => {
