@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
+import Img from "../UI/Img";
 
 import VisualBellContext from "../../store/visual-bell-context";
 import useOrganisationHelper from "../../hooks/useOrganisationHelper";
@@ -49,7 +50,6 @@ const JoinOrg = ({ setUser }) => {
 				const org = await getOrgData();
 				setUser((state) => ({ ...state, org: org }));
 				setIsLoading(false);
-				resetCta();
 				ctx.setBell({
 					type: "success",
 					message: `Successfully joined ${org.name}`,
@@ -176,7 +176,6 @@ const RegisterOrg = ({ setUser }) => {
 				const org = await getOrgData();
 				setUser((state) => ({ ...state, type: "admin", org: org }));
 				setIsLoading(false);
-				resetCta();
 				ctx.setBell({
 					type: "success",
 					message: `Successfully created and joined ${org.name}`,
@@ -234,14 +233,56 @@ const RegisterOrg = ({ setUser }) => {
 const MyOrg = ({ user, setUser }) => {
 	return (
 		<div className={classes.myView}>
-			<div className={classes.section}>
-				<h2>Join an organisation</h2>
-				<JoinOrg setUser={setUser} />
-			</div>
-			<div className={classes.section}>
-				<h2>Register an organisation</h2>
-				<RegisterOrg setUser={setUser} />
-			</div>
+			{!user.org && (
+				<div className={classes.section}>
+					<h2>Join an organisation</h2>
+					<JoinOrg setUser={setUser} />
+				</div>
+			)}
+			{!user.org && (
+				<div className={classes.section}>
+					<h2>Register an organisation</h2>
+					<RegisterOrg setUser={setUser} />
+				</div>
+			)}
+			{user.org && (
+				<div className={classes.section}>
+					<h2>Your organisation</h2>
+					<div className={classes.card}>
+						<div className={classes.cardHeader}>
+							<div style={{ display: "flex", flexDirection: "column" }}>
+								<h3>{user.org.name}</h3>
+								<div className={classes.smallText}>
+									{user.org.city}, {user.org.country}
+								</div>
+							</div>
+						</div>
+						<div className={classes.cardContent} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+							<div className={classes.orgContent}>
+								{user.type === "admin" && (
+									<div className={classes.mediumText}>
+										<i className="material-icons-outlined">verified_user</i>
+										{user.org.admins || "No"} admin{(user.org.admins > 1 || user.org.admins === 0) && "s"}
+									</div>
+								)}
+								{(user.type === "admin" || user.type === "educator") && (
+									<div className={classes.mediumText}>
+										<i className="material-icons-outlined">school</i>
+										{user.org.educators || "No"} educator{(user.org.educators > 1 || user.org.educators === 0) && "s"}
+									</div>
+								)}
+								<div className={classes.mediumText}>
+									<i className="material-icons-outlined">backpack</i>
+									{user.org.learners || "No"} learner{(user.org.learners > 1 || user.org.learners === 0) && "s"}
+								</div>
+							</div>
+							<div style={{ height: 150, width: 250 }}>
+								<Img src={"/my-account/org.svg"} layout="fill" />
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
