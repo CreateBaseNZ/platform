@@ -17,7 +17,7 @@ const User = ({ user, setUser }) => {
 		}
 	}, [router.query]);
 
-	return <div style={{ height: "100%", width: "100%" }}>{userView === "my-account" && <MyAccount user={user} setUser={setUser} />}</div>;
+	return <div style={{ height: "100%", width: "100%", minHeight: 0 }}>{userView === "my-account" && <MyAccount user={user} setUser={setUser} />}</div>;
 };
 
 export default User;
