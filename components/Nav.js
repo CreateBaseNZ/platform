@@ -9,7 +9,12 @@ const myAccountTab = { route: "/user/my-account", label: "My Account", icon: "pe
 const adminConsoleTab = { route: "/user/admin-console", label: "Admin Console", icon: "admin_panel_settings" };
 const faqTab = { route: "/faq", label: "FAQ", icon: "help_outline" };
 
-const tabs = { null: [browseTab, faqTab], learner: [browseTab, faqTab], educator: [onboardingTab, browseTab, myAccountTab, faqTab], admin: [onboardingTab, browseTab, myAccountTab, faqTab] };
+const tabs = {
+	null: [browseTab, faqTab],
+	learner: [browseTab, faqTab, myAccountTab],
+	educator: [onboardingTab, browseTab, myAccountTab, faqTab],
+	admin: [onboardingTab, browseTab, myAccountTab, faqTab],
+};
 
 const Nav = ({ route, collapseNav, user }) => {
 	route = route.includes("/faq") ? "/faq" : route;

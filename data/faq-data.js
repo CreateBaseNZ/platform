@@ -67,12 +67,11 @@ export default [
 				a: (
 					<>
 						<p>
-						Each Project has its own set of 5-10 lesson plans. To access a Project’s lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are interested in. The ‘Teaching’ tab will then appear. Click on that tab to reveal the teaching resources.
+							Each Project has its own set of 5-10 lesson plans. To access a Project’s lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are
+							interested in. The ‘Teaching’ tab will then appear. Click on that tab to reveal the teaching resources.
 						</p>
 						<img src="/faq/faq-1-1.jpg" />
-						<p>
-						You can now click on the “Lesson Plan” button to open all the lesson plans for that Project in a new tab.
-						</p>
+						<p>You can now click on the “Lesson Plan” button to open all the lesson plans for that Project in a new tab.</p>
 						<img src="/faq/faq-1.jpg" />
 						<p>
 							The lesson plan button will only appear if you are signed in with an educator account. If you cannot see the button and are not signed in, you can sign in with an educator account in the
@@ -220,9 +219,7 @@ export default [
 						<p>
 							If your students don't have CreateBase accounts, tell them to click sign up and fill out each field. They will need to enter your organisation's learner code when they create their
 							account. If you do not know what this is or how to get a learner code,
-							<Link href="/faq/2-8">
-								click here
-							</Link>.
+							<Link href="/faq/2-8">click here</Link>.
 						</p>
 						<p>If your students already have CreateBase accounts, they can click log in and enter their account details.</p>
 						<img src="/faq/faq-2.jpg" />
@@ -334,7 +331,7 @@ export default [
 							<a href="/user" target="_blank">
 								My Account
 							</a>{" "}
-							page and click Create an Org. You will then be prompted to enter your school's ID and name.
+							page and click Register your Org. You will then be prompted to enter your school's ID and name.
 						</p>
 						<img src="/faq/faq-10.jpg" />
 						<p>If an organisation has already been created for your school and you think that this was a mistake, then contact CreateBase via our email for support.</p>

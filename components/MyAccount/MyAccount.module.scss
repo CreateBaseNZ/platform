@@ -3,99 +3,210 @@
 .myAccount {
 	height: 100%;
 	width: 100%;
-	padding: 2vh 2vw;
+	padding: 5vh 5vw;
 	display: flex;
-	background: white;
-}
-
-.leftArea {
-	width: 40%;
-	height: 100%;
-	max-width: 400px;
-	display: flex;
-	flex-direction: column;
-}
-
-.avatar {
-	height: 10rem;
-	width: 10rem;
-	border-radius: 32px;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.secondary {
-	align-self: flex-start;
-	margin-top: auto;
-	display: flex;
-	flex-direction: column;
 	align-items: flex-start;
-	button {
-		i {
-			margin-right: 0.75em;
-			font-size: 16px;
-		}
-		&.deleteAcc:hover {
-			color: $red;
-			background: rgba($red, 0.1);
-		}
-	}
+	justify-content: center;
+	background: white;
+	overflow-y: scroll;
 }
 
-.rightArea {
-	margin-left: 4vw;
-	width: 60%;
-	height: 100%;
+.leftColumn {
+	position: sticky;
+	top: 0;
+	margin-right: 4rem;
 	display: flex;
 	flex-direction: column;
 	h1 {
-		margin-top: 2vh;
 		font-size: 2rem;
 		font-weight: 600;
 		color: $darker;
+		margin-bottom: 2vh;
 	}
 }
 
-.ctaContainer {
-	margin-top: 2vh;
+.menu {
+	width: 240px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 16px;
+	overflow: hidden;
+	border: 2px solid $lighter;
+	button {
+		width: 100%;
+		height: 4rem;
+		display: flex;
+		align-items: center;
+		padding-left: 2rem;
+		position: relative;
+		transition: background-color 0.1s ease-out;
+		i {
+			border-radius: 12px;
+			font-size: 18px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.title {
+			margin-left: 1rem;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			font-weight: 600;
+			font-size: 15px;
+		}
+		* {
+			opacity: 0.45;
+			transition: opacity 0.1s ease-out, color 0.1s ease-out;
+		}
+		&:not(:last-child) {
+			border-bottom: 2px solid $lighter;
+		}
+		&:hover {
+			* {
+				opacity: 0.75;
+			}
+		}
+		&.active {
+			background: rgba($blue-mid, 0.05);
+			* {
+				opacity: 1;
+				color: $blue-mid;
+			}
+		}
+	}
+}
+
+.rightColumn {
+	display: flex;
+	flex-direction: column;
+	width: 600px;
+}
+
+.myView {
 	width: 100%;
 	display: flex;
-	align-items: center;
-	& > * {
-		margin: 0 1vw;
-	}
-	& > *:first-child {
-		margin-left: 0;
-	}
-	& > *:last-child {
-		margin-right: 0;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.section {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 2rem;
+	h2 {
+		width: 100%;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: $darker;
+		border-bottom: 2px solid $lighter;
+		padding: 0.5rem 0;
+		margin-bottom: 0.5rem;
 	}
 }
 
-.join {
-	background: linear-gradient(to bottom right, $logo-dark, $magenta-light);
-	button {
-		border: medium solid $lightest;
-		color: $lightest;
+.form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	.input {
+		margin: 0.25rem 0;
+		width: 360px;
+		max-width: 360px;
+		label {
+			margin: 0 0 0.25rem 0.25rem;
+			font-size: 12px;
+			color: $dark;
+		}
+		p {
+			margin: 0 0 0 0.25rem !important;
+		}
+	}
+	.instruction {
+		font-size: 13px;
+		margin: 0.5rem 0;
+		opacity: 0.5;
+	}
+	.errorMessage {
+		font-size: 12px;
+		font-weight: 500;
+		margin-top: 1rem;
+		color: $red;
+		height: 1em;
+		opacity: 0;
+	}
+}
+
+.profile {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	.avatar {
+		margin-right: 1rem;
+		margin-top: 0.5rem;
+		flex: 0 0 10rem;
+		height: 10rem;
+		border-radius: 10rem;
+		overflow: hidden;
+	}
+}
+
+.submit {
+	align-self: flex-start;
+	margin-top: 1rem;
+	font-weight: 600;
+	padding: 0 2em;
+	i.left {
+		font-size: 20px;
+		margin-right: 0.5em;
+		margin-left: -0.25em;
+	}
+	i.right {
+		font-size: 20px;
+		margin-left: 0.5em;
+		margin-right: -0.25em;
+	}
+}
+
+.contact {
+	margin-left: 0.3em;
+	font-size: inherit;
+	font-weight: inherit;
+	color: $blue-dark;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.learnerNameContainer {
+	display: flex;
+	flex-direction: column;
+	.learnerName {
+		font-weight: 600;
+		font-size: 18px;
+	}
+	.changeNameBtn {
+		align-self: flex-start;
+		margin: 1rem 0;
+		height: 1.75rem;
+		width: auto;
+		padding: 0 1rem;
+		font-size: 11px;
+		border: none;
+		color: rgba(black, 0.5);
+		background: rgba(black, 0.06);
 		transition: background-color 0.1s ease-out, color 0.1s ease-out;
 		&:hover {
-			border-color: $lightest;
-			background: $lightest;
-			color: $logo-mid;
+			color: white;
+			background: rgba($logo-mid, 0.75);
 		}
 	}
 }
 
-.create {
-	background: linear-gradient(to bottom right, $blue-dark, $blue-light);
-	button {
-		background: $lightest;
-		color: $blue-mid;
-		box-shadow: 0 4px 16px 0 rgba($blue-dark, 0.25);
-		&:hover {
-			box-shadow: 0 8px 24px 0 rgba($blue-dark, 0.25);
-		}
-	}
+.unsavedChanges {
+	margin-top: 1vh;
+	color: $light;
+	font-size: 11px;
 }

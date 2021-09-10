@@ -55,7 +55,7 @@ const Header = ({ user, setShowVerifyModal, collapseNav, toggleNavHandler }) => 
 											<i className="material-icons-outlined">group_add</i> Join an org
 										</button>
 										<button onMouseDown={() => router.push("/user")}>
-											<i className="material-icons-outlined">groups</i>Create an org
+											<i className="material-icons-outlined">groups</i>Register your org
 										</button>
 									</>
 								)}
