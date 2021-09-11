@@ -8,7 +8,6 @@ import { initSession } from "../utils/authHelpers";
 import Onboarding from "../components/onboarding";
 import Faq from "../components/Faq";
 import User from "../components/User";
-import VerifyModal from "../components/VerifyModal";
 
 const View = ({ setLoaded }) => {
 	const router = useRouter();

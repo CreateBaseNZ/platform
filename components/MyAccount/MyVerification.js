@@ -9,7 +9,7 @@ import classes from "./MyAccount.module.scss";
 
 const codeLength = 6;
 
-const MyVerify = ({ user, setUser }) => {
+const VerifyAccountForm = ({ setUser }) => {
 	const ctx = useContext(VisualBellContext);
 	const { verifyAccount, resendVerificationCode } = useAuthHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,6 @@ const MyVerify = ({ user, setUser }) => {
 			},
 			successHandler: () => {
 				setUser((state) => ({ ...state, verified: true }));
-				setShowExternal(false);
 				ctx.setBell({
 					type: "success",
 					message: "Congratulations! Your account is now verified",
@@ -68,45 +67,63 @@ const MyVerify = ({ user, setUser }) => {
 	};
 
 	return (
+		<form className={classes.form}>
+			<div className={classes.instruction}>
+				Your account is not verified. <br /> Verifying your account will enable you to join or register an organisation. To continue, enter the six-digit code sent to your email.
+			</div>
+			<div className={classes.codeContainer}>
+				{code.map((char, idx) => (
+					<Input
+						key={idx}
+						className={`${classes.input} ${classes.codeInput}`}
+						label={idx === 0 && "Verification code*"}
+						inputProps={{
+							type: "text",
+							maxLength: 1,
+							value: char,
+							autoFocus: !code[0].length && idx === 0,
+							readOnly: isLoading,
+							onChange: (e) => changeHandler(e, idx),
+							onKeyDown: (e) => keyDownHandler(e, idx),
+							ref: (ref) => refs.current.push(ref),
+						}}
+						error={error}
+					/>
+				))}
+			</div>
+			<div className={classes.errorMessage} style={{ opacity: error ? 1 : 0 }}>
+				The code you entered is incorrect or has expired
+			</div>
+			<PrimaryButton className={classes.loading} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0, pointerEvents: "none" }} />
+			<button type="button" className={`${classes.resend} ${isLoading ? classes.disabled : ""}`} onClick={resendCodeHandler}>
+				Resend code
+			</button>
+		</form>
+	);
+};
+
+const MyVerification = ({ user, setUser }) => {
+	return (
 		<div className={classes.myView}>
 			<Head>
 				<title>Verify • {user.displayName} | CreateBase</title>
 				<meta name="description" content="Verify your account to secure your account and join or register an organisation. CreateBase" />
 			</Head>
 			<div className={`${classes.section} ${classes.verifyAccount}`}>
-				<h2>Verify account</h2>
-				<form className={classes.form}>
-					<div className={classes.instruction}>Enter the verification code sent to your email</div>
-					<div className={classes.codeContainer}>
-						{code.map((char, idx) => (
-							<Input
-								key={idx}
-								className={classes.codeInput}
-								inputProps={{
-									type: "text",
-									maxLength: 1,
-									value: char,
-									autoFocus: !code[0].length && idx === 0,
-									readOnly: isLoading,
-									onChange: (e) => changeHandler(e, idx),
-									onKeyDown: (e) => keyDownHandler(e, idx),
-									ref: (ref) => refs.current.push(ref),
-								}}
-								error={error}
-							/>
-						))}
+				<h2>Account verification</h2>
+				{!user.verified && <VerifyAccountForm setuser={setUser} />}
+				{user.verified && (
+					<div className={classes.verifiedCard}>
+						<i className="material-icons-outlined">check_circle</i>
+						<div style={{ display: "flex", flexDirection: "column" }}>
+							<h3>Verified</h3>
+							<div className={classes.caption}>Your account is verified</div>
+						</div>
 					</div>
-					<div className={classes.errorMessage} style={{ opacity: error ? 1 : 0 }}>
-						The code you entered is incorrect or has expired
-					</div>
-					<PrimaryButton className={classes.loading} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0, pointerEvents: "none" }} />
-					<button type="button" className={`${classes.resend} ${isLoading ? classes.disabled : ""}`} onClick={resendCodeHandler}>
-						Resend code
-					</button>
-				</form>
+				)}
 			</div>
 		</div>
 	);
 };
 
-export default MyVerify;
+export default MyVerification;

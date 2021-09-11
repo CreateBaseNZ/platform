@@ -7,11 +7,11 @@ import MyOrg from "./MyOrg";
 import classes from "./MyAccount.module.scss";
 import MySecurity from "./MySecurity";
 import { useRouter } from "next/dist/client/router";
-import MyVerify from "./MyVerify";
+import MyVerification from "./MyVerification";
 
 const menu = [
 	{ query: "profile", h1: "Profile", icon: "assignment_ind", show: () => true },
-	{ query: "verify", h1: "Verify", icon: "how_to_reg", show: (type) => ["admin", "educator"].includes(type) },
+	{ query: "verification", h1: "Verification", icon: "how_to_reg", show: (type) => ["admin", "educator"].includes(type) },
 	{ query: "org", h1: "Organisation", icon: "supervisor_account", show: (type) => ["admin", "educator"].includes(type) },
 	{ query: "security", h1: "Security", icon: "lock", show: () => true },
 ];
@@ -51,7 +51,7 @@ const MyAccount = ({ user, setUser }) => {
 			</div>
 			<div className={classes.rightColumn}>
 				{activeTab === "profile" && <MyProfile user={user} setUser={setUser} />}
-				{activeTab === "verify" && <MyVerify user={user} setUser={setUser} />}
+				{activeTab === "verification" && <MyVerification user={user} setUser={setUser} />}
 				{activeTab === "org" && <MyOrg user={user} setUser={setUser} />}
 				{activeTab === "security" && <MySecurity user={user} setUser={setUser} />}
 			</div>

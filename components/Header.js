@@ -20,7 +20,7 @@ const Header = ({ user, collapseNav, toggleNavHandler }) => {
 						<i className="material-icons-outlined">{collapseNav ? "chevron_right" : "chevron_left"}</i>
 					</button>
 					{!user.verified && user.type && user.type !== "learner" && (
-						<button className={classes.verifyBtn} onClick={() => router.replace("/user/my-account/verify")}>
+						<button className={classes.verifyBtn} onClick={() => router.replace("/user/my-account/verification")}>
 							Verify
 						</button>
 					)}

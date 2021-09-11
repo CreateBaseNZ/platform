@@ -35,7 +35,7 @@ const Onboarding = ({ user }) => {
 	useEffect(() => {
 		if (user.loaded) {
 			setTasks([
-				{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => router.push("/user/my-account/verify") },
+				{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => router.push("/user/my-account/verification") },
 				{ title: "Join or register an org", progress: user.org ? 100 : 0, clickHandler: () => router.replace("/user/my-account") },
 				{
 					title: "Teaching my first project",
