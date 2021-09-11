@@ -17,12 +17,12 @@ const tabs = {
 };
 
 const Nav = ({ route, collapseNav, user }) => {
-	route = route.includes("/faq") ? "/faq" : route;
-
-	if (route.includes("/faq")) {
+	if (route.startsWith("/faq")) {
 		route = "/faq";
-	} else if (route.includes("/browse")) {
+	} else if (route.startsWith("/browse")) {
 		route = "/browse";
+	} else if (route.startsWith("/user/my-account")) {
+		route = "/user/my-account";
 	}
 
 	return (

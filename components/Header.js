@@ -8,7 +8,7 @@ import classes from "./Header.module.scss";
 import { PrimaryButton, SecondaryButton } from "./UI/Buttons";
 import { ColourLogoIcon } from "./UI/Icons";
 
-const Header = ({ user, setShowVerifyModal, collapseNav, toggleNavHandler }) => {
+const Header = ({ user, collapseNav, toggleNavHandler }) => {
 	const [active, setActive] = useState(false);
 
 	return (
@@ -20,7 +20,7 @@ const Header = ({ user, setShowVerifyModal, collapseNav, toggleNavHandler }) => 
 						<i className="material-icons-outlined">{collapseNav ? "chevron_right" : "chevron_left"}</i>
 					</button>
 					{!user.verified && user.type && user.type !== "learner" && (
-						<button className={classes.verifyBtn} onClick={() => setShowVerifyModal(true)}>
+						<button className={classes.verifyBtn} onClick={() => router.push("/user/my-account/verification")}>
 							Verify
 						</button>
 					)}
@@ -51,16 +51,16 @@ const Header = ({ user, setShowVerifyModal, collapseNav, toggleNavHandler }) => 
 						)} */}
 								{user.type !== "learner" && !user.org && (
 									<>
-										<button onMouseDown={() => router.push("/user")}>
+										<button onMouseDown={() => router.push("/user/my-account/org")}>
 											<i className="material-icons-outlined">group_add</i> Join an org
 										</button>
-										<button onMouseDown={() => router.push("/user")}>
-											<i className="material-icons-outlined">groups</i>Register your org
+										<button onMouseDown={() => router.push("/user/my-account/org")}>
+											<i className="material-icons-outlined">groups</i>Register an org
 										</button>
 									</>
 								)}
 								<button onMouseDown={() => router.push("/user")}>
-									<i className="material-icons-outlined">assignment_ind</i>My account
+									<i className="material-icons-outlined">person</i>My account
 								</button>
 								<div className={classes.divider} />
 								<button onMouseDown={() => signOut({ callbackUrl: `${window.location.origin}` })}>

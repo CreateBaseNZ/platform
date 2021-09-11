@@ -247,7 +247,7 @@ export default [
 	},
 	{
 		header: "Accounts",
-		icon: "account_box",
+		icon: "person",
 		items: [
 			{
 				q: "What are the different account types?",
