@@ -36,7 +36,7 @@ const Onboarding = ({ user }) => {
 		if (user.loaded) {
 			setTasks([
 				{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => router.push("/user/my-account/verification") },
-				{ title: "Join or register an org", progress: user.org ? 100 : 0, clickHandler: () => router.replace("/user/my-account") },
+				{ title: "Join or register an org", progress: user.org ? 100 : 0, clickHandler: () => router.push("/user/my-account/org") },
 				{
 					title: "Teaching my first project",
 					progress: user.saves.teachingFirst === "done" ? 100 : 0,
