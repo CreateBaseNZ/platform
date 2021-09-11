@@ -15,7 +15,7 @@ export default {
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	situation: {
-		url: "https://youtu.be/iiWiwxxkq2Q",
+		url: "https://youtu.be/wB53GoLXzME",
 		src: "/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",

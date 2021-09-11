@@ -8,14 +8,12 @@ import { initSession } from "../utils/authHelpers";
 import Onboarding from "../components/onboarding";
 import Faq from "../components/Faq";
 import User from "../components/User";
-import VerifyModal from "../components/VerifyModal";
 
 const View = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
 	const [view, setView] = useState();
 	const [user, setUser] = useState({ loaded: false });
-	const [showVerifyModal, setShowVerifyModal] = useState(false);
 
 	console.log(user);
 
@@ -52,16 +50,15 @@ const View = ({ setLoaded }) => {
 	}
 
 	return (
-		<Frame route={router.asPath} user={user} setShowVerifyModal={setShowVerifyModal}>
+		<Frame route={router.asPath} user={user}>
 			<Head>
 				<title>CreateBase</title>
 				<meta name="description" content="Welcome to CreateBase" />
 			</Head>
-			{view === "onboarding" && <Onboarding user={user} setShowVerifyModal={setShowVerifyModal} />}
+			{view === "onboarding" && <Onboarding user={user} />}
 			{view === "browse" && <Browse user={user} />}
 			{view === "faq" && <Faq user={user} />}
 			{view === "user" && <User user={user} setUser={setUser} />}
-			{showVerifyModal && <VerifyModal setIsShown={setShowVerifyModal} setUser={setUser} />}
 		</Frame>
 	);
 };

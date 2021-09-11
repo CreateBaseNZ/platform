@@ -1,4 +1,5 @@
 import { useState, useContext, useRef, useEffect } from "react";
+import Head from "next/head";
 import VisualBellContext from "../../store/visual-bell-context";
 import useLicenseHelper from "../../hooks/useLicenseHelper";
 import { PasswordInput } from "../UI/Input";
@@ -7,7 +8,7 @@ import { passwordMinLength, passwordValidate } from "../../utils/formValidation"
 import { PrimaryButton } from "../UI/Buttons";
 import classes from "./MyAccount.module.scss";
 
-export const MySecurity = () => {
+export const MySecurity = ({ user }) => {
 	const ctx = useContext(VisualBellContext);
 	const { changePassword } = useLicenseHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
@@ -46,6 +47,10 @@ export const MySecurity = () => {
 
 	return (
 		<div className={classes.myView}>
+			<Head>
+				<title>Security • {user.displayName} | CreateBase</title>
+				<meta name="description" content="Change your password. CreateBase" />
+			</Head>
 			<div className={classes.section}>
 				<h2>Change password</h2>
 				<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

@@ -113,6 +113,23 @@
 	opacity: 0.5;
 }
 
+.submit {
+	align-self: flex-start;
+	margin-top: 1rem;
+	font-weight: 600;
+	padding: 0 2em;
+	i.left {
+		font-size: 20px;
+		margin-right: 0.5em;
+		margin-left: -0.25em;
+	}
+	i.right {
+		font-size: 20px;
+		margin-left: 0.5em;
+		margin-right: -0.25em;
+	}
+}
+
 .form {
 	margin-top: 1rem;
 	width: 100%;
@@ -131,6 +148,26 @@
 			margin: 0 0 0 0.25rem !important;
 		}
 	}
+	.codeContainer {
+		display: flex;
+		.codeInput {
+			width: 3rem;
+			margin: 0 0.4rem;
+			label {
+				white-space: nowrap;
+			}
+			input {
+				text-align: center;
+				padding: 0;
+			}
+			p {
+				display: none;
+			}
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+	}
 	.errorMessage {
 		font-size: 12px;
 		font-weight: 500;
@@ -146,22 +183,6 @@
 		color: $blue-dark;
 		&:hover {
 			text-decoration: underline;
-		}
-	}
-	.submit {
-		align-self: flex-start;
-		margin-top: 1rem;
-		font-weight: 600;
-		padding: 0 2em;
-		i.left {
-			font-size: 20px;
-			margin-right: 0.5em;
-			margin-left: -0.25em;
-		}
-		i.right {
-			font-size: 20px;
-			margin-left: 0.5em;
-			margin-right: -0.25em;
 		}
 	}
 	.unsavedChanges {
@@ -261,4 +282,59 @@
 .orgContent {
 	display: flex;
 	flex-direction: column;
+}
+
+.verifyAccount {
+	.form {
+		align-items: flex-start;
+	}
+	.loading {
+		margin: 0;
+		height: 2rem;
+		opacity: 0;
+		pointer-events: none;
+		background: transparent;
+		color: $light;
+		box-shadow: none;
+		margin-bottom: -2rem;
+		& > :first-child {
+			border-color: $light;
+			border-top-color: transparent;
+		}
+	}
+	.resend {
+		color: $blue-dark;
+		font-weight: 500;
+		font-size: 12px;
+		&:hover {
+			text-decoration: underline;
+		}
+		&.disabled {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+	.verifiedCard {
+		margin: 1rem 0;
+		padding: 1rem 1.5rem;
+		border-radius: 16px;
+		display: flex;
+		background: rgba($green-dark, 0.05);
+		border: 2px solid rgba($green-dark, 0.1);
+		i {
+			color: $green-dark;
+			margin-top: 0.25rem;
+			margin-right: 0.5rem;
+			font-size: 20px;
+		}
+		h3 {
+			color: $green-dark;
+			font-weight: 600;
+			font-size: 18px;
+		}
+		.caption {
+			font-size: 11px;
+			color: $light;
+		}
+	}
 }

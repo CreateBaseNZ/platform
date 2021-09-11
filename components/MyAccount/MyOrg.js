@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import Head from "next/head";
 import { PrimaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
 import Img from "../UI/Img";
@@ -9,6 +10,7 @@ import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import { querySchoolAPI } from "../../utils/formValidation";
 
 import classes from "./MyAccount.module.scss";
+import router from "next/router";
 
 const JoinOrg = ({ setUser }) => {
 	const ctx = useContext(VisualBellContext);
@@ -233,25 +235,43 @@ const RegisterOrg = ({ setUser }) => {
 const MyOrg = ({ user, setUser }) => {
 	return (
 		<div className={classes.myView}>
-			{!user.org && (
+			<Head>
+				<title>Organisation • {user.displayName} | CreateBase</title>
+				<meta name="description" content="Join an organisation, register an organisation, or view your organisations here. CreateBase" />
+			</Head>
+			{!user.verified && (
+				<div className={classes.section}>
+					<h2>Organisation</h2>
+					<div className={classes.instruction} style={{ marginTop: "1rem" }}>
+						Your account must be verified before joining or registering an organistion.
+					</div>
+					<PrimaryButton
+						className={classes.submit}
+						mainLabel="Verify account"
+						iconLeft={<i className={`material-icons-outlined ${classes.left}`}>how_to_reg</i>}
+						onClick={() => router.replace("/user/my-account/verification")}
+					/>
+				</div>
+			)}
+			{user.verified && !user.org && (
 				<div className={classes.section}>
 					<h2>Join an organisation</h2>
 					<JoinOrg setUser={setUser} />
 				</div>
 			)}
-			{!user.org && (
+			{user.verified && !user.org && (
 				<div className={classes.section}>
 					<h2>Register an organisation</h2>
 					<RegisterOrg setUser={setUser} />
 				</div>
 			)}
-			{user.org && (
+			{user.verified && user.org && (
 				<div className={classes.section}>
 					<h2>Your organisation</h2>
 					<div className={classes.card}>
 						<div className={classes.cardHeader}>
 							<div style={{ display: "flex", flexDirection: "column" }}>
-								<h3>{user.org.name}</h3>
+								<h3>🎉 {user.org.name}</h3>
 								<div className={classes.smallText}>
 									{user.org.city}, {user.org.country}
 								</div>
