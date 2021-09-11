@@ -8,7 +8,7 @@ import classes from "./Header.module.scss";
 import { PrimaryButton, SecondaryButton } from "./UI/Buttons";
 import { ColourLogoIcon } from "./UI/Icons";
 
-const Header = ({ user, setShowVerifyModal, collapseNav, toggleNavHandler }) => {
+const Header = ({ user, collapseNav, toggleNavHandler }) => {
 	const [active, setActive] = useState(false);
 
 	return (
@@ -20,7 +20,7 @@ const Header = ({ user, setShowVerifyModal, collapseNav, toggleNavHandler }) => 
 						<i className="material-icons-outlined">{collapseNav ? "chevron_right" : "chevron_left"}</i>
 					</button>
 					{!user.verified && user.type && user.type !== "learner" && (
-						<button className={classes.verifyBtn} onClick={() => setShowVerifyModal(true)}>
+						<button className={classes.verifyBtn} onClick={() => router.replace("/user/my-account/verify")}>
 							Verify
 						</button>
 					)}

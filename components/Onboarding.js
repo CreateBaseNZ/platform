@@ -26,7 +26,7 @@ const teachingContent = {
 	),
 };
 
-const Onboarding = ({ user, setShowVerifyModal }) => {
+const Onboarding = ({ user }) => {
 	const ctx = useContext(VisualBellContext);
 	const [tasks, setTasks] = useState([]);
 	const [popup, setPopup] = useState();
@@ -35,7 +35,7 @@ const Onboarding = ({ user, setShowVerifyModal }) => {
 	useEffect(() => {
 		if (user.loaded) {
 			setTasks([
-				{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => setShowVerifyModal(true) },
+				{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => router.push("/user/my-account/verify") },
 				{ title: "Join or register an org", progress: user.org ? 100 : 0, clickHandler: () => router.replace("/user/my-account") },
 				{
 					title: "Teaching my first project",

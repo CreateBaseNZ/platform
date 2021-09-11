@@ -131,6 +131,20 @@
 			margin: 0 0 0 0.25rem !important;
 		}
 	}
+	.codeContainer {
+		display: flex;
+		.codeInput {
+			width: 3rem;
+			margin: 0 0.4rem;
+			input {
+				text-align: center;
+				padding: 0;
+			}
+			p {
+				display: none;
+			}
+		}
+	}
 	.errorMessage {
 		font-size: 12px;
 		font-weight: 500;
@@ -261,4 +275,35 @@
 .orgContent {
 	display: flex;
 	flex-direction: column;
+}
+
+.verifyAccount {
+	.form {
+		align-items: flex-start;
+	}
+	.loading {
+		margin: 0;
+		height: 2rem;
+		opacity: 0;
+		pointer-events: none;
+		background: transparent;
+		color: $light;
+		box-shadow: none;
+		& > :first-child {
+			border-color: $light;
+			border-top-color: transparent;
+		}
+	}
+	.resend {
+		color: $blue-dark;
+		font-weight: 500;
+		font-size: 12px;
+		&:hover {
+			text-decoration: underline;
+		}
+		&.disabled {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
 }
