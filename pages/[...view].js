@@ -17,6 +17,8 @@ const View = ({ setLoaded }) => {
 	const [user, setUser] = useState({ loaded: false });
 	const [showVerifyModal, setShowVerifyModal] = useState(false);
 
+	console.log(user);
+
 	useEffect(() => {
 		setLoaded(true);
 		return () => setLoaded(false);
@@ -33,10 +35,12 @@ const View = ({ setLoaded }) => {
 			if (query && query === "onboarding") {
 				console.log(user.type);
 				if (user.type === "educator" || user.type === "admin") {
-					setView("onboarding");
+					setView(query);
 				} else {
 					router.replace("browse");
 				}
+			} else if (query && query === "user" && !user.type) {
+				router.replace("browse");
 			} else if (query) {
 				setView(query);
 			}
