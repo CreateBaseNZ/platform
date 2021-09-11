@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect, useContext } from "react";
+import Head from "next/head";
 import VisualBellContext from "../../store/visual-bell-context";
 import Input from "../UI/Input";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
@@ -75,8 +76,12 @@ const MyProfile = ({ user, setUser }) => {
 
 	return (
 		<div className={classes.myView}>
+			<Head>
+				<title>Profile • {user.displayName} | CreateBase</title>
+				<meta name="description" content="Update your display name and view your profile. CreateBase" />
+			</Head>
 			<div className={classes.section}>
-				<h2>Profile</h2>
+				<h2>Public Profile</h2>
 				<div className={classes.profile}>
 					<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 						{user.type === "learner" ? (

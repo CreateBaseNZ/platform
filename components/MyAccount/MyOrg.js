@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import Head from "next/head";
 import { PrimaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
 import Img from "../UI/Img";
@@ -233,6 +234,10 @@ const RegisterOrg = ({ setUser }) => {
 const MyOrg = ({ user, setUser }) => {
 	return (
 		<div className={classes.myView}>
+			<Head>
+				<title>Organisation • {user.displayName} | CreateBase</title>
+				<meta name="description" content="Join an organisation, register an organisation, or view your organisations here. CreateBase" />
+			</Head>
 			{!user.org && (
 				<div className={classes.section}>
 					<h2>Join an organisation</h2>

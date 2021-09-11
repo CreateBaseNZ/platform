@@ -7,6 +7,7 @@ import MyOrg from "./MyOrg";
 import classes from "./MyAccount.module.scss";
 import MySecurity from "./MySecurity";
 import { useRouter } from "next/dist/client/router";
+import MyVerify from "./MyVerify";
 
 const menu = [
 	{ query: "profile", h1: "Profile", icon: "assignment_ind", show: () => true },
@@ -50,6 +51,7 @@ const MyAccount = ({ user, setUser }) => {
 			</div>
 			<div className={classes.rightColumn}>
 				{activeTab === "profile" && <MyProfile user={user} setUser={setUser} />}
+				{activeTab === "verify" && <MyVerify user={user} setUser={setUser} />}
 				{activeTab === "org" && <MyOrg user={user} setUser={setUser} />}
 				{activeTab === "security" && <MySecurity user={user} setUser={setUser} />}
 			</div>
