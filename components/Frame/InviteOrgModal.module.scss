@@ -12,6 +12,16 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	animation: fade-in 0.2s ease-out;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .modal {
@@ -24,6 +34,7 @@
 	padding: 1rem 0.75rem;
 	width: 600px;
 	box-shadow: 0 12px 32px -16px rgba(black, 0.1);
+	animation: float-down 0.1s ease-out;
 	& > * {
 		width: 100%;
 		padding: 0 2rem;
@@ -47,6 +58,16 @@
 		}
 	}
 }
+
+@keyframes float-down {
+	from {
+		transform: translateY(-6px);
+	}
+	to {
+		transform: none;
+	}
+}
+
 .header {
 	display: flex;
 	align-items: center;
