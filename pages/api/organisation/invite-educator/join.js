@@ -17,7 +17,7 @@ export default async function (req, res) {
 	if (session) {
 		if (session.user.organisation) {
 			// Validate the user is in an organisation
-			return res.send({ status: "error", content: "already in an organisation" });
+			return res.send({ status: "failed", content: { account: "already in an organisation" } });
 		} else if (session.user.access !== "educator" /*|| !session.user.verified*/) {
 			// Validate if the user is an educator
 			return res.send({ status: "error", content: "not an educator" });
