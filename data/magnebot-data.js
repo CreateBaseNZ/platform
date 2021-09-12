@@ -10,7 +10,7 @@ export default {
 	runType: "once",
 	nLessons: 0,
 	difficulty: "TODO",
-	subjects: ["TODO"],
+	subjects: ["TODO", "TODO2"],
 	learningOutcome: "",
 	curriculumAlignment: "",
 	lessonPlan: "",

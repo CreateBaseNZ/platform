@@ -15,6 +15,7 @@ const Auth = ({ setLoaded }) => {
 	const [view, setView] = useState("");
 
 	useEffect(() => {
+		setLoaded(true);
 		return () => setLoaded(false);
 	}, []);
 

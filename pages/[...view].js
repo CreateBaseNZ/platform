@@ -15,6 +15,7 @@ const View = ({ setLoaded }) => {
 	const [view, setView] = useState();
 	const [user, setUser] = useState({ loaded: false });
 
+	console.log("view rendered");
 	console.log(user);
 
 	useEffect(() => {

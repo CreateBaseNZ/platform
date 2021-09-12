@@ -41,6 +41,7 @@ const joinOrgEducatorAPI = async (details, criticalHandler, errorHandler, failHa
 	} catch (error) {
 		return criticalHandler();
 	}
+	console.log(data);
 	if (data.status === "critical error") {
 		return criticalHandler();
 	} else if (data.status === "error") {
@@ -103,6 +104,7 @@ const acceptEmailInvitationAPI = async (details, criticalHandler, errorHandler, 
 	} catch (error) {
 		return criticalHandler();
 	}
+	console.log(data);
 	if (data.status === "critical error") {
 		return criticalHandler();
 	} else if (data.status === "error") {
@@ -150,7 +152,7 @@ const useOrganisationHelper = ({ setBell }) => {
 		createOrgAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	const joinOrgEducator = ({
+	const joinOrgEducator = async ({
 		details,
 		criticalHandler = () =>
 			setBell({
@@ -196,7 +198,7 @@ const useOrganisationHelper = ({ setBell }) => {
 		return getLearnerLinkAPI(criticalHandler);
 	};
 
-	const sendEmailInvitation = ({
+	const sendEmailInvitation = async ({
 		details,
 		criticalHandler = () =>
 			setBell({
@@ -222,7 +224,7 @@ const useOrganisationHelper = ({ setBell }) => {
 		sendEmailInvitationAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	const acceptEmailInvitation = ({
+	const acceptEmailInvitation = async ({
 		details,
 		criticalHandler = () =>
 			setBell({

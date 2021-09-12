@@ -28,7 +28,7 @@ const InviteOrgModal = ({ user }) => {
 		const educatorLink = await getEducatorLink();
 		const learnerLink = await getLearnerLink();
 		setLinks({ educator: educatorLink, learner: learnerLink });
-		setCodes({ educator: educatorLink.split("-").pop(), learner: learnerLink.split("-").pop() });
+		setCodes({ educator: educatorLink.split("__").pop(), learner: learnerLink.split("__").pop() });
 	}, []);
 
 	useEffect(() => {

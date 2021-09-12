@@ -19,11 +19,11 @@ export const initSession = async (loading, session, callback) => {
 			} catch (error) {
 				alert("Something went wrong, please reload the page and try again. If this problem persists, please get in touch with us.");
 			}
+			const { access, verified, organisation } = (await getSession())["user"];
 			let org = null;
-			if (session.user.organisation) {
+			if (organisation) {
 				org = await getOrgDataAPI();
 			}
-			const { access, verified } = (await getSession())["user"];
 			return callback({
 				loaded: true,
 				type: access,

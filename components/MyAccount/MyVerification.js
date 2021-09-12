@@ -69,7 +69,7 @@ const VerifyAccountForm = ({ setUser }) => {
 	return (
 		<form className={classes.form}>
 			<div className={classes.instruction}>
-				Your account is not verified. <br /> Verifying your account will enable you to join or register an organisation. To continue, enter the six-digit code sent to your email.
+				Your account is not verified. <br /> Verifying your account will enable you to view, join or register your organisation. To continue, enter the six-digit code sent to your email.
 			</div>
 			<div className={classes.codeContainer}>
 				{code.map((char, idx) => (
@@ -111,7 +111,7 @@ const MyVerification = ({ user, setUser }) => {
 			</Head>
 			<div className={`${classes.section} ${classes.verifyAccount}`}>
 				<h2>Account verification</h2>
-				{!user.verified && <VerifyAccountForm setuser={setUser} />}
+				{!user.verified && <VerifyAccountForm setUser={setUser} />}
 				{user.verified && (
 					<div className={classes.verifiedCard}>
 						<i className="material-icons-outlined">check_circle</i>

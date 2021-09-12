@@ -246,7 +246,7 @@ const MyOrg = ({ user, setUser }) => {
 				<div className={classes.section}>
 					<h2>Organisation</h2>
 					<div className={classes.instruction} style={{ marginTop: "1rem" }}>
-						Your account must be verified before joining or registering an organistion.
+						Your account must be verified before viewing, joining or registering your organistion.
 					</div>
 					<PrimaryButton
 						className={classes.submit}

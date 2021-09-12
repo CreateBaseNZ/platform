@@ -308,7 +308,7 @@ const Index = ({ setLoaded }) => {
 				</h1>
 				{session ? (
 					<div className={classes.btnContainer}>
-						<SecondaryButton className={classes.signOut} mainLabel="Sign out" onClick={() => signOut({ callbackUrl: `${window.location.origin}` })} />
+						<SecondaryButton className={classes.signOut} mainLabel="Log out" onClick={() => signOut({ callbackUrl: `${window.location.origin}` })} />
 						<Link href="/onboarding">
 							<button className={classes.loggedIn}>Continue as {user.displayName}</button>
 						</Link>

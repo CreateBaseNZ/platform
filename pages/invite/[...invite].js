@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import { useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/client";
 import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import InviteOrgContext from "../../store/invite-org-context";
 import VisualBellContext from "../../store/visual-bell-context";
@@ -10,9 +10,9 @@ const Invite = () => {
 	const inviteCtx = useContext(InviteOrgContext);
 	const vbCtx = useContext(VisualBellContext);
 	const [session, loading] = useSession();
-	const { acceptEmailInvitation } = useOrganisationHelper(vbCtx);
+	const { acceptEmailInvitation, joinOrgEducator } = useOrganisationHelper(vbCtx);
 
-	useEffect(() => {
+	useEffect(async () => {
 		console.log(router.query);
 		if (!loading && router.query && router.query.invite) {
 			if (!router.query.invite[0] || !router.query.invite[1]) {
@@ -24,30 +24,88 @@ const Invite = () => {
 			const details = router.query.invite[1].split("__");
 			if (type === "educator") {
 				if (details[4]) {
-					// registered
+					// registered educator via email
 					acceptEmailInvitation({
-						details: { email: details[0], orgId: details[1], orgName: details[2], eduCode: details[3], invCode: details[4] },
+						details: { email: details[0], orgId: details[1], orgName: details[2].replaceAll("-", " "), eduCode: details[3], invCode: details[4] },
 						failHandler: (content) => {
-							if (content.account) {
-								vbCtx.setBell({ type: "fail", message: "Failed to join - you are already in another organisation" });
+							if (content.account === "incorrect logged in user") {
+								vbCtx.setBell({ type: "error", message: "Failed to join - please log out first, then try the link agin" });
+								router.replace("/onboarding");
+							} else if (content.account === "already in an organisation") {
+								vbCtx.setBell({ type: "error", message: "Failed to join - you are already in another organisation" });
 								router.replace("/onboarding");
 							}
 						},
 						successHandler: () => {
-							vbCtx.setBell({ type: "success", message: `Successfully joined ${details.orgName}` });
-							router.replace("/onboarding");
+							if (session) {
+								router.replace("/onboarding");
+								vbCtx.setBell({ type: "success", message: `Successfully joined ${details[2].replaceAll("-", " ")}` });
+							} else {
+								router.replace("/auth/login");
+								vbCtx.setBell({ type: "success", message: `Successfully joined ${details[2].replaceAll("-", " ")}, log in to continue` });
+							}
 						},
 					});
+				} else if (details[3]) {
+					// unregistered educator via email
+					if (session) {
+						// unregistered educator already logged in
+						router.replace("/");
+						vbCtx.setBell({ type: "neutral", message: "Please log out first, then try the link again" });
+						return null;
+					} else {
+						// unregistered educator not logged in
+						router.replace("/auth/signup");
+						inviteCtx.setDetails({ isInvited: true, type: type, email: details[0], orgId: details[1], orgName: details[2].replaceAll("-", " "), orgCode: details[3] });
+						vbCtx.setBell({ type: "neutral", message: `Sign up to join ${details[2].replaceAll("-", " ")}` });
+						return null;
+					}
 				} else {
-					// not registered
-					inviteCtx.setDetails({ type: type, email: details[0], org: { orgId: details[1], orgCode: details[2].replace("-", " "), orgCode: details[3] } });
-					router.replace("/auth/signup");
+					// educator via link
+					if (session) {
+						// educator via link and logged in
+						await joinOrgEducator({
+							details: { metadata: { id: details[1] }, name: details[2].replaceAll("-", " "), code: details[3], type: "school", country: "New Zealand" },
+							failHandler: (content) => {
+								if (content.account) {
+									vbCtx.setBell({ type: "error", message: "Failed to join - you are already in another organisation" });
+								} else if (content.code) {
+									vbCtx.setBell({ type: "error", message: "Failed to join - invalid code" });
+								} else if (content.organisation) {
+									vbCtx.setBell({ type: "error", message: "Failed to join - incorrect organisation details" });
+								}
+							},
+							successHandler: async () => {
+								vbCtx.setBell({
+									type: "success",
+									message: `Successfully joined ${org.name}`,
+								});
+							},
+						});
+						router.replace("/");
+						return null;
+					} else {
+						// educator via link and not logged in
+						vbCtx.setBell({ type: "neutral", message: "Please log in or sign up, then try the link again" });
+						router.replace("/");
+						return null;
+					}
 				}
 			} else {
-				inviteCtx.setDetails({ type: type, org: { orgId: details[0], orgCode: details[1].replace("-", " "), orgCode: details[2] } });
+				// learner
+				if (session) {
+					// learner already logged in
+					vbCtx.setBell({ type: "neutral", message: "Please log out first, then try the link again" });
+					router.replace("/");
+					return null;
+				} else {
+					// learner already logged in
+					inviteCtx.setDetails({ isInvited: true, type: type, orgId: details[0], orgName: details[1].replaceAll("-", " "), orgCode: details[2] });
+					router.replace("/auth/signup");
+					vbCtx.setBell({ type: "neutral", message: `Sign up to join ${details[1].replaceAll("-", " ")}` });
+					return null;
+				}
 			}
-			router.replace("/auth/");
-			return null;
 		}
 	}, [router.query, loading]);
 

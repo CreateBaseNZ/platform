@@ -10,6 +10,8 @@ import classes from "./AuthForms.module.scss";
 import { logIn } from "../../utils/authHelpers";
 import useSignupHelper from "../../hooks/useSignupHelper";
 import getRandomName from "../../utils/randomNames";
+import InviteOrgContext from "../../store/invite-org-context";
+import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 
 const SignupStepOne = ({ setStep, access, setAccess }) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -50,9 +52,11 @@ const SignupStepOne = ({ setStep, access, setAccess }) => {
 	);
 };
 
-const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
-	const ctx = useContext(VisualBellContext);
-	const { signUpEducator, validateUsername } = useSignupHelper({ ...ctx });
+const SignupStepTwo = ({ access, setStep, learner, setLearner, educator, setEducator }) => {
+	const vbCtx = useContext(VisualBellContext);
+	const inviteCtx = useContext(InviteOrgContext);
+	const { signUpEducator, validateUsername } = useSignupHelper({ ...vbCtx });
+	const { joinOrgEducator } = useOrganisationHelper({ ...inviteCtx });
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -62,11 +66,27 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 		formState: { errors },
 	} = useForm({
 		mode: "onTouched",
-		defaultValues: { username: learner.username, password: learner.password, terms: learner.terms },
+		defaultValues:
+			access === "learner"
+				? { username: learner.username, password: learner.password, terms: learner.terms }
+				: { email: educator.email, username: educator.username, displayName: educator.displayName, password: educator.password, terms: educator.terms },
 	});
 
 	useEffect(() => {
-		return () => access === "learner" && setLearner((state) => ({ ...state, username: getValues("username"), password: getValues("password"), terms: getValues("terms") }));
+		return () => {
+			if (access === "learner") {
+				setLearner((state) => ({ ...state, username: getValues("username"), password: getValues("password"), terms: getValues("terms") }));
+			} else {
+				setEducator((state) => ({
+					...state,
+					email: getValues("email"),
+					username: getValues("username"),
+					displayName: getValues("displayName"),
+					password: getValues("password"),
+					terms: getValues("terms"),
+				}));
+			}
+		};
 	}, []);
 
 	const onSubmit = async (input) => {
@@ -115,23 +135,40 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 						input.username,
 						input.password,
 						() => {
-							ctx.setBell({
+							vbCtx.setBell({
 								type: "catastrophe",
 								message: "Something unexpected happened, please reload the page",
 							});
 						},
 						() => {
 							router.push("/auth/login");
-							ctx.setBell({
+							vbCtx.setBell({
 								type: "success",
 								message: "Success! Your account has been created, log in to continue",
 							});
 						},
-						() =>
-							ctx.setBell({
-								type: "success",
-								message: "Success! Your account has been created",
-							})
+						() => {
+							if (inviteCtx.details.isInvited && inviteCtx.details.type === "educator") {
+								joinOrgEducator({
+									details: { name: educator.orgName, code: educator.orgCode, type: "school", country: "New Zealand", metadata: { id: educator.orgId } },
+									failHandler: () =>
+										vbCtx.setBell({
+											type: "error",
+											message: `Invalid invitation to join ${educator.orgName}, please try again`,
+										}),
+									successHandler: () =>
+										vbCtx.setBell({
+											type: "success",
+											message: `Success! You have joined ${educator.orgName}`,
+										}),
+								});
+							} else {
+								vbCtx.setBell({
+									type: "success",
+									message: "Success! Your account has been created",
+								});
+							}
+						}
 					),
 			});
 		} else {
@@ -231,8 +268,8 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner }) => {
 };
 
 const SignupStepThree = ({ learner, setLearner }) => {
-	const ctx = useContext(VisualBellContext);
-	const { signUpLearner } = useSignupHelper({ ...ctx });
+	const vbCtx = useContext(VisualBellContext);
+	const { signUpLearner } = useSignupHelper({ ...vbCtx });
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const {
@@ -272,20 +309,20 @@ const SignupStepThree = ({ learner, setLearner }) => {
 					learner.username,
 					learner.password,
 					() => {
-						ctx.setBell({
+						vbCtx.setBell({
 							type: "catastrophe",
 							message: "Something unexpected happened, please reload the page",
 						});
 					},
 					() => {
 						router.push("/auth/login");
-						ctx.setBell({
+						vbCtx.setBell({
 							type: "success",
 							message: "Success! Your account has been created, log in to continue",
 						});
 					},
 					() =>
-						ctx.setBell({
+						vbCtx.setBell({
 							type: "success",
 							message: "Success! Your account has been created",
 						})
@@ -338,10 +375,29 @@ const SignupStepThree = ({ learner, setLearner }) => {
 	);
 };
 
+const autofillAccess = (details) => {
+	if (details.isInvited && details.type) {
+		return details.type;
+	}
+	return null;
+};
+
+const autofillDetails = (details) => {
+	if (details.isInvited && details.type === "learner") {
+		return { orgId: details.orgId, orgName: details.orgName, orgCode: details.orgCode };
+	} else if (details.isInvited && details.type === "educator") {
+		return { email: details.email, orgId: details.orgId, orgName: details.orgName, orgCode: details.orgCode };
+	}
+	return {};
+};
+
 const SignupForm = () => {
-	const [step, setStep] = useState(0);
-	const [access, setAccess] = useState();
-	const [learner, setLearner] = useState({});
+	const inviteCtx = useContext(InviteOrgContext);
+	console.log(inviteCtx);
+	const [step, setStep] = useState(inviteCtx.details.isInvited ? 1 : 0);
+	const [access, setAccess] = useState(autofillAccess(inviteCtx.details));
+	const [learner, setLearner] = useState(autofillDetails(inviteCtx.details));
+	const [educator, setEducator] = useState(autofillDetails(inviteCtx.details));
 
 	return (
 		<div className={classes.signupContainer}>
@@ -351,7 +407,7 @@ const SignupForm = () => {
 				</button>
 			)}
 			{step === 0 && <SignupStepOne access={access} setAccess={setAccess} setStep={setStep} />}
-			{step === 1 && <SignupStepTwo access={access} setStep={setStep} learner={learner} setLearner={setLearner} />}
+			{step === 1 && <SignupStepTwo access={access} setStep={setStep} learner={learner} setLearner={setLearner} educator={educator} setEducator={setEducator} />}
 			{step === 2 && <SignupStepThree learner={learner} setLearner={setLearner} />}
 			<div className={`${classes.smallFont} ${classes.switch}`}>
 				Have an account?

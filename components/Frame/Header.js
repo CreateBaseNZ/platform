@@ -74,7 +74,7 @@ const Header = ({ user, collapseNav, toggleNavHandler }) => {
 								</button>
 								<div className={classes.divider} />
 								<button onMouseDown={() => signOut({ callbackUrl: `${window.location.origin}` })}>
-									<i className="material-icons-outlined">logout</i>Sign out
+									<i className="material-icons-outlined">logout</i>Log out
 								</button>
 							</div>
 						</div>
