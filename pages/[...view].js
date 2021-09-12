@@ -35,14 +35,14 @@ const View = ({ setLoaded }) => {
 				if (user.type === "educator" || user.type === "admin") {
 					setView(query);
 				} else {
-					router.replace("browse");
+					router.replace("/browse");
 				}
 			} else if (query && query === "user" && !user.type) {
-				router.replace("browse");
+				router.replace("/browse");
 			} else if (query && (query === "faq" || query === "browse" || query === "user")) {
 				setView(query);
 			} else if (query) {
-				router.replace("browse");
+				router.replace("/onboarding");
 			}
 		}
 	}, [router, user.loaded]);

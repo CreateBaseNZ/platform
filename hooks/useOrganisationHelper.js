@@ -96,6 +96,23 @@ const sendEmailInvitationAPI = async (details, criticalHandler, errorHandler, fa
 	return successHandler();
 };
 
+const acceptEmailInvitationAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/organisation/invite-educator/join", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	if (data.status === "critical error") {
+		return criticalHandler();
+	} else if (data.status === "error") {
+		return errorHandler();
+	} else if (data.status === "failed") {
+		return failHandler(data.content);
+	}
+	return successHandler();
+};
+
 const useOrganisationHelper = ({ setBell }) => {
 	const getOrgData = async (
 		criticalHandler = () =>
@@ -205,7 +222,33 @@ const useOrganisationHelper = ({ setBell }) => {
 		sendEmailInvitationAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	return { getOrgData, createOrg, joinOrgEducator, getEducatorLink, getLearnerLink, sendEmailInvitation };
+	const acceptEmailInvitation = ({
+		details,
+		criticalHandler = () =>
+			setBell({
+				type: "catastrophe",
+				message: "Oops! Something went wrong, please refresh the page and try again",
+			}),
+		errorHandler = () =>
+			setBell({
+				type: "catastrophe",
+				message: "Oops! Something went wrong, please refresh the page and try again",
+			}),
+		failHandler = () =>
+			setBell({
+				type: "error",
+				message: "Oops! An error occurred, please try again",
+			}),
+		successHandler = () =>
+			setBell({
+				type: "success",
+				message: "Success!",
+			}),
+	}) => {
+		acceptEmailInvitationAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+	};
+
+	return { getOrgData, createOrg, joinOrgEducator, getEducatorLink, getLearnerLink, sendEmailInvitation, acceptEmailInvitation };
 };
 
 export default useOrganisationHelper;

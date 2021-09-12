@@ -14,6 +14,10 @@ export default {
 	learningOutcome: "/send-it/learning_outcomes.pdf",
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
+	defineCaption: [
+		"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
+		"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
+	],
 	situation: {
 		url: "https://youtu.be/wB53GoLXzME",
 		src: "/send-it/vid/situation.mp4",
@@ -23,10 +27,6 @@ export default {
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
 		word: "/send-it/files/learning-journal.docx",
 	},
-	defineCaption: [
-		"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
-		"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
-	],
 	define: [
 		{
 			title: "Types of delivery robots",
