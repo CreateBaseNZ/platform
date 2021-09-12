@@ -99,7 +99,7 @@ const Invite = () => {
 					router.replace("/");
 					return null;
 				} else {
-					// learner already logged in
+					// learner not logged in
 					inviteCtx.setDetails({ isInvited: true, type: type, orgId: details[0], orgName: details[1].replaceAll("-", " "), orgCode: details[2] });
 					router.replace("/auth/signup");
 					vbCtx.setBell({ type: "neutral", message: `Sign up to join ${details[1].replaceAll("-", " ")}` });
