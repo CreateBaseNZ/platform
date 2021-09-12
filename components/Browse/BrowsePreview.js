@@ -48,7 +48,7 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 						</div>
 						<div className={classes.moreBtnContainer}>
 							<div className={classes.moreBtnWrapper}>
-								Learning outcomes
+								Project Overview
 								<a href={project.learningOutcome} title="Download" download>
 									<i className="material-icons-outlined">file_download</i>
 								</a>

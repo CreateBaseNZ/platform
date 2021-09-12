@@ -11,7 +11,7 @@ export default {
 	nLessons: 6,
 	difficulty: "Proficient",
 	subjects: ["Technology", "Engineering", "Computer Science", "Automation", "AI", "Ethics"],
-	learningOutcome: "/send-it/learning_outcomes.pdf",
+	learningOutcome: "/send-it/project_overview.pdf",
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	learnings: [
