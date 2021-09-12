@@ -111,13 +111,13 @@ const ProjectView = ({ setLoaded }) => {
 						))}
 					</div>
 					<div className={classes.viewContainer}>
-						{step === "Imagine" && <Imagine data={data.situation} />}
-						{step === "Define" && <Define data={data.define} caption={data.defineCaption} />}
-						{step === "Research" && <Research query={data.query} data={data.research} caption={data.researchCaption} />}
-						{step === "Plan" && <Plan data={data.plan} />}
-						{step === "Create" && <Create query={data.query} data={data.create} />}
-						{step === "Improve" && <Improve query={data.query} data={data.improve} />}
-						{step === "Review" && <Review />}
+						{step === "Imagine" && <Imagine data={data.situation} setLoaded={setLoaded} />}
+						{step === "Define" && <Define data={data.define} caption={data.defineCaption} setLoaded={setLoaded} />}
+						{step === "Research" && <Research query={data.query} data={data.research} caption={data.researchCaption} setLoaded={setLoaded} />}
+						{step === "Plan" && <Plan data={data.plan} setLoaded={setLoaded} />}
+						{step === "Create" && <Create query={data.query} data={data.create} setLoaded={setLoaded} />}
+						{step === "Improve" && <Improve query={data.query} data={data.improve} setLoaded={setLoaded} />}
+						{step === "Review" && <Review setLoaded={setLoaded} />}
 					</div>
 				</>
 			)}

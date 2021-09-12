@@ -9,9 +9,13 @@ import classes from "./Research.module.scss";
 
 const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
 
-const Research = ({ query, data, caption }) => {
+const Research = ({ query, data, caption, setLoaded }) => {
 	const [active, setActive] = useState(0);
 	const [pdfLoaded, setPdfLoaded] = useState(false);
+
+	useEffect(() => {
+		setLoaded(true);
+	}, []);
 
 	useEffect(() => {
 		setTimeout(() => setPdfLoaded(true), [250]);
