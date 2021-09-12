@@ -206,13 +206,15 @@
 		padding: 1rem 1.5rem;
 		display: flex;
 		align-items: flex-start;
+		justify-content: space-between;
 		border-bottom: 2px solid $lighter;
 		background: rgba($logo-mid, 0.025);
 		h3 {
 			font-size: 18px;
 			font-weight: 600;
 			color: $logo-mid;
-			line-height: 2em;
+			line-height: 1.25em;
+			margin-bottom: 0.5rem;
 		}
 	}
 	.cardContent {
@@ -279,9 +281,24 @@
 	}
 }
 
-.orgContent {
-	display: flex;
-	flex-direction: column;
+.orgCard {
+	.inviteBtn {
+		height: 2.5rem;
+		padding: 0 1rem;
+		border-color: $green-mid;
+		color: $green-mid;
+		font-weight: 600;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out, border-color 0.1s ease-out;
+		&:hover {
+			background: rgba($green-mid, 0.1);
+			color: $green-dark;
+			border-color: $green-dark;
+		}
+	}
+	.orgContent {
+		display: flex;
+		flex-direction: column;
+	}
 }
 
 .verifyAccount {
@@ -320,7 +337,7 @@
 		border-radius: 16px;
 		display: flex;
 		background: rgba($green-dark, 0.05);
-		border: 2px solid rgba($green-dark, 0.1);
+		border: 2px solid rgba($green-dark, 0.5);
 		i {
 			color: $green-dark;
 			margin-top: 0.25rem;

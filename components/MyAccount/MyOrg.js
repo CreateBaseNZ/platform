@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Head from "next/head";
-import { PrimaryButton } from "../UI/Buttons";
+import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input from "../UI/Input";
 import Img from "../UI/Img";
 
@@ -11,6 +11,7 @@ import { querySchoolAPI } from "../../utils/formValidation";
 
 import classes from "./MyAccount.module.scss";
 import router from "next/router";
+import InviteOrgContext from "../../store/invite-org-context";
 
 const JoinOrg = ({ setUser }) => {
 	const ctx = useContext(VisualBellContext);
@@ -233,6 +234,8 @@ const RegisterOrg = ({ setUser }) => {
 };
 
 const MyOrg = ({ user, setUser }) => {
+	const ctx = useContext(InviteOrgContext);
+
 	return (
 		<div className={classes.myView}>
 			<Head>
@@ -268,7 +271,7 @@ const MyOrg = ({ user, setUser }) => {
 			{user.verified && user.org && (
 				<div className={classes.section}>
 					<h2>Your organisation</h2>
-					<div className={classes.card}>
+					<div className={`${classes.card} ${classes.orgCard}`}>
 						<div className={classes.cardHeader}>
 							<div style={{ display: "flex", flexDirection: "column" }}>
 								<h3>🎉 {user.org.name}</h3>
@@ -276,6 +279,7 @@ const MyOrg = ({ user, setUser }) => {
 									{user.org.city}, {user.org.country}
 								</div>
 							</div>
+							{user.type !== "learner" && <SecondaryButton className={classes.inviteBtn} mainLabel="Invite" title={`Invite people to ${user.org.name}`} onClick={() => ctx.setShow(true)} />}
 						</div>
 						<div className={classes.cardContent} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
 							<div className={classes.orgContent}>
@@ -285,7 +289,7 @@ const MyOrg = ({ user, setUser }) => {
 										{user.org.admins || "No"} admin{(user.org.admins > 1 || user.org.admins === 0) && "s"}
 									</div>
 								)}
-								{(user.type === "admin" || user.type === "educator") && (
+								{user.type !== "educator" && (
 									<div className={classes.mediumText}>
 										<i className="material-icons-outlined">school</i>
 										{user.org.educators || "No"} educator{(user.org.educators > 1 || user.org.educators === 0) && "s"}

@@ -70,14 +70,19 @@ const InviteOrgModal = ({ user }) => {
 			vbCtx.setBell({ type: "error", message: "Invitations not sent" });
 			return setIsLoading(false);
 		}
+		let emails = validEmails.map((e) => e.value);
 		if (!validEmails.length) {
-			setError("Please enter at least one valid email");
-			return setIsLoading(false);
+			if (emailPattern.value.test(emailInput.trim())) {
+				emails = [emailInput.trim()];
+			} else {
+				setError("Please enter at least one valid email");
+				return setIsLoading(false);
+			}
 		}
 		sendEmailInvitation({
-			details: { emails: validEmails.map((e) => e.value) },
+			details: { emails: emails },
 			successHandler: () => {
-				vbCtx.setBell({ type: "success", message: `Invitation${validEmails.length === 1 ? "" : "s"} sent to ${validEmails.length} educator${validEmails.length === 1 ? "" : "s"}` });
+				vbCtx.setBell({ type: "success", message: `Invitation${emails.length === 1 ? "" : "s"} sent to ${emails.length} educator${emails.length === 1 ? "" : "s"}` });
 				setEmailList([]);
 				setIsLoading(false);
 			},
