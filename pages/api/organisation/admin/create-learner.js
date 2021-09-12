@@ -20,7 +20,7 @@ export default async function (req, res) {
 	} else if (!session.user.organisation) {
 		// Validate the user is in an organisation
 		return res.send({ status: "critical error", content: "" });
-	} else if (session.user.access !== "admin" /*|| !session.user.verified*/) {
+	} else if (session.user.access !== "admin" && session.user.access !== "educator" /*|| !session.user.verified*/) {
 		// Validate if the user is an admin
 		return res.send({ status: "critical error", content: "" });
 	}
