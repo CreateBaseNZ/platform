@@ -133,7 +133,7 @@ const InviteOrgModal = ({ user }) => {
 						<input
 							ref={emailRef}
 							className={classes.emailInput}
-							placeholder="Emails must be followed by a space"
+							placeholder="Emails must be followed by a space or pressing Enter"
 							onChange={changeHandler}
 							onKeyDown={keyDownHandler}
 							type="text"
