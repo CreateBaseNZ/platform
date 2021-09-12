@@ -14,6 +14,7 @@ export default {
 	learningOutcome: "",
 	curriculumAlignment: "",
 	lessonPlan: "",
+	learnings: [""],
 	defineCaption: [
 		"As a class, dive into group discussions around the Project theme to fully define our problem.",
 		"Don't have a teacher to guide you through? Check back soon for individual content!",

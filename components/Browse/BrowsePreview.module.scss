@@ -60,7 +60,8 @@
 }
 
 .overview,
-.teaching {
+.teaching,
+.learning {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -243,6 +244,24 @@
 	}
 }
 
+.learning {
+	margin-top: 1vh;
+	&,
+	* {
+		color: white;
+		font-size: 12px;
+	}
+	ol {
+		margin: 1vh 0;
+		padding-left: 1rem;
+		li {
+			padding-left: 0.25rem;
+			margin: 1vh 0;
+			line-height: 1.75em;
+		}
+	}
+}
+
 .tabContainer {
 	position: absolute;
 	bottom: 0;
@@ -280,7 +299,7 @@
 		}
 		&.active {
 			opacity: 1;
-			background: rgba(white, 0.2);
+			background: rgba(black, 0.2);
 			&::after {
 				height: 4px;
 			}

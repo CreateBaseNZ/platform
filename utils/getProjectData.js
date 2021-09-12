@@ -15,6 +15,8 @@ const getProjectData = (query) => {
 			return sendItData;
 		case "magnebot":
 			return magnebotData;
+		case "line-following":
+			return lineFollowingData;
 		default:
 			return null;
 	}
@@ -22,4 +24,4 @@ const getProjectData = (query) => {
 
 export default getProjectData;
 
-export const allData = [sendItData, magnebotData];
+export const allData = [sendItData, magnebotData, lineFollowingData];

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import classes from "./BrowsePreview.module.scss";
 
-const tabs = ["Overview", "Teaching"];
+const tabs = ["Overview", "Teaching", "Learning"];
 
 const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => {
 	const [tab, setTab] = useState(0);
@@ -72,6 +72,16 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 								<SecondaryButton mainLabel="Lesson Plan" iconLeft={<i className="material-icons-outlined">history_edu</i>} />
 							</a>
 						)}
+					</div>
+				)}
+				{tab === 2 && (
+					<div className={classes.learning}>
+						In this Project, learners will:
+						<ol>
+							{project.learnings.map((text, i) => (
+								<li key={i}>{text}</li>
+							))}
+						</ol>
 					</div>
 				)}
 			</div>

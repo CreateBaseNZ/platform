@@ -250,18 +250,20 @@ const SignupStepTwo = ({ access, setStep, learner, setLearner, educator, setEduc
 			/>
 			<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Signing you up ..." mainLabel="Sign Up" />
 			<div className={classes.options}>
-				<div className={`${classes.smallFont} ${classes.smallCheckbox} ${errors.terms ? classes.termsError : ""}`}>
-					<input type="checkbox" {...register("terms", { required: true })} />
-					<div className={classes.checkbox}>
-						<i className="material-icons-outlined">check</i>
+				{access === "educator" && (
+					<div className={`${classes.smallFont} ${classes.smallCheckbox} ${errors.terms ? classes.termsError : ""}`}>
+						<input type="checkbox" {...register("terms", { required: true })} />
+						<div className={classes.checkbox}>
+							<i className="material-icons-outlined">check</i>
+						</div>
+						<label>
+							Agree to{" "}
+							<a className={classes.linkBtn} href="https://createbase.co.nz/terms" target="_blank">
+								Terms &amp; Conditions
+							</a>
+						</label>
 					</div>
-					<label>
-						Agree to{" "}
-						<a className={classes.linkBtn} href="https://createbase.co.nz/terms" target="_blank">
-							Terms &amp; Conditions
-						</a>
-					</label>
-				</div>
+				)}
 			</div>
 		</form>
 	);

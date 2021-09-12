@@ -14,6 +14,12 @@ export default {
 	learningOutcome: "/send-it/learning_outcomes.pdf",
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
+	learnings: [
+		"Learn how to formalise the logic occurring in their head into logical code to allow them to automate a task they would normally do manually.",
+		"Learn how to use flow control/branching capabilities (if, else if, else).",
+		"Learn how to use comparisons and comparison blocks (<, >, <=, >, ==).",
+		"Learn how to read and act on sensor data: distance to next obstacle, height of next obstacle, obstacle type, obstacle velocity, etc.",
+	],
 	defineCaption: [
 		"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
 		"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
