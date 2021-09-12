@@ -12,18 +12,9 @@ export default async function (req, res) {
 		return res.send({ status: "critical error", content: "" });
 	}
 	// Perform access validation
-	let account;
 	const session = await getSession({ req });
-	if (session) {
-		if (session.user.organisation) {
-			// Validate the user is in an organisation
-			return res.send({ status: "failed", content: { account: "already in an organisation" } });
-		} else if (session.user.access !== "educator" /*|| !session.user.verified*/) {
-			// Validate if the user is an educator
-			return res.send({ status: "error", content: "not an educator" });
-		}
-		account = session.user.account;
-	}
+	let account;
+	if (session) account = session.user.account;
 	// Create the input data
 	const input = {
 		account,
