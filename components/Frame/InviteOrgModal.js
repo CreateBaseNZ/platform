@@ -70,19 +70,14 @@ const InviteOrgModal = ({ user }) => {
 			vbCtx.setBell({ type: "error", message: "Invitations not sent" });
 			return setIsLoading(false);
 		}
-		let emails = validEmails.map((e) => e.value);
 		if (!validEmails.length) {
-			if (emailPattern.value.test(emailInput.trim())) {
-				emails = [emailInput.trim()];
-			} else {
-				setError("Please enter at least one valid email");
-				return setIsLoading(false);
-			}
+			setError("Please enter at least one valid email");
+			return setIsLoading(false);
 		}
 		sendEmailInvitation({
-			details: { emails: emails },
+			details: { emails: validEmails },
 			successHandler: () => {
-				vbCtx.setBell({ type: "success", message: `Invitation${emails.length === 1 ? "" : "s"} sent to ${emails.length} educator${emails.length === 1 ? "" : "s"}` });
+				vbCtx.setBell({ type: "success", message: `Invitation${validEmails.length === 1 ? "" : "s"} sent to ${validEmails.length} educator${validEmails.length === 1 ? "" : "s"}` });
 				setEmailList([]);
 				setIsLoading(false);
 			},
@@ -138,7 +133,7 @@ const InviteOrgModal = ({ user }) => {
 						<input
 							ref={emailRef}
 							className={classes.emailInput}
-							placeholder="Enter emails separated by a space, e.g. john@gmail.com jane@gmail.com ..."
+							placeholder="Emails must be followed by a space"
 							onChange={changeHandler}
 							onKeyDown={keyDownHandler}
 							type="text"
@@ -151,6 +146,7 @@ const InviteOrgModal = ({ user }) => {
 						<PrimaryButton
 							className={classes.emailBtn}
 							isLoading={isLoading}
+							isDisabled={!validEmails.length}
 							loadingLabel={"Sending ..."}
 							onClick={sendEmailHandler}
 							mainLabel={`Invite ${validEmails.length ? validEmails.length : ""} educator${validEmails.length === 1 ? "" : "s"}`}
