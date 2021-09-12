@@ -39,8 +39,10 @@ const View = ({ setLoaded }) => {
 				}
 			} else if (query && query === "user" && !user.type) {
 				router.replace("browse");
-			} else if (query) {
+			} else if (query && (query === "faq" || query === "browse" || query === "user")) {
 				setView(query);
+			} else if (query) {
+				router.replace("browse");
 			}
 		}
 	}, [router, user.loaded]);
