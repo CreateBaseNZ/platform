@@ -22,7 +22,7 @@ export default async function (req, res) {
 	}
 	// Validate if the user is already part of an organisation
 	if (session.user.organisation) {
-		return res.send({ status: "critical error", content: "" });
+		return res.send({ status: "failed", content: { account: "already in an organisation" } });
 	}
 	// Create the input data
 	const input = {
