@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import MyAccount from "./MyAccount/MyAccount";
+import AdminConsole from "./AdminConsole/AdminConsole";
 
-const User = ({ user, setUser }) => {
+const User = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const router = useRouter();
 	const [userView, setUserView] = useState();
 
@@ -17,7 +18,12 @@ const User = ({ user, setUser }) => {
 		}
 	}, [router.query]);
 
-	return <div style={{ height: "100%", width: "100%", minHeight: 0 }}>{userView === "my-account" && <MyAccount user={user} setUser={setUser} />}</div>;
+	return (
+		<div style={{ height: "100%", width: "100%", minHeight: 0 }}>
+			{userView === "my-account" && <MyAccount user={user} setUser={setUser} />}
+			{userView === "admin-console" && <AdminConsole user={user} setUser={setUser} collapseHeader={collapseHeader} setCollapseHeader={setCollapseHeader} />}
+		</div>
+	);
 };
 
 export default User;

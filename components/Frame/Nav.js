@@ -13,7 +13,7 @@ const tabs = {
 	null: [browseTab, faqTab],
 	learner: [browseTab, faqTab, myAccountTab],
 	educator: [onboardingTab, browseTab, myAccountTab, faqTab],
-	admin: [onboardingTab, browseTab, myAccountTab, faqTab],
+	admin: [onboardingTab, browseTab, adminConsoleTab, myAccountTab, faqTab],
 };
 
 const Nav = ({ route, collapseNav, user }) => {
@@ -23,6 +23,8 @@ const Nav = ({ route, collapseNav, user }) => {
 		route = "/browse";
 	} else if (route.startsWith("/user/my-account")) {
 		route = "/user/my-account";
+	} else if (route.startsWith("/user/admin-console")) {
+		route = "/user/admin-console";
 	}
 
 	return (

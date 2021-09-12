@@ -32,7 +32,7 @@ export const MySecurity = ({ user }) => {
 				setIsLoading(false);
 			},
 			successHandler: () => {
-				setChangingPassword(false);
+				setIsLoading(false);
 				ctx.setBell({
 					type: "success",
 					message: "Successfully changed password",

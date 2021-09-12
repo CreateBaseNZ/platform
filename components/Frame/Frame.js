@@ -5,7 +5,7 @@ import Header from "./Header";
 import InviteOrgModal from "./InviteOrgModal";
 import Nav from "./Nav";
 
-const Frame = ({ children, route, user }) => {
+const Frame = ({ children, route, user, collapseHeader }) => {
 	const ctx = useContext(InviteOrgContext);
 	const [collapseNav, setCollapseNav] = useState(false);
 
@@ -19,7 +19,7 @@ const Frame = ({ children, route, user }) => {
 				<Nav route={route} collapseNav={collapseNav} user={user} />
 			</div>
 			<div className={classes.view}>
-				<div className={classes.header}>
+				<div className={`${classes.header} ${collapseHeader ? classes.collapsed : ""}`}>
 					<Header user={user} collapseNav={collapseNav} toggleNavHandler={toggleNavHandler} />
 				</div>
 				{children}
