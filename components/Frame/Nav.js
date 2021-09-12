@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ColourLogo } from "./UI/Icons";
+import { ColourLogo } from "../UI/Icons";
 
 import classes from "./Nav.module.scss";
 

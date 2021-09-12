@@ -2,7 +2,7 @@ import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import Frame from "../components/Frame";
+import Frame from "../components/Frame/Frame";
 import Browse from "../components/Browse/browse";
 import { initSession } from "../utils/authHelpers";
 import Onboarding from "../components/onboarding";

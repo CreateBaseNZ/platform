@@ -12,7 +12,7 @@ import MyVerification from "./MyVerification";
 const menu = [
 	{ query: "profile", h1: "Profile", icon: "assignment_ind", show: () => true },
 	{ query: "verification", h1: "Verification", icon: "how_to_reg", show: (type) => ["admin", "educator"].includes(type) },
-	{ query: "org", h1: "Organisation", icon: "supervisor_account", show: (type) => ["admin", "educator"].includes(type) },
+	{ query: "org", h1: "Organisation", icon: "supervisor_account", show: () => true },
 	{ query: "security", h1: "Security", icon: "lock", show: () => true },
 ];
 
