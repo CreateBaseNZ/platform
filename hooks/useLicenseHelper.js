@@ -12,7 +12,7 @@ const changePasswordAPI = async (details, criticalHandler, errorHandler, failHan
 	} else if (data.status === "error") {
 		return errorHandler();
 	} else if (data.status === "failed") {
-		return failHandler();
+		return failHandler(data.content);
 	}
 	return successHandler();
 };
