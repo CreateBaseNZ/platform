@@ -246,15 +246,6 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
-		// EXAMPLE: Generate invitation link
-		// let data;
-		// try {
-		// 	data = (await axios.post("/api/organisation/invite-educator/generate-link", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
-		// } catch (error) {
-		// 	data = { status: "error", content: error };
-		// }
-		// console.log(data);
-
 		// EXAMPLE: Sending the request to join an organisation
 		// const input = { orgId: "20", orgName: "Bream Bay College" };
 		// let data;
@@ -270,15 +261,6 @@ const Index = ({ setLoaded }) => {
 		// let data;
 		// try {
 		// 	data = (await axios.post("/api/organisation/invite-educator/accept", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
-		// } catch (error) {
-		// 	data = { status: "error", content: error };
-		// }
-		// console.log(data);
-
-		// EXAMPLE: Generate invitation link learners
-		// let data;
-		// try {
-		// 	data = (await axios.post("/api/organisation/invite-learner/generate-link", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
 		// } catch (error) {
 		// 	data = { status: "error", content: error };
 		// }

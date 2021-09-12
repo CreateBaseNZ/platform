@@ -31,7 +31,7 @@ export const initSession = async (loading, session, callback) => {
 				displayName: profileData.content.displayName,
 				org: org,
 				saves: profileData.content.saves,
-				verified: verified,
+				verified: access === "learner" ? true : verified,
 			});
 		} else {
 			return callback({

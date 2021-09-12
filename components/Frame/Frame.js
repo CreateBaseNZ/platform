@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import InviteOrgContext from "../../store/invite-org-context";
 import classes from "./Frame.module.scss";
 import Header from "./Header";
+import InviteOrgModal from "./InviteOrgModal";
 import Nav from "./Nav";
 
 const Frame = ({ children, route, user }) => {
+	const ctx = useContext(InviteOrgContext);
 	const [collapseNav, setCollapseNav] = useState(false);
 
 	const toggleNavHandler = () => {
@@ -21,6 +24,7 @@ const Frame = ({ children, route, user }) => {
 				</div>
 				{children}
 			</div>
+			{ctx.show && <InviteOrgModal user={user} />}
 		</div>
 	);
 };
