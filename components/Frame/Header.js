@@ -21,7 +21,9 @@ const Header = ({ user, collapseNav, toggleNavHandler }) => {
 					<button className={`${classes.collapse} ${collapseNav ? classes.collapsed : ""}`} title={collapseNav ? "Expand" : "Collapse"} onClick={toggleNavHandler}>
 						<i className="material-icons-outlined">{collapseNav ? "chevron_right" : "chevron_left"}</i>
 					</button>
-					{user.verified && user.org && user.type && user.type !== "learner" && <button onClick={() => ctx.setShow(true)}>Click me!</button>}
+					{user.verified && user.org && user.type && user.type !== "learner" && (
+						<PrimaryButton className={classes.invite} iconLeft={<i className="material-icons-outlined">person_add</i>} mainLabel="Invite" onClick={() => ctx.setShow(true)} />
+					)}
 					{!user.verified && user.type && user.type !== "learner" && (
 						<button className={classes.verifyBtn} onClick={() => router.push("/user/my-account/verification")}>
 							Verify

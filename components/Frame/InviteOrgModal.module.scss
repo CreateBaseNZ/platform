@@ -254,10 +254,7 @@
 		background: $lighter;
 		font-family: $poppins;
 		&::placeholder {
-			font-size: 11px;
 			opacity: 0.5;
-			font-weight: 400;
-			letter-spacing: 0;
 		}
 		&:hover {
 			background: rgb(245, 245, 245);
