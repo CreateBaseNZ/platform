@@ -2,6 +2,67 @@ import Link from "next/dist/client/link";
 
 export default [
 	{
+		header: "How-To: Videos",
+		icon: "ondemand_video",
+		items: [
+			{
+				q: "How-To: Sign up with an Educator account",
+				a: (
+					<>
+						<p>
+						<a href="https://youtu.be/09j-Opsyd0o" target="_blank" title="How-To: Sign up with an educator account">View here </a>	
+						</p>
+						
+					</>
+				),
+			},
+			{
+				q: "How-To: Register an Organisation",
+				a: (
+					<>
+						<p>
+						<a href="https://youtu.be/6QTpDvfDZ9s" target="_blank" title="How-To: Register an Organisation">View here </a>	
+						</p>
+						
+					</>
+				),
+			},
+			/*{
+				q: "How-To: Use invite features",
+				a: (
+					<>
+						<p>
+						<a href="" target="_blank" title="How-To: Use invite features">View here </a>	
+						</p>
+					</>
+				),
+			}*/,
+			{
+				q: "How-To: Join an Organisation",
+				a: (
+					<>
+						<p>
+						<a href="https://youtu.be/AQ6acGxQZwE" target="_blank" title="How-To: Join an Organisation">View here </a>	
+						</p>
+					</>
+				),
+			},
+			{
+				q: "How-To: Sign up with a Learner account",
+				a: (
+					<>
+						<p>
+						<a href="https://youtu.be/s80cEkCQXIE" target="_blank" title="How-To: Sign up with a learner account">View here </a>	
+						</p>
+					</>
+				),
+			},
+		],
+	},
+	
+	
+	
+	{
 		header: "Teacher Aid",
 		icon: "class",
 		items: [
