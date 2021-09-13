@@ -30,7 +30,7 @@ export default {
     url: "https://youtu.be/iiWiwxxkq2Q",
     src: "/magnebot/vid/situation.mp4",
     h1: "Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!",
-    h2: "Unfortunately, a self-driving cart has driven through our recycling facility and split bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...",
+    h2: "Unfortunately, a self-driving cart has driven through our recycling facility and spilt bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...",
     title: "MagneBot",
     docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
     word: "/magnebot/files/learning-journal.docx",
