@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
 								<b>
 									<em>is</em>
 								</b>{" "}
-								supported on all devices.
+								supported on all devices 👏
 							</h3>
 							<img src="/mobile.png" />
 						</div>

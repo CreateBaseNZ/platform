@@ -199,7 +199,8 @@ svg {
 	}
 	a {
 		font-size: inherit;
-		color: $blue-dark;
+		color: $logo-mid;
+		font-weight: 600;
 		text-decoration: underline;
 	}
 	b {
@@ -233,5 +234,6 @@ svg {
 		margin-top: -25vh;
 		margin-bottom: -50vh;
 		width: 200%;
+		pointer-events: none;
 	}
 }
