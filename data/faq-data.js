@@ -36,7 +36,7 @@ export default [
 						</p>
 					</>
 				),
-			}*/,
+				},*/
 			{
 				q: "How-To: Join an Organisation",
 				a: (
