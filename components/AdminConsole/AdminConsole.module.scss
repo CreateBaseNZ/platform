@@ -139,7 +139,7 @@
 .colName {
 	flex-grow: 1;
 	font-size: 11px;
-	color: $light;
+	color: $darker;
 	font-weight: 600;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
@@ -171,14 +171,21 @@
 }
 
 .table {
-	margin-top: 0.25rem;
+	min-height: none;
+	margin-top: 0.5rem;
+	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
 	flex: 1 1 0;
+	overflow-y: scroll;
+	border-bottom: thin solid $lighter;
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
 }
 
 .row {
-	height: 3rem;
+	flex: 0 0 3rem;
 	width: 100%;
 	padding: 0 1rem;
 	display: flex;
@@ -250,7 +257,7 @@
 	white-space: nowrap;
 }
 
-.dispName {
+.displayName {
 	flex-basis: 7rem;
 }
 
@@ -287,20 +294,26 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		padding-right: 0.25rem;
+		padding-right: 0.5rem;
 		height: 100%;
 		margin: 0 0.5rem;
 		position: relative;
-		width: 3.5rem;
-		color: $blue-mid;
+		width: 4rem;
 		border: thin solid $light;
 		border-radius: 8px;
-		font-size: 14px;
-		font-weight: 500;
+		transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
+		span {
+			color: $blue-mid;
+			font-size: 14px;
+			font-weight: 500;
+			margin-right: 0.25rem;
+		}
 		i {
 			font-size: 18px;
+			transition: color 0.1s ease-out, transform 0.2s ease-out;
 		}
 		.viewSizeMenu {
+			pointer-events: none;
 			position: absolute;
 			top: 0;
 			left: 50%;
@@ -310,11 +323,12 @@
 			font-size: 14px;
 			color: $darker;
 			width: 100%;
-			padding: 0.5rem;
+			padding: 0.25rem;
 			background: white;
 			border-radius: 8px;
 			opacity: 0;
 			box-shadow: 0 4px 8px 0 rgba(black, 0.1);
+			transition: opacity 0.1s ease-out;
 			& > div {
 				display: flex;
 				align-items: center;
@@ -322,6 +336,7 @@
 				height: 1.5rem;
 				width: 100%;
 				font-size: 13px;
+				font-weight: 500;
 				border-radius: 4px;
 				transition: background-color 0.1s ease-out, color 0.1s ease-out;
 				&:hover {
@@ -329,8 +344,17 @@
 					background: rgba($blue-mid, 0.05);
 				}
 			}
-			&.show {
+		}
+		&.show {
+			border-color: $blue-mid;
+			background: rgba($blue-mid, 0.05);
+			i {
+				color: $blue-mid;
+				transform: rotate(180deg);
+			}
+			.viewSizeMenu {
 				opacity: 1;
+				pointer-events: auto;
 			}
 		}
 	}

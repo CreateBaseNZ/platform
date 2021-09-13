@@ -2,31 +2,51 @@ import { useEffect, useState } from "react";
 import classes from "./AdminConsole.module.scss";
 
 const columns = {
-	learners: ["disp Name", "username", "joined", "invited By"],
-	educators: ["disp Name", "username", "email", "joined", "invited By"],
-	admins: ["disp Name", "username", "email", "joined", "invited By"],
+	learners: ["display Name", "username", "joined", "invited By"],
+	educators: ["display Name", "username", "email", "joined", "invited By"],
+	admins: ["display Name", "username", "email", "joined", "invited By"],
 };
 
 const learnersData = [
-	{ dispName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
 ];
 const educatorsData = [
-	{ dispName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
-	{ dispName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
-	{ dispName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
-	{ dispName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
+	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
+	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
+	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
+	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
 ];
 const adminsData = [
-	{ dispName: "Mrs Doe", username: "jane_mary_doe", email: "jm.doe@hayes.school.nz", joined: "24 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Mrs Sivan", username: "valerius-sivan", email: "jm.doe@hayes.school.nz", joined: "24 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Mr Phoebe", username: "jane_mary_doe", email: "jm.doe@hayes.school.nz", joined: "24 Aug 2021", invitedBy: "jane_mary_doe" },
-	{ dispName: "Ms Radmir", username: "maret_radmir", email: "jm.doe@hayes.school.nz", joined: "24 Aug 2021", invitedBy: "valerius-sivan" },
+	{ displayName: "Mrs Doe", username: "jane_mary_doe", email: "jm.doe@hayes.school.nz", joined: "24 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Mrs Sivan", username: "valerius-sivan", email: "jm.doe@hayes.school.nz", joined: "24 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Mr Phoebe", username: "jane_mary_doe", email: "jm.doe@hayes.school.nz", joined: "24 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ms Radmir", username: "maret_radmir", email: "jm.doe@hayes.school.nz", joined: "24 Aug 2021", invitedBy: "valerius-sivan" },
 ];
 
 const sizes = [10, 20, 50, 100, "All"];
@@ -41,10 +61,11 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const [isChecked, setIsChecked] = useState({ learners: false, educators: false, admins: false });
 	const [size, setSize] = useState(20);
 	const [showSizeMenu, setShowSizeMenu] = useState(false);
+	const [page, setPage] = useState(0);
 
 	useEffect(() => {
-		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].some((d) => d.checked) }));
-	}, [tab, allUsers]);
+		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].slice(page * size, page * size + size).some((d) => d.checked) }));
+	}, [tab, allUsers, page, size]);
 
 	const checkHandler = (row) => {
 		setAllUsers((state) => ({
@@ -100,8 +121,8 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 					</button>
 				))}
 			</div>
-			<div className={classes.table}>
-				{allUsers[tab].map((values, i) => (
+			<div className={`${classes.table} roundScrollbar`}>
+				{allUsers[tab].slice(page * size, page * size + size).map((values, i) => (
 					<div
 						key={i}
 						className={`${classes.row} ${values.checked ? classes.checkedRow : ""} ${allUsers[tab][i + 1] && allUsers[tab][i + 1].checked ? classes.sharpBottom : ""}`}
@@ -121,7 +142,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 				<div className={classes.viewSize}>
 					View
 					<button className={`${classes.viewSizeBtn} ${showSizeMenu ? classes.show : ""}`} onClick={() => setShowSizeMenu((state) => !state)} onBlur={() => setShowSizeMenu(false)}>
-						{size} <i className="material-icons-outlined">expand_less</i>
+						<span>{size}</span> <i className="material-icons-outlined">expand_less</i>
 						<div className={classes.viewSizeMenu}>
 							{sizes.map((o) => (
 								<div key={o} onClick={() => setSizeHandler(o)}>
