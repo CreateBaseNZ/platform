@@ -64,74 +64,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 
 	return (
 		<div className={classes.adminConsole}>
-			<div className={classes.controls}>
-				<div className={classes.mainBtnContainer}>
-					<button className={`${classes.tab} ${tab === "learners" ? classes.active : ""}`} onClick={() => setTab("learners")}>
-						<i className="material-icons-outlined">backpack</i> Learners
-					</button>
-					<button className={`${classes.tab} ${tab === "educators" ? classes.active : ""}`} onClick={() => setTab("educators")}>
-						<i className="material-icons-outlined">school</i> Educators
-					</button>
-					<button className={`${classes.tab} ${tab === "admins" ? classes.active : ""}`} onClick={() => setTab("admins")}>
-						<i className="material-icons-outlined">verified_user</i> Admins
-					</button>
-				</div>
-				<div className={classes.otherBtnContainer}>
-					<div className={classes.search}>
-						<input placeholder="Search" />
-						<i className="material-icons-outlined">search</i>
-					</div>
-					<button className={classes.toggleHeader} onClick={() => setCollapseHeader((state) => !state)}>
-						<span>{collapseHeader ? "Collapse" : "Expand"}</span>
-						<i className="material-icons-outlined" style={{ transform: collapseHeader && "rotate(180deg)" }}>
-							expand_less
-						</i>
-					</button>
-				</div>
-			</div>
-			<div className={classes.tableHead}>
-				<button className={`${classes.colName} ${classes.check} ${isChecked[tab] ? classes.checked : ""}`}>
-					<i className="material-icons-outlined">done</i>
-				</button>
-				{columns[tab].map((c) => (
-					<button key={c} className={`${classes.colName} ${classes[c.replace(" ", "")]}`}>
-						{c}
-					</button>
-				))}
-			</div>
-			<div className={classes.table}>
-				{allUsers[tab].map((values, i) => (
-					<div
-						key={i}
-						className={`${classes.row} ${values.checked ? classes.checkedRow : ""} ${allUsers[tab][i + 1] && allUsers[tab][i + 1].checked ? classes.sharpBottom : ""}`}
-						onClick={checkHandler.bind(this, i)}>
-						<button className={`${classes.colName} ${classes.check} ${values.checked ? classes.checked : ""}`}>
-							<i className="material-icons-outlined">done</i>
-						</button>
-						{columns[tab].map((c) => (
-							<div key={`${c}-${i}`} className={`${classes.cell} ${classes[c.replace(" ", "")]}`}>
-								{values[c.replace(" ", "")]}
-							</div>
-						))}
-					</div>
-				))}
-			</div>
-			<div className={classes.tableFooter}>
-				<div className={classes.viewSize}>
-					View
-					<button className={classes.viewSizeBtn} onBlur={() => {}}>
-						{size} <i className="material-icons-outlined">expand_less</i>
-						<div className={classes.viewSizeMenu}>
-							{sizes.map((o) => (
-								<div key={o} onClick={() => setSizeHandler(o)}>
-									{o}
-								</div>
-							))}
-						</div>
-					</button>
-					per page
-				</div>
-			</div>
+			<h1>Coming Soon</h1>
 		</div>
 	);
 };
