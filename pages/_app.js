@@ -1,6 +1,8 @@
 import { useState, Fragment } from "react";
+import { useEffect } from "react";
 import LoadingScreen from "../components/UI/Loading";
 import { Provider } from "next-auth/client";
+import Image from "next/image";
 
 import "../styles/globals.scss";
 import { VisualBellContextProvider } from "../store/visual-bell-context";
@@ -9,6 +11,14 @@ import { InviteOrgContextProvider } from "../store/invite-org-context";
 
 function MyApp({ Component, pageProps }) {
 	const [loaded, setLoaded] = useState(false);
+	const [blockView, setBlockView] = useState(true);
+
+	useEffect(() => {
+		if (!window.matchMedia("only screen and (max-width: 760px)").matches) {
+			console.log("yeap");
+			setBlockView(false);
+		}
+	}, []);
 
 	return (
 		<Provider session={pageProps.session}>
@@ -18,6 +28,23 @@ function MyApp({ Component, pageProps }) {
 					<div id="ctx-menu-root"></div>
 					{!loaded && <LoadingScreen />}
 					<Component {...pageProps} setLoaded={setLoaded} />
+					{blockView && (
+						<div className="mobileView">
+							<h1>
+								We're sorry but <br />
+								<b>mobile view is currently unsupported.</b>
+							</h1>
+							<h2>To enjoy our platform, try viewing it on a desktop device or laptop.</h2>
+							<h3>
+								While you're here, why not check out our <a href="https://createbase.co.nz/">website</a>, which{" "}
+								<b>
+									<em>is</em>
+								</b>{" "}
+								supported on all devices.
+							</h3>
+							<img src="/mobile.png" />
+						</div>
+					)}
 				</InviteOrgContextProvider>
 				<VisualBell />
 			</VisualBellContextProvider>

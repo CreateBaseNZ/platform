@@ -62,6 +62,72 @@ const learnersData = [
 	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
 	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
 	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "19 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "18 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "17 Aug 2021", invitedBy: "jane_mary_doe" },
+	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "21 Aug 2021", invitedBy: "jane_mary_doe" },
 ];
 const educatorsData = [
 	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "24 Aug 2021", invitedBy: "park_admin_0" },
@@ -89,6 +155,8 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const [size, setSize] = useState(20);
 	const [showSizeMenu, setShowSizeMenu] = useState(false);
 	const [page, setPage] = useState(0);
+
+	console.log(page);
 
 	useEffect(() => {
 		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].slice(page * size, page * size + size).some((d) => d.checked) }));
@@ -125,31 +193,80 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		setSize(selected);
 	};
 
-	const renderPages = () => {
+	const renderPagination = () => {
 		const nPages = Math.ceil(allUsers[tab].length / size);
-		if (nPages <= 7) {
-			return (
-				<>
-					{[...Array(nPages).keys()].map((p) => (
-						<button className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`}>{p + 1}</button>
-					))}
-				</>
-			);
-		} else {
-			if (page <= 4) {
-				<>
-					{[...Array(4).keys()].map((p) => (
-						<button className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`}>{p + 1}</button>
-					))}
-					{}
-				</>;
+		const renderPages = () => {
+			if (nPages <= 7) {
+				return (
+					<>
+						{[...Array(nPages).keys()].map((p) => (
+							<button key={p} className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`} onClick={() => setPage(p)}>
+								{p + 1}
+							</button>
+						))}
+					</>
+				);
+			} else {
+				if (page <= 3) {
+					return (
+						<>
+							{[...Array(5).keys()].map((p) => (
+								<button key={p} className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`} onClick={() => setPage(p)}>
+									{p + 1}
+								</button>
+							))}
+							<button className={classes.pageBtn}>...</button>
+							<button className={classes.pageBtn} onClick={() => setPage(nPages - 1)}>
+								{nPages}
+							</button>
+						</>
+					);
+				} else if (nPages - page <= 4) {
+					return (
+						<>
+							<button className={classes.pageBtn} onClick={() => setPage(0)}>
+								1
+							</button>
+							<button className={classes.pageBtn}>...</button>
+							{[...Array(5).keys()].reverse().map((p) => (
+								<button key={p} className={`${classes.pageBtn} ${nPages - p - 1 === page ? classes.activePage : ""}`} onClick={() => setPage(nPages - p - 1)}>
+									{nPages - p}
+								</button>
+							))}
+						</>
+					);
+				} else {
+					return (
+						<>
+							<button className={classes.pageBtn} onClick={() => setPage(0)}>
+								1
+							</button>
+							<button className={classes.pageBtn}>...</button>
+							{[-1, 0, 1].map((p) => (
+								<button key={p} className={`${classes.pageBtn} ${p === 0 ? classes.activePage : ""}`} onClick={() => setPage(page + p)}>
+									{page + p + 1}
+								</button>
+							))}
+							<button className={classes.pageBtn}>...</button>
+							<button className={classes.pageBtn} onClick={() => setPage(nPages - 1)}>
+								{nPages}
+							</button>
+						</>
+					);
+				}
 			}
+		};
+		return (
 			<>
-				{[...Array(nPages).keys()].map((p) => (
-					<button className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`}>{p + 1}</button>
-				))}
-			</>;
-		}
+				<i className={`material-icons-outlined ${classes.pageBtn} ${page === 0 || nPages <= 7 ? classes.disabled : ""}`} onClick={() => setPage((state) => state - 1)}>
+					navigate_before
+				</i>
+				<div className={classes.pages}>{renderPages()}</div>
+				<i className={`material-icons-outlined ${classes.pageBtn} ${page + 1 === nPages || nPages <= 7 ? classes.disabled : ""}`} onClick={() => setPage((state) => state + 1)}>
+					navigate_next
+				</i>
+			</>
+		);
 	};
 
 	return (
@@ -221,11 +338,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 					</button>
 					per page
 				</div>
-				<div className={classes.pagination}>
-					<i className="material-icons-outlined">navigate_before</i>
-					<div className={classes.pages}>{renderPages()}</div>
-					<i className="material-icons-outlined">navigate_next</i>
-				</div>
+				<div className={classes.pagination}>{renderPagination()}</div>
 				<div className={classes.results}>
 					{page * size + 1} - {Math.min(page * size + size + 1, allUsers[tab].length)} of {allUsers[tab].length} {tab}
 				</div>
