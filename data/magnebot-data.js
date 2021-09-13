@@ -37,13 +37,13 @@ export default {
   },
   define: [
     {
-      title: "Introduction to recycling",
+      title: "Intro to recycling",
       img: "/magnebot/img/recycling.jpg",
       url: "/magnebot/pdf/recycling.pdf",
     },
     {
-      title: "Introduction to robotics",
-      img: "/magnebot/img/robotics.png",
+      title: "Intro to robotics",
+      img: "/magnebot/img/robot.png",
       url: "/magnebot/pdf/robotics.pdf",
     },
   ],
