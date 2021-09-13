@@ -215,7 +215,9 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 									{p + 1}
 								</button>
 							))}
-							<button className={classes.pageBtn}>...</button>
+							<button className={classes.pageBtn} style={{ pointerEvents: "none" }}>
+								...
+							</button>
 							<button className={classes.pageBtn} onClick={() => setPage(nPages - 1)}>
 								{nPages}
 							</button>
@@ -241,13 +243,17 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 							<button className={classes.pageBtn} onClick={() => setPage(0)}>
 								1
 							</button>
-							<button className={classes.pageBtn}>...</button>
+							<button className={classes.pageBtn} style={{ pointerEvents: "none" }}>
+								...
+							</button>
 							{[-1, 0, 1].map((p) => (
 								<button key={p} className={`${classes.pageBtn} ${p === 0 ? classes.activePage : ""}`} onClick={() => setPage(page + p)}>
 									{page + p + 1}
 								</button>
 							))}
-							<button className={classes.pageBtn}>...</button>
+							<button className={classes.pageBtn} style={{ pointerEvents: "none" }}>
+								...
+							</button>
 							<button className={classes.pageBtn} onClick={() => setPage(nPages - 1)}>
 								{nPages}
 							</button>
@@ -273,15 +279,40 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		<div className={classes.adminConsole}>
 			<div className={classes.controls}>
 				<div className={classes.mainBtnContainer}>
-					<button className={`${classes.tab} ${tab === "learners" ? classes.active : ""}`} onClick={() => setTab("learners")}>
-						<i className="material-icons-outlined">backpack</i> Learners
-					</button>
-					<button className={`${classes.tab} ${tab === "educators" ? classes.active : ""}`} onClick={() => setTab("educators")}>
-						<i className="material-icons-outlined">school</i> Educators
-					</button>
-					<button className={`${classes.tab} ${tab === "admins" ? classes.active : ""}`} onClick={() => setTab("admins")}>
-						<i className="material-icons-outlined">verified_user</i> Admins
-					</button>
+					{!isChecked[tab] && (
+						<>
+							<button className={`${classes.tab} ${tab === "learners" ? classes.active : ""}`} onClick={() => setTab("learners")}>
+								<i className="material-icons-outlined">backpack</i> Learners
+							</button>
+							<button className={`${classes.tab} ${tab === "educators" ? classes.active : ""}`} onClick={() => setTab("educators")}>
+								<i className="material-icons-outlined">school</i> Educators
+							</button>
+							<button className={`${classes.tab} ${tab === "admins" ? classes.active : ""}`} onClick={() => setTab("admins")}>
+								<i className="material-icons-outlined">verified_user</i> Admins
+							</button>
+						</>
+					)}
+					{isChecked[tab] && (
+						<>
+							<div className={classes.nSelected}>{allUsers[tab].filter((d) => d.checked).length} selected</div>
+							<div className={classes.actions}>
+								<button>
+									<i className="material-icons-outlined">password</i>
+									<div className={classes.title}>Reset password</div>
+								</button>
+								{tab !== "learner" && (
+									<button>
+										<i className="material-icons-outlined">add_moderator</i>
+										<div className={classes.title}>Promote to Admin</div>
+									</button>
+								)}
+								<button>
+									<i className="material-icons-outlined">person_remove</i>
+									<div className={classes.title}>Remove from org</div>
+								</button>
+							</div>
+						</>
+					)}
 				</div>
 				<div className={classes.otherBtnContainer}>
 					<div className={classes.search}>

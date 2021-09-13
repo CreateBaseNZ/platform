@@ -14,8 +14,7 @@ function MyApp({ Component, pageProps }) {
 	const [blockView, setBlockView] = useState(true);
 
 	useEffect(() => {
-		if (!window.matchMedia("only screen and (max-width: 760px)").matches) {
-			console.log("yeap");
+		if (window && !window.matchMedia("only screen and (max-width: 760px)").matches) {
 			setBlockView(false);
 		}
 	}, []);
