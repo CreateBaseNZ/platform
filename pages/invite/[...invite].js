@@ -65,7 +65,7 @@ const Invite = () => {
 					if (session) {
 						// educator via link and logged in
 						await joinOrgEducator({
-							details: { metadata: { id: details[1] }, name: details[2].replaceAll("-", " "), code: details[3], type: "school", country: "New Zealand" },
+							details: { metadata: { id: details[0] }, name: details[1].replaceAll("-", " "), code: details[2], type: "school", country: "New Zealand" },
 							failHandler: (content) => {
 								if (content.account) {
 									vbCtx.setBell({ type: "error", message: "Failed to join - you are already in another organisation" });
@@ -78,7 +78,7 @@ const Invite = () => {
 							successHandler: async () => {
 								vbCtx.setBell({
 									type: "success",
-									message: `Successfully joined ${org.name}`,
+									message: `Successfully joined ${details[1].replaceAll("-", " ")}`,
 								});
 							},
 						});
