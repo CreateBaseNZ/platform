@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import useUnity from "/hooks/useUnity";
