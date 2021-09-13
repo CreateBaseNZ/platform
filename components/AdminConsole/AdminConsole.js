@@ -126,9 +126,30 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	};
 
 	const renderPages = () => {
-		// const nPages = Math.ceil(allUsers[tab].length / size)
-		// if (page <= 3) {
-		// }
+		const nPages = Math.ceil(allUsers[tab].length / size);
+		if (nPages <= 7) {
+			return (
+				<>
+					{[...Array(nPages).keys()].map((p) => (
+						<button className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`}>{p + 1}</button>
+					))}
+				</>
+			);
+		} else {
+			if (page <= 4) {
+				<>
+					{[...Array(4).keys()].map((p) => (
+						<button className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`}>{p + 1}</button>
+					))}
+					{}
+				</>;
+			}
+			<>
+				{[...Array(nPages).keys()].map((p) => (
+					<button className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`}>{p + 1}</button>
+				))}
+			</>;
+		}
 	};
 
 	return (

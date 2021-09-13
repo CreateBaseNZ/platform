@@ -24,6 +24,14 @@ body {
 	font-family: $poppins;
 }
 
+input,
+textarea {
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
 button {
 	cursor: pointer;
 	font-family: $poppins;
