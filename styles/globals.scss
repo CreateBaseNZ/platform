@@ -24,6 +24,14 @@ body {
 	font-family: $poppins;
 }
 
+input,
+textarea {
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
 button {
 	cursor: pointer;
 	font-family: $poppins;
@@ -170,4 +178,60 @@ svg {
 
 .faq__indent {
 	margin-left: 1em !important;
+}
+
+.mobileView {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 500;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	background: $lightest;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 10vh 5vw;
+	* {
+		text-align: center;
+	}
+	a {
+		font-size: inherit;
+		color: $blue-dark;
+		text-decoration: underline;
+	}
+	b {
+		font-weight: 700;
+		font-size: inherit;
+		color: inherit;
+	}
+	em {
+		font-style: italic;
+		font-weight: inherit;
+		font-size: inherit;
+		color: inherit;
+	}
+	h1 {
+		font-weight: 600;
+		font-size: 8vw;
+		line-height: 1.1em;
+		margin-bottom: 4vh;
+		color: $logo-mid;
+	}
+	h2 {
+		font-size: 4vw;
+		font-weight: 500;
+		margin-bottom: 2vh;
+	}
+	h3 {
+		font-size: 3vw;
+		font-weight: 500;
+	}
+	img {
+		margin-top: -25vh;
+		margin-bottom: -50vh;
+		width: 200%;
+	}
 }

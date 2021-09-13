@@ -13,7 +13,7 @@ const tabs = {
 	null: [browseTab, faqTab],
 	learner: [browseTab, faqTab, myAccountTab],
 	educator: [onboardingTab, browseTab, myAccountTab, faqTab],
-	admin: [onboardingTab, browseTab, adminConsoleTab, myAccountTab, faqTab],
+	admin: [onboardingTab, browseTab, myAccountTab, faqTab],
 };
 
 const Nav = ({ route, collapseNav, user }) => {

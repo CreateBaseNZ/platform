@@ -10,6 +10,7 @@
 }
 
 .controls {
+	margin-left: 1.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -63,18 +64,19 @@
 		height: 100%;
 		position: relative;
 		input {
-			height: 100%;
-			width: 14rem;
 			border: 2px solid $lighter;
 			border-radius: 16px;
+			height: 100%;
+			width: 14rem;
 			font-size: 12px;
 			font-family: $poppins;
 			font-weight: 500;
 			padding: 0 1.25rem 0 2.5rem;
-			transition: padding 0.2s ease-out, border 0.1s ease-out, background-color 0.1s ease-out;
+			transition: padding 0.2s ease-out, border 0.1s ease-out, background-color 0.1s ease-out, color 0.1s ease-out;
 			&::placeholder {
 				font-weight: 400;
 				color: $light;
+				transition: color 0.1s ease-out;
 			}
 			&:focus {
 				border-color: $blue-mid;
@@ -93,7 +95,17 @@
 			font-size: 16px;
 			pointer-events: none;
 			color: $light;
-			transition: opacity 0.1s ease-out;
+			transition: opacity 0.1s ease-out, color 0.1s ease-out;
+		}
+		&:hover {
+			input {
+				background: rgba($blue-mid, 0.05);
+			}
+			input,
+			input::placeholder,
+			i {
+				color: $blue-mid;
+			}
 		}
 	}
 	.toggleHeader {
@@ -139,7 +151,7 @@
 .colName {
 	flex-grow: 1;
 	font-size: 11px;
-	color: $light;
+	color: $darker;
 	font-weight: 600;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
@@ -168,17 +180,32 @@
 		color: white !important;
 		background: $light;
 	}
+	&.colName {
+		i {
+			border-color: $dark;
+		}
+		&.checked i {
+			background: $dark;
+		}
+	}
 }
 
 .table {
-	margin-top: 0.25rem;
+	min-height: none;
+	margin-top: 0.5rem;
+	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
 	flex: 1 1 0;
+	overflow-y: scroll;
+	border-bottom: thin solid $lighter;
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
 }
 
 .row {
-	height: 3rem;
+	flex: 0 0 3rem;
 	width: 100%;
 	padding: 0 1rem;
 	display: flex;
@@ -237,6 +264,10 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
+	&:last-child {
+		border-bottom-left-radius: 16px;
+		border-bottom-right-radius: 16px;
+	}
 }
 
 .cell {
@@ -250,7 +281,7 @@
 	white-space: nowrap;
 }
 
-.dispName {
+.displayName {
 	flex-basis: 7rem;
 }
 
@@ -273,10 +304,12 @@
 .tableFooter {
 	display: flex;
 	align-items: center;
-	flex: 0 0 2rem;
+	justify-content: space-between;
+	flex: 0 0 3rem;
 }
 
 .viewSize {
+	flex: 0 0 180px;
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -287,40 +320,48 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		padding-right: 0.25rem;
-		height: 100%;
+		padding-right: 0.5rem;
+		height: 2.5rem;
 		margin: 0 0.5rem;
 		position: relative;
-		width: 3.5rem;
-		color: $blue-mid;
-		border: thin solid $light;
+		width: 4rem;
+		border: thin solid $lighter;
 		border-radius: 8px;
-		font-size: 14px;
-		font-weight: 500;
+		transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
+		span {
+			color: $blue-mid;
+			font-weight: 500;
+			margin-right: 0.25rem;
+		}
 		i {
 			font-size: 18px;
+			transition: color 0.1s ease-out, transform 0.2s ease-out;
 		}
 		.viewSizeMenu {
+			pointer-events: none;
 			position: absolute;
 			top: 0;
 			left: 50%;
-			transform: translate(-50%, -100%);
+			transform: translate(-50%, calc(-100% - 0.5rem));
 			display: flex;
 			flex-direction: column;
 			font-size: 14px;
 			color: $darker;
 			width: 100%;
-			padding: 0.5rem;
+			padding: 0.4rem 0.25rem;
 			background: white;
 			border-radius: 8px;
+			opacity: 0;
 			box-shadow: 0 4px 8px 0 rgba(black, 0.1);
+			transition: opacity 0.1s ease-out;
 			& > div {
 				display: flex;
 				align-items: center;
 				padding-left: 0.5rem;
-				height: 1.5rem;
+				height: 1.75rem;
 				width: 100%;
-				font-size: 13px;
+				font-size: 14px;
+				font-weight: 500;
 				border-radius: 4px;
 				transition: background-color 0.1s ease-out, color 0.1s ease-out;
 				&:hover {
@@ -329,5 +370,72 @@
 				}
 			}
 		}
+		&:hover {
+			background: rgba($blue-mid, 0.05);
+			i {
+				color: $blue-mid;
+			}
+		}
+		&.show {
+			border-color: $blue-mid;
+			background: rgba($blue-mid, 0.05);
+			i {
+				color: $blue-mid;
+				transform: rotate(180deg);
+			}
+			.viewSizeMenu {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
 	}
+}
+
+.pagination {
+	display: flex;
+	align-items: center;
+	i {
+		color: $blue-mid !important;
+		font-size: 20px;
+	}
+	.pages {
+		margin: 0 1rem;
+		display: flex;
+		align-items: center;
+	}
+	.pageBtn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		margin: 0 0.1rem;
+		color: $light;
+		width: 2.25rem;
+		height: 3rem;
+		font-weight: 600;
+		border-radius: 8px;
+		transition: color 0.1s ease-out, background-color 0.1s ease-out;
+		&:hover {
+			color: $darkest;
+			background: $lighter;
+		}
+		&.activePage {
+			color: $blue-mid;
+			background: rgba($blue-mid, 0.05);
+		}
+		&.disabled {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+}
+
+.results {
+	flex: 0 0 180px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	font-size: 12px;
+	font-weight: 500;
+	color: $light;
 }
