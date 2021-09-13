@@ -392,6 +392,15 @@
 	}
 }
 
+.pagination {
+	display: flex;
+	align-items: center;
+	i {
+		color: $blue-mid;
+		font-size: 20px;
+	}
+}
+
 .results {
 	flex: 0 0 180px;
 	display: flex;
