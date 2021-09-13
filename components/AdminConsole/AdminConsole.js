@@ -80,6 +80,20 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		}));
 	};
 
+	const toggleAllCheckboxHandler = () => {
+		if (isChecked[tab]) {
+			setAllUsers((state) => ({
+				...state,
+				[tab]: state[tab].map((values) => ({ ...values, checked: false })),
+			}));
+		} else {
+			setAllUsers((state) => ({
+				...state,
+				[tab]: state[tab].map((values) => ({ ...values, checked: true })),
+			}));
+		}
+	};
+
 	const setSizeHandler = (selected) => {
 		setSize(selected);
 	};
@@ -112,8 +126,8 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 				</div>
 			</div>
 			<div className={classes.tableHead}>
-				<button className={`${classes.colName} ${classes.check} ${isChecked[tab] ? classes.checked : ""}`}>
-					<i className="material-icons-outlined">done</i>
+				<button className={`${classes.colName} ${classes.check} ${isChecked[tab] ? classes.checked : ""}`} onClick={toggleAllCheckboxHandler} title={isChecked[tab] ? "Deselect all" : "Select all"}>
+					<i className="material-icons-outlined">remove</i>
 				</button>
 				{columns[tab].map((c) => (
 					<button key={c} className={`${classes.colName} ${classes[c.replace(" ", "")]}`}>
@@ -127,7 +141,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 						key={i}
 						className={`${classes.row} ${values.checked ? classes.checkedRow : ""} ${allUsers[tab][i + 1] && allUsers[tab][i + 1].checked ? classes.sharpBottom : ""}`}
 						onClick={checkHandler.bind(this, i)}>
-						<button className={`${classes.colName} ${classes.check} ${values.checked ? classes.checked : ""}`}>
+						<button className={` ${classes.check} ${values.checked ? classes.checked : ""}`}>
 							<i className="material-icons-outlined">done</i>
 						</button>
 						{columns[tab].map((c) => (
@@ -152,6 +166,9 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 						</div>
 					</button>
 					per page
+				</div>
+				<div className={classes.results}>
+					{page * size + 1} - {Math.min(page * size + size + 1, allUsers[tab].length)} of {allUsers[tab].length} {tab}
 				</div>
 			</div>
 		</div>

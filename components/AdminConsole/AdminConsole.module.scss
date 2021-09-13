@@ -10,6 +10,7 @@
 }
 
 .controls {
+	margin-left: 1.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -63,18 +64,19 @@
 		height: 100%;
 		position: relative;
 		input {
-			height: 100%;
-			width: 14rem;
 			border: 2px solid $lighter;
 			border-radius: 16px;
+			height: 100%;
+			width: 14rem;
 			font-size: 12px;
 			font-family: $poppins;
 			font-weight: 500;
 			padding: 0 1.25rem 0 2.5rem;
-			transition: padding 0.2s ease-out, border 0.1s ease-out, background-color 0.1s ease-out;
+			transition: padding 0.2s ease-out, border 0.1s ease-out, background-color 0.1s ease-out, color 0.1s ease-out;
 			&::placeholder {
 				font-weight: 400;
 				color: $light;
+				transition: color 0.1s ease-out;
 			}
 			&:focus {
 				border-color: $blue-mid;
@@ -93,7 +95,17 @@
 			font-size: 16px;
 			pointer-events: none;
 			color: $light;
-			transition: opacity 0.1s ease-out;
+			transition: opacity 0.1s ease-out, color 0.1s ease-out;
+		}
+		&:hover {
+			input {
+				background: rgba($blue-mid, 0.05);
+			}
+			input,
+			input::placeholder,
+			i {
+				color: $blue-mid;
+			}
 		}
 	}
 	.toggleHeader {
@@ -167,6 +179,14 @@
 	&.checked i {
 		color: white !important;
 		background: $light;
+	}
+	&.colName {
+		i {
+			border-color: $dark;
+		}
+		&.checked i {
+			background: $dark;
+		}
 	}
 }
 
@@ -244,6 +264,10 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
+	&:last-child {
+		border-bottom-left-radius: 16px;
+		border-bottom-right-radius: 16px;
+	}
 }
 
 .cell {
@@ -280,10 +304,12 @@
 .tableFooter {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	flex: 0 0 2rem;
 }
 
 .viewSize {
+	flex: 0 0 180px;
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -299,7 +325,7 @@
 		margin: 0 0.5rem;
 		position: relative;
 		width: 4rem;
-		border: thin solid $light;
+		border: thin solid $lighter;
 		border-radius: 8px;
 		transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
 		span {
@@ -323,7 +349,7 @@
 			font-size: 14px;
 			color: $darker;
 			width: 100%;
-			padding: 0.25rem;
+			padding: 0.4rem 0.25rem;
 			background: white;
 			border-radius: 8px;
 			opacity: 0;
@@ -345,6 +371,12 @@
 				}
 			}
 		}
+		&:hover {
+			background: rgba($blue-mid, 0.05);
+			i {
+				color: $blue-mid;
+			}
+		}
 		&.show {
 			border-color: $blue-mid;
 			background: rgba($blue-mid, 0.05);
@@ -358,4 +390,14 @@
 			}
 		}
 	}
+}
+
+.results {
+	flex: 0 0 180px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	font-size: 12px;
+	font-weight: 500;
+	color: $light;
 }
