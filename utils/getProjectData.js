@@ -24,4 +24,4 @@ const getProjectData = (query) => {
 
 export default getProjectData;
 
-export const allData = [sendItData, magnebotData, lineFollowingData];
+export const allData = [magnebotData, sendItData, lineFollowingData];

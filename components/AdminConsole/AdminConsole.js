@@ -40,6 +40,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	});
 	const [isChecked, setIsChecked] = useState({ learners: false, educators: false, admins: false });
 	const [size, setSize] = useState(20);
+	const [showSizeMenu, setShowSizeMenu] = useState(false);
 
 	useEffect(() => {
 		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].some((d) => d.checked) }));
@@ -119,7 +120,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 			<div className={classes.tableFooter}>
 				<div className={classes.viewSize}>
 					View
-					<button className={classes.viewSizeBtn} onBlur={() => {}}>
+					<button className={`${classes.viewSizeBtn} ${showSizeMenu ? classes.show : ""}`} onClick={() => setShowSizeMenu((state) => !state)} onBlur={() => setShowSizeMenu(false)}>
 						{size} <i className="material-icons-outlined">expand_less</i>
 						<div className={classes.viewSizeMenu}>
 							{sizes.map((o) => (
