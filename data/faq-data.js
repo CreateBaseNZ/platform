@@ -27,16 +27,16 @@ export default [
 					</>
 				),
 			},
-			/*{
+			{
 				q: "How-To: Use invite features",
 				a: (
 					<>
 						<p>
-						<a href="" target="_blank" title="How-To: Use invite features">View here </a>	
+						<a href="https://youtu.be/GphwKgAv6kw" target="_blank" title="How-To: Use invite features">View here </a>	
 						</p>
 					</>
 				),
-			},*/
+			},
 			{
 				q: "How-To: Join an Organisation",
 				a: (
