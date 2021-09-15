@@ -26,12 +26,16 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 					<div className={classes.overview}>
 						<p className={classes.caption}>
 							{project.caption}
-							{!paidAccess && <div className={classes.createAccount}>To continue, please create a FREE account.</div>}
+							{!paidAccess && <div className={classes.createAccount}>To continue, please create or log into a FREE account.</div>}
 						</p>
 						<div className={classes.btnContainer}>
 							<Link href={`/project/${project.query}`}>
 								<div>
-									<SecondaryButton className={classes.continueBtn} mainLabel={paidAccess ? "Continue" : "Create a Free Account"} iconRight={<i className="material-icons-outlined">play_arrow</i>} />
+									<SecondaryButton
+										className={classes.continueBtn}
+										mainLabel={paidAccess ? "Continue" : "Login / Signup free account"}
+										iconRight={<i className="material-icons-outlined">play_arrow</i>}
+									/>
 								</div>
 							</Link>
 						</div>

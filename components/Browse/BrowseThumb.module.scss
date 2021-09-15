@@ -12,12 +12,12 @@
 	box-shadow: 0 12px 24px -16px black;
 	transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
 	&:hover {
+		transform: translateY(-6px);
 		box-shadow: 0 0 24px -6px $logo-mid;
 	}
 	&.activeContainer {
 		pointer-events: none;
-		transform: translateY(-6px);
-		box-shadow: 0 24px 36px -16px rgba($logo-mid, 0.75);
+		box-shadow: 0 0 0 4px $logo-mid;
 		.wrapper::after {
 			height: 100%;
 			background: rgba(black, 0.5);

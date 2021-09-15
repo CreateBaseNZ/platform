@@ -8,28 +8,36 @@ import classes from "./Faq.module.scss";
 
 const sectionLength = faqData.length;
 
-const awaitImages = (images, callback) => {
+const awaitImages = async (images, callback) => {
 	let count = 0;
 	const addLoaded = () => {
+		console.log("adding one");
 		count++;
 		if (count === images.length) {
+			console.log("running callback");
 			callback();
 		}
 	};
 	images.forEach((img) => {
+		console.log(img);
+		console.log(img.clientHeight);
 		if (!img.clientHeight) {
 			img.addEventListener("load", addLoaded, false);
 		} else {
 			count++;
+			console.log("pre adding one");
 		}
 	});
+	if (count === images.length) {
+		console.log("running callback");
+		callback();
+	}
 };
 
 const Faq = ({ user }) => {
 	const router = useRouter();
 	const [activeIndex, setActiveIndex] = useState({ section: 0, item: null });
 	const [activeHeight, setActiveHeight] = useState();
-	const [imagesLoaded, setImagesLoaded] = useState(false);
 
 	useEffect(() => {
 		const query = router.query.view[1];
@@ -50,13 +58,11 @@ const Faq = ({ user }) => {
 		if (activeIndex.item !== null && activeIndex.item !== undefined) {
 			const el = document.querySelectorAll("." + classes.overflowContainer)[activeIndex.item];
 			const images = el.querySelectorAll("img");
-			if (!imagesLoaded && images.length) {
+			if (images.length) {
 				awaitImages(images, () => {
 					setActiveHeight(el.clientHeight);
-					setImagesLoaded(true);
 				});
 			} else {
-				setImagesLoaded(true);
 				if (el) setActiveHeight(el.clientHeight);
 			}
 		}
