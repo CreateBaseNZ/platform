@@ -51,7 +51,7 @@ export const convertCode = (text, system, onceCode) => {
                 if (awaitFunctions.includes(RHS)) {
                     RHS = 'await ' + RHS;
                 } else if (actions.includes(RHS)) {
-                    RHS=RHS.charAt(0).toUpperCase() + RHS.slice(1);
+                    RHS = RHS.charAt(0).toUpperCase() + RHS.slice(1);
                     RHS = `unityContext.send("${system}","${RHS}");`
                     for (let i = 0; i < dividedbyBracket.length; i++) {
                         dividedbyBracket[i] = '';
@@ -272,7 +272,7 @@ const doubleUp = (text) => {
 }
 
 const checkCommentNextLine = (text,i) => {
-    const intialI = i;
+    let intialI = i;
     while (text[intialI]&&text[intialI] == " ") {
         intialI++;
     }

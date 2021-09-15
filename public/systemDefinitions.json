@@ -86,6 +86,60 @@
     }
   },
   {
+    "robot": "Car",
+    "sensors":{
+      "leftLineSensor":{
+        "name":"leftLineSensor",
+        "simpleName":"leftLineSensor"
+      },
+      "rightLineSensor":{
+        "name":"rightLineSensor",
+        "simpleName":"rightLineSensor"
+      },
+      "middleLineSensor":{
+        "name":"middleLineSensor",
+        "simpleName":"middleLineSensor"
+      },
+      "fireDetectionSensor":{
+        "name":"fireDetectionSensor",
+        "simpleName":"fireDetectionSensor"
+      }
+
+    },
+    "actions":{
+    },
+    "functions":{
+      "start":{
+        "simpleLogic": "while(gameIsON){",
+        "inputs":[],
+        "logic": "if(sensorData){\n",
+        "await":false
+      },
+      "leftWheel":{
+        "inputs": [{ "variable": "entity", "type": "text", "value": "forwards" },{ "variable": "a", "type": "number", "value": true }],
+        "logic": "if(entity==\"forwards\"){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else if(entity==\"backwards\"){\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", a)\n}else if(entity==\"stop\"){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}",
+        "await":false
+      },
+      "rightWheel":{
+        "inputs": [{ "variable": "entity", "type": "text", "value": "leftwheel" },{ "variable": "a", "type": "number", "value": true }],
+        "logic": "if(entity==\"forwards\"){\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", a)\n}else if(entity==\"backwards\"){\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", a)\n}else if(entity==\"stop\"){\nunityContext.send(\"RightWheel\", \"StopMotor\")\n}",
+        "await":false
+      },
+      "waterHose":{
+        "inputs": [{ "variable": "a", "type": "boolean", "value": true }],
+        "logic": "if(a){\nunityContext.send(\"WaterHose\", \"TurnOnWater\")\n}else{\nunityContext.send(\"WaterHose\", \"TurnOffWater\")\n}",
+        "await":false
+      },
+      "end":{        
+        "simpleLogic":"}",
+        "inputs":[],
+        "logic": "}",
+        "await":false
+
+      }
+    }
+  },
+  {
     "mathOps":{
       "add":"+",
       "subtract":"-",
@@ -98,7 +152,7 @@
       "and":"&&",
       "or":"||"
     },
-    "general":["if", "intialise", "compare","while","for","num","repeat","operatorGeneral", "print"],
+    "general":["if", "intialise", "compare","while","for","num","repeat","operatorGeneral", "print","absolute"],
     "functions":{
       "delay":{
         "inputs": [{ "variable": "a", "type": "number", "value": 0 }],

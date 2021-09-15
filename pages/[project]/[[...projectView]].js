@@ -24,8 +24,8 @@ const get_data = (query) => {
 	switch (query) {
 		case "send-it":
 			return sendItData;
-		// case "line-following":
-		// 	return lineFollowingData;
+		case "line-following":
+			return lineFollowingData;
 		// case "magnebot":
 		// 	return magnebotData;
 	}

@@ -210,6 +210,22 @@
     }
   }
 }
+.moveForward {
+  height: 6rem;
+  width: 12rem;
+  h4 {
+    margin-bottom: 0.25rem;
+  }
+  .flexCol {
+    align-items: center;
+    &:nth-child(2) {
+      margin: 0 0.5rem;
+    }
+    input {
+      margin: 0.25rem 0 0 0;
+    }
+  }
+}
 
 .nodeMagneticSwitch {
   height: 5rem;

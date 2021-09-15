@@ -141,6 +141,31 @@ export class CodeGenerator {
     return false;
   }
 
+  private absolute(blockDetail) {
+    let inputs = "a";
+    let val = String(blockDetail.value[inputs]).trim();
+    if (!this.isNumber(val)) {
+      if (!this.checkVariable(val)) {
+        return [
+          false,
+          "error",
+          "The inputs to one of the operators is not a number",
+        ];
+      }
+    } else {
+      val = String(Number(val));
+    }
+
+    let output: any;
+    output = "";
+    output = this.checkCorrectVar(String(blockDetail.value.out));
+    const str = `${output}Math.abs(${val})`;
+    const simpleStr= `${output}abs(${val})`;
+    this.simpleExecutes.push(simpleStr);
+    this.executes.push(str);
+    return [true];
+  }
+
   private start( correctSystem) {
     this.executes.push(correctSystem.functions.start.logic);
     this.simpleExecutes.push(correctSystem.functions.start.simpleLogic);
@@ -151,7 +176,6 @@ export class CodeGenerator {
     let mathInput = ["a", "operator", "b"];
     let inputs: string = "";
     for (let i = 0; i < mathInput.length; i++) {
-      let simpleVal = "";
       let val = String(blockDetail.value[mathInput[i]]).trim();
       if (mathInput[i] != "operator") {
         if (!this.isNumber(val)) {
@@ -240,18 +264,26 @@ export class CodeGenerator {
     //const functionName = blockFunction.function.name + String(this.increment);
     this.increment++;
     // Build function
-    const func = `let ${functionName} = (${inputVariables}) => {
-      return new Promise((resolve, reject) => {
-        ${blockFunction.logic}
-      });
-    }\n
-    `;
+    let func = `let ${functionName} = (${inputVariables}) => {`;
+    if (blockFunction.await) {
+      func+="\nreturn new Promise((resolve, reject) => {"
+    }
+    func += `\n${blockFunction.logic}`
+    if (blockFunction.await) {
+      func+="\n});"
+    }
+    func += "}\n";
+    
+    ;
         
     if (added) {
       this.content += func;
     }
     // Add execute
-    const execute = `${output}await ${functionName}(${inputs});`;
+    if (blockFunction.await) {
+      output += " await ";
+    }
+    const execute = `${output} ${functionName}(${inputs});`;
     const simpleStr = ` ${output} ${functionName}(${inputs});`;
     this.executes.push(execute);
     this.simpleExecutes.push(simpleStr);
@@ -503,6 +535,9 @@ export class CodeGenerator {
           break;
         case "operatorGeneral":
           [state, type, message] = this.mathOp(element);
+          break;
+        case "absolute":
+          [state, type, message] = this.absolute(element);
           break;
         case "repeat":
           [state, type, message] = this.forStart(element);

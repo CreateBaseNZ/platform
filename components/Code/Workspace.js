@@ -157,7 +157,7 @@ const Workspace = (props) => {
         com = 0;
         codeChanged = false;
       } else {
-        com = setTimeout(functionExecute, 50);
+        com = setTimeout(functionExecute, 5);
       }
     };
     if (codesDone > 0) {
@@ -192,6 +192,14 @@ const Workspace = (props) => {
           caption="Compile"
         />
       )}
+      {/*//Text Run 
+      {activeTab === "text" && (
+        <GreenButton
+          className={classes.compileTextBtn}
+          clickHandler={compileHandlerTxt}
+          caption="Compile"
+        />
+      )} */}
       <MiniHoverContextProvider>
         <ReactFlowProvider>
           <FlowEditor

@@ -9,7 +9,13 @@ export const getDefaultValues = (type) => {
     type === "crouch" ||
     type === "attack"
   ) {
-    return { entity: entities[0].toLowerCase() };
+    return { entity: entities.SendIt[0].toLowerCase() };
+  }
+  if (
+    type == "rightWheel" ||
+    type == "leftWheel"
+  ) {
+    return { a: 0, entity: entities.LineFollowing[0].toLowerCase() };
   }
   if (
     type === "distance" ||
@@ -38,13 +44,13 @@ export const getDefaultValues = (type) => {
   if (type === "repeat") {
     return { condition: "1" };
   }
-  if (type === "print" || type === "delay") {
+  if (type === "print" || type === "delay"||type=="absolute") {
     return { a: 0 };
   }
   if (type === "moveArm") {
     return { x: 0, y: 0, z: 0 };
   }
-  if (type === "magneticSwitch") {
+  if (type === "magneticSwitch"||type=="waterHose") {
     return { a: true };
   }
   return {};

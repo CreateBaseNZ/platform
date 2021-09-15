@@ -5,7 +5,15 @@ import {
   NodeWidthOfMini,
   NodeSpeedOfMini,
   NodeElevationOfMini,
+  NodeLeftSensorMini,
+  NodeRightSensorMini,
+  NodeFireSensorMini
 } from "./NodeSensing";
+import {
+  NodeLeftWheelMini,
+  NodeRightWheelMini,
+  NodeWateHoseMini
+} from "./NodeLineFollowing";
 import {
   NodeAttackMini,
   NodeDoubleJumpMini,
@@ -19,6 +27,7 @@ import {
   NodeMultiplyMini,
   NodeDivideMini,
   NodeOperatorGeneralMini,
+  
 } from "./NodeOperations";
 import {
   NodeGreaterThanMini,
@@ -28,7 +37,7 @@ import {
 } from "./NodeComparisons";
 import { NodeAndMini, NodeOrMini } from "./NodeLogicals";
 import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "./NodeConditionals";
-import { NodeDelayMini, NodePrintMini } from "./NodeUtils";
+import { NodeDelayMini, NodePrintMini, NodeAbsoluteMini} from "./NodeUtils";
 
 import classes from "./DndBar.module.scss";
 
@@ -88,6 +97,36 @@ const DndBar = memo(({ query }) => {
           <h5>Comparisons</h5>
           <NodeGreaterThanMini />
           <NodeLessThanMini />
+          <NodePrintMini />
+        </div>
+      )}
+      {query === "line-following" && (
+        <div className={classes.wrapper}>
+          <h5>Sensing</h5>
+          <NodeLeftSensorMini />
+          <NodeRightSensorMini />
+          <NodeFireSensorMini />
+          <h5>Actions</h5>
+          <NodeLeftWheelMini />
+          <NodeRightWheelMini />
+          <NodeWateHoseMini />
+          <h5>Operators</h5>
+          <NodeAddMini />
+          <NodeSubtractMini />
+          <NodeMultiplyMini />
+          <NodeDivideMini />
+          <NodeAbsoluteMini />
+          <h5>Comparisons</h5>
+          <NodeGreaterThanMini />
+          <NodeLessThanMini />
+          <h5>Logicals</h5>
+          <NodeAndMini />
+          <NodeOrMini />
+          <h5>Conditionals</h5>
+          <NodeIfMini />
+          <NodeWhileMini />
+          <h5>Utilities</h5>
+          {/* <NodeDelayMini /> */}
           <NodePrintMini />
         </div>
       )}

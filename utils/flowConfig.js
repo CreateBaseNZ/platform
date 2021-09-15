@@ -5,6 +5,9 @@ import {
   NodeHeightOf,
   NodeWidthOf,
   NodeElevationOf,
+  NodeLeftSensor,
+  NodeRightSensor,
+  NodeFireSensor
 } from "../components/ReactFlow/NodeSensing";
 import {
   NodeAttack,
@@ -40,6 +43,7 @@ import {
   NodePrint,
   NodeTrue,
   NodeFalse,
+  NodeAbsolute,
 } from "../components/ReactFlow/NodeUtils";
 import {
   ExecutionEdge,
@@ -48,6 +52,11 @@ import {
 } from "../components/ReactFlow/Edges";
 
 import classes from "../components/ReactFlow/FlowEditor.module.scss";
+import {
+  NodeLeftWheel,
+  NodeRightWheel,
+  NodeWateHose
+} from "../components/ReactFlow/NodeLineFollowing";
 
 export const initialData = {
   start: {},
@@ -85,6 +94,13 @@ export const nodeTypes = {
   print: NodePrint,
   true: NodeTrue,
   false: NodeFalse,
+  leftLineSensor: NodeLeftSensor,
+  rightLineSensor: NodeRightSensor,
+  fireDetectionSensor: NodeFireSensor,
+  absolute: NodeAbsolute,
+  leftWheel:NodeLeftWheel,
+  rightWheel: NodeRightWheel,
+  waterHose:NodeWateHose
 };
 
 export const edgeTypes = {
@@ -102,7 +118,10 @@ export const initialElements = [
   },
 ];
 
-export const entities = ["Player"];
+export const entities = {
+  SendIt: ["Player"],
+  LineFollowing:["\"forwards\"","\"backwards\"","\"stop\""]
+};
 
 export const controlTitles = [
   "Zoom-in (Ctrl and +)",
@@ -161,6 +180,26 @@ const ExecutionType = () => {
 };
 
 export const tooltips = {
+  leftLineSensor: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the reading from left line sensor",
+  ],
+  absolute: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the reading from right line sensor",
+  ],
+  rightLineSensor: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the reading from right line sensor",
+  ],
+  fireDetectionSensor: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the reading from the fire sensor",
+  ],
   distance: [
     <NoneType />,
     <FloatType />,
@@ -187,6 +226,21 @@ export const tooltips = {
     "Outputs the height of an object above the ground",
   ],
   jump: [
+    <ExecutionType />,
+    <ExecutionType />,
+    "Instructs your character to jump",
+  ],
+  rightWheel: [
+    <ExecutionType />,
+    <ExecutionType />,
+    "Instructs your character to jump",
+  ],
+  leftWheel: [
+    <ExecutionType />,
+    <ExecutionType />,
+    "Instructs your character to jump",
+  ],
+  waterHose: [
     <ExecutionType />,
     <ExecutionType />,
     "Instructs your character to jump",
