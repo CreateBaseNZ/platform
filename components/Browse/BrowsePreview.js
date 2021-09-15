@@ -24,11 +24,14 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 				<h1 className={classes.h1}>{project.name}</h1>
 				{tab === 0 && (
 					<div className={classes.overview}>
-						<p className={classes.caption}>{project.caption}</p>
+						<p className={classes.caption}>
+							{project.caption}
+							{!paidAccess && <div className={classes.createAccount}>To continue, please create a FREE account.</div>}
+						</p>
 						<div className={classes.btnContainer}>
 							<Link href={`/project/${project.query}`}>
 								<div>
-									<SecondaryButton className={classes.continueBtn} mainLabel="Continue" iconRight={<i className="material-icons-outlined">play_arrow</i>} />
+									<SecondaryButton className={classes.continueBtn} mainLabel={paidAccess ? "Continue" : "Create a Free Account"} iconRight={<i className="material-icons-outlined">play_arrow</i>} />
 								</div>
 							</Link>
 						</div>
