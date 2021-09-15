@@ -1,28 +1,21 @@
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import Link from "next/link";
+// import dynamic from "next/dynamic";
 import ModuleContainer from "../UI/ModuleContainer";
 import VideoViewer from "../UI/VideoViewer";
 import Img from "../UI/Img";
 
 import classes from "./Research.module.scss";
 
-const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
+// const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
 
 const Research = ({ query, data, caption, setLoaded }) => {
 	const [active, setActive] = useState(0);
-	const [pdfLoaded, setPdfLoaded] = useState(false);
 
 	useEffect(() => {
 		setLoaded(true);
 	}, []);
 
-	useEffect(() => {
-		setTimeout(() => setPdfLoaded(true), [250]);
-	}, [active]);
-
 	const cardClickHandler = (i) => {
-		setPdfLoaded(false);
 		setActive(i);
 	};
 
@@ -31,8 +24,9 @@ const Research = ({ query, data, caption, setLoaded }) => {
 			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data} caption={caption} play={query} />
 			<div className={classes.mainContainer}>
 				{data[active].type === "pdf" && (
-					<div style={{ width: "100%", paddingTop: "10vh" }}>
-						<PdfViewer file={data[active].url} />
+					<div style={{ width: "100%", height: "100%" }}>
+						{/* <PdfViewer file={data[active].url} /> */}
+						<embed src={data[active].url} width="100%" height="100%" />
 					</div>
 				)}
 				{data[active].type === "video" && (
@@ -81,7 +75,6 @@ const Research = ({ query, data, caption, setLoaded }) => {
 							))}
 					</div>
 				)}
-				<div className={`${classes.loadScreen} ${pdfLoaded ? classes.loaded : ""}`} />
 			</div>
 		</div>
 	);
