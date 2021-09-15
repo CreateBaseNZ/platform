@@ -17,11 +17,11 @@
 	color: $lightest;
 	border-radius: 4px;
 	opacity: 0;
-	animation: animate 4s linear forwards;
+	animation: animate 5s linear forwards;
 }
 
 .neutral {
-	background: rgba(black, 0.25);
+	background: rgba(black, 0.5);
 }
 
 .success {
@@ -34,14 +34,23 @@
 	box-shadow: 0 4px 12px 0 rgba($red, 0.2);
 }
 
+.warning,
 .catastrophe {
 	text-align: center;
 	border-radius: 0;
 	margin-top: 0;
 	width: 100vw;
+	animation: remain 5s linear forwards;
+}
+
+.warning {
+	background: $amber;
+	box-shadow: 0 4px 12px 0 rgba($amber, 0.2);
+}
+
+.catastrophe {
 	background: $red;
 	box-shadow: 0 4px 12px 0 rgba($red, 0.2);
-	animation: remain 4s linear forwards;
 }
 
 @keyframes animate {
