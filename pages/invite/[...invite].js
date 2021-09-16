@@ -17,7 +17,7 @@ const Invite = () => {
 		if (!loading && router.query && router.query.invite) {
 			if (!router.query.invite[0] || !router.query.invite[1]) {
 				router.replace("/browse");
-				vbCtx.setBell({ type: "neutral", message: "Invalid invitation" });
+				vbCtx.setBell({ type: "error", message: "Invalid invitation" });
 				return null;
 			}
 			const type = router.query.invite[0];
@@ -51,13 +51,13 @@ const Invite = () => {
 					if (session) {
 						// unregistered educator already logged in
 						router.replace("/");
-						vbCtx.setBell({ type: "neutral", message: "Please log out first, then try the link again" });
+						vbCtx.setBell({ type: "warning", message: "Please log out first, then try the link again" });
 						return null;
 					} else {
 						// unregistered educator not logged in
 						router.replace("/auth/signup");
 						inviteCtx.setDetails({ isInvited: true, type: type, email: details[0], orgId: details[1], orgName: details[2].replaceAll("-", " "), orgCode: details[3] });
-						vbCtx.setBell({ type: "neutral", message: `Sign up to join ${details[2].replaceAll("-", " ")}` });
+						vbCtx.setBell({ type: "warning", message: `Sign up to join ${details[2].replaceAll("-", " ")}` });
 						return null;
 					}
 				} else {
@@ -95,14 +95,14 @@ const Invite = () => {
 				// learner
 				if (session) {
 					// learner already logged in
-					vbCtx.setBell({ type: "neutral", message: "Please log out first, then try the link again" });
+					vbCtx.setBell({ type: "warning", message: "Please log out first, then try the link again" });
 					router.replace("/");
 					return null;
 				} else {
 					// learner not logged in
 					inviteCtx.setDetails({ isInvited: true, type: type, orgId: details[0], orgName: details[1].replaceAll("-", " "), orgCode: details[2] });
 					router.replace("/auth/signup");
-					vbCtx.setBell({ type: "neutral", message: `Sign up to join ${details[1].replaceAll("-", " ")}` });
+					vbCtx.setBell({ type: "warning", message: `Sign up to join ${details[1].replaceAll("-", " ")}` });
 					return null;
 				}
 			}

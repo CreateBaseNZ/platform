@@ -30,7 +30,7 @@ const Browse = ({ user }) => {
 			</Head>
 			<div className={classes.inner}>
 				<div className={classes.preview}>
-					<BrowsePreview project={activeProject} videoLoaded={videoLoaded} setVideoLoaded={setVideoLoaded} paidAccess={user.loaded && (user.type === "admin" || user.type === "educator")} />
+					<BrowsePreview project={activeProject} videoLoaded={videoLoaded} setVideoLoaded={setVideoLoaded} user={user} />
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>

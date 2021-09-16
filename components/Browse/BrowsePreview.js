@@ -6,7 +6,9 @@ import classes from "./BrowsePreview.module.scss";
 
 const tabs = ["Overview", "Teaching", "Learning"];
 
-const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => {
+const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, user }) => {
+	console.log(user);
+
 	const [tab, setTab] = useState(0);
 
 	const clickHandler = (i) => {
@@ -24,18 +26,14 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 				<h1 className={classes.h1}>{project.name}</h1>
 				{tab === 0 && (
 					<div className={classes.overview}>
-						<p className={classes.caption}>
+						<div className={classes.caption}>
 							{project.caption}
-							{!paidAccess && <div className={classes.createAccount}>To continue, please create or log into a FREE account.</div>}
-						</p>
+							{user.loaded & !user.type && <p className={classes.createAccount}>To view lesson plans and teaching content, please create or log into a FREE educator account.</p>}
+						</div>
 						<div className={classes.btnContainer}>
 							<Link href={`/project/${project.query}`}>
 								<div>
-									<SecondaryButton
-										className={classes.continueBtn}
-										mainLabel={paidAccess ? "Continue" : "Login / Signup free account"}
-										iconRight={<i className="material-icons-outlined">play_arrow</i>}
-									/>
+									<SecondaryButton className={classes.continueBtn} mainLabel="Continue" iconRight={<i className="material-icons-outlined">play_arrow</i>} />
 								</div>
 							</Link>
 						</div>
@@ -92,7 +90,7 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, paidAccess }) => 
 					</div>
 				)}
 			</div>
-			{paidAccess && (
+			{user.loaded && (user.type === "educator" || user.type === "admin") && (
 				<div className={classes.tabContainer}>
 					{tabs.map((t, i) => (
 						<button key={i} className={`${classes.tab} ${tab === i ? classes.active : ""}`} onClick={() => clickHandler(i)}>
