@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import classes from "./AdminConsole.module.scss";
 import Table from "./Table";
+import TableControls from "./TableControls";
+import TableFooter from "./TableFooter";
+import TableHead from "./TableHead";
 
 const columns = {
 	learners: ["display Name", "username", "joined", "invited By"],
@@ -144,53 +147,32 @@ const adminsData = [
 ];
 
 const sizes = [10, 20, 50, 100, "All"];
+const allSize = 9999;
+const tabs = [
+	{ label: "learners", icon: "backpack" },
+	{ label: "educators", icon: "school" },
+	{ label: "admins", icon: "verified_user" },
+];
 
 const initData = {
-	learners: learnersData.map((d) => ({ ...d, checked: false })),
-	educators: educatorsData.map((d) => ({ ...d, checked: false })),
-	admins: adminsData.map((d) => ({ ...d, checked: false })),
+	learners: learnersData.map((d, i) => ({ ...d, checked: false, index: i })),
+	educators: educatorsData.map((d, i) => ({ ...d, checked: false, index: i })),
+	admins: adminsData.map((d, i) => ({ ...d, checked: false, index: i })),
 };
 
 const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
-	const [tab, setTab] = useState("learners");
+	const [tab, setTab] = useState(tabs[0].label);
 	const [allUsers, setAllUsers] = useState(initData);
 	const [isChecked, setIsChecked] = useState({ learners: false, educators: false, admins: false });
 	const [size, setSize] = useState(20);
 	const [page, setPage] = useState(0);
-	const [sort, setSort] = useState({ colName: null, ascending: null });
+	const [sort, setSort] = useState({ colName: "index", ascending: null });
 	const [showSizeMenu, setShowSizeMenu] = useState(false);
-
-	console.log(allUsers);
+	const [search, setSearch] = useState();
 
 	useEffect(() => {
 		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].some((d) => d.checked) }));
 	}, [tab, allUsers]);
-
-	// useEffect(() => {
-	// 	setAllUsers((state) => {
-	// 		let view = [...initData[tab]];
-	// 		if (sort.colName) {
-	// 			view.sort((a, b) => {
-	// 				if (sort.ascending) {
-	// 					if (a[sort.colName].toUpperCase() < b[sort.colName].toUpperCase()) {
-	// 						return -1;
-	// 					}
-	// 					if (a[sort.colName].toUpperCase() > b[sort.colName].toUpperCase()) {
-	// 						return 1;
-	// 					}
-	// 				} else {
-	// 					if (a[sort.colName].toUpperCase() < b[sort.colName].toUpperCase()) {
-	// 						return 1;
-	// 					}
-	// 					if (a[sort.colName].toUpperCase() > b[sort.colName].toUpperCase()) {
-	// 						return -1;
-	// 					}
-	// 				}
-	// 			});
-	// 		}
-	// 		return { ...state, [tab]: view };
-	// 	});
-	// }, [sort, tab]);
 
 	const checkHandler = (row) => {
 		setAllUsers((state) => ({
@@ -219,8 +201,12 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		}
 	};
 
+	const searchHandler = (e) => {
+		console.log(e.target.value);
+	};
+
 	const setSizeHandler = (selected) => {
-		setSize(selected);
+		selected === "All" ? setSize(allSize) : setSize(selected);
 	};
 
 	const sortByColHandler = (col) => {
@@ -228,7 +214,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		setSort((state) => {
 			if (state.colName === colName) {
 				if (!state.ascending) {
-					return { colName: null, ascending: null };
+					return { colName: "index", ascending: null };
 				} else {
 					return { colName: colName, ascending: false };
 				}
@@ -238,173 +224,33 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		});
 	};
 
-	const renderPagination = () => {
-		const nPages = Math.ceil(allUsers[tab].length / size);
-		const renderPages = () => {
-			if (nPages <= 7) {
-				return (
-					<>
-						{[...Array(nPages).keys()].map((p) => (
-							<button key={p} className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`} onClick={() => setPage(p)}>
-								{p + 1}
-							</button>
-						))}
-					</>
-				);
-			} else {
-				if (page <= 3) {
-					return (
-						<>
-							{[...Array(5).keys()].map((p) => (
-								<button key={p} className={`${classes.pageBtn} ${p === page ? classes.activePage : ""}`} onClick={() => setPage(p)}>
-									{p + 1}
-								</button>
-							))}
-							<button className={classes.pageBtn} style={{ pointerEvents: "none" }}>
-								...
-							</button>
-							<button className={classes.pageBtn} onClick={() => setPage(nPages - 1)}>
-								{nPages}
-							</button>
-						</>
-					);
-				} else if (nPages - page <= 4) {
-					return (
-						<>
-							<button className={classes.pageBtn} onClick={() => setPage(0)}>
-								1
-							</button>
-							<button className={classes.pageBtn}>...</button>
-							{[...Array(5).keys()].reverse().map((p) => (
-								<button key={p} className={`${classes.pageBtn} ${nPages - p - 1 === page ? classes.activePage : ""}`} onClick={() => setPage(nPages - p - 1)}>
-									{nPages - p}
-								</button>
-							))}
-						</>
-					);
-				} else {
-					return (
-						<>
-							<button className={classes.pageBtn} onClick={() => setPage(0)}>
-								1
-							</button>
-							<button className={classes.pageBtn} style={{ pointerEvents: "none" }}>
-								...
-							</button>
-							{[-1, 0, 1].map((p) => (
-								<button key={p} className={`${classes.pageBtn} ${p === 0 ? classes.activePage : ""}`} onClick={() => setPage(page + p)}>
-									{page + p + 1}
-								</button>
-							))}
-							<button className={classes.pageBtn} style={{ pointerEvents: "none" }}>
-								...
-							</button>
-							<button className={classes.pageBtn} onClick={() => setPage(nPages - 1)}>
-								{nPages}
-							</button>
-						</>
-					);
-				}
-			}
-		};
-		return (
-			<>
-				<i className={`material-icons-outlined ${classes.pageBtn} ${page === 0 || nPages <= 7 ? classes.disabled : ""}`} onClick={() => setPage((state) => state - 1)}>
-					navigate_before
-				</i>
-				<div className={classes.pages}>{renderPages()}</div>
-				<i className={`material-icons-outlined ${classes.pageBtn} ${page + 1 === nPages || nPages <= 7 ? classes.disabled : ""}`} onClick={() => setPage((state) => state + 1)}>
-					navigate_next
-				</i>
-			</>
-		);
-	};
-
 	return (
 		<div className={classes.adminConsole}>
-			<div className={classes.controls}>
-				<div className={classes.mainBtnContainer}>
-					{!isChecked[tab] && (
-						<>
-							<button className={`${classes.tab} ${tab === "learners" ? classes.active : ""}`} onClick={() => setTab("learners")}>
-								<i className="material-icons-outlined">backpack</i> Learners
-							</button>
-							<button className={`${classes.tab} ${tab === "educators" ? classes.active : ""}`} onClick={() => setTab("educators")}>
-								<i className="material-icons-outlined">school</i> Educators
-							</button>
-							<button className={`${classes.tab} ${tab === "admins" ? classes.active : ""}`} onClick={() => setTab("admins")}>
-								<i className="material-icons-outlined">verified_user</i> Admins
-							</button>
-						</>
-					)}
-					{isChecked[tab] && (
-						<>
-							<div className={classes.nSelected}>{allUsers[tab].filter((d) => d.checked).length} selected</div>
-							<div className={classes.actions}>
-								<button>
-									<i className="material-icons-outlined">password</i>
-									<div className={classes.title}>Reset password</div>
-								</button>
-								{tab !== "learner" && (
-									<button>
-										<i className="material-icons-outlined">add_moderator</i>
-										<div className={classes.title}>Promote to Admin</div>
-									</button>
-								)}
-								<button>
-									<i className="material-icons-outlined">person_remove</i>
-									<div className={classes.title}>Remove from org</div>
-								</button>
-							</div>
-						</>
-					)}
-				</div>
-				<div className={classes.otherBtnContainer}>
-					<div className={classes.search}>
-						<input placeholder="Search" />
-						<i className="material-icons-outlined">search</i>
-					</div>
-					<button className={classes.toggleHeader} onClick={() => setCollapseHeader((state) => !state)}>
-						<span>{collapseHeader ? "Collapse" : "Expand"}</span>
-						<i className="material-icons-outlined" style={{ transform: collapseHeader && "rotate(180deg)" }}>
-							expand_less
-						</i>
-					</button>
-				</div>
-			</div>
-			<div className={classes.tableHead}>
-				<button className={`${classes.colName} ${classes.check} ${isChecked[tab] ? classes.checked : ""}`} onClick={toggleAllCheckboxHandler} title={isChecked[tab] ? "Deselect all" : "Select all"}>
-					<i className="material-icons-outlined">remove</i>
-				</button>
-				{columns[tab].map((c) => (
-					<button key={c} className={`${classes.colName} ${classes[c.replace(" ", "")]} ${sort.colName === c.replace(" ", "") ? classes.active : ""}`} onClick={sortByColHandler.bind(this, c)}>
-						<span>{c}</span> <i className={`material-icons-outlined ${sort.ascending ? classes.ascending : classes.descending}`}>arrow_upward</i>
-					</button>
-				))}
-			</div>
-			<div className={`${classes.table} roundScrollbar`}>
-				<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={columns} sort={sort} />
-			</div>
-			<div className={classes.tableFooter}>
-				<div className={classes.viewSize}>
-					View
-					<button className={`${classes.viewSizeBtn} ${showSizeMenu ? classes.show : ""}`} onClick={() => setShowSizeMenu((state) => !state)} onBlur={() => setShowSizeMenu(false)}>
-						<span>{size}</span> <i className="material-icons-outlined">expand_less</i>
-						<div className={classes.viewSizeMenu}>
-							{sizes.map((o) => (
-								<div key={o} onClick={() => setSizeHandler(o)}>
-									{o}
-								</div>
-							))}
-						</div>
-					</button>
-					per page
-				</div>
-				<div className={classes.pagination}>{renderPagination()}</div>
-				<div className={classes.results}>
-					{page * size + 1} - {Math.min(page * size + size + 1, allUsers[tab].length)} of {allUsers[tab].length} {tab}
-				</div>
-			</div>
+			<TableControls
+				isChecked={isChecked}
+				tab={tab}
+				setTab={setTab}
+				tabs={tabs}
+				allUsers={allUsers}
+				collapseHeader={collapseHeader}
+				setCollapseHeader={setCollapseHeader}
+				search={search}
+				searchHandler={searchHandler}
+			/>
+			<TableHead isChecked={isChecked} tab={tab} toggleAllCheckboxHandler={toggleAllCheckboxHandler} columns={columns} sort={sort} sortByColHandler={sortByColHandler} />
+			<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={columns} sort={sort} />
+			<TableFooter
+				showSizeMenu={showSizeMenu}
+				setShowSizeMenu={setShowSizeMenu}
+				allSize={allSize}
+				size={size}
+				sizes={sizes}
+				setSizeHandler={setSizeHandler}
+				page={page}
+				setPage={setPage}
+				allUsers={allUsers}
+				tab={tab}
+			/>
 		</div>
 	);
 };

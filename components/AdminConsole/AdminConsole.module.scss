@@ -29,6 +29,7 @@
 		font-weight: 600;
 		font-size: 12px;
 		margin-right: 2rem;
+		text-transform: capitalize;
 		transition: color 0.1s ease-out;
 		i {
 			color: inherit;
@@ -194,7 +195,7 @@
 }
 
 .tableHead {
-	padding: 0 1rem;
+	padding: 0 calc(1rem + 8px) 0 1rem;
 	margin-top: 1rem;
 	height: 40px;
 	background: $lightest;
@@ -204,7 +205,7 @@
 }
 
 .colName {
-	flex-grow: 1;
+	flex: 1 1;
 	text-transform: uppercase;
 	display: flex;
 	align-items: center;
@@ -351,7 +352,7 @@
 }
 
 .cell {
-	flex-grow: 1;
+	flex: 1 1;
 	color: $dark;
 	font-weight: 500;
 	font-size: 12px;
@@ -404,7 +405,7 @@
 		height: 2.5rem;
 		margin: 0 0.5rem;
 		position: relative;
-		width: 4rem;
+		width: 4.5rem;
 		border: thin solid $lighter;
 		border-radius: 8px;
 		transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
