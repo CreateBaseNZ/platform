@@ -166,31 +166,31 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].some((d) => d.checked) }));
 	}, [tab, allUsers]);
 
-	useEffect(() => {
-		setAllUsers((state) => {
-			let view = [...initData[tab]];
-			if (sort.colName) {
-				view.sort((a, b) => {
-					if (sort.ascending) {
-						if (a[sort.colName].toUpperCase() < b[sort.colName].toUpperCase()) {
-							return -1;
-						}
-						if (a[sort.colName].toUpperCase() > b[sort.colName].toUpperCase()) {
-							return 1;
-						}
-					} else {
-						if (a[sort.colName].toUpperCase() < b[sort.colName].toUpperCase()) {
-							return 1;
-						}
-						if (a[sort.colName].toUpperCase() > b[sort.colName].toUpperCase()) {
-							return -1;
-						}
-					}
-				});
-			}
-			return { ...state, [tab]: view };
-		});
-	}, [sort, tab]);
+	// useEffect(() => {
+	// 	setAllUsers((state) => {
+	// 		let view = [...initData[tab]];
+	// 		if (sort.colName) {
+	// 			view.sort((a, b) => {
+	// 				if (sort.ascending) {
+	// 					if (a[sort.colName].toUpperCase() < b[sort.colName].toUpperCase()) {
+	// 						return -1;
+	// 					}
+	// 					if (a[sort.colName].toUpperCase() > b[sort.colName].toUpperCase()) {
+	// 						return 1;
+	// 					}
+	// 				} else {
+	// 					if (a[sort.colName].toUpperCase() < b[sort.colName].toUpperCase()) {
+	// 						return 1;
+	// 					}
+	// 					if (a[sort.colName].toUpperCase() > b[sort.colName].toUpperCase()) {
+	// 						return -1;
+	// 					}
+	// 				}
+	// 			});
+	// 		}
+	// 		return { ...state, [tab]: view };
+	// 	});
+	// }, [sort, tab]);
 
 	const checkHandler = (row) => {
 		setAllUsers((state) => ({
@@ -383,7 +383,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 				))}
 			</div>
 			<div className={`${classes.table} roundScrollbar`}>
-				<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={columns} />
+				<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={columns} sort={sort} />
 			</div>
 			<div className={classes.tableFooter}>
 				<div className={classes.viewSize}>
