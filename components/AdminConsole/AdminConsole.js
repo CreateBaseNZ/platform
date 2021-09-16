@@ -168,7 +168,8 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const [page, setPage] = useState(0);
 	const [sort, setSort] = useState({ colName: "index", ascending: null });
 	const [showSizeMenu, setShowSizeMenu] = useState(false);
-	const [search, setSearch] = useState();
+	const [search, setSearch] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].some((d) => d.checked) }));
@@ -202,7 +203,8 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	};
 
 	const searchHandler = (e) => {
-		console.log(e.target.value);
+		setIsLoading(true);
+		setSearch(e.target.value);
 	};
 
 	const setSizeHandler = (selected) => {
@@ -238,7 +240,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 				searchHandler={searchHandler}
 			/>
 			<TableHead isChecked={isChecked} tab={tab} toggleAllCheckboxHandler={toggleAllCheckboxHandler} columns={columns} sort={sort} sortByColHandler={sortByColHandler} />
-			<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={columns} sort={sort} />
+			<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={columns} sort={sort} search={search} isLoading={isLoading} setIsLoading={setIsLoading} />
 			<TableFooter
 				showSizeMenu={showSizeMenu}
 				setShowSizeMenu={setShowSizeMenu}

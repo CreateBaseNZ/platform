@@ -280,6 +280,7 @@
 	flex: 1 1 0;
 	overflow-y: scroll;
 	border-bottom: thin solid $lighter;
+	position: relative;
 	&::-webkit-scrollbar {
 		width: 8px;
 	}
@@ -380,6 +381,18 @@
 
 .invitedBy {
 	flex-basis: 10rem;
+}
+
+.loadingScreen {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: $lightest;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	color: $light;
 }
 
 .tableFooter {

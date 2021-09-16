@@ -1,8 +1,35 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import classes from "./AdminConsole.module.scss";
 
-const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort }) => {
-	let view = [...allUsers[tab]];
+const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort, search, isLoading, setIsLoading }) => {
+	useEffect(() => setIsLoading(false));
+
+	const getState = (data, inputValue, state = false) => {
+		for (const value of Object.values(data)) {
+			if (typeof value === "object" && value !== null && Object.keys(value).length > 0 && state === false) {
+				state = getState(value, inputValue, state);
+			} else {
+				if (state === false) {
+					state = JSON.stringify(value).toLowerCase().includes(inputValue.toLowerCase());
+				} else {
+					return state;
+				}
+			}
+		}
+		return state;
+	};
+
+	const filter = (data, inputValue) => {
+		return data.filter((element) => getState(element, inputValue));
+	};
+
+	let view;
+	if (search) {
+		view = filter([...allUsers[tab]], search);
+	} else {
+		view = [...allUsers[tab]];
+	}
+
 	if (sort.colName === "index") {
 		view.sort((a, b) => {
 			return a[sort.colName] - b[sort.colName];
@@ -27,11 +54,9 @@ const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort }) => {
 		});
 	}
 
-	view.splice(page * size, page * size + size);
-
 	return (
 		<div className={`${classes.table} roundScrollbar`}>
-			{view.map((values, i) => (
+			{view.slice(page * size, page * size + size).map((values, i) => (
 				<div
 					key={i}
 					className={`${classes.row} ${values.checked ? classes.checkedRow : ""} ${view[i + 1] && view[i + 1].checked ? classes.sharpBottom : ""}`}
@@ -45,7 +70,8 @@ const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort }) => {
 						</div>
 					))}
 				</div>
-			))}{" "}
+			))}
+			{isLoading && <div className={classes.loadingScreen}>Loading ...</div>}
 		</div>
 	);
 };

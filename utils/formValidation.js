@@ -13,8 +13,8 @@ export const usernameMinLength = {
 };
 
 export const usernamePattern = {
-	value: /^[a-zA-Z0-9]+$/,
-	message: "Usernames can only contain alphanumeric characters",
+	value: /^[\w-]+$/,
+	message: "Usernames can only contain alphanumeric, -, and _",
 };
 
 export const displayNameMinLength = {
@@ -23,8 +23,8 @@ export const displayNameMinLength = {
 };
 
 export const displayNamePattern = {
-	value: /^[a-zA-Z\- ]+$/,
-	message: "Display names can only contain A—Z, a—z, and -",
+	value: /^[a-zA-Z\-\. ]+$/,
+	message: "Display names can only contain A—Z, a—z, -, and .",
 };
 
 export const isBlacklisted = (str) => {
