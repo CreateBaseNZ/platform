@@ -86,7 +86,7 @@ const Invite = () => {
 						return null;
 					} else {
 						// educator via link and not logged in
-						vbCtx.setBell({ type: "neutral", message: "Please log in or sign up, then try the link again" });
+						vbCtx.setBell({ type: "warning", message: "Please log in or sign up, then try the link again" });
 						router.replace("/");
 						return null;
 					}

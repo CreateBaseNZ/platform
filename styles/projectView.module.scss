@@ -1,88 +1,88 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .projectView {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  display: flex;
-  background: $lighter;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	display: flex;
+	background: $lighter;
 }
 
 .tabContainer {
-  height: 100%;
-  flex: 0 0 20vw;
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  padding: 5vh 2vw;
-  background: $bg-light;
-  .tabWrapper {
-    padding: 1vh 0;
-    width: 100%;
-    &:hover .tab {
-      color: $dark;
-      span {
-        transform: translateX(2px);
-      }
-    }
-    &.activeTab {
-      pointer-events: none;
-      .tab {
-        color: $logo-mid;
-        background: #f7f3ff;
-        padding-left: 1.5rem;
-      }
-    }
-  }
-  .tab {
-    width: 100%;
-    padding: 1rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    color: $light;
-    font-size: 14px;
-    font-weight: 600;
-    transition: background-color 0.1s ease-out, color 0.1s ease-out,
-      padding 0.1s ease-out;
-    span {
-      margin-right: 1vw;
-      color: inherit;
-      transition: transform 0.1s ease-out;
-    }
-  }
+	height: 100%;
+	flex: 0 0 20vw;
+	max-width: 300px;
+	display: flex;
+	flex-direction: column;
+	padding: 5vh 2vw;
+	background: $lightest;
+	.tabWrapper {
+		padding: 1vh 0;
+		width: 100%;
+		&:hover .tab {
+			color: $dark;
+			background: $lighter;
+			span {
+				transform: translateX(2px);
+			}
+		}
+		&.activeTab {
+			pointer-events: none;
+			.tab {
+				color: $logo-mid;
+				background: rgba($logo-mid, 0.05);
+				padding-left: 1.5rem;
+			}
+		}
+	}
+	.tab {
+		width: 100%;
+		padding: 1rem;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		color: $light;
+		font-size: 14px;
+		font-weight: 600;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out, padding 0.1s ease-out;
+		span {
+			margin-right: 1vw;
+			color: inherit;
+			transition: transform 0.1s ease-out;
+		}
+	}
 }
 
 .backBtn {
-  align-self: flex-start;
-  margin-top: -2vh;
-  margin-left: -1rem;
-  margin-bottom: 4vh;
-  padding: 1vh 1rem;
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  color: $dark;
-  font-weight: 600;
-  border-radius: 4px;
-  opacity: 0.75;
-  transition: background-color 0.1s ease-out, opacity 0.1s ease-out;
-  span {
-    color: inherit;
-    margin-right: 0.5rem;
-    font-size: 12px;
-    transition: transform 0.1s ease-out;
-  }
-  &:hover {
-    background: rgba(black, 0.05);
-    opacity: 1;
-    span {
-      transform: translateX(-2px);
-    }
-  }
+	align-self: flex-start;
+	margin-top: -2vh;
+	margin-left: -1rem;
+	margin-bottom: 4vh;
+	padding: 1vh 1rem;
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	color: $dark;
+	font-weight: 600;
+	border-radius: 8px;
+	opacity: 0.75;
+	transition: background-color 0.1s ease-out, opacity 0.1s ease-out;
+	span {
+		color: inherit;
+		margin-right: 0.5rem;
+		font-size: 12px;
+		transition: transform 0.1s ease-out;
+	}
+	&:hover {
+		background: rgba(black, 0.05);
+		opacity: 1;
+		span {
+			transform: translateX(-2px);
+		}
+	}
 }
 
 .viewContainer {
-  height: 100%;
-  flex: 1 1 0;
+	height: 100%;
+	flex: 1 1 0;
 }

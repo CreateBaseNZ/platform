@@ -181,12 +181,14 @@ svg {
 }
 
 .mobileView {
-	position: absolute;
+	position: static;
 	top: 0;
 	left: 0;
 	z-index: 500;
 	height: 100vh;
 	width: 100vw;
+	max-height: 100vh;
+	max-width: 100vw;
 	overflow: hidden;
 	background: $lightest;
 	display: flex;

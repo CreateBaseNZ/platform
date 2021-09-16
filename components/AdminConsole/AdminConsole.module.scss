@@ -18,6 +18,7 @@
 	.mainBtnContainer {
 		height: 100%;
 		display: flex;
+		align-items: center;
 	}
 	.tab {
 		height: 100%;
@@ -51,6 +52,60 @@
 			color: $logo-mid;
 			&::after {
 				width: 32px;
+			}
+		}
+	}
+	.nSelected {
+		font-size: 12px;
+		color: $blue-mid;
+		font-weight: 600;
+		margin-right: 2rem;
+		width: 5.5rem;
+	}
+	.actions {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 3rem;
+			height: 3rem;
+			margin: 0 0.5rem;
+			border-radius: 16px;
+			background: rgba($blue-mid, 0.05);
+			position: relative;
+			transition: background-color 0.1s ease-out;
+			i {
+				color: $blue-mid;
+				font-size: 20px;
+				transition: color 0.1s ease-out;
+			}
+			.title {
+				position: absolute;
+				top: 0;
+				left: 50%;
+				opacity: 0;
+				color: $blue-mid;
+				padding: 6px 12px;
+				font-size: 12px;
+				font-weight: 500;
+				background: rgba($blue-mid, 0.05);
+				white-space: nowrap;
+				border-radius: 8px;
+				transform: translate(-50%, -2rem);
+				transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+			}
+			&:hover {
+				background: $blue-mid;
+				i {
+					color: white;
+				}
+				.title {
+					opacity: 1;
+					transform: translate(-50%, -2.25rem);
+				}
 			}
 		}
 	}
@@ -150,20 +205,45 @@
 
 .colName {
 	flex-grow: 1;
-	font-size: 11px;
-	color: $darker;
-	font-weight: 600;
-	letter-spacing: 0.05em;
 	text-transform: uppercase;
 	display: flex;
 	align-items: center;
 	padding-left: 1rem;
+	transition: color 0.1s ease-out;
+	span {
+		margin-top: 0.1rem;
+		font-size: 11px;
+		color: $darker;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		padding-right: 0.25rem;
+	}
+	i {
+		opacity: 0;
+		color: $blue-mid;
+		font-size: 12px;
+		transform: rotate(180deg);
+		transition: transform 0.2s ease-out, opacity 0.1s ease-out;
+		&.ascending {
+			transform: none;
+			transition: opacity 0.1s ease-out;
+		}
+	}
+	&.active {
+		span {
+			color: $blue-mid;
+		}
+		i {
+			opacity: 1;
+		}
+	}
 }
 
 .check {
 	flex-grow: 0;
 	padding: 0 0.5rem;
 	i {
+		opacity: 1;
 		font-size: 12px;
 		color: inherit;
 		border: thin solid $light;
@@ -330,7 +410,7 @@
 		transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
 		span {
 			color: $blue-mid;
-			font-weight: 500;
+			font-weight: 600;
 			margin-right: 0.25rem;
 		}
 		i {

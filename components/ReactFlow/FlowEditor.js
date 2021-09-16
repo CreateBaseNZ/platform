@@ -79,6 +79,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 			setVisualBell((state) => ({
 				message: "Copied to clipboard",
 				switch: !state.switch,
+				show: true,
 			}));
 		}
 	}, [clipBoard]);
@@ -128,6 +129,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 
 	// deleting an element
 	const onElementsRemove = useCallback((elementsToRemove) => {
+		console.log(elementsToRemove);
 		let edges = [];
 		const filteredElements = elementsToRemove.filter((el) => {
 			if (isEdge(el)) {
@@ -137,6 +139,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 				setVisualBell((state) => ({
 					message: "Cannot delete Start block",
 					switch: !state.switch,
+					show: true,
 				}));
 				return false;
 			}
@@ -144,7 +147,9 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 		});
 		setElements((els) =>
 			removeElements(filteredElements, els).map((el) => {
+				console.log(el);
 				for (const edge of edges) {
+					console.log(edge);
 					if (el.id === edge.source) {
 						return removeConnection(el, edge.sourceHandle);
 					} else if (el.id === edge.target) {
@@ -181,6 +186,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 			setVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
+				show: true,
 			}));
 			return;
 		}
@@ -276,6 +282,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 				return setVisualBell((state) => ({
 					message: "Blocks autoconnected",
 					switch: !state.switch,
+					show: true,
 				}));
 			}
 		}
@@ -289,16 +296,39 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 		}
 	};
 
-	const pasteSelection = () => {
+	const pasteSelection = (x, y) => {
 		if (flowLocked) {
 			flashLockIcon();
 			setVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
+				show: true,
 			}));
 			return;
 		}
 		if (clipBoard && clipBoard.length) {
+			let xDiff = 0;
+			let yDiff = 0;
+			if (x && y) {
+				const reactFlowBounds = wrapperRef.current.getBoundingClientRect();
+				const position = reactFlowInstance.project({
+					x: x - reactFlowBounds.left,
+					y: y - reactFlowBounds.top,
+				});
+				console.log(x);
+				console.log(y);
+				let allX = [];
+				let allY = [];
+				clipBoard
+					.filter((el) => isNode(el))
+					.map((el) => {
+						allX.push(el.position.x);
+						allY.push(el.position.y);
+					});
+				xDiff = position.x - Math.min(...allX);
+				yDiff = position.y - Math.min(...allY);
+			}
+
 			let mapping = {};
 			let edges = [];
 			for (const el of clipBoard) {
@@ -307,7 +337,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 					mapping[el.id] = {
 						id: newId,
 						type: el.type,
-						position: el.position,
+						position: { x: el.position.x + xDiff, y: el.position.y + yDiff },
 						data: { ...el.data, connections: [] },
 					};
 				} else {
@@ -329,12 +359,20 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 				});
 
 			const newNodes = Object.keys(mapping).map((key) => mapping[key]);
+			console.log(newNodes);
 			const newEls = newNodes.concat(newEdges);
 			setElements((els) => els.concat(newEls));
 			setSelectedElements(newEls);
 			setVisualBell((state) => ({
 				message: "Code pasted",
 				switch: !state.switch,
+				show: true,
+			}));
+		} else {
+			setVisualBell((state) => ({
+				message: "Nothing on clipboard",
+				switch: !state.switch,
+				show: true,
 			}));
 		}
 	};
@@ -345,6 +383,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 			setVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
+				show: true,
 			}));
 			return;
 		}
@@ -363,6 +402,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 			setVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
+				show: true,
 			}));
 			return;
 		}
@@ -382,6 +422,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 		setVisualBell((state) => ({
 			message: "Code saved",
 			switch: !state.switch,
+			show: true,
 		}));
 	};
 
@@ -391,6 +432,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 			setVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
+				show: true,
 			}));
 			return;
 		}
@@ -572,6 +614,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 
 	const nodeCtxMenuHandler = (e, node) => {
 		e.preventDefault();
+		console.log(node);
 		setNodeCtxMenu({ show: true, x: e.clientX, y: e.clientY, node: node });
 	};
 
@@ -652,7 +695,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 						</aside>
 					</div>
 				)}
-				{visualBell.message && <VisualBell message={visualBell.message} />}
+				<VisualBell show={visualBell.show} message={visualBell.message} />
 			</div>
 			<ClientOnlyPortal selector="#ctx-menu-root">
 				<NodeContextMenu
@@ -660,6 +703,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 					x={nodeCtxMenu.x}
 					y={nodeCtxMenu.y}
 					node={nodeCtxMenu.node}
+					elements={elements}
 					blurHandler={nodeCtxBlurHandler}
 					selectHandler={setSelectedElements}
 					copyHandler={copySelection}
@@ -677,6 +721,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 					allowRedo={allowRedo}
 					flowLocked={flowLocked}
 					blurHandler={paneCtxBlurHandler}
+					pasteHandler={pasteSelection}
 					undoHandler={undoAction}
 					redoHandler={redoAction}
 					saveHandler={saveFlow}

@@ -13,6 +13,7 @@ const VerifyAccountForm = ({ setUser }) => {
 	const ctx = useContext(VisualBellContext);
 	const { verifyAccount, resendVerificationCode } = useAuthHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
+	const [isResending, setIsResending] = useState(false);
 	const [error, setError] = useState();
 	const [code, setCode] = useState([...Array(codeLength)].map(() => ""));
 	const refs = useRef([]);
@@ -37,7 +38,13 @@ const VerifyAccountForm = ({ setUser }) => {
 	};
 
 	const resendCodeHandler = () => {
-		resendVerificationCode({ successHandler: () => ctx.setBell({ type: "neutral", message: "New code sent" }) });
+		setIsResending(true);
+		resendVerificationCode({
+			successHandler: () => {
+				ctx.setBell({ type: "success", message: "New code sent" });
+				setIsResending(false);
+			},
+		});
 	};
 
 	const changeHandler = (e, idx) => {
@@ -95,9 +102,13 @@ const VerifyAccountForm = ({ setUser }) => {
 				The code you entered is incorrect or has expired
 			</div>
 			<PrimaryButton className={classes.loading} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0, pointerEvents: "none" }} />
-			<button type="button" className={`${classes.resend} ${isLoading ? classes.disabled : ""}`} onClick={resendCodeHandler}>
-				Resend code
-			</button>
+			{isResending ? (
+				<div className={classes.instruction}>Resending ...</div>
+			) : (
+				<button type="button" className={`${classes.resend} ${isLoading ? classes.disabled : ""}`} onClick={resendCodeHandler}>
+					Resend code
+				</button>
+			)}
 		</form>
 	);
 };

@@ -1,47 +1,46 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .view {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	height: 100%;
+	width: 100%;
+	padding: 5vh 0;
+	display: flex;
+	justify-content: center;
 }
 
 .container {
-  height: 75%;
-  width: 90%;
-  display: flex;
-  h2 {
-    font-size: 1.5rem;
-    margin: 1vh 0;
-    font-weight: 600;
-    color: $light;
-  }
+	min-height: 100%;
+	width: 90%;
+	display: flex;
+	align-self: flex-start;
+	h2 {
+		font-size: 1.5rem;
+		margin: 1vh 0;
+		font-weight: 600;
+		color: $light;
+	}
 }
 
 .imgWrapper {
-  position: relative;
-  height: 100%;
-  width: 50%;
-  margin-right: 5vw;
+	position: relative;
+	width: 50%;
+	margin: auto 5vw auto 0;
 }
 
 .contentContainer {
-  height: 100%;
-  max-width: 500px;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
+	max-width: 500px;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
 }
 
 .content {
-  margin: 1.5vh 0;
-  width: 100%;
-  padding: 3vh 2vw;
-  color: $dark;
-  background: rgba(black, 0.05);
-  font-weight: 500;
-  border-radius: 8px;
-  font-size: 14px;
+	margin: 1.5vh 0;
+	width: 100%;
+	padding: 3vh 2vw;
+	color: $dark;
+	background: rgba(black, 0.05);
+	font-weight: 500;
+	border-radius: 8px;
+	font-size: 14px;
 }

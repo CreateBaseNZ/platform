@@ -4,8 +4,8 @@ import classes from "./Improve.module.scss";
 
 const Improve = ({ query, data }) => {
 	return (
-		<div className={classes.view}>
-			<div className={`${classes.leftContainer} roundScrollbar`}>
+		<div className={`${classes.view} roundScrollbar`}>
+			<div className={classes.leftContainer}>
 				{data && data.alert && (
 					<div className={classes.alert}>
 						<h2>
@@ -50,4 +50,5 @@ const Improve = ({ query, data }) => {
 		</div>
 	);
 };
+
 export default Improve;
