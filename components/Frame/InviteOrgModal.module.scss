@@ -211,6 +211,10 @@
 			color: $red;
 			border: thin solid rgba($red, 0.5);
 			background: rgba($red, 0.1);
+			i {
+				color: $red;
+				opacity: 1;
+			}
 		}
 	}
 	.emailInput {

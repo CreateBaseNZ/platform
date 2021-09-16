@@ -49,13 +49,21 @@ const InviteOrgModal = ({ user }) => {
 	};
 
 	const changeHandler = (e) => {
-		let value = e.target.value.trim();
-		if (/\s$/.test(e.target.value) && value) {
+		let value = e.target.value.trim().replace(",", "");
+		if (/,|\s$/.test(e.target.value) && value) {
 			const valid = emailPattern.value.test(value);
 			setEmailList((state) => [...state, { valid: valid, value: value }]);
 			setEmailInput("");
 		} else {
 			setEmailInput(e.target.value);
+		}
+	};
+
+	const blurHandler = () => {
+		if (emailRef.current.value) {
+			const valid = emailPattern.value.test(emailRef.current.value);
+			setEmailList((state) => [...state, { valid: valid, value: emailRef.current.value }]);
+			setEmailInput("");
 		}
 	};
 
@@ -110,7 +118,7 @@ const InviteOrgModal = ({ user }) => {
 						<i className="material-icons-outlined">forward_to_inbox</i>
 						Invite with email
 					</div>
-					<div className={`${classes.textarea} roundScrollbar`} onClick={() => emailRef.current.focus()}>
+					<div className={`${classes.textarea} roundScrollbar`} onClick={() => emailRef.current.focus()} onBlur={blurHandler}>
 						{emailList.map((email, i) => (
 							<button
 								key={i}
@@ -124,7 +132,7 @@ const InviteOrgModal = ({ user }) => {
 						<input
 							ref={emailRef}
 							className={classes.emailInput}
-							placeholder="Emails must be followed by a space or pressing Enter"
+							placeholder={`E.g. john@mail.com, jane@mail.com`}
 							onChange={changeHandler}
 							onKeyDown={keyDownHandler}
 							type="text"
