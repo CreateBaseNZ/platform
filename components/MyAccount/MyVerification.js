@@ -58,9 +58,17 @@ const VerifyAccountForm = ({ setUser }) => {
 			refs.current[idx + 1].focus();
 		}
 		if (newCode.every((char) => char !== "")) {
-			const verifCode = newCode.join("");
-			submitCode(verifCode);
+			submitCode(newCode.join(""));
 		}
+	};
+
+	const pasteHandler = (e) => {
+		setError();
+		const paste = (e.clipboardData || window.clipboardData).getData("text").slice(0, codeLength);
+		if (/[^a-zA-Z0-9]/.test(paste)) return;
+		const newCode = [...paste];
+		setCode(newCode);
+		submitCode(newCode.join(""));
 	};
 
 	const keyDownHandler = (e, idx) => {
@@ -92,9 +100,9 @@ const VerifyAccountForm = ({ setUser }) => {
 							readOnly: isLoading,
 							onChange: (e) => changeHandler(e, idx),
 							onKeyDown: (e) => keyDownHandler(e, idx),
+							onPaste: (e) => pasteHandler(e),
 							ref: (ref) => refs.current.push(ref),
 						}}
-						error={error}
 					/>
 				))}
 			</div>
@@ -103,7 +111,9 @@ const VerifyAccountForm = ({ setUser }) => {
 			</div>
 			<PrimaryButton className={classes.loading} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0, pointerEvents: "none" }} />
 			{isResending ? (
-				<div className={classes.instruction}>Resending ...</div>
+				<div className={classes.instruction} style={{ marginTop: "1rem" }}>
+					Resending ...
+				</div>
 			) : (
 				<button type="button" className={`${classes.resend} ${isLoading ? classes.disabled : ""}`} onClick={resendCodeHandler}>
 					Resend code

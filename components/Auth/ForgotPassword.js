@@ -101,8 +101,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 			refs.current[idx + 1].focus();
 		}
 		if (newCode.every((char) => char !== "")) {
-			const verifCode = newCode.join("");
-			submitCode(verifCode);
+			submitCode(newCode.join(""));
 		}
 	};
 
@@ -114,6 +113,15 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 			setCode(newCode);
 			refs.current[idx - 1].focus();
 		}
+	};
+
+	const pasteHandler = (e) => {
+		setError();
+		const paste = (e.clipboardData || window.clipboardData).getData("text").slice(0, codeLength);
+		if (/[^a-zA-Z0-9]/.test(paste)) return;
+		const newCode = [...paste];
+		setCode(newCode);
+		submitCode(newCode.join(""));
 	};
 
 	return (
@@ -134,6 +142,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 							readOnly: isLoading,
 							onChange: (e) => changeHandler(e, idx),
 							onKeyDown: (e) => keyDownHandler(e, idx),
+							onPaste: (e) => pasteHandler(e),
 							ref: (ref) => refs.current.push(ref),
 						}}
 						error={error}
