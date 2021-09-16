@@ -150,7 +150,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 				))}
 			</div>
 			<div className={classes.errorMessage} style={{ opacity: error ? 1 : 0 }}>
-				The code you entered is incorrect or expired
+				The code you entered is incorrect or has expired
 			</div>
 			<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
 		</form>
