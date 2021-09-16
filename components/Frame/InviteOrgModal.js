@@ -12,23 +12,20 @@ const InviteOrgModal = ({ user }) => {
 	const inviteCtx = useContext(InviteOrgContext);
 	const vbCtx = useContext(VisualBellContext);
 	const { getEducatorLink, getLearnerLink, sendEmailInvitation } = useOrganisationHelper(vbCtx);
-	const [codes, setCodes] = useState({ educator: "", learner: "" });
 	const [links, setLinks] = useState({ educator: "", learner: "" });
 
-	const [activeTab, setActiveTab] = useState("educator");
+	const [activeTab, setActiveTab] = useState("learner");
 	const [isLoading, setIsLoading] = useState(false);
 	const [emailInput, setEmailInput] = useState("");
 	const [emailList, setEmailList] = useState([]);
 	const [validEmails, setValidEmails] = useState([]);
 	const [error, setError] = useState();
-	const [codeCopied, setCodeCopied] = useState(false);
 	const [linkCopied, setLinkCopied] = useState(false);
 
 	useEffect(async () => {
 		const educatorLink = await getEducatorLink();
 		const learnerLink = await getLearnerLink();
 		setLinks({ educator: educatorLink, learner: learnerLink });
-		setCodes({ educator: educatorLink.split("__").pop(), learner: learnerLink.split("__").pop() });
 	}, []);
 
 	useEffect(() => {
@@ -92,13 +89,6 @@ const InviteOrgModal = ({ user }) => {
 		vbCtx.setBell({ type: "success", message: "Link copied to clipboard" });
 	};
 
-	const copyCode = () => {
-		navigator.clipboard.writeText(codes[activeTab]);
-		setCodeCopied(true);
-		setTimeout(() => setCodeCopied(false), [500]);
-		vbCtx.setBell({ type: "success", message: "Code copied to clipboard" });
-	};
-
 	return (
 		<div className={classes.overlay}>
 			<div className={`${classes.modal} roundScrollbar`}>
@@ -107,11 +97,11 @@ const InviteOrgModal = ({ user }) => {
 				</i>
 				<div className={classes.header}>Invite people to {user.org.name}</div>
 				<div className={classes.tabContainer}>
-					<button className={activeTab === "educator" ? classes.active : ""} onClick={() => setActiveTab("educator")}>
-						Educator
-					</button>
 					<button className={activeTab === "learner" ? classes.active : ""} onClick={() => setActiveTab("learner")}>
 						Learner
+					</button>
+					<button className={activeTab === "educator" ? classes.active : ""} onClick={() => setActiveTab("educator")}>
+						Educator
 					</button>
 				</div>
 				<div className={classes.divider} />
@@ -168,17 +158,6 @@ const InviteOrgModal = ({ user }) => {
 						</i>
 						<input className={`${classes.link} ${linkCopied ? classes.copied : ""}`} placeholder="Loading ..." value={links[activeTab]} readOnly />
 						<TertiaryButton className={classes.copyBtn} mainLabel="Copy link" iconLeft={<i className="material-icons-outlined">content_copy</i>} onClick={copyLink} title="Copy link to clipboard" />
-					</div>
-				</div>
-				<div className={classes.divider} />
-				<div className={classes.section}>
-					<div className={classes.sectionHeader}>
-						<i className="material-icons-outlined">pin</i>
-						Invite with code
-					</div>
-					<div className={classes.inputWrapper}>
-						<input className={`${classes.code} ${codeCopied ? classes.copied : ""}`} placeholder=" • • • • • • " value={codes[activeTab]} readOnly />
-						<TertiaryButton className={classes.copyBtn} mainLabel="Copy code" iconLeft={<i className="material-icons-outlined">content_copy</i>} onClick={copyCode} title="Copy code to clipboard" />
 					</div>
 				</div>
 			</div>
