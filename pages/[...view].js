@@ -9,6 +9,8 @@ import Onboarding from "../components/onboarding";
 import Faq from "../components/Faq";
 import User from "../components/User";
 
+import viewTabs from "../utils/viewTabs";
+
 const View = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
@@ -28,20 +30,12 @@ const View = ({ setLoaded }) => {
 	useEffect(() => {
 		if (user.loaded) {
 			const query = router.query.view && router.query.view[0].toLowerCase();
-			console.log(query);
-			if (query && query === "onboarding") {
-				console.log(user.type);
-				if (user.type === "educator" || user.type === "admin") {
+			if (query) {
+				if (viewTabs[user.type].some((t) => t.view === query)) {
 					setView(query);
 				} else {
-					router.replace("/browse");
+					router.replace(viewTabs[user.type][0].route);
 				}
-			} else if (query && query === "user" && !user.type) {
-				router.replace("/browse");
-			} else if (query && (query === "faq" || query === "browse" || query === "user")) {
-				setView(query);
-			} else if (query) {
-				router.replace("/onboarding");
 			}
 		}
 	}, [router, user.loaded]);

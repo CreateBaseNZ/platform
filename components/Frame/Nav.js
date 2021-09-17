@@ -6,7 +6,7 @@ import viewTabs from "../../utils/viewTabs";
 import classes from "./Nav.module.scss";
 
 const Nav = ({ route, collapseNav, user }) => {
-	console.log(viewTabs[user.type]);
+	console.log(route);
 
 	if (user.loaded) {
 		console.log(viewTabs[user.type]);
