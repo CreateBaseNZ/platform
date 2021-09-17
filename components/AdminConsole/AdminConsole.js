@@ -6,10 +6,12 @@ import TableControls from "./TableControls";
 import TableFooter from "./TableFooter";
 import TableHead from "./TableHead";
 
+//TODO "invited By"
+
 const columns = {
-	learners: ["display Name", "username", "joined", "invited By"],
-	educators: ["display Name", "username", "email", "joined", "invited By"],
-	admins: ["display Name", "username", "email", "joined", "invited By"],
+	learners: ["display Name", "username", "joined"],
+	educators: ["display Name", "username", "email", "joined"],
+	admins: ["display Name", "username", "email", "joined"],
 };
 
 const learnersData = [
@@ -164,22 +166,34 @@ const initData = {
 const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const [tab, setTab] = useState(tabs[0].label);
 	const [allUsers, setAllUsers] = useState(initData);
-	const [isChecked, setIsChecked] = useState({ learners: false, educators: false, admins: false });
-	const [size, setSize] = useState(20);
+	const [isChecked, setIsChecked] = useState({ learners: 0, educators: 0, admins: 0 });
+	const [size, setSize] = useState(10);
 	const [page, setPage] = useState(0);
 	const [sort, setSort] = useState({ colName: "index", ascending: null });
 	const [showSizeMenu, setShowSizeMenu] = useState(false);
 	const [search, setSearch] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
 
 	useEffect(() => {
-		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].some((d) => d.checked) }));
+		const n = allUsers[tab].filter((d) => d.checked).length;
+		setIsChecked((state) => ({ ...state, [tab]: n }));
+		if (n === 0) {
+			setShowRemoveConfirm(false);
+		}
 	}, [tab, allUsers]);
 
 	if (user.type !== "admin") {
 		router.replace("/user");
 		return null;
 	}
+
+	const removeUserHandler = () => {
+		//TODO
+		setShowRemoveConfirm(false);
+	};
+
+	const promoteHandler = () => {};
 
 	const checkHandler = (row) => {
 		setAllUsers((state) => ({
@@ -244,6 +258,9 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 				setCollapseHeader={setCollapseHeader}
 				search={search}
 				searchHandler={searchHandler}
+				removeUserHandler={removeUserHandler}
+				showRemoveConfirm={showRemoveConfirm}
+				setShowRemoveConfirm={setShowRemoveConfirm}
 			/>
 			<TableHead isChecked={isChecked} tab={tab} toggleAllCheckboxHandler={toggleAllCheckboxHandler} columns={columns} sort={sort} sortByColHandler={sortByColHandler} />
 			<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={columns} sort={sort} search={search} isLoading={isLoading} setIsLoading={setIsLoading} />
