@@ -1,3 +1,4 @@
+import router from "next/router";
 import { useEffect, useState } from "react";
 import classes from "./AdminConsole.module.scss";
 import Table from "./Table";
@@ -175,6 +176,11 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].some((d) => d.checked) }));
 	}, [tab, allUsers]);
 
+	if (user.type !== "admin") {
+		router.replace("/user");
+		return null;
+	}
+
 	const checkHandler = (row) => {
 		setAllUsers((state) => ({
 			...state,
@@ -225,8 +231,6 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 			}
 		});
 	};
-
-	return <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "600" }}>Coming soon!</div>;
 
 	return (
 		<div className={classes.adminConsole}>
