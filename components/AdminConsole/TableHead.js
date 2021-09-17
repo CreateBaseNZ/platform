@@ -9,12 +9,11 @@ const TableHead = ({ isChecked, tab, toggleAllCheckboxHandler, columns, sort, so
 			{columns[tab].map((c) => {
 				const col = c.replace(" ", "");
 				return (
-					<button
-						key={c}
-						className={`${classes.colName} ${classes[col]} ${sort.colName === col ? classes.active : ""}`}
-						onClick={sortByColHandler.bind(this, c)}
-						title={sort.colName === col && sort.ascending ? `Sort by ${c.toLowerCase()} (descending)` : `Sort by ${c.toLowerCase()} (ascending)`}>
+					<button key={c} className={`${classes.colName} ${classes[col]} ${sort.colName === col ? classes.active : ""}`} onClick={sortByColHandler.bind(this, c)}>
 						<span>{c}</span> <i className={`material-icons-outlined ${sort.ascending ? classes.ascending : classes.descending}`}>arrow_upward</i>
+						<div className={classes.title}>
+							{sort.colName === col ? (sort.ascending ? `Currently sorted in ascending order` : `Currently sorted in descending order`) : `Click to sort by ${c.toLowerCase()}`}
+						</div>
 					</button>
 				);
 			})}
