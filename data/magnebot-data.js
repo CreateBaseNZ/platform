@@ -16,7 +16,7 @@ export default {
   lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
   learnings: [
     "Understand the basics of programming a robotic system.",
-    "Learn about some of the advantages of automating manual tasks.",
+    "Practice converting human decisions into an instruction set for a robot.",
     "Understand examples of how robots can help humans perform everyday tasks.",
     "Learn how to use action blocks in the Flow editor.",
     "Learn about the purpose of recycling facilities and what we can do to improve their efficiency.",
