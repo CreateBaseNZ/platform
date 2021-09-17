@@ -2,7 +2,7 @@ import router from "next/router";
 import { signIn } from "next-auth/client";
 import axios from "axios";
 import { getSession } from "next-auth/client";
-import { getOrgDataAPI } from "../hooks/useOrganisationHelper";
+import { getOrgDataAPI, getEducatorLinkAPI, getLearnerLinkAPI } from "../hooks/useOrganisationHelper";
 
 export const initSession = async (loading, session, callback) => {
 	if (!loading) {
@@ -23,6 +23,11 @@ export const initSession = async (loading, session, callback) => {
 			let org = null;
 			if (organisation) {
 				org = await getOrgDataAPI();
+				if (access === "admin" || access === "educator") {
+					const educatorLink = await getEducatorLinkAPI();
+					const learnerLink = await getLearnerLinkAPI();
+					org = { ...org, educatorLink: educatorLink, learnerLink: learnerLink };
+				}
 			}
 			return callback({
 				loaded: true,
@@ -58,7 +63,6 @@ export const logIn = async (username, password, catastropheHandler, failHandler,
 			return catastropheHandler();
 		}
 	}
-
 	successHandler();
 	router.replace("/onboarding");
 };

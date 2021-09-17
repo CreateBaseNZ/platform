@@ -19,6 +19,12 @@ const TableControls = ({ isChecked, tab, setTab, tabs, allUsers, collapseHeader,
 						<>
 							<div className={classes.nSelected}>{isChecked[tab]} selected</div>
 							<div className={classes.actions}>
+								{tab === "learners" && (
+									<button>
+										<i className="material-icons-outlined">password</i>
+										<div className={classes.title}>Reset password</div>
+									</button>
+								)}
 								{tab === "educators" && (
 									<button>
 										<i className="material-icons-outlined">add_moderator</i>

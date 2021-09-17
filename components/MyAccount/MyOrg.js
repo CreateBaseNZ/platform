@@ -176,8 +176,11 @@ const RegisterOrg = ({ setUser }) => {
 				setIsLoading(false);
 			},
 			successHandler: async () => {
-				const org = await getOrgData();
-				setUser((state) => ({ ...state, type: "admin", org: org }));
+				let org = await getOrgData();
+				const educatorLink = await getEducatorLinkAPI();
+				const learnerLink = await getLearnerLinkAPI();
+				org = { ...org, educatorLink: educatorLink, learnerLink: learnerLink };
+				setUser((state) => ({ ...state, type: "admin", org: { org } }));
 				setIsLoading(false);
 				ctx.setBell({
 					type: "success",
@@ -235,6 +238,8 @@ const RegisterOrg = ({ setUser }) => {
 
 const MyOrg = ({ user, setUser }) => {
 	const ctx = useContext(InviteOrgContext);
+
+	console.log(user);
 
 	return (
 		<div className={classes.myView}>
@@ -305,6 +310,22 @@ const MyOrg = ({ user, setUser }) => {
 							</div>
 						</div>
 					</div>
+					{(user.type === "admin" || user.type === "educator") && (
+						<div className={`${classes.card} ${classes.orgDetails}`}>
+							<div className={classes.mediumText}>
+								<span>ID:</span> <span>6760</span>
+							</div>
+							<div className={classes.mediumText}>
+								<span>Name:</span> <span>{user.org.name}</span>
+							</div>
+							<div className={classes.mediumText}>
+								<span>Educator code:</span> <span>{user.org.educatorLink.split("__").slice(-1)}</span>
+							</div>
+							<div className={classes.mediumText}>
+								<span>Learner code:</span> <span>{user.org.learnerLink.split("__").slice(-1)}</span>
+							</div>
+						</div>
+					)}
 				</div>
 			)}
 		</div>

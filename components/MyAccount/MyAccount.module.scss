@@ -228,7 +228,7 @@
 		color: $light;
 	}
 	.mediumText {
-		height: 2rem;
+		height: 1.75rem;
 		display: flex;
 		align-items: center;
 		font-size: 14px;
@@ -240,6 +240,13 @@
 			margin-right: 0.5rem;
 			width: 1.5rem;
 		}
+	}
+	.cardFooter {
+		padding: 1rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		border-top: 2px solid $lighter;
+		background: rgba($logo-mid, 0.025);
 	}
 }
 
@@ -298,6 +305,24 @@
 	.orgContent {
 		display: flex;
 		flex-direction: column;
+	}
+}
+
+.orgDetails {
+	padding: 1rem 1.5rem;
+	.mediumText {
+		padding: 0;
+		span {
+			font-size: inherit;
+			font-weight: 600;
+			color: $darker;
+			&:first-child {
+				margin-right: 1rem;
+				color: $light;
+				font-weight: 400;
+				width: 7rem;
+			}
+		}
 	}
 }
 

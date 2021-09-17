@@ -7,6 +7,7 @@ export const getOrgDataAPI = async (criticalHandler) => {
 	} catch (error) {
 		return criticalHandler();
 	}
+
 	return {
 		name: orgData.content.name,
 		city: orgData.content.location.city,
@@ -52,7 +53,7 @@ const joinOrgEducatorAPI = async (details, criticalHandler, errorHandler, failHa
 	return successHandler();
 };
 
-const getEducatorLinkAPI = async (criticalHandler) => {
+export const getEducatorLinkAPI = async (criticalHandler) => {
 	let data;
 	try {
 		data = (await axios.post("/api/organisation/invite-educator/generate-link", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
@@ -66,7 +67,7 @@ const getEducatorLinkAPI = async (criticalHandler) => {
 	return data.content;
 };
 
-const getLearnerLinkAPI = async (criticalHandler) => {
+export const getLearnerLinkAPI = async (criticalHandler) => {
 	let data;
 	try {
 		data = (await axios.post("/api/organisation/invite-learner/generate-link", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
