@@ -1,3 +1,4 @@
+import router from "next/router";
 import { useEffect, useState } from "react";
 import classes from "./AdminConsole.module.scss";
 import Table from "./Table";
@@ -174,6 +175,11 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	useEffect(() => {
 		setIsChecked((state) => ({ ...state, [tab]: allUsers[tab].some((d) => d.checked) }));
 	}, [tab, allUsers]);
+
+	if (user.type !== "admin") {
+		router.replace("/user");
+		return null;
+	}
 
 	const checkHandler = (row) => {
 		setAllUsers((state) => ({
