@@ -154,6 +154,23 @@
 			color: $light;
 			transition: opacity 0.1s ease-out, color 0.1s ease-out;
 		}
+		.title {
+			position: absolute;
+			text-transform: none;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			color: white;
+			padding: 2px 8px;
+			font-size: 10px;
+			font-weight: 500;
+			background: rgba(black, 0.5);
+			white-space: nowrap;
+			border-radius: 4px;
+			pointer-events: none;
+			transform: translateY(-1.25rem);
+			transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+		}
 		&:hover {
 			input {
 				background: rgba($blue-mid, 0.05);
@@ -162,6 +179,10 @@
 			input::placeholder,
 			i {
 				color: $blue-mid;
+			}
+			.title {
+				opacity: 1;
+				transform: translateY(-1.5rem);
 			}
 		}
 	}
@@ -236,7 +257,7 @@
 		position: absolute;
 		text-transform: none;
 		top: 0;
-		left: 0;
+		left: 1rem;
 		opacity: 0;
 		color: white;
 		padding: 2px 8px;
@@ -246,13 +267,13 @@
 		white-space: nowrap;
 		border-radius: 4px;
 		pointer-events: none;
-		transform: translate(1rem, -1rem);
+		transform: translateY(-0.85rem);
 		transition: opacity 0.1s ease-out, transform 0.1s ease-out;
 	}
 	&:hover {
 		.title {
 			opacity: 1;
-			transform: translate(1rem, -1.25rem);
+			transform: translateY(-1rem);
 		}
 	}
 	&.active {
