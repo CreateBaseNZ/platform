@@ -232,6 +232,8 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		});
 	};
 
+	return <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "600" }}>Coming soon!</div>;
+
 	return (
 		<div className={classes.adminConsole}>
 			<TableControls
