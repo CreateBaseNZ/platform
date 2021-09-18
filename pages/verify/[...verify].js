@@ -36,7 +36,7 @@ const Verify = () => {
 					ctx.setBell({ type: "warning", message: "Please log in to verify your account" });
 				}
 			} else {
-				router.replace("/");
+				router.replace("/home");
 			}
 		}
 	}, [router.query, loading]);

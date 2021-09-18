@@ -39,7 +39,7 @@ const Auth = ({ setLoaded }) => {
 	if (loading) return null;
 
 	if (!loading && session) {
-		router.replace("/onboarding");
+		router.replace("/home");
 		return null;
 	}
 

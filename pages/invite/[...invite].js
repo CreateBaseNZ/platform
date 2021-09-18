@@ -49,7 +49,7 @@ const Invite = () => {
 					// unregistered educator via email
 					if (session) {
 						// unregistered educator already logged in
-						router.replace("/");
+						router.replace("/home");
 						vbCtx.setBell({ type: "warning", message: "Please log out first, then try the link again" });
 						return null;
 					} else {
@@ -81,12 +81,12 @@ const Invite = () => {
 								});
 							},
 						});
-						router.replace("/");
+						router.replace("/home");
 						return null;
 					} else {
 						// educator via link and not logged in
 						vbCtx.setBell({ type: "warning", message: "Please log in or sign up, then try the link again" });
-						router.replace("/");
+						router.replace("/home");
 						return null;
 					}
 				}
@@ -95,7 +95,7 @@ const Invite = () => {
 				if (session) {
 					// learner already logged in
 					vbCtx.setBell({ type: "warning", message: "You are already in another organisation" });
-					router.replace("/");
+					router.replace("/home");
 					return null;
 				} else {
 					// learner not logged in
