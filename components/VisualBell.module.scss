@@ -6,7 +6,6 @@
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	pointer-events: none;
 }
 
 .bell {
@@ -15,23 +14,42 @@
 	font-weight: 500;
 	padding: 0.5em 1em;
 	color: $lightest;
-	border-radius: 4px;
+	border-radius: 8px;
 	opacity: 0;
-	animation: animate 5s linear forwards;
+	i {
+		position: absolute;
+		top: 50%;
+		right: 1rem;
+		font-size: 16px;
+		color: white;
+		margin-left: 0.5rem;
+		cursor: pointer;
+		display: none;
+		padding: 0.25rem;
+		transform: translateY(-50%);
+		border-radius: 4px;
+		transition: background-color 0.1s ease-out;
+		&:hover {
+			background: rgba(black, 0.1);
+		}
+	}
 }
 
 .neutral {
 	background: rgba(black, 0.5);
+	animation: animate 5s linear forwards;
 }
 
 .success {
 	background: $green-dark;
 	box-shadow: 0 4px 12px 0 rgba($green-dark, 0.2);
+	animation: animate 5s linear forwards;
 }
 
 .error {
 	background: $red;
 	box-shadow: 0 4px 12px 0 rgba($red, 0.2);
+	animation: animate 5s linear forwards;
 }
 
 .warning,
@@ -41,6 +59,9 @@
 	margin-top: 0;
 	width: 100vw;
 	animation: remain 5s linear forwards;
+	i {
+		display: block;
+	}
 }
 
 .warning {
@@ -56,10 +77,12 @@
 @keyframes animate {
 	0% {
 		opacity: 0;
-		transform: translateY(-3px);
+		transform: translateY(-4px);
+	}
+	2% {
+		transform: translateY(0);
 	}
 	5% {
-		transform: translateY(0);
 		opacity: 1;
 	}
 	85% {
@@ -73,10 +96,12 @@
 @keyframes remain {
 	0% {
 		opacity: 0;
-		transform: translateY(-3px);
+		transform: translateY(-4px);
+	}
+	2% {
+		transform: translateY(0);
 	}
 	5% {
-		transform: translateY(0);
 		opacity: 1;
 	}
 	100% {

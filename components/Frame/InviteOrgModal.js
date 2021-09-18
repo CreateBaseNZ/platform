@@ -11,8 +11,8 @@ const InviteOrgModal = ({ user }) => {
 	const emailRef = useRef();
 	const inviteCtx = useContext(InviteOrgContext);
 	const vbCtx = useContext(VisualBellContext);
-	const { getEducatorLink, getLearnerLink, sendEmailInvitation } = useOrganisationHelper(vbCtx);
-	const [links, setLinks] = useState({ educator: "", learner: "" });
+	const { sendEmailInvitation } = useOrganisationHelper(vbCtx);
+	const [links] = useState({ educator: user.org.educatorLink, learner: user.org.learnerLink });
 
 	const [activeTab, setActiveTab] = useState("learner");
 	const [isLoading, setIsLoading] = useState(false);
@@ -21,12 +21,6 @@ const InviteOrgModal = ({ user }) => {
 	const [validEmails, setValidEmails] = useState([]);
 	const [error, setError] = useState();
 	const [linkCopied, setLinkCopied] = useState(false);
-
-	useEffect(async () => {
-		const educatorLink = await getEducatorLink();
-		const learnerLink = await getLearnerLink();
-		setLinks({ educator: educatorLink, learner: learnerLink });
-	}, []);
 
 	useEffect(() => {
 		const valids = emailList.filter((e) => e.valid === true);

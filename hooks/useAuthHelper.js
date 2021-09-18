@@ -41,6 +41,7 @@ const verifyAccountAPI = async (details, criticalHandler, errorHandler, failHand
 	} catch (error) {
 		return criticalHandler();
 	}
+	console.log(data);
 	if (data.status === "critical error") {
 		return criticalHandler();
 	} else if (data.status === "error") {
@@ -114,7 +115,7 @@ const useAuthHelper = ({ setBell }) => {
 		resetPasswordAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	const verifyAccount = ({
+	const verifyAccount = async ({
 		details,
 		criticalHandler = () =>
 			setBell({
@@ -137,7 +138,7 @@ const useAuthHelper = ({ setBell }) => {
 				message: "Success!",
 			}),
 	}) => {
-		verifyAccountAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+		await verifyAccountAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
 	const resendVerificationCode = ({
