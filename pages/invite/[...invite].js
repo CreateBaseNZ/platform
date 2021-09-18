@@ -15,7 +15,7 @@ const Invite = () => {
 	useEffect(async () => {
 		if (!loading && router.query && router.query.invite) {
 			if (!router.query.invite[0] || !router.query.invite[1]) {
-				router.replace("/browse");
+				router.replace("/home");
 				vbCtx.setBell({ type: "error", message: "Invalid invitation" });
 				return null;
 			}
@@ -29,15 +29,15 @@ const Invite = () => {
 						failHandler: (content) => {
 							if (content.account === "incorrect logged in user") {
 								vbCtx.setBell({ type: "error", message: "Failed to join - please log out first, then try the link agin" });
-								router.replace("/onboarding");
+								router.replace("/home");
 							} else if (content.account === "already in an organisation") {
 								vbCtx.setBell({ type: "error", message: "Failed to join - you are already in another organisation" });
-								router.replace("/onboarding");
+								router.replace("/home");
 							}
 						},
 						successHandler: () => {
 							if (session) {
-								router.replace("/onboarding");
+								router.replace("/home");
 								vbCtx.setBell({ type: "success", message: `Successfully joined ${details[2].replaceAll("-", " ")}` });
 							} else {
 								router.replace("/auth/login");

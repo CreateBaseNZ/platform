@@ -333,7 +333,7 @@ const Index = ({ setLoaded }) => {
 								Log In<i className="material-icons-outlined">login</i>
 							</button>
 						</Link>
-						<Link href="/onboarding">
+						<Link href="/home">
 							<button className={classes.guest}>Continue as guest</button>
 						</Link>
 					</div>

@@ -19,7 +19,6 @@ const View = ({ setLoaded }) => {
 	const [collapseHeader, setCollapseHeader] = useState(false);
 
 	useEffect(() => {
-		setLoaded(true);
 		return () => setLoaded(false);
 	}, []);
 
@@ -33,10 +32,13 @@ const View = ({ setLoaded }) => {
 			if (query) {
 				if (viewTabs[user.type].some((t) => t.view === query)) {
 					setView(query);
+					setLoaded(true);
+				} else if (query === "home") {
+					router.replace(viewTabs[user.type][0].query);
+					return null;
 				} else {
-					// router.replace(viewTabs[user.type][0].route);
-					alert("please log in to continue");
 					router.replace(`/auth/login/${router.query.view.join("/")}`);
+					return null;
 				}
 			}
 		}
