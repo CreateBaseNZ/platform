@@ -50,7 +50,10 @@ const JoinOrg = ({ setUser }) => {
 				setIsLoading(false);
 			},
 			successHandler: async () => {
-				const org = await getOrgData();
+				let org = await getOrgData();
+				const educatorLink = await getEducatorLink();
+				const learnerLink = await getLearnerLink();
+				org = { ...org, educatorLink: educatorLink, learnerLink: learnerLink };
 				setUser((state) => ({ ...state, org: org }));
 				setIsLoading(false);
 				ctx.setBell({
@@ -120,7 +123,7 @@ const JoinOrg = ({ setUser }) => {
 
 const RegisterOrg = ({ setUser }) => {
 	const ctx = useContext(VisualBellContext);
-	const { getOrgData, createOrg } = useOrganisationHelper({ ...ctx });
+	const { getOrgData, createOrg, getEducatorLink, getLearnerLink } = useOrganisationHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState(false);
 	const {
@@ -167,7 +170,7 @@ const RegisterOrg = ({ setUser }) => {
 				if (content.organisation)
 					setErrorMessage(
 						<>
-							This organisation has already registered. If this is a mistake, please
+							Organisation already registered. If this is a mistake, please
 							<a href="https://createbase.co.nz/contact" title="https://createbase.co.nz/contact" target="_blank" className={classes.contact}>
 								contact us
 							</a>
@@ -177,10 +180,10 @@ const RegisterOrg = ({ setUser }) => {
 			},
 			successHandler: async () => {
 				let org = await getOrgData();
-				const educatorLink = await getEducatorLinkAPI();
-				const learnerLink = await getLearnerLinkAPI();
+				const educatorLink = await getEducatorLink();
+				const learnerLink = await getLearnerLink();
 				org = { ...org, educatorLink: educatorLink, learnerLink: learnerLink };
-				setUser((state) => ({ ...state, type: "admin", org: { org } }));
+				setUser((state) => ({ ...state, type: "admin", org: org }));
 				setIsLoading(false);
 				ctx.setBell({
 					type: "success",
@@ -238,8 +241,6 @@ const RegisterOrg = ({ setUser }) => {
 
 const MyOrg = ({ user, setUser }) => {
 	const ctx = useContext(InviteOrgContext);
-
-	console.log(user);
 
 	return (
 		<div className={classes.myView}>

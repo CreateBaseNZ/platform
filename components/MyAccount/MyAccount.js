@@ -24,8 +24,16 @@ const MyAccount = ({ user, setUser }) => {
 	useEffect(() => {
 		console.log(router.query);
 		const query = router.query.view[2];
-		if (query) {
+		if (query === "verification") {
+			if (user.type === "educator" || user.type === "admin") {
+				setActiveTab(query);
+			} else {
+				router.replace("/user/my-account/profile");
+			}
+		} else if (query) {
 			setActiveTab(query);
+		} else {
+			setActiveTab("profile");
 		}
 	}, [router.query]);
 
