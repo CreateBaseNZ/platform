@@ -46,6 +46,12 @@
 	animation: animate 5s linear forwards;
 }
 
+.alert {
+	background: $amber;
+	box-shadow: 0 4px 12px 0 rgba($amber, 0.2);
+	animation: animate 5s linear forwards;
+}
+
 .error {
 	background: $red;
 	box-shadow: 0 4px 12px 0 rgba($red, 0.2);

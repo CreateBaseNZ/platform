@@ -290,6 +290,7 @@ const SignupStepThree = ({ learner, setLearner }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
+		ctx.setBell({});
 
 		signUpLearner({
 			details: {

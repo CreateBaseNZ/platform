@@ -19,7 +19,7 @@ export const LoginForm = ({ setUser }) => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			username: (router?.query?.authView[1] === "verify" && router?.query?.authView[2]?.split("__")[0]) || window.localStorage.getItem("createbase__remember-me"),
+			username: (router?.query?.authView && router?.query?.authView[1] === "verify" && router?.query?.authView[2]?.split("__")[0]) || window.localStorage.getItem("createbase__remember-me"),
 			remember: window.localStorage.getItem("createbase__remember-me") && true,
 		},
 		mode: "onTouched",
@@ -27,6 +27,7 @@ export const LoginForm = ({ setUser }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
+		ctx.setBell({});
 
 		await logIn(
 			input.username,
@@ -53,7 +54,7 @@ export const LoginForm = ({ setUser }) => {
 				} else {
 					window.localStorage.removeItem("createbase__remember-me");
 				}
-				if (router?.query?.authView[1] === "verify") {
+				if (router?.query?.authView && router?.query?.authView[1] === "verify") {
 					await verifyAccount({
 						details: { code: router?.query?.authView[2]?.split("__")[1] },
 						criticalHandler: () => {

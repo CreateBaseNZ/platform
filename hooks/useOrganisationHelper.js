@@ -38,6 +38,8 @@ const createOrgAPI = async (details, criticalHandler, errorHandler, failHandler,
 
 const joinOrgEducatorAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
+	console.log(details);
+
 	try {
 		data = (await axios.post("/api/organisation/join-educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {

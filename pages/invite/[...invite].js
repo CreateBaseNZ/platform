@@ -69,30 +69,38 @@ const Invite = () => {
 							return null;
 						} else {
 							// educator via link and logged in as educator
-							await joinOrgEducator({
-								details: { metadata: { id: details[0] }, name: details[1].replaceAll("-", " "), code: details[2], type: "school", country: "New Zealand" },
-								failHandler: (content) => {
-									if (content.account) {
-										vbCtx.setBell({ type: "error", message: "Failed to join - you are already in another organisation" });
-									} else if (content.code) {
-										vbCtx.setBell({ type: "error", message: "Failed to join - invalid code" });
-									} else if (content.organisation) {
-										vbCtx.setBell({ type: "error", message: "Failed to join - incorrect organisation details" });
-									}
-								},
-								successHandler: async () => {
-									vbCtx.setBell({
-										type: "success",
-										message: `Successfully joined ${details[1].replaceAll("-", " ")}`,
-									});
-								},
-							});
-							router.replace("/home");
-							return null;
+							if (session.user.organisation) {
+								// already in org
+								vbCtx.setBell({ type: "alert", message: "Failed to join - you are already in another organisation" });
+								router.replace("/home");
+								return null;
+							} else {
+								// not in org
+								await joinOrgEducator({
+									details: { metadata: { id: details[0] }, name: details[1].replaceAll("-", " "), code: details[2], type: "school", country: "New Zealand" },
+									failHandler: (content) => {
+										if (content.account) {
+											vbCtx.setBell({ type: "error", message: "Failed to join - you are already in another organisation" });
+										} else if (content.code) {
+											vbCtx.setBell({ type: "error", message: "Failed to join - invalid code" });
+										} else if (content.organisation) {
+											vbCtx.setBell({ type: "error", message: "Failed to join - incorrect organisation details" });
+										}
+									},
+									successHandler: async () => {
+										vbCtx.setBell({
+											type: "success",
+											message: `Successfully joined ${details[1].replaceAll("-", " ")}`,
+										});
+									},
+								});
+								router.replace("/home");
+								return null;
+							}
 						}
 					} else {
 						// educator via link and not logged in
-						vbCtx.setBell({ type: "warning", message: "Please log in or sign up, then try the link again" });
+						vbCtx.setBell({ type: "alert", message: "Please log in or sign up, then try the link again" });
 						router.replace("/auth");
 						return null;
 					}
