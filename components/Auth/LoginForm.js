@@ -56,6 +56,10 @@ export const LoginForm = ({ setUser }) => {
 				if (router?.query?.authView[1] === "verify") {
 					await verifyAccount({
 						details: { code: router.query.authView[2] },
+						criticalHandler: () => {
+							ctx.setBell({ type: "error", message: "Incorrect verification code" });
+							router.push("/");
+						},
 						failHandler: () => ctx.setBell({ type: "error", message: "Incorrect verification code" }),
 						successHandler: () => {
 							ctx.setBell({

@@ -17,6 +17,10 @@ const Verify = () => {
 				if (session) {
 					verifyAccount({
 						details: { code: code },
+						criticalHandler: () => {
+							ctx.setBell({ type: "catastrophe", message: "Something unexpected happened, please refresh the page" });
+							router.replace("/user/my-account/verification");
+						},
 						failHandler: (content) => {
 							if (content.code) {
 								ctx.setBell({ type: "error", message: "Code is incorrect or has expired" });

@@ -37,35 +37,40 @@ const ProjectView = ({ setLoaded }) => {
 	useEffect(() => setLoaded(true), []);
 
 	useEffect(() => {
-		if (router.query.projectView) {
-			const query = router.query.projectView[0];
-			const projectData = getProjectData(query);
-			if (!projectData) {
-				router.replace("/browse");
-				return null;
-			}
-			setData(projectData);
-			const subQuery = router.query.projectView[1] || "";
-			if (subQuery === "play") {
-				setView(subQuery[0].toUpperCase() + subQuery.substring(1));
-				setLoaded(false);
-			} else if (subQuery.toLowerCase() === "code") {
-				setView(subQuery[0].toUpperCase() + subQuery.substring(1));
-				const subSubQuery = router.query.projectView[2];
-				if (subSubQuery) {
-					setStep(subSubQuery[0].toUpperCase() + subSubQuery.substring(1));
-				} else {
-					router.replace(router.asPath + "/create");
+		console.log(router.query);
+		if (router.query) {
+			if (router.query.projectView) {
+				const query = router.query.projectView[0];
+				const projectData = getProjectData(query);
+				if (!projectData) {
+					router.replace("/browse");
+					return null;
 				}
-				setLoaded(false);
+				setData(projectData);
+				const subQuery = router.query.projectView[1] || "";
+				if (subQuery === "play") {
+					setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+					setLoaded(false);
+				} else if (subQuery.toLowerCase() === "code") {
+					setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+					const subSubQuery = router.query.projectView[2];
+					if (subSubQuery) {
+						setStep(subSubQuery[0].toUpperCase() + subSubQuery.substring(1));
+					} else {
+						router.replace(router.asPath + "/create");
+					}
+					setLoaded(false);
+				} else {
+					setView("Project");
+					if (subQuery) {
+						setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
+					} else {
+						router.replace(router.asPath + "/imagine");
+					}
+					setLoaded(true);
+				}
 			} else {
-				setView("Project");
-				if (subQuery) {
-					setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
-				} else {
-					router.replace(router.asPath + "/imagine");
-				}
-				setLoaded(true);
+				router.replace("/browse");
 			}
 		}
 	}, [router.query]);
