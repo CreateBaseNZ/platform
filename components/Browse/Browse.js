@@ -19,6 +19,8 @@ const Browse = ({ user }) => {
 		const queriedProject = allData.filter((data) => data.query === query)[0];
 		if (queriedProject) {
 			setActiveProject(queriedProject);
+		} else {
+			router.replace(`/browse/${allData[0].query}`);
 		}
 	}, [router.query]);
 

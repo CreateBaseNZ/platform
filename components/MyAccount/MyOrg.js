@@ -15,7 +15,7 @@ import InviteOrgContext from "../../store/invite-org-context";
 
 const JoinOrg = ({ setUser }) => {
 	const ctx = useContext(VisualBellContext);
-	const { getOrgData, joinOrgEducator } = useOrganisationHelper({ ...ctx });
+	const { getOrgData, joinOrgEducator, getEducatorLink, getLearnerLink } = useOrganisationHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState();
 	const {
