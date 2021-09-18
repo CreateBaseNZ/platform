@@ -266,6 +266,16 @@ const Index = ({ setLoaded }) => {
 		// }
 		// console.log(data);
 
+		// EXAMPLE: Change password of learner as admin or educator
+		// const input = { username: "learner1", date: new Date().toString(), updates: { password: "123q!@#Q" } };
+		// let data;
+		// try {
+		// 	data = (await axios.post("/api/organisation/admin/update-learner-license", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+		// } catch (error) {
+		// 	data = { status: "error", content: error };
+		// }
+		// console.log(data);
+
 		return () => setLoaded(false);
 	}, []);
 
