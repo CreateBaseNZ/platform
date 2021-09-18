@@ -12,7 +12,7 @@ const Verify = () => {
 
 	useEffect(() => {
 		if (!loading && router.query) {
-			const code = router?.query?.verify[0];
+			const code = router?.query?.verify[0].split("__")[1];
 			if (code) {
 				if (session) {
 					verifyAccount({
@@ -36,7 +36,7 @@ const Verify = () => {
 						},
 					});
 				} else {
-					router.replace(`/auth/login/verify/${code}`);
+					router.replace(`/auth/login/verify/${router?.query?.verify[0]}`);
 					ctx.setBell({ type: "warning", message: "Please log in to verify your account" });
 				}
 			} else {
