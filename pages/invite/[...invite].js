@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import { signOut, useSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import InviteOrgContext from "../../store/invite-org-context";
 import VisualBellContext from "../../store/visual-bell-context";
@@ -13,7 +13,6 @@ const Invite = () => {
 	const { acceptEmailInvitation, joinOrgEducator } = useOrganisationHelper(vbCtx);
 
 	useEffect(async () => {
-		console.log(router.query);
 		if (!loading && router.query && router.query.invite) {
 			if (!router.query.invite[0] || !router.query.invite[1]) {
 				router.replace("/browse");
@@ -95,7 +94,7 @@ const Invite = () => {
 				// learner
 				if (session) {
 					// learner already logged in
-					vbCtx.setBell({ type: "warning", message: "Please log out first, then try the link again" });
+					vbCtx.setBell({ type: "warning", message: "You are already in another organisation" });
 					router.replace("/");
 					return null;
 				} else {

@@ -15,19 +15,14 @@ const Auth = ({ setLoaded }) => {
 	const [view, setView] = useState("");
 
 	useEffect(() => {
-		setLoaded(true);
 		return () => setLoaded(false);
 	}, []);
 
 	useEffect(() => {
 		if (!loading) {
-			if (session) {
-				router.replace("/onboarding");
-			} else {
-				setLoaded(true);
-			}
+			setLoaded(true);
 		}
-	}, [loading, session]);
+	}, [loading]);
 
 	useEffect(() => {
 		if (Object.keys(router.query).length) {
@@ -42,6 +37,11 @@ const Auth = ({ setLoaded }) => {
 	}, [router.query]);
 
 	if (loading) return null;
+
+	if (!loading && session) {
+		router.replace("/onboarding");
+		return null;
+	}
 
 	return (
 		<div className={classes.authView}>

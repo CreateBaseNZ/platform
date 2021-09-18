@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import router from "next/router";
 import { logIn } from "../../utils/authHelpers";
@@ -6,9 +6,11 @@ import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import classes from "./AuthForms.module.scss";
 import VisualBellContext from "../../store/visual-bell-context";
+import useAuthHelper from "../../hooks/useAuthHelper";
 
-export const LoginForm = () => {
+export const LoginForm = ({ setUser }) => {
 	const ctx = useContext(VisualBellContext);
+	const { verifyAccount } = useAuthHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -45,7 +47,25 @@ export const LoginForm = () => {
 				});
 				setIsLoading(false);
 			},
-			() => (input.remember ? window.localStorage.setItem("createbase__remember-me", input.username) : window.localStorage.removeItem("createbase__remember-me"))
+			async () => {
+				if (input.remember) {
+					window.localStorage.setItem("createbase__remember-me", input.username);
+				} else {
+					window.localStorage.removeItem("createbase__remember-me");
+				}
+				if (router?.query?.authView[1] === "verify") {
+					await verifyAccount({
+						details: { code: router.query.authView[2] },
+						failHandler: () => ctx.setBell({ type: "error", message: "Incorrect verification code" }),
+						successHandler: () => {
+							ctx.setBell({
+								type: "success",
+								message: "Congratulations! Your account is now verified",
+							});
+						},
+					});
+				}
+			}
 		);
 	};
 
