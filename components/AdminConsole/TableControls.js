@@ -22,10 +22,10 @@ const TableControls = ({ isChecked, tab, setTab, tabs, allUsers, collapseHeader,
 								{tab === "learners" && (
 									<button>
 										<i className="material-icons-outlined">password</i>
-										<div className={classes.title}>Reset password</div>
+										<div className={classes.title}>Change password</div>
 									</button>
 								)}
-								{tab === "educators" && (
+								{/* {tab === "educators" && (
 									<button>
 										<i className="material-icons-outlined">add_moderator</i>
 										<div className={classes.title}>Promote to Admin</div>
@@ -36,7 +36,7 @@ const TableControls = ({ isChecked, tab, setTab, tabs, allUsers, collapseHeader,
 										<i className="material-icons-outlined">remove_moderator</i>
 										<div className={classes.title}>Demote Admin</div>
 									</button>
-								)}
+								)} */}
 								{/* <button onClick={() => setShowRemoveConfirm(true)}>
 									<i className="material-icons-outlined">person_remove</i>
 									<div className={classes.title}>Remove from org</div>

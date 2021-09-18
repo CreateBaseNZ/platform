@@ -59,7 +59,7 @@ const Invite = () => {
 						vbCtx.setBell({ type: "warning", message: `Sign up to join ${details[2].replaceAll("-", " ")}` });
 						return null;
 					}
-				} else {
+				} else if (details[2]) {
 					// educator via link
 					if (session) {
 						// educator via link and logged in as learner
@@ -93,31 +93,42 @@ const Invite = () => {
 					} else {
 						// educator via link and not logged in
 						vbCtx.setBell({ type: "warning", message: "Please log in or sign up, then try the link again" });
-						router.replace("/home");
-						return null;
-					}
-				}
-			} else {
-				// learner
-				if (session) {
-					if (session.user.access === "learner") {
-						// already logged in as leaner
-						vbCtx.setBell({ type: "warning", message: "You are already in another organisation" });
-						router.replace("/home");
-						return null;
-					} else {
-						// already logged in as educator
-						vbCtx.setBell({ type: "warning", message: "Error - you need an educator code to join" });
-						router.replace("/home");
+						router.replace("/auth");
 						return null;
 					}
 				} else {
-					// not logged in
-					inviteCtx.setDetails({ isInvited: true, type: type, orgId: details[0], orgName: details[1].replaceAll("-", " "), orgCode: details[2] });
-					router.replace("/auth/signup");
-					vbCtx.setBell({ type: "warning", message: `Sign up to join ${details[1].replaceAll("-", " ")}` });
+					router.replace("/home");
 					return null;
 				}
+			} else if (type === "learner") {
+				// learner
+				if (details[2]) {
+					if (session) {
+						if (session.user.access === "learner") {
+							// already logged in as leaner
+							vbCtx.setBell({ type: "warning", message: "You are already in another organisation" });
+							router.replace("/home");
+							return null;
+						} else {
+							// already logged in as educator
+							vbCtx.setBell({ type: "warning", message: "Error - you need an educator code to join" });
+							router.replace("/home");
+							return null;
+						}
+					} else {
+						// not logged in
+						inviteCtx.setDetails({ isInvited: true, type: type, orgId: details[0], orgName: details[1].replaceAll("-", " "), orgCode: details[2] });
+						router.replace("/auth/signup");
+						vbCtx.setBell({ type: "warning", message: `Sign up to join ${details[1].replaceAll("-", " ")}` });
+						return null;
+					}
+				} else {
+					router.replace("/home");
+					return null;
+				}
+			} else {
+				router.replace("/home");
+				return null;
 			}
 		}
 	}, [router.query, loading]);
