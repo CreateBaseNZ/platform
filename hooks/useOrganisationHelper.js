@@ -10,6 +10,7 @@ export const getOrgDataAPI = async (criticalHandler) => {
 
 	return {
 		name: orgData.content.name,
+		id: orgData.content.metadata.id,
 		city: orgData.content.location.city,
 		country: orgData.content.location.country,
 		admins: orgData.content.numberOfLicenses.admin,

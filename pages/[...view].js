@@ -34,7 +34,9 @@ const View = ({ setLoaded }) => {
 				if (viewTabs[user.type].some((t) => t.view === query)) {
 					setView(query);
 				} else {
-					router.replace(viewTabs[user.type][0].route);
+					// router.replace(viewTabs[user.type][0].route);
+					alert("please log in to continue");
+					router.replace(`/auth/login/${router.query.view.join("/")}`);
 				}
 			}
 		}

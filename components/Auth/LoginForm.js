@@ -65,7 +65,8 @@ export const LoginForm = ({ setUser }) => {
 						},
 					});
 				}
-			}
+			},
+			"/" + router?.query?.authView?.slice(1)?.join("/")
 		);
 	};
 

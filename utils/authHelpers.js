@@ -47,13 +47,15 @@ export const initSession = async (loading, session, callback) => {
 	}
 };
 
-export const logIn = async (username, password, catastropheHandler, failHandler, successHandler) => {
+export const logIn = async (username, password, catastropheHandler, failHandler, successHandler, redirect = "/home") => {
 	const result = await signIn("credentials", {
 		redirect: false,
 		user: username,
 		password: password,
 		PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
 	});
+
+	console.log(redirect);
 
 	if (result.error) {
 		const error = JSON.parse(result.error);
@@ -64,5 +66,5 @@ export const logIn = async (username, password, catastropheHandler, failHandler,
 		}
 	}
 	successHandler();
-	router.replace("/onboarding");
+	router.replace(redirect);
 };

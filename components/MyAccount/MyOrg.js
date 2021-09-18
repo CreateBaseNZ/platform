@@ -313,7 +313,7 @@ const MyOrg = ({ user, setUser }) => {
 					{(user.type === "admin" || user.type === "educator") && (
 						<div className={`${classes.card} ${classes.orgDetails}`}>
 							<div className={classes.mediumText}>
-								<span>ID:</span> <span>6760</span>
+								<span>ID:</span> <span>{user.org.id}</span>
 							</div>
 							<div className={classes.mediumText}>
 								<span>Name:</span> <span>{user.org.name}</span>
