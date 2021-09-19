@@ -12,7 +12,9 @@ import {
   NodeOnLineMini,
   NodeDifferenceMini,
   NodeFrontOnLineMini,
-  NodeIsFireMini
+  NodeIsFireMini,
+  NodeLineLeftMini,
+  NodeLineRightMini
 } from "./NodeSensing";
 import {
   NodeLeftWheelMini,
@@ -120,6 +122,8 @@ const DndBar = memo(({ query }) => {
           <NodeDifferenceMini />
           <NodeFireSensorMini />
           <NodeIsFireMini />
+          <NodeLineRightMini />
+          <NodeLineLeftMini />
           <h5>Actions</h5>
           <NodeMoveForwardMini />
           <NodeTurnMini />

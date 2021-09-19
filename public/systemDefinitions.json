@@ -143,6 +143,18 @@
         "logic": "return (JSON.parse(sensorDataRef.current).middleLineSensor>0.995)",
         "await":false
       },
+      "lineLeft":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (Math.abs(JSON.parse(sensorDataRef.current).rightLineSensor-JSON.parse(sensorDataRef.current).leftLineSensor)<0.8 && JSON.parse(sensorDataRef.current).leftLineSensor>0.95)",
+        "await":false
+      },
+      "lineRight":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (Math.abs(JSON.parse(sensorDataRef.current).rightLineSensor-JSON.parse(sensorDataRef.current).leftLineSensor)<0.8 && JSON.parse(sensorDataRef.current).rightLineSensor>0.95)",
+        "await":false
+      },
       "isFire":{
         "output":{"variable":"out"},
         "inputs": [],

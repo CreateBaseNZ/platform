@@ -12,7 +12,9 @@ import {
   NodeOnLine,
   NodeDifference,
   NodeFrontOnLine,
-  NodeIsFire
+  NodeIsFire,
+  NodeLineLeft,
+  NodeLineRight
 } from "../components/ReactFlow/NodeSensing";
 import {
   NodeAttack,
@@ -118,7 +120,9 @@ export const nodeTypes = {
   rightWheel: NodeRightWheel,
   waterHose: NodeWateHose,
   frontOnLine: NodeFrontOnLine,
-  isFire:NodeIsFire
+  isFire: NodeIsFire,
+  lineLeft: NodeLineLeft,
+  lineRight:NodeLineRight
 };
 
 export const edgeTypes = {
@@ -215,8 +219,18 @@ export const tooltips = {
   ],
   isFire: [
     <NoneType />,
-    <FloatType />,
+    <BooleanType />,
     "Outputs whether there is fire in front of the car",
+  ],
+  lineLeft: [
+    <NoneType />,
+    <BooleanType />,
+    "Outputs whether the line has a turn to the left",
+  ],
+  lineRight: [
+    <NoneType />,
+    <BooleanType />,
+    "Outputs whether the line has a turn to the right",
   ],
   absolute: [
     <FloatType />,
@@ -300,10 +314,7 @@ export const tooltips = {
     "Instructs your character to jump",
   ],
   rightWheel: [
-    <>
       <ExecutionType />,
-      <FloatType />
-    </>,
     <ExecutionType />,
     "Instructs the right wheel to move. 0 is stop, positive for forward and negative for backwards",
   ],
