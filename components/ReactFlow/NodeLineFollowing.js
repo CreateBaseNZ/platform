@@ -14,7 +14,6 @@ const NodeLineFollowing = ({
   dataName,
   isConnectable,
 }) => {
-  console.log(data);
   return (
     <div
       className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${className}`}
@@ -23,19 +22,15 @@ const NodeLineFollowing = ({
         type="target"
         position="left"
         id="execution__in"
-        style={{ top: "30px", transform: "none" }}
-
         isConnectable={isConnectable}
         connections={data ? data.connections : []}
       />
       <h4>{label}</h4>
-      <EntityDropdown data={data} selectName={selectName} dataName={dataName} project="LineFollowing"/>
       <CustomHandle
         type="target"
-        position="left"
+        position="top"
         id="float__in__a"
-        style={{ bottom: "15px", transform: "none" }}
-        isConnectable={isConnectable}
+        style={{ left: "auto", right: "40px", transform: "none" }}        isConnectable={isConnectable}
         connections={data ? data.connections : []}
       />
       <CustomHandle
@@ -68,6 +63,35 @@ export const NodeLeftWheel = memo(({id, data, isConnectable }) => {
     />
   );
 });
+
+export const NodeMoveForward = memo(({id, data, isConnectable }) => {
+  return (
+    <NodeLineFollowing
+      data={data}
+      id={id}
+      className={classes.moveForward}
+      label="Move Forward"
+      selectName="moveForward"
+      dataName="entity"
+      isConnectable={isConnectable}
+    />
+  );
+});
+
+export const NodeMoveBackward = memo(({id, data, isConnectable }) => {
+  return (
+    <NodeLineFollowing
+      data={data}
+      id={id}
+      className={classes.moveForward}
+      label="Move Backwards"
+      selectName="moveBackward"
+      dataName="entity"
+      isConnectable={isConnectable}
+    />
+  );
+});
+
 export const NodeRightWheel = memo(({id, data, isConnectable }) => {
   return (
     <NodeLineFollowing
@@ -101,6 +125,29 @@ export const NodeLeftWheelMini = () => {
     />
   );
 };
+
+export const NodeMoveForwardMini = () => {
+  return (
+    <NodeLineFollowingMini
+      className={classes.nodeAttack}
+      label="Move Forward"
+      nodeType="moveForward"
+      node={<NodeMoveForward />}
+    />
+  );
+};
+
+export const NodeMoveBackwardMini = () => {
+  return (
+    <NodeLineFollowingMini
+      className={classes.nodeAttack}
+      label="Move Backward"
+      nodeType="moveBackward"
+      node={<NodeMoveBackward />}
+    />
+  );
+};
+
 export const NodeRightWheelMini = () => {
   return (
     <NodeLineFollowingMini
@@ -171,8 +218,6 @@ export const NodeWateHose = memo(
   }
 );
 
-
-
 export const NodeWateHoseMini = memo(() => {
   return (
     <NodeMini
@@ -183,10 +228,125 @@ export const NodeWateHoseMini = memo(() => {
     >
       <div className={classes.flexCol} style={{ marginTop: "-4px" }}>
         <h4>Water Hose</h4>
-        <div
-          className={classes.blankInput}
-          style={{ borderRadius: "99px", alignSelf: "center" }}
+      </div>
+    </NodeMini>
+  );
+});
+
+export const NodeTurn = memo(
+  ({
+    id,
+    data = { values: getDefaultValues("waterHose"), connections: [] },
+    isConnectable,
+  }) => {
+    const changeHandler = () => {
+      console.log(data.values.a);
+      data.callBack({ a: !data.values.a }, id);
+    };
+    return (
+      <div
+        className={`${classes.node} ${classes.actioning} ${classes.nodeTurn} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}
+      >
+        <CustomHandle
+          type="target"
+          position="left"
+          id="execution__in"
+          isConnectable={isConnectable}
+          connections={data ? data.connections : []}
         />
+        <h4>Turn</h4>
+        <div className={classes.flexRow}>
+          <div
+            className={classes.label}
+            style={{ opacity: data.values.a && "0" }}
+          >
+            Anti-clockwise
+          </div>
+          <div
+            className={`nodrag ${classes.toggle}`}
+            onDragStart={(e) => e.preventDefault}
+          >
+            <input
+              type="checkbox"
+              checked={data.values.a}
+              onChange={changeHandler}
+            />
+            <div />
+          </div>
+          <div
+            className={classes.label}
+            style={{ opacity: !data.values.a && "0" }}
+          >
+            Clockwise
+          </div>
+        </div>
+        <CustomHandle
+          type="source"
+          position="right"
+          id="execution__out"
+          isConnectable={isConnectable}
+          connections={data ? data.connections : []}
+        />
+      </div>
+    );
+  }
+);
+
+export const NodeTurnMini = memo(() => {
+  return (
+    <NodeMini
+      nodeType="turn"
+      node={<NodeTurn />}
+      className={classes.actioning}
+      style={{ height: "3rem" }}
+    >
+      <div className={classes.flexCol} style={{ marginTop: "-4px" }}>
+        <h4>Turn</h4>
+      </div>
+    </NodeMini>
+  );
+});
+
+export const NodeStop = memo(
+  ({
+    id,
+    data = { values: getDefaultValues("waterHose"), connections: [] },
+    isConnectable,
+  }) => {
+    return (
+      <div
+        className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}
+      >
+        <CustomHandle
+          type="target"
+          position="left"
+          id="execution__in"
+          isConnectable={isConnectable}
+          connections={data ? data.connections : []}
+        />
+        <h4>Stop</h4>
+        <CustomHandle
+          type="source"
+          position="right"
+          id="execution__out"
+          isConnectable={isConnectable}
+          connections={data ? data.connections : []}
+        />
+      </div>
+    );
+  }
+);
+
+export const NodeStopMini = memo(() => {
+  return (
+    <NodeMini
+      nodeType="stop"
+      node={<NodeStop />}
+      className={classes.actioning}
+      style={{ height: "3rem" }}
+    >
+      <div className={classes.flexCol} style={{ marginTop: "-4px" }}>
+        <h4>Stop</h4>
       </div>
     </NodeMini>
   );

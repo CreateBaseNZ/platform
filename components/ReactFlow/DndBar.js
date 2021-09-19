@@ -7,11 +7,20 @@ import {
   NodeElevationOfMini,
   NodeLeftSensorMini,
   NodeRightSensorMini,
-  NodeFireSensorMini
+  NodeFireSensorMini,
+  NodeMiddleSensorMini,
+  NodeOnLineMini,
+  NodeDifferenceMini,
+  NodeFrontOnLineMini,
+  NodeIsFireMini
 } from "./NodeSensing";
 import {
   NodeLeftWheelMini,
+  NodeMoveBackwardMini,
+  NodeMoveForwardMini,
   NodeRightWheelMini,
+  NodeStopMini,
+  NodeTurnMini,
   NodeWateHoseMini
 } from "./NodeLineFollowing";
 import {
@@ -104,9 +113,18 @@ const DndBar = memo(({ query }) => {
         <div className={classes.wrapper}>
           <h5>Sensing</h5>
           <NodeLeftSensorMini />
+          <NodeMiddleSensorMini />
           <NodeRightSensorMini />
+          <NodeOnLineMini />
+          <NodeFrontOnLineMini />
+          <NodeDifferenceMini />
           <NodeFireSensorMini />
+          <NodeIsFireMini />
           <h5>Actions</h5>
+          <NodeMoveForwardMini />
+          <NodeTurnMini />
+          <NodeStopMini />
+          <NodeMoveBackwardMini />
           <NodeLeftWheelMini />
           <NodeRightWheelMini />
           <NodeWateHoseMini />
@@ -126,7 +144,7 @@ const DndBar = memo(({ query }) => {
           <NodeIfMini />
           <NodeWhileMini />
           <h5>Utilities</h5>
-          {/* <NodeDelayMini /> */}
+          <NodeDelayMini />
           <NodePrintMini />
         </div>
       )}

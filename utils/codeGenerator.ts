@@ -426,30 +426,6 @@ export class CodeGenerator {
     }
   }
 
-
-  private delay(blockDetail) {
-    if (blockDetail.value) {
-      const delayTime = String(blockDetail.value.a);
-      console.log(delayTime);
-      if (this.checkVariable(delayTime) || this.isNumber(delayTime)) {
-        const added = this.addFunction("delay");
-        const functionName = "delay";
-        const functionImplemt = `const delay = (seconds) => {\nconst startTime=new Date().getTime();\nlet timeDone=false;\nwhile(!timeDone){\nif ((new Date().getTime() - startTime) > seconds*1000){\nbreak;\n}\n}\n}\n`;
-        if (added) {
-          this.content += functionImplemt;
-        }
-        let str = `await delay(${delayTime});`;
-        this.simpleExecutes.push(str);
-        this.executes.push(str);
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
   private printMessage(blockDetail, printNum) {
     if (blockDetail.value) {
       printNum++;
@@ -556,9 +532,6 @@ export class CodeGenerator {
           break;
         case "print":
           [state, printNum] = this.printMessage(element, printNum);
-          break;
-        case "delay":
-          state = this.delay(element);
           break;
         default:
           break;

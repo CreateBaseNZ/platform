@@ -210,20 +210,20 @@
     }
   }
 }
+.nodeTurn{
+  height: 4rem;
+  width: 15rem;
+}
 .moveForward {
-  height: 6rem;
-  width: 12rem;
+  height: 3rem;
+  width: 10rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   h4 {
-    margin-bottom: 0.25rem;
-  }
-  .flexCol {
-    align-items: center;
-    &:nth-child(2) {
-      margin: 0 0.5rem;
-    }
-    input {
-      margin: 0.25rem 0 0 0;
-    }
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    text-align: center;
   }
 }
 

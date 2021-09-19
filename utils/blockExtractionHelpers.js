@@ -119,12 +119,12 @@ const findInputs = (
       if (currentNode.id == edgeCollection[i].source) {
         if (
           edgeCollection[i].sourceHandle &&
-          edgeCollection[i].sourceHandle.split("_")[0] == "execution"
+          edgeCollection[i].sourceHandle.split("__")[0] == "execution"
         ) {
           executionBlock = true;
         } else if (
           edgeCollection[i].sourceHandle &&
-          edgeCollection[i].sourceHandle.split("_")[0] == "execution"
+          edgeCollection[i].sourceHandle.split("__")[0] == "execution"
         ) {
           outName = blocksOrder[i].value[edgeCollection[i].sourceHandle];
         }
@@ -147,7 +147,7 @@ const findInputs = (
     if (currentNode.id == edgeCollection[i].target) {
       if (
         edgeCollection[i].targetHandle &&
-        edgeCollection[i].targetHandle.split("_")[0] != "execution"
+        edgeCollection[i].targetHandle.split("__")[0] != "execution"
       ) {
         const splitName = edgeCollection[i].targetHandle.split("__");
         const inputName = splitName[splitName.length - 1];
@@ -210,7 +210,16 @@ const findInputs = (
       if (edgeNum || edgeNum == 0) {
         const splitArray = edgeCollection[edgeNum].sourceHandle.split("__");
         let NextOut = splitArray[splitArray.length - 1];
-        if (NextOut) {
+        const doneBlock = blocksOrder.filter((block) => {
+          return currentNode.id === block.id;
+        })
+        if (doneBlock.length > 0) {
+          if (doneBlock[0].value.out) {
+            outName = doneBlock[0].value.out;
+          }
+        }
+        if (NextOut && !outName) {
+          console.log(val)
           outName = "out_" + String(val);
           val++;
         }
@@ -236,7 +245,6 @@ export const flow2Text = (elements, projectName) => {
     return "Robot doesn't Exist";
   }
   while (traverse) {
-    console.log(currentNode);
     if (currentNode) {
       if (!CheckPreviuos(currentNode, elements)) {
         return ["One Node has more than one input", null, null];
@@ -303,12 +311,22 @@ export const flow2Text = (elements, projectName) => {
         if (path[path.length - 1] == maxPath[path.length - 1]) {
           switch (currentNode.type) {
             case "while":
-              let f, message;
-              [blocksConfig, val, f, message] = findInputs(
+              let delayBlock = {
+                robot: robotName,
+                id: 'delay_whiled',
+                type: 'specific',
+                name:'delay',
+                value: {
+                  a: 0.25
+                }
+              };
+              blocksConfig.push(delayBlock);
+              let f, message,useles;
+              [blocksConfig, useles, f, message] = findInputs(
                 blocksConfig,
                 currentNode,
                 elements,
-                0,
+                -1,
                 robotName
               );
               blocksConfig.pop();

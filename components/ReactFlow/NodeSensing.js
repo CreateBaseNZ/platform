@@ -6,6 +6,7 @@ const NodeSensing = ({
   data = { values: {}, connections: [] },
   isConnectable,
   label,
+  id="float__out"
 }) => {
   return (
     <div
@@ -24,7 +25,37 @@ const NodeSensing = ({
       <CustomHandle
         type="source"
         position="right"
-        id="float__out"
+        id={id}
+        isConnectable={isConnectable}
+        connections={data.connections}
+      />
+    </div>
+  );
+};
+
+const NodeSensingBool = ({
+  data = { values: {}, connections: [] },
+  isConnectable,
+  label,
+}) => {
+  return (
+    <div
+      className={`${classes.node} ${classes.sensing} ${classes.hasRightHandle}`}
+    >
+      {/* <h4>Distance from</h4>
+  <EntityDropdown data={data} selectName="distance-from" dataName="from" />
+  <h4>to</h4>
+  <EntityDropdown
+    data={data}
+    selectName="distance-to"
+    dataName="to"
+    options={["Next obstacle"]}
+  /> */}
+      <h4>{label}</h4>
+      <CustomHandle
+        type="source"
+        position="right"
+        id="boolean__out"
         isConnectable={isConnectable}
         connections={data.connections}
       />
@@ -41,6 +72,7 @@ export const NodeDistance = ({ data, isConnectable }) => {
     />
   );
 };
+
 export const NodeHeightOf = ({ data, isConnectable }) => {
   return (
     <NodeSensing
@@ -50,6 +82,7 @@ export const NodeHeightOf = ({ data, isConnectable }) => {
     />
   );
 };
+
 export const NodeLeftSensor = ({ data, isConnectable }) => {
   return (
     <NodeSensing
@@ -70,6 +103,56 @@ export const NodeRightSensor = ({ data, isConnectable }) => {
   );
 };
 
+export const NodeOnLine = ({ data, isConnectable }) => {
+  return (
+    <NodeSensingBool
+      data={data}
+      isConnectable={isConnectable}
+      label="Car on Line"
+    />
+  );
+};
+
+export const NodeFrontOnLine = ({ data, isConnectable }) => {
+  return (
+    <NodeSensingBool
+      data={data}
+      isConnectable={isConnectable}
+      label="Is Front On the Line"
+    />
+  );
+};
+
+export const NodeIsFire = ({ data, isConnectable }) => {
+  return (
+    <NodeSensingBool
+      data={data}
+      isConnectable={isConnectable}
+      label="Is Fire?"
+    />
+  );
+};
+
+export const NodeDifference = ({ data, isConnectable }) => {
+  return (
+    <NodeSensing
+      data={data}
+      isConnectable={isConnectable}
+      label="Difference between right and left"
+    />
+  );
+};
+
+export const NodeMiddleSensor = ({ data, isConnectable }) => {
+  return (
+    <NodeSensing
+      data={data}
+      isConnectable={isConnectable}
+      label="Middle Line Sensor"
+    />
+  );
+};
+
 export const NodeFireSensor = ({ data, isConnectable }) => {
   return (
     <NodeSensing
@@ -80,9 +163,6 @@ export const NodeFireSensor = ({ data, isConnectable }) => {
   );
 };
 
-
-
-
 export const NodeWidthOf = ({ data, isConnectable }) => {
   return (
     <NodeSensing
@@ -92,6 +172,7 @@ export const NodeWidthOf = ({ data, isConnectable }) => {
     />
   );
 };
+
 export const NodeSpeedOf = ({ data, isConnectable }) => {
   return (
     <NodeSensing
@@ -101,6 +182,7 @@ export const NodeSpeedOf = ({ data, isConnectable }) => {
     />
   );
 };
+
 export const NodeElevationOf = ({ data, isConnectable }) => {
   return (
     <NodeSensing
@@ -161,6 +243,66 @@ export const NodeRightSensorMini = () => {
       node={<NodeRightSensor />}
     >
       <h4>Right Line Sensor</h4>
+    </NodeMini>
+  );
+};
+
+export const NodeOnLineMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeRightSensor}`}
+      nodeType="onLine"
+      node={<NodeOnLine />}
+    >
+      <h4>Car on Line</h4>
+    </NodeMini>
+  );
+};
+
+export const NodeFrontOnLineMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeRightSensor}`}
+      nodeType="frontOnLine"
+      node={<NodeFrontOnLine />}
+    >
+      <h4>Is Front On the Line</h4>
+    </NodeMini>
+  );
+};
+
+export const NodeIsFireMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeRightSensor}`}
+      nodeType="isFire"
+      node={<NodeIsFire />}
+    >
+      <h4>Is Fire?</h4>
+    </NodeMini>
+  );
+};
+
+export const NodeDifferenceMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeRightSensor}`}
+      nodeType="difference"
+      node={<NodeDifference />}
+    >
+      <h4>Difference between right and left</h4>
+    </NodeMini>
+  );
+};
+
+export const NodeMiddleSensorMini = () => {
+  return (
+    <NodeMini
+      className={`${classes.sensing} ${classes.nodeRightSensor}`}
+      nodeType="middleLineSensor"
+      node={<NodeMiddleSensor />}
+    >
+      <h4>Middle Line Sensor</h4>
     </NodeMini>
   );
 };

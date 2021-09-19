@@ -57,7 +57,6 @@ export const EntityDropdown = ({
 }) => {
   console.log(data)
   const changeHandler = (event) => {
-    console.log(event);
     data.callBack({ ...data.values, [dataName]: event.target.value });
   };
 

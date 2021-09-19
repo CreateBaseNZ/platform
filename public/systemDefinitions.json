@@ -116,18 +116,63 @@
         "await":false
       },
       "leftWheel":{
-        "inputs": [{ "variable": "entity", "type": "text", "value": "forwards" },{ "variable": "a", "type": "number", "value": true }],
-        "logic": "if(entity==\"forwards\"){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else if(entity==\"backwards\"){\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", a)\n}else if(entity==\"stop\"){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}",
+        "inputs": [{ "variable": "a", "type": "number", "value": true }],
+        "logic": "if(a==0){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", -a)\n}",
         "await":false
       },
+      
       "rightWheel":{
-        "inputs": [{ "variable": "entity", "type": "text", "value": "leftwheel" },{ "variable": "a", "type": "number", "value": true }],
-        "logic": "if(entity==\"forwards\"){\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", a)\n}else if(entity==\"backwards\"){\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", a)\n}else if(entity==\"stop\"){\nunityContext.send(\"RightWheel\", \"StopMotor\")\n}",
+        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+        "logic":  "if(a==0){\nunityContext.send(\"RightWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", -a)\n}",
         "await":false
       },
       "waterHose":{
         "inputs": [{ "variable": "a", "type": "boolean", "value": true }],
         "logic": "if(a){\nunityContext.send(\"WaterHose\", \"TurnOnWater\")\n}else{\nunityContext.send(\"WaterHose\", \"TurnOffWater\")\n}",
+        "await":false
+      },
+      "onLine":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor>0.05 && JSON.parse(sensorDataRef.current).leftLineSensor>0.05)",
+        "await":false
+      },
+      "frontOnLine":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (JSON.parse(sensorDataRef.current).middleLineSensor>0.995)",
+        "await":false
+      },
+      "isFire":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (JSON.parse(sensorDataRef.current).fireDetectionSensor>0.5)",
+        "await":false
+      },
+      "difference":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor-JSON.parse(sensorDataRef.current).leftLineSensor)",
+        "await":false
+      },
+      "moveForward":{
+        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+        "logic": "unityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33+a)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33-a)",
+        "await":false
+      },
+      "turn":{
+        "inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
+        "logic": "if(a){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.5)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.5)}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.5)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.5)\n}",
+        "await":false
+      },
+      "stop":{
+        "inputs": [],
+        "logic": "unityContext.send(\"LeftWheel\", \"StopMotor\")\nunityContext.send(\"RightWheel\", \"StopMotor\")",
+        "await":false
+      },
+      "moveBackward":{
+        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+        "logic": "unityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33-a)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33+a)",
         "await":false
       },
       "end":{        
