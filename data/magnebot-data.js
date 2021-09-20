@@ -47,7 +47,7 @@ export default {
       url: "/magnebot/pdf/robotics.pdf",
     },
   ],
-  researchCaption: ["Work through the four modules above to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+  researchCaption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
   research: [
     {
       type: "video",
