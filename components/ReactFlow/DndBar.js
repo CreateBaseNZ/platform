@@ -5,7 +5,24 @@ import {
   NodeWidthOfMini,
   NodeSpeedOfMini,
   NodeElevationOfMini,
+  NodeLeftSensorMini,
+  NodeRightSensorMini,
+  NodeFireSensorMini,
+  NodeMiddleSensorMini,
+  NodeOnLineMini,
+  NodeDifferenceMini,
+  NodeFrontOnLineMini,
+  NodeIsFireMini,
 } from "./NodeSensing";
+import {
+  NodeLeftWheelMini,
+  NodeMoveBackwardMini,
+  NodeMoveForwardMini,
+  NodeRightWheelMini,
+  NodeStopMini,
+  NodeTurnMini,
+  NodeWateHoseMini
+} from "./NodeLineFollowing";
 import {
   NodeAttackMini,
   NodeDoubleJumpMini,
@@ -19,6 +36,7 @@ import {
   NodeMultiplyMini,
   NodeDivideMini,
   NodeOperatorGeneralMini,
+  NodeAbsoluteMini
 } from "./NodeOperations";
 import {
   NodeGreaterThanMini,
@@ -26,9 +44,9 @@ import {
   NodeEqualsMini,
   NodeNotEqualsMini,
 } from "./NodeComparisons";
-import { NodeAndMini, NodeOrMini } from "./NodeLogicals";
+import { NodeAndMini, NodeOrMini, NodeNotMini } from "./NodeLogicals";
 import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "./NodeConditionals";
-import { NodeDelayMini, NodePrintMini } from "./NodeUtils";
+import { NodeDelayMini, NodePrintMini} from "./NodeUtils";
 
 import classes from "./DndBar.module.scss";
 
@@ -88,6 +106,46 @@ const DndBar = memo(({ query }) => {
           <h5>Comparisons</h5>
           <NodeGreaterThanMini />
           <NodeLessThanMini />
+          <NodePrintMini />
+        </div>
+      )}
+      {query === "line-following" && (
+        <div className={classes.wrapper}>
+          <h5>Sensing</h5>
+          <NodeLeftSensorMini />
+          <NodeMiddleSensorMini />
+          <NodeRightSensorMini />
+          <NodeOnLineMini />
+          <NodeFrontOnLineMini />
+          <NodeDifferenceMini />
+          <NodeFireSensorMini />
+          <NodeIsFireMini />
+          <h5>Actions</h5>
+          <NodeMoveForwardMini />
+          <NodeTurnMini />
+          <NodeStopMini />
+          <NodeMoveBackwardMini />
+          <NodeLeftWheelMini />
+          <NodeRightWheelMini />
+          <NodeWateHoseMini />
+          <h5>Operators</h5>
+          <NodeAddMini />
+          <NodeSubtractMini />
+          <NodeMultiplyMini />
+          <NodeDivideMini />
+          <NodeAbsoluteMini />
+          <h5>Comparisons</h5>
+          <NodeGreaterThanMini />
+          <NodeLessThanMini />
+          <h5>Logicals</h5>
+          <NodeNotMini />
+          <NodeAndMini />
+          <NodeOrMini />
+          <h5>Conditionals</h5>
+          <NodeIfMini />
+          <NodeWhileMini />
+          <h5>Utilities</h5>
+          <NodeDelayMini />
           <NodePrintMini />
         </div>
       )}

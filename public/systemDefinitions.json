@@ -86,6 +86,105 @@
     }
   },
   {
+    "robot": "Car",
+    "sensors":{
+      "leftLineSensor":{
+        "name":"leftLineSensor",
+        "simpleName":"leftLineSensor"
+      },
+      "rightLineSensor":{
+        "name":"rightLineSensor",
+        "simpleName":"rightLineSensor"
+      },
+      "middleLineSensor":{
+        "name":"middleLineSensor",
+        "simpleName":"middleLineSensor"
+      },
+      "fireDetectionSensor":{
+        "name":"fireDetectionSensor",
+        "simpleName":"fireDetectionSensor"
+      }
+
+    },
+    "actions":{
+    },
+    "functions":{
+      "start":{
+        "simpleLogic": "while(gameIsON){",
+        "inputs":[],
+        "logic": "if(sensorData){\n",
+        "await":false
+      },
+      "leftWheel":{
+        "inputs": [{ "variable": "a", "type": "number", "value": true }],
+        "logic": "if(a==0){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", -a)\n}",
+        "await":false
+      },
+      
+      "rightWheel":{
+        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+        "logic":  "if(a==0){\nunityContext.send(\"RightWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", -a)\n}",
+        "await":false
+      },
+      "waterHose":{
+        "inputs": [{ "variable": "a", "type": "boolean", "value": true }],
+        "logic": "if(a){\nunityContext.send(\"WaterHose\", \"TurnOnWater\")\n}else{\nunityContext.send(\"WaterHose\", \"TurnOffWater\")\n}",
+        "await":false
+      },
+      "onLine":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor>0.05 && JSON.parse(sensorDataRef.current).leftLineSensor>0.05)",
+        "await":false
+      },
+      "frontOnLine":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (JSON.parse(sensorDataRef.current).middleLineSensor>0.995)",
+        "await":false
+      },
+      "isFire":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (JSON.parse(sensorDataRef.current).fireDetectionSensor>0.5)",
+        "await":false
+      },
+      "difference":{
+        "output":{"variable":"out"},
+        "inputs": [],
+        "logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor-JSON.parse(sensorDataRef.current).leftLineSensor)",
+        "await":false
+      },
+      "moveForward":{
+        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+        "logic": "unityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33+a)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33-a)",
+        "await":false
+      },
+      "turn":{
+        "inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
+        "logic": "if(a){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.5)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.5)}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.5)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.5)\n}",
+        "await":false
+      },
+      "stop":{
+        "inputs": [],
+        "logic": "unityContext.send(\"LeftWheel\", \"StopMotor\")\nunityContext.send(\"RightWheel\", \"StopMotor\")",
+        "await":false
+      },
+      "moveBackward":{
+        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+        "logic": "unityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33-a)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33+a)",
+        "await":false
+      },
+      "end":{        
+        "simpleLogic":"}",
+        "inputs":[],
+        "logic": "}",
+        "await":false
+
+      }
+    }
+  },
+  {
     "mathOps":{
       "add":"+",
       "subtract":"-",
@@ -98,12 +197,18 @@
       "and":"&&",
       "or":"||"
     },
-    "general":["if", "intialise", "compare","while","for","num","repeat","operatorGeneral", "print"],
+    "general":["if", "intialise", "compare","while","for","num","repeat","operatorGeneral", "print","absolute"],
     "functions":{
       "delay":{
         "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
         "logic": "setTimeout(resolve, a*1000);",
         "await":true
+      },
+      "not":{
+        "output":{"variable":"out"},
+        "inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
+        "logic": "return !a;",
+        "await":false
       }
     }
   }

@@ -141,6 +141,31 @@ export class CodeGenerator {
     return false;
   }
 
+  private absolute(blockDetail) {
+    let inputs = "a";
+    let val = String(blockDetail.value[inputs]).trim();
+    if (!this.isNumber(val)) {
+      if (!this.checkVariable(val)) {
+        return [
+          false,
+          "error",
+          "The inputs to one of the operators is not a number",
+        ];
+      }
+    } else {
+      val = String(Number(val));
+    }
+
+    let output: any;
+    output = "";
+    output = this.checkCorrectVar(String(blockDetail.value.out));
+    const str = `${output}Math.abs(${val})`;
+    const simpleStr= `${output}abs(${val})`;
+    this.simpleExecutes.push(simpleStr);
+    this.executes.push(str);
+    return [true];
+  }
+
   private start( correctSystem) {
     this.executes.push(correctSystem.functions.start.logic);
     this.simpleExecutes.push(correctSystem.functions.start.simpleLogic);
@@ -151,7 +176,6 @@ export class CodeGenerator {
     let mathInput = ["a", "operator", "b"];
     let inputs: string = "";
     for (let i = 0; i < mathInput.length; i++) {
-      let simpleVal = "";
       let val = String(blockDetail.value[mathInput[i]]).trim();
       if (mathInput[i] != "operator") {
         if (!this.isNumber(val)) {
@@ -200,7 +224,7 @@ export class CodeGenerator {
         const element = blockFunction.inputs[i];
         let currentInput = String(blockDetail.value[element.variable]).trim();
         if (!this.checkVariable(currentInput)) {
-          if (element.type == "number")
+          if (element.type == "number") {
             if (!this.isNumber(currentInput)) {
               return [
                 false,
@@ -210,12 +234,13 @@ export class CodeGenerator {
             } else {
               currentInput = String(Number(currentInput));
             }
-        } else if (element.type == "boolean" && !this.isBool(currentInput)) {
-          return [
-            false,
-            "error",
-            "Input to one of blocks is not a Boolean or Number",
-          ];
+          } else if (element.type == "boolean" && !this.isBool(currentInput)) {
+            return [
+              false,
+              "error",
+              "Input to one of blocks is not a Boolean or Number",
+            ];
+          }
         }
         if (i === blockFunction.inputs.length - 1) {
           inputVariables += element.variable;
@@ -226,6 +251,7 @@ export class CodeGenerator {
         }
       }
     }
+    
     const elementOut = blockFunction.output;
     let output: any;
     output = "";
@@ -240,18 +266,26 @@ export class CodeGenerator {
     //const functionName = blockFunction.function.name + String(this.increment);
     this.increment++;
     // Build function
-    const func = `let ${functionName} = (${inputVariables}) => {
-      return new Promise((resolve, reject) => {
-        ${blockFunction.logic}
-      });
-    }\n
-    `;
+    let func = `let ${functionName} = (${inputVariables}) => {`;
+    if (blockFunction.await) {
+      func+="\nreturn new Promise((resolve, reject) => {"
+    }
+    func += `\n${blockFunction.logic}`
+    if (blockFunction.await) {
+      func+="\n});"
+    }
+    func += "}\n";
+    
+    ;
         
     if (added) {
       this.content += func;
     }
     // Add execute
-    const execute = `${output}await ${functionName}(${inputs});`;
+    if (blockFunction.await) {
+      output += " await ";
+    }
+    const execute = `${output} ${functionName}(${inputs});`;
     const simpleStr = ` ${output} ${functionName}(${inputs});`;
     this.executes.push(execute);
     this.simpleExecutes.push(simpleStr);
@@ -394,30 +428,6 @@ export class CodeGenerator {
     }
   }
 
-
-  private delay(blockDetail) {
-    if (blockDetail.value) {
-      const delayTime = String(blockDetail.value.a);
-      console.log(delayTime);
-      if (this.checkVariable(delayTime) || this.isNumber(delayTime)) {
-        const added = this.addFunction("delay");
-        const functionName = "delay";
-        const functionImplemt = `const delay = (seconds) => {\nconst startTime=new Date().getTime();\nlet timeDone=false;\nwhile(!timeDone){\nif ((new Date().getTime() - startTime) > seconds*1000){\nbreak;\n}\n}\n}\n`;
-        if (added) {
-          this.content += functionImplemt;
-        }
-        let str = `await delay(${delayTime});`;
-        this.simpleExecutes.push(str);
-        this.executes.push(str);
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
   private printMessage(blockDetail, printNum) {
     if (blockDetail.value) {
       printNum++;
@@ -504,6 +514,9 @@ export class CodeGenerator {
         case "operatorGeneral":
           [state, type, message] = this.mathOp(element);
           break;
+        case "absolute":
+          [state, type, message] = this.absolute(element);
+          break;
         case "repeat":
           [state, type, message] = this.forStart(element);
           break;
@@ -521,9 +534,6 @@ export class CodeGenerator {
           break;
         case "print":
           [state, printNum] = this.printMessage(element, printNum);
-          break;
-        case "delay":
-          state = this.delay(element);
           break;
         default:
           break;

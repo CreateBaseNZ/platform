@@ -5,6 +5,14 @@ import {
   NodeHeightOf,
   NodeWidthOf,
   NodeElevationOf,
+  NodeLeftSensor,
+  NodeRightSensor,
+  NodeFireSensor,
+  NodeMiddleSensor,
+  NodeOnLine,
+  NodeDifference,
+  NodeFrontOnLine,
+  NodeIsFire,
 } from "../components/ReactFlow/NodeSensing";
 import {
   NodeAttack,
@@ -22,6 +30,7 @@ import {
   NodeMultiply,
   NodeDivide,
   NodeOperatorGeneral,
+  NodeAbsolute,
 } from "../components/ReactFlow/NodeOperations";
 import {
   NodeGreaterThan,
@@ -29,7 +38,7 @@ import {
   NodeEquals,
   NodeNotEquals,
 } from "../components/ReactFlow/NodeComparisons";
-import { NodeAnd, NodeOr } from "../components/ReactFlow/NodeLogicals";
+import { NodeAnd, NodeOr,  NodeNot, } from "../components/ReactFlow/NodeLogicals";
 import {
   NodeIf,
   NodeRepeat,
@@ -48,6 +57,15 @@ import {
 } from "../components/ReactFlow/Edges";
 
 import classes from "../components/ReactFlow/FlowEditor.module.scss";
+import {
+  NodeLeftWheel,
+  NodeMoveBackward,
+  NodeMoveForward,
+  NodeRightWheel,
+  NodeStop,
+  NodeTurn,
+  NodeWateHose
+} from "../components/ReactFlow/NodeLineFollowing";
 
 export const initialData = {
   start: {},
@@ -85,6 +103,23 @@ export const nodeTypes = {
   print: NodePrint,
   true: NodeTrue,
   false: NodeFalse,
+  leftLineSensor: NodeLeftSensor,
+  rightLineSensor: NodeRightSensor,
+  fireDetectionSensor: NodeFireSensor,
+  middleLineSensor: NodeMiddleSensor,
+  onLine: NodeOnLine,
+  difference: NodeDifference,
+  moveForward: NodeMoveForward,
+  moveBackward: NodeMoveBackward,
+  turn: NodeTurn,
+  stop:NodeStop,
+  absolute: NodeAbsolute,
+  leftWheel:NodeLeftWheel,
+  rightWheel: NodeRightWheel,
+  waterHose: NodeWateHose,
+  frontOnLine: NodeFrontOnLine,
+  isFire: NodeIsFire,
+  not:NodeNot
 };
 
 export const edgeTypes = {
@@ -161,6 +196,82 @@ const ExecutionType = () => {
 };
 
 export const tooltips = {
+  leftLineSensor: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the reading from left line sensor",
+  ],
+  onLine: [
+    <NoneType />,
+    <BooleanType />,
+    "Outputs whether the right and left sensors are on the line",
+  ],
+  not: [
+    <BooleanType />,
+    <BooleanType />,
+    "Returns the opposite of the input boolean",
+  ],
+  frontOnLine: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs whether the front sensors is on the middle of the line",
+  ],
+  isFire: [
+    <NoneType />,
+    <BooleanType />,
+    "Outputs whether there is fire in front of the car",
+  ],
+  absolute: [
+    <FloatType />,
+    <FloatType />,
+    "Outputs the absolute of the input (i.e. number without the sign)",
+  ],
+  rightLineSensor: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the reading from right line sensor",
+  ],
+  middleLineSensor: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the reading from middle line sensor",
+  ],
+  stop: [
+    <ExecutionType />,
+    <ExecutionType />,
+    "Stops the movement of both motors",
+  ],
+  difference: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the difference in reading between the right and left sensors",
+  ],
+  moveForward: [
+    <>
+      <ExecutionType />,
+      <FloatType />
+    </>,
+    <ExecutionType />,
+    "Orders both motors to move forwards. If input is zero then they move at equal speed. If input is positive, Left motor is sped up and right is slowed and vice versa ",
+  ],
+  moveBackward: [
+    <>
+      <ExecutionType />,
+      <FloatType />
+    </>,
+    <ExecutionType />,
+    "Orders both motors to move backwards. If input is zero then they move at equal speed. If input is positive, Left motor is sped up and right is slowed and vice versa ",
+  ],
+  turn: [
+    <ExecutionType />,
+    <ExecutionType />,
+    "Instructs the motors to move to make the car rotate, either clockwise or anticlockwise",
+  ],
+  fireDetectionSensor: [
+    <NoneType />,
+    <FloatType />,
+    "Outputs the reading from the fire sensor",
+  ],
   distance: [
     <NoneType />,
     <FloatType />,
@@ -190,6 +301,24 @@ export const tooltips = {
     <ExecutionType />,
     <ExecutionType />,
     "Instructs your character to jump",
+  ],
+  rightWheel: [
+      <ExecutionType />,
+    <ExecutionType />,
+    "Instructs the right wheel to move. 0 is stop, positive for forward and negative for backwards",
+  ],
+  leftWheel: [
+    <>
+      <ExecutionType />,
+      <FloatType />
+    </>,
+    <ExecutionType />,
+    "Instructs the left wheel to move. 0 is stop, positive for forward and negative for backwards",
+  ],
+  waterHose: [
+    <ExecutionType />,
+    <ExecutionType />,
+    "Toggles the water hose on and off",
   ],
   crouch: [
     <ExecutionType />,
