@@ -27,7 +27,6 @@ export const LoginForm = ({ setUser }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		ctx.setBell({});
 
 		await logIn(
 			input.username,
