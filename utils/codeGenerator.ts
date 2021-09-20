@@ -224,7 +224,7 @@ export class CodeGenerator {
         const element = blockFunction.inputs[i];
         let currentInput = String(blockDetail.value[element.variable]).trim();
         if (!this.checkVariable(currentInput)) {
-          if (element.type == "number")
+          if (element.type == "number") {
             if (!this.isNumber(currentInput)) {
               return [
                 false,
@@ -234,12 +234,13 @@ export class CodeGenerator {
             } else {
               currentInput = String(Number(currentInput));
             }
-        } else if (element.type == "boolean" && !this.isBool(currentInput)) {
-          return [
-            false,
-            "error",
-            "Input to one of blocks is not a Boolean or Number",
-          ];
+          } else if (element.type == "boolean" && !this.isBool(currentInput)) {
+            return [
+              false,
+              "error",
+              "Input to one of blocks is not a Boolean or Number",
+            ];
+          }
         }
         if (i === blockFunction.inputs.length - 1) {
           inputVariables += element.variable;
@@ -250,6 +251,7 @@ export class CodeGenerator {
         }
       }
     }
+    
     const elementOut = blockFunction.output;
     let output: any;
     output = "";

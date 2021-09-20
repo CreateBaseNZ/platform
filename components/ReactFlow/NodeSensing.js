@@ -133,26 +133,6 @@ export const NodeIsFire = ({ data, isConnectable }) => {
   );
 };
 
-
-export const NodeLineLeft = ({ data, isConnectable }) => {
-  return (
-    <NodeSensingBool
-      data={data}
-      isConnectable={isConnectable}
-      label="Turn Left?"
-    />
-  );
-};
-
-export const NodeLineRight = ({ data, isConnectable }) => {
-  return (
-    <NodeSensingBool
-      data={data}
-      isConnectable={isConnectable}
-      label="Turn Right?"
-    />
-  );
-};
 export const NodeDifference = ({ data, isConnectable }) => {
   return (
     <NodeSensing
@@ -303,29 +283,6 @@ export const NodeIsFireMini = () => {
   );
 };
 
-export const NodeLineRightMini = () => {
-  return (
-    <NodeMini
-      className={`${classes.sensing} ${classes.nodeRightSensor}`}
-      nodeType="lineRight"
-      node={<NodeLineRight />}
-    >
-      <h4>Line Right?</h4>
-    </NodeMini>
-  );
-};
-
-export const NodeLineLeftMini = () => {
-  return (
-    <NodeMini
-      className={`${classes.sensing} ${classes.nodeRightSensor}`}
-      nodeType="lineLeft"
-      node={<NodeLineLeft />}
-    >
-      <h4>Line Left?</h4>
-    </NodeMini>
-  );
-};
 
 export const NodeDifferenceMini = () => {
   return (

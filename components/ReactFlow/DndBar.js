@@ -13,8 +13,6 @@ import {
   NodeDifferenceMini,
   NodeFrontOnLineMini,
   NodeIsFireMini,
-  NodeLineLeftMini,
-  NodeLineRightMini
 } from "./NodeSensing";
 import {
   NodeLeftWheelMini,
@@ -38,7 +36,7 @@ import {
   NodeMultiplyMini,
   NodeDivideMini,
   NodeOperatorGeneralMini,
-  
+  NodeAbsoluteMini
 } from "./NodeOperations";
 import {
   NodeGreaterThanMini,
@@ -46,9 +44,9 @@ import {
   NodeEqualsMini,
   NodeNotEqualsMini,
 } from "./NodeComparisons";
-import { NodeAndMini, NodeOrMini } from "./NodeLogicals";
+import { NodeAndMini, NodeOrMini, NodeNotMini } from "./NodeLogicals";
 import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "./NodeConditionals";
-import { NodeDelayMini, NodePrintMini, NodeAbsoluteMini} from "./NodeUtils";
+import { NodeDelayMini, NodePrintMini} from "./NodeUtils";
 
 import classes from "./DndBar.module.scss";
 
@@ -122,8 +120,6 @@ const DndBar = memo(({ query }) => {
           <NodeDifferenceMini />
           <NodeFireSensorMini />
           <NodeIsFireMini />
-          <NodeLineRightMini />
-          <NodeLineLeftMini />
           <h5>Actions</h5>
           <NodeMoveForwardMini />
           <NodeTurnMini />
@@ -142,6 +138,7 @@ const DndBar = memo(({ query }) => {
           <NodeGreaterThanMini />
           <NodeLessThanMini />
           <h5>Logicals</h5>
+          <NodeNotMini />
           <NodeAndMini />
           <NodeOrMini />
           <h5>Conditionals</h5>

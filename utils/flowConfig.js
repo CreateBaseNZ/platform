@@ -13,8 +13,6 @@ import {
   NodeDifference,
   NodeFrontOnLine,
   NodeIsFire,
-  NodeLineLeft,
-  NodeLineRight
 } from "../components/ReactFlow/NodeSensing";
 import {
   NodeAttack,
@@ -32,6 +30,7 @@ import {
   NodeMultiply,
   NodeDivide,
   NodeOperatorGeneral,
+  NodeAbsolute,
 } from "../components/ReactFlow/NodeOperations";
 import {
   NodeGreaterThan,
@@ -39,7 +38,7 @@ import {
   NodeEquals,
   NodeNotEquals,
 } from "../components/ReactFlow/NodeComparisons";
-import { NodeAnd, NodeOr } from "../components/ReactFlow/NodeLogicals";
+import { NodeAnd, NodeOr,  NodeNot, } from "../components/ReactFlow/NodeLogicals";
 import {
   NodeIf,
   NodeRepeat,
@@ -50,7 +49,6 @@ import {
   NodePrint,
   NodeTrue,
   NodeFalse,
-  NodeAbsolute,
 } from "../components/ReactFlow/NodeUtils";
 import {
   ExecutionEdge,
@@ -121,8 +119,7 @@ export const nodeTypes = {
   waterHose: NodeWateHose,
   frontOnLine: NodeFrontOnLine,
   isFire: NodeIsFire,
-  lineLeft: NodeLineLeft,
-  lineRight:NodeLineRight
+  not:NodeNot
 };
 
 export const edgeTypes = {
@@ -140,10 +137,7 @@ export const initialElements = [
   },
 ];
 
-export const entities = {
-  SendIt: ["Player"],
-  LineFollowing:["\"forwards\"","\"backwards\"","\"stop\""]
-};
+export const entities = ["Player"];
 
 export const controlTitles = [
   "Zoom-in (Ctrl and +)",
@@ -212,6 +206,11 @@ export const tooltips = {
     <BooleanType />,
     "Outputs whether the right and left sensors are on the line",
   ],
+  not: [
+    <BooleanType />,
+    <BooleanType />,
+    "Returns the opposite of the input boolean",
+  ],
   frontOnLine: [
     <NoneType />,
     <FloatType />,
@@ -221,16 +220,6 @@ export const tooltips = {
     <NoneType />,
     <BooleanType />,
     "Outputs whether there is fire in front of the car",
-  ],
-  lineLeft: [
-    <NoneType />,
-    <BooleanType />,
-    "Outputs whether the line has a turn to the left",
-  ],
-  lineRight: [
-    <NoneType />,
-    <BooleanType />,
-    "Outputs whether the line has a turn to the right",
   ],
   absolute: [
     <FloatType />,

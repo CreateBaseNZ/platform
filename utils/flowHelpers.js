@@ -9,7 +9,7 @@ export const getDefaultValues = (type) => {
     type === "crouch" ||
     type === "attack"
   ) {
-    return { entity: entities.SendIt[0].toLowerCase() };
+    return { entity: entities[0].toLowerCase() };
   }
   if (
     type == "rightWheel" ||
@@ -50,7 +50,7 @@ export const getDefaultValues = (type) => {
   if (type === "moveArm") {
     return { x: 0, y: 0, z: 0 };
   }
-  if (type === "magneticSwitch"||type=="waterHose"||type=="turn") {
+  if (type === "magneticSwitch"||type=="waterHose"||type=="turn"||type=="not") {
     return { a: true };
   }
   return {};
