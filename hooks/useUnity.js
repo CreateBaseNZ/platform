@@ -42,8 +42,8 @@ const useUnity = ({ scenePrefix, scene, project, setLoaded }) => {
 				console.log("scene changed");
 				setTimeout(() => {
 					setLoaded(true);
-				}, 2000);
-			}, 3000);
+				}, 50);
+			}, 100);
 		});
 	}, []);
 

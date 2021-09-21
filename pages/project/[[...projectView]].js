@@ -69,8 +69,6 @@ const ProjectView = ({ setLoaded }) => {
 					}
 					setLoaded(true);
 				}
-			} else {
-				router.replace("/browse");
 			}
 		}
 	}, [router.query]);
