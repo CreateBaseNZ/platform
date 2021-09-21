@@ -73,7 +73,6 @@ const InviteOrgModal = ({ user }) => {
 			setError("Please enter at least one valid email");
 			return setIsLoading(false);
 		}
-		console.log(validEmails);
 		sendEmailInvitation({
 			details: { emails: validEmails.map((e) => e.value) },
 			successHandler: () => {

@@ -9,7 +9,6 @@ const User = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 
 	useEffect(() => {
 		const query = router.query.view[1];
-		console.log("user query is " + query);
 		if (query) {
 			setUserView(query);
 		} else {

@@ -2,7 +2,7 @@ import { memo, useEffect } from "react";
 import classes from "./ManageUsers.module.scss";
 
 const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort, search, isLoading, setIsLoading }) => {
-	useEffect(() => setIsLoading(false));
+	useEffect(() => allUsers.admins.length && setIsLoading(false));
 
 	const getState = (data, inputValue, state = false) => {
 		for (const value of Object.values(data)) {

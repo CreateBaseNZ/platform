@@ -41,7 +41,6 @@ const verifyAccountAPI = async (details, criticalHandler, errorHandler, failHand
 	} catch (error) {
 		return criticalHandler();
 	}
-	console.log(data);
 	if (data.status === "critical error") {
 		return criticalHandler();
 	} else if (data.status === "error") {

@@ -11,25 +11,19 @@ const sectionLength = faqData.length;
 const awaitImages = async (images, callback) => {
 	let count = 0;
 	const addLoaded = () => {
-		console.log("adding one");
 		count++;
 		if (count === images.length) {
-			console.log("running callback");
 			callback();
 		}
 	};
 	images.forEach((img) => {
-		console.log(img);
-		console.log(img.clientHeight);
 		if (!img.clientHeight) {
 			img.addEventListener("load", addLoaded, false);
 		} else {
 			count++;
-			console.log("pre adding one");
 		}
 	});
 	if (count === images.length) {
-		console.log("running callback");
 		callback();
 	}
 };

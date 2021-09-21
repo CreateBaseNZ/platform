@@ -7,8 +7,6 @@ import classes from "./BrowsePreview.module.scss";
 const tabs = ["Overview", "Teaching", "Learning"];
 
 const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, user }) => {
-	console.log(user);
-
 	const [tab, setTab] = useState(0);
 
 	const clickHandler = (i) => {

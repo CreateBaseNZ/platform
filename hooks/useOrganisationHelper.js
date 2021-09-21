@@ -19,6 +19,16 @@ export const getOrgDataAPI = async (criticalHandler) => {
 	};
 };
 
+const getOrgUsersAPI = async (criticalHandler) => {
+	let data;
+	try {
+		data = (await axios.post("/api/organisation/admin/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	return data.content;
+};
+
 const createOrgAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
 	try {
@@ -38,8 +48,6 @@ const createOrgAPI = async (details, criticalHandler, errorHandler, failHandler,
 
 const joinOrgEducatorAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
 	let data;
-	console.log(details);
-
 	try {
 		data = (await axios.post("/api/organisation/join-educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
@@ -128,6 +136,16 @@ const useOrganisationHelper = ({ setBell }) => {
 			})
 	) => {
 		return getOrgDataAPI(criticalHandler);
+	};
+
+	const getOrgUsers = async (
+		criticalHandler = () =>
+			setBell({
+				type: "catastrophe",
+				message: "Oops! Something went wrong, please refresh the page and try again",
+			})
+	) => {
+		return getOrgUsersAPI(criticalHandler);
 	};
 
 	const createOrg = ({
@@ -254,7 +272,7 @@ const useOrganisationHelper = ({ setBell }) => {
 		acceptEmailInvitationAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	return { getOrgData, createOrg, joinOrgEducator, getEducatorLink, getLearnerLink, sendEmailInvitation, acceptEmailInvitation };
+	return { getOrgData, getOrgUsers, createOrg, joinOrgEducator, getEducatorLink, getLearnerLink, sendEmailInvitation, acceptEmailInvitation };
 };
 
 export default useOrganisationHelper;

@@ -46,12 +46,6 @@ export const NodeContextMenu = memo(({ show, x, y, node, elements, blurHandler, 
 			</button>
 			<button
 				onMouseDown={() => {
-					console.log(
-						getConnectedEdges(
-							[node],
-							elements.filter((el) => isEdge(el))
-						)
-					);
 					deleteHandler([
 						node,
 						...getConnectedEdges(

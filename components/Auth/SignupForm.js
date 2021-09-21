@@ -395,7 +395,6 @@ const autofillDetails = (details) => {
 
 const SignupForm = () => {
 	const inviteCtx = useContext(InviteOrgContext);
-	console.log(inviteCtx);
 	const [step, setStep] = useState(inviteCtx.details.isInvited ? 1 : 0);
 	const [access, setAccess] = useState(autofillAccess(inviteCtx.details));
 	const [learner, setLearner] = useState(autofillDetails(inviteCtx.details));

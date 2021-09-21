@@ -1,8 +1,6 @@
 import classes from "./ManageUsers.module.scss";
 
 const TableHead = ({ isChecked, tab, toggleAllCheckboxHandler, columns, sort, sortByColHandler }) => {
-	console.log(isChecked);
-
 	return (
 		<div className={classes.tableHead}>
 			<button className={`${classes.colName} ${classes.check} ${isChecked[tab] ? classes.checked : ""}`} onClick={toggleAllCheckboxHandler} title={isChecked[tab] ? "Deselect all" : "Select all"}>

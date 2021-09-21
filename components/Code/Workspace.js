@@ -59,7 +59,6 @@ const Workspace = (props) => {
 	}, [activeTab]);
 
 	useEffect(() => {
-		console.log("retriggered");
 		if (visualBell.show) {
 			clearTimeout(visualBellTimer.current);
 			visualBellTimer.current = setTimeout(() => setVisualBell((state) => ({ ...state, show: false })), [3000]);
@@ -172,8 +171,8 @@ const Workspace = (props) => {
 
 	return (
 		<div className={classes.workspace}>
-      {activeTab === "flow" && <GreenButton className={classes.compileBtn} clickHandler={compileHandler} caption="Compile" />}
-      {/*activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />} */}
+			{activeTab === "flow" && <GreenButton className={classes.compileBtn} clickHandler={compileHandler} caption="Compile" />}
+			{/*activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />} */}
 			<MiniHoverContextProvider>
 				<ReactFlowProvider>
 					<FlowEditor show={activeTab === "flow"} elements={elements} setElements={setElements} visualBell={visualBell} setVisualBell={setVisualBell} query={props.query} />

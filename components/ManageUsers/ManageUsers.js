@@ -1,153 +1,19 @@
 import router from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import useOrganisationHelper from "../../hooks/useOrganisationHelper";
+import VisualBellContext from "../../store/visual-bell-context";
 import classes from "./ManageUsers.module.scss";
 import Table from "./Table";
 import TableControls from "./TableControls";
 import TableFooter from "./TableFooter";
 import TableHead from "./TableHead";
 
-//TODO "invited By"
-
+//TODO "invited By", "joined"
 const columns = {
-	learners: ["display Name", "username", "joined"],
-	educators: ["display Name", "username", "email", "joined"],
-	admins: ["display Name", "username", "email", "joined"],
+	learners: ["display Name", "username"],
+	educators: ["display Name", "username", "email"],
+	admins: ["display Name", "username", "email"],
 };
-
-const learnersData = [
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ridiculous Sailfish", username: "karolina-hancock", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Joyful Komodo Dragon", username: "Aaryan_Braun", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Aphid", username: "jane_mary_doe", joined: "2021-02-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Nice Clownfish", username: "Maizieryan", joined: "2021-04-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Yummy Trout", username: "Benny_bautista", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Generous Tarantula", username: "Linzi-Griffin", joined: "2021-03-12", invitedBy: "jane_mary_doe" },
-	{ displayName: "Dainty Mink", username: "jamie-lee_monroe", joined: "2021-08-21", invitedBy: "jane_mary_doe" },
-];
-const educatorsData = [
-	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "2021-03-23", invitedBy: "park_admin_0" },
-	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "2021-03-23", invitedBy: "park_admin_0" },
-	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "2021-03-23", invitedBy: "park_admin_0" },
-	{ displayName: "Mrs. Doe", username: "jane_mary_doe", email: "jm.doe@park.school.nz", joined: "2021-03-23", invitedBy: "park_admin_0" },
-];
-const adminsData = [
-	{ displayName: "Mrs Doe", username: "jane_mary_doe", email: "jm.doe@hayes.school.nz", joined: "2021-03-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Mrs Sivan", username: "valerius-sivan", email: "jm.doe@hayes.school.nz", joined: "2021-03-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Mr Phoebe", username: "jane_mary_doe", email: "jm.doe@hayes.school.nz", joined: "2021-03-23", invitedBy: "jane_mary_doe" },
-	{ displayName: "Ms Radmir", username: "maret_radmir", email: "jm.doe@hayes.school.nz", joined: "2021-03-23", invitedBy: "valerius-sivan" },
-];
 
 const sizes = [10, 20, 50, 100, "All"];
 const allSize = 9999;
@@ -157,23 +23,34 @@ const tabs = [
 	{ label: "admins", icon: "verified_user" },
 ];
 
-const initData = {
-	learners: learnersData.map((d, i) => ({ ...d, checked: false, index: i })),
-	educators: educatorsData.map((d, i) => ({ ...d, checked: false, index: i })),
-	admins: adminsData.map((d, i) => ({ ...d, checked: false, index: i })),
-};
-
 const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
+	const vbCtx = useContext(VisualBellContext);
+	const { getOrgUsers } = useOrganisationHelper({ ...vbCtx });
 	const [tab, setTab] = useState(tabs[0].label);
-	const [allUsers, setAllUsers] = useState(initData);
+	const [allUsers, setAllUsers] = useState({
+		learners: [],
+		educators: [],
+		admins: [],
+	});
 	const [isChecked, setIsChecked] = useState({ learners: 0, educators: 0, admins: 0 });
 	const [size, setSize] = useState(10);
 	const [page, setPage] = useState(0);
 	const [sort, setSort] = useState({ colName: "index", ascending: null });
 	const [showSizeMenu, setShowSizeMenu] = useState(false);
 	const [search, setSearch] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
+
+	useEffect(async () => {
+		const initData = { learners: [], educators: [], admins: [] };
+		const rawData = await getOrgUsers();
+		console.log(rawData);
+		for (const user of rawData.licenses) {
+			initData[user.access + "s"].push({ displayName: user.profile.displayName, username: user.username, email: "need email", checked: false, index: initData[user.access + "s"].length });
+		}
+		setAllUsers(initData);
+		setIsLoading(false);
+	}, []);
 
 	useEffect(() => {
 		const n = allUsers[tab].filter((d) => d.checked).length;
@@ -183,7 +60,7 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		}
 	}, [tab, allUsers]);
 
-	if (user.type !== "admin") {
+	if (user.type !== "admin" && user.type !== "educator") {
 		router.replace("/user");
 		return null;
 	}
