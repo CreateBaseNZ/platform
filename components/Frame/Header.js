@@ -48,12 +48,12 @@ const Header = ({ user, collapseNav, toggleNavHandler }) => {
 								<i className="material-icons-outlined">expand_more</i>
 							</div>
 							<div className={`${classes.menu} ${active ? classes.active : ""}`}>
-								{/* {type === "admin" && org && (
-							<button onMouseDown={() => router.push("/user/console")}>
-								<i className="material-icons-outlined">admin_panel_settings</i>
-								Admin console
-							</button>
-						)} */}
+								{user.type === "admin" && user.org && (
+									<button onMouseDown={() => router.push("/user/manage-users")}>
+										<i className="material-icons-outlined">admin_panel_settings</i>
+										Manage Users
+									</button>
+								)}
 								{(user.type === "admin" || user.type === "educator") && !user.org && (
 									<>
 										<button onMouseDown={() => router.push("/user/my-account/org")}>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import MyAccount from "./MyAccount/MyAccount";
-import AdminConsole from "./AdminConsole/AdminConsole";
+import ManageUsers from "./ManageUsers/ManageUsers";
 
 const User = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const router = useRouter();
@@ -9,6 +9,7 @@ const User = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 
 	useEffect(() => {
 		const query = router.query.view[1];
+		console.log("user query is " + query);
 		if (query) {
 			setUserView(query);
 		} else {
@@ -21,7 +22,7 @@ const User = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	return (
 		<div style={{ height: "100%", width: "100%", minHeight: 0 }}>
 			{userView === "my-account" && <MyAccount user={user} setUser={setUser} />}
-			{userView === "admin-console" && <AdminConsole user={user} setUser={setUser} collapseHeader={collapseHeader} setCollapseHeader={setCollapseHeader} />}
+			{userView === "manage-users" && <ManageUsers user={user} setUser={setUser} collapseHeader={collapseHeader} setCollapseHeader={setCollapseHeader} />}
 		</div>
 	);
 };

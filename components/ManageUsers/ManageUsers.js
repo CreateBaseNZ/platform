@@ -1,6 +1,6 @@
 import router from "next/router";
 import { useEffect, useState } from "react";
-import classes from "./AdminConsole.module.scss";
+import classes from "./ManageUsers.module.scss";
 import Table from "./Table";
 import TableControls from "./TableControls";
 import TableFooter from "./TableFooter";
@@ -163,7 +163,7 @@ const initData = {
 	admins: adminsData.map((d, i) => ({ ...d, checked: false, index: i })),
 };
 
-const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
+const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const [tab, setTab] = useState(tabs[0].label);
 	const [allUsers, setAllUsers] = useState(initData);
 	const [isChecked, setIsChecked] = useState({ learners: 0, educators: 0, admins: 0 });
@@ -247,7 +247,7 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	};
 
 	return (
-		<div className={classes.adminConsole}>
+		<div className={classes.manageUsers}>
 			<TableControls
 				isChecked={isChecked}
 				tab={tab}
@@ -280,4 +280,4 @@ const AdminConsole = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	);
 };
 
-export default AdminConsole;
+export default ManageUsers;

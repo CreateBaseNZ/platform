@@ -29,8 +29,11 @@ const View = ({ setLoaded }) => {
 	useEffect(() => {
 		if (user.loaded) {
 			const query = router.query.view && router.query.view[0].toLowerCase();
+			console.log(query);
 			if (query) {
+				console.log(viewTabs[user.type].some((t) => t.view === query));
 				if (viewTabs[user.type].some((t) => t.view === query)) {
+					console.log("new view is " + query);
 					setView(query);
 					setLoaded(true);
 				} else if (query === "home") {

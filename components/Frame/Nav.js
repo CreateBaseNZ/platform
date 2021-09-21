@@ -6,17 +6,12 @@ import viewTabs from "../../utils/viewTabs";
 import classes from "./Nav.module.scss";
 
 const Nav = ({ route, collapseNav, user }) => {
-	console.log(route);
-
 	if (user.loaded) {
-		console.log(viewTabs[user.type]);
 		const match = viewTabs[user.type].find((t) => route.startsWith(t.route));
 		if (match) {
 			route = match.route;
 		}
 	}
-
-	console.log(route);
 
 	return (
 		<nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>

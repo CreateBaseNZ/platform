@@ -1,4 +1,4 @@
-import classes from "./AdminConsole.module.scss";
+import classes from "./ManageUsers.module.scss";
 
 const TableHead = ({ isChecked, tab, toggleAllCheckboxHandler, columns, sort, sortByColHandler }) => {
 	console.log(isChecked);

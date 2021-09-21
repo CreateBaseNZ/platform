@@ -1,5 +1,5 @@
 import { memo, useEffect } from "react";
-import classes from "./AdminConsole.module.scss";
+import classes from "./ManageUsers.module.scss";
 
 const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort, search, isLoading, setIsLoading }) => {
 	useEffect(() => setIsLoading(false));
