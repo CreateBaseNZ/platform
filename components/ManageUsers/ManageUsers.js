@@ -25,7 +25,7 @@ const tabs = [
 
 const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const vbCtx = useContext(VisualBellContext);
-	const { getOrgUsers } = useOrganisationHelper({ ...vbCtx });
+	const { getOrgUsers, changeUserPassword } = useOrganisationHelper({ ...vbCtx });
 	const [tab, setTab] = useState(tabs[0].label);
 	const [allUsers, setAllUsers] = useState({
 		learners: [],
@@ -40,6 +40,7 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const [search, setSearch] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
+	const [showChangePassword, setShowChangePassword] = useState(false);
 
 	useEffect(async () => {
 		const initData = { learners: [], educators: [], admins: [] };
@@ -64,6 +65,22 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		router.replace("/user");
 		return null;
 	}
+
+	const changePasswordHandler = async (input) => {
+		console.log(input);
+		for (const user of allUsers[tab].filter((d) => d.checked)) {
+			console.log(user);
+			await changeUserPassword({
+				details: { username: user.username, updates: { password: input } },
+				successHandler: () => {},
+			});
+		}
+		setShowChangePassword(false);
+		vbCtx.setBell({
+			type: "success",
+			message: "Passwords reset",
+		});
+	};
 
 	const removeUserHandler = () => {
 		//TODO
@@ -138,6 +155,9 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 				removeUserHandler={removeUserHandler}
 				showRemoveConfirm={showRemoveConfirm}
 				setShowRemoveConfirm={setShowRemoveConfirm}
+				showChangePassword={showChangePassword}
+				setShowChangePassword={setShowChangePassword}
+				changePasswordHandler={changePasswordHandler}
 			/>
 			<TableHead isChecked={isChecked} tab={tab} toggleAllCheckboxHandler={toggleAllCheckboxHandler} columns={columns} sort={sort} sortByColHandler={sortByColHandler} />
 			<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={columns} sort={sort} search={search} isLoading={isLoading} setIsLoading={setIsLoading} />

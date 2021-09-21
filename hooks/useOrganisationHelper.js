@@ -127,6 +127,17 @@ const acceptEmailInvitationAPI = async (details, criticalHandler, errorHandler, 
 	return successHandler();
 };
 
+const changeUserPasswordAPI = async (details, criticalHandler, successHandler) => {
+	const input = { username: "learner1", updates: { password: "123q!@#Q" } };
+	let data;
+	try {
+		data = (await axios.post("/api/organisation/admin/update-learner-license", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
+	} catch (error) {
+		return criticalHandler();
+	}
+	return successHandler();
+};
+
 const useOrganisationHelper = ({ setBell }) => {
 	const getOrgData = async (
 		criticalHandler = () =>
@@ -272,7 +283,23 @@ const useOrganisationHelper = ({ setBell }) => {
 		acceptEmailInvitationAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	return { getOrgData, getOrgUsers, createOrg, joinOrgEducator, getEducatorLink, getLearnerLink, sendEmailInvitation, acceptEmailInvitation };
+	const changeUserPassword = async ({
+		details,
+		criticalHandler = () =>
+			setBell({
+				type: "catastrophe",
+				message: "Oops! Something went wrong, please refresh the page and try again",
+			}),
+		successHandler = () =>
+			setBell({
+				type: "success",
+				message: "Success!",
+			}),
+	}) => {
+		return changeUserPasswordAPI(details, criticalHandler, successHandler);
+	};
+
+	return { getOrgData, getOrgUsers, createOrg, joinOrgEducator, getEducatorLink, getLearnerLink, sendEmailInvitation, acceptEmailInvitation, changeUserPassword };
 };
 
 export default useOrganisationHelper;
