@@ -22,19 +22,19 @@ const MyAccount = ({ user, setUser }) => {
 	const [activeTab, setActiveTab] = useState(menu[0].query);
 
 	useEffect(() => {
-		// console.log(router.query);
-		// const query = router.query.view[2];
-		// if (query === "verification") {
-		// 	if (user.type === "educator" || user.type === "admin") {
-		// 		setActiveTab(query);
-		// 	} else {
-		// 		router.replace("/user/my-account/profile");
-		// 	}
-		// } else if (query) {
-		// 	setActiveTab(query);
-		// } else {
-		// 	setActiveTab("profile");
-		// }
+		console.log(router.query);
+		const query = router.query.view[2];
+		if (query === "verification") {
+			if (user.type === "educator" || user.type === "admin") {
+				setActiveTab(query);
+			} else {
+				router.replace("/user/my-account/profile");
+			}
+		} else if (query) {
+			setActiveTab(query);
+		} else {
+			setActiveTab("profile");
+		}
 	}, [router.query]);
 
 	return (
