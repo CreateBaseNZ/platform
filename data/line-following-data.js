@@ -1,19 +1,18 @@
 export default {
 	name: "Line Following",
 	query: "line-following",
-	caption:
-		"TBD",
+	caption: "TBD",
 	stacked: true,
 	scenePrefix: "Project_LineFollowing_1",
 	runType: "loop",
+	durPerLesson: "TBD",
+	numOfLessons: "TBD",
 	difficulty: "Advanced",
 	subjects: ["TBD"],
 	learningOutcome: "TBD",
 	curriculumAlignment: "TBD",
 	lessonPlan: "TBD",
-	learnings: [
-		"TBD",
-	],
+	learnings: ["TBD"],
 	defineCaption: [
 		"As a class, dive into group discussions around the Project theme to fully define our problem.",
 		"Don't have a teacher to guide you through? Check back soon for individual content!",
@@ -59,9 +58,7 @@ export default {
 			url: "/intro-to-flow.pdf",
 		},
 	],
-	plan: [
-		"TBD",
-	],
+	plan: ["TBD"],
 	create: {
 		caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 		tasks: ["TBD"],
@@ -69,13 +66,8 @@ export default {
 	},
 	improve: {
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-		alert:
-			"TBD",
-		tasks: [
-			"TBD",
-		],
-		hints: [
-			"TBD",
-		],
+		alert: "TBD",
+		tasks: ["TBD"],
+		hints: ["TBD"],
 	},
 };

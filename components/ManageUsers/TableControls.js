@@ -57,7 +57,7 @@ const OtherButtons = ({ search, searchHandler, collapseHeader, setCollapseHeader
 			<div className={classes.search}>
 				<input placeholder="Search" value={search} onChange={searchHandler} />
 				<i className="material-icons-outlined">search</i>
-				<div className={classes.title}>Search by date using the YYYY-MM-DD format</div>
+				{/* <div className={classes.title}>Search by date using the YYYY-MM-DD format</div> */}
 			</div>
 			<button className={classes.toggleHeader} onClick={() => setCollapseHeader((state) => !state)} title="Expand table view">
 				<span>{collapseHeader ? "Collapse" : "Expand"}</span>

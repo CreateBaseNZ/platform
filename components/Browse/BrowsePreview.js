@@ -40,7 +40,8 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, user }) => {
 				{tab === 1 && (
 					<div className={classes.teaching}>
 						<div className={`${classes.teachingCaption} ${classes[project.difficulty]}`}>
-							<span>{project.nLessons}</span> lessons <div className={classes.pipe} /> <span>{project.difficulty}</span> level
+							<span>{project.numOfLessons}</span> lessons <div className={classes.pipe} /> <span>{project.durPerLesson}</span> per lesson <div className={classes.pipe} />{" "}
+							<span>{project.difficulty}</span> level
 						</div>
 						<div className={classes.subjects}>
 							{project.subjects.map((s) => (
