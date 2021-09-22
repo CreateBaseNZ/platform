@@ -16,40 +16,84 @@
 	flex-direction: column;
 	padding: 5vh 2vw;
 	background: $lightest;
-	.tabWrapper {
-		padding: 1vh 0;
-		width: 100%;
-		&:hover .tab {
-			color: $dark;
-			background: $lighter;
-			span {
-				transform: translateX(2px);
+}
+
+.iterationsContainer {
+	margin-top: 2vh;
+	display: flex;
+	flex-direction: column;
+	margin-left: 1vw;
+	position: relative;
+	.iterationTitle {
+		margin-left: -1vw;
+		font-size: 11px;
+		text-transform: uppercase;
+		font-weight: 700;
+		color: $light;
+		letter-spacing: 0.2em;
+		margin-bottom: 0.5vw;
+	}
+	.iterations {
+		margin-left: -1vw;
+		margin-bottom: 1vh;
+		display: flex;
+		justify-content: flex-start;
+		button {
+			width: 2rem;
+			height: 2rem;
+			border-radius: 4px;
+			font-size: 14px;
+			font-weight: 600;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: $light;
+			margin-right: 0.5rem;
+			background: rgba(black, 0.02);
+			transition: background-color 0.1s ease-out, color 0.1s ease-out;
+			&:hover {
+				color: $dark;
 			}
-		}
-		&.activeTab {
-			pointer-events: none;
-			.tab {
-				color: $logo-mid;
-				background: rgba($logo-mid, 0.05);
-				padding-left: 1.5rem;
+			&.active {
+				color: white;
 			}
 		}
 	}
-	.tab {
-		width: 100%;
-		padding: 1rem;
-		border-radius: 8px;
-		display: flex;
-		align-items: center;
-		color: $light;
-		font-size: 14px;
-		font-weight: 600;
-		transition: background-color 0.1s ease-out, color 0.1s ease-out, padding 0.1s ease-out;
+}
+
+.tabWrapper {
+	padding: 1vh 0;
+	width: 100%;
+	&:hover .tab {
+		color: $dark;
+		background: $lighter;
 		span {
-			margin-right: 1vw;
-			color: inherit;
-			transition: transform 0.1s ease-out;
+			transform: translateX(2px);
 		}
+	}
+	&.activeTab {
+		pointer-events: none;
+		.tab {
+			color: $logo-mid;
+			background: rgba($logo-mid, 0.05);
+			padding-left: 1.5rem;
+		}
+	}
+}
+.tab {
+	width: 100%;
+	padding: 1rem;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	color: $light;
+	font-size: 14px;
+	font-weight: 600;
+	transition: background-color 0.1s ease-out, color 0.1s ease-out, padding 0.1s ease-out;
+	span {
+		margin-right: 1vw;
+		color: inherit;
+		transition: transform 0.1s ease-out;
 	}
 }
 

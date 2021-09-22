@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import Head from "next/head";
 import Link from "next/link";
@@ -14,27 +14,45 @@ import Review from "../../components/Project/Review";
 import Play from "../../components/Play";
 import Code from "../../components/Code/Code";
 
-import classes from "/styles/ProjectView.module.scss";
 import getProjectData from "../../utils/getProjectData";
+import classes from "/styles/projectView.module.scss";
 
-const steps = [
-	{ title: "Imagine", icon: "filter_drama" },
-	{ title: "Define", icon: "biotech" },
-	{ title: "Research", icon: "travel_explore" },
-	{ title: "Plan", icon: "design_services" },
-	{ title: "Create", icon: "smart_toy" },
-	{ title: "Improve", icon: "auto_graph" },
-	{ title: "Review", icon: "checklist" },
-];
+const steps = {
+	imagine: { title: "Imagine", icon: "filter_drama" },
+	define: { title: "Define", icon: "biotech" },
+	research: { title: "Research", icon: "travel_explore" },
+	plan: { title: "Plan", icon: "design_services" },
+	create: { title: "Create", icon: "smart_toy" },
+	improve: { title: "Improve", icon: "auto_graph" },
+	review: { title: "Review", icon: "checklist" },
+};
+
+const iterationColors = ["#ff7c7c", "#ffac5f", "#ffe459", "#5fe394", "#47bafb"];
+
+const ProjectTab = ({ step, activeStep, query, iteration }) => {
+	return (
+		<button className={`${classes.tabWrapper} ${activeStep === step ? classes.activeTab : ""}`} onClick={() => router.push(`/project/${query}/${iteration}/${step}`)}>
+			<div className={classes.tab}>
+				<span className="material-icons-outlined">{steps[step].icon}</span>
+				{steps[step].title}
+			</div>
+		</button>
+	);
+};
 
 const ProjectView = ({ setLoaded }) => {
 	const router = useRouter();
 	const [session, loading] = useSession();
 	const [data, setData] = useState({});
-	const [step, setStep] = useState("Imagine");
-	const [view, setView] = useState("Project");
+	const [step, setStep] = useState("imagine");
+	const [view, setView] = useState("project");
+	const [iteration, setIteration] = useState(0);
 
-	useEffect(() => setLoaded(true), []);
+	console.log(iteration);
+
+	useEffect(() => {
+		return () => setLoaded(true);
+	}, []);
 
 	useEffect(() => {
 		console.log(router.query);
@@ -43,35 +61,43 @@ const ProjectView = ({ setLoaded }) => {
 				const query = router.query.projectView[0];
 				const projectData = getProjectData(query);
 				if (!projectData) {
+					// if project doesn't exist, redirect to browser
 					router.replace("/browse");
 					return null;
 				}
 				setData(projectData);
 				const subQuery = router.query.projectView[1] || "";
 				if (subQuery === "play") {
-					setView(subQuery[0].toUpperCase() + subQuery.substring(1));
+					// if play
+					setView(subQuery);
 					setLoaded(false);
-				} else if (subQuery.toLowerCase() === "code") {
-					setView(subQuery[0].toUpperCase() + subQuery.substring(1));
-					const subSubQuery = router.query.projectView[2];
-					if (subSubQuery) {
-						setStep(subSubQuery[0].toUpperCase() + subSubQuery.substring(1));
-					} else {
-						router.replace(router.asPath + "/create");
-					}
+				} else if (subQuery === "code") {
+					// if code
+					setView(subQuery);
+					setStep(router.query.projectView[2] || "create");
 					setLoaded(false);
 				} else {
-					setView("Project");
-					if (subQuery) {
-						setStep(subQuery[0].toUpperCase() + subQuery.substring(1));
-					} else {
-						router.replace(router.asPath + "/imagine");
-					}
+					// else default project view
+					setView("project");
+					setIteration(parseInt(subQuery) || 0);
+					setStep(router.query.projectView[2] || "imagine");
 					setLoaded(true);
 				}
 			}
 		}
 	}, [router.query]);
+
+	useEffect(() => {
+		if (iteration >= data?.iterations?.length) {
+			setIteration(0);
+		}
+	}, [iteration, data]);
+
+	useEffect(() => {
+		if (!Object.keys(steps).some((v) => v === step)) {
+			setStep("imagine");
+		}
+	}, [step]);
 
 	if (loading || !data.query) return null;
 
@@ -79,11 +105,11 @@ const ProjectView = ({ setLoaded }) => {
 		<div className={classes.projectView}>
 			<Head>
 				<title>
-					{view === "Project" ? step : view} • {data.name} | CreateBase
+					{view === "project" ? steps[step]?.title : view} • {data.name} | CreateBase
 				</title>
 				<meta name="description" content={data.caption} />
 			</Head>
-			{view === "Project" && (
+			{view === "project" && (
 				<>
 					<div className={classes.tabContainer}>
 						<Link href="/browse">
@@ -92,35 +118,41 @@ const ProjectView = ({ setLoaded }) => {
 								Browse
 							</button>
 						</Link>
-						{steps.map((s, i) => (
-							<button
-								key={i}
-								className={`${classes.tabWrapper} ${step === s.title ? classes.activeTab : ""}`}
-								onClick={() =>
-									router.push({
-										pathname: `/project/${data.query}/${s.title.toLowerCase()}`,
-									})
-								}>
-								<div className={classes.tab}>
-									<span className="material-icons-outlined">{s.icon}</span>
-									{s.title}
-								</div>
-							</button>
-						))}
+						<ProjectTab activeStep={step} step="imagine" query={data.query} iteration={iteration} />
+						<div className={classes.iterationsContainer}>
+							<div className={classes.iterationTitle}>Iteration</div>
+							<div className={classes.iterations}>
+								{data.iterations.map((_, i) => (
+									<button
+										key={i}
+										className={iteration === i ? classes.active : ""}
+										style={{ backgroundColor: iteration === i && iterationColors[i] }}
+										onClick={() => router.push(`/project/${data.query}/${i}/${step}`)}>
+										{i}
+									</button>
+								))}
+							</div>
+							<ProjectTab activeStep={step} step="define" query={data.query} iteration={iteration} />
+							<ProjectTab activeStep={step} step="research" query={data.query} iteration={iteration} />
+							<ProjectTab activeStep={step} step="plan" query={data.query} iteration={iteration} />
+							<ProjectTab activeStep={step} step="create" query={data.query} iteration={iteration} />
+							<ProjectTab activeStep={step} step="improve" query={data.query} iteration={iteration} />
+						</div>
+						<ProjectTab activeStep={step} step="review" query={data.query} iteration={iteration} />
 					</div>
 					<div className={classes.viewContainer}>
-						{step === "Imagine" && <Imagine data={data.situation} setLoaded={setLoaded} />}
-						{step === "Define" && <Define data={data.define} caption={data.defineCaption} setLoaded={setLoaded} />}
-						{step === "Research" && <Research query={data.query} data={data.research} caption={data.researchCaption} setLoaded={setLoaded} />}
-						{step === "Plan" && <Plan data={data.plan} setLoaded={setLoaded} />}
-						{step === "Create" && <Create query={data.query} data={data.create} setLoaded={setLoaded} />}
-						{step === "Improve" && <Improve query={data.query} data={data.improve} setLoaded={setLoaded} />}
-						{step === "Review" && <Review setLoaded={setLoaded} />}
+						{step === "imagine" && <Imagine data={data.situation} setLoaded={setLoaded} />}
+						{step === "define" && <Define data={data.iterations[iteration].define} setLoaded={setLoaded} />}
+						{step === "research" && <Research query={data.query} data={data.iterations[iteration].research} setLoaded={setLoaded} />}
+						{step === "plan" && <Plan data={data.iterations[iteration].plan} setLoaded={setLoaded} />}
+						{step === "create" && <Create query={data.query} data={data.iterations[iteration].create} setLoaded={setLoaded} />}
+						{step === "improve" && <Improve query={data.query} data={data.iterations[iteration].improve} setLoaded={setLoaded} />}
+						{step === "review" && <Review setLoaded={setLoaded} />}
 					</div>
 				</>
 			)}
-			{view === "Code" && (step === "Create" || step === "Improve") && <Code setLoaded={setLoaded} mode={step} project={data} />}
-			{view === "Play" && <Play setLoaded={setLoaded} project={data} />}
+			{view === "code" && (step === "create" || step === "improve") && <Code setLoaded={setLoaded} mode={step} project={data} />}
+			{view === "play" && <Play setLoaded={setLoaded} project={data} />}
 		</div>
 	);
 };

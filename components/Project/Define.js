@@ -5,7 +5,7 @@ import ModuleContainer from "../UI/ModuleContainer";
 
 // const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
 
-const Define = ({ data, caption }) => {
+const Define = ({ data }) => {
 	const [active, setActive] = useState(0);
 	const [loaded, setLoaded] = useState(false);
 
@@ -18,10 +18,10 @@ const Define = ({ data, caption }) => {
 
 	return (
 		<div className={classes.view}>
-			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data} caption={caption} />
+			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} />
 			<div className={classes.mainContainer}>
 				{/* <PdfViewer file={data[active].url} /> */}
-				<embed src={data[active].url} width="100%" height="100%" onLoad={loadHandler} />
+				<embed src={data.modules[active].url} width="100%" height="100%" onLoad={loadHandler} />
 				<div className={`${classes.loadScreen} ${loaded ? classes.loaded : ""}`} />
 			</div>
 		</div>

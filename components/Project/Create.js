@@ -3,6 +3,7 @@ import Img from "../UI/Img";
 import classes from "./Create.module.scss";
 
 const Create = ({ query, data }) => {
+	console.log(data);
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
 			<div className={classes.leftContainer}>

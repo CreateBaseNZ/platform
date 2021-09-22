@@ -21,23 +21,23 @@ const Research = ({ query, data, caption, setLoaded }) => {
 
 	return (
 		<div className={classes.view}>
-			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data} caption={caption} play={query} />
+			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} play={query} />
 			<div className={classes.mainContainer}>
-				{data[active].type === "pdf" && (
+				{data.modules[active].type === "pdf" && (
 					<div style={{ width: "100%", height: "100%" }}>
 						{/* <PdfViewer file={data[active].url} /> */}
-						<embed src={data[active].url} width="100%" height="100%" />
+						<embed src={data.modules[active].url} width="100%" height="100%" />
 					</div>
 				)}
-				{data[active].type === "video" && (
+				{data.modules[active].type === "video" && (
 					<div style={{ width: "85%" }}>
-						<VideoViewer data={data[active].data} />
+						<VideoViewer data={data.modules[active].data} />
 					</div>
 				)}
-				{data[active].type === "tut" && (
+				{data.modules[active].type === "tut" && (
 					<div className={`${classes.tutWrapper} roundScrollbar`}>
-						{data[active].items &&
-							data[active].items.map((d, i) => (
+						{data.modules[active].items &&
+							data.modules[active].items.map((d, i) => (
 								<div key={i} className={classes.item}>
 									<VideoViewer
 										data={d}
@@ -54,10 +54,10 @@ const Research = ({ query, data, caption, setLoaded }) => {
 							))}
 					</div>
 				)}
-				{data[active].type === "explore" && (
+				{data.modules[active].type === "explore" && (
 					<div className={classes.exploreWrapper}>
-						{data[active] &&
-							data[active].items.map((item, i) => (
+						{data.modules[active] &&
+							data.modules[active].items.map((item, i) => (
 								<a key={i} href={item.url} target="_blank" className={classes.exploreItem} title={`Launch ${item.title}`}>
 									<div
 										className={classes.imgContainer}
