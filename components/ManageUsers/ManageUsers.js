@@ -71,7 +71,7 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		for (const user of allUsers[tab].filter((d) => d.checked)) {
 			console.log(user);
 			await changeUserPassword({
-				details: { username: user.username, updates: { password: input } },
+				details: { username: user.username, updates: { password: input.password } },
 				successHandler: () => {},
 			});
 		}

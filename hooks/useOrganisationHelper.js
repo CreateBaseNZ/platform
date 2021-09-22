@@ -128,13 +128,14 @@ const acceptEmailInvitationAPI = async (details, criticalHandler, errorHandler, 
 };
 
 const changeUserPasswordAPI = async (details, criticalHandler, successHandler) => {
-	const input = { username: "learner1", updates: { password: "123q!@#Q" } };
 	let data;
+	console.log(details);
 	try {
 		data = (await axios.post("/api/organisation/admin/update-learner-license", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 	} catch (error) {
 		return criticalHandler();
 	}
+	console.log(data);
 	return successHandler();
 };
 
