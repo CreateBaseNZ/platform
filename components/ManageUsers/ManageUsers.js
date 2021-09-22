@@ -10,9 +10,9 @@ import TableHead from "./TableHead";
 
 //TODO "invited By", "joined"
 const columns = {
-	learners: ["display Name", "username"],
-	educators: ["display Name", "username", "email"],
-	admins: ["display Name", "username", "email"],
+	learners: ["display Name", "username", "last Visited"],
+	educators: ["display Name", "username", "email", "last Visited"],
+	admins: ["display Name", "username", "email", "last Visited"],
 };
 
 const sizes = [10, 20, 50, 100, "All"];
@@ -50,7 +50,8 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 			initData[user.access + "s"].push({
 				displayName: user.profile.displayName,
 				username: user.username,
-				email: user.profile?.account?.email,
+				email: user.profile?.account?.email || "",
+				lastVisited: user.date.visited,
 				checked: false,
 				index: initData[user.access + "s"].length,
 			});

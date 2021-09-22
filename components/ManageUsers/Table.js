@@ -10,7 +10,7 @@ const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort, search,
 				state = getState(value, inputValue, state);
 			} else {
 				if (state === false) {
-					state = JSON.stringify(value).toLowerCase().includes(inputValue.toLowerCase());
+					state = JSON.stringify(value)?.toLowerCase()?.includes(inputValue.toLowerCase());
 				} else {
 					return state;
 				}
@@ -66,7 +66,7 @@ const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort, search,
 					</button>
 					{columns[tab].map((c) => (
 						<div key={`${c}-${i}`} className={`${classes.cell} ${classes[c.replace(" ", "")]}`}>
-							{c === "joined" ? new Date(values[c.replace(" ", "")]).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }) : values[c.replace(" ", "")]}
+							{c === "last Visited" ? values[c.replace(" ", "")].split(" ").slice(1, 4).join(" ") : values[c.replace(" ", "")]}
 						</div>
 					))}
 				</div>
