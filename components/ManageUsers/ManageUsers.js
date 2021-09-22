@@ -47,7 +47,13 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		const rawData = await getOrgUsers();
 		console.log(rawData);
 		for (const user of rawData.licenses) {
-			initData[user.access + "s"].push({ displayName: user.profile.displayName, username: user.username, email: "need email", checked: false, index: initData[user.access + "s"].length });
+			initData[user.access + "s"].push({
+				displayName: user.profile.displayName,
+				username: user.username,
+				email: user.profile?.account?.email,
+				checked: false,
+				index: initData[user.access + "s"].length,
+			});
 		}
 		setAllUsers(initData);
 		setIsLoading(false);
