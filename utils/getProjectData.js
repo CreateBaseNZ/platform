@@ -1,6 +1,6 @@
 import sendItData from "../data/send-it-data";
 import magnebotData from "../data/magnebot-data";
-import lineFollowingData from "../data/line-following-data";
+import heatSeekerData from "../data/heat-seeker-data";
 
 // ----- How to Add Projects -----
 //
@@ -15,8 +15,8 @@ const getProjectData = (query) => {
 			return sendItData;
 		case "magnebot":
 			return magnebotData;
-		case "line-following":
-			return lineFollowingData;
+		case "heat-seeker":
+			return heatSeekerData;
 		default:
 			return null;
 	}
@@ -24,4 +24,4 @@ const getProjectData = (query) => {
 
 export default getProjectData;
 
-export const allData = [magnebotData, sendItData, lineFollowingData];
+export const allData = [magnebotData, sendItData, heatSeekerData];

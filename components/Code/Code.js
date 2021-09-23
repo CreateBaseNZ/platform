@@ -10,11 +10,12 @@ import { ConsoleContextProvider } from "../../store/console-context";
 
 import classes from "./code.module.scss";
 
-const Code = ({ setLoaded, mode, project }) => {
+const Code = ({ setLoaded, mode, project, iteration }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
 		scene: mode.toLowerCase(),
+		iteration: iteration,
 		setLoaded: setLoaded,
 	});
 

@@ -1,6 +1,6 @@
 export default {
-	name: "Line Following",
-	query: "line-following",
+	name: "Heat Seeker",
+	query: "heat-seeker",
 	caption: "TBD",
 	stacked: true,
 	scenePrefix: "Project_LineFollowing_1",
@@ -18,7 +18,7 @@ export default {
 		src: "",
 		h1: "TBD",
 		h2: "TBD",
-		title: "Line Following",
+		title: "Heat Seeker",
 		docs: "",
 		word: "",
 	},

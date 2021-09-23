@@ -6,11 +6,12 @@ import Game from "./Code/Game";
 import classes from "./Play.module.scss";
 import router from "next/router";
 
-const Play = ({ setLoaded, project }) => {
+const Play = ({ setLoaded, project, iteration }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
 		scene: "research",
+		iteration: iteration,
 		setLoaded: setLoaded,
 	});
 

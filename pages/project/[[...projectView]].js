@@ -55,7 +55,6 @@ const ProjectView = ({ setLoaded }) => {
 	}, []);
 
 	useEffect(() => {
-		console.log(router.query);
 		if (router.query) {
 			if (router.query.projectView) {
 				const query = router.query.projectView[0];
@@ -105,7 +104,7 @@ const ProjectView = ({ setLoaded }) => {
 		<div className={classes.projectView}>
 			<Head>
 				<title>
-					{view === "project" ? steps[step]?.title : view} • {data.name} | CreateBase
+					{steps[step].title} • {data.name} | CreateBase
 				</title>
 				<meta name="description" content={data.caption} />
 			</Head>
@@ -151,8 +150,8 @@ const ProjectView = ({ setLoaded }) => {
 					</div>
 				</>
 			)}
-			{view === "code" && (step === "create" || step === "improve") && <Code setLoaded={setLoaded} mode={step} project={data} />}
-			{view === "play" && <Play setLoaded={setLoaded} project={data} />}
+			{view === "code" && (step === "create" || step === "improve") && <Code setLoaded={setLoaded} mode={step} project={data} iteration={iteration} />}
+			{view === "play" && <Play setLoaded={setLoaded} project={data} iteration={iteration} />}
 		</div>
 	);
 };

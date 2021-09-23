@@ -43,9 +43,11 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	const [showChangePassword, setShowChangePassword] = useState(false);
 
 	useEffect(async () => {
+		if (user.type !== "admin" && user.type !== "educator") {
+			return null;
+		}
 		const initData = { learners: [], educators: [], admins: [] };
 		const rawData = await getOrgUsers();
-		console.log(rawData);
 		for (const user of rawData.licenses) {
 			initData[user.access + "s"].push({
 				displayName: user.profile.displayName,
