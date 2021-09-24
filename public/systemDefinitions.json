@@ -133,7 +133,7 @@
         "logic": "if(a){\nunityContext.send(\"WaterHose\", \"TurnOnWater\")\n}else{\nunityContext.send(\"WaterHose\", \"TurnOffWater\")\n}",
         "await":false
       },
-      "NodeHeatSeekerOnLine":{
+      "NodeHeatSeekerRobotOnLine":{
         "output":{"variable":"out"},
         "inputs": [],
         "logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor>0.1 || JSON.parse(sensorDataRef.current).leftLineSensor>0.1)",
@@ -145,7 +145,7 @@
         "logic": "return (JSON.parse(sensorDataRef.current).middleLineSensor>0.995)",
         "await":false
       },
-      "NodeHeatSeekerIsFire":{
+      "NodeHeatSeekerIsFireNear":{
         "output":{"variable":"out"},
         "inputs": [],
         "logic": "return (JSON.parse(sensorDataRef.current).fireDetectionSensor>0.5)",
