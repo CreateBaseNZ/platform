@@ -37,10 +37,11 @@ const findNextNode = (currentNode, path, elements) => {
 };
 
 const determineType = (block, currentNode, generalBlocks, mathOperations, actions, sensors, allFunctions, genralSystem) => {
+	console.log(currentNode.type);
 	if (generalBlocks.includes(currentNode.type)) {
 		block.name = currentNode.type;
 	} else if (mathOperations.includes(currentNode.type)) {
-		block.type = "operatorGeneral";
+		block.type = "NodeOperatorGeneral";
 		block.name = currentNode.type;
 		block.value.operator = genralSystem.mathOps[currentNode.type];
 	} else if (actions.includes(currentNode.type)) {
@@ -49,7 +50,7 @@ const determineType = (block, currentNode, generalBlocks, mathOperations, action
 	} else if (sensors.includes(currentNode.type)) {
 		block.type = "sense";
 		block.name = currentNode.type;
-	} else if (currentNode.type == "start" || currentNode.type == "end") {
+	} else if (currentNode.type == "NodeStart" || currentNode.type == "NodeEnd") {
 		block.name = currentNode.type;
 	} else if (allFunctions.includes(currentNode.type)) {
 		block.type = "specific";
@@ -209,6 +210,7 @@ export const flow2Text = (elements, projectName) => {
 		return "Robot doesn't Exist";
 	}
 	while (traverse) {
+		console.log(blocksConfig);
 		if (currentNode) {
 			if (!CheckPreviuos(currentNode, elements)) {
 				return ["One Node has more than one input", null, null];
@@ -222,14 +224,14 @@ export const flow2Text = (elements, projectName) => {
 		let nextNode;
 		let executionNext = "execution__out";
 		switch (currentNode.type) {
-			case "if":
+			case "NodeIf":
 				maxPath.push(2);
 				path.push(0);
 				nodeContext.push(currentNode);
 				executionNext += "__" + String(path[path.length - 1]);
 				break;
-			case "while":
-			case "repeat":
+			case "NodeWhile":
+			case "NodeRepeat":
 				maxPath.push(1);
 				path.push(0);
 				nodeContext.push(currentNode);
@@ -268,12 +270,12 @@ export const flow2Text = (elements, projectName) => {
 				let interBlock;
 				if (path[path.length - 1] == maxPath[path.length - 1]) {
 					switch (currentNode.type) {
-						case "while":
+						case "NodeWhile":
 							let delayBlock = {
 								robot: robotName,
 								id: "delay_whiled",
 								type: "specific",
-								name: "delay",
+								name: "NodeDelay",
 								value: {
 									a: 0.25,
 								},
@@ -295,7 +297,7 @@ export const flow2Text = (elements, projectName) => {
 					};
 				} else {
 					switch (currentNode.type) {
-						case "if":
+						case "NodeIf":
 							if (path[path.length - 1] == 1) {
 								interBlock = {
 									type: "else-condition",
@@ -315,7 +317,7 @@ export const flow2Text = (elements, projectName) => {
 
 	const endNode = {
 		robot: robotName,
-		type: "end",
+		type: "NodeEnd",
 	};
 	blocksConfig.push(endNode);
 	console.log(blocksConfig);

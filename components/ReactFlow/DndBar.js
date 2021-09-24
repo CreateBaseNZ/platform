@@ -101,6 +101,7 @@ const DndBar = memo(({ query }) => {
 					<NodeSubtractMini />
 					<NodeMultiplyMini />
 					<NodeDivideMini />
+					<NodeAbsoluteMini />
 					<h5>Comparisons</h5>
 					<NodeGreaterThanMini />
 					<NodeLessThanMini />
