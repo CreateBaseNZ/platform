@@ -169,7 +169,7 @@ export const NodeHeatSeekerRightSensor = memo(({ data, isConnectable }) => {
 });
 
 export const NodeHeatSeekerRobotOnLine = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is robot on line?" style={{ width: "9rem", height: "2rem" }} />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is robot on line?" style={{ width: "10rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerFrontOnLine = memo(({ data, isConnectable }) => {

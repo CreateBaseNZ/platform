@@ -1,9 +1,11 @@
+import { conditionalBoostData } from "./explore-data";
+
 export default {
 	name: "Heat Seeker",
 	query: "heat-seeker",
 	caption: "TBD",
 	stacked: true,
-	scenePrefix: "Project_LineFollowing_1",
+	scenePrefix: "Project_HeatSeeker_1",
 	runType: "loop",
 	durPerLesson: "TBD",
 	numOfLessons: "TBD",
@@ -60,6 +62,11 @@ export default {
 						type: "pdf",
 						title: "Introduction to Flow blocks",
 						url: "/intro-to-flow.pdf",
+					},
+					{
+						type: "explore",
+						title: "Explore more",
+						items: [conditionalBoostData],
 					},
 				],
 			},
