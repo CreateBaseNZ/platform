@@ -124,6 +124,8 @@ const VerifyAccountForm = ({ setUser }) => {
 };
 
 const MyVerification = ({ user, setUser }) => {
+	console.log(user);
+
 	return (
 		<div className={classes.myView}>
 			<Head>

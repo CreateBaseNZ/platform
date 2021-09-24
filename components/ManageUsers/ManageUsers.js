@@ -48,20 +48,22 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		if (user.type !== "admin" && user.type !== "educator") {
 			return null;
 		}
-		const initData = { learners: [], educators: [], admins: [] };
-		const rawData = await getOrgUsers();
-		for (const user of rawData.licenses) {
-			initData[user.access + "s"].push({
-				displayName: user.profile.displayName,
-				username: user.username,
-				email: user.profile?.account?.email || "",
-				lastVisited: user.date.visited,
-				checked: false,
-				index: initData[user.access + "s"].length,
-			});
+		if (user.verified && user.org) {
+			const initData = { learners: [], educators: [], admins: [] };
+			const rawData = await getOrgUsers();
+			for (const user of rawData.licenses) {
+				initData[user.access + "s"].push({
+					displayName: user.profile.displayName,
+					username: user.username,
+					email: user.profile?.account?.email || "",
+					lastVisited: user.date.visited,
+					checked: false,
+					index: initData[user.access + "s"].length,
+				});
+			}
+			setAllUsers(initData);
+			setIsLoading(false);
 		}
-		setAllUsers(initData);
-		setIsLoading(false);
 	}, []);
 
 	useEffect(() => {
@@ -79,11 +81,24 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 
 	if (!user.verified) {
 		return (
-			<div className={classes.notVerified}>
+			<div className={classes.blocked}>
 				<h1>Your account must be verified before proceeding</h1>
 				<Link href="/user/my-account/verification">
 					<div>
-						<PrimaryButton className={classes.verify} mainLabel="Verify my account" />
+						<PrimaryButton className={classes.nextBtn} mainLabel="Verify my account" />
+					</div>
+				</Link>
+			</div>
+		);
+	}
+
+	if (!user.org) {
+		return (
+			<div className={classes.blocked}>
+				<h1>Join an organisation to view and manage user details</h1>
+				<Link href="/user/my-account/org">
+					<div>
+						<PrimaryButton className={classes.nextBtn} mainLabel="Join an organisation" />
 					</div>
 				</Link>
 			</div>
