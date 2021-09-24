@@ -168,20 +168,20 @@ export const NodeHeatSeekerRightSensor = memo(({ data, isConnectable }) => {
 	return <NodeSensing data={data} isConnectable={isConnectable} label="Right line sensor" style={{ width: "11rem", height: "2rem" }} />;
 });
 
-export const NodeHeatSeekerOnLine = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is car on line?" style={{ width: "9rem", height: "2rem" }} />;
+export const NodeHeatSeekerRobotOnLine = memo(({ data, isConnectable }) => {
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is robot on line?" style={{ width: "9rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerFrontOnLine = memo(({ data, isConnectable }) => {
 	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is front on line?" style={{ width: "10rem", height: "2rem" }} />;
 });
 
-export const NodeHeatSeekerIsFire = memo(({ data, isConnectable }) => {
+export const NodeHeatSeekerIsFireNear = memo(({ data, isConnectable }) => {
 	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is fire?" style={{ width: "6rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerDifference = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Difference between left and right" style={{ width: "12rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Difference between left and right sensors" style={{ width: "13rem", height: "4rem" }} />;
 });
 
 export const NodeHeatSeekerFireSensor = memo(({ data, isConnectable }) => {
@@ -212,10 +212,10 @@ export const NodeHeatSeekerRightSensorMini = memo(() => {
 	);
 });
 
-export const NodeHeatSeekerOnLineMini = memo(() => {
+export const NodeHeatSeekerRobotOnLineMini = memo(() => {
 	return (
-		<NodeMini className={classes.sensing} nodeType="NodeHeatSeekerOnLine" node={<NodeHeatSeekerOnLine />}>
-			<h4>Front on line?</h4>
+		<NodeMini className={classes.sensing} nodeType="NodeHeatSeekerRobotOnLine" node={<NodeHeatSeekerRobotOnLine />}>
+			<h4>Is robot on line?</h4>
 		</NodeMini>
 	);
 });
@@ -228,10 +228,10 @@ export const NodeHeatSeekerFrontOnLineMini = memo(() => {
 	);
 });
 
-export const NodeHeatSeekerIsFireMini = memo(() => {
+export const NodeHeatSeekerIsFireNearMini = memo(() => {
 	return (
-		<NodeMini className={classes.sensing} nodeType="NodeHeatSeekerIsFire" node={<NodeHeatSeekerIsFire />}>
-			<h4>Is fire?</h4>
+		<NodeMini className={classes.sensing} nodeType="NodeHeatSeekerIsFireNear" node={<NodeHeatSeekerIsFireNear />}>
+			<h4>Is fire near?</h4>
 		</NodeMini>
 	);
 });
@@ -239,7 +239,7 @@ export const NodeHeatSeekerIsFireMini = memo(() => {
 export const NodeHeatSeekerDifferenceMini = memo(() => {
 	return (
 		<NodeMini className={classes.sensing} nodeType="NodeHeatSeekerDifference" node={<NodeHeatSeekerDifference />}>
-			<h4>Difference between left and right</h4>
+			<h4>Difference between left and right sensors</h4>
 		</NodeMini>
 	);
 });

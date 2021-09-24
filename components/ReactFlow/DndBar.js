@@ -17,9 +17,9 @@ import {
 	NodeHeatSeekerLeftSensorMini,
 	NodeHeatSeekerMiddleSensorMini,
 	NodeHeatSeekerRightSensorMini,
-	NodeHeatSeekerOnLineMini,
+	NodeHeatSeekerRobotOnLineMini,
 	NodeHeatSeekerFrontOnLineMini,
-	NodeHeatSeekerIsFireMini,
+	NodeHeatSeekerIsFireNearMini,
 	NodeHeatSeekerDifferenceMini,
 	NodeHeatSeekerFireSensorMini,
 } from "./NodeHeatSeeker";
@@ -83,11 +83,11 @@ const DndBar = memo(({ query }) => {
 					<NodeHeatSeekerLeftSensorMini />
 					<NodeHeatSeekerMiddleSensorMini />
 					<NodeHeatSeekerRightSensorMini />
-					<NodeHeatSeekerOnLineMini />
-					<NodeHeatSeekerFrontOnLineMini />
-					<NodeHeatSeekerDifferenceMini />
 					<NodeHeatSeekerFireSensorMini />
-					<NodeHeatSeekerIsFireMini />
+					<NodeHeatSeekerDifferenceMini />
+					<NodeHeatSeekerRobotOnLineMini />
+					<NodeHeatSeekerFrontOnLineMini />
+					<NodeHeatSeekerIsFireNearMini />
 					<h5>Actions</h5>
 					<NodeHeatSeekerMoveForwardMini />
 					<NodeHeatSeekerMoveBackwardMini />
