@@ -2,7 +2,7 @@ import Link from "next/link";
 import Img from "../UI/Img";
 import classes from "./Improve.module.scss";
 
-const Improve = ({ query, data }) => {
+const Improve = ({ query, data, iteration }) => {
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
 			<div className={classes.leftContainer}>
