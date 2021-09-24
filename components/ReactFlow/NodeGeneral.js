@@ -1,16 +1,14 @@
-import { memo, useState, useEffect, useContext } from "react";
+import { memo, useContext } from "react";
 import CustomHandle from "./Handles";
-
 import { entities } from "../../utils/flowConfig";
-
-import classes from "./Nodes.module.scss";
 import MiniHoverContext from "../../store/mini-hover-context";
+import classes from "./Nodes.module.scss";
 
-export const NodeStart = memo(({ data, isConnectable }) => {
+export const NodeStart = memo(({ data = { connections: [] }, isConnectable }) => {
 	return (
 		<div className={`${classes.node} ${classes.nodeStart} ${classes.hasRightHandle}`}>
 			<h4>Start</h4>
-			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
+			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data.connections} />
 		</div>
 	);
 });

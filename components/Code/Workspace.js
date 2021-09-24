@@ -30,11 +30,11 @@ const Workspace = (props) => {
 	const [elements, setElements] = useState(initialElements);
 	const [text, setText] = useState("// Let's code! 💡");
 	const [theme, setTheme] = useState(null);
-	const [visualBell, setVisualBell] = useState({ message: "", switch: false, show: false });
+	const [flowVisualBell, setFlowVisualBell] = useState({ message: "", switch: false, show: false });
 
 	const ctx = useContext(ConsoleContext);
 	const sensorDataRef = useRef();
-	const visualBellTimer = useRef(null);
+	const flowVisualBellTimer = useRef(null);
 
 	sensorDataRef.current = props.sensorData;
 
@@ -59,11 +59,11 @@ const Workspace = (props) => {
 	}, [activeTab]);
 
 	useEffect(() => {
-		if (visualBell.show) {
-			clearTimeout(visualBellTimer.current);
-			visualBellTimer.current = setTimeout(() => setVisualBell((state) => ({ ...state, show: false })), [3000]);
+		if (flowVisualBell.show) {
+			clearTimeout(flowVisualBellTimer.current);
+			flowVisualBellTimer.current = setTimeout(() => setFlowVisualBell((state) => ({ ...state, show: false })), [3000]);
 		}
-	}, [visualBell.switch, visualBell.show]);
+	}, [flowVisualBell.switch, flowVisualBell.show]);
 
 	const compileCode = (onceCode) => {
 		const [blocks, type, message] = flow2Text(elements, props.query);
@@ -162,7 +162,7 @@ const Workspace = (props) => {
 		const onceCode = isOnceCode(props.query);
 		let [code, dispCode] = compileCode(onceCode);
 		runCode(code, onceCode);
-		setVisualBell((state) => ({
+		setFlowVisualBell((state) => ({
 			message: "Code is now running",
 			switch: !state.switch,
 			show: true,
@@ -175,7 +175,7 @@ const Workspace = (props) => {
 			{/*activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />} */}
 			<MiniHoverContextProvider>
 				<ReactFlowProvider>
-					<FlowEditor show={activeTab === "flow"} elements={elements} setElements={setElements} visualBell={visualBell} setVisualBell={setVisualBell} query={props.query} />
+					<FlowEditor show={activeTab === "flow"} elements={elements} setElements={setElements} flowVisualBell={flowVisualBell} setFlowVisualBell={setFlowVisualBell} query={props.query} />
 				</ReactFlowProvider>
 			</MiniHoverContextProvider>
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}

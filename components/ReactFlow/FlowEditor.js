@@ -24,12 +24,12 @@ import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
 import ConsoleContext from "../../store/console-context";
 
 import ClientOnlyPortal from "../UI/ClientOnlyPortal";
-import VisualBell from "./VisualBell";
+import FlowVisualBell from "./FlowVisualBell";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const FlowEditor = ({ query, show, frozen = false, elements, setElements, visualBell, setVisualBell }) => {
+const FlowEditor = ({ query, show, frozen = false, elements, setElements, flowVisualBell, setFlowVisualBell }) => {
 	const wrapperRef = useRef(null);
 	const consoleCtx = useContext(ConsoleContext);
 	const miniHoverCtx = useContext(MiniHoverContext);
@@ -76,7 +76,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 
 	useEffect(() => {
 		if (clipBoard && clipBoard.length) {
-			setVisualBell((state) => ({
+			setFlowVisualBell((state) => ({
 				message: "Copied to clipboard",
 				switch: !state.switch,
 				show: true,
@@ -136,7 +136,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 				edges.push(el);
 			}
 			if (el.id === "start") {
-				setVisualBell((state) => ({
+				setFlowVisualBell((state) => ({
 					message: "Cannot delete Start block",
 					switch: !state.switch,
 					show: true,
@@ -183,7 +183,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 		event.preventDefault();
 		if (flowLocked) {
 			flashLockIcon();
-			setVisualBell((state) => ({
+			setFlowVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
 				show: true,
@@ -279,7 +279,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 						)
 				);
 
-				return setVisualBell((state) => ({
+				return setFlowVisualBell((state) => ({
 					message: "Blocks autoconnected",
 					switch: !state.switch,
 					show: true,
@@ -299,7 +299,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 	const pasteSelection = (x, y) => {
 		if (flowLocked) {
 			flashLockIcon();
-			setVisualBell((state) => ({
+			setFlowVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
 				show: true,
@@ -363,13 +363,13 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 			const newEls = newNodes.concat(newEdges);
 			setElements((els) => els.concat(newEls));
 			setSelectedElements(newEls);
-			setVisualBell((state) => ({
+			setFlowVisualBell((state) => ({
 				message: "Code pasted",
 				switch: !state.switch,
 				show: true,
 			}));
 		} else {
-			setVisualBell((state) => ({
+			setFlowVisualBell((state) => ({
 				message: "Nothing on clipboard",
 				switch: !state.switch,
 				show: true,
@@ -380,7 +380,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 	const undoAction = () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setVisualBell((state) => ({
+			setFlowVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
 				show: true,
@@ -399,7 +399,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 	const redoAction = () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setVisualBell((state) => ({
+			setFlowVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
 				show: true,
@@ -419,7 +419,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 		if (elements) {
 			window.localStorage.setItem("createbase__flow_save", JSON.stringify(elements));
 		}
-		setVisualBell((state) => ({
+		setFlowVisualBell((state) => ({
 			message: "Code saved",
 			switch: !state.switch,
 			show: true,
@@ -429,7 +429,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 	const restoreFlow = () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setVisualBell((state) => ({
+			setFlowVisualBell((state) => ({
 				message: "Flow is locked",
 				switch: !state.switch,
 				show: true,
@@ -695,7 +695,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, visual
 						</aside>
 					</div>
 				)}
-				<VisualBell show={visualBell.show} message={visualBell.message} />
+				<FlowVisualBell show={flowVisualBell.show} message={flowVisualBell.message} />
 			</div>
 			<ClientOnlyPortal selector="#ctx-menu-root">
 				<NodeContextMenu

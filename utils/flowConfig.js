@@ -1,86 +1,36 @@
 import { NodeStart } from "../components/ReactFlow/NodeGeneral";
-import { NodeDistance, NodeSpeedOf, NodeHeightOf, NodeWidthOf, NodeElevationOf } from "../components/ReactFlow/NodeSensing";
-import { NodeAttack, NodeDoubleJump, NodeCrouch, NodeJump } from "../components/ReactFlow/NodeSendIt";
-import { NodeMoveArm, NodeMagneticSwitch } from "../components/ReactFlow/NodeMagneBot";
-import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeOperatorGeneral, NodeAbsolute } from "../components/ReactFlow/NodeOperations";
+import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeAbsolute, NodeGeneralOperator } from "../components/ReactFlow/NodeOperations";
 import { NodeGreaterThan, NodeLessThan, NodeEquals, NodeNotEquals } from "../components/ReactFlow/NodeComparisons";
 import { NodeAnd, NodeOr, NodeNot } from "../components/ReactFlow/NodeLogicals";
 import { NodeIf, NodeRepeat, NodeWhile } from "../components/ReactFlow/NodeConditionals";
-import { NodeDelay, NodePrint, NodeTrue, NodeFalse } from "../components/ReactFlow/NodeUtils";
-import { ExecutionEdge, BooleanEdge, FloatEdge } from "../components/ReactFlow/Edges";
+import { NodePrint, NodeDelay, NodeTrue, NodeFalse } from "../components/ReactFlow/NodeUtils";
+import { NodeMagnebotMoveArm, NodeMagnebotSwitch } from "../components/ReactFlow/NodeMagneBot";
+import { NodeSendItJump, NodeSendItCrouch, NodeSendItDistance, NodeSendItHeightOf, NodeSendItWidthOf, NodeSendItSpeedOf, NodeSendItElevationOf } from "../components/ReactFlow/NodeSendIt";
 import {
-	heatSeeker__leftWheel,
-	heatSeeker__rightWheel,
-	heatSeeker__moveForward,
-	heatSeeker__moveBackward,
-	heatSeeker__turn,
-	heatSeeker__stop,
-	heatSeeker__waterHose,
-	heatSeeker__leftSensor,
-	heatSeeker__middleSensor,
-	heatSeeker__rightSensor,
-	heatSeeker__onLine,
-	heatSeeker__frontOnLine,
-	heatSeeker__isFire,
-	heatSeeker__leftRightDifference,
-	heatSeeker__fireSensor,
+	NodeHeatSeekerLeftWheel,
+	NodeHeatSeekerRightWheel,
+	NodeHeatSeekerMoveForward,
+	NodeHeatSeekerMoveBackward,
+	NodeHeatSeekerTurn,
+	NodeHeatSeekerStop,
+	NodeHeatSeekerWaterHose,
+	NodeHeatSeekerLeftSensor,
+	NodeHeatSeekerMiddleSensor,
+	NodeHeatSeekerRightSensor,
+	NodeHeatSeekerOnLine,
+	NodeHeatSeekerFrontOnLine,
+	NodeHeatSeekerIsFire,
+	NodeHeatSeekerDifference,
+	NodeHeatSeekerFireSensor,
 } from "../components/ReactFlow/NodeHeatSeeker";
+
+import { ExecutionEdge, BooleanEdge, FloatEdge } from "../components/ReactFlow/Edges";
 
 import classes from "../components/ReactFlow/FlowEditor.module.scss";
 
 export const initialData = {
 	start: {},
 	end: {},
-};
-
-export const nodeTypes = {
-	start: NodeStart,
-	distance: NodeDistance,
-	speedOf: NodeSpeedOf,
-	heightOf: NodeHeightOf,
-	widthOf: NodeWidthOf,
-	elevationOf: NodeElevationOf,
-	jump: NodeJump,
-	doubleJump: NodeDoubleJump,
-	crouch: NodeCrouch,
-	attack: NodeAttack,
-	moveArm: NodeMoveArm,
-	magneticSwitch: NodeMagneticSwitch,
-	add: NodeAdd,
-	subtract: NodeSubtract,
-	multiply: NodeMultiply,
-	divide: NodeDivide,
-	greaterThan: NodeGreaterThan,
-	lessThan: NodeLessThan,
-	equals: NodeEquals,
-	notEquals: NodeNotEquals,
-	operatorGeneral: NodeOperatorGeneral,
-	and: NodeAnd,
-	or: NodeOr,
-	if: NodeIf,
-	repeat: NodeRepeat,
-	while: NodeWhile,
-	delay: NodeDelay,
-	print: NodePrint,
-	true: NodeTrue,
-	false: NodeFalse,
-	absolute: NodeAbsolute,
-	heatSeeker__leftWheel,
-	heatSeeker__rightWheel,
-	heatSeeker__moveForward,
-	heatSeeker__moveBackward,
-	heatSeeker__turn,
-	heatSeeker__stop,
-	heatSeeker__waterHose,
-	heatSeeker__leftSensor,
-	heatSeeker__middleSensor,
-	heatSeeker__rightSensor,
-	heatSeeker__onLine,
-	heatSeeker__frontOnLine,
-	heatSeeker__isFire,
-	heatSeeker__leftRightDifference,
-	heatSeeker__fireSensor,
-	not: NodeNot,
 };
 
 export const edgeTypes = {
@@ -92,7 +42,7 @@ export const edgeTypes = {
 export const initialElements = [
 	{
 		id: "start",
-		type: "start",
+		type: "NodeStart",
 		position: { x: -80, y: -80 },
 		data: { connections: [] },
 	},
@@ -144,73 +94,69 @@ const ExecutionType = () => {
 	);
 };
 
+export const nodeTypes = {
+	NodeStart,
+	NodeAdd,
+	NodeSubtract,
+	NodeMultiply,
+	NodeDivide,
+	NodeAbsolute,
+	NodeGeneralOperator,
+	NodeGreaterThan,
+	NodeLessThan,
+	NodeEquals,
+	NodeNotEquals,
+	NodeAnd,
+	NodeOr,
+	NodeNot,
+	NodeIf,
+	NodeRepeat,
+	NodeWhile,
+	NodePrint,
+	NodeDelay,
+	NodeTrue,
+	NodeFalse,
+	NodeMagnebotMoveArm,
+	NodeMagnebotSwitch,
+	NodeSendItCrouch,
+	NodeSendItJump,
+	NodeSendItDistance,
+	NodeSendItHeightOf,
+	NodeSendItWidthOf,
+	NodeSendItSpeedOf,
+	NodeSendItElevationOf,
+	NodeHeatSeekerLeftWheel,
+	NodeHeatSeekerRightWheel,
+	NodeHeatSeekerMoveForward,
+	NodeHeatSeekerMoveBackward,
+	NodeHeatSeekerTurn,
+	NodeHeatSeekerStop,
+	NodeHeatSeekerWaterHose,
+	NodeHeatSeekerLeftSensor,
+	NodeHeatSeekerMiddleSensor,
+	NodeHeatSeekerRightSensor,
+	NodeHeatSeekerOnLine,
+	NodeHeatSeekerFrontOnLine,
+	NodeHeatSeekerIsFire,
+	NodeHeatSeekerDifference,
+	NodeHeatSeekerFireSensor,
+};
+
 export const tooltips = {
-	leftLineSensor: [<NoneType />, <FloatType />, "Outputs the reading from left line sensor"],
-	onLine: [<NoneType />, <BooleanType />, "Outputs whether the right and left sensors are on the line"],
-	not: [<BooleanType />, <BooleanType />, "Returns the opposite of the input boolean"],
-	frontOnLine: [<NoneType />, <FloatType />, "Outputs whether the front sensors is on the middle of the line"],
-	isFire: [<NoneType />, <BooleanType />, "Outputs whether there is fire in front of the car"],
-	absolute: [<FloatType />, <FloatType />, "Outputs the absolute of the input (i.e. number without the sign)"],
-	rightLineSensor: [<NoneType />, <FloatType />, "Outputs the reading from right line sensor"],
-	middleLineSensor: [<NoneType />, <FloatType />, "Outputs the reading from middle line sensor"],
-	stop: [<ExecutionType />, <ExecutionType />, "Stops the movement of both motors"],
-	leftRightDifference: [<NoneType />, <FloatType />, "Outputs the difference in reading between the right and left sensors"],
-	moveForward: [
-		<>
-			<ExecutionType />,
-			<FloatType />
-		</>,
-		<ExecutionType />,
-		"Orders both motors to move forwards. If input is zero then they move at equal speed. If input is positive, Left motor is sped up and right is slowed and vice versa ",
-	],
-	moveBackward: [
-		<>
-			<ExecutionType />,
-			<FloatType />
-		</>,
-		<ExecutionType />,
-		"Orders both motors to move backwards. If input is zero then they move at equal speed. If input is positive, Left motor is sped up and right is slowed and vice versa ",
-	],
-	turn: [<ExecutionType />, <ExecutionType />, "Instructs the motors to move to make the car rotate, either clockwise or anticlockwise"],
-	fireDetectionSensor: [<NoneType />, <FloatType />, "Outputs the reading from the fire sensor"],
-	distance: [<NoneType />, <FloatType />, "Outputs the distance to the next obstacle"],
-	speedOf: [<NoneType />, <FloatType />, "Outputs the speed of the next obstacle"],
-	heightOf: [<NoneType />, <FloatType />, "Outputs the height of the next obstacle (measurement between the top and bottom of an object)"],
-	widthOf: [<NoneType />, <FloatType />, "Outputs the width of the next obstacle (measurement between the front and back of an object)"],
-	elevationOf: [<NoneType />, <FloatType />, "Outputs the height of an object above the ground"],
-	jump: [<ExecutionType />, <ExecutionType />, "Instructs your character to jump"],
-	rightWheel: [<ExecutionType />, <ExecutionType />, "Instructs the right wheel to move. 0 is stop, positive for forward and negative for backwards"],
-	leftWheel: [
-		<>
-			<ExecutionType />,
-			<FloatType />
-		</>,
-		<ExecutionType />,
-		"Instructs the left wheel to move. 0 is stop, positive for forward and negative for backwards",
-	],
-	waterHose: [<ExecutionType />, <ExecutionType />, "Toggles the water hose on and off"],
-	crouch: [<ExecutionType />, <ExecutionType />, "Instructs your character to crouch for 1 second"],
-	moveArm: [
-		<>
-			<ExecutionType />
-			<FloatType />
-		</>,
-		<ExecutionType />,
-		"Moves the end of the arm to the specified position",
-	],
-	magneticSwitch: [<ExecutionType />, <ExecutionType />, "Toggles the magnet on and off"],
-	add: [<FloatType />, <FloatType />, "Outputs the addition of the two inputs"],
-	subtract: [<FloatType />, <FloatType />, "Outputs the subtraction of one input from the other"],
-	multiply: [<FloatType />, <FloatType />, "Outputs the multiplication of the two inputs"],
-	divide: [<FloatType />, <FloatType />, "Outputs the division of one input by the other"],
-	greaterThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is greater than the right input, and FALSE otherwise"],
-	lessThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is less than the right input, and FALSE otherwise"],
-	equals: [<FloatType />, <BooleanType />, "Outputs TRUE if the two inputs are equal to each other, and FALSE if they are not equal"],
-	notEquals: [<FloatType />, <BooleanType />, "Outputs TRUE if the two inputs are not equal to each other, and FALSE if they are equal"],
-	operatorGeneral: [<FloatType />, <FloatType />, "Choose your operator"],
-	and: [<BooleanType />, <BooleanType />, "Outputs TRUE if both inputs are TRUE. If any inputs are FALSE, outputs FALSE"],
-	or: [<BooleanType />, <BooleanType />, "Outputs TRUE if any inputs are TRUE. Only outputs FALSE if both inputs are FALSE"],
-	if: [
+	NodeAdd: [<FloatType />, <FloatType />, "Outputs the addition of the two inputs"],
+	NodeSubtract: [<FloatType />, <FloatType />, "Outputs the subtraction of one input from the other"],
+	NodeMultiply: [<FloatType />, <FloatType />, "Outputs the multiplication of the two inputs"],
+	NodeDivide: [<FloatType />, <FloatType />, "Outputs the division of one input by the other"],
+	NodeAbsolute: [<FloatType />, <FloatType />, "Outputs the absolute of the input (i.e. number without the sign)"],
+	NodeGeneralOperator: [<FloatType />, <FloatType />, "Outputs the calulation based on the operation selected"],
+	NodeGreaterThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is greater than the right input, and FALSE otherwise"],
+	NodeLessThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is less than the right input, and FALSE otherwise"],
+	NodeEquals: [<FloatType />, <BooleanType />, "Outputs TRUE if the two inputs are equal to each other, and FALSE if they are not equal"],
+	NodeNotEquals: [<FloatType />, <BooleanType />, "Outputs TRUE if the two inputs are not equal to each other, and FALSE if they are equal"],
+	NodeAnd: [<BooleanType />, <BooleanType />, "Outputs TRUE if both inputs are TRUE. If any inputs are FALSE, outputs FALSE"],
+	NodeOr: [<BooleanType />, <BooleanType />, "Outputs TRUE if any inputs are TRUE. Only outputs FALSE if both inputs are FALSE"],
+	NodeNot: [<BooleanType />, <BooleanType />, "Returns the opposite of the input boolean"],
+	NodeIf: [
 		<>
 			<ExecutionType />
 			<BooleanType />
@@ -218,7 +164,7 @@ export const tooltips = {
 		<ExecutionType />,
 		"If the input (condition) is TRUE, then the code will run DO. If the input (condition) is FALSE, then the code will run ELSE. Every time this block is run, it will pick either the DO or ELSE path, but never run both. After it has completed running one of the two, the code continues by running THEN",
 	],
-	repeat: [
+	NodeRepeat: [
 		<>
 			<ExecutionType />
 			<FloatType />
@@ -226,7 +172,7 @@ export const tooltips = {
 		<ExecutionType />,
 		"Repeatedly runs DO for the inputted number of times (input). After it has completed repeating itself, the code continues by running THEN",
 	],
-	while: [
+	NodeWhile: [
 		<>
 			<ExecutionType />
 			<BooleanType />
@@ -234,18 +180,73 @@ export const tooltips = {
 		<ExecutionType />,
 		"While the input (condition) is TRUE, this block will keep repeating the DO code. Only when the input (condition) is FALSE will the code continue onto the THEN code",
 	],
-	delay: [
-		<>
-			<ExecutionType /> <FloatType />
-		</>,
-		<ExecutionType />,
-		"Delays the code from running for a certain number of seconds",
-	],
-	print: [
+	NodePrint: [
 		<>
 			<ExecutionType /> <FloatType />
 		</>,
 		<ExecutionType />,
 		"Prints the input to the console",
 	],
+	NodeDelay: [
+		<>
+			<ExecutionType /> <FloatType />
+		</>,
+		<ExecutionType />,
+		"Delays the code from running for a certain number of seconds",
+	],
+	NodeTrue: [<NoneType />, <BooleanType />, "Outputs boolean TRUE"],
+	NodeFalse: [<NoneType />, <BooleanType />, "Outputs boolean FALSE"],
+	NodeMagnebotMoveArm: [
+		<>
+			<ExecutionType />
+			<FloatType />
+		</>,
+		<ExecutionType />,
+		"Moves the end of the arm to the specified position",
+	],
+	NodeMagnebotSwitch: [<ExecutionType />, <ExecutionType />, "Toggles the magnet on and off"],
+	NodeSendItCrouch: [<ExecutionType />, <ExecutionType />, "Instructs your character to crouch for 1 second"],
+	NodeSendItJump: [<ExecutionType />, <ExecutionType />, "Instructs your character to jump"],
+	NodeSendItDistance: [<NoneType />, <FloatType />, "Outputs the distance to the next obstacle"],
+	NodeSendItHeightOf: [<NoneType />, <FloatType />, "Outputs the height of the next obstacle (measurement between the top and bottom of an object)"],
+	NodeSendItWidthOf: [<NoneType />, <FloatType />, "Outputs the width of the next obstacle (measurement between the front and back of an object)"],
+	NodeSendItSpeedOf: [<NoneType />, <FloatType />, "Outputs the speed of the next obstacle"],
+	NodeSendItElevationOf: [<NoneType />, <FloatType />, "Outputs the height of an object above the ground"],
+
+	NodeHeatSeekerLeftWheel: [
+		<>
+			<ExecutionType />,
+			<FloatType />
+		</>,
+		<ExecutionType />,
+		"Instructs the left wheel to move. 0 is stop, positive for forward and negative for backwards",
+	],
+	NodeHeatSeekerRightWheel: [<ExecutionType />, <ExecutionType />, "Instructs the right wheel to move. 0 is stop, positive for forward and negative for backwards"],
+	NodeHeatSeekerMoveForward: [
+		<>
+			<ExecutionType />,
+			<FloatType />
+		</>,
+		<ExecutionType />,
+		"Orders both motors to move forwards. If input is zero then they move at equal speed. If input is positive, Left motor is sped up and right is slowed and vice versa ",
+	],
+	NodeHeatSeekerMoveBackward: [
+		<>
+			<ExecutionType />,
+			<FloatType />
+		</>,
+		<ExecutionType />,
+		"Orders both motors to move backwards. If input is zero then they move at equal speed. If input is positive, Left motor is sped up and right is slowed and vice versa ",
+	],
+	NodeHeatSeekerTurn: [<ExecutionType />, <ExecutionType />, "Instructs the motors to move to make the car rotate, either clockwise or anticlockwise"],
+	NodeHeatSeekerStop: [<ExecutionType />, <ExecutionType />, "Stops the movement of both motors"],
+	NodeHeatSeekerWaterHose: [<ExecutionType />, <ExecutionType />, "Toggles the water hose on and off"],
+	NodeHeatSeekerLeftSensor: [<NoneType />, <FloatType />, "Outputs the reading from left line sensor"],
+	NodeHeatSeekerMiddleSensor: [<NoneType />, <FloatType />, "Outputs the reading from middle line sensor"],
+	NodeHeatSeekerRightSensor: [<NoneType />, <FloatType />, "Outputs the reading from right line sensor"],
+	NodeHeatSeekerOnLine: [<NoneType />, <BooleanType />, "Outputs whether the right and left sensors are on the line"],
+	NodeHeatSeekerFrontOnLine: [<NoneType />, <FloatType />, "Outputs whether the front sensors is on the middle of the line"],
+	NodeHeatSeekerIsFire: [<NoneType />, <BooleanType />, "Outputs whether there is fire in front of the car"],
+	NodeHeatSeekerDifference: [<NoneType />, <FloatType />, "Outputs the difference in reading between the right and left sensors"],
+	NodeHeatSeekerFireSensor: [<NoneType />, <FloatType />, "Outputs the reading from the fire sensor"],
 };

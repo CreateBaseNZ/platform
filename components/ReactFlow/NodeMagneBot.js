@@ -5,10 +5,10 @@ import CustomHandle from "./Handles";
 import classes from "./Nodes.module.scss";
 import { getDefaultValues } from "../../utils/flowHelpers";
 
-export const NodeMoveArm = memo(({ id, data = { values: getDefaultValues("moveArm"), connections: [] }, isConnectable }) => {
+export const NodeMagnebotMoveArm = memo(({ id, data = { values: getDefaultValues("NodeMagnebotMoveArm"), connections: [] }, isConnectable }) => {
 	return (
 		<div className={`${classes.node} ${classes.actioning} ${classes.nodeMoveArm} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
-			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
+			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data.connections} />
 			<h4>Move Arm</h4>
 			<CustomHandle type="target" position="bottom" id="float__in__x" style={{ left: "36px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
 			<CustomHandle type="target" position="bottom" id="float__in__y" style={{ left: "50%", transform: "translateX(-50%)" }} isConnectable={isConnectable} connections={data.connections} />
@@ -27,19 +27,18 @@ export const NodeMoveArm = memo(({ id, data = { values: getDefaultValues("moveAr
 					<InputWithHandle data={data} blockId={id} handleId="float__in__z" inputName="z" />
 				</div>
 			</div>
-			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
+			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data.connections} />
 		</div>
 	);
 });
 
-export const NodeMagneticSwitch = memo(({ id, data = { values: getDefaultValues("magneticSwitch"), connections: [] }, isConnectable }) => {
+export const NodeMagnebotSwitch = memo(({ id, data = { values: getDefaultValues("NodeMagnebotSwitch"), connections: [] }, isConnectable }) => {
 	const changeHandler = () => {
-		console.log(data.values.a);
 		data.callBack({ a: !data.values.a }, id);
 	};
 	return (
 		<div className={`${classes.node} ${classes.actioning} ${classes.nodeMagneticSwitch} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
-			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
+			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data.connections} />
 			<h4>Magnetic Switch</h4>
 			<div className={classes.flexRow}>
 				<div className={classes.label} style={{ opacity: data.values.a && "0" }}>
@@ -53,14 +52,14 @@ export const NodeMagneticSwitch = memo(({ id, data = { values: getDefaultValues(
 					On
 				</div>
 			</div>
-			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
+			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data.connections} />
 		</div>
 	);
 });
 
-export const NodeMoveArmMini = memo(() => {
+export const NodeMagnebotMoveArmMini = memo(() => {
 	return (
-		<NodeMini nodeType="moveArm" node={<NodeMoveArm />} className={classes.actioning} style={{ height: "3rem" }}>
+		<NodeMini nodeType="NodeMagnebotMoveArm" node={<NodeMagnebotMoveArm />} className={classes.actioning} style={{ height: "3rem" }}>
 			<div className={classes.flexCol} style={{ marginTop: "-4px" }}>
 				<h4>Move Arm</h4>
 				<div className={classes.flexRow}>
@@ -73,9 +72,9 @@ export const NodeMoveArmMini = memo(() => {
 	);
 });
 
-export const NodeMagneticSwitchMini = memo(() => {
+export const NodeMagnebotSwitchMini = memo(() => {
 	return (
-		<NodeMini nodeType="magneticSwitch" node={<NodeMagneticSwitch />} className={classes.actioning} style={{ height: "3rem" }}>
+		<NodeMini nodeType="NodeMagnebotSwitch" node={<NodeMagnebotSwitch />} className={classes.actioning} style={{ height: "3rem" }}>
 			<div className={classes.flexCol} style={{ marginTop: "-4px" }}>
 				<h4>Magnetic Switch</h4>
 				<div className={classes.blankInput} style={{ borderRadius: "99px", alignSelf: "center" }} />
