@@ -120,9 +120,9 @@ export const nodeTypeHandles = {
 	NodeHeatSeekerLeftSensor: sensingHandles,
 	NodeHeatSeekerMiddleSensor: sensingHandles,
 	NodeHeatSeekerRightSensor: sensingHandles,
-	NodeHeatSeekerOnLine: ["boolean__out"],
+	NodeHeatSeekerRobotOnLine: ["boolean__out"],
 	NodeHeatSeekerFrontOnLine: ["boolean__out"],
-	NodeHeatSeekerIsFire: ["boolean__out"],
+	NodeHeatSeekerIsFireNear: ["boolean__out"],
 	NodeHeatSeekerDifference: sensingHandles,
 	NodeHeatSeekerFireSensor: sensingHandles,
 };
