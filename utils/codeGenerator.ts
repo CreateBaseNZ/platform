@@ -167,8 +167,8 @@ export class CodeGenerator {
   }
 
   private start( correctSystem) {
-    this.executes.push(correctSystem.functions.start.logic);
-    this.simpleExecutes.push(correctSystem.functions.start.simpleLogic);
+    this.executes.push(correctSystem.functions.NodeStart.logic);
+    this.simpleExecutes.push(correctSystem.functions.NodeStart.simpleLogic);
     return true;
   }
 
@@ -384,28 +384,28 @@ export class CodeGenerator {
   private end(correctSystem: any) {
     
     // Add to execute
-    this.executes.push(correctSystem.functions.end.logic);
-    this.simpleExecutes.push(correctSystem.functions.end.logic);
+    this.executes.push(correctSystem.functions.NodeEnd.logic);
+    this.simpleExecutes.push(correctSystem.functions.NodeEnd.logic);
     return true;
     
   }
 
 
   //TODO
-  private doMove(blockDetail) {
-    const command = blockDetail.name.charAt(0).toUpperCase() + blockDetail.name.slice(1);
-    if (blockDetail.value) {
-      const target =
-        blockDetail.value.entity.charAt(0).toUpperCase() +
-        blockDetail.value.entity.slice(1);
-      const str = `unityContext.send("${target}","${command}");`;
-      const simpleStr = `${command}();`;
-      this.simpleExecutes.push(simpleStr);
-      this.executes.push(str);
-      return true;
-    } else {
-      return false;
+  private doMove(blockDetail,correctSystem) {
+   
+      
+    let blockFunction = correctSystem.actions[blockDetail.name];
+    if (blockFunction == undefined) {
+      return [false, "error", "Function does not exist"]; 
     }
+    const command = blockFunction.syntaxSimple;
+    const str = blockFunction.syntax;
+    const simpleStr = `${command}();`;
+    this.simpleExecutes.push(simpleStr);
+    this.executes.push(str);
+    return [true];
+    
   }
 
   private readSensors(blockDetail,correctSystem) {
@@ -493,38 +493,38 @@ export class CodeGenerator {
     for (let i = 0; i < blockDetails.length; i++) {
       const element = blockDetails[i];
       switch (element.type) {
-        case "start":
+        case "NodeStart":
           state = this.start(correctSystem);
           break;
         case "specific":
           [state, type, message] = this.move(element, correctSystem, genralSystem);
           break;
-        case "end":
+        case "NodeEnd":
           state = this.end(correctSystem);
           break;
-        case "if":
+        case "NodeIf":
           [state, type, message] = this.ifStart(element);
           break;
         case "intialise":
           [state, type, message] = this.intialise(element);
           break;
-        case "while":
+        case "NodeWhile":
           [state, type, message] = this.whileStart(element);
           break;
-        case "operatorGeneral":
+        case "NodeOperatorGeneral":
           [state, type, message] = this.mathOp(element);
           break;
-        case "absolute":
+        case "NodeAbsolute":
           [state, type, message] = this.absolute(element);
           break;
-        case "repeat":
+        case "NodeRepeat":
           [state, type, message] = this.forStart(element);
           break;
         case "else-condition":
           state = this.elseCondition();
           break;
         case "move":
-          state = this.doMove(element);
+          [state, type, message] = this.doMove(element, correctSystem);
           break;
         case "end-condition":
           state = this.endCondition();
@@ -532,7 +532,7 @@ export class CodeGenerator {
         case "sense":
           state = this.readSensors(element, correctSystem);
           break;
-        case "print":
+        case "NodePrint":
           [state, printNum] = this.printMessage(element, printNum);
           break;
         default:
