@@ -12,6 +12,8 @@
 		font-size: 1rem;
 		font-weight: 600;
 		color: $lightest;
+		line-height: 1.25em;
+		text-align: left;
 	}
 	h5 {
 		font-size: 14px;
@@ -214,16 +216,20 @@
 	height: 4rem;
 	width: 15rem;
 }
-.moveForward {
+.heatSeekerAction {
+	width: auto;
 	height: 3rem;
-	width: 10rem;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 	h4 {
-		margin-left: 0.5rem;
+		width: auto;
 		margin-right: 0.5rem;
-		text-align: center;
+		line-height: 1em;
+		display: inline;
+	}
+	input {
+		width: 3rem;
 	}
 }
 
@@ -253,7 +259,7 @@
 }
 
 .label {
-	font-size: 14px;
+	font-size: 12px;
 	line-height: 1em;
 	color: $lightest;
 }
@@ -319,11 +325,12 @@
 }
 
 .nodeMini {
-	min-height: 2rem;
-	height: 2rem;
+	height: auto;
+	flex: 0 0 auto;
+	max-width: 10rem;
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
 	padding: 8px 10px;
 	overflow: hidden;

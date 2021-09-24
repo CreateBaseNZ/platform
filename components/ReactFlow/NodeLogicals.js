@@ -62,7 +62,7 @@ export const NodeOrMini = memo(() => {
 
 export const NodeNotMini = memo(() => {
 	return (
-		<NodeMini nodeType="NodeNot" node={<NodeNot />} className={classes.logical} style={{ height: "3rem" }}>
+		<NodeMini nodeType="NodeNot" node={<NodeNot />} className={classes.logical}>
 			<h4>Not</h4>
 			<div className={classes.blankInput} />
 		</NodeMini>

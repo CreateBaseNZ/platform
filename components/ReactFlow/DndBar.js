@@ -90,9 +90,9 @@ const DndBar = memo(({ query }) => {
 					<NodeHeatSeekerIsFireMini />
 					<h5>Actions</h5>
 					<NodeHeatSeekerMoveForwardMini />
+					<NodeHeatSeekerMoveBackwardMini />
 					<NodeHeatSeekerTurnMini />
 					<NodeHeatSeekerStopMini />
-					<NodeHeatSeekerMoveBackwardMini />
 					<NodeHeatSeekerLeftWheelMini />
 					<NodeHeatSeekerRightWheelMini />
 					<NodeHeatSeekerWaterHoseMini />

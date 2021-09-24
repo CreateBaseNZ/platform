@@ -6,16 +6,16 @@ import NodeSensing, { NodeSensingBool } from "./NodeSensing";
 
 import classes from "./Nodes.module.scss";
 
-const HeatSeekerActionNode = ({ data = { values: getDefaultValues({ selectName }), connections: [] }, id, className, label, selectName, dataName, isConnectable }) => {
+const NodeHeatSeekerAction = ({ data = { values: getDefaultValues({ selectName }), connections: [] }, id, className, label, selectName, isConnectable, style }) => {
 	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${className}`}>
+		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.heatSeekerAction}`} style={style}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
 			<h4>{label}</h4>
 			<CustomHandle
 				type="target"
 				position="top"
 				id="float__in__a"
-				style={{ left: "auto", right: "40px", transform: "none" }}
+				style={{ left: "auto", right: "34px", transform: "none" }}
 				isConnectable={isConnectable}
 				connections={data ? data.connections : []}
 			/>
@@ -25,51 +25,25 @@ const HeatSeekerActionNode = ({ data = { values: getDefaultValues({ selectName }
 	);
 };
 
-export const NodeHeatSeekerLeftWheel = memo(({ id, data, isConnectable }) => {
-	return <HeatSeekerActionNode data={data} id={id} className={classes.moveForward} label="Left Wheel" selectName="leftWheel" dataName="entity" isConnectable={isConnectable} />;
-});
-
-export const NodeHeatSeekerRightWheel = memo(({ id, data, isConnectable }) => {
-	return <HeatSeekerActionNode data={data} id={id} className={classes.moveForward} label="Right Wheel" selectName="rightWheel" dataName="entity" isConnectable={isConnectable} />;
-});
-
 export const NodeHeatSeekerMoveForward = memo(({ id, data, isConnectable }) => {
-	return <HeatSeekerActionNode data={data} id={id} className={classes.moveForward} label="Move Forward" selectName="moveForward" dataName="entity" isConnectable={isConnectable} />;
+	return <NodeHeatSeekerAction data={data} id={id} label="Move Forward" selectName="moveForward" dataName="entity" isConnectable={isConnectable} />;
 });
 
 export const NodeHeatSeekerMoveBackward = memo(({ id, data, isConnectable }) => {
-	return <HeatSeekerActionNode data={data} id={id} className={classes.moveForward} label="Move Backwards" selectName="moveBackward" dataName="entity" isConnectable={isConnectable} />;
+	return <NodeHeatSeekerAction data={data} id={id} label="Move Backwards" selectName="moveBackward" dataName="entity" isConnectable={isConnectable} />;
 });
 
-export const NodeHeatSeekerTurn = memo(({ id, data = { values: getDefaultValues("waterHose"), connections: [] }, isConnectable }) => {
-	const changeHandler = () => {
-		console.log(data.values.a);
-		data.callBack({ a: !data.values.a }, id);
-	};
-	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.nodeTurn} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
-			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
-			<h4>Turn</h4>
-			<div className={classes.flexRow}>
-				<div className={classes.label} style={{ opacity: data.values.a && "0" }}>
-					Anti-clockwise
-				</div>
-				<div className={`nodrag ${classes.toggle}`} onDragStart={(e) => e.preventDefault}>
-					<input type="checkbox" checked={data.values.a} onChange={changeHandler} />
-					<div />
-				</div>
-				<div className={classes.label} style={{ opacity: !data.values.a && "0" }}>
-					Clockwise
-				</div>
-			</div>
-			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
-		</div>
-	);
+export const NodeHeatSeekerLeftWheel = memo(({ id, data, isConnectable }) => {
+	return <NodeHeatSeekerAction data={data} id={id} label="Left Wheel" selectName="leftWheel" dataName="entity" isConnectable={isConnectable} />;
 });
 
-export const NodeHeatSeekerStop = memo(({ id, data = { values: getDefaultValues("waterHose"), connections: [] }, isConnectable }) => {
+export const NodeHeatSeekerRightWheel = memo(({ id, data, isConnectable }) => {
+	return <NodeHeatSeekerAction data={data} id={id} label="Right Wheel" selectName="rightWheel" dataName="entity" isConnectable={isConnectable} />;
+});
+
+export const NodeHeatSeekerStop = memo(({ id, data = { values: {}, connections: [] }, isConnectable }) => {
 	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`} style={{ width: "auto" }}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
 			<h4>Stop</h4>
 			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -77,24 +51,42 @@ export const NodeHeatSeekerStop = memo(({ id, data = { values: getDefaultValues(
 	);
 });
 
-export const NodeHeatSeekerWaterHose = memo(({ id, data = { values: getDefaultValues("waterHose"), connections: [] }, isConnectable }) => {
+export const NodeHeatSeekerTurn = memo(({ id, data = { values: {}, connections: [] }, isConnectable }) => {
 	const changeHandler = () => {
+		console.log(data.values.a);
 		data.callBack({ a: !data.values.a }, id);
 	};
 	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.nodeMagneticSwitch} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.actioning} ${classes.nodeTurn} ${classes.hasLeftHandle} ${classes.hasRightHandle}`} style={{ width: "auto" }}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
-			<h4>Water Hose</h4>
-			<div className={classes.flexRow}>
-				<div className={classes.label} style={{ opacity: data.values.a && "0" }}>
-					Off
+			<h4>Turn</h4>
+			<div className={classes.flexRow} style={{ alignItems: "center", justifyContent: "center" }}>
+				<div className={classes.label} style={{ marginRight: "0.5rem", width: "4rem" }}>
+					{data.values.a ? "Clockwise" : "Anti-clockwise"}
 				</div>
 				<div className={`nodrag ${classes.toggle}`} onDragStart={(e) => e.preventDefault}>
 					<input type="checkbox" checked={data.values.a} onChange={changeHandler} />
 					<div />
 				</div>
-				<div className={classes.label} style={{ opacity: !data.values.a && "0" }}>
-					On
+			</div>
+			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
+		</div>
+	);
+});
+
+export const NodeHeatSeekerWaterHose = memo(({ id, data = { values: {}, connections: [] }, isConnectable }) => {
+	const changeHandler = () => {
+		data.callBack({ a: !data.values.a }, id);
+	};
+	return (
+		<div className={`${classes.node} ${classes.actioning} ${classes.nodeMagneticSwitch} ${classes.hasLeftHandle} ${classes.hasRightHandle}`} style={{ width: "auto" }}>
+			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
+			<h4>Water Hose</h4>
+			<div className={classes.flexRow}>
+				<div className={classes.label}>{data.values.a ? "On" : "Off"}</div>
+				<div className={`nodrag ${classes.toggle}`} onDragStart={(e) => e.preventDefault}>
+					<input type="checkbox" checked={data.values.a} onChange={changeHandler} />
+					<div />
 				</div>
 			</div>
 			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -104,7 +96,7 @@ export const NodeHeatSeekerWaterHose = memo(({ id, data = { values: getDefaultVa
 
 export const NodeHeatSeekerLeftWheelMini = memo(() => {
 	return (
-		<NodeMini className={classes.nodeAttack} nodeType="NodeHeatSeekerLeftWheel" node={<NodeHeatSeekerLeftWheel />}>
+		<NodeMini className={classes.actioning} nodeType="NodeHeatSeekerLeftWheel" node={<NodeHeatSeekerLeftWheel />}>
 			<h4>Left wheel</h4>
 		</NodeMini>
 	);
@@ -112,7 +104,7 @@ export const NodeHeatSeekerLeftWheelMini = memo(() => {
 
 export const NodeHeatSeekerRightWheelMini = memo(() => {
 	return (
-		<NodeMini className={classes.nodeAttack} nodeType="NodeHeatSeekerRightWheel" node={<NodeHeatSeekerRightWheel />}>
+		<NodeMini className={classes.actioning} nodeType="NodeHeatSeekerRightWheel" node={<NodeHeatSeekerRightWheel />}>
 			<h4>Right wheel</h4>
 		</NodeMini>
 	);
@@ -120,7 +112,7 @@ export const NodeHeatSeekerRightWheelMini = memo(() => {
 
 export const NodeHeatSeekerMoveForwardMini = memo(() => {
 	return (
-		<NodeMini className={classes.nodeAttack} nodeType="NodeHeatSeekerMoveForward" node={<NodeHeatSeekerMoveForward />}>
+		<NodeMini className={classes.actioning} nodeType="NodeHeatSeekerMoveForward" node={<NodeHeatSeekerMoveForward />}>
 			<h4>Move forward</h4>
 		</NodeMini>
 	);
@@ -128,7 +120,7 @@ export const NodeHeatSeekerMoveForwardMini = memo(() => {
 
 export const NodeHeatSeekerMoveBackwardMini = memo(() => {
 	return (
-		<NodeMini className={classes.nodeAttack} nodeType="NodeHeatSeekerMoveBackward" node={<NodeHeatSeekerMoveBackward />}>
+		<NodeMini className={classes.actioning} nodeType="NodeHeatSeekerMoveBackward" node={<NodeHeatSeekerMoveBackward />}>
 			<h4>Move backward</h4>
 		</NodeMini>
 	);
@@ -136,7 +128,7 @@ export const NodeHeatSeekerMoveBackwardMini = memo(() => {
 
 export const NodeHeatSeekerTurnMini = memo(() => {
 	return (
-		<NodeMini nodeType="NodeHeatSeekerTurn" node={<NodeHeatSeekerTurn />} className={classes.actioning} style={{ height: "3rem" }}>
+		<NodeMini nodeType="NodeHeatSeekerTurn" node={<NodeHeatSeekerTurn />} className={classes.actioning}>
 			<div className={classes.flexCol} style={{ marginTop: "-4px" }}>
 				<h4>Turn</h4>
 			</div>
@@ -146,7 +138,7 @@ export const NodeHeatSeekerTurnMini = memo(() => {
 
 export const NodeHeatSeekerStopMini = memo(() => {
 	return (
-		<NodeMini nodeType="NodeHeatSeekerStop" node={<NodeHeatSeekerStop />} className={classes.actioning} style={{ height: "3rem" }}>
+		<NodeMini nodeType="NodeHeatSeekerStop" node={<NodeHeatSeekerStop />} className={classes.actioning}>
 			<div className={classes.flexCol} style={{ marginTop: "-4px" }}>
 				<h4>Stop</h4>
 			</div>
@@ -156,7 +148,7 @@ export const NodeHeatSeekerStopMini = memo(() => {
 
 export const NodeHeatSeekerWaterHoseMini = memo(() => {
 	return (
-		<NodeMini nodeType="NodeHeatSeekerWaterHose" node={<NodeHeatSeekerWaterHose />} className={classes.actioning} style={{ height: "3rem" }}>
+		<NodeMini nodeType="NodeHeatSeekerWaterHose" node={<NodeHeatSeekerWaterHose />} className={classes.actioning}>
 			<div className={classes.flexCol} style={{ marginTop: "-4px" }}>
 				<h4>Water Hose</h4>
 			</div>
@@ -165,35 +157,35 @@ export const NodeHeatSeekerWaterHoseMini = memo(() => {
 });
 
 export const NodeHeatSeekerLeftSensor = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Left line sensor" />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Left line sensor" style={{ width: "10rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerMiddleSensor = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Middle line sensor" />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Middle line sensor" style={{ width: "12rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerRightSensor = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Right line sensor" />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Right line sensor" style={{ width: "11rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerOnLine = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is car on line?" />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is car on line?" style={{ width: "9rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerFrontOnLine = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is front on line?" />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is front on line?" style={{ width: "10rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerIsFire = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is fire?" />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is fire?" style={{ width: "6rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerDifference = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Difference between left and right" />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Difference between left and right" style={{ width: "12rem" }} />;
 });
 
 export const NodeHeatSeekerFireSensor = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Fire sensor" />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Fire sensor" style={{ width: "8rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerLeftSensorMini = memo(() => {

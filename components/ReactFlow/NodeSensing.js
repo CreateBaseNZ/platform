@@ -2,9 +2,9 @@ import { EntityDropdown, NodeMini } from "./NodeGeneral";
 import classes from "./Nodes.module.scss";
 import CustomHandle from "./Handles";
 
-const NodeSensing = ({ data = { values: {}, connections: [] }, isConnectable, label }) => {
+const NodeSensing = ({ data = { values: {}, connections: [] }, isConnectable, label, style }) => {
 	return (
-		<div className={`${classes.node} ${classes.sensing} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.sensing} ${classes.hasRightHandle}`} style={style}>
 			{/* <h4>Distance from</h4>
   <EntityDropdown data={data} selectName="distance-from" dataName="from" />
   <h4>to</h4>
@@ -22,9 +22,9 @@ const NodeSensing = ({ data = { values: {}, connections: [] }, isConnectable, la
 
 export default NodeSensing;
 
-export const NodeSensingBool = ({ data = { values: {}, connections: [] }, isConnectable, label }) => {
+export const NodeSensingBool = ({ data = { values: {}, connections: [] }, isConnectable, label, style }) => {
 	return (
-		<div className={`${classes.node} ${classes.sensing} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.sensing} ${classes.hasRightHandle}`} style={style}>
 			{/* <h4>Distance from</h4>
   <EntityDropdown data={data} selectName="distance-from" dataName="from" />
   <h4>to</h4>
