@@ -1,5 +1,28 @@
 @import "/styles/variables_new";
 
+.notVerified {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	h1 {
+		font-size: 1rem;
+		font-weight: 500;
+		color: $dark;
+	}
+	.verify {
+		padding: 1.75rem 1.75rem;
+		background: $logo-mid;
+		margin: 2rem 0;
+		box-shadow: 0 4px 16px rgba($logo-mid, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px rgba($logo-mid, 0.25);
+		}
+	}
+}
+
 .manageUsers {
 	height: 100%;
 	width: 100%;

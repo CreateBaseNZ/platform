@@ -1,5 +1,6 @@
-import router from "next/router";
 import { useContext, useEffect, useState } from "react";
+import router from "next/router";
+import Link from "next/link";
 import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import VisualBellContext from "../../store/visual-bell-context";
 import classes from "./ManageUsers.module.scss";
@@ -7,6 +8,7 @@ import Table from "./Table";
 import TableControls from "./TableControls";
 import TableFooter from "./TableFooter";
 import TableHead from "./TableHead";
+import { PrimaryButton } from "../UI/Buttons";
 
 //TODO "invited By", "joined"
 const columns = {
@@ -73,6 +75,19 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	if (user.type !== "admin" && user.type !== "educator") {
 		router.replace("/user");
 		return null;
+	}
+
+	if (!user.verified) {
+		return (
+			<div className={classes.notVerified}>
+				<h1>Your account must be verified before proceeding</h1>
+				<Link href="/user/my-account/verification">
+					<div>
+						<PrimaryButton className={classes.verify} mainLabel="Verify my account" />
+					</div>
+				</Link>
+			</div>
+		);
 	}
 
 	const changePasswordHandler = async (input) => {
