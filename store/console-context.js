@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useMemo } from "react";
 
 const ConsoleContext = createContext({
   logs: [],
@@ -69,18 +69,21 @@ export const ConsoleContextProvider = (props) => {
     setUnreadStatus("");
   };
 
+  const value = useMemo(
+    () => ({
+      logs: logs,
+      addLog: addLog,
+      addWarning: addWarning,
+      addError: addError,
+      clearLogs: clearLogs,
+      unreadStatus: unreadStatus,
+      clearUnread: clearUnread,
+    }),
+    [logs, unreadStatus]
+  );
+
   return (
-    <ConsoleContext.Provider
-      value={{
-        logs: logs,
-        addLog: addLog,
-        addWarning: addWarning,
-        addError: addError,
-        clearLogs: clearLogs,
-        unreadStatus: unreadStatus,
-        clearUnread: clearUnread,
-      }}
-    >
+    <ConsoleContext.Provider value={value}>
       {props.children}
     </ConsoleContext.Provider>
   );

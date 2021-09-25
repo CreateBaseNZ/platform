@@ -1,0 +1,229 @@
+@import "/styles/variables";
+
+.console {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 2px;
+}
+
+.logArea {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: scroll;
+  width: 100%;
+  * {
+    font-family: $jetbrains;
+  }
+  .log,
+  .warning,
+  .error {
+    width: 100%;
+    margin: -0.5px 0;
+    display: flex;
+    padding: 0.4rem 6rem 0.4rem 2.5rem;
+    font-size: 13px;
+    position: relative;
+    line-height: 1.25em;
+    span {
+      position: absolute;
+      top: 0.4rem;
+      left: 1rem;
+      font-size: 16px;
+    }
+    .time {
+      position: absolute;
+      top: 0.4rem;
+      right: 1rem;
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      opacity: 0.75;
+      font-weight: 200;
+    }
+  }
+  .error {
+    z-index: 2;
+  }
+  .warning {
+    z-index: 1;
+  }
+}
+
+.controls {
+  height: 100%;
+  width: 4rem;
+  min-width: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.75rem 0;
+  button {
+    justify-self: flex-end;
+    padding: 0.4rem;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
+    span {
+      transition: color 0.1s ease-out;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .modeToggler {
+    margin-top: auto;
+    margin-bottom: 1rem;
+  }
+  .clearConsole:hover {
+    span {
+      color: $red;
+    }
+  }
+  i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    padding: 0.4rem;
+    span {
+      margin-right: 0.1rem;
+      font-size: 18px;
+    }
+  }
+}
+
+.warningIcon span {
+  color: #f4bc2b;
+}
+
+.errorIcon span {
+  color: #e93545;
+}
+
+.darkMode {
+  background: #0f0f0f;
+  .logArea {
+    &::-webkit-scrollbar {
+      width: 1rem;
+    }
+    &::-webkit-scrollbar-track {
+      background: #0a0a0a;
+      border-left: thin solid $darkest;
+      border-right: thin solid $darker;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(white, 0.1);
+      transition: background-color 0.2s ease-out;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(white, 0.25);
+    }
+    &::-webkit-scrollbar-thumb:active {
+      background: rgba(white, 0.4);
+    }
+    .log,
+    .error,
+    .warning {
+      color: #dadada;
+      border-top: thin solid #252525;
+      border-bottom: thin solid #252525;
+    }
+    .error {
+      border-color: #5b0003;
+      color: #fd7f82;
+      background: #280001;
+      span {
+        color: #e93545;
+      }
+    }
+    .warning {
+      border-color: #66550d;
+      color: #f4bc2b;
+      background: #332b03;
+      span {
+        color: #f4bc2b;
+      }
+    }
+  }
+  .controls {
+    button {
+      span {
+        color: $lightest;
+      }
+      &:hover {
+        background: $darker;
+      }
+    }
+    i {
+      color: $light;
+    }
+  }
+}
+
+.lightMode {
+  background: #f8f8f8;
+  .logArea {
+    &::-webkit-scrollbar {
+      width: 1rem;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f3f3f3;
+      border-left: thin solid $lighter;
+      border-right: thin solid $lightest;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(black, 0.1);
+      transition: background-color 0.2s ease-out;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(black, 0.25);
+    }
+    &::-webkit-scrollbar-thumb:active {
+      background: rgba(black, 0.4);
+    }
+    .log,
+    .warning,
+    .error {
+      color: #333333;
+      border-top: thin solid #ebebeb;
+      border-bottom: thin solid #ebebeb;
+    }
+    .error {
+      border-color: #fed6d6;
+      color: #e93545;
+      background: #fff0f0;
+      span {
+        color: #e93545;
+      }
+    }
+    .warning {
+      border-color: #ffe66a;
+      color: #815a15;
+      background: #fffbe6;
+      span {
+        color: #f4bc2b;
+      }
+    }
+  }
+  .controls {
+    button {
+      span {
+        color: $darkest;
+      }
+      &:hover {
+        background: #ebebeb;
+      }
+    }
+    i {
+      color: $dark;
+    }
+  }
+}

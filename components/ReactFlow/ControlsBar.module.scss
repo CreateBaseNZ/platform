@@ -9,36 +9,26 @@
   max-height: 160px;
   & > * {
     background: $light;
-    border: none !important;
+    border: thin solid $lighter !important;
     opacity: 0.75;
     position: relative;
     transition: opacity 0.1s ease-out;
     &:hover {
       background: $darker !important;
       opacity: 1 !important;
-      svg path {
+      span {
+        color: $lightest !important;
+      }
+      path {
         fill: $lightest !important;
       }
-    }
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      border: thin solid $lighter;
-      pointer-events: none;
     }
   }
   .customControl {
     padding: 5px;
-    svg {
-      max-height: 16px;
-      max-width: 16px;
-      path {
-        fill: black;
-      }
+    span {
+      color: black;
+      font-size: 16px;
     }
   }
   .deactive {
@@ -48,8 +38,8 @@
   .locked {
     opacity: 0.75;
     background: $lightest;
-    svg path {
-      fill: rgb(255, 22, 22);
+    span {
+      color: rgb(255, 22, 22);
     }
     &:hover {
       opacity: 1;
@@ -62,10 +52,10 @@
 }
 
 .customControl {
-  &.small svg {
+  &.small span {
     padding: 0.5px;
   }
-  &.verySmall svg {
+  &.verySmall span {
     padding: 1px;
   }
 }

@@ -1,0 +1,180 @@
+@import "/styles/variables";
+
+.config {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.configTabContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  border-right: thin solid $lighter;
+  height: 100%;
+  cursor: pointer;
+  background: $lighter;
+  .configTab {
+    width: 10rem;
+    padding: 2vh 0 2vh 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: $dark;
+    transition: color 0.2s ease-out, border-right 0.1s ease-out,
+      background-color 0.2s ease-out;
+    &:hover:not(.activeTab) {
+      background: $lighter;
+    }
+    &.activeTab {
+      color: $blue-dark;
+      border-right: thick solid $blue-dark;
+      background: $lightest;
+    }
+  }
+}
+
+.themeSelect {
+  height: 100%;
+  width: 100%;
+  padding-bottom: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  overflow-y: auto;
+  h4 {
+    padding: 0.5rem 0.75rem;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    background: rgba(black, 0.01);
+    border-left: thin solid rgba(black, 0.05);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(black, 0.1);
+    transition: background-color 0.2s ease-out;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(black, 0.2);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(black, 0.4);
+  }
+}
+
+.configEditorWrapper {
+  position: sticky;
+  top: 0;
+  flex: 0 0 auto;
+  height: 300px;
+  width: 25vw;
+  min-width: 450px;
+  max-width: 600px;
+  border-radius: 0.75rem;
+  pointer-events: none;
+  overflow: hidden;
+  transform: scale(0.75);
+  box-shadow: 0 6px 24px 0px rgba(black, 0.2);
+  * {
+    cursor: default;
+  }
+  [role="code"] {
+    padding-top: 1rem;
+  }
+  [data-mprt="5"] {
+    * {
+      border: none !important;
+    }
+  }
+  [data-mprt="8"] {
+    display: none;
+  }
+  canvas {
+    display: none;
+  }
+}
+
+.themeOptions {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 2vh;
+  div {
+    font-size: 12px;
+    padding: 0.5rem 0.75rem;
+    line-height: 1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    cursor: pointer;
+    color: $dark;
+    border: thin solid transparent;
+    transition: padding 0.2s ease-out;
+    &:hover {
+      border: thin solid $lighter;
+    }
+  }
+  .selectedTheme {
+    font-weight: 500;
+    position: relative;
+    border: thin solid $light;
+    padding-left: 1.75rem;
+    &::after {
+      content: ">";
+      position: absolute;
+      left: calc(0.25rem + 0.5vw);
+      top: 50%;
+      color: inherit;
+      font-size: 16px;
+      font-weight: 300;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.message {
+  padding: 2vh 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  h4 {
+    font-style: italic;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $dark;
+    font-size: 1.5rem;
+    line-height: 2em;
+    opacity: 0.5;
+    margin: 2vh 0;
+  }
+  p {
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    line-height: 1.75em;
+    font-size: 14px;
+    width: 100%;
+  }
+  a {
+    margin: 4vh 0;
+  }
+}

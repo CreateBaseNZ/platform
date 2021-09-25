@@ -1,302 +1,362 @@
 @import "/styles/variables";
 
 .node {
-  border-radius: 4px;
-  padding: 8px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  overflow: hidden;
-  h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: $lightest;
-  }
-  h5 {
-    font-size: 14px;
-    color: $lightest;
-  }
-  select,
-  input {
-    height: 2rem;
-    width: 100%;
-    background: $lighter;
-    border-radius: 2px;
-    padding: 0 2px;
-    font-family: $poppins;
-    transition: background-color 0.1s ease-out;
-    &,
-    * {
-      font-size: 14px;
-      font-weight: 500;
-    }
-    &:hover {
-      background: $lightest;
-    }
-  }
-  input {
-    padding: 0 4px;
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    &[type="number"] {
-      -moz-appearance: textfield;
-    }
-  }
-  h4,
-  h5,
-  select,
-  input {
-    margin: 0.1rem 0;
-  }
-  .preventInput {
-    pointer-events: none;
-    opacity: 0.5;
-  }
+	border-radius: 4px;
+	padding: 8px 14px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	overflow: hidden;
+	h4 {
+		font-size: 1rem;
+		font-weight: 600;
+		color: $lightest;
+		line-height: 1.25em;
+		text-align: left;
+	}
+	h5 {
+		font-size: 14px;
+		color: $lightest;
+	}
+	select,
+	input {
+		height: 2rem;
+		width: 100%;
+		background: $lighter;
+		border-radius: 2px;
+		padding: 0 2px;
+		font-family: $poppins;
+		transition: background-color 0.1s ease-out;
+		&,
+		* {
+			font-size: 14px;
+			font-weight: 500;
+		}
+		&:hover {
+			background: $lightest;
+		}
+	}
+	input {
+		padding: 0 4px;
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+		&[type="number"] {
+			-moz-appearance: textfield;
+		}
+	}
+	h4,
+	h5,
+	select,
+	input {
+		margin: 0.1rem 0;
+	}
+	.preventInput {
+		pointer-events: none;
+		opacity: 0.5;
+	}
 }
 
 .hasLeftHandle {
-  padding-left: 16px;
+	padding-left: 16px;
 }
 
 .hasRightHandle {
-  padding-right: 16px;
+	padding-right: 16px;
 }
 
 .hasRightLabel {
-  padding-right: calc(4rem + 16px);
+	padding-right: calc(4rem + 16px);
+}
+
+.flexRow {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.flexCol {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
 }
 
 .sensing {
-  background: #40aaf8;
-  height: 4rem;
-  width: 9rem;
+	background: #40aaf8;
+	height: 4rem;
+	width: 9rem;
 }
 
 .actioning {
-  background: #00dccf;
-  // height: 5rem;
-  // width: 10rem;
-  height: 2rem;
-  width: 6rem;
+	background: #00dccf;
+	height: 2rem;
+	width: 6rem;
 }
 
 .operating,
+.comparing,
 .logical {
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 3rem;
-  h4 {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    text-align: center;
-  }
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 3rem;
+	h4 {
+		margin-left: 0.5rem;
+		margin-right: 0.5rem;
+		text-align: center;
+	}
+}
+
+.operating,
+.comparing {
+	width: 10rem;
+	h4 {
+		flex: 0 0 1rem;
+	}
+	&.nodeNotEquals {
+		width: 12rem;
+		h4 {
+			flex: 0 0 3rem;
+		}
+	}
+	&.operatingGeneral {
+		width: 12rem;
+		select {
+			margin: 0 0.5rem;
+			width: 4rem;
+		}
+	}
 }
 
 .operating {
-  background: #9c40f8;
-  width: 10rem;
-  h4 {
-    flex: 0 0 1rem;
-  }
-  &.nodeNotEquals {
-    width: 12rem;
-    h4 {
-      flex: 0 0 3rem;
-    }
-  }
-  &.operatingGeneral {
-    width: 12rem;
-    select {
-      margin: 0 0.5rem;
-      width: 4rem;
-    }
-  }
+	background: #9c40f8;
+}
+
+.comparing {
+	background: #fe757e;
 }
 
 .logical {
-  background: #faca8b;
-  width: 11rem;
-  h4 {
-    flex: 0 0 2rem;
-  }
+	background: #faca8b;
+	width: 11rem;
+	h4 {
+		flex: 0 0 2rem;
+	}
 }
 
 .conditionals {
-  background: #ff6bcd;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  h4 {
-    margin-right: 0.5rem;
-  }
-  input {
-    margin: 0;
-  }
+	background: #ff6bcd;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+	h4 {
+		margin-right: 0.5rem;
+	}
+	input {
+		margin: 0;
+	}
+}
+
+.utils {
+	background: #c1c1c1;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 9rem;
+	height: 3rem;
+	h4 {
+		margin-right: 0.5rem;
+	}
+	input {
+		margin: 0;
+		width: 3rem;
+	}
 }
 
 .nodeStart {
-  background: #08df44;
-  height: 2rem;
-  width: 5rem;
+	background: #08df44;
+	height: 2rem;
+	width: 5rem;
 }
 
 .nodeIf {
-  height: 7rem;
-  width: 10rem;
+	height: 7rem;
+	width: 10rem;
 }
 
 .nodeRepeat,
 .nodeWhile {
-  height: 5rem;
-  width: 12rem;
+	height: 5rem;
+	width: 12rem;
 }
 
-.handle.leftHandle {
-  height: 12px;
-  width: 12px;
-  left: -6px;
+.nodeMoveArm {
+	height: 6rem;
+	width: 12rem;
+	h4 {
+		margin-bottom: 0.25rem;
+	}
+	.flexCol {
+		align-items: center;
+		&:nth-child(2) {
+			margin: 0 0.5rem;
+		}
+		input {
+			margin: 0.25rem 0 0 0;
+		}
+	}
+}
+.nodeTurn {
+	height: 4rem;
+	width: 15rem;
+}
+.heatSeekerAction {
+	width: auto;
+	height: 3rem;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	h4 {
+		width: auto;
+		margin-right: 0.5rem;
+		line-height: 1em;
+		display: inline;
+	}
+	input {
+		width: 3rem;
+	}
 }
 
-.handle.rightHandle {
-  height: 12px;
-  width: 12px;
-  right: -6px;
+.nodeMagneticSwitch {
+	height: 5rem;
+	width: 11rem;
+	.flexRow {
+		align-self: center;
+		align-items: center;
+	}
+	.label {
+		width: 2rem;
+		text-align: center;
+	}
+	.toggle {
+		margin: 0.25rem;
+	}
 }
 
-.handle.topHandle {
-  height: 12px;
-  width: 12px;
-  top: 2px;
+.nodeLeftSensor {
+	width: 10rem;
 }
 
-.handle.executionHandle {
-  border-radius: 0;
-  &.targetHandle {
-    background: $lightest;
-    border: 2px solid $amber;
-  }
-  &.sourceHandle {
-    background: $amber;
-    border: 2px solid $lightest;
-  }
+.nodeBoolean {
+	height: 2rem;
+	width: 5rem;
 }
 
-.handle.paramHandle {
-  border-radius: 6px;
-  &.targetHandle {
-    background: $lightest;
-    border: 2px solid #b1b1b7;
-  }
-  &.sourceHandle {
-    background: #b1b1b7;
-    border: 2px solid $lightest;
-  }
+.label {
+	font-size: 12px;
+	line-height: 1em;
+	color: $lightest;
 }
-
 .leftHandleLabel,
 .rightHandleLabel {
-  position: absolute;
-  font-size: 14px;
-  line-height: 1em;
-  color: $lightest;
+	font-size: 14px;
+	line-height: 1em;
+	color: $lightest;
+	position: absolute;
 }
 .leftHandleLabel {
-  left: 14px;
+	left: 14px;
 }
 .rightHandleLabel {
-  right: 14px;
+	right: 14px;
 }
 
-.handle.sourceHandle.executionHandle:not(.hideEnd) {
-  &::before {
-    content: "";
-    height: 1px;
-    width: 8px;
-    background: $light;
-    position: absolute;
-    right: -10px;
-    top: 4px;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  &::after {
-    content: "END";
-    color: $light;
-    font-size: 7px;
-    font-weight: 600;
-    position: absolute;
-    right: -30px;
-    top: -1px;
-    padding: 1px 2px 0 2px;
-    line-height: 8px;
-    background: $lighter;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border: thin solid $light;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  &:active::before,
-  &:active::after {
-    opacity: 0.2;
-  }
-}
-
-.handle.targetHandle.executionHandle {
-  &::after {
-    content: "";
-    color: $light;
-    position: absolute;
-    left: -3px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 4px;
-    width: 4px;
-    background: $lightest;
-    pointer-events: none;
-  }
+.toggle {
+	width: 48px;
+	height: 28px;
+	display: flex;
+	border-radius: 28px;
+	position: relative;
+	overflow: hidden;
+	input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		opacity: 0;
+		cursor: pointer;
+		margin: 0;
+		z-index: 1;
+	}
+	div {
+		height: 100%;
+		width: 100%;
+		background: rgba(white, 0.25);
+		position: relative;
+		transition: background-color 0.2s ease-out;
+		&::after {
+			content: "";
+			position: absolute;
+			top: 4px;
+			left: 4px;
+			height: 20px;
+			width: 20px;
+			border-radius: 100%;
+			background: $lightest;
+			transition: left 0.2s ease-out;
+		}
+	}
+	input:checked ~ div {
+		background: $amber;
+		&::after {
+			left: 24px;
+		}
+	}
+	.label {
+		transition: opacity 0.2s ease-out;
+	}
 }
 
 .nodeMini {
-  min-height: 2rem;
-  height: 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 8px 10px;
-  overflow: hidden;
-  border-radius: 4px;
-  margin: 0.25rem 0;
-  cursor: grab;
-  width: auto !important;
-  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-  h4 {
-    font-size: 12px;
-    font-weight: 500;
-    color: $lightest;
-    margin: 0;
-    flex: 1 1 auto !important;
-  }
-  .blankInput {
-    height: 1.25rem;
-    width: 2rem;
-    background: $lightest;
-    margin: 0 0.5rem;
-    border-radius: 2px;
-    opacity: 0.75;
-  }
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  }
-  &:active {
-    cursor: grabbing !important;
-  }
+	height: auto;
+	flex: 0 0 auto;
+	max-width: 10rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 8px 10px;
+	overflow: hidden;
+	border-radius: 4px;
+	margin: 0.25rem 0;
+	cursor: grab;
+	width: auto !important;
+	transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+	h4 {
+		font-size: 12px;
+		font-weight: 500;
+		color: $lightest;
+		margin: 0;
+		flex: 1 1 auto !important;
+	}
+	.blankInput {
+		height: 1.25rem;
+		width: 2rem;
+		background: $lightest;
+		margin: 0 0.5rem;
+		border-radius: 2px;
+		opacity: 0.75;
+	}
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 8px 0 rgba(black, 0.2);
+	}
+	&:active {
+		cursor: grabbing !important;
+	}
 }

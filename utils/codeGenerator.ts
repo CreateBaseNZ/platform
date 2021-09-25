@@ -1,8 +1,7 @@
-import { FlareSharp } from "@material-ui/icons";
-import blockFunctions from "../public/blocks.json";
+import BlocksF from "../public/systemDefinitions.json"
+
 
 export class CodeGenerator {
-  private blockFunctions: Array<any>;
   private content: string;
   private simpleContent: string;
   private executes: Array<string>;
@@ -15,7 +14,6 @@ export class CodeGenerator {
   private functions: string[];
 
   constructor() {
-    this.blockFunctions = blockFunctions;
     this.content = "";
     this.executes = [];
     this.execute = "";
@@ -75,9 +73,9 @@ export class CodeGenerator {
           return false;
         }
       } else if (varName[i] < "0" || varName[i] > "9") {
-        if(i!=0||varName[i]!='-'){
+        if (i != 0 || varName[i] != '-') {
           return false;
-        } 
+        }
       }
     }
     return true;
@@ -124,7 +122,6 @@ export class CodeGenerator {
         return true;
       }
     }
-    console.log("Incorrect Sign!");
     return false;
   }
 
@@ -133,7 +130,6 @@ export class CodeGenerator {
     const spaces = varName.includes(" ");
     const numberStart = varName[0] < "A" || varName[0] > "z";
     if (numberStart || spaces) {
-      console.log("Invalid Variable Name");
       return false;
     }
     //Checks if variable created
@@ -142,67 +138,44 @@ export class CodeGenerator {
         return true;
       }
     }
-
-    console.log("Unintialized Variable");
     return false;
   }
 
-  private start(blockDetail: any) {
-    // Fetch the Block Function
-    const blockFunction = this.blockFunctions.find((element) => {
-      return (
-        element.robot === blockDetail.robot && blockDetail.type === "start"
-      );
-    });
-    if (blockFunction) {
-      this.content += blockFunction.logic;
-      this.simpleContent+=blockFunction.simpleLogic;
-      this.executes.push(blockFunction.executes);
-      this.simpleExecutes.push(blockFunction.simpleExecutes);
-      return true;
+  private absolute(blockDetail) {
+    let inputs = "a";
+    let val = String(blockDetail.value[inputs]).trim();
+    if (!this.isNumber(val)) {
+      if (!this.checkVariable(val)) {
+        return [
+          false,
+          "error",
+          "The inputs to one of the operators is not a number",
+        ];
+      }
     } else {
-      return false;
+      val = String(Number(val));
     }
-    // Add to content
+
+    let output: any;
+    output = "";
+    output = this.checkCorrectVar(String(blockDetail.value.out));
+    const str = `${output}Math.abs(${val})`;
+    const simpleStr= `${output}abs(${val})`;
+    this.simpleExecutes.push(simpleStr);
+    this.executes.push(str);
+    return [true];
+  }
+
+  private start( correctSystem) {
+    this.executes.push(correctSystem.functions.NodeStart.logic);
+    this.simpleExecutes.push(correctSystem.functions.NodeStart.simpleLogic);
+    return true;
   }
 
   private mathOp(blockDetail: any) {
-    switch (blockDetail.name) {
-      case "add":
-        blockDetail.value.operator = "+";
-        break;
-      case "subtract":
-        blockDetail.value.operator = "-";
-        break;
-      case "multiply":
-        blockDetail.value.operator = "*";
-        break;
-      case "divide":
-        blockDetail.value.operator = "/";
-        break;
-      case "greaterThan":
-        blockDetail.value.operator = ">";
-        break;
-      case "lessThan":
-        blockDetail.value.operator = "<";
-        break;
-      case "equals":
-        blockDetail.value.operator = "==";
-        break;
-      case "or":
-        blockDetail.value.operator = "||";
-        break;
-      case "and":
-        blockDetail.value.operator = "&&";
-        break;
-      case "notEquals":
-        blockDetail.value.operator = "!=";
-        break;
-    }
     let mathInput = ["a", "operator", "b"];
     let inputs: string = "";
     for (let i = 0; i < mathInput.length; i++) {
-      let simpleVal = "";
       let val = String(blockDetail.value[mathInput[i]]).trim();
       if (mathInput[i] != "operator") {
         if (!this.isNumber(val)) {
@@ -220,8 +193,8 @@ export class CodeGenerator {
         if (blockDetail) {
           if (!this.checkSign(val)) {
             return [false, "error", "Wrong Sign is Entered"];
-          } 
-        }else{
+          }
+        } else {
           return [false, "error", "Something Went Wrong"];
         }
       }
@@ -236,29 +209,23 @@ export class CodeGenerator {
     return [true];
   }
 
-  private move(blockDetail: any) {
+  private move(blockDetail: any,correctSystem,genralSystem) {
     // Fetch the Block Function
-    const blockFunction = this.blockFunctions.find((element) => {
-      if (element.type === "specific") {
-        return (
-          element.function.name === blockDetail.name &&
-          element.robot === blockDetail.robot
-        );
-      } else {
-        return false;
-      }
-    });
+    let blockFunction = correctSystem.functions[blockDetail.name];
+    if (!blockFunction) {
+      blockFunction=genralSystem.functions[blockDetail.name];
+    } 
     // Build input
     let inputVariables: string = "";
     let inputs: string = "";
-    if (blockFunction.function.inputs) {
-      for (let i = 0; i < blockFunction.function.inputs.length; i++) {
-        const element = blockFunction.function.inputs[i];
+    if (!blockFunction) { return [false, "error", "Function does not exist"]; }
+    if (blockFunction.inputs) {
+      for (let i = 0; i < blockFunction.inputs.length; i++) {
+        const element = blockFunction.inputs[i];
         let currentInput = String(blockDetail.value[element.variable]).trim();
         if (!this.checkVariable(currentInput)) {
-          if (element.type == "number")
+          if (element.type == "number") {
             if (!this.isNumber(currentInput)) {
-              console.log("Can't be used");
               return [
                 false,
                 "error",
@@ -267,14 +234,15 @@ export class CodeGenerator {
             } else {
               currentInput = String(Number(currentInput));
             }
-        } else if (element.type == "boolean" && !this.isBool(currentInput)) {
-          return [
-            false,
-            "error",
-            "Input to one of blocks is not a Boolean or Number",
-          ];
+          } else if (element.type == "boolean" && !this.isBool(currentInput)) {
+            return [
+              false,
+              "error",
+              "Input to one of blocks is not a Boolean or Number",
+            ];
+          }
         }
-        if (i === blockFunction.function.inputs.length - 1) {
+        if (i === blockFunction.inputs.length - 1) {
           inputVariables += element.variable;
           inputs += currentInput;
         } else {
@@ -282,10 +250,9 @@ export class CodeGenerator {
           inputs += currentInput + ", ";
         }
       }
-    } else {
-      return [false, "error", "Function does not exist"];
     }
-    const elementOut = blockFunction.function.output;
+    
+    const elementOut = blockFunction.output;
     let output: any;
     output = "";
     if (elementOut) {
@@ -294,23 +261,31 @@ export class CodeGenerator {
       );
     }
     // Function name
-    const functionName = blockFunction.function.name;
+    const functionName = blockDetail.name;
     const added = this.addFunction(functionName);
     //const functionName = blockFunction.function.name + String(this.increment);
     this.increment++;
     // Build function
-    const func = `let ${functionName} = (${inputVariables}) => {
-      return new Promise((resolve, reject) => {
-        ${blockFunction.function.logic}
-      });
-    }\n\n
-    `;
+    let func = `let ${functionName} = (${inputVariables}) => {`;
+    if (blockFunction.await) {
+      func+="\nreturn new Promise((resolve, reject) => {"
+    }
+    func += `\n${blockFunction.logic}`
+    if (blockFunction.await) {
+      func+="\n});"
+    }
+    func += "}\n";
+    
+    ;
+        
     if (added) {
       this.content += func;
     }
     // Add execute
-    const execute = `// ${blockFunction.name}
-    ${output}await ${functionName}(${inputs});`;
+    if (blockFunction.await) {
+      output += " await ";
+    }
+    const execute = `${output} ${functionName}(${inputs});`;
     const simpleStr = ` ${output} ${functionName}(${inputs});`;
     this.executes.push(execute);
     this.simpleExecutes.push(simpleStr);
@@ -380,7 +355,6 @@ export class CodeGenerator {
     let currentInput = String(blockDetail.value.value).trim();
     if (!this.isNumber(currentInput)) {
       if (!this.checkVariable(currentInput) && !this.isBool(currentInput)) {
-        console.log("Can't be used");
         return [
           false,
           "error",
@@ -407,64 +381,92 @@ export class CodeGenerator {
     return true;
   }
 
-  private end(blockDetail: any) {
-    // Fetch the Block Function
-    const blockFunction = this.blockFunctions.find((element) => {
-      return element.robot === blockDetail.robot && element.type === "end";
-    });
+  private end(correctSystem: any) {
+    
     // Add to execute
-    if (blockFunction) {
-      this.content += blockFunction.logic;
-      this.simpleContent+=blockFunction.simpleLogic;
-      this.executes.push(blockFunction.executes);
-      this.simpleExecutes.push(blockFunction.simpleExecutes);
-      return true;
-    }
-    return false;
+    this.executes.push(correctSystem.functions.NodeEnd.logic);
+    this.simpleExecutes.push(correctSystem.functions.NodeEnd.logic);
+    return true;
+    
   }
 
-  private doMove(blockDetail) {
-    const command =
-      blockDetail.name.charAt(0).toUpperCase() + blockDetail.name.slice(1);
-    if (blockDetail.value) {
-      const target =
-        blockDetail.value.entity.charAt(0).toUpperCase() +
-        blockDetail.value.entity.slice(1);
-      const str = `unityContext.send("${target}","${command}");`;
-      const simpleStr = `${command}();`;
-      this.simpleExecutes.push(simpleStr);
-      this.executes.push(str);
-      return true;
-    } else {
-      return false;
+
+  //TODO
+  private doMove(blockDetail,correctSystem) {
+   
+      
+    let blockFunction = correctSystem.actions[blockDetail.name];
+    if (blockFunction == undefined) {
+      return [false, "error", "Function does not exist"]; 
     }
+    const command = blockFunction.syntaxSimple;
+    const str = blockFunction.syntax;
+    const simpleStr = `${command}();`;
+    this.simpleExecutes.push(simpleStr);
+    this.executes.push(str);
+    return [true];
+    
   }
 
-  private readSensors(blockDetail) {
+  private readSensors(blockDetail,correctSystem) {
     if (blockDetail.value) {
       const output = this.checkCorrectVar(String(blockDetail.value.out));
       const target = blockDetail.name;
-      let str = `${output}currentData.${target};`;
-      const simpleStr = `${output} ${target};`;
-      this.simpleExecutes.push(simpleStr);
-      this.executes.push(str);
-      return true;
+      const sensorMethod = correctSystem.sensors[target];
+      if (sensorMethod) {
+        let str = `${output}JSON.parse(sensorDataRef.current).${sensorMethod.name};`;
+        const simpleStr = `${output} ${sensorMethod.simpleName};`;
+        this.simpleExecutes.push(simpleStr);
+        this.executes.push(str);
+        return true;
+      } else {
+        return false;
+      }
+      
     } else {
       return false;
+    }
+  }
+
+  private printMessage(blockDetail, printNum) {
+    if (blockDetail.value) {
+      printNum++;
+      const input = String(blockDetail.value.a);
+      let str, simpleStr;
+      str = `if(printing>=10){
+               `
+      if (this.checkVariable(input)) {
+        str += `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
+        simpleStr = `console.log(\`Print Number ${printNum}= \${${input}}\`)`;
+      } else if (this.isNumber(input) || (this.isBool(input))) {
+        str += `ctx.addLog(\`Print Number ${printNum}= ${input}\`)`;
+        simpleStr = `console.log(\`Print Number ${printNum}= ${input}\`)`;
+      } else {
+        printNum--;
+        return [false, printNum];
+
+      }
+      str += `
+    }`;
+      this.simpleExecutes.push(simpleStr);
+      this.executes.push(str);
+      return [true, printNum];
+    } else {
+      return [false, printNum];
     }
   }
 
   private run() {
-    this.execute = "const run = async () => {\n";
+    this.execute = "";
     for (let i = 0; i < this.executes.length; i++) {
       this.simpleExecute += this.simpleExecutes[i] + "\n";
       const element = this.executes[i];
       this.execute += "\t" + element + "\n";
     }
-    this.execute += "};\nrun();";
+    this.execute += "";
   }
 
-  public build(blockDetails: Array<any> = []) {
+  public build(blockDetails: Array<any> = [], runOnce: boolean) {
     // Reset Values
     this.content = "";
     this.executes = [];
@@ -476,48 +478,62 @@ export class CodeGenerator {
     this.simpleExecutes = [];
     this.simpleExecute = "";
     this.simpleContent = "";
+    let printNum = 0;
     //
     let state: any = true;
     let type = null;
     let message = null;
+    const systemName = blockDetails[0].robot;
+    const correctSystem = BlocksF.filter((element) => {
+      return element.robot==systemName
+    })[0];
+    const genralSystem = BlocksF.filter((element) => {
+      return element.robot == undefined;
+    })[0];
     for (let i = 0; i < blockDetails.length; i++) {
       const element = blockDetails[i];
       switch (element.type) {
-        case "start":
-          state = this.start(element);
+        case "NodeStart":
+          state = this.start(correctSystem);
           break;
         case "specific":
-          [state, type, message] = this.move(element);
+          [state, type, message] = this.move(element, correctSystem, genralSystem);
           break;
-        case "end":
-          state = this.end(element);
+        case "NodeEnd":
+          state = this.end(correctSystem);
           break;
-        case "if":
+        case "NodeIf":
           [state, type, message] = this.ifStart(element);
           break;
         case "intialise":
           [state, type, message] = this.intialise(element);
           break;
-        case "while":
+        case "NodeWhile":
           [state, type, message] = this.whileStart(element);
           break;
-        case "operatorGeneral":
+        case "NodeOperatorGeneral":
           [state, type, message] = this.mathOp(element);
           break;
-        case "repeat":
+        case "NodeAbsolute":
+          [state, type, message] = this.absolute(element);
+          break;
+        case "NodeRepeat":
           [state, type, message] = this.forStart(element);
           break;
         case "else-condition":
           state = this.elseCondition();
           break;
         case "move":
-          state = this.doMove(element);
+          [state, type, message] = this.doMove(element, correctSystem);
           break;
         case "end-condition":
           state = this.endCondition();
           break;
         case "sense":
-          state = this.readSensors(element);
+          state = this.readSensors(element, correctSystem);
+          break;
+        case "NodePrint":
+          [state, printNum] = this.printMessage(element, printNum);
           break;
         default:
           break;
@@ -530,11 +546,14 @@ export class CodeGenerator {
           "// Oops! An error occurred, please check the Console for more info",
         ];
       }
+      const str = "if(codeChanged){resolve(true);}"
+      this.simpleExecutes.push("");
+      this.executes.push(str);
     }
 
     this.run();
     const runCode = this.intialiseVar() + this.content + this.execute;
     const simple = this.intialiseVar() + this.simpleContent + this.simpleExecute;
-    return [runCode, null, null,simple];
+    return [runCode, null, null, simple];
   }
 }

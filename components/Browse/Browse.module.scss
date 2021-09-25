@@ -1,0 +1,43 @@
+@import "/styles/variables_new";
+
+.browse {
+	height: 100%;
+	width: 100%;
+	background: white;
+}
+
+.inner {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.preview {
+	width: 100%;
+	flex: 0 0 70%;
+	overflow: hidden;
+	min-height: 400px;
+}
+
+.h2 {
+	font-size: 18px;
+	font-weight: 600;
+	margin-top: 3rem;
+	margin-bottom: 1rem;
+	margin-left: 3vw;
+}
+
+.allProjects {
+	margin: 1rem 5vw 1rem 2vw;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding-bottom: 2rem;
+}
+
+.empty {
+	flex: 1 1 20%;
+	min-width: 200px;
+	margin: 0 1vw 4vh 1vw;
+}
