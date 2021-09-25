@@ -51,20 +51,24 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 		if (user.verified && user.org) {
 			const initData = { learners: [], educators: [], admins: [] };
 			const rawData = await getOrgUsers();
-			for (const user of rawData.licenses) {
-				initData[user.access + "s"].push({
-					displayName: user.profile.displayName,
-					username: user.username,
-					email: user.profile?.account?.email || "",
-					lastVisited: user.date.visited,
-					checked: false,
-					index: initData[user.access + "s"].length,
-				});
+			if (rawData?.licenses?.length) {
+				for (const user of rawData.licenses) {
+					initData[user.access + "s"].push({
+						displayName: user.profile.displayName,
+						username: user.username,
+						email: user.profile?.account?.email || "",
+						lastVisited: new Date(user.date.visited).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }),
+						checked: false,
+						index: initData[user.access + "s"].length,
+					});
+				}
 			}
 			setAllUsers(initData);
 			setIsLoading(false);
 		}
 	}, []);
+
+	console.log(allUsers);
 
 	useEffect(() => {
 		const n = allUsers[tab].filter((d) => d.checked).length;

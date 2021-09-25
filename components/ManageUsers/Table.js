@@ -66,12 +66,12 @@ const Table = ({ allUsers, tab, page, size, checkHandler, columns, sort, search,
 					</button>
 					{columns[tab].map((c) => (
 						<div key={`${c}-${i}`} className={`${classes.cell} ${classes[c.replace(" ", "")]}`}>
-							{c === "last Visited" ? values[c.replace(" ", "")].split(" ").slice(1, 4).join(" ") : values[c.replace(" ", "")]}
+							{values[c.replace(" ", "")]}
 						</div>
 					))}
 				</div>
 			))}
-			{isLoading && <div className={classes.loadingScreen}>Loading ...</div>}
+			{isLoading && <div className={classes.loadingScreen}>Processing user data ...</div>}
 		</div>
 	);
 };
