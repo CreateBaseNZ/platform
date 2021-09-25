@@ -69,11 +69,13 @@ const ProjectView = ({ setLoaded }) => {
 				if (subQuery === "play") {
 					// if play
 					setView(subQuery);
+					setIteration(parseInt(router.query.projectView[2]) || 0);
 					setLoaded(false);
 				} else if (subQuery === "code") {
 					// if code
 					setView(subQuery);
-					setStep(router.query.projectView[2] || "create");
+					setIteration(parseInt(router.query.projectView[2]) || 0);
+					setStep(router.query.projectView[3] || "create");
 					setLoaded(false);
 				} else {
 					// else default project view
@@ -144,8 +146,8 @@ const ProjectView = ({ setLoaded }) => {
 						{step === "define" && <Define data={data.iterations[iteration].define} setLoaded={setLoaded} />}
 						{step === "research" && <Research query={data.query} data={data.iterations[iteration].research} setLoaded={setLoaded} />}
 						{step === "plan" && <Plan data={data.iterations[iteration].plan} setLoaded={setLoaded} />}
-						{step === "create" && <Create query={data.query} data={data.iterations[iteration].create} setLoaded={setLoaded} />}
-						{step === "improve" && <Improve query={data.query} data={data.iterations[iteration].improve} setLoaded={setLoaded} />}
+						{step === "create" && <Create query={data.query} data={data.iterations[iteration].create} setLoaded={setLoaded} iteration={iteration} />}
+						{step === "improve" && <Improve query={data.query} data={data.iterations[iteration].improve} setLoaded={setLoaded} iteration={iteration} maxIteration={data.iterations.length} />}
 						{step === "review" && <Review setLoaded={setLoaded} />}
 					</div>
 				</>
