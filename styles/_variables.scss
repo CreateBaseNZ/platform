@@ -3,20 +3,17 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&family=Material+Icons&display=swap");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons&display=swap");
 
-$darkest: #141414;
-$darker: #262626;
+$darkest: #262626;
+$darker: #3a3a3a;
 $dark: #585858;
 
 $light: #cecece;
-$lighter: #f7f8ff;
-$lightest: #ffffff;
+$lighter: #f9f9f9;
+$lightest: #fdfdfd;
 
 $logo-light: #8258dc;
 $logo-mid: #6854d9;
 $logo-dark: #4e4ed6;
-
-$bg-light: #fdfdfd;
-$bg-dark: #1d1d1d;
 
 $blue-light: #36c4e8;
 $blue-mid: #209ce2;
@@ -27,12 +24,14 @@ $magenta-mid: #7f21b3;
 $magenta-dark: #450c97;
 
 $red: #fa6f6f;
+$red-dark: #f56363;
 $orange: #ff6f1e;
 $amber: #fdb554;
 $gold: #fdd135;
-$green: #18dbac;
 
-$green-dark: #12b891;
+$green-light: #79fdae;
+$green-mid: #5fe394;
+$green-dark: #18dbac;
 
 $poppins: "Poppins", sans-serif;
 $jetbrains: "JetBrains Mono", monospace;

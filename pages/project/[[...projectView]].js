@@ -98,6 +98,11 @@ const ProjectView = ({ setLoaded }) => {
 		}
 	}, [step]);
 
+	const backHandler = () => {
+		setLoaded(false);
+		router.push("/browse");
+	};
+
 	if (loading || !data.query) return null;
 
 	return (
@@ -111,12 +116,10 @@ const ProjectView = ({ setLoaded }) => {
 			{view === "project" && (
 				<>
 					<div className={classes.tabContainer}>
-						<Link href="/browse">
-							<button className={classes.backBtn}>
-								<span className="material-icons-outlined">arrow_back_ios</span>
-								Browse
-							</button>
-						</Link>
+						<button className={classes.backBtn} onClick={backHandler}>
+							<span className="material-icons-outlined">arrow_back_ios</span>
+							Browse
+						</button>
 						<ProjectTab activeStep={step} step="imagine" query={data.query} iteration={iteration} />
 						<div className={classes.iterationsContainer}>
 							<div className={classes.iterationTitle}>Iteration</div>
