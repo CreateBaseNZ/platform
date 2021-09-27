@@ -1,4 +1,4 @@
-import { comparisonBoostData, conditionalBoostData } from "./explore-data";
+import { comparisonBoostData, ifBoostData } from "./explore-data";
 
 export default {
 	name: "Send It",
@@ -124,7 +124,7 @@ export default {
 					{
 						type: "explore",
 						title: "Explore more",
-						items: [comparisonBoostData, conditionalBoostData],
+						items: [comparisonBoostData, ifBoostData],
 					},
 				],
 			},

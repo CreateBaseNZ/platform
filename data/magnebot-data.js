@@ -1,4 +1,4 @@
-import { comparisonBoostData, conditionalBoostData, recycleRightData } from "./explore-data";
+import { recycleRightData } from "./explore-data";
 
 export default {
 	name: "MagneBot",

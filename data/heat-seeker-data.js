@@ -1,4 +1,4 @@
-import { conditionalBoostData } from "./explore-data";
+import { ifBoostData } from "./explore-data";
 
 export default {
 	name: "Heat Seeker",
@@ -66,7 +66,7 @@ export default {
 					{
 						type: "explore",
 						title: "Explore more",
-						items: [conditionalBoostData],
+						items: [ifBoostData],
 					},
 				],
 			},

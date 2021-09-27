@@ -80,25 +80,6 @@
 	flex-wrap: wrap;
 	justify-content: space-between;
 	position: relative;
-	&::before,
-	&::after {
-		content: "";
-		position: absolute;
-		top: 50%;
-		width: 8vw;
-		height: 1px;
-		background: rgba(white, 0.5);
-	}
-	&::before {
-		left: 0;
-		transform: translateX(calc(-100% - 2vw));
-		border-left: 8px solid white;
-	}
-	&::after {
-		right: 0;
-		transform: translateX(calc(100% + 2vw));
-		border-right: 8px solid white;
-	}
 }
 
 .choice {
