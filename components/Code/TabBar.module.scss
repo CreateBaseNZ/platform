@@ -1,4 +1,4 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .tabbar {
 	background: $lighter;
@@ -61,7 +61,7 @@
 		}
 	}
 	&.activeTab {
-		background: $lightest;
+		background: white;
 		label {
 			color: $logo-mid;
 		}

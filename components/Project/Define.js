@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
-// import dynamic from "next/dynamic";
+import { useState } from "react";
 import classes from "./Define.module.scss";
 import ModuleContainer from "../UI/ModuleContainer";
-
-// const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
 
 const Define = ({ data }) => {
 	const [active, setActive] = useState(0);
@@ -20,7 +17,6 @@ const Define = ({ data }) => {
 		<div className={classes.view}>
 			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} />
 			<div className={classes.mainContainer}>
-				{/* <PdfViewer file={data[active].url} /> */}
 				<embed src={data.modules[active].url} width="100%" height="100%" onLoad={loadHandler} />
 				<div className={`${classes.loadScreen} ${loaded ? classes.loaded : ""}`} />
 			</div>

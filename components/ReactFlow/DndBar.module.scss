@@ -1,9 +1,9 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .dndbar {
 	flex: 0 0 auto;
 	font-size: 0.75rem;
-	background: $lightest;
+	background: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;

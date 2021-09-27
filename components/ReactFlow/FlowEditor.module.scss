@@ -1,9 +1,9 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .editorContainer {
 	height: 100%;
 	width: 100%;
-	background: $bg-light;
+	background: $lightest;
 	display: flex;
 	position: relative;
 	svg {
@@ -50,7 +50,7 @@
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			color: $lightest;
+			color: white;
 			font-size: 14px;
 			margin: 0.5vh 0;
 			font-family: $jetbrains;
@@ -90,7 +90,7 @@
 	padding: 0 0.75rem;
 	height: 2rem;
 	line-height: 2rem;
-	color: $lightest;
+	color: white;
 	background: $darker;
 	border-radius: 2px;
 	font-size: 12px;
@@ -109,7 +109,7 @@
 	font-size: 14px;
 	font-weight: 500;
 	font-family: $jetbrains;
-	color: $lightest;
+	color: white;
 	border-radius: 2px;
 	margin: 0;
 	letter-spacing: 0.1em;

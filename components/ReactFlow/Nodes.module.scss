@@ -1,4 +1,4 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .node {
 	border-radius: 4px;
@@ -11,13 +11,13 @@
 	h4 {
 		font-size: 1rem;
 		font-weight: 600;
-		color: $lightest;
+		color: white;
 		line-height: 1.25em;
 		text-align: left;
 	}
 	h5 {
 		font-size: 14px;
-		color: $lightest;
+		color: white;
 	}
 	select,
 	input {
@@ -34,7 +34,7 @@
 			font-weight: 500;
 		}
 		&:hover {
-			background: $lightest;
+			background: white;
 		}
 	}
 	input {
@@ -259,13 +259,13 @@
 .label {
 	font-size: 12px;
 	line-height: 1em;
-	color: $lightest;
+	color: white;
 }
 .leftHandleLabel,
 .rightHandleLabel {
 	font-size: 14px;
 	line-height: 1em;
-	color: $lightest;
+	color: white;
 	position: absolute;
 }
 .leftHandleLabel {
@@ -307,7 +307,7 @@
 			height: 20px;
 			width: 20px;
 			border-radius: 100%;
-			background: $lightest;
+			background: white;
 			transition: left 0.2s ease-out;
 		}
 	}
@@ -340,14 +340,14 @@
 	h4 {
 		font-size: 12px;
 		font-weight: 500;
-		color: $lightest;
+		color: white;
 		margin: 0;
 		flex: 1 1 auto !important;
 	}
 	.blankInput {
 		height: 1.25rem;
 		width: 2rem;
-		background: $lightest;
+		background: white;
 		margin: 0 0.5rem;
 		border-radius: 2px;
 		opacity: 0.75;

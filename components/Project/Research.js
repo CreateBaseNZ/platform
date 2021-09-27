@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-// import dynamic from "next/dynamic";
 import ModuleContainer from "../UI/ModuleContainer";
 import VideoViewer from "../UI/VideoViewer";
 import Img from "../UI/Img";
 
 import classes from "./Research.module.scss";
 
-// const PdfViewer = dynamic(() => import("../UI/PdfViewer"), { ssr: false });
-
-const Research = ({ query, data, caption, setLoaded }) => {
+const Research = ({ query, data, setLoaded }) => {
 	const [active, setActive] = useState(0);
 
 	useEffect(() => {
@@ -25,7 +22,6 @@ const Research = ({ query, data, caption, setLoaded }) => {
 			<div className={classes.mainContainer}>
 				{data.modules[active].type === "pdf" && (
 					<div style={{ width: "100%", height: "100%" }}>
-						{/* <PdfViewer file={data[active].url} /> */}
 						<embed src={data.modules[active].url} width="100%" height="100%" />
 					</div>
 				)}

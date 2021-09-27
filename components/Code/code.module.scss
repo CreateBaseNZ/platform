@@ -1,54 +1,54 @@
-@import "./styles/variables";
+@import "./styles/variables_new";
 
 .play {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
 }
 
 .mainWindow {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  &.stackedView {
-    flex-direction: column;
-    & > div {
-      height: 50%;
-      width: 100%;
-    }
-  }
-  &.shelvedView {
-    flex-direction: row-reverse;
-    & > div {
-      height: 100%;
-      width: 50%;
-    }
-  }
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	&.stackedView {
+		flex-direction: column;
+		& > div {
+			height: 50%;
+			width: 100%;
+		}
+	}
+	&.shelvedView {
+		flex-direction: row-reverse;
+		& > div {
+			height: 100%;
+			width: 50%;
+		}
+	}
 }
 
 .backButton {
-  position: absolute;
-  top: 1rem;
-  left: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3rem;
-  width: 3rem;
-  z-index: 1;
-  opacity: 0.75;
-  transform: rotate(180deg);
-  background: rgba(black, 0.25);
-  border: 2px solid rgba(white, 0.75);
-  span {
-    color: $lightest;
-  }
-  &:hover {
-    opacity: 1;
-  }
+	position: absolute;
+	top: 1rem;
+	left: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 3rem;
+	width: 3rem;
+	z-index: 1;
+	opacity: 0.75;
+	transform: rotate(180deg);
+	background: rgba(black, 0.25);
+	border: 2px solid rgba(white, 0.75);
+	span {
+		color: white;
+	}
+	&:hover {
+		opacity: 1;
+	}
 }

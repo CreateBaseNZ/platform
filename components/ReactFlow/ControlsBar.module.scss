@@ -1,71 +1,71 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .controls {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  background: none;
-  box-shadow: none !important;
-  max-height: 160px;
-  & > * {
-    background: $light;
-    border: thin solid $lighter !important;
-    opacity: 0.75;
-    position: relative;
-    transition: opacity 0.1s ease-out;
-    &:hover {
-      background: $darker !important;
-      opacity: 1 !important;
-      span {
-        color: $lightest !important;
-      }
-      path {
-        fill: $lightest !important;
-      }
-    }
-  }
-  .customControl {
-    padding: 5px;
-    span {
-      color: black;
-      font-size: 16px;
-    }
-  }
-  .deactive {
-    opacity: 0.25;
-    pointer-events: none;
-  }
-  .locked {
-    opacity: 0.75;
-    background: $lightest;
-    span {
-      color: rgb(255, 22, 22);
-    }
-    &:hover {
-      opacity: 1;
-    }
-  }
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	background: none;
+	box-shadow: none !important;
+	max-height: 160px;
+	& > * {
+		background: $light;
+		border: thin solid $lighter !important;
+		opacity: 0.75;
+		position: relative;
+		transition: opacity 0.1s ease-out;
+		&:hover {
+			background: $darker !important;
+			opacity: 1 !important;
+			span {
+				color: white !important;
+			}
+			path {
+				fill: white !important;
+			}
+		}
+	}
+	.customControl {
+		padding: 5px;
+		span {
+			color: black;
+			font-size: 16px;
+		}
+	}
+	.deactive {
+		opacity: 0.25;
+		pointer-events: none;
+	}
+	.locked {
+		opacity: 0.75;
+		background: white;
+		span {
+			color: rgb(255, 22, 22);
+		}
+		&:hover {
+			opacity: 1;
+		}
+	}
 }
 
 .prioritise {
-  order: -1;
+	order: -1;
 }
 
 .customControl {
-  &.small span {
-    padding: 0.5px;
-  }
-  &.verySmall span {
-    padding: 1px;
-  }
+	&.small span {
+		padding: 0.5px;
+	}
+	&.verySmall span {
+		padding: 1px;
+	}
 }
 
 .lockAlert {
-  animation: alert 0.8s linear infinite;
+	animation: alert 0.8s linear infinite;
 }
 
 @keyframes alert {
-  50% {
-    background: red;
-  }
+	50% {
+		background: red;
+	}
 }

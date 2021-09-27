@@ -1,23 +1,23 @@
-@import "/styles/variables";
+@import "/styles/variables_new";
 
 .workspace {
-  display: flex;
-  overflow: hidden;
+	display: flex;
+	overflow: hidden;
 }
 
 .compileBtn {
-  position: absolute;
-  top: 52vh;
-  left: 240px;
-  padding: 0.5em 1em;
-  z-index: 5;
-  font-size: 1.25rem;
+	position: absolute;
+	top: 52vh;
+	left: 240px;
+	padding: 0.5em 1em;
+	z-index: 5;
+	font-size: 1.25rem;
 }
-.compileTextBtn{
-  position: absolute;
-  top: 52vh;
-  right: 240px;
-  padding: 0.5em 1em;
-  z-index: 5;
-  font-size: 1.25rem;
+.compileTextBtn {
+	position: absolute;
+	top: 52vh;
+	right: 240px;
+	padding: 0.5em 1em;
+	z-index: 5;
+	font-size: 1.25rem;
 }
