@@ -476,25 +476,24 @@ export const ifBoostLvl3Item = () => {
 
 export const whileBoostLvl1Item = () => {
 	const condition = Math.random() < 0.5;
-	const handleId = Math.floor(Math.random() * 2);
-	const handleName = `execution__out__${handleId}`;
+
 	return {
 		q: "Will 'Jump' be executed?",
 		els: [
 			{
 				data: { connections: ["execution__out"] },
 				id: "start",
-				position: { x: 64, y: 48 },
+				position: { x: -64, y: -64 },
 				type: "NodeStart",
 			},
 			{
 				data: {
 					values: {},
-					connections: ["execution__in", handleName, "boolean__in__condition"],
+					connections: ["execution__in", "execution__out__0", "boolean__in__condition"],
 				},
 				id: "dndnode_0",
-				position: { x: 192, y: 16 },
-				type: "NodeIf",
+				position: { x: 64, y: -64 },
+				type: "NodeWhile",
 			},
 			{
 				animated: true,
@@ -509,15 +508,15 @@ export const whileBoostLvl1Item = () => {
 			{
 				data: { values: {}, connections: ["execution__in"] },
 				id: "dndnode_1",
-				position: { x: 416, y: 48 },
+				position: { x: 304, y: -96 },
 				type: "NodeSendItJump",
 			},
 			{
 				animated: true,
 				arrowHeadType: "arrowclosed",
-				id: `reactflow__edge-dndnode_0${handleName}-dndnode_1execution__in`,
+				id: "reactflow__edge-dndnode_0execution__out__0-dndnode_1execution__in",
 				source: "dndnode_0",
-				sourceHandle: handleName,
+				sourceHandle: "execution__out__0",
 				target: "dndnode_1",
 				targetHandle: "execution__in",
 				type: "execution",
@@ -525,11 +524,11 @@ export const whileBoostLvl1Item = () => {
 			{
 				data: { values: {}, connections: ["boolean__out"] },
 				id: "dndnode_2",
-				position: { x: 128, y: -32 },
+				position: { x: 32, y: -128 },
 				type: condition ? "NodeTrue" : "NodeFalse",
 			},
 			{
-				id: "reactflow__edge-dndnode_2boolean__out-dndnode_0boolean__in__condition",
+				id: "reactflow__edge-dndnode_3boolean__out-dndnode_0boolean__in__condition",
 				source: "dndnode_2",
 				sourceHandle: "boolean__out",
 				target: "dndnode_0",
@@ -538,6 +537,6 @@ export const whileBoostLvl1Item = () => {
 			},
 		],
 		o: ["yes", "no", "skip"],
-		a: (condition && handleId === 0) || (!condition && handleId === 1) ? "yes" : "no",
+		a: condition ? "yes" : "no",
 	};
 };

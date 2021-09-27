@@ -7,7 +7,7 @@ import html2canvas from "html2canvas";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import { ReactFlowProvider } from "react-flow-renderer";
 import HistoryItem from "./HistoryItem";
-import { comparisonBoostLvl1Item, comparisonBoostLvl2Item, comparisonBoostLvl3Item, ifBoostLvl1Item, ifBoostLvl2Item, ifBoostLvl3Item } from "../../utils/boostQs";
+import { comparisonBoostLvl1Item, comparisonBoostLvl2Item, comparisonBoostLvl3Item, ifBoostLvl1Item, ifBoostLvl2Item, ifBoostLvl3Item, whileBoostLvl1Item } from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
 import LevelModal from "./LevelModal";
@@ -20,7 +20,9 @@ const getColour = (mode) => {
 	switch (mode) {
 		case "Comparison":
 			return "#fe757e";
-		case "Conditional":
+		case "If":
+			return "#ff6bcd";
+		case "While":
 			return "#ff6bcd";
 		default:
 			throw "No colour theme defined for this Boost mode";
@@ -51,6 +53,9 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 		volume: volume.curr,
 	});
 	const [playCorrect] = useSound("/sounds/correct.mp3", {
+		volume: volume.curr,
+	});
+	const [playSkip] = useSound("/sounds/skip.mp3", {
 		volume: volume.curr,
 	});
 	const [playInCorrect] = useSound("/sounds/incorrect.mp3", {
@@ -100,7 +105,7 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 			} else if (level === 2) {
 				fc = comparisonBoostLvl3Item;
 			}
-		} else if (mode === "Conditional") {
+		} else if (mode === "If") {
 			if (level === 0) {
 				fc = ifBoostLvl1Item;
 			} else if (level === 1) {
@@ -108,6 +113,8 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 			} else if (level === 2) {
 				fc = ifBoostLvl3Item;
 			}
+		} else if (mode === "While") {
+			fc = whileBoostLvl1Item;
 		}
 		const { q, els, o, a } = fc();
 		setElements(els);
@@ -116,11 +123,14 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 
 	const choiceClickHandler = (response, event) => {
 		stopSynth();
-		const correct = activeQ.a.toString() === response.toString();
+		const feedback = response.toString() === "skip" ? "skip" : activeQ.a.toString() === response.toString() ? "correct" : "incorrect";
 
-		if (correct) {
+		if (feedback === "correct") {
 			setFlash("correct");
 			playCorrect();
+		} else if (feedback === "skip") {
+			setFlash("skip");
+			playSkip();
 		} else {
 			setFlash("incorrect");
 			playInCorrect();
@@ -133,7 +143,7 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 				setHistory((state) => ({
 					...state,
 					list: state.list.concat({
-						correct: correct,
+						feedback: feedback,
 						capture: canvas.toDataURL(),
 						a: activeQ.a,
 						r: response,
@@ -264,7 +274,10 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 						</ReactFlowProvider>
 					</MiniHoverContextProvider>
 				</div>
-				<div className={`${classes.questionWrapper} ${flash === "correct" ? classes.correctChoice : ""} ${flash === "incorrect" ? classes.incorrectChoice : ""} ${flash ? classes.flashing : ""} `}>
+				<div
+					className={`${classes.questionWrapper} ${flash === "correct" ? classes.correctChoice : ""} ${flash === "incorrect" ? classes.incorrectChoice : ""} ${
+						flash === "skip" ? classes.skippedChoice : ""
+					} ${flash ? classes.flashing : ""} `}>
 					<h3 className={classes.question}>
 						{history.list.length + 1}: {activeQ.q}
 					</h3>

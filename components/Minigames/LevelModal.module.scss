@@ -176,7 +176,8 @@
 	}
 }
 
-.levelModal.conditional {
+.levelModal.if,
+.levelModal.while {
 	.buttonCard.current::after {
 		color: #ff6bcd;
 	}

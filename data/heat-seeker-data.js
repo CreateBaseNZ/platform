@@ -1,9 +1,10 @@
-import { ifBoostData } from "./explore-data";
+import { ifBoostData, whileBoostData } from "./explore-data";
 
 export default {
 	name: "Heat Seeker",
 	query: "heat-seeker",
-	caption: "In this Project, learners will create an algorithm to guide a line-following robot to a series of fires within a warehouse, putting them out safely before they spread to nearby hydrogen fuel cells! Learners will not only create their own control-algorithm, but will also learn about some of the basics of fire safety, warehouse automation, and the advantage that robots have over humans when operating in hazardous situations.",
+	caption:
+		"In this Project, learners will create an algorithm to guide a line-following robot to a series of fires within a warehouse, putting them out safely before they spread to nearby hydrogen fuel cells! Learners will not only create their own control-algorithm, but will also learn about some of the basics of fire safety, warehouse automation, and the advantage that robots have over humans when operating in hazardous situations.",
 	stacked: true,
 	scenePrefix: "Project_HeatSeeker_1",
 	runType: "loop",
@@ -66,7 +67,7 @@ export default {
 					{
 						type: "explore",
 						title: "Explore more",
-						items: [ifBoostData],
+						items: [ifBoostData, whileBoostData],
 					},
 				],
 			},

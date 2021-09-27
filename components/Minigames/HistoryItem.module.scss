@@ -47,25 +47,35 @@
 	&:first-child {
 		margin-top: auto;
 	}
-}
-.incorrectItem {
-	.histRecord {
-		background: #4d1919;
-		color: #ff6060;
+	&.incorrect {
+		.histRecord {
+			background: #4d1919;
+			color: #ff6060;
+		}
+		.histIndex {
+			color: #ff6060;
+			background: #4d1919;
+		}
 	}
-	.histIndex {
-		color: #ff6060;
-		background: #4d1919;
+	&.skip {
+		.histRecord {
+			background: #a57100;
+			color: #ffe08c;
+		}
+		.histIndex {
+			color: #ffe08c;
+			background: #a57100;
+		}
 	}
-}
-.correctItem {
-	.histRecord {
-		background: #01662b;
-		color: #22ee55;
-	}
-	.histIndex {
-		color: #22ee55;
-		background: #01662b;
+	&.correct {
+		.histRecord {
+			background: #01662b;
+			color: #22ee55;
+		}
+		.histIndex {
+			color: #22ee55;
+			background: #01662b;
+		}
 	}
 }
 
