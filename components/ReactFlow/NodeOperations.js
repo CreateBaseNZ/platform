@@ -35,7 +35,7 @@ export const NodeAbsolute = memo(({ id, data = { values: { a: 1 }, connections: 
 	return (
 		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`}>
 			<CustomHandle type="target" position="top" id="float__in__a" style={{ left: "auto", right: "34px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
-			<h4>Absolute</h4>
+			<h4 style={{ marginLeft: 0 }}>Absolute</h4>
 			<InputWithHandle data={data} blockId={id} handleId="float__in__a" inputName="a" />
 			<CustomHandle type="source" position="right" id="float__out" isConnectable={isConnectable} connections={data.connections} />
 		</div>
@@ -105,7 +105,7 @@ export const NodeGeneralOperatorMini = memo(() => {
 
 export const NodeAbsoluteMini = memo(() => {
 	return (
-		<NodeMini className={classes.operating} nodeType="NodeAbsolute" node={<NodeAbsolute />} style={{ height: "3rem" }}>
+		<NodeMini className={classes.operating} nodeType="NodeAbsolute" node={<NodeAbsolute />}>
 			<h4>Absolute</h4>
 			<div className={classes.blankInput} />
 		</NodeMini>

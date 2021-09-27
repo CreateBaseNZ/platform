@@ -3,14 +3,14 @@ import { ifBoostData } from "./explore-data";
 export default {
 	name: "Heat Seeker",
 	query: "heat-seeker",
-	caption: "TBD",
+	caption: "In this Project, learners will create an algorithm to guide a line-following robot to a series of fires within a warehouse, putting them out safely before they spread to nearby hydrogen fuel cells! Learners will not only create their own control-algorithm, but will also learn about some of the basics of fire safety, warehouse automation, and the advantage that robots have over humans when operating in hazardous situations.",
 	stacked: true,
 	scenePrefix: "Project_HeatSeeker_1",
 	runType: "loop",
-	durPerLesson: "TBD",
-	numOfLessons: "TBD",
+	durPerLesson: "45 mins",
+	numOfLessons: 6,
 	difficulty: "Advanced",
-	subjects: ["TBD"],
+	subjects: ["Technology", "Engineering", "Computer Science", "Fire Safety"],
 	learningOutcome: "TBD",
 	curriculumAlignment: "TBD",
 	lessonPlan: "TBD",
@@ -45,7 +45,7 @@ export default {
 				],
 			},
 			research: {
-				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "video",

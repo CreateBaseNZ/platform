@@ -2,7 +2,7 @@ import Link from "next/link";
 import Img from "../UI/Img";
 import classes from "./Create.module.scss";
 
-const Create = ({ query, data }) => {
+const Create = ({ query, data, iteration }) => {
 	console.log(data);
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
@@ -33,7 +33,7 @@ const Create = ({ query, data }) => {
 					<Img src="/create.svg" layout="responsive" width={1000} height={1000} objectFit="contain" />
 				</div>
 				<div className={classes.caption}>{data.caption}</div>
-				<Link href={`/project/${query}/code/create`}>
+				<Link href={`/project/${query}/code/${iteration}/create`}>
 					<button className={classes.btn}>
 						Start Creating!
 						<span className="material-icons-outlined">arrow_right</span>

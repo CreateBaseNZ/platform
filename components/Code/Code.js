@@ -29,7 +29,7 @@ const Code = ({ setLoaded, mode, project, iteration }) => {
 				<div className={`${classes.mainWindow} ${project.stacked ? classes.stackedView : classes.shelvedView}`}>
 					<Link
 						href={{
-							pathname: `/project/${project.query}/[step]`,
+							pathname: `/project/${project.query}/${iteration}/[step]`,
 							query: { step: mode.toLowerCase() },
 						}}>
 						<button className={classes.backButton} title="Back to project">
