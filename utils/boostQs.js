@@ -710,3 +710,98 @@ export const whileBoostLvl3Item = () => {
 		a: (condition === leftNumber > rightNumber) === action ? "jump" : "crouch",
 	};
 };
+
+export const whileBoostLvl4Item = () => {
+	const conditions = [...Array(3)].map((i) => (Math.random() < 0.5 ? "TRUE" : "FALSE"));
+
+	let ans = [];
+	for (const cond of conditions) {
+		if (cond === "TRUE") {
+			ans.push("jump");
+		} else {
+			ans.push("crouch");
+			break;
+		}
+	}
+
+	console.log(ans);
+
+	return {
+		q: `If fire being near is ${conditions.join("➞")}, what is the sequence of actions?`,
+		els: [
+			{
+				data: { connections: ["execution__out"] },
+				id: "start",
+				position: { x: -80, y: -48 },
+				type: "NodeStart",
+			},
+			{
+				data: {
+					values: {},
+					connections: ["execution__in", "execution__out__0", "boolean__in__condition"],
+				},
+				id: "dndnode_0",
+				position: { x: 48, y: -80 },
+				type: "NodeWhile",
+			},
+			{
+				animated: true,
+				arrowHeadType: "arrowclosed",
+				id: "reactflow__edge-startexecution__out-dndnode_0execution__in",
+				source: "start",
+				sourceHandle: "execution__out",
+				target: "dndnode_0",
+				targetHandle: "execution__in",
+				type: "execution",
+			},
+			{
+				data: { values: {}, connections: ["execution__in"] },
+				id: "dndnode_1",
+				position: { x: 288, y: -112 },
+				type: "NodeSendItJump",
+			},
+			{
+				animated: true,
+				arrowHeadType: "arrowclosed",
+				id: "reactflow__edge-dndnode_0execution__out__0-dndnode_1execution__in",
+				source: "dndnode_0",
+				sourceHandle: "execution__out__0",
+				target: "dndnode_1",
+				targetHandle: "execution__in",
+				type: "execution",
+			},
+			{
+				data: { values: {}, connections: ["execution__in"] },
+				id: "dndnode_2",
+				position: { x: 288, y: -32 },
+				type: "NodeSendItCrouch",
+			},
+			{
+				animated: true,
+				arrowHeadType: "arrowclosed",
+				id: "reactflow__edge-dndnode_0execution__out__1-dndnode_2execution__in",
+				source: "dndnode_0",
+				sourceHandle: "execution__out__1",
+				target: "dndnode_2",
+				targetHandle: "execution__in",
+				type: "execution",
+			},
+			{
+				data: { values: {}, connections: ["boolean__out"] },
+				id: "dndnode_3",
+				position: { x: -52, y: -144 },
+				type: "NodeHeatSeekerIsFireNear",
+			},
+			{
+				id: "reactflow__edge-dndnode_3boolean__out-dndnode_0boolean__in__condition",
+				source: "dndnode_3",
+				sourceHandle: "boolean__out",
+				target: "dndnode_0",
+				targetHandle: "boolean__in__condition",
+				type: "boolean",
+			},
+		],
+		o: ["crouch", "jump➞crouch", "jump➞jump➞crouch", "jump➞jump➞jump", "skip"],
+		a: ans.join("➞"),
+	};
+};

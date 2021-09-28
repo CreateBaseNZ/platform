@@ -27,7 +27,7 @@ const LevelModal = ({ currLvl, currMode, playSynth, playFlick, playDonk, closeHa
 	const proceedClickHandler = () => {
 		playFlick();
 		if (selection.mode !== currMode) {
-			router.push(`/explore/${selection.mode}-boost`);
+			router.replace(`/explore/${selection.mode}-boost`);
 		} else {
 			setLevel(selection.level);
 		}

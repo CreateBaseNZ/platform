@@ -34,10 +34,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	transition: filter 0.1s ease-out;
-	&.disabled {
-		pointer-events: none;
-		filter: brightness(0.25);
-	}
 }
 
 .card {
