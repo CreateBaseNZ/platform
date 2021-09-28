@@ -30,23 +30,18 @@ export default {
 			define: {
 				caption: [
 					"As a class, dive into group discussions around the Project theme to fully define our problem.",
-					"Don't have a teacher to guide you through? Check back soon for individual content!",
+					"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
 				],
 				modules: [
 					{
-						title: "TBD",
-						img: "",
-						url: "",
-					},
-					{
-						title: "TBD",
-						img: "",
-						url: "",
+						title: "Define the Problem",
+						img: "/heat-seeker/img/define.jpg",
+						url: "/heat-seeker/files/define-heat-seeker.pdf",
 					},
 				],
 			},
 			research: {
-				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "video",
