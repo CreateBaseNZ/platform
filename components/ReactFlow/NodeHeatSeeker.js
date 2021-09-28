@@ -177,7 +177,7 @@ export const NodeHeatSeekerFrontOnLine = memo(({ data, isConnectable }) => {
 });
 
 export const NodeHeatSeekerIsFireNear = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is fire?" style={{ width: "6rem", height: "2rem" }} />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is Fire Near?" style={{ width: "8rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerDifference = memo(({ data, isConnectable }) => {
