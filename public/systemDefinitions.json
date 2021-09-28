@@ -169,7 +169,7 @@
 			"NodeHeatSeekerTurn": {
 				"simpleLogic": "Turn",
 				"inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
-				"logic": "if(a){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.25)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.25)}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.25)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.25)\n}",
+				"logic": "if(a){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33)}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33)\n}",
 				"await": false
 			},
 			"NodeHeatSeekerStop": {
@@ -181,7 +181,7 @@
 			"NodeHeatSeekerMoveBackward": {
 				"simpleLogic": "MoveBackward",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "unityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.25-a)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.25+a)",
+				"logic": "unityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33-a)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33+a)",
 				"await": false
 			},
 			"NodeEnd": {
