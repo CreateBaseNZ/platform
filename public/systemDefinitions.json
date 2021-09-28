@@ -163,7 +163,7 @@
 			"NodeHeatSeekerMoveForward": {
 				"simpleLogic": "MoveForward",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "unityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.25+a)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.25-a)",
+				"logic": "unityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33+a)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33-a)",
 				"await": false
 			},
 			"NodeHeatSeekerTurn": {
