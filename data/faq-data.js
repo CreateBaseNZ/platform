@@ -28,11 +28,11 @@ export default [
 				),
 			},
 			{
-				q: "How-To: Use invite features",
+				q: "How-To: Invite Users to your Organisation",
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/GphwKgAv6kw" target="_blank" title="How-To: Use invite features">View here </a>	
+						<a href="https://youtu.be/nb0zARtCCK0" target="_blank" title="How-To: Invite Users to your Organisation">View here </a>	
 						</p>
 					</>
 				),
@@ -48,11 +48,41 @@ export default [
 				),
 			},
 			{
+				q: "How-To: Teach your first Project",
+				a: (
+					<>
+						<p>
+						<a href="https://youtu.be/SlRLHPSm17Y" target="_blank" title="How-To: Teach your first Project">View here </a>	
+						</p>
+					</>
+				),
+			},
+			{
+				q: "How-To: Translate your Logic into Flow-Code",
+				a: (
+					<>
+						<p>
+						<a href="https://youtu.be/OUQmv4Q5GIE" target="_blank" title="How-To: Translate your Logical Thinking into Flow-Code">View here </a>	
+						</p>
+					</>
+				),
+			},
+			{
 				q: "How-To: Sign up with a Learner account",
 				a: (
 					<>
 						<p>
 						<a href="https://youtu.be/s80cEkCQXIE" target="_blank" title="How-To: Sign up with a learner account">View here </a>	
+						</p>
+					</>
+				),
+			},
+			{
+				q: "How-To: Manage Users in your Organisation",
+				a: (
+					<>
+						<p>
+						<a href="https://youtu.be/dmShaNP-rt8" target="_blank" title="">View here </a>	
 						</p>
 					</>
 				),
