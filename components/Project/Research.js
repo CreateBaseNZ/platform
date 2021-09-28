@@ -54,7 +54,7 @@ const Research = ({ query, data, setLoaded }) => {
 					<div className={classes.exploreWrapper}>
 						{data.modules[active] &&
 							data.modules[active].items.map((item, i) => (
-								<a key={i} href={item.url} target="_blank" className={classes.exploreItem} title={`Launch ${item.title}`}>
+								<a key={i} href={item.url} className={classes.exploreItem} title={`Launch ${item.title}`}>
 									<div
 										className={classes.imgContainer}
 										style={{

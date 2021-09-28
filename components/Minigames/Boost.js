@@ -7,7 +7,16 @@ import html2canvas from "html2canvas";
 import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import { ReactFlowProvider } from "react-flow-renderer";
 import HistoryItem from "./HistoryItem";
-import { comparisonBoostLvl1Item, comparisonBoostLvl2Item, comparisonBoostLvl3Item, ifBoostLvl1Item, ifBoostLvl2Item, ifBoostLvl3Item, whileBoostLvl1Item } from "../../utils/boostQs";
+import {
+	comparisonBoostLvl1Item,
+	comparisonBoostLvl2Item,
+	comparisonBoostLvl3Item,
+	ifBoostLvl1Item,
+	ifBoostLvl2Item,
+	ifBoostLvl3Item,
+	whileBoostLvl1Item,
+	whileBoostLvl2Item,
+} from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
 import LevelModal from "./LevelModal";
@@ -114,7 +123,11 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 				fc = ifBoostLvl3Item;
 			}
 		} else if (mode === "While") {
-			fc = whileBoostLvl1Item;
+			if (level === 0) {
+				fc = whileBoostLvl1Item;
+			} else if (level === 1) {
+				fc = whileBoostLvl2Item;
+			}
 		}
 		const { q, els, o, a } = fc();
 		setElements(els);

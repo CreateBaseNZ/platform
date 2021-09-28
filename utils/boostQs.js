@@ -540,3 +540,87 @@ export const whileBoostLvl1Item = () => {
 		a: condition ? "yes" : "no",
 	};
 };
+
+export const whileBoostLvl2Item = () => {
+	const condition = Math.random() < 0.5;
+	const action = Math.random() < 0.5;
+
+	return {
+		q: "What is the correct sequence of action(s)?",
+		els: [
+			{
+				data: { connections: ["execution__out"] },
+				id: "start",
+				position: { x: -80, y: -80 },
+				type: "NodeStart",
+			},
+			{
+				data: {
+					values: {},
+					connections: ["execution__in", "execution__out__0", "boolean__in__condition"],
+				},
+				id: "dndnode_0",
+				position: { x: 48, y: -80 },
+				type: "NodeWhile",
+			},
+			{
+				animated: true,
+				arrowHeadType: "arrowclosed",
+				id: "reactflow__edge-startexecution__out-dndnode_0execution__in",
+				source: "start",
+				sourceHandle: "execution__out",
+				target: "dndnode_0",
+				targetHandle: "execution__in",
+				type: "execution",
+			},
+			{
+				data: { values: {}, connections: ["execution__in"] },
+				id: "dndnode_1",
+				position: { x: 288, y: -112 },
+				type: action ? "NodeSendItJump" : "NodeSendItCrouch",
+			},
+			{
+				animated: true,
+				arrowHeadType: "arrowclosed",
+				id: "reactflow__edge-dndnode_0execution__out__0-dndnode_1execution__in",
+				source: "dndnode_0",
+				sourceHandle: "execution__out__0",
+				target: "dndnode_1",
+				targetHandle: "execution__in",
+				type: "execution",
+			},
+			{
+				data: { values: {}, connections: ["execution__in"] },
+				id: "dndnode_2",
+				position: { x: 288, y: -32 },
+				type: action ? "NodeSendItCrouch" : "NodeSendItJump",
+			},
+			{
+				animated: true,
+				arrowHeadType: "arrowclosed",
+				id: "reactflow__edge-dndnode_0execution__out__1-dndnode_2execution__in",
+				source: "dndnode_0",
+				sourceHandle: "execution__out__1",
+				target: "dndnode_2",
+				targetHandle: "execution__in",
+				type: "execution",
+			},
+			{
+				data: { values: {}, connections: ["boolean__out"] },
+				id: "dndnode_3",
+				position: { x: 32, y: -128 },
+				type: condition ? "NodeTrue" : "NodeFalse",
+			},
+			{
+				id: "reactflow__edge-dndnode_3boolean__out-dndnode_0boolean__in__condition",
+				source: "dndnode_3",
+				sourceHandle: "boolean__out",
+				target: "dndnode_0",
+				targetHandle: "boolean__in__condition",
+				type: "boolean",
+			},
+		],
+		o: ["jump", "crouch", "jump➞crouch", "crouch➞jump", "skip"],
+		a: (condition && action) || (!condition && !action) ? "jump" : "crouch",
+	};
+};
