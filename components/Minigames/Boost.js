@@ -16,6 +16,7 @@ import {
 	ifBoostLvl3Item,
 	whileBoostLvl1Item,
 	whileBoostLvl2Item,
+	whileBoostLvl3Item,
 } from "../../utils/boostQs";
 
 import classes from "./Boost.module.scss";
@@ -127,6 +128,8 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 				fc = whileBoostLvl1Item;
 			} else if (level === 1) {
 				fc = whileBoostLvl2Item;
+			} else if (level === 2) {
+				fc = whileBoostLvl3Item;
 			}
 		}
 		const { q, els, o, a } = fc();
