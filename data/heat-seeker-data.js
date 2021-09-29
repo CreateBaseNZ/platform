@@ -18,9 +18,9 @@ export default {
 	learnings: ["TBD"],
 	situation: {
 		url: "https://youtu.be/Byg-XJcJovk",
-		src: "/heat-seeker/vid/situation.mp4",
-		h1: "TBD",
-		h2: "TBD",
+		src: "/heat-seeker/vid/heat-seeker.mp4",
+		h1: "An overloaded electrical circuit has resulted in a fire inside a warehouse! Flammable hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
+		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
 		title: "Heat Seeker",
 		docs: "",
 		word: "",
