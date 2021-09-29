@@ -17,8 +17,8 @@ export default {
 	lessonPlan: "TBD",
 	learnings: ["TBD"],
 	situation: {
-		url: "",
-		src: "",
+		url: "https://youtu.be/Byg-XJcJovk",
+		src: "/heat-seeker/vid/heat-seeker.mp4",
 		h1: "TBD",
 		h2: "TBD",
 		title: "Heat Seeker",
@@ -58,6 +58,11 @@ export default {
 						type: "pdf",
 						title: "Introduction to Flow blocks",
 						url: "/intro-to-flow.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Tips & tricks: Sensing & Action blocks",
+						url: "/heat-seeker/pdf/sensing-action-blocks.pdf",
 					},
 					{
 						type: "explore",
