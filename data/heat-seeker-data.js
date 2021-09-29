@@ -18,7 +18,7 @@ export default {
 	learnings: ["TBD"],
 	situation: {
 		url: "https://youtu.be/Byg-XJcJovk",
-		src: "/heat-seeker/vid/heat-seeker.mp4",
+		src: "/heat-seeker/vid/situation.mp4",
 		h1: "TBD",
 		h2: "TBD",
 		title: "Heat Seeker",
