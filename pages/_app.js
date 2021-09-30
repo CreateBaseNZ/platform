@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
 					<div id="modal-root"></div>
 					<div id="ctx-menu-root"></div>
 					{!loaded && <LoadingScreen />}
-					<Component {...pageProps} setLoaded={setLoaded} />
+					{!blockView && <Component {...pageProps} setLoaded={setLoaded} />}
 					{blockView && (
 						<div className="mobileView">
 							<h1>
