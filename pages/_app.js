@@ -28,8 +28,6 @@ function MyApp({ Component, pageProps }) {
 				<InviteOrgContextProvider>
 					<div id="modal-root"></div>
 					<div id="ctx-menu-root"></div>
-					{!loaded && <LoadingScreen />}
-					{!blockView && <Component {...pageProps} setLoaded={setLoaded} />}
 					{blockView && (
 						<div className="mobileView">
 							<h1>
@@ -47,6 +45,8 @@ function MyApp({ Component, pageProps }) {
 							<img src="/mobile.png" />
 						</div>
 					)}
+					{!loaded && <LoadingScreen />}
+					{!blockView && <Component {...pageProps} setLoaded={setLoaded} />}
 				</InviteOrgContextProvider>
 				<VisualBell />
 			</VisualBellContextProvider>

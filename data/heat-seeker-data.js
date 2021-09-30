@@ -148,12 +148,19 @@ export default {
 			create: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your previous solution by adding more code so that your robot can put out any fires in it's path."],
-				hints: ["You will need to use a sensor to detect these new fires and activate your water hose.", "Your robot only has a limited amount of water, so make sure that you turn the hose off after you put out each fire."],
+				hints: [
+					"You will need to use a sensor to detect these new fires and activate your water hose.",
+					"Your robot only has a limited amount of water, so make sure that you turn the hose off after you put out each fire.",
+				],
 			},
 			improve: {
 				caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-				alert: "Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
-				hints: ["If you want an additional challenge, go back and try to create a solution that uses as few blocks as possible.", "Alternatively, you could continue improving your solution to try and put out all the fires in the smallest possible time."],
+				alert:
+					"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
+				hints: [
+					"If you want an additional challenge, go back and try to create a solution that uses as few blocks as possible.",
+					"Alternatively, you could continue improving your solution to try and put out all the fires in the smallest possible time.",
+				],
 			},
 		},
 	],

@@ -149,6 +149,7 @@ export default {
 				hints: [
 					"Rather than trying to do solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all",
 				],
+				code: true,
 			},
 		},
 	],

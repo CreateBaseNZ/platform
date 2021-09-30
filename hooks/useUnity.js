@@ -31,6 +31,8 @@ const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
 		});
 	}, []);
 
+	console.log(`${scenePrefix},${scene},${iteration}`);
+
 	useEffect(() => {
 		unityContext.on("loaded", () => {
 			setTimeout(() => {

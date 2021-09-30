@@ -41,8 +41,8 @@ const Improve = ({ query, data, iteration, maxIteration }) => {
 					<Img src="/improve.svg" layout="responsive" width={1000} height={1000} objectFit="cover" />
 				</div>
 				<div className={classes.caption}>{data.caption}</div>
-				{iteration + 1 !== maxIteration && (
-					<Link href={`/project/${query}/${iteration + 1}/define`}>
+				{(data.code || iteration + 1 !== maxIteration) && (
+					<Link href={data.code ? `/project/${query}/code/0/improve` : `/project/${query}/${iteration + 1}/define`}>
 						<button className={classes.btn}>
 							Improve It!
 							<span className="material-icons-outlined">trending_up</span>

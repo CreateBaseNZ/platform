@@ -104,7 +104,10 @@ export default {
 			create: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that MagneBot can clean up the recycling facility for you", "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!"],
-				hints: ["If your arm collides with another object, it will break!", "Instead of moving directly from point A to point B, you may need to split that into multiple smaller movements to avoid other obstacles"],
+				hints: [
+					"If your arm collides with another object, it will break!",
+					"Instead of moving directly from point A to point B, you may need to split that into multiple smaller movements to avoid other obstacles",
+				],
 			},
 			improve: {
 				caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
@@ -119,6 +122,7 @@ export default {
 					"You might need to create some kind of ramp to place items on top of the conveyor belt",
 					"Challenge your friends to see who can complete one of the above tasks the best and/or fastest. If you are feeling especially spicy, you could even create your own tasks",
 				],
+				code: true,
 			},
 		},
 	],
