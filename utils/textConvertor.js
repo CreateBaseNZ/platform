@@ -10,13 +10,23 @@ export const convertCode = (text, system, onceCode) => {
 	let start = correctSystem.functions.NodeStart,
 		end = correctSystem.functions.NodeEnd;
 	const actions = [...Object.keys(correctSystem.actions)];
+	const actionNames = actions.map((element) => {
+		return correctSystem.actions[element].syntaxSimple;
+	});
 	const sensors = [...Object.keys(correctSystem.sensors)];
 	const allFunctions = [...Object.keys(correctSystem.functions), ...Object.keys(genralSystem.functions)];
-	const awaitFunctions = allFunctions.filter((element) => {
+	const simpleNames = allFunctions.map((element) => {
 		if (correctSystem.functions[element]) {
-			return correctSystem.functions[element].await;
+			return correctSystem.functions[element].simpleLogic;
 		} else {
-			return genralSystem.functions[element].await;
+			return genralSystem.functions[element].simpleLogic;
+		}
+	});
+	const awaitFunctions = simpleNames.filter((element, i) => {
+		if (correctSystem.functions[allFunctions[i]]) {
+			return correctSystem.functions[allFunctions[i]].await;
+		} else {
+			return genralSystem.functions[allFunctions[i]].await;
 		}
 	});
 	const usedFunctions = [];
@@ -46,14 +56,15 @@ export const convertCode = (text, system, onceCode) => {
 				isFunction = true;
 			}
 			if (isFunction) {
-				if (allFunctions.includes(RHS) && !usedFunctions.includes(RHS)) {
+				if (simpleNames.includes(RHS) && !usedFunctions.includes(RHS)) {
 					usedFunctions.push(RHS);
 				}
 				if (awaitFunctions.includes(RHS)) {
 					RHS = "await " + RHS;
-				} else if (actions.includes(RHS)) {
-					RHS = RHS.charAt(0).toUpperCase() + RHS.slice(1);
-					RHS = `unityContext.send("${system}","${RHS}");`;
+				} else if (actionNames.includes(RHS)) {
+					const indexVal = actionNames.indexOf(RHS);
+					const element = actions[indexVal];
+					RHS = correctSystem.actions[element].syntax;
 					for (let i = 0; i < dividedbyBracket.length; i++) {
 						dividedbyBracket[i] = "";
 					}
@@ -117,7 +128,9 @@ export const convertCode = (text, system, onceCode) => {
 	text = start.logic + middleCode + end.logic;
 	text += "\n\n";
 
-	usedFunctions.forEach((element) => {
+	usedFunctions.forEach((el) => {
+		const indexVal = simpleNames.indexOf(el);
+		const element = allFunctions[indexVal];
 		let functionDef = "";
 		let functionNeeded = correctSystem.functions[element];
 		if (!functionNeeded) {
@@ -139,12 +152,12 @@ export const convertCode = (text, system, onceCode) => {
 		}
 
 		// Build function
-		functionDef = `let ${element} = (${inputVariables}) => {\n`;
-		if (awaitFunctions.includes(element)) {
+		functionDef = `let ${el} = (${inputVariables}) => {\n`;
+		if (awaitFunctions.includes(el)) {
 			functionDef += `return new Promise((resolve, reject) => {\n`;
 		}
 		functionDef += `${functionNeeded.logic}\n`;
-		if (awaitFunctions.includes(element)) {
+		if (awaitFunctions.includes(el)) {
 			functionDef += `});\n`;
 		}
 		functionDef += `}\n`;
