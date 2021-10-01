@@ -86,17 +86,26 @@ export default {
 					},
 				],
 			},
-			plan: ["TBD"],
+			plan: [
+				"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
+				"In the Create step, you will write a program (a set of instructions) and upload it to the robot. You will need to use the information from the robot's sensors to determine exactly what do in each situation, testing often to find and solve any problems along the way.",
+				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!"
+			],
 			create: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
-				tasks: ["Write some code so that your robot can drive forward, following the line until it reaches and puts out the final fire."],
-				hints: ["You need to use the outputs from each line sensor to determine when your robot leaves the line and which direction it should turn to get back on it."],
+				tasks: ["Write some code so that your robot can drive forward, following the line until it reaches the final fire."],
+				hints: [
+					"You need to use the outputs from each line sensor to determine when your robot leaves the line and which direction it should turn to get back on it.",
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."
+				],
 			},
 			improve: {
 				caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-				alert: "TBD",
-				tasks: ["TBD"],
-				hints: ["TBD"],
+				alert: "Oh no, it looks like some of the fires have spread throughout the warehouse! You will now need to use your water hose to put out the smaller fires on the way to your final destination.",
+				tasks: [
+					"Congratulations on successfully creating a line following algorithm! You will now need improve your solution to take into account the smaller fires.",
+					"We will go through another iteration, repeating the same process that we just completed to build up our improved solution.",
+				],
 			},
 		},
 		{
@@ -144,7 +153,10 @@ export default {
 					},
 				],
 			},
-			plan: ["TBD"],
+			plan: [
+				"In the next Create step, you will need to improve your program so that you can put out the fires on the way to your destination.",
+				"But first, we need to plan what our changes will be. Open up your learning journal and answer all of the questions in the second Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!"
+			],
 			create: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your previous solution by adding more code so that your robot can put out any fires in it's path."],
