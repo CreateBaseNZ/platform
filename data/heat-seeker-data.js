@@ -22,8 +22,8 @@ export default {
 		h1: "An overloaded electrical circuit has resulted in a fire inside a warehouse! Flammable hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
 		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
 		title: "Heat Seeker",
-		docs: "",
-		word: "",
+		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
+		word: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
 	},
 	iterations: [
 		{
@@ -36,28 +36,13 @@ export default {
 					{
 						title: "Define the Problem",
 						img: "/heat-seeker/img/define.jpg",
-						url: "/heat-seeker/files/define-heat-seeker.pdf",
+						url: "/heat-seeker/files/define-0-heat-seeker.pdf",
 					},
 				],
 			},
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
-					{
-						type: "pdf",
-						title: "Firefighting",
-						url: "/heat-seeker/files/research-01-heat-seeker.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Line Following - What is It?",
-						url: "/heat-seeker/files/research-02-heat-seeker.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Line Following - Our Solution",
-						url: "/heat-seeker/files/research-03-heat-seeker.pdf",
-					},
 					{
 						type: "video",
 						title: "Flow tutorial",
@@ -116,14 +101,9 @@ export default {
 				],
 				modules: [
 					{
-						title: "TBD",
-						img: "",
-						url: "",
-					},
-					{
-						title: "TBD",
-						img: "",
-						url: "",
+						title: "Define the New Problem",
+						img: "/heat-seeker/img/define-1.jpg",
+						url: "/heat-seeker/files/define-1-heat-seeker.pdf",
 					},
 				],
 			},
