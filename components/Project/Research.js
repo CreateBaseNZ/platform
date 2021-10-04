@@ -5,7 +5,7 @@ import Img from "../UI/Img";
 
 import classes from "./Research.module.scss";
 
-const Research = ({ query, data, setLoaded }) => {
+const Research = ({ query, data, setLoaded, iteration }) => {
 	const [active, setActive] = useState(0);
 
 	useEffect(() => {
@@ -18,7 +18,7 @@ const Research = ({ query, data, setLoaded }) => {
 
 	return (
 		<div className={classes.view}>
-			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} play={query} />
+			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} query={query} iteration={iteration} />
 			<div className={classes.mainContainer}>
 				{data.modules[active].type === "pdf" && (
 					<div style={{ width: "100%", height: "100%" }}>

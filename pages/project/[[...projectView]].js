@@ -147,7 +147,7 @@ const ProjectView = ({ setLoaded }) => {
 					<div className={classes.viewContainer}>
 						{step === "imagine" && <Imagine data={data.situation} setLoaded={setLoaded} />}
 						{step === "define" && <Define data={data.iterations[iteration].define} setLoaded={setLoaded} />}
-						{step === "research" && <Research query={data.query} data={data.iterations[iteration].research} setLoaded={setLoaded} />}
+						{step === "research" && <Research query={data.query} data={data.iterations[iteration].research} setLoaded={setLoaded} iteration={iteration} />}
 						{step === "plan" && <Plan data={data.iterations[iteration].plan} setLoaded={setLoaded} />}
 						{step === "create" && <Create query={data.query} data={data.iterations[iteration].create} setLoaded={setLoaded} iteration={iteration} />}
 						{step === "improve" && <Improve query={data.query} data={data.iterations[iteration].improve} setLoaded={setLoaded} iteration={iteration} maxIteration={data.iterations.length} />}
