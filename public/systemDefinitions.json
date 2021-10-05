@@ -1,6 +1,7 @@
 [
 	{
 		"robot": "Arm",
+		"startingCode": "",
 		"sensors": {},
 		"actions": {},
 		"functions": {
@@ -36,6 +37,7 @@
 	},
 	{
 		"robot": "Player",
+		"startingCode": "",
 		"sensors": {
 			"NodeSendItSpeedOf": {
 				"name": "obstacleSpeed",
@@ -87,6 +89,7 @@
 	},
 	{
 		"robot": "Car",
+		"startingCode": "unityContext.send(\"LeftWheel\", \"StopMotor\")\nunityContext.send(\"RightWheel\", \"StopMotor\")",
 		"sensors": {
 			"NodeHeatSeekerLeftSensor": {
 				"name": "leftLineSensor",

@@ -1,6 +1,21 @@
 import { getOutgoers, getConnectedEdges, getIncomers } from "react-flow-renderer";
 import BlocksF from "../public/systemDefinitions.json";
 
+export const findStartingCode = (projectName) => {
+	const robot = defineObject(projectName);
+	const correctSystem = BlocksF.filter((element) => {
+		return element.robot == robot;
+	})[0];
+	let startCode = correctSystem.startingCode;
+	if (startCode) {
+		startCode += "\nresolve(true);";
+	} else {
+		startCode = "resolve(true);";
+	}
+
+	return startCode;
+};
+
 const findNextNode = (currentNode, path, elements) => {
 	const nodes = [currentNode];
 	let nodeCollection = getConnectedEdges(nodes, elements);
