@@ -32,26 +32,23 @@ export default {
 		docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
 		word: "/magnebot/files/learning-journal.docx",
 	},
+	define: {
+		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
+		modules: [
+			{
+				title: "Intro to recycling",
+				img: "/magnebot/img/recycling.jpg",
+				url: "/magnebot/pdf/recycling.pdf",
+			},
+			{
+				title: "Intro to robotics",
+				img: "/magnebot/img/robot.png",
+				url: "/magnebot/pdf/robotics.pdf",
+			},
+		],
+	},
 	iterations: [
 		{
-			define: {
-				caption: [
-					"As a class, dive into group discussions around the Project theme to fully define our problem.",
-					"Don't have a teacher to guide you through? Check back soon for individual content!",
-				],
-				modules: [
-					{
-						title: "Intro to recycling",
-						img: "/magnebot/img/recycling.jpg",
-						url: "/magnebot/pdf/recycling.pdf",
-					},
-					{
-						title: "Intro to robotics",
-						img: "/magnebot/img/robot.png",
-						url: "/magnebot/pdf/robotics.pdf",
-					},
-				],
-			},
 			research: {
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -109,21 +106,21 @@ export default {
 					"Instead of moving directly from point A to point B, you may need to split that into multiple smaller movements to avoid other obstacles",
 				],
 			},
-			improve: {
-				caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-				alert:
-					"Did you manage to clean up the facility? Uh oh, looks like there's now even more items scattered across the floor! Lucky for us, this time it is after hours! Have fun playing around with MagneBot with no rules to follow or objectives to complete. However, if you want a challenge, try attempting one of the following tasks and see if you can best your classmates.",
-				tasks: [
-					"How many items can you stack on top of each other? (Our record is five)",
-					"Try and throw every object over the edge of the platform",
-					"How many items can you place on top of the conveyor belt?",
-				],
-				hints: [
-					"You might need to create some kind of ramp to place items on top of the conveyor belt",
-					"Challenge your friends to see who can complete one of the above tasks the best and/or fastest. If you are feeling especially spicy, you could even create your own tasks",
-				],
-				code: true,
-			},
 		},
 	],
+	improve: {
+		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+		alert:
+			"Did you manage to clean up the facility? Uh oh, looks like there's now even more items scattered across the floor! Lucky for us, this time it is after hours! Have fun playing around with MagneBot with no rules to follow or objectives to complete. However, if you want a challenge, try attempting one of the following tasks and see if you can best your classmates.",
+		tasks: [
+			"How many items can you stack on top of each other? (Our record is five)",
+			"Try and throw every object over the edge of the platform",
+			"How many items can you place on top of the conveyor belt?",
+		],
+		hints: [
+			"You might need to create some kind of ramp to place items on top of the conveyor belt",
+			"Challenge your friends to see who can complete one of the above tasks the best and/or fastest. If you are feeling especially spicy, you could even create your own tasks",
+		],
+		code: true,
+	},
 };

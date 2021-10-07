@@ -25,21 +25,21 @@ export default {
 		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
 		word: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
 	},
+	define: {
+		caption: [
+			"As a class, dive into group discussions around the Project theme to fully define our problem.",
+			"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
+		],
+		modules: [
+			{
+				title: "Define the Problem",
+				img: "/heat-seeker/img/define.jpg",
+				url: "/heat-seeker/files/define-0-heat-seeker.pdf",
+			},
+		],
+	},
 	iterations: [
 		{
-			define: {
-				caption: [
-					"As a class, dive into group discussions around the Project theme to fully define our problem.",
-					"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
-				],
-				modules: [
-					{
-						title: "Define the Problem",
-						img: "/heat-seeker/img/define.jpg",
-						url: "/heat-seeker/files/define-0-heat-seeker.pdf",
-					},
-				],
-			},
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -74,39 +74,40 @@ export default {
 			plan: [
 				"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
 				"In the Create step, you will write a program (a set of instructions) and upload it to the robot. You will need to use the information from the robot's sensors to determine exactly what do in each situation, testing often to find and solve any problems along the way.",
-				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!"
+				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
 			create: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, following the line until it reaches the final fire."],
 				hints: [
 					"You need to use the outputs from each line sensor to determine when your robot leaves the line and which direction it should turn to get back on it.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
-			improve: {
-				caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-				alert: "Oh no, it looks like some of the fires have spread throughout the warehouse! You will now need to use your water hose to put out the smaller fires on the way to your final destination.",
-				tasks: [
-					"Congratulations on successfully creating a line following algorithm! You will now need improve your solution to take into account the smaller fires.",
-					"We will go through another iteration, repeating the same process that we just completed to build up our improved solution.",
-				],
-			},
+			// improve: {
+			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+			// 	alert:
+			// 		"Oh no, it looks like some of the fires have spread throughout the warehouse! You will now need to use your water hose to put out the smaller fires on the way to your final destination.",
+			// 	tasks: [
+			// 		"Congratulations on successfully creating a line following algorithm! You will now need improve your solution to take into account the smaller fires.",
+			// 		"We will go through another iteration, repeating the same process that we just completed to build up our improved solution.",
+			// 	],
+			// },
 		},
 		{
-			define: {
-				caption: [
-					"As a class, dive into group discussions around the Project theme to fully define our problem.",
-					"Don't have a teacher to guide you through? Check back soon for individual content!",
-				],
-				modules: [
-					{
-						title: "Define the New Problem",
-						img: "/heat-seeker/img/define-1.jpg",
-						url: "/heat-seeker/files/define-1-heat-seeker.pdf",
-					},
-				],
-			},
+			// define: {
+			// 	caption: [
+			// 		"As a class, dive into group discussions around the Project theme to fully define our problem.",
+			// 		"Don't have a teacher to guide you through? Check back soon for individual content!",
+			// 	],
+			// 	modules: [
+			// 		{
+			// 			title: "Define the New Problem",
+			// 			img: "/heat-seeker/img/define-1.jpg",
+			// 			url: "/heat-seeker/files/define-1-heat-seeker.pdf",
+			// 		},
+			// 	],
+			// },
 			research: {
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -135,7 +136,7 @@ export default {
 			},
 			plan: [
 				"In the next Create step, you will need to improve your program so that you can put out the fires on the way to your destination.",
-				"But first, we need to plan what our changes will be. Open up your learning journal and answer all of the questions in the second Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!"
+				"But first, we need to plan what our changes will be. Open up your learning journal and answer all of the questions in the second Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
 			create: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
@@ -145,15 +146,15 @@ export default {
 					"Your robot only has a limited amount of water, so make sure that you turn the hose off after you put out each fire.",
 				],
 			},
-			improve: {
-				caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-				alert:
-					"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
-				hints: [
-					"If you want an additional challenge, go back and try to create a solution that uses as few blocks as possible.",
-					"Alternatively, you could continue improving your solution to try and put out all the fires in the smallest possible time.",
-				],
-			},
 		},
 	],
+	improve: {
+		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+		alert:
+			"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
+		hints: [
+			"If you want an additional challenge, go back and try to create a solution that uses as few blocks as possible.",
+			"Alternatively, you could continue improving your solution to try and put out all the fires in the smallest possible time.",
+		],
+	},
 };

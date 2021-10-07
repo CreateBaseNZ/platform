@@ -3,7 +3,6 @@ import Img from "../UI/Img";
 import classes from "./Improve.module.scss";
 
 const Improve = ({ query, data, iteration, maxIteration }) => {
-	console.log(iteration, maxIteration);
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
 			<div className={classes.leftContainer}>
@@ -41,14 +40,14 @@ const Improve = ({ query, data, iteration, maxIteration }) => {
 					<Img src="/improve.svg" layout="responsive" width={1000} height={1000} objectFit="cover" />
 				</div>
 				<div className={classes.caption}>{data.caption}</div>
-				{(data.code || iteration + 1 !== maxIteration) && (
+				{/* {(data.code || iteration + 1 !== maxIteration) && (
 					<Link href={data.code ? `/project/${query}/code/0/improve` : `/project/${query}/${iteration + 1}/define`}>
 						<button className={classes.btn}>
 							Improve It!
 							<span className="material-icons-outlined">trending_up</span>
 						</button>
 					</Link>
-				)}
+				)} */}
 			</div>
 		</div>
 	);

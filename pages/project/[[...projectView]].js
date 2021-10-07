@@ -123,6 +123,7 @@ const ProjectView = ({ setLoaded }) => {
 							Browse
 						</button>
 						<ProjectTab activeStep={step} step="imagine" query={data.query} iteration={iteration} />
+						<ProjectTab activeStep={step} step="define" query={data.query} iteration={iteration} />
 						<div className={classes.iterationsContainer}>
 							<div className={classes.iterationTitle}>Iteration</div>
 							<div className={classes.iterations}>
@@ -136,21 +137,20 @@ const ProjectView = ({ setLoaded }) => {
 									</button>
 								))}
 							</div>
-							<ProjectTab activeStep={step} step="define" query={data.query} iteration={iteration} />
 							<ProjectTab activeStep={step} step="research" query={data.query} iteration={iteration} />
 							<ProjectTab activeStep={step} step="plan" query={data.query} iteration={iteration} />
 							<ProjectTab activeStep={step} step="create" query={data.query} iteration={iteration} />
-							<ProjectTab activeStep={step} step="improve" query={data.query} iteration={iteration} />
 						</div>
+						<ProjectTab activeStep={step} step="improve" query={data.query} iteration={iteration} />
 						<ProjectTab activeStep={step} step="review" query={data.query} iteration={iteration} />
 					</div>
 					<div className={classes.viewContainer}>
 						{step === "imagine" && <Imagine data={data.situation} setLoaded={setLoaded} />}
-						{step === "define" && <Define data={data.iterations[iteration].define} setLoaded={setLoaded} />}
+						{step === "define" && <Define data={data.define} setLoaded={setLoaded} />}
 						{step === "research" && <Research query={data.query} data={data.iterations[iteration].research} setLoaded={setLoaded} iteration={iteration} />}
 						{step === "plan" && <Plan data={data.iterations[iteration].plan} setLoaded={setLoaded} />}
 						{step === "create" && <Create query={data.query} data={data.iterations[iteration].create} setLoaded={setLoaded} iteration={iteration} />}
-						{step === "improve" && <Improve query={data.query} data={data.iterations[iteration].improve} setLoaded={setLoaded} iteration={iteration} maxIteration={data.iterations.length} />}
+						{step === "improve" && <Improve query={data.query} data={data.improve} setLoaded={setLoaded} iteration={iteration} maxIteration={data.iterations.length} />}
 						{step === "review" && <Review setLoaded={setLoaded} />}
 					</div>
 				</>
