@@ -40,14 +40,14 @@ const Improve = ({ query, data, iteration, maxIteration }) => {
 					<Img src="/improve.svg" layout="responsive" width={1000} height={1000} objectFit="cover" />
 				</div>
 				<div className={classes.caption}>{data.caption}</div>
-				{/* {(data.code || iteration + 1 !== maxIteration) && (
-					<Link href={data.code ? `/project/${query}/code/0/improve` : `/project/${query}/${iteration + 1}/define`}>
+				{
+					<Link href={`/project/${query}/code/4/improve`}>
 						<button className={classes.btn}>
 							Improve It!
 							<span className="material-icons-outlined">trending_up</span>
 						</button>
 					</Link>
-				)} */}
+				}
 			</div>
 		</div>
 	);

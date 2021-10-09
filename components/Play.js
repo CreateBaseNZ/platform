@@ -9,7 +9,7 @@ const Play = ({ setLoaded, project, iteration }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
-		scene: "research",
+		scene: "manual",
 		iteration: iteration,
 		setLoaded: setLoaded,
 	});
