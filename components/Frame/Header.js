@@ -29,8 +29,8 @@ const Header = ({ user, collapseNav, toggleNavHandler }) => {
 							Verify
 						</button>
 					)}
-					<Link href="/faq">
-						<button className={classes.help} title="FAQ">
+					<Link href="/support">
+						<button className={classes.help} title="Support">
 							<i className="material-icons-outlined">live_help</i>
 						</button>
 					</Link>

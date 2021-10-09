@@ -3,8 +3,6 @@ import ConsoleContext from "../../store/console-context";
 
 import classes from "./TabBar.module.scss";
 
-const tabs = ["flow", "text", "console", "config"];
-
 const Divider = (props) => {
 	return (
 		<div

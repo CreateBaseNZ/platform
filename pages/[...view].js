@@ -6,7 +6,7 @@ import Frame from "../components/Frame/Frame";
 import Browse from "../components/Browse/browse";
 import { initSession } from "../utils/authHelpers";
 import Onboarding from "../components/onboarding";
-import Faq from "../components/Faq";
+import Support from "../components/Support";
 import User from "../components/User";
 
 import viewTabs from "../utils/viewTabs";
@@ -56,7 +56,7 @@ const View = ({ setLoaded }) => {
 			</Head>
 			{view === "onboarding" && <Onboarding user={user} />}
 			{view === "browse" && <Browse user={user} />}
-			{view === "faq" && <Faq user={user} />}
+			{view === "support" && <Support user={user} />}
 			{view === "user" && <User user={user} setUser={setUser} collapseHeader={collapseHeader} setCollapseHeader={setCollapseHeader} />}
 		</Frame>
 	);

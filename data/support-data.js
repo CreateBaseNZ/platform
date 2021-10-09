@@ -10,9 +10,10 @@ export default [
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/09j-Opsyd0o" target="_blank" title="How-To: Sign up with an educator account">View here </a>	
+							<a href="https://youtu.be/09j-Opsyd0o" target="_blank" title="How-To: Sign up with an educator account">
+								View here{" "}
+							</a>
 						</p>
-						
 					</>
 				),
 			},
@@ -21,9 +22,10 @@ export default [
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/6QTpDvfDZ9s" target="_blank" title="How-To: Register an Organisation">View here </a>	
+							<a href="https://youtu.be/6QTpDvfDZ9s" target="_blank" title="How-To: Register an Organisation">
+								View here{" "}
+							</a>
 						</p>
-						
 					</>
 				),
 			},
@@ -32,7 +34,9 @@ export default [
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/GphwKgAv6kw" target="_blank" title="How-To: Use invite features">View here </a>	
+							<a href="https://youtu.be/GphwKgAv6kw" target="_blank" title="How-To: Use invite features">
+								View here{" "}
+							</a>
 						</p>
 					</>
 				),
@@ -42,7 +46,9 @@ export default [
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/AQ6acGxQZwE" target="_blank" title="How-To: Join an Organisation">View here </a>	
+							<a href="https://youtu.be/AQ6acGxQZwE" target="_blank" title="How-To: Join an Organisation">
+								View here{" "}
+							</a>
 						</p>
 					</>
 				),
@@ -52,22 +58,21 @@ export default [
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/s80cEkCQXIE" target="_blank" title="How-To: Sign up with a learner account">View here </a>	
+							<a href="https://youtu.be/s80cEkCQXIE" target="_blank" title="How-To: Sign up with a learner account">
+								View here{" "}
+							</a>
 						</p>
 					</>
 				),
 			},
 		],
 	},
-	
-	
-	
 	{
 		header: "Teacher Aid",
 		icon: "class",
 		items: [
 			/*{
-				q: "How do I create FAQ questions+answers?",
+				q: "How do I create support questions+answers?",
 				a: (
 					<>
 						<p>
@@ -75,15 +80,15 @@ export default [
 							create more paragraphs, each slightly separated like so:
 						</p>
 						<p>
-							You can add bold text by adding the `faq__bold` class and it will appear <span className="faq__bold">like this</span>. You can add <span className="faq__italic">italic text</span> with
-							`faq__italic`, and <span className="faq__highlight">highlight text</span> with `faq__highlight` classes. Combination styling is also possible, just add each class separated by spaces;
-							here is one using <span className="faq__bold faq__italic faq__highlight">all three</span> of the prior classes.
+							You can add bold text by adding the `support__bold` class and it will appear <span className="support__bold">like this</span>. You can add <span className="support__italic">italic text</span> with
+							`support__italic`, and <span className="support__highlight">highlight text</span> with `support__highlight` classes. Combination styling is also possible, just add each class separated by spaces;
+							here is one using <span className="support__bold support__italic support__highlight">all three</span> of the prior classes.
 						</p>
 						<p>
 							Links can be added using `a` tags and the associated hyperlink (as `href`). For internal links, just use the relative path, e.g. this one goes to the
 							<a href="/browse" target='_blank'>Browse page</a>. For external sites, just paste the regular URL, e.g. our <a href="https://createbase.co.nz/">website</a>. Note that `target='_blank'` has been set in order to open the link in a new tab (which is important for retaining users on our platform). To link to another item on
-							this page, use the `Link` element and set an `href` with `/faq/X-Y` where X is the section and Y is the item (and note `target='_blank'` is not set here as we want to view another item and not open a new tab). Keep in mind that indices begin at 0,
-							<Link href="/faq/1-3">e.g. this link goes to section 1 item 3</Link>. To add tooltips, just use the `title` attribute, and this will be handles natively{" "}
+							this page, use the `Link` element and set an `href` with `/support/X-Y` where X is the section and Y is the item (and note `target='_blank'` is not set here as we want to view another item and not open a new tab). Keep in mind that indices begin at 0,
+							<Link href="/support/1-3">e.g. this link goes to section 1 item 3</Link>. To add tooltips, just use the `title` attribute, and this will be handles natively{" "}
 							<span title="You found the secret tooltip">(hover here)</span>.
 						</p>
 						<ol>
@@ -103,19 +108,19 @@ export default [
 								<p>This</p>
 							</li>
 						</ol>
-						<p className="faq__indent">
-							Speaking of indentation, use the `faq__indent` class to indent. Just be aware that this class simply adds a margin to the left. If you use it on a `p` element, then the entire paragraph
-							will be indented. But if you use it on a `span` then it will just look <span className="faq__indent">like this</span>.
+						<p className="support__indent">
+							Speaking of indentation, use the `support__indent` class to indent. Just be aware that this class simply adds a margin to the left. If you use it on a `p` element, then the entire paragraph
+							will be indented. But if you use it on a `span` then it will just look <span className="support__indent">like this</span>.
 						</p>
 						<p>
-							<span className="faq__indent">If</span> you only want to indent the first line, wrap the first word in `span` and add the class to it. Now when there's multiple lines, only the first
+							<span className="support__indent">If</span> you only want to indent the first line, wrap the first word in `span` and add the class to it. Now when there's multiple lines, only the first
 							line will be indented and the remaining lines will not be indented, just like this.
 						</p>
 						<p>
-							To add an image, use the `img` self-enclosed tag and adding the `src` url. Please make sure all FAQ images are in `/public/faq`. Remember the url begins in the `/public` folder, so all
-							image url's should begin with `/faq/...`
+							To add an image, use the `img` self-enclosed tag and adding the `src` url. Please make sure all support images are in `/public/support`. Remember the url begins in the `/public` folder, so all
+							image url's should begin with `/support/...`
 						</p>
-						<img src="/faq/faq-1.jpg" />
+						<img src="/support/support-1.jpg" />
 						<p>
 							Be sure to wrap the entire answer in empty tags. Look at the code for an example of <span style={{ color: "red", textDecoration: "underline" }}>custom styling</span>. If you need any
 							more styling options, let Louis know.
@@ -131,14 +136,14 @@ export default [
 							Each Project has its own set of 5-10 lesson plans. To access a Project’s lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are
 							interested in. The ‘Teaching’ tab will then appear. Click on that tab to reveal the teaching resources.
 						</p>
-						<img src="/faq/faq-1-1.jpg" />
+						<img src="/support/support-1-1.jpg" />
 						<p>You can now click on the “Lesson Plan” button to open all the lesson plans for that Project in a new tab.</p>
-						<img src="/faq/faq-1.jpg" />
+						<img src="/support/support-1.jpg" />
 						<p>
 							The lesson plan button will only appear if you are signed in with an educator account. If you cannot see the button and are not signed in, you can sign in with an educator account in the
 							top right of the screen.
 						</p>
-						<img src="/faq/faq-4.jpg" />
+						<img src="/support/support-4.jpg" />
 					</>
 				),
 			},
@@ -179,7 +184,7 @@ export default [
 							Each lesson plan includes a glossary at the start of each section. This contains explanations for all of the terminology that you need to know in order to be able to effectively deliver
 							the Project and have class discussions.
 						</p>
-						<img src="/faq/faq-7.jpg" />
+						<img src="/support/support-7.jpg" />
 						<p>
 							Each Project will include links to additional resources. Reading and understanding this content is optional; however, they are an excellent place to start if you want to learn more about
 							any of the content covered in the Project.
@@ -222,7 +227,7 @@ export default [
 						<p>
 							All of our Projects use the Flow programming language purposefully built by CreateBase to enable students and teachers to learn about coding concepts and code solutions to our Projects.
 						</p>
-						<img src="/faq/faq-6.jpg" />
+						<img src="/support/support-6.jpg" />
 						<p>
 							Flow coding is designed to be easy to learn for teachers and students, being analogous to creating a logic-based flowchart. This is because we want the coding section of each Project to
 							be based around learning logical thinking, information flow, computational skills, and problem-solving, without the need for memorising lots of arbitrary syntaxes.
@@ -257,7 +262,7 @@ export default [
 					<>
 						<p>Learning journals are where students document what they've done throughout their Project journey.</p>
 						<p>Learning journals are found under the Imagine step in each Project and are available as either a Google Doc or Microsoft Word file.</p>
-						<img src="/faq/faq-8.jpg" />
+						<img src="/support/support-8.jpg" />
 						<p>
 							Like with most content in a Project, learning journals are optional for teachers. If you do not want your students to complete a learning journal or you want to replace them with your
 							own, then you are free to do so. If you are going to do either of these, then make sure that you communicate it clearly to your class. We would also appreciate you sending us a message
@@ -280,15 +285,15 @@ export default [
 						<p>
 							If your students don't have CreateBase accounts, tell them to click sign up and fill out each field. They will need to enter your organisation's learner code when they create their
 							account. If you do not know what this is or how to get a learner code,
-							<Link href="/faq/2-8">click here</Link>.
+							<Link href="/support/2-8">click here</Link>.
 						</p>
 						<p>If your students already have CreateBase accounts, they can click log in and enter their account details.</p>
-						<img src="/faq/faq-2.jpg" />
+						<img src="/support/support-2.jpg" />
 						<p>
 							Once they are logged in, they will need to navigate to the Browse page and select the Project you're teaching. In the example below, the Send It Project has been selected. They can then
 							click continue to start the Project.
 						</p>
-						<img src="/faq/faq-5.jpg" />
+						<img src="/support/support-5.jpg" />
 					</>
 				),
 			},
@@ -315,15 +320,15 @@ export default [
 				a: (
 					<>
 						<p>There are three different account types on the CreateBase platform; Admin, Educator and Learner.</p>
-						<p className="faq__indent">
-							<span className="faq__bold">Admin</span>: Admin accounts have access to the entire platform. They are in charge of managing their organisations' users and billing information.
+						<p className="support__indent">
+							<span className="support__bold">Admin</span>: Admin accounts have access to the entire platform. They are in charge of managing their organisations' users and billing information.
 						</p>
-						<p className="faq__indent">
-							<span className="faq__bold">Educator</span>: These accounts are for all the teachers in your organisation. They have access to Projects, lesson plans and FAQs.
+						<p className="support__indent">
+							<span className="support__bold">Educator</span>: These accounts are for all the teachers in your organisation. They have access to Projects, lesson plans, support, and FAQs.
 						</p>
-						<p className="faq__indent">
-							<span className="faq__bold">Learner</span>: Learner accounts are for students and have the most restricted access. These accounts can only access Projects to reduce distractions and keep
-							students on task. Each student in your class needs to create their own learner account to access the platform.
+						<p className="support__indent">
+							<span className="support__bold">Learner</span>: Learner accounts are for students and have the most restricted access. These accounts can only access Projects to reduce distractions and
+							keep students on task. Each student in your class needs to create their own learner account to access the platform.
 						</p>
 					</>
 				),
@@ -333,7 +338,7 @@ export default [
 				a: (
 					<>
 						<p>Admin accounts have access to the entire platform, including their organisation's admin page.</p>
-						<p>Educator accounts have access to Projects, lesson plans and FAQs.</p>
+						<p>Educator accounts have access to Projects, lesson plans, support, and FAQs.</p>
 						<p>Learner accounts can only access Projects.</p>
 					</>
 				),
@@ -375,7 +380,7 @@ export default [
 							page and click "Join an Org". You will then be prompted to enter your organisation's code, your school's ID and your school's name. If you don't know your organisation's code, talk to
 							one of your organisation's admin users. They can generate a code for you from their admin console.
 						</p>
-						<img src="/faq/faq-9.jpg" />
+						<img src="/support/support-9.jpg" />
 					</>
 				),
 			},
@@ -394,7 +399,7 @@ export default [
 							</a>{" "}
 							page and click Register your Org. You will then be prompted to enter your school's ID and name.
 						</p>
-						<img src="/faq/faq-10.jpg" />
+						<img src="/support/support-10.jpg" />
 						<p>If an organisation has already been created for your school and you think that this was a mistake, then contact CreateBase via our email for support.</p>
 					</>
 				),
