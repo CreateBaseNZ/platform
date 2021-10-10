@@ -47,8 +47,6 @@ function MyApp({ Component, pageProps }) {
 							<img src="/mobile.png" />
 						</div>
 					)}
-					{!loaded && <LoadingScreen />}
-					{!blockView && <Component {...pageProps} setLoaded={setLoaded} />}
 				</InviteOrgContextProvider>
 				<VisualBell />
 			</VisualBellContextProvider>
