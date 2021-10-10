@@ -20,17 +20,17 @@ const Research = ({ data, setLoaded, iteration }) => {
 		<div className={classes.view}>
 			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} iteration={iteration} />
 			<div className={classes.mainContainer}>
-				{data.modules[active].type === "pdf" && (
+				{data.modules[active]?.type === "pdf" && (
 					<div style={{ width: "100%", height: "100%" }}>
 						<embed src={data.modules[active].url} width="100%" height="100%" />
 					</div>
 				)}
-				{data.modules[active].type === "video" && (
+				{data.modules[active]?.type === "video" && (
 					<div style={{ width: "85%" }}>
 						<VideoViewer data={data.modules[active].data} />
 					</div>
 				)}
-				{data.modules[active].type === "tut" && (
+				{data.modules[active]?.type === "tut" && (
 					<div className={`${classes.tutWrapper} roundScrollbar`}>
 						{data.modules[active].items &&
 							data.modules[active].items.map((d, i) => (
@@ -50,7 +50,7 @@ const Research = ({ data, setLoaded, iteration }) => {
 							))}
 					</div>
 				)}
-				{data.modules[active].type === "explore" && (
+				{data.modules[active]?.type === "explore" && (
 					<div className={classes.exploreWrapper}>
 						{data.modules[active] &&
 							data.modules[active].items.map((item, i) => (
