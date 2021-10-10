@@ -128,7 +128,7 @@ export default {
 					{
 						type: "pdf",
 						title: "Line Following - Our Improved Solution",
-						url: "/heat-seeker/files/research-11-heat-seeker.pdf",
+						url: "/heat-seeker/files/Research-11-heat-seeker.pdf",
 					},
 					{
 						type: "pdf",
