@@ -1,11 +1,6 @@
-// import { entities } from "./flowConfig";
-
 import classesControlsBar from "../components/ReactFlow/ControlsBar.module.scss";
 
 export const getDefaultValues = (type) => {
-	// if (type === "jump" || type === "doubleJump" || type === "crouch" || type === "attack") {
-	// 	return { entity: entities[0].toLowerCase() };
-	// }
 	if (
 		type === "NodeHeatSeekerLeftWheel" ||
 		type === "NodeHeatSeekerRightWheel" ||
@@ -17,9 +12,6 @@ export const getDefaultValues = (type) => {
 	) {
 		return { a: 0 };
 	}
-	// if (type === "sendIt__distance" || type === "sendIt__speedOf" || type === "sendIt__heightOf" || type === "sendIt__widthOf" || type === "sendIt__elevationOf") {
-	// 	return { entity: "next obstacle" };
-	// }
 	if (
 		type === "NodeAdd" ||
 		type === "NodeSubtract" ||

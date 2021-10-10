@@ -39,8 +39,6 @@ export const edgeTypes = {
 	float: FloatEdge,
 };
 
-// export const entities = ["Player"];
-
 export const controlTitles = [
 	"Zoom-in (Ctrl and +)",
 	"Zoom-out (Ctrl and -)",
