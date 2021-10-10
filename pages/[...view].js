@@ -54,7 +54,7 @@ const View = ({ setLoaded }) => {
 				<title>CreateBase</title>
 				<meta name="description" content="Welcome to CreateBase" />
 			</Head>
-			{view === "onboarding" && <Onboarding user={user} />}
+			{view === "onboarding" && <Onboarding user={user} setUser={setUser} />}
 			{view === "browse" && <Browse user={user} />}
 			{view === "support" && <Support user={user} />}
 			{view === "user" && <User user={user} setUser={setUser} collapseHeader={collapseHeader} setCollapseHeader={setCollapseHeader} />}
