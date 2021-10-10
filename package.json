@@ -1,6 +1,6 @@
 {
 	"name": "open-alpha",
-	"version": "0.5.3",
+	"version": "0.5.4",
 	"private": true,
 	"engines": {
 		"node": "14.16.0"
