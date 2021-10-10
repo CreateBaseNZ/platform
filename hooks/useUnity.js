@@ -33,13 +33,10 @@ const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
 
 	const sceneName = scene === "manual" || scene === "improve" ? `${scenePrefix}_${iteration},${scene}` : `${scenePrefix}_${iteration}`;
 
-	console.log(sceneName);
-
 	useEffect(() => {
 		unityContext.on("loaded", () => {
 			setTimeout(() => {
 				unityContext.send("SceneController", "LoadScene", sceneName);
-				console.log("scene changed");
 				setTimeout(() => {
 					setLoaded(true);
 				}, 50);
