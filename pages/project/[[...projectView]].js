@@ -48,8 +48,6 @@ const ProjectView = ({ setLoaded }) => {
 	const [view, setView] = useState("project");
 	const [iteration, setIteration] = useState(0);
 
-	console.log(iteration);
-
 	useEffect(() => {
 		return () => setLoaded(true);
 	}, []);

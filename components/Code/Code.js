@@ -19,10 +19,6 @@ const Code = ({ setLoaded, mode, project, iteration, query, blockList }) => {
 		setLoaded: setLoaded,
 	});
 
-	useEffect(() => {
-		return () => setLoaded(false);
-	}, []);
-
 	return (
 		<div className={classes.code}>
 			<ConsoleContextProvider>
