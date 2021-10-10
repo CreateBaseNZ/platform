@@ -1,4 +1,4 @@
-import { entities } from "./flowConfig";
+// import { entities } from "./flowConfig";
 
 import classesControlsBar from "../components/ReactFlow/ControlsBar.module.scss";
 

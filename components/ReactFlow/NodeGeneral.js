@@ -1,6 +1,6 @@
 import { memo, useContext } from "react";
 import CustomHandle from "./Handles";
-import { entities } from "../../utils/flowConfig";
+// import { entities } from "../../utils/flowConfig";
 import MiniHoverContext from "../../store/mini-hover-context";
 import classes from "./Nodes.module.scss";
 
@@ -35,7 +35,8 @@ export const NodeMini = memo(({ nodeType, className, node, children, style }) =>
 	);
 });
 
-export const EntityDropdown = ({ data, selectName, dataName, options = entities }) => {
+// options = entities
+export const EntityDropdown = ({ data, selectName, dataName, options = [] }) => {
 	const changeHandler = (event) => {
 		data.callBack({ ...data.values, [dataName]: event.target.value });
 	};
