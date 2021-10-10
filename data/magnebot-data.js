@@ -23,7 +23,7 @@ export default {
 		"Learn about the purpose of recycling facilities and what we can do to improve their efficiency.",
 		"Understand why it is important to only put the correct items in recycling bins.",
 	],
-	situation: {
+	define: {
 		url: "https://youtu.be/iiWiwxxkq2Q",
 		src: "/magnebot/vid/situation.mp4",
 		h1: "Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!",
@@ -32,7 +32,7 @@ export default {
 		docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
 		word: "/magnebot/files/learning-journal.docx",
 	},
-	define: {
+	imagine: {
 		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
 		modules: [
 			{

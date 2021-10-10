@@ -16,7 +16,7 @@ export default {
 	curriculumAlignment: "TBD",
 	lessonPlan: "TBD",
 	learnings: ["TBD"],
-	situation: {
+	define: {
 		url: "https://youtu.be/a7ahjbh_lUg",
 		src: "/heat-seeker/vid/situation.mp4",
 		h1: "An overloaded electrical circuit has resulted in a fire inside a warehouse! Flammable hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
@@ -25,7 +25,7 @@ export default {
 		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
 		word: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
 	},
-	define: {
+	imagine: {
 		caption: [
 			"As a class, dive into group discussions around the Project theme to fully define our problem.",
 			"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",

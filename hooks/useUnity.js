@@ -31,7 +31,7 @@ const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
 		});
 	}, []);
 
-	const sceneName = scene === "manual" || scene === "improve" ? `${scenePrefix}_4,${scene}` : `${scenePrefix}_${iteration}`;
+	const sceneName = scene === "manual" || scene === "improve" ? `${scenePrefix}_${iteration},${scene}` : `${scenePrefix}_${iteration}`;
 
 	console.log(sceneName);
 

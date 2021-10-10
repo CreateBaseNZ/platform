@@ -21,7 +21,7 @@ export default {
 		"Learn how to use comparisons and comparison blocks (<, >, <=, >, ==).",
 		"Learn how to read and act on sensor data: distance to next obstacle, height of next obstacle, obstacle type, obstacle velocity, etc.",
 	],
-	situation: {
+	define: {
 		url: "https://youtu.be/wB53GoLXzME",
 		src: "/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
@@ -30,7 +30,7 @@ export default {
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
 		word: "/send-it/files/learning-journal.docx",
 	},
-	define: {
+	imagine: {
 		caption: [
 			"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
 			"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",

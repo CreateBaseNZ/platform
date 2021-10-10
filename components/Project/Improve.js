@@ -2,7 +2,7 @@ import Link from "next/link";
 import Img from "../UI/Img";
 import classes from "./Improve.module.scss";
 
-const Improve = ({ query, data, iteration, maxIteration }) => {
+const Improve = ({ query, data }) => {
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
 			<div className={classes.leftContainer}>
@@ -41,7 +41,7 @@ const Improve = ({ query, data, iteration, maxIteration }) => {
 				</div>
 				<div className={classes.caption}>{data.caption}</div>
 				{
-					<Link href={`/project/${query}/code/4/improve`}>
+					<Link href={`/project/${query}/code/0/improve`}>
 						<button className={classes.btn}>
 							Improve It!
 							<span className="material-icons-outlined">trending_up</span>

@@ -1,37 +1,27 @@
-import Img from "../UI/Img";
-import VideoViewer from "../UI/VideoViewer";
-
+import { useState } from "react";
 import classes from "./Imagine.module.scss";
+import ModuleContainer from "../UI/ModuleContainer";
 
 const Imagine = ({ data }) => {
+	const [active, setActive] = useState(0);
+	const [loaded, setLoaded] = useState(false);
+
+	const cardClickHandler = (i) => {
+		console.log(i);
+		if (i !== active) {
+			setLoaded(false);
+			setActive(i);
+		}
+	};
+
+	const loadHandler = () => setLoaded(true);
+
 	return (
-		<div className={`${classes.container} roundScrollbar`}>
-			<div className={classes.wrapper}>
-				{data && <VideoViewer data={data} />}
-				{data && data.word && data.docs && (
-					<div className={classes.instructions}>
-						<div className={classes.imgContainer}>
-							<Img src="/imagine.svg" alt="Imagine" layout="fill" objectFit="contain" />
-						</div>
-						<div className={classes.content}>
-							<p>Open one of the learning journals and save it somewhere that you can access. Your teacher will tell you which file to open and where to save your copy.</p>
-							<div className={classes.files}>
-								<a href={data.docs} target="_blank" title="Learning Journal - Google Docs" style={{ backgroundColor: "#3086F6" }}>
-									<div className={classes.iconContainer}>
-										<span className="material-icons-outlined">link</span>
-									</div>
-									Google Docs
-								</a>
-								<a href={data.word} title="Learning Journal - Word" download style={{ backgroundColor: "#144EB2" }}>
-									<div className={classes.iconContainer}>
-										<span className="material-icons-outlined">file_download</span>
-									</div>
-									Word
-								</a>
-							</div>
-						</div>
-					</div>
-				)}
+		<div className={classes.view}>
+			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} />
+			<div className={classes.mainContainer}>
+				<embed src={data.modules[active].url} width="100%" height="100%" onLoad={loadHandler} />
+				<div className={`${classes.loadScreen} ${loaded ? classes.loaded : ""}`} />
 			</div>
 		</div>
 	);
