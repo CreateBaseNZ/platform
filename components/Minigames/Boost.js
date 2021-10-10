@@ -281,15 +281,7 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 				<div className={classes.flowWrapper}>
 					<MiniHoverContextProvider>
 						<ReactFlowProvider>
-							<FlowEditor
-								show={true}
-								frozen={true}
-								elements={elements}
-								setElements={setElements}
-								flowVisualBell={flowVisualBell}
-								setFlowVisualBell={setFlowVisualBell}
-								query={`${mode.toLowerCase()}-boost`}
-							/>
+							<FlowEditor show={true} frozen={true} elements={elements} setElements={setElements} flowVisualBell={flowVisualBell} setFlowVisualBell={setFlowVisualBell} />
 						</ReactFlowProvider>
 					</MiniHoverContextProvider>
 				</div>

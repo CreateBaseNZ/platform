@@ -154,8 +154,8 @@ const ProjectView = ({ setLoaded }) => {
 					</div>
 				</>
 			)}
-			{view === "code" && step === "create" && <Code setLoaded={setLoaded} mode={step} project={data} iteration={iteration} />}
-			{view === "code" && step === "improve" && <Code setLoaded={setLoaded} mode={step} project={data} iteration={data.iterations.length - 1} />}
+			{view === "code" && step === "create" && <Code setLoaded={setLoaded} mode={step} project={data} iteration={iteration} blockList={data.iterations[iteration].blockList} />}
+			{view === "code" && step === "improve" && <Code setLoaded={setLoaded} mode={step} project={data} iteration={data.iterations.length - 1} blockList={data.improve.blockList} />}
 			{view === "play" && <Play setLoaded={setLoaded} project={data} iteration={data.iterations.length - 1} />}
 		</div>
 	);

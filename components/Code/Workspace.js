@@ -181,7 +181,7 @@ const Workspace = (props) => {
 			{/*activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />} */}
 			<MiniHoverContextProvider>
 				<ReactFlowProvider>
-					<FlowEditor show={activeTab === "flow"} elements={elements} setElements={setElements} flowVisualBell={flowVisualBell} setFlowVisualBell={setFlowVisualBell} query={props.query} />
+					<FlowEditor blockList={props.blockList} show={activeTab === "flow"} elements={elements} setElements={setElements} flowVisualBell={flowVisualBell} setFlowVisualBell={setFlowVisualBell} />
 				</ReactFlowProvider>
 			</MiniHoverContextProvider>
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}

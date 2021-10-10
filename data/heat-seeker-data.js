@@ -1,3 +1,5 @@
+import { NodeHeatSeekerLeftSensorMini, NodeHeatSeekerMiddleSensorMini, NodeHeatSeekerRightSensorMini } from "../components/ReactFlow/NodeHeatSeeker";
+import { NodeSendItDistanceMini, NodeSendItSpeedOfMini } from "../components/ReactFlow/NodeSendIt";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 export default {
@@ -32,7 +34,7 @@ export default {
 		],
 		modules: [
 			{
- 				title: "Our Approach",
+				title: "Our Approach",
 				img: "/heat-seeker/img/define.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine.pdf",
 			},
@@ -84,6 +86,7 @@ export default {
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
+			blockList: [{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />] }],
 			// improve: {
 			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 			// 	alert:

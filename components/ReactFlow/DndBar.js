@@ -1,4 +1,4 @@
-import { memo } from "react";
+import React, { memo } from "react";
 import { NodeAddMini, NodeSubtractMini, NodeMultiplyMini, NodeDivideMini, NodeGeneralOperatorMini, NodeAbsoluteMini } from "./NodeOperations";
 import { NodeGreaterThanMini, NodeLessThanMini, NodeEqualsMini, NodeNotEqualsMini } from "./NodeComparisons";
 import { NodeAndMini, NodeOrMini, NodeNotMini } from "./NodeLogicals";
@@ -26,10 +26,22 @@ import {
 
 import classes from "./DndBar.module.scss";
 
-const DndBar = memo(({ query }) => {
+const DndBar = memo(({ blockList }) => {
+	console.log(blockList);
+
 	return (
 		<aside className={classes.dndbar}>
-			{query === "send-it" && (
+			<div className={classes.wrapper}>
+				{blockList.map((type) => (
+					<React.Fragment key={type.name}>
+						<h5>{type.name}</h5>
+						{type.blocks.map((block, i) => (
+							<React.Fragment key={i}>{block}</React.Fragment>
+						))}
+					</React.Fragment>
+				))}
+			</div>
+			{/* {query === "send-it" && (
 				<div className={classes.wrapper}>
 					<h5>Sensing</h5>
 					<NodeSendItDistanceMini />
@@ -116,7 +128,7 @@ const DndBar = memo(({ query }) => {
 					<NodeDelayMini />
 					<NodePrintMini />
 				</div>
-			)}
+			)} */}
 		</aside>
 	);
 });
