@@ -32,9 +32,9 @@ export default {
 		],
 		modules: [
 			{
-				title: "Define the Problem",
+ 				title: "Our Approach",
 				img: "/heat-seeker/img/define.jpg",
-				url: "/heat-seeker/files/define-0-heat-seeker.pdf",
+				url: "/heat-seeker/files/12050102AB-imagine.pdf",
 			},
 		],
 	},
@@ -234,8 +234,8 @@ export default {
 		alert:
 			"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
 		hints: [
-			"If you want an additional challenge, go back and try to create a solution that uses as few blocks as possible.",
-			"Alternatively, you could continue improving your solution to try and put out all the fires in the smallest possible time.",
+			"If you want an additional challenge, try and re-create your solution in this Improve step by solving the problem as few blocks as possible.",
+			"Alternatively, you could continue improving your solution to try and put out all the fires in the shortest possible time.",
 		],
 	},
 };
