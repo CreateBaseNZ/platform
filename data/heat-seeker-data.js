@@ -21,7 +21,7 @@ export default {
 	define: {
 		url: "https://youtu.be/a7ahjbh_lUg",
 		src: "/heat-seeker/vid/situation.mp4",
-		h1: "An overloaded electrical circuit has resulted in a fire inside a warehouse! Flammable hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
+		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
 		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
 		title: "Heat Seeker",
 		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
