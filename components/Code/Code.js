@@ -10,7 +10,7 @@ import { ConsoleContextProvider } from "../../store/console-context";
 
 import classes from "./code.module.scss";
 
-const Code = ({ setLoaded, mode, project, iteration, blockList }) => {
+const Code = ({ setLoaded, mode, project, iteration, query, blockList }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
@@ -37,7 +37,7 @@ const Code = ({ setLoaded, mode, project, iteration, blockList }) => {
 						</button>
 					</Link>
 					<Game unityContext={unityContext} />
-					<Workspace blockList={blockList} stacked={project.stacked} unityContext={unityContext} sensorData={sensorData} gameState={gameState} />
+					<Workspace query={query} blockList={blockList} stacked={project.stacked} unityContext={unityContext} sensorData={sensorData} gameState={gameState} />
 				</div>
 			</ConsoleContextProvider>
 		</div>

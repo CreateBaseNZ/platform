@@ -240,5 +240,6 @@ export default {
 			"If you want an additional challenge, try and re-create your solution in this Improve step by solving the problem as few blocks as possible.",
 			"Alternatively, you could continue improving your solution to try and put out all the fires in the shortest possible time.",
 		],
+		blockList: [],
 	},
 };
