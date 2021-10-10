@@ -29,7 +29,7 @@ import FlowVisualBell from "./FlowVisualBell";
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const FlowEditor = ({ query, show, frozen = false, elements, setElements, flowVisualBell, setFlowVisualBell }) => {
+const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, flowVisualBell, setFlowVisualBell }) => {
 	const wrapperRef = useRef(null);
 	const consoleCtx = useContext(ConsoleContext);
 	const miniHoverCtx = useContext(MiniHoverContext);
@@ -635,7 +635,7 @@ const FlowEditor = ({ query, show, frozen = false, elements, setElements, flowVi
 
 	return (
 		<div className={`${classes.editorContainer} ${show ? "" : "hide"}`} onKeyDown={keyDownHandler} tabIndex={-1}>
-			{!frozen && <DndBar query={query} />}
+			{!frozen && <DndBar blockList={blockList} />}
 			<div className={classes.editorWrapper} ref={wrapperRef}>
 				<ReactFlow
 					onLoad={onLoad}

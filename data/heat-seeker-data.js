@@ -1,3 +1,5 @@
+import { NodeHeatSeekerLeftSensorMini, NodeHeatSeekerMiddleSensorMini, NodeHeatSeekerRightSensorMini } from "../components/ReactFlow/NodeHeatSeeker";
+import { NodeSendItDistanceMini, NodeSendItSpeedOfMini } from "../components/ReactFlow/NodeSendIt";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 export default {
@@ -19,7 +21,7 @@ export default {
 	define: {
 		url: "https://youtu.be/a7ahjbh_lUg",
 		src: "/heat-seeker/vid/situation.mp4",
-		h1: "An overloaded electrical circuit has resulted in a fire inside a warehouse! Flammable hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
+		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
 		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
 		title: "Heat Seeker",
 		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
@@ -32,7 +34,7 @@ export default {
 		],
 		modules: [
 			{
- 				title: "Our Approach",
+				title: "Our Approach",
 				img: "/heat-seeker/img/define.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine.pdf",
 			},
@@ -84,6 +86,7 @@ export default {
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
+			blockList: [{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />] }],
 			// improve: {
 			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 			// 	alert:
@@ -237,5 +240,6 @@ export default {
 			"If you want an additional challenge, try and re-create your solution in this Improve step by solving the problem as few blocks as possible.",
 			"Alternatively, you could continue improving your solution to try and put out all the fires in the shortest possible time.",
 		],
+		blockList: [],
 	},
 };
