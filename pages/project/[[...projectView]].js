@@ -132,7 +132,7 @@ const ProjectView = ({ setLoaded }) => {
 										className={iteration === i ? classes.active : ""}
 										style={{ backgroundColor: iteration === i && iterationColors[i] }}
 										onClick={() => router.push(`/project/${data.query}/${i}/${step}`)}>
-										{i}
+										{i + 1}
 									</button>
 								))}
 							</div>
