@@ -39,15 +39,6 @@ export const edgeTypes = {
 	float: FloatEdge,
 };
 
-export const initialElements = [
-	{
-		id: "start",
-		type: "NodeStart",
-		position: { x: -80, y: -80 },
-		data: { connections: [] },
-	},
-];
-
 export const entities = ["Player"];
 
 export const controlTitles = [
@@ -250,3 +241,12 @@ export const tooltips = {
 	NodeHeatSeekerDifference: [<NoneType />, <FloatType />, "Outputs the difference in reading between the right and left sensors"],
 	NodeHeatSeekerFireSensor: [<NoneType />, <FloatType />, "Outputs the reading from the fire sensor"],
 };
+
+export const initialElements = [
+	{
+		id: "start",
+		type: "NodeStart",
+		position: { x: -80, y: -80 },
+		data: { connections: [] },
+	},
+];
