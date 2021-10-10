@@ -69,7 +69,6 @@ const ProjectView = ({ setLoaded }) => {
 				if (subQuery === "play") {
 					// if play
 					setView(subQuery);
-					setIteration(parseInt(router.query.projectView[2]) || 0);
 					setLoaded(false);
 				} else if (subQuery === "code") {
 					// if code
@@ -146,8 +145,8 @@ const ProjectView = ({ setLoaded }) => {
 					</div>
 					<div className={classes.viewContainer}>
 						{step === "define" && <Define data={data.define} setLoaded={setLoaded} />}
-						{step === "imagine" && <Imagine data={data.imagine} setLoaded={setLoaded} />}
-						{step === "research" && <Research query={data.query} data={data.iterations[iteration].research} setLoaded={setLoaded} iteration={iteration} />}
+						{step === "imagine" && <Imagine data={data.imagine} setLoaded={setLoaded} query={data.query} />}
+						{step === "research" && <Research data={data.iterations[iteration].research} setLoaded={setLoaded} iteration={iteration} />}
 						{step === "plan" && <Plan data={data.iterations[iteration].plan} setLoaded={setLoaded} />}
 						{step === "create" && <Create query={data.query} data={data.iterations[iteration].create} setLoaded={setLoaded} iteration={iteration} />}
 						{step === "improve" && <Improve query={data.query} data={data.improve} setLoaded={setLoaded} />}
@@ -156,8 +155,8 @@ const ProjectView = ({ setLoaded }) => {
 				</>
 			)}
 			{view === "code" && step === "create" && <Code setLoaded={setLoaded} mode={step} project={data} iteration={iteration} />}
-			{view === "code" && step === "improve" && <Code setLoaded={setLoaded} mode={step} project={data} iteration={data.iterations.length} />}
-			{view === "play" && <Play setLoaded={setLoaded} project={data} iteration={iteration} />}
+			{view === "code" && step === "improve" && <Code setLoaded={setLoaded} mode={step} project={data} iteration={data.iterations.length - 1} />}
+			{view === "play" && <Play setLoaded={setLoaded} project={data} iteration={data.iterations.length - 1} />}
 		</div>
 	);
 };

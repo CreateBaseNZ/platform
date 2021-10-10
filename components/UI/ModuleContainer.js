@@ -16,7 +16,7 @@ const getIcon = (type) => {
 	}
 };
 
-const ModuleContainer = ({ active, modules, clickHandler, caption, query, iteration }) => {
+const ModuleContainer = ({ active, modules, clickHandler, caption, query }) => {
 	return (
 		<div className={`${classes.container} roundScrollbar`}>
 			<div className={classes.captionContainer}>
@@ -36,7 +36,7 @@ const ModuleContainer = ({ active, modules, clickHandler, caption, query, iterat
 				</button>
 			))}
 			{query && (
-				<Link href={`/project/${query}/play/${iteration}`}>
+				<Link href={`/project/${query}/play`}>
 					<button className={classes.play}>
 						<span className="material-icons-outlined">sports_esports</span>Try the Game
 					</button>
