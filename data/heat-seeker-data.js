@@ -45,7 +45,7 @@ export default {
 		],
 		modules: [
 			{
-				title: "Our Approach",
+				title: "Imagine...",
 				img: "/heat-seeker/img/define.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine.pdf",
 			},
