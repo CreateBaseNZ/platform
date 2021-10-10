@@ -61,10 +61,9 @@ const Onboarding = ({ user, setUser }) => {
 						setUser((state) => ({ ...state, saves: { ...state.saves, checkedSupport: "done" } }));
 						updateProfile({
 							details: { saves: { checkedSupport: "done" } },
-							successHandler: () => {
-								router.push("/support");
-							},
+							successHandler: () => {},
 						});
+						router.push("/support");
 					},
 				},
 			]);
