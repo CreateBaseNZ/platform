@@ -26,7 +26,7 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, user }) => {
 					<div className={classes.overview}>
 						<div className={classes.caption}>
 							{project.caption}
-							{user.loaded & !user.type && <p className={classes.createAccount}>To view lesson plans and teaching content, please create or log into a FREE educator account.</p>}
+							{user.loaded & !user.type ? <p className={classes.createAccount}>To view lesson plans and teaching content, please create or log into a FREE educator account.</p> : null}
 						</div>
 						<div className={classes.btnContainer}>
 							<Link href={`/project/${project.query}`}>

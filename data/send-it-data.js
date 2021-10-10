@@ -1,4 +1,4 @@
-import { comparisonBoostData, conditionalBoostData } from "./explore-data";
+import { comparisonBoostData, ifBoostData } from "./explore-data";
 
 export default {
 	name: "Send It",
@@ -6,7 +6,7 @@ export default {
 	caption:
 		'In this project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
 	stacked: true,
-	scenePrefix: "Project_Jump_0",
+	scenePrefix: "Project_Jump",
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 6,
@@ -21,7 +21,7 @@ export default {
 		"Learn how to use comparisons and comparison blocks (<, >, <=, >, ==).",
 		"Learn how to read and act on sensor data: distance to next obstacle, height of next obstacle, obstacle type, obstacle velocity, etc.",
 	],
-	situation: {
+	define: {
 		url: "https://youtu.be/wB53GoLXzME",
 		src: "/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
@@ -30,41 +30,41 @@ export default {
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
 		word: "/send-it/files/learning-journal.docx",
 	},
+	imagine: {
+		caption: [
+			"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
+			"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
+		],
+		modules: [
+			{
+				title: "Vehicular Delivery",
+				img: "/send-it/img/types-0.png",
+				url: "/send-it/pdf/delivery.pdf",
+			},
+			{
+				title: "Your Robot has Mail",
+				img: "/send-it/img/mail-2.png",
+				url: "/send-it/pdf/mail.pdf",
+			},
+			{
+				title: "Controlling a Robot",
+				img: "/send-it/img/controlling-1.png",
+				url: "/send-it/pdf/controlling.pdf",
+			},
+			{
+				title: "Sensing Sensors",
+				img: "/send-it/img/controlling-0.png",
+				url: "/send-it/pdf/sensors.pdf",
+			},
+			{
+				title: "Automation & Ethics",
+				img: "/send-it/img/thumbnail.png",
+				url: "/send-it/pdf/ethics.pdf",
+			},
+		],
+	},
 	iterations: [
 		{
-			define: {
-				caption: [
-					"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
-					"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
-				],
-				modules: [
-					{
-						title: "Vehicular Delivery",
-						img: "/send-it/img/types-0.png",
-						url: "/send-it/pdf/delivery.pdf",
-					},
-					{
-						title: "Your Robot has Mail",
-						img: "/send-it/img/mail-2.png",
-						url: "/send-it/pdf/mail.pdf",
-					},
-					{
-						title: "Controlling a Robot",
-						img: "/send-it/img/controlling-1.png",
-						url: "/send-it/pdf/controlling.pdf",
-					},
-					{
-						title: "Sensing Sensors",
-						img: "/send-it/img/controlling-0.png",
-						url: "/send-it/pdf/sensors.pdf",
-					},
-					{
-						title: "Automation & Ethics",
-						img: "/send-it/img/thumbnail.png",
-						url: "/send-it/pdf/ethics.pdf",
-					},
-				],
-			},
 			research: {
 				caption: ["Work through the five modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -124,7 +124,7 @@ export default {
 					{
 						type: "explore",
 						title: "Explore more",
-						items: [comparisonBoostData, conditionalBoostData],
+						items: [comparisonBoostData, ifBoostData],
 					},
 				],
 			},
@@ -137,19 +137,18 @@ export default {
 				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
 				hints: ["Make sure that you hit the compile button to upload your code to the robot"],
 			},
-			improve: {
-				caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-				alert: "Did you beat the game? Uh oh, looks like there’s now some flying drones! And is that acceleration? Different sized obstacles too? Time to rethink your code...",
-				tasks: [
-					"Modify your code to duck under flying drones",
-					"Modify your code to take into account an accelerating robot",
-					"Modify your code to jump over obstacles of different sizes",
-					"Deliver that package with the highest score possible",
-				],
-				hints: [
-					"Rather than trying to do solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all",
-				],
-			},
 		},
 	],
+	improve: {
+		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+		alert: "Did you beat the game? Uh oh, looks like there’s now some flying drones! And is that acceleration? Different sized obstacles too? Time to rethink your code...",
+		tasks: [
+			"Modify your code to duck under flying drones",
+			"Modify your code to take into account an accelerating robot",
+			"Modify your code to jump over obstacles of different sizes",
+			"Deliver that package with the highest score possible",
+		],
+		hints: ["Rather than trying to do solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all"],
+		code: true,
+	},
 };

@@ -1,4 +1,4 @@
-import { comparisonBoostData, conditionalBoostData, recycleRightData } from "./explore-data";
+import { recycleRightData } from "./explore-data";
 
 export default {
 	name: "MagneBot",
@@ -6,7 +6,7 @@ export default {
 	caption:
 		"In this project, users will control the MagneBot robotic arm using logical flow-based programming to clean up a recycling facility. Users will learn the basics of the Flow programming language and how to convert their thinking into instructions for the robot. Along the way, they will also gain an understanding of recycling and how robotic systems can be used to carry out tasks traditionally performed by humans.",
 	stacked: true,
-	scenePrefix: "Project_RoboticArm_1",
+	scenePrefix: "Project_RoboticArm",
 	runType: "once",
 	durPerLesson: "45 mins",
 	numOfLessons: 5,
@@ -23,7 +23,7 @@ export default {
 		"Learn about the purpose of recycling facilities and what we can do to improve their efficiency.",
 		"Understand why it is important to only put the correct items in recycling bins.",
 	],
-	situation: {
+	define: {
 		url: "https://youtu.be/iiWiwxxkq2Q",
 		src: "/magnebot/vid/situation.mp4",
 		h1: "Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!",
@@ -32,26 +32,23 @@ export default {
 		docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
 		word: "/magnebot/files/learning-journal.docx",
 	},
+	imagine: {
+		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
+		modules: [
+			{
+				title: "Intro to recycling",
+				img: "/magnebot/img/recycling.jpg",
+				url: "/magnebot/pdf/recycling.pdf",
+			},
+			{
+				title: "Intro to robotics",
+				img: "/magnebot/img/robot.png",
+				url: "/magnebot/pdf/robotics.pdf",
+			},
+		],
+	},
 	iterations: [
 		{
-			define: {
-				caption: [
-					"As a class, dive into group discussions around the Project theme to fully define our problem.",
-					"Don't have a teacher to guide you through? Check back soon for individual content!",
-				],
-				modules: [
-					{
-						title: "Intro to recycling",
-						img: "/magnebot/img/recycling.jpg",
-						url: "/magnebot/pdf/recycling.pdf",
-					},
-					{
-						title: "Intro to robotics",
-						img: "/magnebot/img/robot.png",
-						url: "/magnebot/pdf/robotics.pdf",
-					},
-				],
-			},
 			research: {
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -104,22 +101,26 @@ export default {
 			create: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that MagneBot can clean up the recycling facility for you", "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!"],
-				hints: ["Write some code so that MagneBot can clean up the recycling facility for you", "Deposit three bags of rubbish into either of the two recycling bins to complete the task"],
-			},
-			improve: {
-				caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-				alert:
-					"Did you manage to clean up the facility? Uh oh, looks like there's now even more items scattered across the floor! Lucky for us, this time it is after hours! Have fun playing around with MagneBot with no rules to follow or objectives to complete. However, if you want a challenge, try attempting one of the following tasks and see if you can best your classmates.",
-				tasks: [
-					"How many items can you stack on top of each other? (Our record is five)",
-					"Try and throw every object over the edge of the platform",
-					"How many items can you place on top of the conveyor belt?",
-				],
 				hints: [
-					"You might need to create some kind of ramp to place items on top of the conveyor belt",
-					"Challenge your friends to see who can complete one of the above tasks the best and/or fastest. If you are feeling especially spicy, you could even create your own tasks",
+					"If your arm collides with another object, it will break!",
+					"Instead of moving directly from point A to point B, you may need to split that into multiple smaller movements to avoid other obstacles",
 				],
 			},
 		},
 	],
+	improve: {
+		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+		alert:
+			"Did you manage to clean up the facility? Uh oh, looks like there's now even more items scattered across the floor! Lucky for us, this time it is after hours! Have fun playing around with MagneBot with no rules to follow or objectives to complete. However, if you want a challenge, try attempting one of the following tasks and see if you can best your classmates.",
+		tasks: [
+			"How many items can you stack on top of each other? (Our record is five)",
+			"Try and throw every object over the edge of the platform",
+			"How many items can you place on top of the conveyor belt?",
+		],
+		hints: [
+			"You might need to create some kind of ramp to place items on top of the conveyor belt",
+			"Challenge your friends to see who can complete one of the above tasks the best and/or fastest. If you are feeling especially spicy, you could even create your own tasks",
+		],
+		code: true,
+	},
 };

@@ -31,15 +31,12 @@ const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
 		});
 	}, []);
 
+	const sceneName = scene === "manual" || scene === "improve" ? `${scenePrefix}_${iteration},${scene}` : `${scenePrefix}_${iteration}`;
+
 	useEffect(() => {
 		unityContext.on("loaded", () => {
 			setTimeout(() => {
-				unityContext.send(
-					"SceneController",
-					"LoadScene",
-					`${scenePrefix},${scene},${iteration}` // e.g. Project_RoboticArm_1,improve,1
-				);
-				console.log("scene changed");
+				unityContext.send("SceneController", "LoadScene", sceneName);
 				setTimeout(() => {
 					setLoaded(true);
 				}, 50);

@@ -34,10 +34,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	transition: filter 0.1s ease-out;
-	&.disabled {
-		pointer-events: none;
-		filter: brightness(0.25);
-	}
 }
 
 .card {
@@ -176,7 +172,8 @@
 	}
 }
 
-.levelModal.conditional {
+.levelModal.if,
+.levelModal.while {
 	.buttonCard.current::after {
 		color: #ff6bcd;
 	}

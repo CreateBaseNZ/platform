@@ -40,12 +40,14 @@ const Improve = ({ query, data }) => {
 					<Img src="/improve.svg" layout="responsive" width={1000} height={1000} objectFit="cover" />
 				</div>
 				<div className={classes.caption}>{data.caption}</div>
-				<Link href={`/project/${query}/code/improve`}>
-					<button className={classes.btn}>
-						Improve It!
-						<span className="material-icons-outlined">trending_up</span>
-					</button>
-				</Link>
+				{
+					<Link href={`/project/${query}/code/0/improve`}>
+						<button className={classes.btn}>
+							Improve It!
+							<span className="material-icons-outlined">trending_up</span>
+						</button>
+					</Link>
+				}
 			</div>
 		</div>
 	);

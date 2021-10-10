@@ -245,7 +245,7 @@ export const tooltips = {
 	NodeHeatSeekerMiddleSensor: [<NoneType />, <FloatType />, "Outputs the reading from middle line sensor"],
 	NodeHeatSeekerRightSensor: [<NoneType />, <FloatType />, "Outputs the reading from right line sensor"],
 	NodeHeatSeekerRobotOnLine: [<NoneType />, <BooleanType />, "Outputs whether the left and right sensors are both on the line"],
-	NodeHeatSeekerFrontOnLine: [<NoneType />, <FloatType />, "Outputs whether the front sensor is on the middle of the line"],
+	NodeHeatSeekerFrontOnLine: [<NoneType />, <BooleanType />, "Outputs whether the front sensor is on the middle of the line"],
 	NodeHeatSeekerIsFireNear: [<NoneType />, <BooleanType />, "Outputs whether there is fire in front of the car"],
 	NodeHeatSeekerDifference: [<NoneType />, <FloatType />, "Outputs the difference in reading between the right and left sensors"],
 	NodeHeatSeekerFireSensor: [<NoneType />, <FloatType />, "Outputs the reading from the fire sensor"],

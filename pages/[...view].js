@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Frame from "../components/Frame/Frame";
-import Browse from "../components/Browse/browse";
+import Browse from "../components/Browse/Browse";
 import { initSession } from "../utils/authHelpers";
-import Onboarding from "../components/onboarding";
-import Faq from "../components/Faq";
+import Onboarding from "../components/Onboarding";
+import Support from "../components/Support";
 import User from "../components/User";
 
 import viewTabs from "../utils/viewTabs";
@@ -54,9 +54,9 @@ const View = ({ setLoaded }) => {
 				<title>CreateBase</title>
 				<meta name="description" content="Welcome to CreateBase" />
 			</Head>
-			{view === "onboarding" && <Onboarding user={user} />}
+			{view === "onboarding" && <Onboarding user={user} setUser={setUser} />}
 			{view === "browse" && <Browse user={user} />}
-			{view === "faq" && <Faq user={user} />}
+			{view === "support" && <Support user={user} />}
 			{view === "user" && <User user={user} setUser={setUser} collapseHeader={collapseHeader} setCollapseHeader={setCollapseHeader} />}
 		</Frame>
 	);

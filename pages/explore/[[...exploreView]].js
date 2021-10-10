@@ -19,7 +19,8 @@ const ExploreView = ({ setLoaded }) => {
 	return (
 		<div className={classes.exploreView}>
 			{view === "comparison-boost" && <Boost mode="Comparison" setLoaded={setLoaded} />}
-			{view === "conditional-boost" && <Boost mode="Conditional" setLoaded={setLoaded} />}
+			{view === "if-boost" && <Boost mode="If" setLoaded={setLoaded} />}
+			{view === "while-boost" && <Boost mode="While" setLoaded={setLoaded} />}
 			{view === "explore" && <div></div>}
 		</div>
 	);

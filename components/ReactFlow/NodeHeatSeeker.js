@@ -177,11 +177,11 @@ export const NodeHeatSeekerFrontOnLine = memo(({ data, isConnectable }) => {
 });
 
 export const NodeHeatSeekerIsFireNear = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is fire?" style={{ width: "6rem", height: "2rem" }} />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Is fire near?" style={{ width: "8rem", height: "2rem" }} />;
 });
 
 export const NodeHeatSeekerDifference = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Difference between left and right sensors" style={{ width: "13rem", height: "4rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Difference between right and left sensors" style={{ width: "13rem", height: "4rem" }} />;
 });
 
 export const NodeHeatSeekerFireSensor = memo(({ data, isConnectable }) => {
@@ -239,7 +239,7 @@ export const NodeHeatSeekerIsFireNearMini = memo(() => {
 export const NodeHeatSeekerDifferenceMini = memo(() => {
 	return (
 		<NodeMini className={classes.sensing} nodeType="NodeHeatSeekerDifference" node={<NodeHeatSeekerDifference />}>
-			<h4>Difference between left and right sensors</h4>
+			<h4>Difference between right and left sensors</h4>
 		</NodeMini>
 	);
 });

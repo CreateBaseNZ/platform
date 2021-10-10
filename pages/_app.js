@@ -13,7 +13,10 @@ function MyApp({ Component, pageProps }) {
 	const [loaded, setLoaded] = useState(false);
 	const [blockView, setBlockView] = useState(true);
 
+	console.log(blockView);
+
 	useEffect(() => {
+		console.log(window);
 		if (window && !window.matchMedia("only screen and (max-width: 760px)").matches) {
 			setBlockView(false);
 		}
@@ -44,6 +47,8 @@ function MyApp({ Component, pageProps }) {
 							<img src="/mobile.png" />
 						</div>
 					)}
+					{!loaded && <LoadingScreen />}
+					{!blockView && <Component {...pageProps} setLoaded={setLoaded} />}
 				</InviteOrgContextProvider>
 				<VisualBell />
 			</VisualBellContextProvider>

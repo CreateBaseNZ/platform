@@ -15,8 +15,8 @@ const getProjectData = (query) => {
 			return sendItData;
 		case "magnebot":
 			return magnebotData;
-		// case "heat-seeker":
-		// 	return heatSeekerData;
+		case "heat-seeker":
+			return heatSeekerData;
 		default:
 			return null;
 	}
@@ -24,4 +24,4 @@ const getProjectData = (query) => {
 
 export default getProjectData;
 
-export const allData = [magnebotData, sendItData];
+export const allData = [magnebotData, sendItData, heatSeekerData];

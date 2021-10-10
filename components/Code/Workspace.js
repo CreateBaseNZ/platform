@@ -10,7 +10,7 @@ import Config from "./Config";
 import GreenButton from "../UI/GreenButton";
 import { CodeGenerator } from "../../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
-import { flow2Text, isOnceCode, defineObject } from "../../utils/blockExtractionHelpers";
+import { flow2Text, isOnceCode, defineObject, findStartingCode } from "../../utils/blockExtractionHelpers";
 import { convertCode } from "../../utils/textConvertor";
 let codeChanged = false;
 
@@ -88,7 +88,7 @@ const Workspace = (props) => {
 
 	const changeTabHandler = (tab) => setActiveTab(tab);
 
-	const executeCode = (text, printing) => {
+	const executeCode = (text, printing = 0) => {
 		return new Promise((resolve, reject) => {
 			const sensorData = sensorDataRef.current;
 			const unityContext = props.unityContext;
@@ -154,6 +154,12 @@ const Workspace = (props) => {
 			codeChanged = false;
 		}
 		let printing = 10;
+		const startingCode = async () => {
+			const startCode = findStartingCode(props.query);
+			console.log(startCode);
+			const isRun = await executeCode(startCode);
+		};
+		await startingCode();
 		functionExecute();
 		codesDone++;
 	};

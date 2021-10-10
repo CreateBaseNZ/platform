@@ -5,7 +5,7 @@ import Img from "../UI/Img";
 
 import classes from "./Research.module.scss";
 
-const Research = ({ query, data, setLoaded }) => {
+const Research = ({ data, setLoaded, iteration }) => {
 	const [active, setActive] = useState(0);
 
 	useEffect(() => {
@@ -18,19 +18,19 @@ const Research = ({ query, data, setLoaded }) => {
 
 	return (
 		<div className={classes.view}>
-			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} play={query} />
+			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.modules} caption={data.caption} iteration={iteration} />
 			<div className={classes.mainContainer}>
-				{data.modules[active].type === "pdf" && (
+				{data.modules[active]?.type === "pdf" && (
 					<div style={{ width: "100%", height: "100%" }}>
 						<embed src={data.modules[active].url} width="100%" height="100%" />
 					</div>
 				)}
-				{data.modules[active].type === "video" && (
+				{data.modules[active]?.type === "video" && (
 					<div style={{ width: "85%" }}>
 						<VideoViewer data={data.modules[active].data} />
 					</div>
 				)}
-				{data.modules[active].type === "tut" && (
+				{data.modules[active]?.type === "tut" && (
 					<div className={`${classes.tutWrapper} roundScrollbar`}>
 						{data.modules[active].items &&
 							data.modules[active].items.map((d, i) => (
@@ -50,11 +50,11 @@ const Research = ({ query, data, setLoaded }) => {
 							))}
 					</div>
 				)}
-				{data.modules[active].type === "explore" && (
+				{data.modules[active]?.type === "explore" && (
 					<div className={classes.exploreWrapper}>
 						{data.modules[active] &&
 							data.modules[active].items.map((item, i) => (
-								<a key={i} href={item.url} target="_blank" className={classes.exploreItem} title={`Launch ${item.title}`}>
+								<a key={i} href={item.url} className={classes.exploreItem} title={`Launch ${item.title}`}>
 									<div
 										className={classes.imgContainer}
 										style={{

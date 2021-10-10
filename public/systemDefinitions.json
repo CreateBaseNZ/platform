@@ -1,217 +1,228 @@
 [
-  {
-    "robot": "Arm",
-    "sensors":{
-    },
-    "actions":{
-    },
-    "functions":{
-      "NodeStart":{
-        "simpleLogic": "IntialiseRobot();",
-        "inputs":[],
-        "logic": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 2500);\n})\n};\nawait reset()\n",
-        "await":false
-      },
-      "NodeEnd":{        
-        "simpleLogic":"",
-        "inputs":[],
-        "logic": "",
-        "await":false
-      },
-      "NodeMagnebotMoveArm":{
-        "inputs": [
-          { "variable": "x", "type": "number", "value": 0 },
-          { "variable": "y", "type": "number", "value": 0 },
-          { "variable": "z", "type": "number", "value": 0 }
-        ],
-        "logic": "const intialPoint=JSON.parse(sensorDataRef.current).endEffectorPosition\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 1;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nconst position=JSON.parse(sensorDataRef.current).endEffectorPosition;\n\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.01) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\n//ctx.addLog(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
-        "await":true
-      },
-      "NodeMagnebotSwitch":{
-        "inputs": [{ "variable": "a", "type": "boolean", "value": true }],
-        "logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
-        "await":true
-      }
-      
-    }
-  },
-  {
-    "robot": "Player",
-    "sensors":{
-      "NodeSendItSpeedOf":{
-        "name":"obstacleSpeed",
-        "simpleName":"Speed"
-      },
-      "NodeSendItDistance":{
-        "name":"obstacleDistance.x",
-        "simpleName":"Distance"
-      },
-      "NodeSendItElevationOf":{
-        "name":"obstacleDistance.y",
-        "simpleName":"Elevation"
-      },
-      "NodeSendItWidthOf":{
-        "name":"obstacleSize.x",
-        "simpleName":"Width"
-      },
-      "NodeSendItHeightOf":{
-        "name":"obstacleSize.y",
-        "simpleName":"Height"
-      }
-    },
-    "actions":{
-      "NodeSendItJump":{
-        "inputs":[],
-        "syntaxSimple":"Jump",
-        "syntax":"unityContext.send(\"Player\",\"Jump\");"
-      },
-      "NodeSendItCrouch":{
-        "inputs":[],
-        "syntaxSimple":"Crouch",
-        "syntax":"unityContext.send(\"Player\",\"Crouch\");"
-      }
-    },
-    "functions":{
-      "NodeStart":{
-        "simpleLogic": "while(gameIsON){",
-        "inputs":[],
-        "logic": "if(sensorData){\n",
-        "await":false
-      },
-      "NodeEnd":{        
-        "simpleLogic":"}",
-        "inputs":[],
-        "logic": "}",
-        "await":false
+	{
+		"robot": "Arm",
+		"startingCode": "",
+		"sensors": {},
+		"actions": {},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "IntialiseRobot();",
+				"inputs": [],
+				"logic": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 2500);\n})\n};\nawait reset()\n",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "",
+				"await": false
+			},
+			"NodeMagnebotMoveArm": {
+				"inputs": [
+					{ "variable": "x", "type": "number", "value": 0 },
+					{ "variable": "y", "type": "number", "value": 0 },
+					{ "variable": "z", "type": "number", "value": 0 }
+				],
+				"logic": "const intialPoint=JSON.parse(sensorDataRef.current).endEffectorPosition\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 1;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nconst position=JSON.parse(sensorDataRef.current).endEffectorPosition;\n\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.01) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\n//ctx.addLog(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
+				"simpleLogic": "MoveArm",
+				"await": true
+			},
+			"NodeMagnebotSwitch": {
+				"inputs": [{ "variable": "a", "type": "boolean", "value": true }],
+				"logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
+				"simpleLogic": "MagneticSwitch",
+				"await": true
+			}
+		}
+	},
+	{
+		"robot": "Player",
+		"startingCode": "",
+		"sensors": {
+			"NodeSendItSpeedOf": {
+				"name": "obstacleSpeed",
+				"simpleName": "Speed"
+			},
+			"NodeSendItDistance": {
+				"name": "obstacleDistance.x",
+				"simpleName": "Distance"
+			},
+			"NodeSendItElevationOf": {
+				"name": "obstacleDistance.y",
+				"simpleName": "Elevation"
+			},
+			"NodeSendItWidthOf": {
+				"name": "obstacleSize.x",
+				"simpleName": "Width"
+			},
+			"NodeSendItHeightOf": {
+				"name": "obstacleSize.y",
+				"simpleName": "Height"
+			}
+		},
+		"actions": {
+			"NodeSendItJump": {
+				"inputs": [],
+				"syntaxSimple": "Jump",
+				"syntax": "unityContext.send(\"Player\",\"Jump\");"
+			},
+			"NodeSendItCrouch": {
+				"inputs": [],
+				"syntaxSimple": "Crouch",
+				"syntax": "unityContext.send(\"Player\",\"Crouch\");"
+			}
+		},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "while(gameIsON){",
+				"inputs": [],
+				"logic": "if(sensorData){\n",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "}",
+				"inputs": [],
+				"logic": "}",
+				"await": false
+			}
+		}
+	},
+	{
+		"robot": "Car",
+		"startingCode": "unityContext.send(\"LeftWheel\", \"StopMotor\")\nunityContext.send(\"RightWheel\", \"StopMotor\")",
+		"sensors": {
+			"NodeHeatSeekerLeftSensor": {
+				"name": "leftLineSensor",
+				"simpleName": "leftLineSensor"
+			},
+			"NodeHeatSeekerRightSensor": {
+				"name": "rightLineSensor",
+				"simpleName": "rightLineSensor"
+			},
+			"NodeHeatSeekerMiddleSensor": {
+				"name": "middleLineSensor",
+				"simpleName": "middleLineSensor"
+			},
+			"NodeHeatSeekerFireSensor": {
+				"name": "fireDetectionSensor",
+				"simpleName": "fireDetectionSensor"
+			}
+		},
+		"actions": {},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "while(gameIsON){",
+				"inputs": [],
+				"logic": "if(sensorData){\n",
+				"await": false
+			},
+			"NodeHeatSeekerLeftWheel": {
+				"simpleLogic": "LeftWheel",
+				"inputs": [{ "variable": "a", "type": "number", "value": true }],
+				"logic": "if(a==0){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", -a)\n}",
+				"await": false
+			},
 
-      }
-    }
-  },
-  {
-    "robot": "Car",
-    "sensors":{
-      "NodeHeatSeekerLeftSensor":{
-        "name":"leftLineSensor",
-        "simpleName":"leftLineSensor"
-      },
-      "NodeHeatSeekerRightSensor":{
-        "name":"rightLineSensor",
-        "simpleName":"rightLineSensor"
-      },
-      "NodeHeatSeekerMiddleSensor":{
-        "name":"middleLineSensor",
-        "simpleName":"middleLineSensor"
-      },
-      "NodeHeatSeekerFireSensor":{
-        "name":"fireDetectionSensor",
-        "simpleName":"fireDetectionSensor"
-      }
-
-    },
-    "actions":{
-    },
-    "functions":{
-      "NodeStart":{
-        "simpleLogic": "while(gameIsON){",
-        "inputs":[],
-        "logic": "if(sensorData){\n",
-        "await":false
-      },
-      "NodeHeatSeekerLeftWheel":{
-        "inputs": [{ "variable": "a", "type": "number", "value": true }],
-        "logic": "if(a==0){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", -a)\n}",
-        "await":false
-      },
-      
-      "NodeHeatSeekerRightWheel":{
-        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-        "logic":  "if(a==0){\nunityContext.send(\"RightWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", -a)\n}",
-        "await":false
-      },
-      "NodeHeatSeekerWaterHose":{
-        "inputs": [{ "variable": "a", "type": "boolean", "value": true }],
-        "logic": "if(a){\nunityContext.send(\"WaterHose\", \"TurnOnWater\")\n}else{\nunityContext.send(\"WaterHose\", \"TurnOffWater\")\n}",
-        "await":false
-      },
-      "NodeHeatSeekerRobotOnLine":{
-        "output":{"variable":"out"},
-        "inputs": [],
-        "logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor>0.1 || JSON.parse(sensorDataRef.current).leftLineSensor>0.1)",
-        "await":false
-      },
-      "NodeHeatSeekerFrontOnLine":{
-        "output":{"variable":"out"},
-        "inputs": [],
-        "logic": "return (JSON.parse(sensorDataRef.current).middleLineSensor>0.995)",
-        "await":false
-      },
-      "NodeHeatSeekerIsFireNear":{
-        "output":{"variable":"out"},
-        "inputs": [],
-        "logic": "return (JSON.parse(sensorDataRef.current).fireDetectionSensor>0.5)",
-        "await":false
-      },
-      "NodeHeatSeekerDifference":{
-        "output":{"variable":"out"},
-        "inputs": [],
-        "logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor-JSON.parse(sensorDataRef.current).leftLineSensor)",
-        "await":false
-      },
-      "NodeHeatSeekerMoveForward":{
-        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-        "logic": "unityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.25+a)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.25-a)",
-        "await":false
-      },
-      "NodeHeatSeekerTurn":{
-        "inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
-        "logic": "if(a){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.25)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.25)}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.25)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.25)\n}",
-        "await":false
-      },
-      "NodeHeatSeekerStop":{
-        "inputs": [],
-        "logic": "unityContext.send(\"LeftWheel\", \"StopMotor\")\nunityContext.send(\"RightWheel\", \"StopMotor\")",
-        "await":false
-      },
-      "NodeHeatSeekerMoveBackward":{
-        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-        "logic": "unityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.25-a)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.25+a)",
-        "await":false
-      },
-      "NodeEnd":{        
-        "simpleLogic":"}",
-        "inputs":[],
-        "logic": "}",
-        "await":false
-
-      }
-    }
-  },
-  {
-    "mathOps":{
-      "NodeAdd":"+",
-      "NodeSubtract":"-",
-      "NodeMultiply":"*",
-      "NodeDivide":"/",
-      "NodeGreaterThan":">",
-      "NodeLessThan":"<",
-      "NodeEquals":"==",
-      "NodeNotEquals":"!=",
-      "NodeAnd":"&&",
-      "NodeOr":"||"
-    },
-    "general":["NodeIf", "intialise", "NodeCompare","NodeWhile","NodeFor","num","NodeRepeat","NodeOperatorGeneral", "NodePrint","NodeAbsolute"],
-    "functions":{
-      "NodeDelay":{
-        "inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-        "logic": "setTimeout(resolve, a*1000);",
-        "await":true
-      },
-      "NodeNot":{
-        "output":{"variable":"out"},
-        "inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
-        "logic": "return !a;",
-        "await":false
-      }
-    }
-  }
+			"NodeHeatSeekerRightWheel": {
+				"simpleLogic": "RightWheel",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "if(a==0){\nunityContext.send(\"RightWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", -a)\n}",
+				"await": false
+			},
+			"NodeHeatSeekerWaterHose": {
+				"simpleLogic": "WaterHose",
+				"inputs": [{ "variable": "a", "type": "boolean", "value": true }],
+				"logic": "if(a){\nunityContext.send(\"WaterHose\", \"TurnOnWater\")\n}else{\nunityContext.send(\"WaterHose\", \"TurnOffWater\")\n}",
+				"await": false
+			},
+			"NodeHeatSeekerRobotOnLine": {
+				"simpleLogic": "RobotOnLine",
+				"output": { "variable": "out" },
+				"inputs": [],
+				"logic": "return !((JSON.parse(sensorDataRef.current).rightLineSensor<0.1) && (JSON.parse(sensorDataRef.current).leftLineSensor<0.1))",
+				"await": false
+			},
+			"NodeHeatSeekerFrontOnLine": {
+				"simpleLogic": "FrontOnLine",
+				"output": { "variable": "out" },
+				"inputs": [],
+				"logic": "return (JSON.parse(sensorDataRef.current).middleLineSensor>0.95)",
+				"await": false
+			},
+			"NodeHeatSeekerIsFireNear": {
+				"simpleLogic": "IsFireNear",
+				"output": { "variable": "out" },
+				"inputs": [],
+				"logic": "return (JSON.parse(sensorDataRef.current).fireDetectionSensor>0.5)",
+				"await": false
+			},
+			"NodeHeatSeekerDifference": {
+				"simpleLogic": "Difference",
+				"output": { "variable": "out" },
+				"inputs": [],
+				"logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor-JSON.parse(sensorDataRef.current).leftLineSensor)",
+				"await": false
+			},
+			"NodeHeatSeekerMoveForward": {
+				"simpleLogic": "MoveForward",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "unityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33+a)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33-a)",
+				"await": false
+			},
+			"NodeHeatSeekerTurn": {
+				"simpleLogic": "Turn",
+				"inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
+				"logic": "if(a){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33)}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33)\n}",
+				"await": false
+			},
+			"NodeHeatSeekerStop": {
+				"simpleLogic": "Stop",
+				"inputs": [],
+				"logic": "unityContext.send(\"LeftWheel\", \"StopMotor\")\nunityContext.send(\"RightWheel\", \"StopMotor\")",
+				"await": false
+			},
+			"NodeHeatSeekerMoveBackward": {
+				"simpleLogic": "MoveBackward",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "unityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33-a)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33+a)",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "}",
+				"inputs": [],
+				"logic": "}",
+				"await": false
+			}
+		}
+	},
+	{
+		"mathOps": {
+			"NodeAdd": "+",
+			"NodeSubtract": "-",
+			"NodeMultiply": "*",
+			"NodeDivide": "/",
+			"NodeGreaterThan": ">",
+			"NodeLessThan": "<",
+			"NodeEquals": "==",
+			"NodeNotEquals": "!=",
+			"NodeAnd": "&&",
+			"NodeOr": "||"
+		},
+		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute"],
+		"functions": {
+			"NodeDelay": {
+				"simpleLogic": "Delay",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "setTimeout(resolve, a*1000);",
+				"await": true
+			},
+			"NodeNot": {
+				"simpleLogic": "Not",
+				"output": { "variable": "out" },
+				"inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
+				"logic": "return !a;",
+				"await": false
+			}
+		}
+	}
 ]

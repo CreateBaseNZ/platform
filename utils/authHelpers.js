@@ -9,7 +9,9 @@ export const initSession = async (loading, session, callback) => {
 		if (session) {
 			let profileData;
 			try {
-				profileData = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { properties: ["displayName"], saves: ["teachingFirst"] } }))["data"];
+				profileData = (await axios.post("/api/profile/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { properties: ["displayName"], saves: ["teachingFirst", "checkedSupport"] } }))[
+					"data"
+				];
 			} catch (error) {
 				alert("Something went wrong, please reload the page and try again. If this problem persists, please get in touch with us.");
 			}

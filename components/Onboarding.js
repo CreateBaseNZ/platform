@@ -26,11 +26,13 @@ const teachingContent = {
 	),
 };
 
-const Onboarding = ({ user }) => {
+const Onboarding = ({ user, setUser }) => {
 	const ctx = useContext(VisualBellContext);
 	const [tasks, setTasks] = useState([]);
 	const [popup, setPopup] = useState();
 	const { updateProfile } = useProfileHelper({ ...ctx });
+
+	console.log(user);
 
 	useEffect(() => {
 		if (user.loaded) {
@@ -42,6 +44,7 @@ const Onboarding = ({ user }) => {
 					progress: user.saves.teachingFirst === "done" ? 100 : 0,
 					clickHandler: () => {
 						setPopup(teachingContent);
+						setUser((state) => ({ ...state, saves: { ...state.saves, teachingFirst: "done" } }));
 						updateProfile({
 							details: { saves: { teachingFirst: "done" } },
 							successHandler: () => {
@@ -50,7 +53,19 @@ const Onboarding = ({ user }) => {
 						});
 					},
 				},
-				{ title: "Platform Lite in 60 seconds (coming soon)", progress: "Coming soon", clickHandler: () => {} },
+				{
+					title: "Check out the support tab",
+					progress: user.saves.checkedSupport === "done" ? 100 : 0,
+					clickHandler: () => {
+						console.log("saving");
+						setUser((state) => ({ ...state, saves: { ...state.saves, checkedSupport: "done" } }));
+						updateProfile({
+							details: { saves: { checkedSupport: "done" } },
+							successHandler: () => {},
+						});
+						router.push("/support");
+					},
+				},
 			]);
 		}
 	}, [user.loaded]);

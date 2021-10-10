@@ -10,7 +10,7 @@ const BrowseThumb = ({ isActive, query, name, setVideoLoaded }) => {
 	};
 
 	return (
-		<div className={`${classes.container} ${isActive ? classes.activeContainer : ""}`} style={{ pointerEvents: query === "heat-seeker" && "none" }}>
+		<div className={`${classes.container} ${isActive ? classes.activeContainer : ""}`}>
 			<div className={classes.wrapper} onClick={clickHandler}>
 				<Img src={`/${query}/img/thumbnail.png`} layout="fill" objectFit="cover" alt={name} />
 				<p className={classes.caption}>{name}</p>
