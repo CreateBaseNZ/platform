@@ -6,7 +6,7 @@ export default {
 	caption:
 		'In this project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
 	stacked: true,
-	scenePrefix: "Project_Jump_0",
+	scenePrefix: "Project_Jump",
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 6,
