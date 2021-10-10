@@ -1,3 +1,4 @@
+import { NodeMagnebotMoveArmMini, NodeMagnebotSwitchMini } from "../components/ReactFlow/NodeMagneBot";
 import { recycleRightData } from "./explore-data";
 
 export default {
@@ -106,6 +107,12 @@ export default {
 					"Instead of moving directly from point A to point B, you may need to split that into multiple smaller movements to avoid other obstacles",
 				],
 			},
+			blockList: [
+				{
+					name: "Actions",
+					blocks: [<NodeMagnebotMoveArmMini />, <NodeMagnebotSwitchMini />],
+				},
+			],
 		},
 	],
 	improve: {
@@ -122,5 +129,11 @@ export default {
 			"Challenge your friends to see who can complete one of the above tasks the best and/or fastest. If you are feeling especially spicy, you could even create your own tasks",
 		],
 		code: true,
+		blockList: [
+			{
+				name: "Actions",
+				blocks: [<NodeMagnebotMoveArmMini />, <NodeMagnebotSwitchMini />],
+			},
+		],
 	},
 };
