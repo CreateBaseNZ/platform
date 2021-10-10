@@ -1,5 +1,16 @@
-import { NodeHeatSeekerLeftSensorMini, NodeHeatSeekerMiddleSensorMini, NodeHeatSeekerRightSensorMini } from "../components/ReactFlow/NodeHeatSeeker";
-import { NodeSendItDistanceMini, NodeSendItSpeedOfMini } from "../components/ReactFlow/NodeSendIt";
+import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
+import { NodeIfMini, NodeWhileMini } from "../components/ReactFlow/NodeConditionals";
+import {
+	NodeHeatSeekerFireSensorMini,
+	NodeHeatSeekerLeftSensorMini,
+	NodeHeatSeekerLeftWheelMini,
+	NodeHeatSeekerMiddleSensorMini,
+	NodeHeatSeekerRightSensorMini,
+	NodeHeatSeekerRightWheelMini,
+	NodeHeatSeekerWaterHoseMini,
+} from "../components/ReactFlow/NodeHeatSeeker";
+import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
+import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 export default {
@@ -86,7 +97,7 @@ export default {
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
-			blockList: [{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />] }],
+			blockList: [{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] }],
 			// improve: {
 			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 			// 	alert:
@@ -148,6 +159,14 @@ export default {
 					"Your robot only has a limited amount of water, so make sure that you turn the hose off after you put out each fire.",
 				],
 			},
+			blockList: [
+				{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerRightSensorMini />] },
+				{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] },
+				{ name: "Operators", blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+			],
 		},
 		{
 			research: {
@@ -167,6 +186,14 @@ export default {
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
+			blockList: [
+				{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />] },
+				{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] },
+				{ name: "Operators", blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+			],
 			// improve: {
 			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 			// 	alert:
@@ -211,6 +238,13 @@ export default {
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
+			blockList: [
+				{ name: "Sensing", blocks: [<NodeHeatSeekerFireSensorMini />] },
+				{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />, <NodeHeatSeekerWaterHoseMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />] },
+			],
 		},
 		{
 			research: {
@@ -230,6 +264,32 @@ export default {
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
+			blockList: [
+				{
+					name: "Sensing",
+					blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />, <NodeHeatSeekerFireSensorMini />],
+				},
+				{
+					name: "Actions",
+					blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />, <NodeHeatSeekerWaterHoseMini />],
+				},
+				{
+					name: "Operators",
+					blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />],
+				},
+				{
+					name: "Comparisons",
+					blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />],
+				},
+				{
+					name: "Logicals",
+					blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />],
+				},
+				{
+					name: "Conditionals",
+					blocks: [<NodeIfMini />, <NodeWhileMini />],
+				},
+			],
 		},
 	],
 	improve: {
@@ -240,6 +300,31 @@ export default {
 			"If you want an additional challenge, try and re-create your solution in this Improve step by solving the problem as few blocks as possible.",
 			"Alternatively, you could continue improving your solution to try and put out all the fires in the shortest possible time.",
 		],
-		blockList: [],
+		blockList: [
+			{
+				name: "Sensing",
+				blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />, <NodeHeatSeekerFireSensorMini />],
+			},
+			{
+				name: "Actions",
+				blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />, <NodeHeatSeekerWaterHoseMini />],
+			},
+			{
+				name: "Operators",
+				blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />],
+			},
+			{
+				name: "Comparisons",
+				blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />],
+			},
+			{
+				name: "Logicals",
+				blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />],
+			},
+			{
+				name: "Conditionals",
+				blocks: [<NodeIfMini />, <NodeWhileMini />],
+			},
+		],
 	},
 };

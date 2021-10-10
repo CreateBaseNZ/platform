@@ -1,3 +1,16 @@
+import {
+	NodeSendItCrouchMini,
+	NodeSendItDistanceMini,
+	NodeSendItElevationOfMini,
+	NodeSendItHeightOfMini,
+	NodeSendItJumpMini,
+	NodeSendItSpeedOfMini,
+	NodeSendItWidthOfMini,
+} from "../components/ReactFlow/NodeSendIt";
+import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
+import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
+import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
+import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
 
 export default {
@@ -137,6 +150,20 @@ export default {
 				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
 				hints: ["Make sure that you hit the compile button to upload your code to the robot"],
 			},
+			blockList: [
+				{
+					name: "Sensing",
+					blocks: [<NodeSendItDistanceMini />, <NodeSendItElevationOfMini />, <NodeSendItHeightOfMini />, <NodeSendItWidthOfMini />, <NodeSendItSpeedOfMini />],
+				},
+				{
+					name: "Actions",
+					blocks: [<NodeSendItJumpMini />, <NodeSendItCrouchMini />],
+				},
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+			],
 		},
 	],
 	improve: {
@@ -150,5 +177,19 @@ export default {
 		],
 		hints: ["Rather than trying to do solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all"],
 		code: true,
+		blockList: [
+			{
+				name: "Sensing",
+				blocks: [<NodeSendItDistanceMini />, <NodeSendItElevationOfMini />, <NodeSendItHeightOfMini />, <NodeSendItWidthOfMini />, <NodeSendItSpeedOfMini />],
+			},
+			{
+				name: "Actions",
+				blocks: [<NodeSendItJumpMini />, <NodeSendItCrouchMini />],
+			},
+			{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
+			{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+			{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+			{ name: "Conditionals", blocks: [<NodeIfMini />] },
+		],
 	},
 };

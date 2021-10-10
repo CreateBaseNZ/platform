@@ -156,7 +156,6 @@ const Workspace = (props) => {
 		let printing = 10;
 		const startingCode = async () => {
 			const startCode = findStartingCode(props.query);
-			console.log(startCode);
 			const isRun = await executeCode(startCode);
 		};
 		await startingCode();
