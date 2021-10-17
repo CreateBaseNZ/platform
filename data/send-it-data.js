@@ -29,10 +29,10 @@ export default {
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	learnings: [
-		"Learn how to formalise the logic occurring in their head into logical code to allow them to automate a task they would normally do manually.",
-		"Learn how to use flow control/branching capabilities (if, else if, else).",
-		"Learn how to use comparisons and comparison blocks (<, >, <=, >, ==).",
-		"Learn how to read and act on sensor data: distance to next obstacle, height of next obstacle, obstacle type, obstacle velocity, etc.",
+		"Formalise the logic occurring in their head into logical code to allow them to automate a task they would normally do manually.",
+		"Use flow control/branching capabilities (if, else if, else) in the Flow editor.",
+		"Use comparisons and comparison blocks (<, >, <=, >, ==) in the Flow editor.",
+		"Read and act on sensor data using the Flow editor.",
 	],
 	define: {
 		url: "https://youtu.be/wB53GoLXzME",
