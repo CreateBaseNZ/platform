@@ -47,7 +47,17 @@ export default {
 			{
 				title: "Imagine...",
 				img: "/heat-seeker/img/define.jpg",
-				url: "/heat-seeker/files/12050102AB-imagine.pdf",
+				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
+			},
+			{
+				title: "Define Our Solution",
+				img: "/heat-seeker/img/define.jpg",
+				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
+			},
+			{
+				title: "Define Our Solution",
+				img: "/heat-seeker/img/define.jpg",
+				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
 			},
 		],
 	},
@@ -75,12 +85,17 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/intro-to-flow.pdf",
+						url: "/heat-seeker/pdf/Subproblem1.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Tips & tricks: Action blocks",
+						title: "Action blocks",
 						url: "/heat-seeker/pdf/Iter_0.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Actions",
+						url: "/heat-seeker/files/Research-heat-seeker-1.pdf",
 					},
 				],
 			},
@@ -127,13 +142,18 @@ export default {
 				modules: [
 					{
 						type: "pdf",
-						title: "Line Following - Our Improved Solution",
-						url: "/heat-seeker/files/Research-11-heat-seeker.pdf",
+						title: "Introduction to Flow blocks",
+						url: "/heat-seeker/pdf/Subproblem2.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Tips & tricks: Action blocks",
+						title: "Sensing blocks",
 						url: "/heat-seeker/pdf/Iter_1.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Sensing",
+						url: "/heat-seeker/files/Research-heat-seeker-2.pdf",
 					},
 					{
 						type: "explore",
@@ -215,8 +235,18 @@ export default {
 					},
 					{
 						type: "pdf",
-						title: "Tips & tricks: Sensing & Action blocks",
+						title: "Introduction to Flow blocks",
+						url: "/heat-seeker/pdf/Subproblem3.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Fire blocks",
 						url: "/heat-seeker/pdf/Iter_3.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Fire",
+						url: "/heat-seeker/files/Research-heat-seeker-4.pdf",
 					},
 					{
 						type: "explore",
