@@ -27,7 +27,7 @@ export default {
 	subjects: ["Technology", "Engineering", "Computer Science", "Fire Safety"],
 	learningOutcome: "https://createbase.co.nz/error",
 	curriculumAlignment: "https://createbase.co.nz/error",
-	//lessonPlan: "TBD",
+	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
 	learnings: ["Explain how and why line-following is used for navigation.",
 	"Understand why we decompose problems.",
 	"Understand the fundamentals of flow-based coding and write code using the Flow editor.",
