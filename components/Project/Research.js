@@ -25,6 +25,11 @@ const Research = ({ data, setLoaded, iteration }) => {
 						<embed src={data.modules[active].url} width="100%" height="100%" />
 					</div>
 				)}
+				{data.modules[active]?.type === "task" && (
+					<div style={{ width: "100%", height: "100%" }}>
+						<embed src={data.modules[active].url} width="100%" height="100%" />
+					</div>
+				)}
 				{data.modules[active]?.type === "video" && (
 					<div style={{ width: "85%" }}>
 						<VideoViewer data={data.modules[active].data} />

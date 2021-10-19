@@ -78,8 +78,8 @@ export default {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
-						type: "pdf",
-						title: "Line Following",
+						type: "task",
+						title: "Task: Line following",
 						url: "/heat-seeker/files/Research-02-heat-seeker.pdf",
 					},
 					{
@@ -104,8 +104,8 @@ export default {
 						url: "/heat-seeker/pdf/Iter_0.pdf",
 					},
 					{
-						type: "pdf",
-						title: "Actions",
+						type: "task",
+						title: "Task: Actions",
 						url: "/heat-seeker/files/Research-heat-seeker-1.pdf",
 					},
 				],
@@ -162,8 +162,8 @@ export default {
 						url: "/heat-seeker/pdf/Iter_1.pdf",
 					},
 					{
-						type: "pdf",
-						title: "Sensing",
+						type: "task",
+						title: "Task: Sensing",
 						url: "/heat-seeker/files/Research-heat-seeker-2.pdf",
 					},
 					{
@@ -240,8 +240,8 @@ export default {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
-						type: "pdf",
-						title: "Fire Fighting",
+						type: "task",
+						title: "Task: Fire Fighting",
 						url: "/heat-seeker/files/Research-01-heat-seeker.pdf",
 					},
 					{
@@ -255,8 +255,8 @@ export default {
 						url: "/heat-seeker/pdf/Iter_3.pdf",
 					},
 					{
-						type: "pdf",
-						title: "Fire",
+						type: "task",
+						title: "Task: Fire",
 						url: "/heat-seeker/files/Research-heat-seeker-4.pdf",
 					},
 					{
@@ -337,10 +337,13 @@ export default {
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert:
 			"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
-		hints: [
-			"If you want an additional challenge, try and re-create your solution in this Improve step by solving the problem as few blocks as possible.",
-			"Alternatively, you could continue improving your solution to try and put out all the fires in the shortest possible time.",
-		],
+			tasks: ["In the Improve step, you will optimise your solution to try and put out all the fires in the shortest possible time.",
+					"If you want an additional challenge, try and solve the problem using as few blocks as possible."
+					],
+			hints: [
+					"Your robot's straight-line speed is maximised when the amount of time it spends turning is minimised. You want to be turning as fast as possible but not too fast, or else you may over-shoot the line and have to do another turn.",
+					"You could try sending a variable speed to each motor: if you are far away from the line, then turn quickly. If you are only slightly off the line, then turn slower so that your robot doesn't end up oscillating."
+					],
 		blockList: [
 			{
 				name: "Sensing",
