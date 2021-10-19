@@ -80,7 +80,7 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, user }) => {
 				)}
 				{tab === 2 && (
 					<div className={classes.learning}>
-						In this Project, learners will:
+						By the end of this Project, learners will be able to:
 						<ol>
 							{project.learnings.map((text, i) => (
 								<li key={i}>{text}</li>

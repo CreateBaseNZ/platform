@@ -35,7 +35,7 @@ const Create = ({ query, data, iteration }) => {
 				<div className={classes.caption}>{data.caption}</div>
 				<Link href={`/project/${query}/code/${iteration}/create`}>
 					<button className={classes.btn}>
-						Start Creating!
+						Start Coding!
 						<span className="material-icons-outlined">arrow_right</span>
 					</button>
 				</Link>

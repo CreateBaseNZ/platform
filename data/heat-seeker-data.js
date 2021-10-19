@@ -28,7 +28,18 @@ export default {
 	learningOutcome: "https://createbase.co.nz/error",
 	curriculumAlignment: "https://createbase.co.nz/error",
 	//lessonPlan: "TBD",
-	learnings: ["Learning outcomes coming soon"],
+	learnings: ["Explain how and why line-following is used for navigation.",
+	"Understand why we decompose problems.",
+	"Understand the fundamentals of flow-based coding and write code using the Flow editor.",
+	"Describe DC motors and outline how they work (optional).",
+	"Describe IR sensors and outline how they work.",
+	"Define comparators and conditionals.",
+	"Write programs that use sensor data to control an output.",
+	"Use logical reasoning to derive simple and more complex algorithms.",
+	"Write programs that use conditional statements to control an output.",
+	"Differentiate between different types of fires and how to deal with them.",
+	"Define while loops and use them to solve problems.",
+	"Explore ways a solution can be optimised.",],
 	define: {
 		url: "https://youtu.be/a7ahjbh_lUg",
 		src: "/heat-seeker/vid/situation.mp4",
@@ -47,7 +58,17 @@ export default {
 			{
 				title: "Imagine...",
 				img: "/heat-seeker/img/define.jpg",
-				url: "/heat-seeker/files/12050102AB-imagine.pdf",
+				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
+			},
+			{
+				title: "Define Our Solution",
+				img: "/heat-seeker/img/define.jpg",
+				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
+			},
+			{
+				title: "Define Our Solution",
+				img: "/heat-seeker/img/define.jpg",
+				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
 			},
 		],
 	},
@@ -75,12 +96,17 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/intro-to-flow.pdf",
+						url: "/heat-seeker/pdf/Subproblem1.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Tips & tricks: Action blocks",
+						title: "Action blocks",
 						url: "/heat-seeker/pdf/Iter_0.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Actions",
+						url: "/heat-seeker/files/Research-heat-seeker-1.pdf",
 					},
 				],
 			},
@@ -127,13 +153,18 @@ export default {
 				modules: [
 					{
 						type: "pdf",
-						title: "Line Following - Our Improved Solution",
-						url: "/heat-seeker/files/Research-11-heat-seeker.pdf",
+						title: "Introduction to Flow blocks",
+						url: "/heat-seeker/pdf/Subproblem2.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Tips & tricks: Action blocks",
+						title: "Sensing blocks",
 						url: "/heat-seeker/pdf/Iter_1.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Sensing",
+						url: "/heat-seeker/files/Research-heat-seeker-2.pdf",
 					},
 					{
 						type: "explore",
@@ -215,8 +246,18 @@ export default {
 					},
 					{
 						type: "pdf",
-						title: "Tips & tricks: Sensing & Action blocks",
+						title: "Introduction to Flow blocks",
+						url: "/heat-seeker/pdf/Subproblem3.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Fire blocks",
 						url: "/heat-seeker/pdf/Iter_3.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Fire",
+						url: "/heat-seeker/files/Research-heat-seeker-4.pdf",
 					},
 					{
 						type: "explore",
