@@ -22,7 +22,7 @@ const steps = {
 	imagine: { title: "Imagine", icon: "filter_drama" },
 	research: { title: "Research", icon: "travel_explore" },
 	plan: { title: "Plan", icon: "design_services" },
-	create: { title: "Create", icon: "smart_toy" },
+	create: { title: "Code", icon: "smart_toy" },
 	improve: { title: "Improve", icon: "auto_graph" },
 	review: { title: "Review", icon: "checklist" },
 };
@@ -122,7 +122,7 @@ const ProjectView = ({ setLoaded }) => {
 						<ProjectTab activeStep={step} step="define" query={data.query} iteration={iteration} />
 						<ProjectTab activeStep={step} step="imagine" query={data.query} iteration={iteration} />
 						<div className={classes.iterationsContainer}>
-							<div className={classes.iterationTitle}>Iteration</div>
+							<div className={classes.iterationTitle}>Create</div>
 							<div className={classes.iterations}>
 								{data.iterations.map((_, i) => (
 									<button
