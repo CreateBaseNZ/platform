@@ -18,13 +18,9 @@ const MainLayout = ({ children, route, user }) => {
 
 	return (
 		<div className={classes.frame}>
-			<div className={classes.nav}>
-				<Nav route={route} collapseNav={collapseNav} user={user} />
-			</div>
+			<div className={classes.nav}>{/* <Nav route={route} collapseNav={collapseNav} user={user} /> */}</div>
 			<div className={classes.view}>
-				<div className={`${classes.header} ${collapseHeader ? classes.collapsed : ""}`}>
-					<Header user={user} collapseNav={collapseNav} toggleNavHandler={toggleNavHandler} />
-				</div>
+				<div className={`${classes.header} ${collapseHeader ? classes.collapsed : ""}`}>{/* <Header user={user} collapseNav={collapseNav} toggleNavHandler={toggleNavHandler} /> */}</div>
 				{children}
 			</div>
 			{/* {ctx.show && <InviteOrgModal user={user} />} */}

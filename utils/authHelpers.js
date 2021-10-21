@@ -1,5 +1,4 @@
-import router from "next/router";
-import { getSession, signIn } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import axios from "axios";
 import { getOrgDataAPI, getEducatorLinkAPI, getLearnerLinkAPI } from "../hooks/useOrganisationHelper";
 
@@ -46,26 +45,4 @@ export const initSession = async (loading, session, callback) => {
 			});
 		}
 	}
-};
-
-export const logIn = async (username, password, catastropheHandler, failHandler, successHandler, redirect = "/home") => {
-	const result = await signIn("credentials", {
-		redirect: false,
-		user: username,
-		password: password,
-		PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-	});
-
-	console.log(redirect);
-
-	if (result.error) {
-		const error = JSON.parse(result.error);
-		if (error.status === "failed") {
-			return failHandler();
-		} else {
-			return catastropheHandler();
-		}
-	}
-	successHandler();
-	router.replace(redirect);
 };

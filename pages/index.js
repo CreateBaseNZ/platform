@@ -11,6 +11,7 @@ import WhiteLogo, { FBIcon, IGIcon, TwitterIcon, YTIcon } from "/components/UI/I
 import axios from "axios";
 
 import classes from "/styles/Index.module.scss";
+import router from "next/router";
 
 // const Index = ({ setLoaded }) => {
 // 	const { session, loading } = useSession();
@@ -361,7 +362,25 @@ import classes from "/styles/Index.module.scss";
 // };
 
 const Index = () => {
-	return <div>This is the index page</div>;
+	const { data: session, status: sessionStatus } = useSession();
+
+	useEffect(() => {
+		if (sessionStatus !== "loading") {
+			if (session) {
+				router.replace("/browse");
+			} else {
+				router.replace("/auth");
+			}
+		}
+	}, [sessionStatus]);
+
+	if (sessionStatus === "loading") return null;
+
+	return (
+		<div>
+			<i className="material-icons-outlined">add</i>This is the index page
+		</div>
+	);
 };
 
 export default Index;

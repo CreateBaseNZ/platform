@@ -1,21 +1,22 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import router from "next/router";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
+import useAuthHelper from "../../hooks/useAuthHelper";
 import Input, { PasswordInput } from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
-import { emailPattern } from "../../utils/formValidation";
 import VisualBellContext from "../../store/visual-bell-context";
+import { emailPattern } from "../../utils/formValidation";
 import { passwordMinLength, passwordValidate } from "../../utils/formValidation";
-import useAuthHelper from "../../hooks/useAuthHelper";
 
 const codeLength = 6;
 
 import classes from "./AuthForms.module.scss";
 
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
-	const ctx = useContext(VisualBellContext);
-	const { sendForgotPasswordCode } = useAuthHelper({ ...ctx });
 	const [isLoading, setIsLoading] = useState(false);
+	const { setVisualBell } = useContext(VisualBellContext);
+	const { sendForgotPasswordCode } = useAuthHelper();
 	const {
 		register,
 		handleSubmit,
@@ -39,7 +40,7 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 			successHandler: () => {
 				setInputValues((state) => ({ ...state, email: input.email }));
 				setStep(1);
-				ctx.setBell({ type: "neutral", message: "Recovery code sent" });
+				setVisualBell({ type: "neutral", message: "Recovery code sent" });
 			},
 		});
 	};
@@ -67,8 +68,7 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 };
 
 const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
-	const ctx = useContext(VisualBellContext);
-	const { resetPassword } = useAuthHelper({ ...ctx });
+	const { resetPassword } = useAuthHelper();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const [code, setCode] = useState([...Array(codeLength)].map(() => ""));
@@ -76,8 +76,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 
 	const submitCode = async (code) => {
 		setIsLoading(true);
-
-		resetPassword({
+		await resetPassword({
 			details: { email: inputValues.email, code: code, password: "" },
 			failHandler: () => {
 				setError("The code you entered is invalid");
@@ -158,8 +157,8 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 };
 
 const ForgotPasswordStepThree = ({ inputValues }) => {
-	const ctx = useContext(VisualBellContext);
-	const { resetPassword } = useAuthHelper({ ...ctx });
+	const { setVisualBell } = useContext(VisualBellContext);
+	const { resetPassword } = useAuthHelper();
 	const newPassword = useRef({});
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -179,7 +178,6 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 
 	const onSubmit = (input) => {
 		setIsLoading(true);
-
 		resetPassword({
 			details: { email: inputValues.email, code: inputValues.code, password: input.newPassword },
 			failHandler: () => {
@@ -187,8 +185,8 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 				setIsLoading(false);
 			},
 			successHandler: () => {
-				router.push("/auth/login");
-				ctx.setBell({ type: "success", message: "Successfully reset password, please log in to continue" });
+				router.push({ pathname: "/auth", query: { action: "login" } });
+				setVisualBell({ type: "success", message: "Successfully reset password, please log in to continue" });
 			},
 		});
 	};
@@ -224,14 +222,14 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 	);
 };
 
-const ForgotPassword = ({ ocl }) => {
-	const ctx = useContext(VisualBellContext);
-	const { sendForgotPasswordCode } = useAuthHelper({ ...ctx });
-	const [step, setStep] = useState(ocl[1] && ocl[2] ? 2 : 0);
-	const [inputValues, setInputValues] = useState(ocl[1] && ocl[2] ? { email: ocl[1], code: ocl[2] } : null);
+const ForgotPassword = ({ code, email }) => {
+	const { setVisualBell } = useContext(VisualBellContext);
+	const { sendForgotPasswordCode } = useAuthHelper();
+	const [step, setStep] = useState(code && email ? 2 : 0);
+	const [inputValues, setInputValues] = useState({ email: email, code: code });
 
 	const resendCode = async () => {
-		sendForgotPasswordCode({
+		await sendForgotPasswordCode({
 			details: { email: inputValues.email },
 			failHandler: () => {
 				setError("email", {
@@ -240,7 +238,7 @@ const ForgotPassword = ({ ocl }) => {
 				});
 			},
 			successHandler: () => {
-				ctx.setBell({ type: "neutral", message: "Another recovery code was sent to your email" });
+				setVisualBell({ type: "neutral", message: "Another recovery code was sent to your email" });
 			},
 		});
 	};
@@ -251,9 +249,9 @@ const ForgotPassword = ({ ocl }) => {
 			{step === 1 && <ForgotPasswordStepTwo setStep={setStep} inputValues={inputValues} setInputValues={setInputValues} />}
 			{step === 2 && <ForgotPasswordStepThree inputValues={inputValues} />}
 			<div className={classes.forgotOptions}>
-				<button type="button" className={`${classes.smallFont} ${classes.linkBtn}`} onClick={() => router.push("/auth/login")}>
-					Back to Login
-				</button>
+				<Link href={{ pathname: "/auth", query: { action: "login" } }}>
+					<a className={`${classes.smallFont} ${classes.linkBtn}`}>Back to Login</a>
+				</Link>
 				{step === 1 && (
 					<div className={`${classes.smallFont} ${classes.switch}`}>
 						Didn't receive a code?

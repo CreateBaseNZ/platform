@@ -5,7 +5,7 @@ const Browse = () => {
 	return (
 		<div>
 			<div>Browse page</div>
-			<Link href="/support">to support</Link>
+			<Link href={{ pathname: "/auth", query: { action: "login" } }}>to login</Link>
 		</div>
 	);
 };

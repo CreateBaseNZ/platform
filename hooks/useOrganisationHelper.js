@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useContext } from "react";
+import VisualBellContext from "../store/visual-bell-context";
 
 export const getOrgDataAPI = async (criticalHandler) => {
 	let orgData;
@@ -139,7 +141,10 @@ const changeUserPasswordAPI = async (details, criticalHandler, successHandler) =
 	return successHandler();
 };
 
-const useOrganisationHelper = ({ setBell }) => {
+const useOrganisationHelper = () => {
+	// TODO call setBell with useContext instead of taking as an argument
+	const { setBell } = useContext(VisualBellContext);
+
 	const getOrgData = async (
 		criticalHandler = () =>
 			setBell({

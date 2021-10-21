@@ -1,3 +1,5 @@
+// TODO cleanup
+
 @import "/styles/variables";
 
 .form {
@@ -95,12 +97,6 @@
 	}
 }
 
-.secondaryBtn {
-	font-size: 16px;
-	margin-top: 1vh;
-	height: calc(3.5rem - 4px);
-}
-
 .backToLogin {
 	margin-bottom: 4vh;
 }
@@ -126,7 +122,7 @@
 		opacity: 0;
 		cursor: pointer;
 		&:hover ~ .checkbox {
-			background: rgba(black, 0.05);
+			background: rgba($blue-dark, 0.05);
 		}
 		&:checked ~ .checkbox {
 			background: $blue-dark;
@@ -168,7 +164,11 @@
 	margin-top: 2vh;
 }
 
-.loginForm {
+.loginContainer {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 	.input:focus {
 		border-color: $blue-mid;
 		background: rgba($blue-mid, 0.05);
@@ -181,11 +181,15 @@
 		}
 	}
 	.secondaryBtn {
-		border-color: $blue-mid;
-		color: $blue-mid;
+		font-size: 16px;
+		flex: 0 0 3.5rem;
+		margin-top: auto;
+		margin-bottom: 4vh;
+		border-color: $green-mid;
+		color: $green-mid;
 		&:hover {
-			border-color: $blue-dark;
-			color: $blue-dark;
+			border-color: $green-dark;
+			color: $green-dark;
 		}
 	}
 }
@@ -195,26 +199,6 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	.switch {
-		margin-top: auto;
-		align-self: center;
-		font-size: 14px;
-		button {
-			font-size: inherit;
-			margin-left: 0.5rem;
-		}
-	}
-	.termsError {
-		* {
-			color: $red !important;
-		}
-		.checkbox {
-			border-color: $red;
-		}
-	}
-}
-
-.signupForm {
 	.input:focus {
 		border-color: $green-dark;
 		background: rgba($green-dark, 0.05);
@@ -226,31 +210,22 @@
 			box-shadow: 0 8px 24px rgba($green-dark, 0.25);
 		}
 	}
-}
-
-.backBtn {
-	z-index: 3;
-	font-size: 12px;
-	color: $light;
-	align-self: flex-start;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 2rem;
-	margin-left: -1rem;
-	margin-bottom: -2rem;
-	cursor: pointer;
-	border-radius: 8px;
-	padding: 0 0.75rem 0 0.5rem;
-	transition: background-color 0.1s ease-out, color 0.1s ease-out;
-	i {
-		margin-right: 0.25em;
-		font-size: 16px;
-		color: inherit;
+	.termsError {
+		* {
+			color: $red !important;
+		}
+		.checkbox {
+			border-color: $red;
+		}
 	}
-	&:hover {
-		background: $lighter;
-		color: $darker;
+	.switch {
+		margin-top: auto;
+		align-self: center;
+		font-size: 14px;
+		button {
+			font-size: inherit;
+			margin-left: 0.5rem;
+		}
 	}
 }
 

@@ -1,161 +1,86 @@
 import axios from "axios";
+import useHandleResponse from "./useHandleResponse";
+import { signIn } from "next-auth/react";
+import router from "next/router";
 
-const sendForgotPasswordCodeAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
-	}
-	return successHandler();
-};
+const useAuthHelper = () => {
+	const { handleResponse } = useHandleResponse();
 
-const resetPasswordAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return data.content.code ? failHandler() : successHandler();
-	}
-	return successHandler();
-};
-
-const verifyAccountAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/auth/account-verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	if (data.status === "critical error") {
-		return criticalHandler();
-	} else if (data.status === "error") {
-		return errorHandler();
-	} else if (data.status === "failed") {
-		return failHandler(data.content);
-	}
-	return successHandler();
-};
-
-const resendVerificationCodeAPI = async (criticalHandler, successHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/auth/account-verification-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	return successHandler();
-};
-
-const useAuthHelper = ({ setBell }) => {
-	const sendForgotPasswordCode = ({
-		details,
-		criticalHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		errorHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		failHandler = () =>
-			setBell({
-				type: "error",
-				message: "Oops! An error occurred, please try again",
-			}),
-		successHandler = () =>
-			setBell({
-				type: "success",
-				message: "Success!",
-			}),
-	}) => {
-		sendForgotPasswordCodeAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+	const signUp = async ({ details, failHandler = () => {}, successHandler = () => {} }) => {
+		let data = {};
+		try {
+			// TODO rename this api route (exclude /educator)
+			data = (await axios.post("/api/signup/educator", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({ data, failHandler, successHandler });
+		}
 	};
 
-	const resetPassword = ({
-		details,
-		criticalHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		errorHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		failHandler = () =>
-			setBell({
-				type: "error",
-				message: "Oops! An error occurred, please try again",
-			}),
-		successHandler = () =>
-			setBell({
-				type: "success",
-				message: "Success!",
-			}),
-	}) => {
-		resetPasswordAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+	const logIn = async ({ email, password, failHandler = () => {}, callbackUrl }) => {
+		const result = await signIn("credentials", {
+			redirect: false,
+			user: email,
+			password: password,
+			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+			callbackUrl: callbackUrl,
+		});
+		if (result.error) {
+			const error = JSON.parse(result.error);
+			if (error.status === "failed") {
+				return failHandler();
+			} else {
+				return router.push("/404");
+			}
+		}
 	};
 
-	const verifyAccount = async ({
-		details,
-		criticalHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		errorHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		failHandler = () =>
-			setBell({
-				type: "error",
-				message: "Oops! An error occurred, please try again",
-			}),
-		successHandler = () =>
-			setBell({
-				type: "success",
-				message: "Success!",
-			}),
-	}) => {
-		await verifyAccountAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
+	const sendForgotPasswordCode = async ({ details, failHandler = () => {}, successHandler = () => {} }) => {
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({ data, successHandler, failHandler });
+		}
 	};
 
-	const resendVerificationCode = ({
-		criticalHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		successHandler = () =>
-			setBell({
-				type: "success",
-				message: "Success!",
-			}),
-	}) => {
-		resendVerificationCodeAPI(criticalHandler, successHandler);
+	const resetPassword = async ({ details, failHandler = () => {}, successHandler = () => {} }) => {
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({ data, failHandler, successHandler });
+		}
 	};
 
-	return { sendForgotPasswordCode, resetPassword, verifyAccount, resendVerificationCode };
+	const verifyAccount = async ({ details, failHandler = () => {}, successHandler = () => {} }) => {
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/account-verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({ data, failHandler, successHandler });
+		}
+	};
+
+	const resendVerificationCode = async ({ successHandler = () => {} }) => {
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/account-verification-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({ data, successHandler });
+		}
+	};
+
+	return { signUp, logIn, sendForgotPasswordCode, resetPassword, verifyAccount, resendVerificationCode };
 };
 
 export default useAuthHelper;
