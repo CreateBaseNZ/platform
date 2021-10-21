@@ -292,14 +292,14 @@
 	.inviteBtn {
 		height: 2.5rem;
 		padding: 0 1rem;
-		border-color: $green-mid;
-		color: $green-mid;
+		border-color: $green-light;
+		color: $green-light;
 		font-weight: 600;
 		transition: background-color 0.1s ease-out, color 0.1s ease-out, border-color 0.1s ease-out;
 		&:hover {
-			background: rgba($green-mid, 0.1);
-			color: $green-dark;
-			border-color: $green-dark;
+			background: rgba($green-light, 0.1);
+			color: $green-mid;
+			border-color: $green-mid;
 		}
 	}
 	.orgContent {
@@ -362,16 +362,16 @@
 		padding: 1rem 1.5rem;
 		border-radius: 16px;
 		display: flex;
-		background: rgba($green-dark, 0.05);
-		border: 2px solid rgba($green-dark, 0.5);
+		background: rgba($green-mid, 0.05);
+		border: 2px solid rgba($green-mid, 0.5);
 		i {
-			color: $green-dark;
+			color: $green-mid;
 			margin-top: 0.25rem;
 			margin-right: 0.5rem;
 			font-size: 20px;
 		}
 		h3 {
-			color: $green-dark;
+			color: $green-mid;
 			font-weight: 600;
 			font-size: 18px;
 		}

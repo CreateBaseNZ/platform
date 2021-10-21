@@ -60,9 +60,9 @@
 		transition: background-color 0.1s ease-out, border-color 0.1s ease-out, color 0.1s ease-out;
 	}
 	input:checked ~ label {
-		background: rgba($green-dark, 0.05);
-		border-color: $green-dark;
-		color: $green-dark;
+		background: rgba($green-mid, 0.05);
+		border-color: $green-mid;
+		color: $green-mid;
 	}
 	&.inputError label {
 		border-color: $red;
@@ -200,14 +200,14 @@
 	display: flex;
 	flex-direction: column;
 	.input:focus {
-		border-color: $green-dark;
-		background: rgba($green-dark, 0.05);
+		border-color: $green-mid;
+		background: rgba($green-mid, 0.05);
 	}
 	.submit {
-		background: $green-dark;
-		box-shadow: 0 4px 16px rgba($green-dark, 0.25);
+		background: $green-mid;
+		box-shadow: 0 4px 16px rgba($green-mid, 0.25);
 		&:hover {
-			box-shadow: 0 8px 24px rgba($green-dark, 0.25);
+			box-shadow: 0 8px 24px rgba($green-mid, 0.25);
 		}
 	}
 	.termsError {

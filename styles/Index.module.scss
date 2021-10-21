@@ -124,12 +124,12 @@
 	.signUp,
 	.loggedIn {
 		margin-right: 0.5vw;
-		background: $green-dark;
-		box-shadow: 0 4px 12px 0 rgba($green-dark, 0.5);
+		background: $green-mid;
+		box-shadow: 0 4px 12px 0 rgba($green-mid, 0.5);
 		transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
 		&:hover {
 			transform: translateY(-2px);
-			box-shadow: 0 8px 24px -4px rgba($green-dark, 0.5);
+			box-shadow: 0 8px 24px -4px rgba($green-mid, 0.5);
 		}
 	}
 	.logIn {

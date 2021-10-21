@@ -266,7 +266,7 @@
 		top: 50%;
 		left: 1rem;
 		transform: translateY(-50%);
-		color: $green-dark;
+		color: $green-mid;
 		font-size: 16px;
 	}
 	input {
@@ -300,10 +300,10 @@
 			letter-spacing: 0.25em;
 		}
 		&.copied {
-			background: rgba($green-dark, 0.05);
+			background: rgba($green-mid, 0.05);
 			&,
 			* {
-				color: $green-dark;
+				color: $green-mid;
 				transition: none;
 			}
 		}

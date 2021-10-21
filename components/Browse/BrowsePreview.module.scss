@@ -141,7 +141,7 @@
 	}
 	&.Introductory {
 		span {
-			color: $green-dark;
+			color: $green-mid;
 		}
 	}
 	&.Proficient {
@@ -249,8 +249,8 @@
 	margin-top: 2vh;
 	button {
 		height: 3.5rem;
-		color: $green-mid;
-		border-color: $green-mid;
+		color: $green-light;
+		border-color: $green-light;
 		i {
 			margin-right: 0.5em;
 		}

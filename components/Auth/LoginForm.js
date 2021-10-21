@@ -89,7 +89,7 @@ export const LoginForm = () => {
 				isDisabled={isLoading}
 				type="button"
 				mainLabel="Create an Account"
-				onClick={() => router.push({ pathname: "/auth", query: { action: "signup" } })}
+				onClick={() => router.replace({ pathname: "/auth", query: { action: "signup" } })}
 			/>
 		</div>
 	);

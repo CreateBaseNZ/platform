@@ -66,7 +66,7 @@ const SignupForm = () => {
 						});
 					},
 					() => {
-						router.push("/auth/login");
+						router.replace("/auth/login");
 						setVisualBell({
 							type: "success",
 							message: "Success! Your account has been created, log in to continue",

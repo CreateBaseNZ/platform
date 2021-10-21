@@ -10,15 +10,15 @@
 	border-radius: 16px;
 	height: 3rem;
 	padding: 0 2em;
-	background: $green-dark;
-	box-shadow: 0 4px 16px 0 rgba($green-dark, 0.25);
+	background: $green-mid;
+	box-shadow: 0 4px 16px 0 rgba($green-mid, 0.25);
 	transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
 	& * {
 		color: inherit;
 	}
 	&:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 8px 24px 0 rgba($green-dark, 0.25);
+		box-shadow: 0 8px 24px 0 rgba($green-mid, 0.25);
 	}
 	&.disabled {
 		pointer-events: none;

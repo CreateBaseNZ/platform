@@ -185,7 +185,7 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 				setIsLoading(false);
 			},
 			successHandler: () => {
-				router.push({ pathname: "/auth", query: { action: "login" } });
+				router.replace({ pathname: "/auth", query: { action: "login" } });
 				setVisualBell({ type: "success", message: "Successfully reset password, please log in to continue" });
 			},
 		});
