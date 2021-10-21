@@ -1,22 +1,23 @@
+// TODO edit viewtabs
+
 import Link from "next/link";
-import { ColourLogo } from "../UI/Icons";
-
-import viewTabs from "../../utils/viewTabs";
-
+import { ColourLogo } from "../../UI/Icons";
+import viewTabs from "../../../utils/viewTabs";
 import classes from "./Nav.module.scss";
 
+// TODO refactor routes to be cleaner
 const Nav = ({ route, collapseNav, user }) => {
-	if (user.loaded) {
-		const match = viewTabs[user.type].find((t) => route.startsWith(t.route));
-		if (match) {
-			route = match.route;
-		}
-	}
+	// if (user.loaded) {
+	// 	const match = viewTabs[user.type].find((t) => route.startsWith(t.route));
+	// 	if (match) {
+	// 		route = match.route;
+	// 	}
+	// }
 
 	return (
 		<nav className={`${classes.nav} ${collapseNav ? classes.collapse : ""}`}>
 			<ColourLogo width="131.25" height="24" />
-			{user.loaded && (
+			{/* {user.loaded && (
 				<div className={classes.menu}>
 					<div
 						className={classes.slider}
@@ -33,7 +34,7 @@ const Nav = ({ route, collapseNav, user }) => {
 						</Link>
 					))}
 				</div>
-			)}
+			)} */}
 		</nav>
 	);
 };

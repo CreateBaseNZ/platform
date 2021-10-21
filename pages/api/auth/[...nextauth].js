@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 
 import { emailPattern, passwordMinLength, usernameMinLength, usernamePattern } from "../../../utils/formValidation";
@@ -208,7 +208,7 @@ export default NextAuth({
 		},
 	},
 	providers: [
-		Providers.Credentials({
+		CredentialsProvider({
 			async authorize(credentials) {
 				// Validate PUBLIC_API_KEY
 				if (credentials.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {

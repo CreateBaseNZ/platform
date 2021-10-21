@@ -10,7 +10,7 @@ import TableFooter from "./TableFooter";
 import TableHead from "./TableHead";
 import { PrimaryButton } from "../UI/Buttons";
 
-//TODO "invited By", "joined"
+// TODO [IGNORE] "invited By", "joined"
 const columns = {
 	learners: ["display Name", "username", "last Visited"],
 	educators: ["display Name", "username", "email", "last Visited"],
@@ -126,7 +126,7 @@ const ManageUsers = ({ user, setUser, collapseHeader, setCollapseHeader }) => {
 	};
 
 	const removeUserHandler = () => {
-		//TODO
+		//TODO [IGNORE]
 		setShowRemoveConfirm(false);
 	};
 

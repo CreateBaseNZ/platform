@@ -1,7 +1,6 @@
 import router from "next/router";
-import { signIn } from "next-auth/client";
+import { getSession, signIn } from "next-auth/react";
 import axios from "axios";
-import { getSession } from "next-auth/client";
 import { getOrgDataAPI, getEducatorLinkAPI, getLearnerLinkAPI } from "../hooks/useOrganisationHelper";
 
 export const initSession = async (loading, session, callback) => {

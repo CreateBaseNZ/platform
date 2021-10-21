@@ -1,15 +1,16 @@
-//TODO migrate Frame to Layout
-
+// TODO remove invite org ctx
 import { useContext, useState } from "react";
-import InviteOrgContext from "../../store/invite-org-context";
-import classes from "./Frame.module.scss";
+// import InviteOrgContext from "../../store/invite-org-context";
+import classes from "./MainLayout.module.scss";
 import Header from "./Header";
-import InviteOrgModal from "./InviteOrgModal";
+
+// import InviteOrgModal from "./InviteOrgModal";
 import Nav from "./Nav";
 
-const Frame = ({ children, route, user, collapseHeader }) => {
-	const ctx = useContext(InviteOrgContext);
+const MainLayout = ({ children, route, user }) => {
+	// const ctx = useContext(InviteOrgContext);
 	const [collapseNav, setCollapseNav] = useState(false);
+	const [collapseHeader, setCollapseHeader] = useState(false);
 
 	const toggleNavHandler = () => {
 		setCollapseNav((state) => !state);
@@ -26,9 +27,9 @@ const Frame = ({ children, route, user, collapseHeader }) => {
 				</div>
 				{children}
 			</div>
-			{ctx.show && <InviteOrgModal user={user} />}
+			{/* {ctx.show && <InviteOrgModal user={user} />} */}
 		</div>
 	);
 };
 
-export default Frame;
+export default MainLayout;
