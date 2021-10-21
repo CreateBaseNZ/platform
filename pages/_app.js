@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import LoadingScreen from "../components/UI/Loading";
 import { SessionProvider } from "next-auth/react";
+import { UserSessionContextProvider } from "../store/user-session";
 
 import "../styles/globals.scss";
 import { VisualBellContextProvider } from "../store/visual-bell-context";
 import VisualBell from "../components/VisualBell";
-import { InviteOrgContextProvider } from "../store/invite-org-context";
 
 // function MyApp({ Component, pageProps }) {
 // 	const [loaded, setLoaded] = useState(false);
@@ -55,7 +55,11 @@ import { InviteOrgContextProvider } from "../store/invite-org-context";
 const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	const getLayout = Component.getLayout || ((page) => page);
 
-	return <SessionProvider session={session}>{getLayout(<Component {...pageProps} />)}</SessionProvider>;
+	return (
+		<SessionProvider session={session}>
+			<UserSessionContextProvider>{getLayout(<Component {...pageProps} />)}</UserSessionContextProvider>
+		</SessionProvider>
+	);
 };
 
 export default MyApp;

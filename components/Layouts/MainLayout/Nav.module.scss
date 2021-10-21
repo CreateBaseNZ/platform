@@ -2,23 +2,16 @@
 
 .nav {
 	height: 100%;
-	width: 16rem;
+	width: 100%;
 	padding: 2rem 1.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	border-right: 2px solid $lighter;
 	overflow: hidden;
-	transition: width 0.2s ease-out, padding 0.2s ease-out, border 0.2s ease-out;
 	& > :first-child {
 		margin-top: 0.25rem;
 		margin-left: 0.5rem;
-	}
-	&.collapse {
-		width: 0;
-		padding-left: 0;
-		padding-right: 0;
-		border: 0px;
 	}
 }
 

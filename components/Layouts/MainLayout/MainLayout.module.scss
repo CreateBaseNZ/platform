@@ -1,3 +1,49 @@
-.layout {
-	border: 10px solid red;
+@import "/styles/variables";
+
+.frame {
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	display: flex;
+}
+
+.nav {
+	height: 100%;
+	flex: 0 0 16rem;
+	background: $lightest;
+	transition: flex 0.2s ease-out, opacity 0.1s ease-out;
+	&.navCollapsed {
+		flex: 0 0 0;
+		* {
+			opacity: 0;
+		}
+	}
+}
+
+.view {
+	height: 100%;
+	min-width: 0;
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	width: 100%;
+	flex-shrink: 0;
+	flex-grow: 0;
+	height: 6rem;
+	display: flex;
+	align-items: center;
+	padding-right: 2rem;
+	background: white;
+	border-bottom: 2px solid $lighter;
+	transition: height 0.2s ease-out, border 0.2s ease-out, opacity 0.1s ease-out;
+	&.headerCollapsed {
+		height: 0;
+		border-bottom: 0px solid transparent;
+		* {
+			opacity: 0;
+		}
+	}
 }
