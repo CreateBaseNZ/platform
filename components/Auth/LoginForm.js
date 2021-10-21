@@ -79,18 +79,12 @@ export const LoginForm = () => {
 						</div>
 						<label className={classes.smallFont}>Remember me</label>
 					</div>
-					<Link href={{ pathname: "/auth", query: { action: "forgot-password" } }}>
+					<Link href={{ query: { action: "forgot-password" } }}>
 						<a className={`${classes.smallFont} ${classes.linkBtn}`}>Forgot your password?</a>
 					</Link>
 				</div>
 			</form>
-			<SecondaryButton
-				className={classes.secondaryBtn}
-				isDisabled={isLoading}
-				type="button"
-				mainLabel="Create an Account"
-				onClick={() => router.replace({ pathname: "/auth", query: { action: "signup" } })}
-			/>
+			<SecondaryButton className={classes.secondaryBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => router.replace({ query: { action: "signup" } })} />
 		</div>
 	);
 };

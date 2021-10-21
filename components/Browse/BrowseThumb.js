@@ -6,7 +6,7 @@ import classes from "./BrowseThumb.module.scss";
 const BrowseThumb = ({ isActive, query, name, setVideoLoaded }) => {
 	const clickHandler = () => {
 		setVideoLoaded(false);
-		router.push(`/browse/${query}`);
+		router.push({ query: { project: query } });
 	};
 
 	return (

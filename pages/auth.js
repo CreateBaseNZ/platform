@@ -27,6 +27,8 @@ const Auth = () => {
 	const { data: session, status: sessionStatus } = useSession();
 	const [authAction, setAuthAction] = useState("signup");
 
+	console.log(authAction);
+
 	useEffect(() => {
 		if (sessionStatus !== "loading") {
 			setAuthAction(router?.query?.action || "signup");

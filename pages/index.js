@@ -364,23 +364,17 @@ import router from "next/router";
 const Index = () => {
 	const { data: session, status: sessionStatus } = useSession();
 
-	useEffect(() => {
-		if (sessionStatus !== "loading") {
-			if (session) {
-				router.replace("/browse");
-			} else {
-				router.replace("/auth");
-			}
-		}
-	}, [sessionStatus]);
-
 	if (sessionStatus === "loading") return null;
 
-	return (
-		<div>
-			<i className="material-icons-outlined">add</i>This is the index page
-		</div>
-	);
+	// TODO replace
+	const DUMMY_SESSION = {};
+	// if (session) {
+	if (DUMMY_SESSION) {
+		router.replace("/browse");
+	} else {
+		router.replace("/auth");
+	}
+	return null;
 };
 
 export default Index;

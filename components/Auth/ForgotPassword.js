@@ -185,7 +185,7 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 				setIsLoading(false);
 			},
 			successHandler: () => {
-				router.replace({ pathname: "/auth", query: { action: "login" } });
+				router.replace({ query: { action: "login" } });
 				setVisualBell({ type: "success", message: "Successfully reset password, please log in to continue" });
 			},
 		});
@@ -249,7 +249,7 @@ const ForgotPassword = ({ code, email }) => {
 			{step === 1 && <ForgotPasswordStepTwo setStep={setStep} inputValues={inputValues} setInputValues={setInputValues} />}
 			{step === 2 && <ForgotPasswordStepThree inputValues={inputValues} />}
 			<div className={classes.forgotOptions}>
-				<Link href={{ pathname: "/auth", query: { action: "login" } }}>
+				<Link href={{ query: { action: "login" } }}>
 					<a className={`${classes.smallFont} ${classes.linkBtn}`}>Back to Login</a>
 				</Link>
 				{step === 1 && (

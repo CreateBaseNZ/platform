@@ -156,7 +156,7 @@ const SignupForm = () => {
 			</form>
 			<div className={`${classes.smallFont} ${classes.switch}`}>
 				Have an account?{" "}
-				<Link href={{ pathname: "/auth", query: { action: "login" } }}>
+				<Link href={{ query: { action: "login" } }}>
 					<a className={classes.linkBtn}>Log in</a>
 				</Link>
 			</div>
