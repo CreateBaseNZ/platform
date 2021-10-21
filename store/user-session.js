@@ -16,6 +16,10 @@ const defaultUserSession = {
 		groupType: "school",
 		userType: "teacher",
 	},
+	groups: [
+		{ name: "Somerville Intermediate School", type: "school" },
+		{ name: "Lin NZ", type: "family" },
+	],
 };
 
 export const UserSessionContextProvider = (props) => {

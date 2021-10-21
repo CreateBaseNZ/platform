@@ -52,72 +52,17 @@
 	}
 }
 
-.invite {
-	padding: 0 1.25rem;
-	margin-right: 2rem;
-	i {
-		font-size: 16px;
-		margin-right: 0.5rem;
-	}
-}
-
-.verifyBtn {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: $blue-mid;
-	background: rgba($blue-mid, 0.1);
-	font-weight: 600;
-	border-radius: 16px;
-	height: 3rem;
-	padding: 0 1.5rem;
-	margin-right: 2rem;
-	font-size: 14px;
-	letter-spacing: 0.01em;
-	border: 2px solid rgba($blue-mid, 0.5);
-	transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
-	&:hover {
-		background: rgba($blue-mid, 0.15);
-		border-color: rgba($blue-mid, 0.75);
-	}
-}
-
-.help {
-	margin-right: 2rem;
-	width: 3rem;
-	height: 3rem;
-	border-radius: 1rem;
-	border: 2px solid $lighter;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight: 600;
-	font-size: 1rem;
-	color: $darker;
-	transition: color 0.1s ease-out, background-color 0.1s ease-out;
-	i {
-		font-size: 20px;
-		color: inherit;
-	}
-	&:hover {
-		background: $lighter;
-		color: $logo-mid;
-	}
-}
-
-.browse {
-	margin-right: 2.5vw;
-}
-
 .headerUserContainer {
 	z-index: 5;
 	position: relative;
 	opacity: 0;
 	transform: translateX(50%);
+	width: calc(10rem + 5vw);
 	&.loaded {
 		animation: slide-in 0.8s ease-out forwards;
 	}
 	.headerUser {
+		width: 100%;
 		display: flex;
 		align-items: center;
 		cursor: pointer;
@@ -148,37 +93,24 @@
 		overflow: hidden;
 	}
 	.headerName {
+		flex: 1;
 		margin-left: 1rem;
 		display: flex;
 		flex-direction: column;
-		width: calc(5rem + 5vw);
-		& > :first-child {
-			width: 100%;
-			font-size: 14px;
-			font-weight: 600;
-			line-height: 1.5em;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-		& > :last-child {
-			display: flex;
-			align-items: center;
-			font-size: 12px;
-			line-height: 1.25em;
-			color: $light;
-			text-transform: capitalize;
-			i {
-				margin: 0.1em 0 0 0.4em;
-				font-size: 12px;
-				color: rgba($green-mid, 0.5);
-			}
-		}
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		font-weight: 600;
+		font-size: 14px;
+		line-height: 1.5em;
+		color: $darkest;
+		text-transform: capitalize;
+		font-weight: 600;
 	}
 }
 
 .menu {
-	min-width: 100%;
+	width: 100%;
 	position: absolute;
 	bottom: -1rem;
 	right: 0;
@@ -199,9 +131,9 @@
 		color: rgba(black, 0.25);
 	}
 	button {
+		width: 100%;
 		display: flex;
 		align-items: center;
-		white-space: nowrap;
 		padding: 0 1.5rem;
 		height: 3rem;
 		text-align: left;
@@ -209,6 +141,15 @@
 		font-weight: 600;
 		color: $dark;
 		transition: color 0.1s ease-out, background-color 0.1s ease-out;
+		span {
+			font-size: inherit;
+			font-weight: inherit;
+			color: inherit;
+			width: 100%;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 		i {
 			font-size: 20px;
 			width: 1.5rem;
