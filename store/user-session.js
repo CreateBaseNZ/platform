@@ -1,7 +1,13 @@
 import { useState, createContext, useMemo } from "react";
 
 const UserSessionContext = createContext({
-	userSession: {},
+	userSession: {
+		email: "",
+		firstName: "",
+		lastName: "",
+		view: null,
+		recentGroups: [],
+	},
 	setUserSession: () => {},
 });
 
@@ -16,9 +22,10 @@ const defaultUserSession = {
 		groupType: "school",
 		userType: "teacher",
 	},
-	groups: [
+	recentGroups: [
 		{ name: "Somerville Intermediate School", type: "school" },
 		{ name: "Lin NZ", type: "family" },
+		{ name: "Rosehill College", type: "school" },
 	],
 };
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
@@ -9,15 +9,13 @@ import { allData } from "../utils/getProjectData";
 
 import "overlayscrollbars/css/OverlayScrollbars.css";
 import classes from "/styles/browse.module.scss";
+import UserSessionContext from "../store/user-session";
 
 const Browse = (props) => {
 	const router = useRouter();
+	const { userSession } = useContext(UserSessionContext);
 	const [activeProject, setActiveProject] = useState(allData[0]);
 	const [videoLoaded, setVideoLoaded] = useState(false);
-
-	console.log(props);
-
-	const user = {};
 
 	useEffect(() => {
 		const query = router?.query?.project;
@@ -37,7 +35,7 @@ const Browse = (props) => {
 			</Head>
 			<div className={classes.inner}>
 				<div className={classes.preview}>
-					<BrowsePreview project={activeProject} videoLoaded={videoLoaded} setVideoLoaded={setVideoLoaded} user={user} />
+					<BrowsePreview project={activeProject} videoLoaded={videoLoaded} setVideoLoaded={setVideoLoaded} userType={userSession.view?.userType} />
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>

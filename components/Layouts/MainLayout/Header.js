@@ -28,7 +28,7 @@ const Header = ({ userSession, navIsCollapsed, toggleNavHandler }) => {
 						<i className="material-icons-outlined">expand_more</i>
 					</div>
 					<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
-						{userSession.groups.map((group, i) => (
+						{userSession.recentGroups.map((group, i) => (
 							//TODO switching between views
 							<button key={i} onMouseDown={() => {}} title={group.name}>
 								<i className="material-icons-outlined">{group.type === "school" ? "holiday_village" : group.type === "family" ? "cottage" : ""}</i>
