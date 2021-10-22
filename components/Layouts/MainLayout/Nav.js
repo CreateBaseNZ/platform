@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ColourLogo } from "../../UI/Icons";
 import viewTabs, { SCHOOL_ADMIN_TABS, SCHOOL_STUDENT_TABS } from "../../../constants/viewTabs";
 import classes from "./Nav.module.scss";
+import DEFAULT_TABS from "../../../constants/viewTabs";
 
 const getTabs = (userSession) => {
 	if (userSession.email) {
@@ -30,7 +31,7 @@ const getTabs = (userSession) => {
 const Nav = ({ page, userSession }) => {
 	console.log(page);
 	const tabs = getTabs(userSession);
-	const activeTab = tabs.findIndex((t) => page === t.page);
+	const activeTab = [...tabs, { page: null }, ...DEFAULT_TABS].findIndex((t) => page === t.page);
 
 	console.log(activeTab);
 
@@ -48,6 +49,15 @@ const Nav = ({ page, userSession }) => {
 					{tabs.map((l, i) => (
 						<Link key={i} href={l.urlObject}>
 							<button className={`${classes.tab} ${activeTab === i ? classes.active : ""}`}>
+								<i className="material-icons-outlined">{l.icon}</i>
+								{l.label}
+							</button>
+						</Link>
+					))}
+					<div className={classes.divider} />
+					{DEFAULT_TABS.map((l, i) => (
+						<Link key={i} href={l.urlObject}>
+							<button className={`${classes.tab} ${activeTab === i + tabs.length + 1 ? classes.active : ""}`}>
 								<i className="material-icons-outlined">{l.icon}</i>
 								{l.label}
 							</button>
