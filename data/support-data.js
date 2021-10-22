@@ -1,6 +1,6 @@
 import Link from "next/dist/client/link";
 
-const supportData = [
+const SUPPORT_DATA = [
 	{
 		header: "How-To: Videos",
 		icon: "ondemand_video",
@@ -58,7 +58,9 @@ const supportData = [
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/SlRLHPSm17Y" target="_blank" title="How-To: Teach your first Project">View here </a>	
+							<a href="https://youtu.be/SlRLHPSm17Y" target="_blank" title="How-To: Teach your first Project">
+								View here{" "}
+							</a>
 						</p>
 					</>
 				),
@@ -68,7 +70,9 @@ const supportData = [
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/OUQmv4Q5GIE" target="_blank" title="How-To: Translate your Logical Thinking into Flow-Code">View here </a>	
+							<a href="https://youtu.be/OUQmv4Q5GIE" target="_blank" title="How-To: Translate your Logical Thinking into Flow-Code">
+								View here{" "}
+							</a>
 						</p>
 					</>
 				),
@@ -90,7 +94,9 @@ const supportData = [
 				a: (
 					<>
 						<p>
-						<a href="https://youtu.be/dmShaNP-rt8" target="_blank" title="">View here </a>	
+							<a href="https://youtu.be/dmShaNP-rt8" target="_blank" title="">
+								View here{" "}
+							</a>
 						</p>
 					</>
 				),
@@ -504,4 +510,4 @@ const supportData = [
 	},
 ];
 
-export default supportData;
+export default SUPPORT_DATA;
