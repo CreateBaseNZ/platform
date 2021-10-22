@@ -1,17 +1,29 @@
 import { useState } from "react";
-import { SecondaryButton } from "../UI/Buttons";
-import Link from "next/link";
-
-import classes from "./BrowsePreview.module.scss";
 import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
+import BrowseLearning from "./BrowseLearning";
+import { ADMIN_TABS, MEMBER_TABS, STUDENT_TABS, TEACHER_TABS } from "../../constants/browseTabs";
 
-const tabs = ["Overview", "Teaching", "Learning"];
+import classes from "./BrowsePreview.module.scss";
 
-const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, userType = "guest" }) => {
+const getTabs = (type) => {
+	console.log(type);
+	switch (type) {
+		case "student":
+			return STUDENT_TABS;
+		case "member":
+			return MEMBER_TABS;
+		case "teacher":
+			return TEACHER_TABS;
+		case "admin":
+			return ADMIN_TABS;
+		default:
+			return [];
+	}
+};
+
+const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, userType }) => {
 	const [tab, setTab] = useState(0);
-
-	const clickHandler = (i) => setTab(i);
 
 	return (
 		<div className={classes.preview}>
@@ -22,30 +34,20 @@ const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, userType = "guest
 			</div>
 			<div className={classes.details}>
 				<h1 className={classes.h1}>{project.name}</h1>
-				<div className={classes.container}>
-					{tab === 0 && <BrowseOverview project={project} userType={userType} />}
-					{tab === 1 && <BrowseTeaching project={project} />}
-				</div>
-				{tab === 2 && (
-					<div className={classes.learning}>
-						By the end of this Project, learners will be able to:
-						<ol>
-							{project.learnings.map((text, i) => (
-								<li key={i}>{text}</li>
-							))}
-						</ol>
-					</div>
-				)}
-			</div>
-			{(userType === "teacher" || userType === "admin") && (
+
 				<div className={classes.tabContainer}>
-					{tabs.map((t, i) => (
-						<button key={i} className={`${classes.tab} ${tab === i ? classes.active : ""}`} onClick={() => clickHandler(i)}>
+					{getTabs(userType).map((t, i) => (
+						<button key={i} className={`${classes.tab} ${tab === i ? classes.active : ""}`} onClick={() => setTab(i)}>
 							{t}
 						</button>
 					))}
 				</div>
-			)}
+				<div className={classes.container}>
+					{tab === 0 && <BrowseOverview project={project} userType={userType} />}
+					{tab === 1 && <BrowseTeaching project={project} />}
+					{tab === 2 && <BrowseLearning learnings={project.learnings} />}
+				</div>
+			</div>
 		</div>
 	);
 };

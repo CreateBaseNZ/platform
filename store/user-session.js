@@ -20,7 +20,7 @@ const defaultUserSession = {
 	lastName: "Lin",
 	view: {
 		groupType: "school",
-		userType: "teacher",
+		userType: "student",
 	},
 	recentGroups: [
 		{ name: "Somerville Intermediate School", type: "school" },
