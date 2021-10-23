@@ -60,8 +60,8 @@ const Authent = () => {
 };
 
 Authent.auth = {
-	authent: false,
-	authoris: "none",
+	authent: "unauthenticated",
+	authoris: "any",
 };
 
 export default Authent;

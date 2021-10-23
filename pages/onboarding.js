@@ -109,11 +109,12 @@ const Onboarding = () => {
 };
 
 Onboarding.getLayout = (page) => {
-	return (
-		<MainLayout page="onboarding" auth="teacher">
-			{page}
-		</MainLayout>
-	);
+	return <MainLayout page="onboarding">{page}</MainLayout>;
+};
+
+Onboarding.auth = {
+	authent: "authenticated",
+	authoris: "staff",
 };
 
 export default Onboarding;

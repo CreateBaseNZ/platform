@@ -11,19 +11,16 @@ import "overlayscrollbars/css/OverlayScrollbars.css";
 import classes from "/styles/browse.module.scss";
 import UserSessionContext from "../store/user-session";
 
-const Browse = (props) => {
+const Browse = () => {
 	const router = useRouter();
 	const { userSession } = useContext(UserSessionContext);
 	const [activeProject, setActiveProject] = useState(allData[0]);
-	const [videoLoaded, setVideoLoaded] = useState(false);
 
 	useEffect(() => {
 		const query = router?.query?.project;
 		const queriedProject = allData.filter((data) => data.query === query)[0];
 		if (queriedProject) {
 			setActiveProject(queriedProject);
-		} else {
-			router.replace({ pathname: "/browse", query: { project: allData[0].query } });
 		}
 	}, [router.query.project]);
 
@@ -35,12 +32,12 @@ const Browse = (props) => {
 			</Head>
 			<div className={classes.inner}>
 				<div className={classes.preview}>
-					<BrowsePreview project={activeProject} videoLoaded={videoLoaded} setVideoLoaded={setVideoLoaded} userType={userSession.view?.userType} />
+					<BrowsePreview project={activeProject} userType={userSession.view?.userType} />
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>
 					{allData.map((project, index) => (
-						<BrowseThumb key={index} isActive={activeProject.query === project.query} project={project} query={project.query} name={project.name} setVideoLoaded={setVideoLoaded} />
+						<BrowseThumb key={index} isActive={activeProject.query === project.query} project={project} query={project.query} name={project.name} />
 					))}
 					{[...Array(allData.length % 4).keys()].map((i) => (
 						<div key={i} className={classes.empty} />
@@ -53,6 +50,11 @@ const Browse = (props) => {
 
 Browse.getLayout = (page) => {
 	return <MainLayout page="browse">{page}</MainLayout>;
+};
+
+Browse.auth = {
+	authent: "authenticated",
+	authoris: "any",
 };
 
 export default Browse;

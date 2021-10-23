@@ -8,4 +8,9 @@ Classes.getLayout = (page) => {
 	return <MainLayout page="classes">{page}</MainLayout>;
 };
 
+Classes.auth = {
+	authent: "authenticated",
+	authoris: "any",
+};
+
 export default Classes;

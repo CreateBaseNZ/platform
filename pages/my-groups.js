@@ -5,11 +5,12 @@ const MyGroups = () => {
 };
 
 MyGroups.getLayout = (page) => {
-	return (
-		<MainLayout page="my-groups" auth="student">
-			{page}
-		</MainLayout>
-	);
+	return <MainLayout page="my-groups">{page}</MainLayout>;
+};
+
+MyGroups.auth = {
+	authent: "authenticated",
+	authoris: "any",
 };
 
 export default MyGroups;

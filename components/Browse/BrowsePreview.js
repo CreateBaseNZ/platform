@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
@@ -22,13 +22,29 @@ const getTabs = (type) => {
 	}
 };
 
-const BrowsePreview = ({ project, videoLoaded, setVideoLoaded, userType }) => {
+const BrowsePreview = ({ project, userType }) => {
+	const ref = useRef();
 	const [tab, setTab] = useState(0);
+	const [videoLoaded, setVideoLoaded] = useState(false);
+
+	useEffect(() => {
+		return () => (ref.current = false);
+	}, []);
+
+	useEffect(() => {
+		setVideoLoaded(false);
+	}, [project]);
+
+	const canPlayHandler = () => {
+		if (ref.current) {
+			window.requestAnimationFrame(() => setVideoLoaded(true));
+		}
+	};
 
 	return (
 		<div className={classes.preview}>
 			<div className={classes.vidContainer}>
-				<video src={`/${project.query}/vid/situation.mp4`} autoPlay={true} muted={true} className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`} onCanPlay={() => setVideoLoaded(true)}>
+				<video ref={ref} src={`/${project.query}/vid/situation.mp4`} autoPlay={true} muted={true} className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`} onCanPlay={canPlayHandler}>
 					<source type="video/mp4" />
 				</video>
 			</div>

@@ -8,8 +8,6 @@ import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 
 import classes from "/styles/support.module.scss";
 
-const sectionLength = SUPPORT_DATA.length;
-
 const awaitImages = async (images, callback) => {
 	let count = 0;
 	const addLoaded = () => {
@@ -117,11 +115,12 @@ const Support = () => {
 };
 
 Support.getLayout = (page) => {
-	return (
-		<MainLayout page="support" auth="student">
-			{page}
-		</MainLayout>
-	);
+	return <MainLayout page="support">{page}</MainLayout>;
+};
+
+Support.auth = {
+	authent: "authenticated",
+	authoris: "any",
 };
 
 export default Support;

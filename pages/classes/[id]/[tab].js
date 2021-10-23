@@ -14,4 +14,9 @@ ClassesTab.getLayout = (page) => {
 	);
 };
 
+ClassesTab.auth = {
+	authent: "authenticated",
+	authoris: "any",
+};
+
 export default ClassesTab;

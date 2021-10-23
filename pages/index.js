@@ -368,15 +368,17 @@ const Index = () => {
 
 	console.log("index");
 
-	if (userSession.email) {
-		router.replace("/browse");
-	} else {
-		router.replace("/authent");
-	}
+	useEffect(() => {
+		if (userSession.email) {
+			router.replace("/browse");
+		} else {
+			router.replace("/authent");
+		}
+	}, [userSession]);
 
 	return null;
 };
 
-Index.auth = { authent: false, authoris: "none" };
+Index.auth = { authent: "either", authoris: "any" };
 
 export default Index;

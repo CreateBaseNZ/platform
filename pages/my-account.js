@@ -5,11 +5,12 @@ const MyAccount = () => {
 };
 
 MyAccount.getLayout = (page) => {
-	return (
-		<MainLayout page="my-account" auth="student">
-			{page}
-		</MainLayout>
-	);
+	return <MainLayout page="my-account">{page}</MainLayout>;
+};
+
+MyAccount.auth = {
+	authent: "authenticated",
+	authoris: "any",
 };
 
 export default MyAccount;
