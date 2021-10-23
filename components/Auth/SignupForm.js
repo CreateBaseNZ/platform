@@ -1,3 +1,4 @@
+// TODO refactor this
 import { useContext, useEffect, useState } from "react";
 import router from "next/router";
 import Link from "next/link";
@@ -8,7 +9,7 @@ import Input, { PasswordInput } from "../UI/Input";
 import { isBlacklisted } from "../../utils/formValidation";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
 import { logIn } from "../../utils/authHelpers";
-import classes from "./AuthForms.module.scss";
+import classes from "./AuthentForms.module.scss";
 import useAuthHelper from "../../hooks/useAuthHelper";
 
 const SignupForm = () => {
@@ -66,7 +67,7 @@ const SignupForm = () => {
 						});
 					},
 					() => {
-						router.replace("/auth/login");
+						router.replace({ pathname: "/authent", query: { action: "login" } });
 						setVisualBell({
 							type: "success",
 							message: "Success! Your account has been created, log in to continue",

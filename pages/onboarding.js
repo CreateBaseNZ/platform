@@ -1,10 +1,13 @@
+// TODO update onboarding page
+
 import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import router from "next/router";
-import VisualBellContext from "../store/visual-bell-context";
 import useProfileHelper from "../hooks/useProfileHelper";
+import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 
-import classes from "./Onboarding.module.scss";
+import classes from "/styles/onboarding.module.scss";
+import UserSessionContext from "../store/user-session";
 
 const teachingContent = {
 	title: "Teaching my first project",
@@ -26,53 +29,51 @@ const teachingContent = {
 	),
 };
 
-const Onboarding = ({ user, setUser }) => {
-	const ctx = useContext(VisualBellContext);
+const Onboarding = () => {
+	const { userSession } = useContext(UserSessionContext);
 	const [tasks, setTasks] = useState([]);
 	const [popup, setPopup] = useState();
-	const { updateProfile } = useProfileHelper({ ...ctx });
+	const { updateProfile } = useProfileHelper();
 
-	console.log(user);
+	// useEffect(() => {
+	// 	if (user.loaded) {
+	// 		setTasks([
+	// 			{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => router.push("/user/my-account/verification") },
+	// 			{ title: "Join or register an org", progress: user.org ? 100 : 0, clickHandler: () => router.push("/user/my-account/org") },
+	// 			{
+	// 				title: "Teaching my first project",
+	// 				progress: user.saves.teachingFirst === "done" ? 100 : 0,
+	// 				clickHandler: () => {
+	// 					setPopup(teachingContent);
+	// 					setUser((state) => ({ ...state, saves: { ...state.saves, teachingFirst: "done" } }));
+	// 					updateProfile({
+	// 						details: { saves: { teachingFirst: "done" } },
+	// 						successHandler: () => {
+	// 							setTasks((state) => state.map((task, i) => (i === 2 ? { ...task, progress: 100 } : task)));
+	// 						},
+	// 					});
+	// 				},
+	// 			},
+	// 			{
+	// 				title: "Check out the support tab",
+	// 				progress: user.saves.checkedSupport === "done" ? 100 : 0,
+	// 				clickHandler: () => {
+	// 					console.log("saving");
+	// 					setUser((state) => ({ ...state, saves: { ...state.saves, checkedSupport: "done" } }));
+	// 					updateProfile({
+	// 						details: { saves: { checkedSupport: "done" } },
+	// 						successHandler: () => {},
+	// 					});
+	// 					router.push("/support");
+	// 				},
+	// 			},
+	// 		]);
+	// 	}
+	// }, [user.loaded]);
 
-	useEffect(() => {
-		if (user.loaded) {
-			setTasks([
-				{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => router.push("/user/my-account/verification") },
-				{ title: "Join or register an org", progress: user.org ? 100 : 0, clickHandler: () => router.push("/user/my-account/org") },
-				{
-					title: "Teaching my first project",
-					progress: user.saves.teachingFirst === "done" ? 100 : 0,
-					clickHandler: () => {
-						setPopup(teachingContent);
-						setUser((state) => ({ ...state, saves: { ...state.saves, teachingFirst: "done" } }));
-						updateProfile({
-							details: { saves: { teachingFirst: "done" } },
-							successHandler: () => {
-								setTasks((state) => state.map((task, i) => (i === 2 ? { ...task, progress: 100 } : task)));
-							},
-						});
-					},
-				},
-				{
-					title: "Check out the support tab",
-					progress: user.saves.checkedSupport === "done" ? 100 : 0,
-					clickHandler: () => {
-						console.log("saving");
-						setUser((state) => ({ ...state, saves: { ...state.saves, checkedSupport: "done" } }));
-						updateProfile({
-							details: { saves: { checkedSupport: "done" } },
-							successHandler: () => {},
-						});
-						router.push("/support");
-					},
-				},
-			]);
-		}
-	}, [user.loaded]);
-
-	useEffect(() => {
-		if (user.verified) setTasks((state) => state.map((task, i) => (i === 0 ? { ...task, progress: 100 } : task)));
-	}, [user.verified]);
+	// useEffect(() => {
+	// 	if (user.verified) setTasks((state) => state.map((task, i) => (i === 0 ? { ...task, progress: 100 } : task)));
+	// }, [user.verified]);
 
 	return (
 		<div className={classes.onboarding}>
@@ -81,10 +82,10 @@ const Onboarding = ({ user, setUser }) => {
 				<meta name="description" content="Get to know the platform by completing all the onboarding tasks" />
 			</Head>
 			<h1 className={classes.h1}>
-				Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {user.displayName} 👋
+				Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {userSession.firstName} 👋
 			</h1>
 			<div className={classes.main}>
-				<div className={classes.tasks}>
+				{/* <div className={classes.tasks}>
 					<h2 className={classes.h2}>Onboarding tasks</h2>
 					<div className={classes.divider} />
 					{tasks.map((task, i) => (
@@ -101,9 +102,17 @@ const Onboarding = ({ user, setUser }) => {
 						<h2 className={classes.h2}>{popup.title}</h2>
 						<p>{popup.content}</p>
 					</div>
-				)}
+				)} */}
 			</div>
 		</div>
+	);
+};
+
+Onboarding.getLayout = (page) => {
+	return (
+		<MainLayout page="onboarding" auth="teacher">
+			{page}
+		</MainLayout>
 	);
 };
 

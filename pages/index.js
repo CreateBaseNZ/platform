@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,8 @@ import WhiteLogo, { FBIcon, IGIcon, TwitterIcon, YTIcon } from "/components/UI/I
 import axios from "axios";
 
 import classes from "/styles/Index.module.scss";
-import router from "next/router";
+import { useRouter } from "next/router";
+import UserSessionContext from "../store/user-session";
 
 // const Index = ({ setLoaded }) => {
 // 	const { session, loading } = useSession();
@@ -362,19 +363,20 @@ import router from "next/router";
 // };
 
 const Index = () => {
-	const { data: session, status: sessionStatus } = useSession();
+	const router = useRouter();
+	const { userSession } = useContext(UserSessionContext);
 
-	if (sessionStatus === "loading") return null;
+	console.log("index");
 
-	// TODO replace
-	const DUMMY_SESSION = {};
-	// if (session) {
-	if (DUMMY_SESSION) {
+	if (userSession.email) {
 		router.replace("/browse");
 	} else {
-		router.replace("/auth");
+		router.replace("/authent");
 	}
+
 	return null;
 };
+
+Index.auth = { authent: false, authoris: "none" };
 
 export default Index;

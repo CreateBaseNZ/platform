@@ -7,6 +7,8 @@ import { UserSessionContextProvider } from "../store/user-session";
 import "../styles/globals.scss";
 import { VisualBellContextProvider } from "../store/visual-bell-context";
 import VisualBell from "../components/VisualBell";
+import { useRouter } from "next/router";
+import AuthGuard from "../components/Auth/AuthGuard";
 
 // function MyApp({ Component, pageProps }) {
 // 	const [loaded, setLoaded] = useState(false);
@@ -57,7 +59,9 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 
 	return (
 		<SessionProvider session={session}>
-			<UserSessionContextProvider>{getLayout(<Component {...pageProps} />)}</UserSessionContextProvider>
+			<UserSessionContextProvider>
+				<AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard>
+			</UserSessionContextProvider>
 		</SessionProvider>
 	);
 };

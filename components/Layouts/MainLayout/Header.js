@@ -5,9 +5,9 @@ import { signOut } from "next-auth/react";
 import UserAvatar from "../../UI/UserAvatar";
 import { PrimaryButton, SecondaryButton } from "../../UI/Buttons";
 import { ColourLogoIcon } from "../../UI/Icons";
+import DEFAULT_TABS from "../../../constants/mainTabs";
 
 import classes from "./Header.module.scss";
-import DEFAULT_TABS from "../../../constants/viewTabs";
 
 const Header = ({ userSession, navIsCollapsed, toggleNavHandler }) => {
 	const [showDropdown, setShowDropdown] = useState(false);
@@ -48,13 +48,13 @@ const Header = ({ userSession, navIsCollapsed, toggleNavHandler }) => {
 					</div>
 				</div>
 			) : (
-				<div className={classes.auth}>
-					<Link href={{ pathname: "/auth", query: { action: "signup" } }}>
+				<div className={classes.authent}>
+					<Link href={{ pathname: "/authent", query: { action: "signup" } }}>
 						<div style={{ alignSelf: "center" }}>
 							<PrimaryButton className={classes.signUp} mainLabel="Sign up" />
 						</div>
 					</Link>
-					<Link href={{ pathname: "/auth", query: { action: "login" } }}>
+					<Link href={{ pathname: "/authent", query: { action: "login" } }}>
 						<div style={{ alignSelf: "center" }}>
 							<SecondaryButton className={classes.logIn} mainLabel="Log in" />
 						</div>

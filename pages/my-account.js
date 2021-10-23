@@ -4,8 +4,12 @@ const MyAccount = () => {
 	return <div>My Groups page</div>;
 };
 
-MyAccount.getLayout = function getLayout(page) {
-	return <MainLayout page="classes">{page}</MainLayout>;
+MyAccount.getLayout = (page) => {
+	return (
+		<MainLayout page="my-account" auth="student">
+			{page}
+		</MainLayout>
+	);
 };
 
 export default MyAccount;

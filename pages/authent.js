@@ -1,13 +1,12 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { ColourLogo } from "../components/UI/Icons";
-import AuthCard from "../components/Auth/AuthCard";
+import AuthentCard from "../components/Auth/AuthentCard";
 import ForgotPassword from "../components/Auth/ForgotPassword";
 
-import classes from "/styles/authView.module.scss";
+import classes from "/styles/authent.module.scss";
 
 const setHeadTitle = (action) => {
 	switch (action) {
@@ -22,30 +21,18 @@ const setHeadTitle = (action) => {
 	}
 };
 
-const Auth = () => {
+const Authent = () => {
 	const router = useRouter();
-	const { data: session, status: sessionStatus } = useSession();
-	const [authAction, setAuthAction] = useState("signup");
-
-	console.log(authAction);
+	const [authentAction, setAuthentAction] = useState("signup");
 
 	useEffect(() => {
-		if (sessionStatus !== "loading") {
-			setAuthAction(router?.query?.action || "signup");
-		}
-	}, [sessionStatus, router.query.action]);
-
-	if (sessionStatus === "loading") return null;
-
-	if (session) {
-		router.replace("/");
-		return null;
-	}
+		setAuthentAction(router?.query?.action || "signup");
+	}, [router.query.action]);
 
 	return (
-		<div className={classes.authView}>
+		<div className={classes.authentView}>
 			<Head>
-				<title>{`${setHeadTitle(authAction)} | CreateBase`}</title>
+				<title>{`${setHeadTitle(authentAction)} | CreateBase`}</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
 			<div className={classes.squiggle}>
@@ -63,13 +50,18 @@ const Auth = () => {
 			<div className={classes.logo}>
 				<ColourLogo />
 			</div>
-			<div className={classes.authMain}>
-				{authAction === "signup" && <AuthCard isSignup={true} />}
-				{authAction === "login" && <AuthCard isSignup={false} />}
-				{authAction === "forgot-password" && <ForgotPassword code={router?.query?.ocl} email={router?.query?.email} />}
+			<div className={classes.authentMain}>
+				{authentAction === "signup" && <AuthentCard isSignup={true} />}
+				{authentAction === "login" && <AuthentCard isSignup={false} />}
+				{authentAction === "forgot-password" && <ForgotPassword code={router?.query?.ocl} email={router?.query?.email} />}
 			</div>
 		</div>
 	);
 };
 
-export default Auth;
+Authent.auth = {
+	authent: false,
+	authoris: "none",
+};
+
+export default Authent;

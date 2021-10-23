@@ -4,8 +4,12 @@ const MyGroups = () => {
 	return <div>My Groups page</div>;
 };
 
-MyGroups.getLayout = function getLayout(page) {
-	return <MainLayout page="classes">{page}</MainLayout>;
+MyGroups.getLayout = (page) => {
+	return (
+		<MainLayout page="my-groups" auth="student">
+			{page}
+		</MainLayout>
+	);
 };
 
 export default MyGroups;

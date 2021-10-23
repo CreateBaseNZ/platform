@@ -11,7 +11,7 @@ import { passwordMinLength, passwordValidate } from "../../utils/formValidation"
 
 const codeLength = 6;
 
-import classes from "./AuthForms.module.scss";
+import classes from "./AuthentForms.module.scss";
 
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	const [isLoading, setIsLoading] = useState(false);

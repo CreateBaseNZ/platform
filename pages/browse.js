@@ -51,7 +51,7 @@ const Browse = (props) => {
 	);
 };
 
-Browse.getLayout = function getLayout(page) {
+Browse.getLayout = (page) => {
 	return <MainLayout page="browse">{page}</MainLayout>;
 };
 

@@ -1,39 +1,11 @@
 import Link from "next/link";
 import { ColourLogo } from "../../UI/Icons";
-import viewTabs, { SCHOOL_ADMIN_TABS, SCHOOL_STUDENT_TABS } from "../../../constants/viewTabs";
+import DEFAULT_TABS, { MAIN_TABS } from "../../../constants/mainTabs";
 import classes from "./Nav.module.scss";
-import DEFAULT_TABS from "../../../constants/viewTabs";
 
-const getTabs = (userSession) => {
-	if (userSession.email) {
-		const groupType = userSession.view.groupType;
-		if (groupType === "school") {
-			switch (userSession.view.userType) {
-				case "admin":
-					return SCHOOL_ADMIN_TABS;
-				case "teacher":
-					return SCHOOL_STUDENT_TABS;
-				case "student":
-					return SCHOOL_STUDENT_TABS;
-				default:
-					return [];
-			}
-		} else if (groupType === "family") {
-			// TODO family tabs
-			return [];
-		}
-	} else {
-		return [];
-	}
-};
-
-// TODO refactor routes to be cleaner
 const Nav = ({ page, userSession }) => {
-	console.log(page);
-	const tabs = getTabs(userSession);
-	const activeTab = [...tabs, { page: null }, ...DEFAULT_TABS].findIndex((t) => page === t.page);
-
-	console.log(activeTab);
+	const tabs = MAIN_TABS[userSession?.view?.groupType][userSession?.view?.userType] || [];
+	const activeTab = [...tabs, { page: null }, ...DEFAULT_TABS].findIndex((t) => t.page === page);
 
 	return (
 		<nav className={classes.nav}>

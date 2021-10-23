@@ -116,8 +116,12 @@ const Support = () => {
 	);
 };
 
-Support.getLayout = function getLayout(page) {
-	return <MainLayout page="support">{page}</MainLayout>;
+Support.getLayout = (page) => {
+	return (
+		<MainLayout page="support" auth="student">
+			{page}
+		</MainLayout>
+	);
 };
 
 export default Support;

@@ -3,9 +3,9 @@ import { LoginForm } from "./LoginForm";
 import Img from "../UI/Img";
 import SignupForm from "./SignupForm";
 
-import classes from "./AuthCard.module.scss";
+import classes from "./AuthentCard.module.scss";
 
-const AuthCard = ({ isSignup }) => {
+const AuthentCard = ({ isSignup }) => {
 	return (
 		<>
 			<div className={`${classes.imgContainer} ${isSignup ? classes.signup : classes.login}`}>
@@ -26,4 +26,4 @@ const AuthCard = ({ isSignup }) => {
 	);
 };
 
-export default AuthCard;
+export default AuthentCard;
