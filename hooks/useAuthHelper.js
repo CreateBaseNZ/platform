@@ -8,7 +8,7 @@ import router from "next/router";
 const useAuthHelper = () => {
 	const { handleResponse } = useHandleResponse();
 
-	const signUp = async ({ details, failHandler = () => {}, successHandler = () => {} }) => {
+	const signUp = async ({ details, failHandler, successHandler }) => {
 		let data = {};
 		try {
 			// TODO rename this api route (exclude /educator)
@@ -20,7 +20,7 @@ const useAuthHelper = () => {
 		}
 	};
 
-	const logIn = async ({ email, password, failHandler = () => {}, callbackUrl }) => {
+	const logIn = async ({ email, password, failHandler, callbackUrl }) => {
 		const result = await signIn("credentials", {
 			redirect: false,
 			user: email,
@@ -38,7 +38,7 @@ const useAuthHelper = () => {
 		}
 	};
 
-	const sendForgotPasswordCode = async ({ details, failHandler = () => {}, successHandler = () => {} }) => {
+	const sendForgotPasswordCode = async ({ details, failHandler, successHandler }) => {
 		let data = {};
 		try {
 			data = (await axios.post("/api/auth/reset-password-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
@@ -49,7 +49,7 @@ const useAuthHelper = () => {
 		}
 	};
 
-	const resetPassword = async ({ details, failHandler = () => {}, successHandler = () => {} }) => {
+	const resetPassword = async ({ details, failHandler, successHandler }) => {
 		let data = {};
 		try {
 			data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
@@ -60,7 +60,7 @@ const useAuthHelper = () => {
 		}
 	};
 
-	const verifyAccount = async ({ details, failHandler = () => {}, successHandler = () => {} }) => {
+	const verifyAccount = async ({ details, failHandler, successHandler }) => {
 		let data = {};
 		try {
 			data = (await axios.post("/api/auth/account-verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
@@ -71,7 +71,7 @@ const useAuthHelper = () => {
 		}
 	};
 
-	const resendVerificationCode = async ({ successHandler = () => {} }) => {
+	const resendVerificationCode = async ({ successHandler }) => {
 		let data = {};
 		try {
 			data = (await axios.post("/api/auth/account-verification-email", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];

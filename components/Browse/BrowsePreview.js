@@ -68,7 +68,7 @@ const BrowsePreview = ({ project, userType }) => {
 				</div>
 				<Link href={`/project/${project.query}`}>
 					<div>
-						<SecondaryButton className={classes.continueBtn} mainLabel="Go" iconRight={<i className="material-icons-outlined">play_arrow</i>} />
+						<SecondaryButton className={classes.continueBtn} mainLabel="Continue" iconRight={<i className="material-icons-outlined">play_arrow</i>} />
 					</div>
 				</Link>
 			</div>

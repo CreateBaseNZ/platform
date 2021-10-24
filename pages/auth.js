@@ -32,7 +32,7 @@ const Auth = () => {
 	return (
 		<div className={classes.authView}>
 			<Head>
-				<title>{`${setHeadTitle(authAction)} | CreateBase`}</title>
+				<title>{setHeadTitle(authAction)} | CreateBase</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
 			<div className={classes.squiggle}>

@@ -1,7 +1,7 @@
 import router from "next/router";
 
 const useHandleResponse = () => {
-	const handleResponse = ({ data, failHandler, successHandler }) => {
+	const handleResponse = ({ data, failHandler = () => {}, successHandler = () => {} }) => {
 		switch (data.status) {
 			case "critical error":
 				return router.push("/404");
@@ -10,7 +10,7 @@ const useHandleResponse = () => {
 			case "failed":
 				return failHandler();
 			default:
-				return successHandler();
+				return successHandler(data);
 		}
 	};
 

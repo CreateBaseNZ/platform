@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import VisualBellContext from "../store/visual-bell-context";
+import useHandleResponse from "./useHandleResponse";
 
 export const getOrgDataAPI = async (criticalHandler) => {
 	let orgData;
@@ -19,16 +20,6 @@ export const getOrgDataAPI = async (criticalHandler) => {
 		educators: orgData.content.numberOfLicenses.educator,
 		learners: orgData.content.numberOfLicenses.learner,
 	};
-};
-
-const getOrgUsersAPI = async (criticalHandler) => {
-	let data;
-	try {
-		data = (await axios.post("/api/organisation/admin/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	return data.content;
 };
 
 const createOrgAPI = async (details, criticalHandler, errorHandler, failHandler, successHandler) => {
@@ -129,25 +120,13 @@ const acceptEmailInvitationAPI = async (details, criticalHandler, errorHandler, 
 	return successHandler();
 };
 
-const changeUserPasswordAPI = async (details, criticalHandler, successHandler) => {
-	let data;
-	console.log(details);
-	try {
-		data = (await axios.post("/api/organisation/admin/update-learner-license", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
-	} catch (error) {
-		return criticalHandler();
-	}
-	console.log(data);
-	return successHandler();
-};
-
 const useOrganisationHelper = () => {
-	// TODO call setBell with useContext instead of taking as an argument
-	const { setBell } = useContext(VisualBellContext);
+	const { setVisualBell } = useContext(VisualBellContext);
+	const { handleResponse } = useHandleResponse();
 
 	const getOrgData = async (
 		criticalHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			})
@@ -155,35 +134,52 @@ const useOrganisationHelper = () => {
 		return getOrgDataAPI(criticalHandler);
 	};
 
-	const getOrgUsers = async (
-		criticalHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			})
-	) => {
-		return getOrgUsersAPI(criticalHandler);
+	const getOrgUsers = async ({ successHandler }) => {
+		let data = {};
+		try {
+			// data = (await axios.post("/api/organisation/admin/read", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY }))["data"];
+			data = {
+				status: "success",
+				users: {
+					students: [
+						{ firstName: "John", lastName: "Doe", email: "johndoe@gmail.com" },
+						{ firstName: "Doe", lastName: "John", email: "doejohn@gmail.com" },
+						{ firstName: "Dohn", lastName: "Joe", email: "dohnjoe@gmail.com" },
+					],
+					teachers: [
+						{ firstName: "Jane", lastName: "Smith", email: "janesmith@gmail.com" },
+						{ firstName: "Smith", lastName: "Jane", email: "smithjane@gmail.com" },
+						{ firstName: "Sane", lastName: "Jith", email: "sanejith@gmail.com" },
+					],
+					admins: [{ firstName: "Bob", lastName: "Turd", email: "bubturd@gmail.com" }],
+				},
+			};
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			return handleResponse({ data, successHandler });
+		}
 	};
 
 	const createOrg = ({
 		details,
 		criticalHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
 		errorHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
 		failHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "error",
 				message: "Oops! An error occurred, please try again",
 			}),
 		successHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "success",
 				message: "Success!",
 			}),
@@ -194,22 +190,22 @@ const useOrganisationHelper = () => {
 	const joinOrgEducator = async ({
 		details,
 		criticalHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
 		errorHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
 		failHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "error",
 				message: "Oops! An error occurred, please try again",
 			}),
 		successHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "success",
 				message: "Success!",
 			}),
@@ -219,7 +215,7 @@ const useOrganisationHelper = () => {
 
 	const getEducatorLink = async (
 		criticalHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			})
@@ -229,7 +225,7 @@ const useOrganisationHelper = () => {
 
 	const getLearnerLink = async (
 		criticalHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			})
@@ -240,22 +236,22 @@ const useOrganisationHelper = () => {
 	const sendEmailInvitation = async ({
 		details,
 		criticalHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
 		errorHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
 		failHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "error",
 				message: "Oops! An error occurred, please try again",
 			}),
 		successHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "success",
 				message: "Success!",
 			}),
@@ -266,22 +262,22 @@ const useOrganisationHelper = () => {
 	const acceptEmailInvitation = async ({
 		details,
 		criticalHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
 		errorHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "catastrophe",
 				message: "Oops! Something went wrong, please refresh the page and try again",
 			}),
 		failHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "error",
 				message: "Oops! An error occurred, please try again",
 			}),
 		successHandler = () =>
-			setBell({
+			setVisualBell({
 				type: "success",
 				message: "Success!",
 			}),
@@ -289,23 +285,7 @@ const useOrganisationHelper = () => {
 		acceptEmailInvitationAPI(details, criticalHandler, errorHandler, failHandler, successHandler);
 	};
 
-	const changeUserPassword = async ({
-		details,
-		criticalHandler = () =>
-			setBell({
-				type: "catastrophe",
-				message: "Oops! Something went wrong, please refresh the page and try again",
-			}),
-		successHandler = () =>
-			setBell({
-				type: "success",
-				message: "Success!",
-			}),
-	}) => {
-		return changeUserPasswordAPI(details, criticalHandler, successHandler);
-	};
-
-	return { getOrgData, getOrgUsers, createOrg, joinOrgEducator, getEducatorLink, getLearnerLink, sendEmailInvitation, acceptEmailInvitation, changeUserPassword };
+	return { getOrgData, getOrgUsers, createOrg, joinOrgEducator, getEducatorLink, getLearnerLink, sendEmailInvitation, acceptEmailInvitation };
 };
 
 export default useOrganisationHelper;

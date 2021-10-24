@@ -1,13 +1,5 @@
-import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
+import ManageGroup from "../../components/ManageGroup/ManageGroup";
 
-const ManageGroup = () => {
-	return <div>Manage school page</div>;
-};
+const ManageGroupRoot = ManageGroup;
 
-ManageGroup.getLayout = function getLayout(page) {
-	return <MainLayout page="manage-group">{page}</MainLayout>;
-};
-
-ManageGroup.authorisation = "admin";
-
-export default ManageGroup;
+export default ManageGroupRoot;
