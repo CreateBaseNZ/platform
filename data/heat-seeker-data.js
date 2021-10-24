@@ -14,7 +14,7 @@ import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSu
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 export default {
-	name: "Heat Seeker (Early Access)",
+	name: "Heat Seeker",
 	query: "heat-seeker",
 	caption:
 		"In this Project, learners will create an algorithm to guide a line-following robot to a series of fires within a warehouse, putting them out safely before they spread to nearby hydrogen fuel cells! Learners will not only create their own control-algorithm, but will also learn about some of the basics of fire safety, warehouse automation, and the advantage that robots have over humans when operating in hazardous situations.",
@@ -241,7 +241,7 @@ export default {
 				modules: [
 					{
 						type: "task",
-						title: "Task: Fire Fighting",
+						title: "Task: Fire fighting",
 						url: "/heat-seeker/files/Research-01-heat-seeker.pdf",
 					},
 					{
