@@ -16,9 +16,6 @@ ManageSchoolTab.getLayout = (page) => {
 	);
 };
 
-ManageSchoolTab.auth = {
-	authent: "authenticated",
-	authoris: "admin",
-};
+ManageSchoolTab.authorisation = "admin";
 
 export default ManageSchoolTab;

@@ -60,7 +60,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	return (
 		<SessionProvider session={session}>
 			<UserSessionContextProvider>
-				<AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard>
+				<AuthGuard authorisation={Component.authorisation}>{getLayout(<Component {...pageProps} />)}</AuthGuard>
 			</UserSessionContextProvider>
 		</SessionProvider>
 	);

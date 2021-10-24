@@ -54,7 +54,9 @@
 	position: absolute;
 	left: 2vw;
 	bottom: 1rem;
+	width: calc(100% - 4vw);
 	font-weight: 600;
 	font-size: 20px;
 	color: white;
+	text-align: left;
 }

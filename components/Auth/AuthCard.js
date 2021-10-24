@@ -3,9 +3,9 @@ import { LoginForm } from "./LoginForm";
 import Img from "../UI/Img";
 import SignupForm from "./SignupForm";
 
-import classes from "./AuthentCard.module.scss";
+import classes from "./AuthCard.module.scss";
 
-const AuthentCard = ({ isSignup }) => {
+const AuthCard = ({ isSignup, redirect }) => {
 	return (
 		<>
 			<div className={`${classes.imgContainer} ${isSignup ? classes.signup : classes.login}`}>
@@ -21,9 +21,9 @@ const AuthentCard = ({ isSignup }) => {
 					</div>
 				</div>
 			</div>
-			<div className={`${classes.formContainer} roundScrollbar`}>{isSignup ? <SignupForm /> : <LoginForm />}</div>
+			<div className={`${classes.formContainer} roundScrollbar`}>{isSignup ? <SignupForm /> : <LoginForm redirect={redirect} />}</div>
 		</>
 	);
 };
 
-export default AuthentCard;
+export default AuthCard;

@@ -1,4 +1,4 @@
-export const STUDENT_TABS = ["Overview"];
-export const TEACHER_TABS = ["Overview", "Teaching", "Learning"];
-export const ADMIN_TABS = ["Overview", "Teaching", "Learning"];
-export const MEMBER_TABS = ["Overview"];
+export const STUDENT_TABS = ["overview"];
+export const TEACHER_TABS = ["overview", "teaching", "learning"];
+export const ADMIN_TABS = ["overview", "teaching", "learning"];
+export const MEMBER_TABS = ["overview"];

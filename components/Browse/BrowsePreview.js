@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
 import { ADMIN_TABS, MEMBER_TABS, STUDENT_TABS, TEACHER_TABS } from "../../constants/browseTabs";
 
 import classes from "./BrowsePreview.module.scss";
+import { useRouter } from "next/router";
 
 const getTabs = (type) => {
-	console.log(type);
 	switch (type) {
 		case "student":
 			return STUDENT_TABS;
@@ -23,28 +24,30 @@ const getTabs = (type) => {
 };
 
 const BrowsePreview = ({ project, userType }) => {
-	const ref = useRef();
-	const [tab, setTab] = useState(0);
+	const router = useRouter();
+	const [tab, setTab] = useState(getTabs(userType)[0]);
 	const [videoLoaded, setVideoLoaded] = useState(false);
 
 	useEffect(() => {
-		return () => (ref.current = false);
-	}, []);
+		const tab = router?.query?.tab;
+		const queriedStep = getTabs(userType).find((t) => t === tab);
+		if (queriedStep) {
+			setTab(queriedStep);
+		}
+	}, [router.query.tab]);
 
 	useEffect(() => {
 		setVideoLoaded(false);
 	}, [project]);
 
 	const canPlayHandler = () => {
-		if (ref.current) {
-			window.requestAnimationFrame(() => setVideoLoaded(true));
-		}
+		window.requestAnimationFrame(() => setVideoLoaded(true));
 	};
 
 	return (
 		<div className={classes.preview}>
 			<div className={classes.vidContainer}>
-				<video ref={ref} src={`/${project.query}/vid/situation.mp4`} autoPlay={true} muted={true} className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`} onCanPlay={canPlayHandler}>
+				<video src={`/${project.query}/vid/situation.mp4`} autoPlay={true} muted={true} className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`} onCanPlay={canPlayHandler}>
 					<source type="video/mp4" />
 				</video>
 			</div>
@@ -52,16 +55,16 @@ const BrowsePreview = ({ project, userType }) => {
 				<h1 className={classes.h1}>{project.name}</h1>
 
 				<div className={classes.tabContainer}>
-					{getTabs(userType).map((t, i) => (
-						<button key={i} className={`${classes.tab} ${tab === i ? classes.active : ""}`} onClick={() => setTab(i)}>
-							{t}
-						</button>
+					{getTabs(userType).map((t) => (
+						<Link key={t} href={`/browse/${project.query}/${t}`}>
+							<button className={`${classes.tab} ${tab === t ? classes.active : ""}`}>{t}</button>
+						</Link>
 					))}
 				</div>
 				<div className={classes.container}>
-					{tab === 0 && <BrowseOverview project={project} userType={userType} />}
-					{tab === 1 && <BrowseTeaching project={project} />}
-					{tab === 2 && <BrowseLearning learnings={project.learnings} />}
+					{tab === "overview" && <BrowseOverview project={project} userType={userType} />}
+					{tab === "teaching" && <BrowseTeaching project={project} />}
+					{tab === "learning" && <BrowseLearning learnings={project.learnings} />}
 				</div>
 			</div>
 		</div>

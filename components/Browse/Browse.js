@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import MainLayout from "../components/Layouts/MainLayout/MainLayout";
-import BrowseThumb from "../components/Browse/BrowseThumb";
-import BrowsePreview from "../components/Browse/BrowsePreview";
-import { allData } from "../utils/getProjectData";
+import UserSessionContext from "../../store/user-session";
+import MainLayout from "../Layouts/MainLayout/MainLayout";
+import BrowseThumb from "./BrowseThumb";
+import BrowsePreview from "./BrowsePreview";
+import { allData } from "../../utils/getProjectData";
 
 import "overlayscrollbars/css/OverlayScrollbars.css";
 import classes from "/styles/browse.module.scss";
-import UserSessionContext from "../store/user-session";
 
 const Browse = () => {
 	const router = useRouter();
@@ -18,7 +18,7 @@ const Browse = () => {
 
 	useEffect(() => {
 		const query = router?.query?.project;
-		const queriedProject = allData.filter((data) => data.query === query)[0];
+		const queriedProject = allData.find((data) => data.query === query);
 		if (queriedProject) {
 			setActiveProject(queriedProject);
 		}
@@ -52,9 +52,6 @@ Browse.getLayout = (page) => {
 	return <MainLayout page="browse">{page}</MainLayout>;
 };
 
-Browse.auth = {
-	authent: "authenticated",
-	authoris: "any",
-};
+Browse.authorisation = "user";
 
 export default Browse;

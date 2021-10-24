@@ -9,8 +9,8 @@ import Input, { PasswordInput } from "../UI/Input";
 import { isBlacklisted } from "../../utils/formValidation";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
 import { logIn } from "../../utils/authHelpers";
-import classes from "./AuthentForms.module.scss";
 import useAuthHelper from "../../hooks/useAuthHelper";
+import classes from "./AuthForms.module.scss";
 
 const SignupForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +67,7 @@ const SignupForm = () => {
 						});
 					},
 					() => {
-						router.replace({ pathname: "/authent", query: { action: "login" } });
+						router.replace({ pathname: "/auth", query: { action: "login" } });
 						setVisualBell({
 							type: "success",
 							message: "Success! Your account has been created, log in to continue",

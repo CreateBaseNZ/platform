@@ -2,56 +2,50 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import UserSessionContext from "../../store/user-session";
 
-const hasAccess = (userType, authoris) => {
-	switch (authoris) {
-		case "any":
-			return true;
+const hasAccess = (userType, authorisation) => {
+	switch (authorisation) {
 		case "admin":
 			return userType === "admin";
 		case "staff":
 			return userType === "admin" || userType === "teacher";
 		default:
-			return false;
+			return true;
 	}
 };
 
-const AuthGuard = ({ children, auth }) => {
+const AuthGuard = ({ children, authorisation }) => {
 	const router = useRouter();
 	const { sessionLoaded, userSession } = useContext(UserSessionContext);
+	// TODO app loading page
 	const [render, setRender] = useState(<div>App loading</div>);
 
-	console.log(children);
-	console.log(auth);
+	console.log(authorisation);
+	console.log(router);
 
 	useEffect(() => {
-		console.log("this ran");
-		if (sessionLoaded && auth) {
-			if (auth.authent === "either") {
-				setRender(children);
-			} else if (auth.authent === "unauthenticated") {
-				if (userSession.email) {
-					console.log("not require authentication but is authenticated");
-					router.replace("/browse");
-					setRender(null);
+		if (sessionLoaded) {
+			if (authorisation) {
+				if (!userSession.email && router.route !== "/auth") {
+					router.replace({ pathname: "/auth", query: { action: "signup", redirect: router.asPath } });
+				} else if (!userSession.verified && router.route !== "/verify") {
+					router.replace("/verify");
+				} else if (router.route === "/verify" && userSession.verified) {
+					router.replace("/");
+				} else if (!hasAccess(userSession.view.userType, authorisation)) {
+					setRender(<div>Not authorised</div>);
 				} else {
-					console.log("not require authentication and not authenticated");
 					setRender(children);
 				}
 			} else {
-				if (!userSession.email) {
-					router.replace({ pathname: "/authent", query: { action: "signup", redirect: router.asPath } });
-					setRender(null);
-				} else if (hasAccess(userSession.view.userType, auth.authoris)) {
-					setRender(children);
+				if (router.route === "/auth" && userSession.email) {
+					router.replace("/");
 				} else {
-					// TODO not authorised page
-					setRender(<div>Not authorised</div>);
+					setRender(children);
 				}
 			}
 		}
-	}, [sessionLoaded, userSession, auth, children]);
+	}, [sessionLoaded, userSession, children, router]);
 
-	// TODO app loading page
 	return render;
 };
 

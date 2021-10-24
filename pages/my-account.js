@@ -8,9 +8,6 @@ MyAccount.getLayout = (page) => {
 	return <MainLayout page="my-account">{page}</MainLayout>;
 };
 
-MyAccount.auth = {
-	authent: "authenticated",
-	authoris: "any",
-};
+MyAccount.authorisation = "user";
 
 export default MyAccount;

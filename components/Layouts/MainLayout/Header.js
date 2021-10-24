@@ -48,13 +48,13 @@ const Header = ({ userSession, navIsCollapsed, toggleNavHandler }) => {
 					</div>
 				</div>
 			) : (
-				<div className={classes.authent}>
-					<Link href={{ pathname: "/authent", query: { action: "signup" } }}>
+				<div className={classes.auth}>
+					<Link href={{ pathname: "/auth", query: { action: "signup" } }}>
 						<div style={{ alignSelf: "center" }}>
 							<PrimaryButton className={classes.signUp} mainLabel="Sign up" />
 						</div>
 					</Link>
-					<Link href={{ pathname: "/authent", query: { action: "login" } }}>
+					<Link href={{ pathname: "/auth", query: { action: "login" } }}>
 						<div style={{ alignSelf: "center" }}>
 							<SecondaryButton className={classes.logIn} mainLabel="Log in" />
 						</div>

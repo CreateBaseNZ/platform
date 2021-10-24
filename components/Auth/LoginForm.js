@@ -4,10 +4,10 @@ import Link from "next/link";
 import router from "next/router";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
-import classes from "./AuthentForms.module.scss";
+import classes from "./AuthForms.module.scss";
 import useAuthHelper from "../../hooks/useAuthHelper";
 
-export const LoginForm = () => {
+export const LoginForm = ({ redirect }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { logIn } = useAuthHelper();
 	const {
@@ -39,8 +39,7 @@ export const LoginForm = () => {
 				});
 				setIsLoading(false);
 			},
-			// TODO redirect
-			// redirect: '/'
+			successHandler: () => router.push(redirect || "/"),
 		});
 	};
 

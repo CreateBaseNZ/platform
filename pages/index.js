@@ -372,13 +372,11 @@ const Index = () => {
 		if (userSession.email) {
 			router.replace("/browse");
 		} else {
-			router.replace("/authent");
+			router.replace("/auth");
 		}
 	}, [userSession]);
 
 	return null;
 };
-
-Index.auth = { authent: "either", authoris: "any" };
 
 export default Index;

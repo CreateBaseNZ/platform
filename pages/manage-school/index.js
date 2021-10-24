@@ -8,9 +8,6 @@ ManageSchool.getLayout = function getLayout(page) {
 	return <MainLayout page="manage-school">{page}</MainLayout>;
 };
 
-ManageSchool.auth = {
-	authent: "authenticated",
-	authoris: "admin",
-};
+ManageSchool.authorisation = "admin";
 
 export default ManageSchool;

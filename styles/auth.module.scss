@@ -1,6 +1,6 @@
 @import "/styles/variables";
 
-.authentView {
+.authView {
 	height: 100vh;
 	width: 100vw;
 	display: flex;
@@ -91,7 +91,7 @@
 	color: $light;
 }
 
-.authentMain {
+.authMain {
 	background: white;
 	border-radius: 32px;
 	box-shadow: 0 8px 24px 0 rgba(black, 0.1);
@@ -100,4 +100,7 @@
 	width: 70vw;
 	max-width: 1000px;
 	z-index: 1;
+	&.verifyMain {
+		width: 500px;
+	}
 }

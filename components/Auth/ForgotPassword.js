@@ -11,7 +11,7 @@ import { passwordMinLength, passwordValidate } from "../../utils/formValidation"
 
 const codeLength = 6;
 
-import classes from "./AuthentForms.module.scss";
+import classes from "./AuthForms.module.scss";
 
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +124,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 	};
 
 	return (
-		<form className={`${classes.form} ${classes.forgotForm} ${classes.forgotTwoForm}`}>
+		<form className={`${classes.form} ${classes.forgotForm} ${classes.codeForm}`}>
 			<h1>Verification code</h1>
 			<div className={classes.instructions}>Enter the verification code sent to your email</div>
 			<div className={classes.verifCode}>

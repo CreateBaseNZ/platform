@@ -5,7 +5,7 @@ const UserSessionContext = createContext({
 		email: "",
 		firstName: "",
 		lastName: "",
-		verified: false,
+		verified: true,
 		view: null,
 		recentGroups: [],
 	},
@@ -21,9 +21,11 @@ const defaultUserSession = {
 	email: "louiscflin@gmail.com",
 	firstName: "Louis",
 	lastName: "Lin",
+	verified: true,
 	view: {
 		groupType: "school",
 		userType: "teacher",
+		groupName: "Somerville Intermediate School",
 	},
 	recentGroups: [
 		{ name: "Somerville Intermediate School", type: "school" },
