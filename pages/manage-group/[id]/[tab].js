@@ -1,12 +1,12 @@
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
-import MANAGE_SCHOOL_TABS from "../../../constants/manageSchoolTabs";
+import { MANAGE_SCHOOL_TABS, MANAGE_FAMILY_TABS } from "../../../constants/manageGroupTabs";
 
-const ManageSchoolTab = () => {
+const ManageGroup = () => {
 	return <div>Manage school tab</div>;
 };
 
-ManageSchoolTab.getLayout = (page) => {
+ManageGroup.getLayout = (page) => {
 	return (
 		<MainLayout page="classes">
 			<InnerLayout tabs={MANAGE_SCHOOL_TABS} showBack={false}>
@@ -16,6 +16,6 @@ ManageSchoolTab.getLayout = (page) => {
 	);
 };
 
-ManageSchoolTab.authorisation = "admin";
+ManageGroup.authorisation = "admin";
 
-export default ManageSchoolTab;
+export default ManageGroup;

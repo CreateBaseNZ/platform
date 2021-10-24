@@ -3,6 +3,7 @@ import Link from "next/link";
 import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
+import { SecondaryButton } from "../UI/Buttons";
 import { ADMIN_TABS, MEMBER_TABS, STUDENT_TABS, TEACHER_TABS } from "../../constants/browseTabs";
 
 import classes from "./BrowsePreview.module.scss";
@@ -53,7 +54,6 @@ const BrowsePreview = ({ project, userType }) => {
 			</div>
 			<div className={classes.details}>
 				<h1 className={classes.h1}>{project.name}</h1>
-
 				<div className={classes.tabContainer}>
 					{getTabs(userType).map((t) => (
 						<Link key={t} href={`/browse/${project.query}/${t}`}>
@@ -66,6 +66,11 @@ const BrowsePreview = ({ project, userType }) => {
 					{tab === "teaching" && <BrowseTeaching project={project} />}
 					{tab === "learning" && <BrowseLearning learnings={project.learnings} />}
 				</div>
+				<Link href={`/project/${project.query}`}>
+					<div>
+						<SecondaryButton className={classes.continueBtn} mainLabel="Go" iconRight={<i className="material-icons-outlined">play_arrow</i>} />
+					</div>
+				</Link>
 			</div>
 		</div>
 	);

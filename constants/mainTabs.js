@@ -1,7 +1,7 @@
 const ONBOARDING = { urlObject: { pathname: "/onboarding" }, page: "onboarding", label: "Onboarding", icon: "skateboarding" };
 const BROWSE = { urlObject: { pathname: "/browse" }, page: "browse", label: "Browse", icon: "view_carousel" };
 const CLASSES = { urlObject: { pathname: "/classes" }, page: "classes", label: "Classes", icon: "chair_alt" };
-const MANAGE_SCHOOL = { urlObject: { pathname: "/manage-school" }, page: "manage-school", label: "Manage School", icon: "admin_panel_settings" };
+const MANAGE_GROUP = { urlObject: { pathname: "/manage-group" }, page: "manage-group", label: "Manage School", icon: "admin_panel_settings" };
 
 const MY_GROUPS = { urlObject: { pathname: "/my-groups" }, page: "my-groups", label: "My Groups", icon: "groups" };
 const MY_ACCOUNT = { urlObject: { pathname: "/my-account" }, page: "my-account", label: "My Account", icon: "person" };
@@ -12,7 +12,7 @@ export default DEFAULT_TABS;
 
 export const MAIN_TABS = {
 	school: {
-		admin: [ONBOARDING, BROWSE, CLASSES, MANAGE_SCHOOL],
+		admin: [ONBOARDING, BROWSE, CLASSES, MANAGE_GROUP],
 		teacher: [ONBOARDING, BROWSE, CLASSES],
 		student: [BROWSE, CLASSES],
 	},

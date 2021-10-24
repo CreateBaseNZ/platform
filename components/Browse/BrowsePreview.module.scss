@@ -96,6 +96,30 @@
 	animation: fade-in 0.2s ease-out forwards;
 }
 
+.continueBtn {
+	position: absolute;
+	bottom: 5vh;
+	right: 5vw;
+	border-color: rgba(white, 0.5);
+	background: rgba(black, 0.75);
+	color: white;
+	height: 4rem;
+	font-size: 20px;
+	i {
+		font-size: 20px;
+		margin-left: 0.5em;
+		margin-right: -0.5em;
+		transition: transform 0.1s ease-out;
+	}
+	&:hover {
+		border-color: white;
+		color: white;
+		i {
+			transform: translateX(2px);
+		}
+	}
+}
+
 @keyframes fade-in {
 	from {
 		opacity: 0;
