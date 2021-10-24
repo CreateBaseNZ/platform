@@ -97,6 +97,21 @@
 		bottom: 0;
 		right: 0;
 	}
+	&.task {
+		background: #35ebd2;
+		&::before {
+			transform: translate(-50%, -50%) skew(-20deg);
+		}
+		&::after {
+			transform: translate(-65%, -46%) skew(-20deg) rotate(5deg);
+		}
+		.shapes::before {
+			transform: translate(50%, 50%) skew(-31deg);
+		}
+		.shapes::after {
+			transform: translate(24%, 67%) skew(-31deg) rotate(12deg);
+		}
+	}
 	&.pdf {
 		background: #7692f5;
 		&::before {
