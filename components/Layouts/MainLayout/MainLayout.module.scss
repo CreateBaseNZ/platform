@@ -9,11 +9,12 @@
 
 .nav {
 	height: 100%;
-	flex: 0 0 16rem;
+	flex: 0 0 "auto";
+	width: 16rem;
 	background: $lightest;
-	transition: flex 0.2s ease-out, opacity 0.1s ease-out;
+	transition: width 0.2s ease-out, opacity 0.1s ease-out;
 	&.navCollapsed {
-		flex: 0 0 0;
+		width: 0;
 		* {
 			opacity: 0;
 		}
