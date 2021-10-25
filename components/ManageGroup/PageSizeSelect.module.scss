@@ -1,0 +1,83 @@
+@import "/styles/variables";
+
+.pageSize {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 500;
+	color: $light;
+	.pageSizeBtn {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		padding-right: 0.5rem;
+		margin: 0 0.5rem;
+		height: 2.5rem;
+		width: 4.5rem;
+		border: thin solid $lighter;
+		border-radius: 8px;
+		transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
+		span {
+			color: $blue-mid;
+			font-weight: 600;
+			margin-right: 0.25rem;
+		}
+		i {
+			font-size: 18px;
+			transition: color 0.1s ease-out, transform 0.2s ease-out;
+		}
+		.pageSizeMenu {
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translate(-50%, calc(-100% - 0.5rem));
+			display: flex;
+			flex-direction: column;
+			font-size: 14px;
+			color: $darker;
+			width: 100%;
+			padding: 0.4rem 0.25rem;
+			background: white;
+			border-radius: 8px;
+			opacity: 0;
+			box-shadow: 0 4px 8px 0 rgba(black, 0.1);
+			transition: opacity 0.1s ease-out;
+			& > div {
+				display: flex;
+				align-items: center;
+				padding-left: 0.5rem;
+				height: 1.75rem;
+				width: 100%;
+				font-size: 16px;
+				font-weight: 500;
+				border-radius: 4px;
+				transition: background-color 0.1s ease-out, color 0.1s ease-out;
+				&:hover {
+					color: $blue-mid;
+					background: rgba($blue-mid, 0.05);
+				}
+			}
+		}
+		&:hover {
+			background: rgba($blue-mid, 0.05);
+			i {
+				color: $blue-mid;
+			}
+		}
+		&.show {
+			border-color: $blue-mid;
+			background: rgba($blue-mid, 0.05);
+			i {
+				color: $blue-mid;
+				transform: rotate(180deg);
+			}
+			.pageSizeMenu {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+	}
+}

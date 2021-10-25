@@ -19,7 +19,7 @@ const InnerLayout = ({ tabs, children, showBack = true }) => {
 				)}
 				{tabs.map((tab) => (
 					<Link key={tab.title} href={{ query: { ...router.query, tab: tab.query } }}>
-						<div className={`${classes.tab} ${router?.query?.tab === tab.query ? classes.active : ""}`}>
+						<div className={`${classes.tab} ${router?.query?.tab === tab.name ? classes.active : ""}`}>
 							<i className="material-icons-outlined">{tab.icon}</i>
 							<div className={classes.label}>{tab.title}</div>
 						</div>

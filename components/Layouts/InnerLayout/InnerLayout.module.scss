@@ -7,12 +7,13 @@
 }
 
 .sidebar {
-	flex: 0 0 "auto";
+	flex: 0 0 auto;
 	width: 6rem;
 	padding: 1.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	background: white;
 	border-right: 2px solid $lighter;
 }
 
@@ -82,4 +83,8 @@
 		background: $logo-mid;
 		color: white;
 	}
+}
+
+.viewport {
+	flex: 1;
 }

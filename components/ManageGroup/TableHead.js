@@ -1,4 +1,4 @@
-import classes from "./ManageUsers.module.scss";
+import classes from "./Table.module.scss";
 
 const TableHead = ({ isChecked, tab, toggleAllCheckboxHandler, columns, sort, sortByColHandler }) => {
 	return (

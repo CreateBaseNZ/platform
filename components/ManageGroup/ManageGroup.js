@@ -1,13 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Head from "next/head";
 import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import UserSessionContext from "../../store/user-session";
-// import Table from "./Table";
+import Table from "./Table";
 // import TableControls from "./TableControls";
 // import TableFooter from "./TableFooter";
 // import TableHead from "./TableHead";
-import GROUP_CONFIG, { COLUMNS, SIZES } from "../../constants/manageGroup";
+import GROUP_CONFIG, { COLUMNS, SCHOOL_TABS, SIZES } from "../../constants/manageGroup";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
+import InnerLayout from "../Layouts/InnerLayout/InnerLayout";
 
 import classes from "/styles/manageGroup.module.scss";
 
@@ -109,8 +110,19 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader }) => {
 		});
 	};
 
+	const data = useMemo(
+		() => [
+			{ firstName: "John", lastName: "Doe", email: "johndoe@gmail.com" },
+			{ firstName: "Doe", lastName: "John", email: "doejohn@gmail.com" },
+			{ firstName: "Dohn", lastName: "Joe", email: "dohnjoe@gmail.com" },
+		],
+		[]
+	);
+
+	const columns = useMemo(() => COLUMNS, []);
+
 	return (
-		<div className={classes.manageUsers}>
+		<div className={classes.manageGroup}>
 			<Head>
 				<title>Manage • {userSession.view.groupName} | CreateBase</title>
 				<meta name="description" content="Log into your CreateBase account" />
@@ -130,10 +142,10 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader }) => {
 				setShowRemoveConfirm={setShowRemoveConfirm}
 				showChangePassword={showChangePassword}
 				setShowChangePassword={setShowChangePassword}
-			/>
-			<TableHead isChecked={isChecked} tab={tab} toggleAllCheckboxHandler={toggleAllCheckboxHandler} columns={COLUMNS} sort={sort} sortByColHandler={sortByColHandler} />
-			<Table allUsers={allUsers} tab={tab} page={page} size={size} checkHandler={checkHandler} columns={COLUMNS} sort={sort} search={search} isLoading={isLoading} setIsLoading={setIsLoading} />
-			<TableFooter
+			/> */}
+			{/* <TableHead isChecked={isChecked} tab={tab} toggleAllCheckboxHandler={toggleAllCheckboxHandler} columns={COLUMNS} sort={sort} sortByColHandler={sortByColHandler} /> */}
+			<Table columns={columns} data={data} pageSizes={SIZES} />
+			{/* <TableFooter
 				showSizeMenu={showSizeMenu}
 				setShowSizeMenu={setShowSizeMenu}
 				size={size}
@@ -149,7 +161,11 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader }) => {
 };
 
 ManageGroup.getLayout = function getLayout(page) {
-	return <MainLayout page="manage-group">{page}</MainLayout>;
+	return (
+		<MainLayout page="manage-group">
+			<InnerLayout tabs={SCHOOL_TABS}>{page}</InnerLayout>
+		</MainLayout>
+	);
 };
 
 ManageGroup.authorisation = "admin";

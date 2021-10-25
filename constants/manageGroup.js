@@ -13,10 +13,16 @@ const GROUP_CONFIG = {
 
 export default GROUP_CONFIG;
 
+export const SCHOOL_TABS = [
+	{ title: "Students", name: "students", icon: "backpack" },
+	{ title: "Teachers", name: "teachers", icon: "school" },
+	{ title: "Admins", name: "admin", icon: "verified_user" },
+];
+
 export const COLUMNS = [
-	{ label: "First Name", name: "firstName" },
-	{ label: "Last Name", name: "lastName" },
-	{ label: "Email", name: "email" },
+	{ Header: "First Name", accessor: "firstName" },
+	{ Header: "Last Name", accessor: "lastName" },
+	{ Header: "Email", accessor: "email" },
 ];
 
 export const SIZES = [10, 20, 50, 100];
