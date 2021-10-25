@@ -180,6 +180,13 @@ svg {
 	margin-left: 1em !important;
 }
 
+.embedded-video-16-9 {
+	width: 45vw;
+	height: 25.3125vw; // width * 9/16
+	margin-left: 2.5vw;
+	margin-right: 2.5vw;
+}
+
 .mobileView {
 	position: absolute;
 	top: 0;

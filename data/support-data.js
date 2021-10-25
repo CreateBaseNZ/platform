@@ -8,91 +8,97 @@ const supportData = [
 			{
 				q: "How-To: Sign up with an Educator account",
 				a: (
-					<>
-						<p>
-							<a href="https://youtu.be/09j-Opsyd0o" target="_blank" title="How-To: Sign up with an educator account">
-								View here{" "}
-							</a>
-						</p>
-					</>
+					<iframe
+						src="https://www.youtube.com/embed/09j-Opsyd0o"
+						title="How-To: Sign up with an Educator Account"
+						className="embedded-video-16-9"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
 				),
 			},
 			{
 				q: "How-To: Register an Organisation",
 				a: (
-					<>
-						<p>
-							<a href="https://youtu.be/6QTpDvfDZ9s" target="_blank" title="How-To: Register an Organisation">
-								View here{" "}
-							</a>
-						</p>
-					</>
+					<iframe
+						src="https://www.youtube.com/embed/6QTpDvfDZ9s"
+						title="How-To: Register an Organisation"
+						className="embedded-video-16-9"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
 				),
 			},
 			{
 				q: "How-To: Invite Users to your Organisation",
 				a: (
-					<>
-						<p>
-							<a href="https://youtu.be/GphwKgAv6kw" target="_blank" title="How-To: Use invite features">
-								View here{" "}
-							</a>
-						</p>
-					</>
+					<iframe
+						src="https://www.youtube.com/embed/nb0zARtCCK0"
+						title="How-To: Invite Users to your Organisation"
+						className="embedded-video-16-9"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
 				),
 			},
 			{
 				q: "How-To: Join an Organisation",
 				a: (
-					<>
-						<p>
-							<a href="https://youtu.be/AQ6acGxQZwE" target="_blank" title="How-To: Join an Organisation">
-								View here{" "}
-							</a>
-						</p>
-					</>
+					<iframe
+						src="https://www.youtube.com/embed/AQ6acGxQZwE"
+						title="How-To: Join an Organisation"
+						className="embedded-video-16-9"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
 				),
 			},
 			{
-				q: "How-To: Teach your first Project",
+				q: "How-To: Teach your First Project",
 				a: (
-					<>
-						<p>
-						<a href="https://youtu.be/SlRLHPSm17Y" target="_blank" title="How-To: Teach your first Project">View here </a>	
-						</p>
-					</>
+					<iframe
+						src="https://www.youtube.com/embed/SlRLHPSm17Y"
+						title="How-To: Teach your First Project"
+						className="embedded-video-16-9"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
 				),
 			},
 			{
-				q: "How-To: Translate your Logic into Flow-Code",
+				q: "How-To: Translate your Logic into Flow Code",
 				a: (
-					<>
-						<p>
-						<a href="https://youtu.be/OUQmv4Q5GIE" target="_blank" title="How-To: Translate your Logical Thinking into Flow-Code">View here </a>	
-						</p>
-					</>
+					<iframe
+						src="https://www.youtube.com/embed/OUQmv4Q5GIE"
+						title="How-To: Translate your Logic into Flow Code"
+						className="embedded-video-16-9"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
 				),
 			},
 			{
 				q: "How-To: Sign up with a Learner account",
 				a: (
-					<>
-						<p>
-							<a href="https://youtu.be/s80cEkCQXIE" target="_blank" title="How-To: Sign up with a learner account">
-								View here{" "}
-							</a>
-						</p>
-					</>
+					<iframe
+						src="https://www.youtube.com/embed/s80cEkCQXIE"
+						title="How-To: Sign up with a Learner Account"
+						className="embedded-video-16-9"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
 				),
 			},
 			{
 				q: "How-To: Manage Users in your Organisation",
 				a: (
-					<>
-						<p>
-						<a href="https://youtu.be/dmShaNP-rt8" target="_blank" title="">View here </a>	
-						</p>
-					</>
+					<iframe
+						src="https://www.youtube.com/embed/dmShaNP-rt8"
+						title="How-To: Manage Users in your Organisation"
+						className="embedded-video-16-9"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen></iframe>
 				),
 			},
 		],
@@ -151,6 +157,9 @@ const supportData = [
 							image url's should begin with `/support/...`
 						</p>
 						<img src="/support/support-1.jpg" />
+						<p>
+							To embed YouTube videos, right click the video player and copy embed code. Use the existing iFrame code and replace the src and title properties with the copied embed code.
+						</p>
 						<p>
 							Be sure to wrap the entire answer in empty tags. Look at the code for an example of <span style={{ color: "red", textDecoration: "underline" }}>custom styling</span>. If you need any
 							more styling options, let Louis know.
