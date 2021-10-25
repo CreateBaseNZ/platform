@@ -6,7 +6,7 @@
 	align-items: center;
 	font-size: 14px;
 	font-weight: 500;
-	color: $light;
+	color: $dark;
 	.pageSizeBtn {
 		position: relative;
 		display: flex;
@@ -16,7 +16,7 @@
 		margin: 0 0.5rem;
 		height: 2.5rem;
 		width: 4.5rem;
-		border: thin solid $lighter;
+		border: thin solid $light;
 		border-radius: 8px;
 		transition: background-color 0.1s ease-out, border-color 0.1s ease-out;
 		span {

@@ -70,6 +70,7 @@
 		background: rgba(black, 0.6);
 		margin-left: 0.5rem;
 		opacity: 0;
+		z-index: 1;
 		transition: opacity 0.1s ease-out;
 	}
 	i:hover {

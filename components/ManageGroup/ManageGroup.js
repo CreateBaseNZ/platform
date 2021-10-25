@@ -4,30 +4,30 @@ import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import UserSessionContext from "../../store/user-session";
 import Table from "./Table";
 // import TableControls from "./TableControls";
-// import TableFooter from "./TableFooter";
 // import TableHead from "./TableHead";
 import GROUP_CONFIG, { COLUMNS, SCHOOL_TABS, SIZES } from "../../constants/manageGroup";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
 import InnerLayout from "../Layouts/InnerLayout/InnerLayout";
 
 import classes from "/styles/manageGroup.module.scss";
+import { useRouter } from "next/router";
 
-const ManageGroup = ({ collapseHeader, setCollapseHeader }) => {
+const ManageGroup = ({ collapseHeader, setCollapseHeader, userType }) => {
+	const router = useRouter();
 	const { userSession } = useContext(UserSessionContext);
 	const { getOrgUsers } = useOrganisationHelper();
-	const [tab, setTab] = useState(GROUP_CONFIG[userSession.view.groupType].userTypes[0].name);
 	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[userSession.view.groupType].userTypes }).map(([_, b]) => ({ [b.name]: [] }))));
-	const [isChecked, setIsChecked] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[userSession.view.groupType].userTypes }).map(([_, b]) => ({ [b.name]: 0 }))));
-	const [size, setSize] = useState(10);
-	const [page, setPage] = useState(0);
-	const [sort, setSort] = useState({ colName: "index", ascending: null });
-	const [showSizeMenu, setShowSizeMenu] = useState(false);
 	const [search, setSearch] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
 	const [showChangePassword, setShowChangePassword] = useState(false);
 
-	console.log(allUsers);
+	console.log(userType);
+
+	if (!userType) {
+		router.replace("/manage-group/students");
+		return null;
+	}
 
 	useEffect(async () => {
 		await getOrgUsers({
@@ -42,15 +42,8 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader }) => {
 			},
 		});
 		setIsLoading(false);
+		console.log("fetched data");
 	}, []);
-
-	useEffect(() => {
-		const n = allUsers[tab].filter((d) => d.checked).length;
-		setIsChecked((state) => ({ ...state, [tab]: n }));
-		if (n === 0) {
-			setShowRemoveConfirm(false);
-		}
-	}, [tab, allUsers]);
 
 	const removeUserHandler = () => {
 		//TODO [IGNORE]
@@ -59,55 +52,9 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader }) => {
 
 	const promoteHandler = () => {};
 
-	const checkHandler = (row) => {
-		setAllUsers((state) => ({
-			...state,
-			[tab]: state[tab].map((values, i) => {
-				if (i === row) {
-					return { ...values, checked: !values.checked };
-				} else {
-					return values;
-				}
-			}),
-		}));
-	};
-
-	const toggleAllCheckboxHandler = () => {
-		if (isChecked[tab]) {
-			setAllUsers((state) => ({
-				...state,
-				[tab]: state[tab].map((values) => ({ ...values, checked: false })),
-			}));
-		} else {
-			setAllUsers((state) => ({
-				...state,
-				[tab]: state[tab].map((values) => ({ ...values, checked: true })),
-			}));
-		}
-	};
-
 	const searchHandler = (e) => {
 		setIsLoading(true);
 		setSearch(e.target.value);
-	};
-
-	const setSizeHandler = (selected) => {
-		setSize(selected);
-	};
-
-	const sortByColHandler = (col) => {
-		const colName = col.replace(" ", "");
-		setSort((state) => {
-			if (state.colName === colName) {
-				if (!state.ascending) {
-					return { colName: "index", ascending: null };
-				} else {
-					return { colName: colName, ascending: false };
-				}
-			} else {
-				return { colName: colName, ascending: true };
-			}
-		});
 	};
 
 	const data = useMemo(
@@ -124,7 +71,9 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader }) => {
 	return (
 		<div className={classes.manageGroup}>
 			<Head>
-				<title>Manage • {userSession.view.groupName} | CreateBase</title>
+				<title>
+					Manage {userType} • {userSession.view.groupName} | CreateBase
+				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
 			{/* <TableControls
@@ -143,31 +92,19 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader }) => {
 				showChangePassword={showChangePassword}
 				setShowChangePassword={setShowChangePassword}
 			/> */}
-			{/* <TableHead isChecked={isChecked} tab={tab} toggleAllCheckboxHandler={toggleAllCheckboxHandler} columns={COLUMNS} sort={sort} sortByColHandler={sortByColHandler} /> */}
 			<Table columns={columns} data={data} pageSizes={SIZES} />
-			{/* <TableFooter
-				showSizeMenu={showSizeMenu}
-				setShowSizeMenu={setShowSizeMenu}
-				size={size}
-				sizes={SIZES}
-				setSizeHandler={setSizeHandler}
-				page={page}
-				setPage={setPage}
-				allUsers={allUsers}
-				tab={tab}
-			/> */}
 		</div>
 	);
 };
 
-ManageGroup.getLayout = function getLayout(page) {
-	return (
-		<MainLayout page="manage-group">
-			<InnerLayout tabs={SCHOOL_TABS}>{page}</InnerLayout>
-		</MainLayout>
-	);
-};
+// ManageGroup.getLayout = function getLayout(page) {
+// 	return (
+// 		<MainLayout page="manage-group">
+// 			<InnerLayout tabs={SCHOOL_TABS}>{page}</InnerLayout>
+// 		</MainLayout>
+// 	);
+// };
 
-ManageGroup.authorisation = "admin";
+// ManageGroup.authorisation = "staff";
 
 export default ManageGroup;

@@ -3,9 +3,9 @@ import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import InnerLayout from "../../components/Layouts/InnerLayout/InnerLayout";
 import { SCHOOL_TABS } from "../../constants/manageGroup";
 
-const ManageGroupRoot = () => <ManageGroup />;
+const ManageStudents = () => <ManageGroup userType="students" />;
 
-ManageGroupRoot.getLayout = function getLayout(page) {
+ManageStudents.getLayout = function getLayout(page) {
 	return (
 		<MainLayout page="manage-group">
 			<InnerLayout tabs={SCHOOL_TABS} showBack={false}>
@@ -15,6 +15,6 @@ ManageGroupRoot.getLayout = function getLayout(page) {
 	);
 };
 
-ManageGroupRoot.authorisation = "staff";
+ManageStudents.authorisation = "staff";
 
-export default ManageGroupRoot;
+export default ManageStudents;

@@ -19,8 +19,8 @@ const AuthGuard = ({ children, authorisation }) => {
 	// TODO app loading page
 	const [render, setRender] = useState(<div>App loading</div>);
 
-	console.log(authorisation);
-	console.log(router);
+	// console.log(authorisation);
+	// console.log(router);
 
 	useEffect(() => {
 		if (sessionLoaded) {

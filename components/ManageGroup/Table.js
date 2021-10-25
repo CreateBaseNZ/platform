@@ -66,7 +66,7 @@ const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLo
 						{headerGroups.map((headerGroup) => (
 							<tr {...headerGroup.getHeaderGroupProps()} className={classes.tr}>
 								{headerGroup.headers.map((column) => {
-									console.log(column);
+									// console.log(column);
 									return (
 										<th {...column.getHeaderProps(column.getSortByToggleProps())} className={`${classes.th} ${column.isSorted ? classes.sorted : ""}`}>
 											{column.render("Header")}
@@ -82,7 +82,7 @@ const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLo
 					<tbody {...getTableBodyProps()} className={classes.tbody}>
 						{page.map((row, _) => {
 							prepareRow(row);
-							console.log(row);
+							// console.log(row);
 							return (
 								<tr {...row.getRowProps()} className={`${classes.tr} ${row.isSelected ? classes.trSelected : ""}`}>
 									{row.cells.map((cell) => (
