@@ -92,19 +92,10 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader, userType }) => {
 				showChangePassword={showChangePassword}
 				setShowChangePassword={setShowChangePassword}
 			/> */}
+			<h2 className={classes.header}>Manage {userType}</h2>
 			<Table columns={columns} data={data} pageSizes={SIZES} />
 		</div>
 	);
 };
-
-// ManageGroup.getLayout = function getLayout(page) {
-// 	return (
-// 		<MainLayout page="manage-group">
-// 			<InnerLayout tabs={SCHOOL_TABS}>{page}</InnerLayout>
-// 		</MainLayout>
-// 	);
-// };
-
-// ManageGroup.authorisation = "staff";
 
 export default ManageGroup;

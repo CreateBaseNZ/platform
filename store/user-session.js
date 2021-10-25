@@ -24,7 +24,7 @@ const defaultUserSession = {
 	verified: true,
 	view: {
 		groupType: "school",
-		userType: "admin",
+		userType: "teacher",
 		groupName: "Somerville Intermediate School",
 	},
 	recentGroups: [
