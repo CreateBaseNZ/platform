@@ -1,8 +1,8 @@
-import { ColourLogo } from "../UI/Icons";
 import Image from "next/image";
-import classes from "./AuthBackground.module.scss";
+import { ColourLogo } from "../../UI/Icons";
+import classes from "./AuthLayout.module.scss";
 
-const AuthBackground = ({ children }) => {
+const AuthLayout = ({ children }) => {
 	return (
 		<div className={classes.bg}>
 			<div className={classes.squiggle}>
@@ -25,4 +25,4 @@ const AuthBackground = ({ children }) => {
 	);
 };
 
-export default AuthBackground;
+export default AuthLayout;
