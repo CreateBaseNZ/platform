@@ -25,8 +25,8 @@ const AuthGuard = ({ children, authorisation }) => {
 	useEffect(() => {
 		if (sessionLoaded) {
 			if (authorisation) {
-				if (!userSession.email && router.route !== "/auth") {
-					router.replace({ pathname: "/auth", query: { action: "signup", redirect: router.asPath } });
+				if (!userSession.email && !router.route.startsWith("/auth")) {
+					router.replace({ pathname: "/auth/signup", query: { redirect: router.asPath } });
 				} else if (!userSession.verified && router.route !== "/verify") {
 					router.replace("/verify");
 				} else if (router.route === "/verify" && userSession.verified) {
@@ -37,7 +37,7 @@ const AuthGuard = ({ children, authorisation }) => {
 					setRender(children);
 				}
 			} else {
-				if (router.route === "/auth" && userSession.email) {
+				if (router.route.startsWith("/auth") && userSession.email) {
 					router.replace("/");
 				} else {
 					setRender(children);

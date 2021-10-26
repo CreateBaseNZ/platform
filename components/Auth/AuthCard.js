@@ -7,7 +7,7 @@ import classes from "./AuthCard.module.scss";
 
 const AuthCard = ({ isSignup, redirect }) => {
 	return (
-		<>
+		<div className={classes.authCard}>
 			<div className={`${classes.imgContainer} ${isSignup ? classes.signup : classes.login}`}>
 				<div className={classes.imgWrapper}>
 					<Image src="/auth/turtle.svg" layout="fill" objectFit="cover" />
@@ -22,7 +22,7 @@ const AuthCard = ({ isSignup, redirect }) => {
 				</div>
 			</div>
 			<div className={`${classes.formContainer} roundScrollbar`}>{isSignup ? <SignupForm /> : <LoginForm redirect={redirect} />}</div>
-		</>
+		</div>
 	);
 };
 

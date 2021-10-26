@@ -28,7 +28,7 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		sendForgotPasswordCode({
+		await sendForgotPasswordCode({
 			details: { email: input.email },
 			failHandler: () => {
 				setError("email", {
@@ -249,7 +249,7 @@ const ForgotPassword = ({ code, email }) => {
 			{step === 1 && <ForgotPasswordStepTwo setStep={setStep} inputValues={inputValues} setInputValues={setInputValues} />}
 			{step === 2 && <ForgotPasswordStepThree inputValues={inputValues} />}
 			<div className={classes.forgotOptions}>
-				<Link href={{ query: { action: "login" } }}>
+				<Link href="/auth/login">
 					<a className={`${classes.smallFont} ${classes.linkBtn}`}>Back to Login</a>
 				</Link>
 				{step === 1 && (

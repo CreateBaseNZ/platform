@@ -1,5 +1,19 @@
 @import "/styles/variables";
 
+.authCard {
+	background: white;
+	border-radius: 32px;
+	box-shadow: 0 8px 24px 0 rgba(black, 0.1);
+	display: flex;
+	overflow: hidden;
+	width: 70vw;
+	max-width: 1000px;
+	z-index: 1;
+	&.verifyMain {
+		width: 500px;
+	}
+}
+
 .imgContainer {
 	position: relative;
 	width: 45%;

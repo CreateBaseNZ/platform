@@ -372,7 +372,7 @@ const Index = () => {
 		if (userSession.email) {
 			router.replace("/browse");
 		} else {
-			router.replace("/auth");
+			router.replace("/auth/signup");
 		}
 	}, [userSession]);
 

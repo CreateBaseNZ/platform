@@ -18,7 +18,7 @@ export default UserSessionContext;
 
 // TODO change to real default values
 const defaultUserSession = {
-	email: "louiscflin@gmail.com",
+	// email: "louiscflin@gmail.com",
 	firstName: "Louis",
 	lastName: "Lin",
 	verified: true,

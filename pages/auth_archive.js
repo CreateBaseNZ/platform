@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { ColourLogo } from "../components/UI/Icons";
 import AuthCard from "../components/Auth/AuthCard";
-import ForgotPassword from "../components/Auth/ForgotPassword";
+import ForgotPassword from "../components/Auth/ForgotPasswordForm";
 
 import classes from "/styles/auth.module.scss";
 
