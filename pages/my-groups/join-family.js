@@ -2,13 +2,13 @@ import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import Input, { SearchBar, TextArea } from "../../components/UI/Input";
+import { SearchBar, TextArea } from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 
 import classes from "/styles/myGroups.module.scss";
 
-const JoinSchool = () => {
+const JoinFamily = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -18,14 +18,13 @@ const JoinSchool = () => {
 	} = useForm({ mode: "onTouched" });
 
 	//TODO
-	const onStudentSubmit = () => {};
-	const onTeacherSubmit = () => {};
+	const onSubmit = () => {};
 
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Join a school | CreateBase</title>
-				<meta name="description" content="Join your school group on CreateBase" />
+				<title>Join a family | CreateBase</title>
+				<meta name="description" content="Join your family group on CreateBase" />
 			</Head>
 			<Link href="/my-groups">
 				<button className={classes.backBtn}>
@@ -35,28 +34,14 @@ const JoinSchool = () => {
 			<div className={`${classes.container} roundScrollbar`}>
 				<div className={`${classes.wrapper} ${classes.formWrapper}`}>
 					<div className={classes.h2Container}>
-						<h2>Join a school as a student</h2>
+						<h2>Join a family</h2>
 					</div>
-					<form className={classes.form} onSubmit={handleSubmit(onStudentSubmit)}>
-						<Input
-							className={classes.input}
-							label="Student code*"
-							labelProps={{ className: classes.inputLabel }}
-							inputProps={{ placeholder: "Student code", type: "text", maxLength: 254, ...register("code", { required: "Please enter the student code" }) }}
-							error={errors.name}
-						/>
-						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Joining ..." mainLabel="Join" />
-					</form>
-					<div className={classes.divider} />
-					<div className={classes.h2Container}>
-						<h2>Join a school as a teacher</h2>
-					</div>
-					<form className={classes.form} onSubmit={handleSubmit(onTeacherSubmit)}>
+					<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 						<SearchBar
 							className={classes.input}
-							label="School name*"
+							label="Group name*"
 							labelProps={{ className: classes.inputLabel }}
-							inputProps={{ placeholder: "Search for your school", type: "text", maxLength: 254, ...register("name", { required: "Please select a school" }) }}
+							inputProps={{ placeholder: "Search for your family", type: "text", maxLength: 254, ...register("name", { required: "Please select a family" }) }}
 							error={errors.name}
 						/>
 						<TextArea
@@ -74,10 +59,10 @@ const JoinSchool = () => {
 	);
 };
 
-JoinSchool.getLayout = (page) => {
+JoinFamily.getLayout = (page) => {
 	return <MainLayout page="my-groups">{page}</MainLayout>;
 };
 
-JoinSchool.authorisation = "user";
+JoinFamily.authorisation = "user";
 
-export default JoinSchool;
+export default JoinFamily;
