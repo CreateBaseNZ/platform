@@ -5,26 +5,24 @@ import UserSessionContext from "../../store/user-session";
 import Table from "./Table";
 // import TableControls from "./TableControls";
 // import TableHead from "./TableHead";
-import GROUP_CONFIG, { COLUMNS, SCHOOL_TABS, SIZES } from "../../constants/manageGroup";
-import MainLayout from "../Layouts/MainLayout/MainLayout";
-import InnerLayout from "../Layouts/InnerLayout/InnerLayout";
+import GROUP_CONFIG, { COLUMNS, SIZES } from "../../constants/manageGroup";
 
 import classes from "/styles/manageGroup.module.scss";
 import { useRouter } from "next/router";
 
-const ManageGroup = ({ collapseHeader, setCollapseHeader, userType }) => {
+const ManageGroup = ({ collapseHeader, setCollapseHeader, role }) => {
 	const router = useRouter();
 	const { userSession } = useContext(UserSessionContext);
 	const { getOrgUsers } = useOrganisationHelper();
-	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[userSession.view.groupType].userTypes }).map(([_, b]) => ({ [b.name]: [] }))));
+	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[userSession.view.groupType].roles }).map(([_, b]) => ({ [b.name]: [] }))));
 	const [search, setSearch] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
 	const [showChangePassword, setShowChangePassword] = useState(false);
 
-	console.log(userType);
+	console.log(role);
 
-	if (!userType) {
+	if (!role) {
 		router.replace("/manage-group/students");
 		return null;
 	}
@@ -72,7 +70,7 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader, userType }) => {
 		<div className={classes.manageGroup}>
 			<Head>
 				<title>
-					Manage {userType} • {userSession.view.groupName} | CreateBase
+					Manage {role} • {userSession.view.groupName} | CreateBase
 				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
@@ -92,7 +90,7 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader, userType }) => {
 				showChangePassword={showChangePassword}
 				setShowChangePassword={setShowChangePassword}
 			/> */}
-			<h2 className={classes.header}>Manage {userType}</h2>
+			<h2 className={classes.header}>Manage {role}</h2>
 			<Table columns={columns} data={data} pageSizes={SIZES} />
 		</div>
 	);

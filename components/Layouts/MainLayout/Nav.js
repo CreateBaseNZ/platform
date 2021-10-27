@@ -4,7 +4,7 @@ import DEFAULT_TABS, { MAIN_TABS } from "../../../constants/mainTabs";
 import classes from "./Nav.module.scss";
 
 const Nav = ({ page, userSession }) => {
-	const tabs = MAIN_TABS[userSession?.view?.groupType]?.[userSession?.view?.userType] ? [...MAIN_TABS[userSession.view.groupType][userSession.view.userType], { page: null }] : [];
+	const tabs = MAIN_TABS[userSession?.view?.groupType]?.[userSession?.view?.role] ? [...MAIN_TABS[userSession.view.groupType][userSession.view.role], { page: null }] : [];
 	const activeTab = [...tabs, ...DEFAULT_TABS].findIndex((t) => t.page === page);
 	console.log(activeTab);
 

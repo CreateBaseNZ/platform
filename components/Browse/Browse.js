@@ -32,7 +32,7 @@ const Browse = () => {
 			</Head>
 			<div className={classes.inner}>
 				<div className={classes.preview}>
-					<BrowsePreview project={activeProject} userType={userSession.view?.userType} />
+					<BrowsePreview project={activeProject} role={userSession.view?.role} />
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>

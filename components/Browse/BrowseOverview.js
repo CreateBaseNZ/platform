@@ -3,12 +3,12 @@ import { SecondaryButton } from "../UI/Buttons";
 
 import classes from "./BrowseOverview.module.scss";
 
-const BrowseOverview = ({ project, userType }) => {
+const BrowseOverview = ({ project, role }) => {
 	return (
 		<>
 			<div className={classes.caption}>
 				{project.caption}
-				{userType === "guest" && <p className={classes.createAccount}>To view lesson plans and teaching content, please create or log into a FREE educator account.</p>}
+				{role === "guest" && <p className={classes.createAccount}>To view lesson plans and teaching content, please create or log into a FREE educator account.</p>}
 			</div>
 		</>
 	);

@@ -112,6 +112,4 @@ Onboarding.getLayout = (page) => {
 	return <MainLayout page="onboarding">{page}</MainLayout>;
 };
 
-Onboarding.authorisation = "staff";
-
 export default Onboarding;

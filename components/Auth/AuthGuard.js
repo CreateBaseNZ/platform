@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import DEFAULT_TABS from "../../constants/mainTabs";
 import UserSessionContext from "../../store/user-session";
 
-const hasAccess = (userType, authorisation) => {
+const hasAccess = (role, authorisation) => {
 	switch (authorisation) {
 		case "admin":
-			return userType === "admin";
+			return role === "admin";
 		case "staff":
-			return userType === "admin" || userType === "teacher";
+			return role === "admin" || role === "teacher";
 		default:
 			return true;
 	}
@@ -26,30 +26,40 @@ const AuthGuard = ({ children, authorisation }) => {
 	// TODO app loading page
 	const [render, setRender] = useState(<div>App loading</div>);
 
-	console.log(userSession.view);
+	console.log(router);
 
 	useEffect(() => {
 		if (sessionLoaded) {
-			if (authorisation) {
-				if (!userSession.email && !router.route.startsWith("/auth")) {
-					router.replace({ pathname: "/auth/signup", query: { redirect: router.asPath } });
-				} else if (!userSession.verified && router.route !== "/verify") {
-					router.replace("/verify");
-				} else if (router.route === "/verify" && userSession.verified) {
+			if (router.route.startsWith("/auth")) {
+				if (userSession.email) {
 					router.replace("/");
+				} else {
+					setRender(children);
+				}
+			} else if (router.route.startsWith("/verify")) {
+				if (userSession.email) {
+					if (userSession.verified) {
+						router.replace("/");
+					} else {
+						setRender(children);
+					}
+				} else {
+					router.replace({ pathname: "/auth/login", query: { redirect: router.asPath } });
+				}
+			} else if (authorisation) {
+				if (!userSession.email) {
+					router.replace({ pathname: "/auth/signup", query: { redirect: router.asPath } });
+				} else if (!userSession.verified) {
+					router.replace("/verify");
 				} else if (!userSession.view && !isDefaultTab(router.route)) {
 					router.replace("/my-groups");
-				} else if (!hasAccess(userSession.view?.userType, authorisation)) {
+				} else if (!hasAccess(userSession.view?.role, authorisation)) {
 					setRender(<div>Not authorised</div>);
 				} else {
 					setRender(children);
 				}
 			} else {
-				if (router.route.startsWith("/auth") && userSession.email) {
-					router.replace("/");
-				} else {
-					setRender(children);
-				}
+				setRender(children);
 			}
 		}
 	}, [sessionLoaded, userSession, children, router]);

@@ -17,7 +17,7 @@ const Verify = () => {
 	const { verifyAccount } = useAuthHelper();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
-	const [code, setCode] = useState(router?.query?.ocl || [...Array(CODE_LENGTH)].map(() => ""));
+	const [code, setCode] = useState(router?.query?.code || [...Array(CODE_LENGTH)].map(() => ""));
 	const refs = useRef([]);
 
 	console.log(code);

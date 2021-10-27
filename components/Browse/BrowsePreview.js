@@ -9,8 +9,8 @@ import { ADMIN_TABS, MEMBER_TABS, STUDENT_TABS, TEACHER_TABS } from "../../const
 import classes from "./BrowsePreview.module.scss";
 import { useRouter } from "next/router";
 
-const getTabs = (type) => {
-	switch (type) {
+const getTabs = (role) => {
+	switch (role) {
 		case "student":
 			return STUDENT_TABS;
 		case "member":
@@ -24,10 +24,10 @@ const getTabs = (type) => {
 	}
 };
 
-const BrowsePreview = ({ project, userType }) => {
+const BrowsePreview = ({ project, role }) => {
 	const ref = useRef();
 	const router = useRouter();
-	const [tab, setTab] = useState(getTabs(userType)[0]);
+	const [tab, setTab] = useState(getTabs(role)[0]);
 	const [videoLoaded, setVideoLoaded] = useState(false);
 
 	useEffect(() => {
@@ -36,7 +36,7 @@ const BrowsePreview = ({ project, userType }) => {
 
 	useEffect(() => {
 		const tab = router?.query?.tab;
-		const queriedStep = getTabs(userType).find((t) => t === tab);
+		const queriedStep = getTabs(role).find((t) => t === tab);
 		if (queriedStep) {
 			setTab(queriedStep);
 		}
@@ -64,14 +64,14 @@ const BrowsePreview = ({ project, userType }) => {
 			<div className={classes.details}>
 				<h1 className={classes.h1}>{project.name}</h1>
 				<div className={classes.tabContainer}>
-					{getTabs(userType).map((t) => (
+					{getTabs(role).map((t) => (
 						<Link key={t} href={`/browse/${project.query}/${t}`}>
 							<button className={`${classes.tab} ${tab === t ? classes.active : ""}`}>{t}</button>
 						</Link>
 					))}
 				</div>
 				<div className={classes.container}>
-					{tab === "overview" && <BrowseOverview project={project} userType={userType} />}
+					{tab === "overview" && <BrowseOverview project={project} role={role} />}
 					{tab === "teaching" && <BrowseTeaching project={project} />}
 					{tab === "learning" && <BrowseLearning learnings={project.learnings} />}
 				</div>

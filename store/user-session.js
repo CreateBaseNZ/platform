@@ -22,11 +22,11 @@ const defaultUserSession = {
 	firstName: "Louis",
 	lastName: "Lin",
 	verified: true,
-	view: {
-		groupType: "school",
-		userType: "teacher",
-		groupName: "Somerville Intermediate School",
-	},
+	// view: {
+	// 	groupType: "school",
+	// 	role: "teacher",
+	// 	groupName: "Somerville Intermediate School",
+	// },
 	recentGroups: [
 		{ name: "Somerville Intermediate School", type: "school" },
 		{ name: "Lin NZ", type: "family" },

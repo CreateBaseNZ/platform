@@ -18,8 +18,6 @@ const Verify = () => {
 	);
 };
 
-Verify.authorisation = "user";
-
 Verify.getLayout = (page) => {
 	return <AuthLayout>{page}</AuthLayout>;
 };

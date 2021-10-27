@@ -1,0 +1,95 @@
+@import "/styles/variables";
+
+.view {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem 0;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+.h2Container {
+	padding: 0.25rem 0;
+	width: 100%;
+	border-bottom: thin solid $lighter;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	h2 {
+		font-size: 2rem;
+		font-weight: 600;
+	}
+	.joinBtn {
+		height: 2.5rem;
+		border-radius: 12px;
+		padding: 0 1.25rem;
+	}
+}
+
+.cardContainer {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 15rem 15rem;
+	column-gap: 2rem;
+	padding: 1rem 0;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background: white;
+	height: 15rem;
+	width: 15rem;
+	border-radius: 2rem;
+	padding: 2rem;
+	margin-bottom: 1rem;
+	cursor: pointer;
+	box-shadow: 0 8px 24px 0 rgba(black, 0.05);
+	transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+	.groupRole {
+		font-size: 11px;
+		text-transform: uppercase;
+		font-weight: 600;
+		letter-spacing: 0.1em;
+		color: $blue-dark;
+		transition: color 0.1s ease-out;
+	}
+	.groupName {
+		font-size: 20px;
+		font-weight: 600;
+		color: $darker;
+		line-height: 1.25em;
+		display: block;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 4;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		transition: color 0.1s ease-out;
+	}
+	.groupNums {
+		font-size: 11px;
+		font-weight: 500;
+		line-height: 1.5em;
+		transition: color 0.1s ease-out;
+	}
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 12px 36px 0 rgba($logo-mid, 0.05);
+		* {
+			color: $logo-mid;
+		}
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.cardContainer {
+		grid-template-columns: 15rem 15rem 15rem;
+	}
+}

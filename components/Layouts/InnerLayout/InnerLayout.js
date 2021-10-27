@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import UserSessionContext from "../../../store/user-session";
 
 import classes from "./InnerLayout.module.scss";
 
 const InnerLayout = ({ tabs, children, showBack = true }) => {
+	const { userSession } = useContext(UserSessionContext);
 	const router = useRouter();
-
-	console.log("inner layout");
 
 	return (
 		<div className={classes.layout}>
@@ -20,7 +20,7 @@ const InnerLayout = ({ tabs, children, showBack = true }) => {
 						</a>
 					</Link>
 				)}
-				{tabs.map((tab) => (
+				{tabs[userSession.view.role]?.map((tab) => (
 					<Link key={tab.title} href={tab.pathname}>
 						<div className={`${classes.tab} ${router.pathname === tab.pathname ? classes.active : ""}`}>
 							<i className="material-icons-outlined">{tab.icon}</i>

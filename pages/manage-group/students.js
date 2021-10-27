@@ -3,7 +3,7 @@ import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import InnerLayout from "../../components/Layouts/InnerLayout/InnerLayout";
 import { SCHOOL_TABS } from "../../constants/manageGroup";
 
-const ManageStudents = () => <ManageGroup userType="students" />;
+const ManageStudents = () => <ManageGroup role="students" />;
 
 ManageStudents.getLayout = function getLayout(page) {
 	return (
