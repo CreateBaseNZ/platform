@@ -5,6 +5,7 @@ import UserSessionContext from "../../store/user-session";
 
 import classes from "/styles/myGroups.module.scss";
 import { PrimaryButton } from "../../components/UI/Buttons";
+import { useRouter } from "next/router";
 
 const DUMMY_SCHOOLS = [
 	{ name: "Botany Downs Secondary School", role: "teacher", numOfAdmins: 1, numOfTeachers: 3, numOfStudents: 78 },
@@ -19,7 +20,8 @@ const DUMMY_FAMILIES = [
 ];
 
 const MyGroups = () => {
-	const { setUserSession } = useContext(UserSessionContext);
+	const router = useRouter();
+	const { userSession } = useContext(UserSessionContext);
 
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
@@ -30,11 +32,18 @@ const MyGroups = () => {
 			<div className={classes.container}>
 				<div className={classes.h2Container}>
 					<h2>Schools</h2>
-					<PrimaryButton className={classes.joinBtn} mainLabel="Join a school" />
+					<PrimaryButton className={classes.joinBtn} mainLabel="Join a school" onClick={() => router.push("/my-groups/join-school")} />
 				</div>
 				<div className={classes.cardContainer}>
+					<div className={`${classes.card} ${classes.addCard}`} onClick={() => router.push("/my-groups/new-school")}>
+						<div className={classes.addIcons}>
+							<i className="material-icons-outlined">add</i>
+							<i className="material-icons-outlined">holiday_village</i>
+						</div>
+						<div className={classes.groupName}>Register a school</div>
+					</div>
 					{DUMMY_SCHOOLS.map((group) => (
-						<div className={classes.card}>
+						<div key={group.name} className={classes.card}>
 							<div className={classes.groupRole}>{group.role}</div>
 							<div className={classes.groupName}>{group.name}</div>
 							<div className={classes.groupNums}>
@@ -45,11 +54,18 @@ const MyGroups = () => {
 				</div>
 				<div className={classes.h2Container}>
 					<h2>Families</h2>
-					<PrimaryButton className={classes.joinBtn} mainLabel="Join a family" />
+					<PrimaryButton className={classes.joinBtn} mainLabel="Join a family" onClick={() => router.push("/my-groups/join-family")} />
 				</div>
 				<div className={classes.cardContainer}>
+					<div className={`${classes.card} ${classes.addCard}`} onClick={() => router.push("/my-groups/new-family")}>
+						<div className={classes.addIcons}>
+							<i className="material-icons-outlined">add</i>
+							<i className="material-icons-outlined">cottage</i>
+						</div>
+						<div className={classes.groupName}>Create a family</div>
+					</div>
 					{DUMMY_FAMILIES.map((group) => (
-						<div className={classes.card}>
+						<div key={group.name} className={classes.card}>
 							<div className={classes.groupRole}>{group.role}</div>
 							<div className={classes.groupName}>{group.name}</div>
 							<div className={classes.groupNums}>{group.numOfMembers} members</div>

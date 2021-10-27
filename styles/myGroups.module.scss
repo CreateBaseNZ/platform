@@ -6,11 +6,17 @@
 	flex-direction: column;
 	align-items: center;
 	padding: 2rem 0;
+	position: relative;
 }
 
 .container {
 	display: flex;
 	flex-direction: column;
+}
+
+.formContainer {
+	width: 450px;
+	padding: 2rem 0;
 }
 
 .h2Container {
@@ -85,6 +91,86 @@
 		* {
 			color: $logo-mid;
 		}
+	}
+}
+
+.addCard {
+	align-items: center;
+	justify-content: center;
+	background: rgba($blue-mid, 0.05);
+	box-shadow: none;
+	transition: background-color 0.1s ease-out;
+	* {
+		color: $blue-mid !important;
+		transition: color 0.1s ease-out;
+	}
+	.addIcons {
+		display: flex;
+		align-items: center;
+		margin-bottom: 0.5rem;
+		i {
+			font-size: 3rem;
+		}
+	}
+	&:hover {
+		transform: none;
+		box-shadow: none;
+		background: $blue-mid;
+		* {
+			color: white !important;
+		}
+	}
+}
+
+.backBtn {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	color: $dark;
+	font-weight: 500;
+	padding: 0.25rem;
+	transition: color 0.1s ease-out;
+	i {
+		color: inherit;
+		transition: transform 0.1s ease-out;
+	}
+	&:hover {
+		color: $darkest;
+		i {
+			transform: translateX(-2px);
+		}
+	}
+}
+
+.form {
+	padding: 1rem 0;
+	.input {
+		margin: 0.25rem 0;
+		:focus {
+			border-color: $blue-mid;
+			background: rgba($blue-mid, 0.05);
+			& ~ label {
+				color: $blue-mid;
+			}
+		}
+		label {
+			color: $dark;
+			margin-left: 0.5rem;
+		}
+	}
+	.caption {
+		font-size: 12px;
+		font-weight: 500;
+		color: $light;
+		margin: 0.5rem 0;
+	}
+	.submit {
+		width: 100%;
+		font-size: 1rem;
+		margin-top: 2rem;
+		height: 3.5rem;
 	}
 }
 

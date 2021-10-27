@@ -1,12 +1,12 @@
 import { useState } from "react";
 import classes from "./Input.module.scss";
 
-const Input = ({ className = "", inputProps = {}, label, error, children, ...rest }) => {
+const Input = ({ className = "", inputProps = {}, label, labelProps = {}, error, children, ...rest }) => {
 	return (
 		<div {...rest} className={`${classes.inputWrapper} ${className} ${error ? classes.hasError : ""}`}>
 			<p className={classes.error}>{error ? error.message : ""}</p>
 			<input {...inputProps} className={`${classes.input} ${inputProps.className}`} />
-			<label className={classes.label}>
+			<label {...labelProps} className={classes.label}>
 				{label}
 				{children}
 			</label>

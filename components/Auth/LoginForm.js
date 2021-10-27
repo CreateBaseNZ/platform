@@ -50,7 +50,7 @@ export const LoginForm = ({ redirect }) => {
 				<Input
 					inputProps={{
 						className: classes.input,
-						placeholder: "Email or Username*",
+						placeholder: "Email*",
 						type: "text",
 						maxLength: 254,
 						...register("username", {
