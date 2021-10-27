@@ -43,3 +43,16 @@ export const PasswordInput = ({ className, inputProps, label, error, ...rest }) 
 		/>
 	);
 };
+
+export const TextArea = ({ className = "", inputProps = {}, label, labelProps = {}, error, children, ...rest }) => {
+	return (
+		<div {...rest} className={`${classes.inputWrapper} ${className} ${error ? classes.hasError : ""}`}>
+			<p className={classes.error}>{error ? error.message : ""}</p>
+			<textarea rows={4} {...inputProps} className={`${classes.input} ${classes.textarea} ${inputProps.className} roundScrollbar`} />
+			<label {...labelProps} className={classes.label}>
+				{label}
+				{children}
+			</label>
+		</div>
+	);
+};
