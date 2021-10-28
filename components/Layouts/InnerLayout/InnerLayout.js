@@ -9,6 +9,8 @@ const InnerLayout = ({ tabs, children, showBack = true }) => {
 	const { userSession } = useContext(UserSessionContext);
 	const router = useRouter();
 
+	console.log(router);
+
 	return (
 		<div className={classes.layout}>
 			<div className={classes.sidebar}>
@@ -21,7 +23,7 @@ const InnerLayout = ({ tabs, children, showBack = true }) => {
 					</Link>
 				)}
 				{tabs[userSession.recentGroups[0]?.role]?.map((tab) => (
-					<Link key={tab.title} href={tab.pathname}>
+					<Link key={tab.title} href={{ pathname: tab.pathname, query: router.query }}>
 						<div className={`${classes.tab} ${router.pathname === tab.pathname ? classes.active : ""}`}>
 							<i className="material-icons-outlined">{tab.icon}</i>
 							<div className={classes.label}>{tab.title}</div>

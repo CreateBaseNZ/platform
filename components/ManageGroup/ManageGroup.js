@@ -18,7 +18,6 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader, role }) => {
 	const [search, setSearch] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
-	const [showChangePassword, setShowChangePassword] = useState(false);
 
 	console.log(role);
 
