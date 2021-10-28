@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import router from "next/router";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -8,9 +8,13 @@ import { ColourLogoIcon } from "../../UI/Icons";
 import DEFAULT_TABS from "../../../constants/mainTabs";
 
 import classes from "./Header.module.scss";
+import UserSessionContext from "../../../store/user-session";
 
-const Header = ({ userSession, navIsCollapsed, toggleNavHandler }) => {
+const Header = ({ navIsCollapsed, toggleNavHandler }) => {
+	const { userSession, setUserSession } = useContext(UserSessionContext);
 	const [showDropdown, setShowDropdown] = useState(false);
+
+	console.log(userSession);
 
 	return (
 		<header className={classes.header}>
@@ -18,7 +22,7 @@ const Header = ({ userSession, navIsCollapsed, toggleNavHandler }) => {
 			<button className={`${classes.collapse} ${navIsCollapsed ? classes.collapsed : ""}`} title={navIsCollapsed ? "Expand" : "Collapse"} onClick={toggleNavHandler}>
 				<i className="material-icons-outlined">{navIsCollapsed ? "chevron_right" : "chevron_left"}</i>
 			</button>
-			{userSession.email ? (
+			{userSession?.email && (
 				<div className={`${classes.headerUserContainer} ${userSession.email ? classes.loaded : ""}`} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
 					<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>
 						<UserAvatar size={40} name={`${userSession.firstName}${userSession.lastName}`} className={classes.avatar} />
@@ -35,6 +39,7 @@ const Header = ({ userSession, navIsCollapsed, toggleNavHandler }) => {
 								<span>{group.name}</span>
 							</button>
 						))}
+						{userSession.numOfGroups > 3 && <div className={classes.moreGroups}>and {userSession.numOfGroups - 3} more ...</div>}
 						<div className={classes.divider} />
 						{DEFAULT_TABS.map((tab, i) => (
 							<button key={i} onMouseDown={() => router.push(tab.urlObject)} title={tab.label}>
@@ -46,19 +51,6 @@ const Header = ({ userSession, navIsCollapsed, toggleNavHandler }) => {
 							<i className="material-icons-outlined">logout</i>Log out
 						</button>
 					</div>
-				</div>
-			) : (
-				<div className={classes.auth}>
-					<Link href={{ pathname: "/auth", query: { action: "signup" } }}>
-						<div style={{ alignSelf: "center" }}>
-							<PrimaryButton className={classes.signUp} mainLabel="Sign up" />
-						</div>
-					</Link>
-					<Link href={{ pathname: "/auth", query: { action: "login" } }}>
-						<div style={{ alignSelf: "center" }}>
-							<SecondaryButton className={classes.logIn} mainLabel="Log in" />
-						</div>
-					</Link>
 				</div>
 			)}
 		</header>

@@ -179,29 +179,12 @@
 	background: rgba(black, 0.05);
 }
 
-.auth {
-	height: 100%;
-	display: flex;
-	button {
-		font-weight: 600;
-		letter-spacing: 0.05em;
-	}
-	.signUp {
-		margin-right: 1rem;
-		background: $logo-mid;
-		box-shadow: 0 4px 12px 0 rgba($logo-mid, 0.5);
-		&:hover {
-			box-shadow: 0 8px 24px 0 rgba($logo-mid, 0.5);
-		}
-	}
-	.logIn {
-		color: $blue-mid;
-		border: medium solid $blue-mid;
-		&:hover {
-			color: $blue-dark;
-			border-color: $blue-dark;
-		}
-	}
+.moreGroups {
+	width: 100%;
+	padding: 0.5rem 1.5rem;
+	font-size: 12px;
+	color: $light;
+	font-weight: 500;
 }
 
 @keyframes slide-in {

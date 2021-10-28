@@ -370,7 +370,7 @@ const Index = () => {
 
 	useEffect(() => {
 		if (userSession.email) {
-			if (userSession.view) {
+			if (userSession.viewingGroup) {
 				router.replace("/browse");
 			} else {
 				router.replace("/my-groups");

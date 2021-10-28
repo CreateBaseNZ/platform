@@ -9,8 +9,8 @@ const Classes = () => {
 	return (
 		<div>
 			<Head>
-				<title>Classes • {userSession.view.groupName} | CreateBase</title>
-				<meta name="description" content={`View your classes in ${userSession.view.groupName}. CreateBase`} />
+				<title>Classes • {userSession.recentGroups[0].name} | CreateBase</title>
+				<meta name="description" content={`View your classes in ${userSession.recentGroups[0].name}. CreateBase`} />
 			</Head>
 			Class page
 		</div>

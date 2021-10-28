@@ -14,7 +14,7 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader, role }) => {
 	const router = useRouter();
 	const { userSession } = useContext(UserSessionContext);
 	const { getOrgUsers } = useOrganisationHelper();
-	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[userSession.view.groupType].roles }).map(([_, b]) => ({ [b.name]: [] }))));
+	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[userSession.recentGroups[0].type].roles }).map(([_, b]) => ({ [b.name]: [] }))));
 	const [search, setSearch] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
@@ -70,7 +70,7 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader, role }) => {
 		<div className={classes.manageGroup}>
 			<Head>
 				<title>
-					Manage {role} • {userSession.view.groupName} | CreateBase
+					Manage {role} • {userSession.recentGroups[0].name} | CreateBase
 				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>

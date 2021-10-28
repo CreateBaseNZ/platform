@@ -21,7 +21,7 @@ const MainLayout = ({ children, page }) => {
 			</div>
 			<div className={classes.view}>
 				<div className={`${classes.header} ${headerIsCollapsed ? classes.headerCollapsed : ""}`}>
-					<Header userSession={userSession} navIsCollapsed={navIsCollapsed} toggleNavHandler={toggleNavHandler} />
+					<Header navIsCollapsed={navIsCollapsed} toggleNavHandler={toggleNavHandler} />
 				</div>
 				{children}
 			</div>

@@ -7,21 +7,24 @@ import classes from "/styles/myGroups.module.scss";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import { useRouter } from "next/router";
 
-const DUMMY_SCHOOLS = [
-	{ name: "Botany Downs Secondary School", role: "teacher", numOfAdmins: 1, numOfTeachers: 3, numOfStudents: 78 },
-	{ name: "Rosehill College", role: "admin", numOfAdmins: 2, numOfTeachers: 2, numOfStudents: 64 },
-	{ name: "Shelly Park Primary", role: "student", numOfAdmins: 1, numOfTeachers: 1, numOfStudents: 34 },
-	{ name: "School trial", role: "admin", numOfAdmins: 1, numOfTeachers: 0, numOfStudents: 0 },
+const DUMMY_GROUPS = [
+	{ groupName: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, groupType: "school" },
+	{ groupName: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, groupType: "school" },
+	{ groupName: "Shelly Park Primary", role: "student", numOfUsers: { admins: 1, teachers: 1, students: 34 }, groupType: "school" },
+	{ groupName: "School trial as an admin", role: "admin", numOfUsers: { admins: 1, teachers: 0, students: 0 }, groupType: "school" },
+	{ groupName: "The Doe's", role: "member", numOfUsers: { members: 5 }, groupType: "family" },
+	{ groupName: "Family trial as an admin", role: "admin", numOfUsers: { members: 1 }, groupType: "family" },
 ];
 
-const DUMMY_FAMILIES = [
-	{ name: "The Doe's", role: "member", numOfMembers: 5 },
-	{ name: "Family trial", role: "admin", numOfMembers: 1 },
-];
+const DUMMY_FAMILIES = [];
 
 const MyGroups = () => {
 	const router = useRouter();
-	const { userSession } = useContext(UserSessionContext);
+	const { userSession, setUserSession } = useContext(UserSessionContext);
+
+	const cardClickHandler = (group) => {
+		setUserSession((state) => ({ ...state, view: group }));
+	};
 
 	return (
 		<div className={classes.view}>
@@ -43,12 +46,13 @@ const MyGroups = () => {
 							</div>
 							<div className={classes.groupName}>Register a school</div>
 						</div>
-						{DUMMY_SCHOOLS.map((group) => (
-							<div key={group.name} className={classes.card}>
+						{DUMMY_GROUPS.filter((group) => group.groupType === "school").map((group) => (
+							<div key={group.groupName} className={classes.card} onClick={() => cardClickHandler(group)}>
 								<div className={classes.groupRole}>{group.role}</div>
-								<div className={classes.groupName}>{group.name}</div>
+								<div className={classes.groupName}>{group.groupName}</div>
 								<div className={classes.groupNums}>
-									{group.numOfAdmins} admins, {group.numOfTeachers} teachers, {group.numOfStudents} students
+									{group.numOfUsers.admins} admin{group.numOfUsers.admins === 1 ? "" : "s"}, {group.numOfUsers.teachers} teacher{group.numOfUsers.teachers === 1 ? "" : "s"},{" "}
+									{group.numOfUsers.students} student{group.numOfUsers.students === 1 ? "" : "s"}
 								</div>
 							</div>
 						))}
@@ -65,11 +69,13 @@ const MyGroups = () => {
 							</div>
 							<div className={classes.groupName}>Create a family</div>
 						</div>
-						{DUMMY_FAMILIES.map((group) => (
-							<div key={group.name} className={classes.card}>
+						{DUMMY_GROUPS.filter((group) => group.groupType === "family").map((group) => (
+							<div key={group.groupName} className={classes.card}>
 								<div className={classes.groupRole}>{group.role}</div>
-								<div className={classes.groupName}>{group.name}</div>
-								<div className={classes.groupNums}>{group.numOfMembers} members</div>
+								<div className={classes.groupName}>{group.groupName}</div>
+								<div className={classes.groupNums}>
+									{group.numOfUsers.members} member{group.numOfUsers.members === 1 ? "" : "s"}
+								</div>
 							</div>
 						))}
 					</div>

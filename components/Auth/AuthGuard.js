@@ -51,9 +51,9 @@ const AuthGuard = ({ children, authorisation }) => {
 					router.replace({ pathname: "/auth/signup", query: { redirect: router.asPath } });
 				} else if (!userSession.verified) {
 					router.replace("/verify");
-				} else if (!userSession.view && !isDefaultTab(router.route)) {
+				} else if (!userSession.viewingGroup && !isDefaultTab(router.route)) {
 					router.replace("/my-groups");
-				} else if (!hasAccess(userSession.view?.role, authorisation)) {
+				} else if (userSession.viewingGroup && !hasAccess(userSession.recentGroups[0].role, authorisation)) {
 					setRender(<div>Not authorised</div>);
 				} else {
 					setRender(children);

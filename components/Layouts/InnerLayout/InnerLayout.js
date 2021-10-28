@@ -20,7 +20,7 @@ const InnerLayout = ({ tabs, children, showBack = true }) => {
 						</a>
 					</Link>
 				)}
-				{tabs[userSession.view.role]?.map((tab) => (
+				{tabs[userSession.recentGroups[0]?.role]?.map((tab) => (
 					<Link key={tab.title} href={tab.pathname}>
 						<div className={`${classes.tab} ${router.pathname === tab.pathname ? classes.active : ""}`}>
 							<i className="material-icons-outlined">{tab.icon}</i>

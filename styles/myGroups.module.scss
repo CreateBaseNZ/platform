@@ -66,7 +66,7 @@
 	box-shadow: 0 8px 24px 0 rgba(black, 0.05);
 	transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 	.groupRole {
-		font-size: 11px;
+		font-size: 12px;
 		text-transform: uppercase;
 		font-weight: 600;
 		letter-spacing: 0.1em;
@@ -87,9 +87,9 @@
 		transition: color 0.1s ease-out;
 	}
 	.groupNums {
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 500;
-		line-height: 1.5em;
+		line-height: 1.25em;
 		transition: color 0.1s ease-out;
 	}
 	&:hover {
@@ -167,7 +167,7 @@
 			margin-left: 0.5rem;
 			margin-bottom: 0.25rem;
 			i {
-				top: 2.6rem !important;
+				top: 2.75rem !important;
 			}
 		}
 	}

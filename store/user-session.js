@@ -5,9 +5,10 @@ const UserSessionContext = createContext({
 		email: "",
 		firstName: "",
 		lastName: "",
-		verified: true,
-		view: null,
+		verified: false,
+		viewingGroup: false,
 		recentGroups: [],
+		numOfGroups: 0,
 	},
 	setUserSession: () => {},
 	sessionLoaded: null,
@@ -22,16 +23,13 @@ const defaultUserSession = {
 	firstName: "Louis",
 	lastName: "Lin",
 	verified: true,
-	// view: {
-	// 	groupType: "school",
-	// 	role: "teacher",
-	// 	groupName: "Somerville Intermediate School",
-	// },
+	viewingGroup: true,
 	recentGroups: [
-		{ name: "Somerville Intermediate School", type: "school" },
-		{ name: "Lin NZ", type: "family" },
-		{ name: "Rosehill College", type: "school" },
+		{ name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
+		{ name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
+		{ name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
 	],
+	numOfGroups: 5,
 };
 
 export const UserSessionContextProvider = (props) => {
