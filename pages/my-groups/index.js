@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import Head from "next/head";
-import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
+import { useRouter } from "next/router";
 import UserSessionContext from "../../store/user-session";
+import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
+import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/myGroups.module.scss";
-import { PrimaryButton } from "../../components/UI/Buttons";
-import { useRouter } from "next/router";
 
 const DUMMY_GROUPS = [
 	{ groupName: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, groupType: "school" },
@@ -15,8 +15,6 @@ const DUMMY_GROUPS = [
 	{ groupName: "The Doe's", role: "member", numOfUsers: { members: 5 }, groupType: "family" },
 	{ groupName: "Family trial as an admin", role: "admin", numOfUsers: { members: 1 }, groupType: "family" },
 ];
-
-const DUMMY_FAMILIES = [];
 
 const MyGroups = () => {
 	const router = useRouter();
