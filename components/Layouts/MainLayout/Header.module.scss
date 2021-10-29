@@ -57,17 +57,17 @@
 	flex-direction: column;
 	border-radius: 16px;
 	padding: 1rem;
-	background: rgba($blue-dark, 0.05);
+	background: rgba($logo-mid, 0.05);
 	margin-right: 1rem;
 	animation: view-appear 0.4s ease-out forwards;
 	.viewingAsName {
 		font-size: 11px;
-		color: $blue-dark;
+		color: $logo-mid;
 	}
 	.viewingAsRole {
 		font-size: 12px;
 		font-weight: 600;
-		color: $blue-dark;
+		color: $logo-mid;
 		text-transform: capitalize;
 	}
 }

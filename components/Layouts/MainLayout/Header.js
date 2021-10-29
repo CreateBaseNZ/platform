@@ -1,9 +1,7 @@
 import { useContext, useState } from "react";
 import router from "next/router";
-import Link from "next/link";
 import { signOut } from "next-auth/react";
 import UserAvatar from "../../UI/UserAvatar";
-import { PrimaryButton, SecondaryButton } from "../../UI/Buttons";
 import { ColourLogoIcon } from "../../UI/Icons";
 import DEFAULT_TABS from "../../../constants/mainTabs";
 
@@ -14,7 +12,9 @@ const Header = ({ navIsCollapsed, toggleNavHandler }) => {
 	const { userSession, setUserSession } = useContext(UserSessionContext);
 	const [showDropdown, setShowDropdown] = useState(false);
 
-	console.log(userSession);
+	const changeGroup = (group) => {
+		setUserSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group._id !== group._id)].slice(0, 3) }));
+	};
 
 	return (
 		<header className={classes.header}>
@@ -40,7 +40,7 @@ const Header = ({ navIsCollapsed, toggleNavHandler }) => {
 					<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
 						{userSession.recentGroups.map((group, i) => (
 							//TODO switching between views
-							<button key={i} onMouseDown={() => {}} title={group.name}>
+							<button key={i} onMouseDown={() => changeGroup(group)} title={group.name}>
 								<i className="material-icons-outlined">{group.type === "school" ? "holiday_village" : group.type === "family" ? "cottage" : ""}</i>
 								<span>{group.name}</span>
 							</button>

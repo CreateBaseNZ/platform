@@ -25,9 +25,9 @@ const defaultUserSession = {
 	verified: true,
 	viewingGroup: true,
 	recentGroups: [
-		{ name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
-		{ name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
-		{ name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
+		{ _id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
+		{ _id: "456", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
+		{ _id: "789", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
 	],
 	numOfGroups: 5,
 };

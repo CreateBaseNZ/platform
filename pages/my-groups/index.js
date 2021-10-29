@@ -8,12 +8,12 @@ import { PrimaryButton } from "../../components/UI/Buttons";
 import classes from "/styles/myGroups.module.scss";
 
 const DUMMY_GROUPS = [
-	{ groupName: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, groupType: "school" },
-	{ groupName: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, groupType: "school" },
-	{ groupName: "Shelly Park Primary", role: "student", numOfUsers: { admins: 1, teachers: 1, students: 34 }, groupType: "school" },
-	{ groupName: "School trial as an admin", role: "admin", numOfUsers: { admins: 1, teachers: 0, students: 0 }, groupType: "school" },
-	{ groupName: "The Doe's", role: "member", numOfUsers: { members: 5 }, groupType: "family" },
-	{ groupName: "Family trial as an admin", role: "admin", numOfUsers: { members: 1 }, groupType: "family" },
+	{ _id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
+	{ _id: "789", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
+	{ _id: "shellypark", name: "Shelly Park Primary", role: "student", numOfUsers: { admins: 1, teachers: 1, students: 34 }, type: "school" },
+	{ _id: "school_trial", name: "School trial as an admin", role: "admin", numOfUsers: { admins: 1, teachers: 0, students: 0 }, type: "school" },
+	{ _id: "456", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
+	{ name: "Family trial as an admin", role: "admin", numOfUsers: { members: 1 }, type: "family" },
 ];
 
 const MyGroups = () => {
@@ -21,8 +21,8 @@ const MyGroups = () => {
 	const { userSession, setUserSession } = useContext(UserSessionContext);
 
 	const cardClickHandler = (group) => {
-		setUserSession((state) => ({ ...state, view: group }));
-		router.push("/browse");
+		console.log([group, ...userSession.recentGroups]);
+		setUserSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group._id !== group._id)].slice(0, 3) }));
 	};
 
 	return (
@@ -45,10 +45,15 @@ const MyGroups = () => {
 							</div>
 							<div className={classes.groupName}>Register a school</div>
 						</div>
-						{DUMMY_GROUPS.filter((group) => group.groupType === "school").map((group) => (
-							<div key={group.groupName} className={classes.card} onClick={() => cardClickHandler(group)}>
-								<div className={classes.groupRole}>{group.role}</div>
-								<div className={classes.groupName}>{group.groupName}</div>
+						{DUMMY_GROUPS.filter((group) => group.type === "school").map((group) => (
+							<div
+								key={group.name}
+								className={`${classes.card} ${userSession.viewingGroup && userSession.recentGroups[0]._id === group._id ? classes.activeCard : ""}`}
+								onClick={() => cardClickHandler(group)}>
+								<div className={classes.groupRole}>
+									{group.role} {userSession.viewingGroup && userSession.recentGroups[0]._id === group._id ? " (viewing)" : ""}
+								</div>
+								<div className={classes.groupName}>{group.name}</div>
 								<div className={classes.groupNums}>
 									{group.numOfUsers.admins} admin{group.numOfUsers.admins === 1 ? "" : "s"}, {group.numOfUsers.teachers} teacher{group.numOfUsers.teachers === 1 ? "" : "s"},{" "}
 									{group.numOfUsers.students} student{group.numOfUsers.students === 1 ? "" : "s"}
@@ -69,9 +74,9 @@ const MyGroups = () => {
 							<div className={classes.groupName}>Create a family</div>
 						</div>
 						{DUMMY_GROUPS.filter((group) => group.groupType === "family").map((group) => (
-							<div key={group.groupName} className={classes.card}>
+							<div key={group.name} className={classes.card}>
 								<div className={classes.groupRole}>{group.role}</div>
-								<div className={classes.groupName}>{group.groupName}</div>
+								<div className={classes.groupName}>{group.name}</div>
 								<div className={classes.groupNums}>
 									{group.numOfUsers.members} member{group.numOfUsers.members === 1 ? "" : "s"}
 								</div>

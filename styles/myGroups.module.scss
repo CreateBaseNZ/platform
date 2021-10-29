@@ -99,6 +99,9 @@
 			color: $logo-mid;
 		}
 	}
+	&.activeCard {
+		box-shadow: 0 0 24px 0 rgba($logo-mid, 0.25);
+	}
 }
 
 .addCard {
