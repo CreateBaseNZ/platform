@@ -11,7 +11,7 @@ const useAuthHelper = () => {
 	const signUp = async ({ details, failHandler, successHandler }) => {
 		let data = {};
 		try {
-			// TODO: integration
+			// TODO: integration (done)
 			data = (await axios.post("/api/signup", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
 		} catch (error) {
 			data.status = "error";
@@ -21,7 +21,7 @@ const useAuthHelper = () => {
 	};
 
 	const logIn = async ({ email, password, failHandler, callbackUrl }) => {
-		// TODO: integration
+		// TODO: integration (done)
 		const result = await signIn("credentials", {
 			redirect: false,
 			user: email,
