@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
-import Input from "../../components/UI/Input";
+import Input, { SearchBar } from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/classes.module.scss";
+import UserSessionContext from "../../store/user-session";
 
 const ClassJoin = () => {
 	const [isLoading, setIsLoading] = useState(false);
+	const { userSession } = useContext(UserSessionContext);
 	const {
 		register,
 		handleSubmit,
@@ -36,14 +38,14 @@ const ClassJoin = () => {
 						<h2>Join a class</h2>
 					</div>
 					<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-						<Input
+						<SearchBar
 							className={classes.input}
-							label="Class name*"
+							label={`Search for a class in ${userSession.recentGroups[0].name}`}
 							labelProps={{ className: classes.inputLabel }}
-							inputProps={{ placeholder: "Class name", type: "text", maxLength: 254, ...register("name", { required: "Please enter a name for your class" }) }}
+							inputProps={{ placeholder: "Class name", type: "text", maxLength: 254, ...register("name", { required: "Please select a class" }) }}
 							error={errors.name}
 						/>
-						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Creating ..." mainLabel="Create" />
+						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Joining ..." mainLabel="Join" />
 					</form>
 				</div>
 			</div>

@@ -22,6 +22,12 @@ const Header = ({ navIsCollapsed, toggleNavHandler }) => {
 			<button className={`${classes.collapse} ${navIsCollapsed ? classes.collapsed : ""}`} title={navIsCollapsed ? "Expand" : "Collapse"} onClick={toggleNavHandler}>
 				<i className="material-icons-outlined">{navIsCollapsed ? "chevron_right" : "chevron_left"}</i>
 			</button>
+			{userSession?.viewingGroup && (
+				<div className={classes.viewingAs}>
+					<div className={classes.viewingAsName}>{userSession.recentGroups[0].name}</div>
+					<div className={classes.viewingAsRole}>{userSession.recentGroups[0].role}</div>
+				</div>
+			)}
 			{userSession?.email && (
 				<div className={`${classes.headerUserContainer} ${userSession.email ? classes.loaded : ""}`} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
 					<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>

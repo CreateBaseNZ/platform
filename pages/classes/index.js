@@ -8,8 +8,8 @@ import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import classes from "/styles/classes.module.scss";
 
 const DUMMY_CLASSES = [
-	{ _id: "abc123", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 },
-	{ _id: "abc123", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
+	{ _id: "room12id", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 },
+	{ _id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
 ];
 
 const ClassesTabRoot = () => {

@@ -22,6 +22,7 @@ const MyGroups = () => {
 
 	const cardClickHandler = (group) => {
 		setUserSession((state) => ({ ...state, view: group }));
+		router.push("/browse");
 	};
 
 	return (
