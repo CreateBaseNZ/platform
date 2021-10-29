@@ -2,13 +2,13 @@ import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
-import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 
-import classes from "/styles/myGroups.module.scss";
+import classes from "/styles/classes.module.scss";
 
-const NewFamily = () => {
+const ClassesNew = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -17,34 +17,32 @@ const NewFamily = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	// TODO
 	const onSubmit = () => {};
 
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Create a Family | CreateBase</title>
-				<meta name="description" content="Create a new family group on CreateBase" />
+				<title>New Class | CreateBase</title>
+				<meta name="description" content="Create a new class on CreateBase" />
 			</Head>
-			<Link href="/my-groups">
-				<button className={classes.backBtn}>
+			<Link href="/classes">
+				<button className={classes.backBtn} title="Back to classes">
 					<i className="material-icons-outlined">chevron_left</i>Back
 				</button>
 			</Link>
 			<div className={`${classes.container} roundScrollbar`}>
 				<div className={`${classes.wrapper} ${classes.formWrapper}`}>
 					<div className={classes.h2Container}>
-						<h2>Create a family</h2>
+						<h2>New class</h2>
 					</div>
 					<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 						<Input
 							className={classes.input}
-							label="Group name*"
+							label="Class name*"
 							labelProps={{ className: classes.inputLabel }}
-							inputProps={{ placeholder: "Group name", type: "text", maxLength: 254, ...register("name", { required: "Please enter a name for your group" }) }}
+							inputProps={{ placeholder: "Class name", type: "text", maxLength: 254, ...register("name", { required: "Please enter a name for your class" }) }}
 							error={errors.name}
 						/>
-						<div className={classes.caption}>Note: this does NOT need to be your surname, so get creative!</div>
 						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Creating ..." mainLabel="Create" />
 					</form>
 				</div>
@@ -53,10 +51,8 @@ const NewFamily = () => {
 	);
 };
 
-NewFamily.getLayout = (page) => {
-	return <MainLayout page="my-groups">{page}</MainLayout>;
+ClassesNew.getLayout = function getLayout(page) {
+	return <MainLayout page="classes">{page}</MainLayout>;
 };
 
-NewFamily.authorisation = "user";
-
-export default NewFamily;
+export default ClassesNew;

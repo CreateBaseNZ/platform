@@ -1,22 +1,25 @@
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import ClassesContext from "../../store/classes-context";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
-import InnerLayout from "../../components/Layouts/InnerLayout/InnerLayout";
-
-import CLASSES_TABS from "../../constants/classesTabs";
 
 import classes from "/styles/classes.module.scss";
 
 const DUMMY_CLASSES = [
-	{ name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 },
-	{ name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
+	{ _id: "abc123", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 },
+	{ _id: "abc123", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
 ];
 
 const ClassesTabRoot = () => {
 	const router = useRouter();
+	const { classSession, setClassSession } = useContext(ClassesContext);
 
-	const cardClickHandler = () => {};
+	const cardClickHandler = (_class) => {
+		setClassSession(_class);
+		router.push({ pathname: "/classes/[id]/announcements", query: { id: _class._id } });
+	};
 
 	return (
 		<div className={classes.view}>

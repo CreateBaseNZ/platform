@@ -24,7 +24,7 @@ const JoinSchool = () => {
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Join a school | CreateBase</title>
+				<title>Join a School | CreateBase</title>
 				<meta name="description" content="Join your school group on CreateBase" />
 			</Head>
 			<Link href="/my-groups">

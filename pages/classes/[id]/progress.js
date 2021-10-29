@@ -4,16 +4,16 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesTabs";
 
 import classes from "../../../components/Classes/Progress.module.scss";
-
-const DUMMY_CLASS_DATA = {
-	name: "10S4",
-};
+import { useContext } from "react";
+import ClassesContext from "../../../store/classes-context";
 
 const ClassesProgress = () => {
+	const { classSession } = useContext(ClassesContext);
+
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Progress • {DUMMY_CLASS_DATA.name} | CreateBase</title>
+				<title>Progress • {classSession.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>Progress</h1>
@@ -25,7 +25,9 @@ const ClassesProgress = () => {
 ClassesProgress.getLayout = function getLayout(page) {
 	return (
 		<MainLayout page="classes">
-			<InnerLayout tabs={CLASSES_TABS}>{page}</InnerLayout>
+			<InnerLayout tabs={CLASSES_TABS} backHref="/classes">
+				{page}
+			</InnerLayout>
 		</MainLayout>
 	);
 };

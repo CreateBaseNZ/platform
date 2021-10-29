@@ -4,19 +4,19 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesTabs";
 
 import classes from "../../../components/Classes/Manage.module.scss";
-
-const DUMMY_CLASS_DATA = {
-	name: "10S4",
-};
+import { useContext } from "react";
+import ClassesContext from "../../../store/classes-context";
 
 const ClassesManage = () => {
+	const { classSession } = useContext(ClassesContext);
+
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Manage • {DUMMY_CLASS_DATA.name} | CreateBase</title>
+				<title>Manage • {classSession.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
-			<h1>Manage</h1>
+			<h1>Manage {classSession.name}</h1>
 			Coming soon!
 		</div>
 	);
@@ -25,7 +25,9 @@ const ClassesManage = () => {
 ClassesManage.getLayout = function getLayout(page) {
 	return (
 		<MainLayout page="classes">
-			<InnerLayout tabs={CLASSES_TABS}>{page}</InnerLayout>
+			<InnerLayout tabs={CLASSES_TABS} backHref="/classes">
+				{page}
+			</InnerLayout>
 		</MainLayout>
 	);
 };

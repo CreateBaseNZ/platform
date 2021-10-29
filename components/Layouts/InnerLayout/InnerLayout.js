@@ -5,7 +5,7 @@ import UserSessionContext from "../../../store/user-session";
 
 import classes from "./InnerLayout.module.scss";
 
-const InnerLayout = ({ tabs, children, showBack = true }) => {
+const InnerLayout = ({ tabs, children, backHref }) => {
 	const { userSession } = useContext(UserSessionContext);
 	const router = useRouter();
 
@@ -14,8 +14,8 @@ const InnerLayout = ({ tabs, children, showBack = true }) => {
 	return (
 		<div className={classes.layout}>
 			<div className={classes.sidebar}>
-				{showBack && (
-					<Link href={{ query: { tab: "" } }}>
+				{backHref && (
+					<Link href={backHref}>
 						<a className={classes.back}>
 							<i className="material-icons-outlined">chevron_left</i>
 							Back

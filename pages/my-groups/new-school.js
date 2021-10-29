@@ -23,7 +23,7 @@ const NewSchool = () => {
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Register a school | CreateBase</title>
+				<title>Register a School | CreateBase</title>
 				<meta name="description" content="Register your school as a group on CreateBase" />
 			</Head>
 			<Link href="/my-groups">

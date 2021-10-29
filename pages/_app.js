@@ -9,6 +9,7 @@ import { VisualBellContextProvider } from "../store/visual-bell-context";
 import VisualBell from "../components/VisualBell";
 import { useRouter } from "next/router";
 import AuthGuard from "../components/Auth/AuthGuard";
+import { ClassesContextProvider } from "../store/classes-context";
 
 // function MyApp({ Component, pageProps }) {
 // 	const [loaded, setLoaded] = useState(false);
@@ -60,7 +61,9 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	return (
 		<SessionProvider session={session}>
 			<UserSessionContextProvider>
-				<AuthGuard authorisation={Component.authorisation}>{getLayout(<Component {...pageProps} />)}</AuthGuard>
+				<ClassesContextProvider>
+					<AuthGuard authorisation={Component.authorisation}>{getLayout(<Component {...pageProps} />)}</AuthGuard>
+				</ClassesContextProvider>
 			</UserSessionContextProvider>
 		</SessionProvider>
 	);

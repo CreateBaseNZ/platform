@@ -23,7 +23,7 @@ const JoinFamily = () => {
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Join a family | CreateBase</title>
+				<title>Join a Family | CreateBase</title>
 				<meta name="description" content="Join your family group on CreateBase" />
 			</Head>
 			<Link href="/my-groups">
