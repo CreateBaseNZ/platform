@@ -1,0 +1,329 @@
+@import "/styles/variables";
+
+.controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex: 0 0 3rem;
+	max-height: 3rem;
+	min-height: 3rem;
+}
+
+.mainBtnContainer {
+	margin-left: 1.5rem;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.tab {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	position: relative;
+	color: $light;
+	font-weight: 600;
+	font-size: 12px;
+	margin-right: 2rem;
+	text-transform: capitalize;
+	transition: color 0.1s ease-out;
+	i {
+		color: inherit;
+		font-size: 20px;
+		margin-right: 0.5rem;
+	}
+	.title {
+		position: absolute;
+		text-transform: none;
+		top: 0;
+		left: 50%;
+		opacity: 0;
+		color: white;
+		padding: 2px 8px;
+		font-size: 10px;
+		font-weight: 500;
+		background: rgba(black, 0.5);
+		white-space: nowrap;
+		border-radius: 4px;
+		pointer-events: none;
+		transform: translate(-50%, -1rem);
+		transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 3px;
+		width: 0;
+		background: $logo-mid;
+		transition: width 0.2s ease-out;
+	}
+	&:hover {
+		color: $dark;
+		.title {
+			opacity: 1;
+			transform: translate(-50%, -1.25rem);
+		}
+	}
+	&.active {
+		color: $logo-mid;
+		&::after {
+			width: 32px;
+		}
+	}
+}
+.nSelected {
+	font-size: 12px;
+	color: $blue-mid;
+	font-weight: 600;
+	margin-right: 2rem;
+	width: 5.5rem;
+}
+.actions {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 3rem;
+		height: 3rem;
+		margin: 0 0.5rem;
+		border-radius: 16px;
+		background: rgba($blue-mid, 0.05);
+		position: relative;
+		transition: background-color 0.1s ease-out;
+		i {
+			color: $blue-mid;
+			font-size: 20px;
+			transition: color 0.1s ease-out;
+		}
+		.title {
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			opacity: 0;
+			color: $blue-mid;
+			padding: 6px 12px;
+			font-size: 12px;
+			font-weight: 500;
+			background: rgba($blue-mid, 0.05);
+			white-space: nowrap;
+			border-radius: 8px;
+			transform: translate(-50%, -2rem);
+			transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+		}
+		&:hover {
+			background: $blue-mid;
+			i {
+				color: white;
+			}
+			.title {
+				opacity: 1;
+				transform: translate(-50%, -2.25rem);
+			}
+		}
+	}
+}
+
+.otherBtnContainer {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.search {
+	height: 100%;
+	position: relative;
+	input {
+		border: 2px solid $lighter;
+		border-radius: 16px;
+		height: 100%;
+		width: 14rem;
+		font-size: 12px;
+		font-family: $poppins;
+		font-weight: 500;
+		padding: 0 1.25rem 0 2.5rem;
+		transition: padding 0.2s ease-out, border 0.1s ease-out, background-color 0.1s ease-out, color 0.1s ease-out;
+		&::placeholder {
+			font-weight: 400;
+			color: $light;
+			transition: color 0.1s ease-out;
+		}
+		&:focus {
+			border-color: $blue-mid;
+			background: rgba($blue-mid, 0.05);
+			padding-left: 1.25rem;
+			& ~ i {
+				opacity: 0;
+			}
+		}
+	}
+	i {
+		position: absolute;
+		top: 50%;
+		left: 1rem;
+		transform: translateY(-50%);
+		font-size: 16px;
+		pointer-events: none;
+		color: $light;
+		transition: opacity 0.1s ease-out, color 0.1s ease-out;
+	}
+	.title {
+		position: absolute;
+		text-transform: none;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		color: white;
+		padding: 2px 8px;
+		font-size: 10px;
+		font-weight: 500;
+		background: rgba(black, 0.5);
+		white-space: nowrap;
+		border-radius: 4px;
+		pointer-events: none;
+		transform: translateY(-1.25rem);
+		transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+	}
+	&:hover {
+		input {
+			background: rgba($blue-mid, 0.05);
+		}
+		input,
+		input::placeholder,
+		i {
+			color: $blue-mid;
+		}
+		.title {
+			opacity: 1;
+			transform: translateY(-1.5rem);
+		}
+	}
+}
+.toggleHeader {
+	height: 2.5rem;
+	margin-left: 2rem;
+	flex: 0 0 6rem;
+	min-width: 6rem;
+	max-width: 6rem;
+	padding: 0 0.75rem 0 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: $blue-mid;
+	border-radius: 12px;
+	transition: background-color 0.1s ease-out;
+	span {
+		font-size: 12px;
+		font-weight: 500;
+		color: inherit;
+		margin-right: 0.5rem;
+	}
+	i {
+		color: inherit;
+		transition: transform 0.2s ease-out;
+		font-size: 16px;
+	}
+	&:hover {
+		background-color: rgba($blue-mid, 0.1);
+	}
+}
+
+.changePassword {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	.nSelected {
+		flex: 0 0 auto;
+		width: auto;
+		margin-right: 2rem;
+	}
+	.inputWrapper {
+		height: 100%;
+		position: relative;
+		margin-right: 2rem;
+		input {
+			font-size: 14px;
+		}
+		p {
+			position: absolute;
+			top: 50%;
+			right: 2.5rem;
+			transform: translateY(-50%);
+			pointer-events: none;
+		}
+		i {
+			top: 1rem !important;
+		}
+	}
+	.submit {
+		height: 100%;
+		flex: 0 0 auto;
+		width: auto;
+		margin-right: 1rem;
+		padding: 0 1.5rem;
+		font-size: 12px;
+		background: $blue-mid;
+		box-shadow: 0 4px 24px -6px rgba($blue-mid, 0.5);
+	}
+	.cancel {
+		flex: 0 0 auto;
+		width: auto;
+		height: 100%;
+		padding: 0 1.5rem;
+		font-size: 12px;
+		color: $dark;
+		background: $lighter;
+		&:hover {
+			background: rgba(black, 0.05);
+		}
+	}
+}
+
+.removeConfirm {
+	width: 100%;
+	height: 100%;
+	justify-content: flex-start;
+	color: $red;
+	border-radius: 16px;
+	padding: 0 1.5rem;
+	background: rgba($red, 0.2);
+	&,
+	* {
+		display: flex;
+		align-items: center;
+		font-size: 13px;
+		font-weight: 500;
+	}
+	button {
+		justify-content: center;
+		padding: 0 1rem;
+		height: 2rem;
+		text-transform: uppercase;
+		letter-spacing: 0.01em;
+		border-radius: 999px;
+		font-weight: 600;
+		transition: background-color 0.1s ease-out;
+	}
+	.cancelBtn {
+		margin-left: auto;
+		color: $dark;
+		background: rgba(white, 0.5);
+		&:hover {
+			background: rgba(white, 0.75);
+		}
+	}
+	.confirmBtn {
+		margin-left: 0.5rem;
+		color: white;
+		background: $red;
+		&:hover {
+			background: $red-dark;
+		}
+	}
+}

@@ -56,30 +56,30 @@ const SignupForm = () => {
 					});
 				setIsLoading(false);
 			},
-			successHandler: async () =>
-				await logIn(
-					input.email,
-					input.password,
-					() => {
-						setVisualBell({
-							type: "catastrophe",
-							message: "Something unexpected happened, please reload the page",
-						});
-					},
-					() => {
-						router.replace({ pathname: "/auth", query: { action: "login" } });
-						setVisualBell({
-							type: "success",
-							message: "Success! Your account has been created, log in to continue",
-						});
-					},
-					() => {
-						setVisualBell({
-							type: "success",
-							message: "Success! Your account has been created",
-						});
-					}
-				),
+			successHandler: async () => console.log("nice"),
+			// await logIn(
+			// 	input.email,
+			// 	input.password,
+			// 	() => {
+			// 		setVisualBell({
+			// 			type: "catastrophe",
+			// 			message: "Something unexpected happened, please reload the page",
+			// 		});
+			// 	},
+			// 	() => {
+			// 		router.replace({ pathname: "/auth", query: { action: "login" } });
+			// 		setVisualBell({
+			// 			type: "success",
+			// 			message: "Success! Your account has been created, log in to continue",
+			// 		});
+			// 	},
+			// 	() => {
+			// 		setVisualBell({
+			// 			type: "success",
+			// 			message: "Success! Your account has been created",
+			// 		});
+			// 	}
+			// ),
 		});
 	};
 

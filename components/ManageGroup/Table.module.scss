@@ -8,6 +8,11 @@
 	justify-content: space-between;
 }
 
+.tableHeader {
+	width: 100%;
+	display: flex;
+}
+
 .tableWrapper {
 	display: block; // required
 	max-width: 100%; // required

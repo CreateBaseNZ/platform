@@ -13,10 +13,14 @@
 	width: 16rem;
 	background: $lightest;
 	transition: width 0.2s ease-out, opacity 0.1s ease-out;
+	& > * {
+		transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+	}
 	&.navCollapsed {
 		width: 0;
-		* {
+		& > * {
 			opacity: 0;
+			transform: translateX(-4rem);
 		}
 	}
 }
@@ -40,11 +44,15 @@
 	background: white;
 	border-bottom: 2px solid $lighter;
 	transition: height 0.2s ease-out, border 0.2s ease-out, opacity 0.1s ease-out;
+	& > * {
+		transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+	}
 	&.headerCollapsed {
 		height: 0;
 		border-bottom: 0px solid transparent;
-		* {
+		& > * {
 			opacity: 0;
+			transform: translateY(-1rem);
 		}
 	}
 }

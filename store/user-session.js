@@ -34,7 +34,7 @@ const defaultUserSession = {
 
 export const UserSessionContextProvider = (props) => {
 	const [sessionLoaded, setSessionLoaded] = useState(true);
-	const [userSession, setUserSession] = useState(defaultUserSession);
+	const [userSession, setUserSession] = useState({});
 
 	const value = useMemo(
 		() => ({

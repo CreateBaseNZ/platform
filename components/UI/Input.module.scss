@@ -28,11 +28,11 @@
 		background: #eeeeee;
 	}
 	&:focus {
-		border-color: $logo-light;
-		background: rgba($logo-light, 0.05);
+		border-color: $blue-mid;
+		background: rgba($blue-mid, 0.05);
 		color: black;
 		& ~ label {
-			color: $logo-light;
+			color: $blue-mid;
 		}
 	}
 	&::-webkit-outer-spin-button,

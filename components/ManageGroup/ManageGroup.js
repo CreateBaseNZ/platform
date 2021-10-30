@@ -4,18 +4,18 @@ import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import UserSessionContext from "../../store/user-session";
 import Table from "./Table";
 // import TableControls from "./TableControls";
-// import TableHead from "./TableHead";
 import GROUP_CONFIG, { COLUMNS, SIZES } from "../../constants/manageGroup";
 
 import classes from "/styles/manageGroup.module.scss";
 import { useRouter } from "next/router";
+import MainLayoutContext from "../../store/main-layout-context";
 
-const ManageGroup = ({ collapseHeader, setCollapseHeader, role }) => {
+const ManageGroup = ({ role }) => {
 	const router = useRouter();
 	const { userSession } = useContext(UserSessionContext);
 	const { getOrgUsers } = useOrganisationHelper();
+	const { headerIsCollapsed, setHeaderIsCollapsed } = useContext(MainLayoutContext);
 	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[userSession.recentGroups[0].type].roles }).map(([_, b]) => ({ [b.name]: [] }))));
-	const [search, setSearch] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
 
@@ -89,7 +89,15 @@ const ManageGroup = ({ collapseHeader, setCollapseHeader, role }) => {
 				showChangePassword={showChangePassword}
 				setShowChangePassword={setShowChangePassword}
 			/> */}
-			<h2 className={classes.header}>Manage {role}</h2>
+			<h2 className={classes.header}>
+				Manage {role}
+				<button className={classes.toggleHeader} onClick={() => setHeaderIsCollapsed((state) => !state)} title="Expand table view">
+					<span>{headerIsCollapsed ? "Collapse" : "Expand"}</span>
+					<i className="material-icons-outlined" style={{ transform: headerIsCollapsed && "rotate(180deg)" }}>
+						expand_less
+					</i>
+				</button>
+			</h2>
 			<Table columns={columns} data={data} pageSizes={SIZES} />
 		</div>
 	);

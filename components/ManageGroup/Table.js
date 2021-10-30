@@ -4,6 +4,7 @@ import IndeterminateCheckbox from "./IndeterminateCheckbox";
 import PageNav from "./PageNav";
 import PageSizeSelect from "./PageSizeSelect";
 import classes from "./Table.module.scss";
+import TableControls from "./TableControls";
 
 const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLoading, setIsLoading }) => {
 	const {
@@ -15,12 +16,10 @@ const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLo
 		canPreviousPage,
 		canNextPage,
 		pageOptions,
-		pageCount,
 		gotoPage,
 		nextPage,
 		previousPage,
 		setPageSize,
-		setColumnOrder,
 		state: { pageIndex, pageSize, selectedRowIds },
 	} = useTable(
 		{
@@ -34,7 +33,6 @@ const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLo
 		useRowSelect,
 		(hooks) => {
 			hooks.allColumns.push((columns) => [
-				// Let's make a column for selection
 				{
 					id: "selection",
 					disableResizing: true,
@@ -59,7 +57,7 @@ const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLo
 
 	return (
 		<div className={classes.container}>
-			<div>{Object.keys(selectedRowIds).length}</div>
+			<TableControls numOfSelected={Object.keys(selectedRowIds).length} />
 			<div className={classes.tableWrapper}>
 				<table {...getTableProps()} className={classes.table}>
 					<thead className={classes.thead}>
