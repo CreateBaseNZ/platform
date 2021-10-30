@@ -16,8 +16,8 @@ export default NextAuth({
 			session.user = token.user;
 			return session;
 		},
-		async redirect(url) {
-			return url;
+		async redirect({ url, baseUrl }) {
+			return url.startsWith(baseUrl) ? url : baseUrl;
 		},
 	},
 	providers: [

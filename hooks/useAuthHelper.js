@@ -19,14 +19,14 @@ const useAuthHelper = () => {
 		}
 	};
 
-	const logIn = async ({ email, password, failHandler, successHandler, callbackUrl }) => {
+	const logIn = async ({ email, password, failHandler, callbackUrl }) => {
 		// TODO: integration (done)
 		const result = await signIn("credentials", {
 			redirect: false,
 			user: email,
 			password: password,
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-			// callbackUrl: "/",
+			callbackUrl: "/",
 		});
 		if (result.error) {
 			const error = JSON.parse(result.error);
