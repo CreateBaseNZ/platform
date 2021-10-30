@@ -27,6 +27,7 @@ export default NextAuth({
 				if (credentials.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 					throw new Error(JSON.stringify({ status: "critical error" }));
 				}
+				const input = { email: credentials.user, password: credentials.password };
 				// Perform authentication based on the type
 				let data;
 				try {
