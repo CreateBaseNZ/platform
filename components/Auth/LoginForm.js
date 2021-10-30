@@ -17,7 +17,7 @@ export const LoginForm = ({ redirect }) => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			username: window.localStorage.getItem("createbase__remember-me"),
+			email: window.localStorage.getItem("createbase__remember-me"),
 			remember: window.localStorage.getItem("createbase__remember-me") && true,
 		},
 		mode: "onTouched",
@@ -28,15 +28,19 @@ export const LoginForm = ({ redirect }) => {
 		await logIn({
 			email: input.email,
 			password: input.password,
-			failHandler: () => {
-				setError("username", {
-					type: "manual",
-					message: "The details you entered are incorrect",
-				});
-				setError("password", {
-					type: "manual",
-					message: "The details you entered are incorrect",
-				});
+			failHandler: (content) => {
+				if (content.account === "does not exist") {
+					setError("email", {
+						type: "manual",
+						message: "No accounts registered with this email",
+					});
+				} else if (content.password === "incorrect") {
+					console.log("incorrect");
+					setError("password", {
+						type: "manual",
+						message: "Incorrect password",
+					});
+				}
 				setIsLoading(false);
 			},
 			successHandler: () => router.push(redirect || "/"),
@@ -53,11 +57,11 @@ export const LoginForm = ({ redirect }) => {
 						placeholder: "Email*",
 						type: "text",
 						maxLength: 254,
-						...register("username", {
-							required: "Please enter your username",
+						...register("email", {
+							required: "Please enter your email",
 						}),
 					}}
-					error={errors.username}
+					error={errors.email}
 				/>
 				<PasswordInput
 					inputProps={{

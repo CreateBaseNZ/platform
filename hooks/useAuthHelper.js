@@ -1,9 +1,7 @@
 // TODO update all API calls
-
 import axios from "axios";
 import useHandleResponse from "./useHandleResponse";
 import { signIn } from "next-auth/react";
-import router from "next/router";
 
 const useAuthHelper = () => {
 	const { handleResponse } = useHandleResponse();
@@ -17,27 +15,29 @@ const useAuthHelper = () => {
 			data.status = "error";
 		} finally {
 			console.log(data);
-			handleResponse({ data, failHandler, successHandler });
+			handleResponse({ data, failHandler: () => failHandler(data.content), successHandler });
 		}
 	};
 
-	const logIn = async ({ email, password, failHandler, callbackUrl }) => {
+	const logIn = async ({ email, password, failHandler, successHandler, callbackUrl }) => {
 		// TODO: integration (done)
 		const result = await signIn("credentials", {
 			redirect: false,
 			user: email,
 			password: password,
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-			callbackUrl: callbackUrl,
+			// callbackUrl: "/",
 		});
 		if (result.error) {
 			const error = JSON.parse(result.error);
+			console.log(error);
 			if (error.status === "failed") {
-				return failHandler();
+				return failHandler(error.content);
 			} else {
 				return router.push("/404");
 			}
 		}
+		return successHandler();
 	};
 
 	const sendForgotPasswordCode = async ({ details, failHandler, successHandler }) => {

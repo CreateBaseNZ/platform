@@ -6,16 +6,15 @@ import { useForm } from "react-hook-form";
 import VisualBellContext from "../../store/visual-bell-context";
 import { PrimaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
-import { isBlacklisted } from "../../utils/formValidation";
+import { isBlacklisted, namePattern } from "../../utils/formValidation";
 import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
-import { logIn } from "../../utils/authHelpers";
 import useAuthHelper from "../../hooks/useAuthHelper";
 import classes from "./AuthForms.module.scss";
 
 const SignupForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { signUp } = useAuthHelper();
+	const { signUp, logIn } = useAuthHelper();
 	const {
 		register,
 		handleSubmit,
@@ -49,37 +48,28 @@ const SignupForm = () => {
 		signUp({
 			details: { email: input.email, firstName: input.firstName, lastName: input.lastName, password: input.password },
 			failHandler: (content) => {
-				if (content.email)
+				if (content.email === "taken")
 					setError("email", {
 						type: "manual",
 						message: "This email is already taken",
 					});
 				setIsLoading(false);
 			},
-			successHandler: async () => console.log("nice"),
-			// await logIn(
-			// 	input.email,
-			// 	input.password,
-			// 	() => {
+			successHandler: async () => console.log("very nice"),
+			// await logIn({
+			// 	email: input.email,
+			// 	password: input.password,
+			// 	failHandler: () =>
 			// 		setVisualBell({
 			// 			type: "catastrophe",
 			// 			message: "Something unexpected happened, please reload the page",
-			// 		});
-			// 	},
-			// 	() => {
-			// 		router.replace({ pathname: "/auth", query: { action: "login" } });
-			// 		setVisualBell({
-			// 			type: "success",
-			// 			message: "Success! Your account has been created, log in to continue",
-			// 		});
-			// 	},
-			// 	() => {
+			// 		}),
+			// 	successHandler: () =>
 			// 		setVisualBell({
 			// 			type: "success",
 			// 			message: "Success! Your account has been created",
-			// 		});
-			// 	}
-			// ),
+			// 		}),
+			// }),
 		});
 	};
 
@@ -107,8 +97,7 @@ const SignupForm = () => {
 						maxLength: 254,
 						...register("firstName", {
 							required: "Please enter your first name",
-							minLength: displayNameMinLength,
-							pattern: displayNamePattern,
+							pattern: namePattern,
 						}),
 					}}
 					error={errors.firstName}
@@ -121,8 +110,7 @@ const SignupForm = () => {
 						maxLength: 254,
 						...register("lastName", {
 							required: "Please enter your last name",
-							minLength: displayNameMinLength,
-							pattern: displayNamePattern,
+							pattern: namePattern,
 						}),
 					}}
 					error={errors.lastName}

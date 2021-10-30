@@ -15,7 +15,7 @@
 }
 
 .form {
-	min-height: 400px;
+	min-height: 500px;
 	z-index: 2;
 	flex: 1 1 auto;
 	height: 100%;
@@ -129,7 +129,7 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		height: 20px;
+		height: 100%;
 		width: 100%;
 		opacity: 0;
 		cursor: pointer;
@@ -150,6 +150,7 @@
 		justify-content: center;
 		height: 20px;
 		width: 20px;
+		flex: 0 0 auto;
 		border: thin solid $blue-dark;
 		pointer-events: none;
 		border-radius: 4px;
@@ -181,6 +182,9 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	.form {
+		min-height: 400px;
+	}
 	.input:focus {
 		border-color: $blue-mid;
 		background: rgba($blue-mid, 0.05);
