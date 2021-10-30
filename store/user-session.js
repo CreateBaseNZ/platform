@@ -1,4 +1,5 @@
-import { useState, createContext, useMemo } from "react";
+import { useSession } from "next-auth/react";
+import { useState, createContext, useMemo, useEffect } from "react";
 
 const UserSessionContext = createContext({
 	userSession: {
@@ -33,8 +34,17 @@ const defaultUserSession = {
 };
 
 export const UserSessionContextProvider = (props) => {
+	const { data, status } = useSession();
 	const [sessionLoaded, setSessionLoaded] = useState(true);
 	const [userSession, setUserSession] = useState({});
+
+	useEffect(() => {
+		if (status !== "loading") {
+			console.log(data);
+			setSessionLoaded(true);
+			setUserSession(data);
+		}
+	}, [data, status]);
 
 	const value = useMemo(
 		() => ({

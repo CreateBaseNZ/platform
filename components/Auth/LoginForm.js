@@ -7,7 +7,7 @@ import Input, { PasswordInput } from "../UI/Input";
 import classes from "./AuthForms.module.scss";
 import useAuthHelper from "../../hooks/useAuthHelper";
 
-export const LoginForm = ({ redirect }) => {
+export const LoginForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { logIn } = useAuthHelper();
 	const {
@@ -43,7 +43,7 @@ export const LoginForm = ({ redirect }) => {
 				}
 				setIsLoading(false);
 			},
-			successHandler: () => router.push(redirect || "/"),
+			successHandler: () => router.push(router?.query?.redirect || "/"),
 		});
 	};
 

@@ -63,9 +63,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 		<SessionProvider session={session}>
 			<UserSessionContextProvider>
 				<ClassesContextProvider>
-					<MainLayoutContextProvider>
-						<AuthGuard authorisation={Component.authorisation}>{getLayout(<Component {...pageProps} />)}</AuthGuard>
-					</MainLayoutContextProvider>
+					<MainLayoutContextProvider>{Component.authorisation ? <AuthGuard>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}</MainLayoutContextProvider>
 				</ClassesContextProvider>
 			</UserSessionContextProvider>
 		</SessionProvider>

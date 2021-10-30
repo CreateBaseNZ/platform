@@ -364,21 +364,22 @@ import UserSessionContext from "../store/user-session";
 
 const Index = () => {
 	const router = useRouter();
-	const { userSession } = useContext(UserSessionContext);
+	// const { userSession } = useContext(UserSessionContext);
+	const { data: session, status } = useSession();
 
-	console.log("index");
+	if (status === "loading") return null;
 
-	useEffect(() => {
-		if (userSession.email) {
-			if (userSession.viewingGroup) {
-				router.replace("/browse");
-			} else {
-				router.replace("/my-groups");
-			}
+	console.log(session);
+
+	if (session) {
+		if (session.isViewingGroup) {
+			router.replace("/browse");
 		} else {
-			router.replace("/auth/signup");
+			router.replace("/my-groups");
 		}
-	}, [userSession]);
+	} else {
+		router.replace("/auth/signup");
+	}
 
 	return null;
 };

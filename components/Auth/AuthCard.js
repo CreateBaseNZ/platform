@@ -5,7 +5,7 @@ import SignupForm from "./SignupForm";
 
 import classes from "./AuthCard.module.scss";
 
-const AuthCard = ({ isSignup, redirect }) => {
+const AuthCard = ({ isSignup }) => {
 	return (
 		<div className={classes.authCard}>
 			<div className={`${classes.imgContainer} ${isSignup ? classes.signup : classes.login}`}>
@@ -21,7 +21,7 @@ const AuthCard = ({ isSignup, redirect }) => {
 					</div>
 				</div>
 			</div>
-			<div className={`${classes.formContainer} roundScrollbar`}>{isSignup ? <SignupForm /> : <LoginForm redirect={redirect} />}</div>
+			<div className={`${classes.formContainer} roundScrollbar`}>{isSignup ? <SignupForm /> : <LoginForm />}</div>
 		</div>
 	);
 };

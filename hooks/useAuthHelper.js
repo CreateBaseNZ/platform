@@ -20,7 +20,6 @@ const useAuthHelper = () => {
 	};
 
 	const logIn = async ({ email, password, failHandler, successHandler, callbackUrl }) => {
-		console.log(successHandler);
 		// TODO: integration (done)
 		const result = await signIn("credentials", {
 			redirect: false,
@@ -31,7 +30,6 @@ const useAuthHelper = () => {
 		});
 		if (result.error) {
 			const error = JSON.parse(result.error);
-			console.log(error);
 			if (error.status === "failed") {
 				return failHandler(error.content);
 			} else {
