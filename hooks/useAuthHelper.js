@@ -19,7 +19,8 @@ const useAuthHelper = () => {
 		}
 	};
 
-	const logIn = async ({ email, password, failHandler, callbackUrl }) => {
+	const logIn = async ({ email, password, failHandler, successHandler, callbackUrl }) => {
+		console.log(successHandler);
 		// TODO: integration (done)
 		const result = await signIn("credentials", {
 			redirect: false,
