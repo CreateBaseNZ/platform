@@ -32,12 +32,16 @@ export const convertCode = (text, system, onceCode) => {
 	const usedFunctions = [];
 	//divide the code Input
 	const [doubledUpText, quotes] = doubleUp(text);
-	let splittedCode = doubledUpText.split("\n");
+	const splitCode = doubledUpText.split("\n");
+	const splittedCode = [];
 	let quotesDone = 0;
-	for (let i = 0; i < splittedCode.length; i++) {
+	const Not2AddLine = [];
+	for (let i = 0; i < splitCode.length; i++) {
+		let removeNewLine = false;
+		let delayNeeded = false;
 		let LHS = "",
 			RHS = "";
-		let element = splittedCode[i].trim();
+		let element = splitCode[i].trim();
 		if (element.length < 2 || element.substring(0, 2) != "//") {
 			const dividedbyBracket = element.split("(");
 			const beforeBracket = dividedbyBracket[0].trim();
@@ -71,6 +75,15 @@ export const convertCode = (text, system, onceCode) => {
 					unity = true;
 				} else if (RHS == "console.log") {
 					RHS = "ctx.addLog";
+				} else if (RHS == "if" || RHS == "while" || RHS == "for") {
+					console.log(element);
+					if (element[element.length - 1] != "{") {
+						i++;
+						removeNewLine = true;
+					}
+					if (RHS == "while") {
+						delayNeeded = true;
+					}
 				}
 			} else {
 				const finalSemiColon = RHS[RHS.length - 1] == ";";
@@ -109,9 +122,19 @@ export const convertCode = (text, system, onceCode) => {
 					console.log("lol");
 				}
 			}
+			if (removeNewLine) {
+				element = element + splitCode[i].trim();
+			}
+			if (delayNeeded) {
+				element = element + "\n await Delay(0.02)";
+				if (!usedFunctions.includes("Delay")) {
+					usedFunctions.push("Delay");
+				}
+			}
 		}
-		splittedCode[i] = element;
+		splittedCode.push(element);
 	}
+
 	let intermediateCode = "\n";
 	intermediateCode += "if (codeChanged) { resolve(true); } \n";
 	let middleCode = splittedCode.reduce((accumulator, element, i) => {
@@ -125,7 +148,16 @@ export const convertCode = (text, system, onceCode) => {
 		}
 		return accumulator;
 	}, "");
-	text = start.logic + middleCode + end.logic;
+	const Sensors = sensors.map((element) => {
+		return correctSystem.sensors[element];
+	});
+	let textSense = "";
+	Sensors.forEach((el) => {
+		const defineLine = `let ${el.simpleName}=JSON.parse(sensorDataRef.current).${el.name};\n`;
+		textSense = defineLine + textSense;
+	});
+
+	text = start.logic + textSense + middleCode + end.logic;
 	text += "\n\n";
 
 	usedFunctions.forEach((el) => {

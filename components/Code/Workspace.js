@@ -177,7 +177,7 @@ const Workspace = (props) => {
 	return (
 		<div className={classes.workspace}>
 			{activeTab === "flow" && <GreenButton className={classes.compileBtn} clickHandler={compileHandler} caption="Compile" />}
-			{/*activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />} */}
+			{activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />}
 			<MiniHoverContextProvider>
 				<ReactFlowProvider>
 					<FlowEditor blockList={props.blockList} show={activeTab === "flow"} elements={elements} setElements={setElements} flowVisualBell={flowVisualBell} setFlowVisualBell={setFlowVisualBell} />
