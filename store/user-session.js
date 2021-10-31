@@ -28,6 +28,33 @@ export const UserSessionContextProvider = (props) => {
 
 	console.log(session);
 
+	// TODO: INTEGRATION
+	// Point of integration for signup
+	// [TEST METHODS]
+	// Go to http://localhost:3000/signup
+	// Create an account with a unique email. (success)
+	// Create an account with an existing email. (failed)
+	// [REQUIREMENT] Input Object
+	const input = {
+		accountId: session.user,
+	};
+	console.log(input); // Ensure that the input is correct and that there are no undefined properties
+	// Backend Interface
+	// [REQUIREMENT] Route
+	// Simulation
+	const status = "succeeded"; // succeeded. failed 1, failed 2
+	let data;
+	try {
+		data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.PUBLIC_API_KEY, input, status }))["data"];
+	} catch (error) {
+		data.status = "error";
+	} finally {
+		// Critical Error and Error and Failed Hanlders
+		// [REQUIREMENT] Failed Handler
+		// [REQUIREMENT] Success Handler
+		setUserSession((state) => ({ ...state, ...data.content }));
+	}
+
 	useEffect(() => {
 		if (status !== "loading" && session) {
 			setUserSession((state) => ({ ...state, ...session.user }));
