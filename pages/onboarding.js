@@ -7,7 +7,7 @@ import useProfileHelper from "../hooks/useProfileHelper";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 
 import classes from "/styles/onboarding.module.scss";
-import UserSessionContext from "../store/user-session";
+import GlobalSessionContext from "../store/global-session-context";
 
 const teachingContent = {
 	title: "Teaching my first project",
@@ -30,10 +30,10 @@ const teachingContent = {
 };
 
 const Onboarding = () => {
-	const { userSession } = useContext(UserSessionContext);
 	const [tasks, setTasks] = useState([]);
 	const [popup, setPopup] = useState();
 	const { updateProfile } = useProfileHelper();
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	// useEffect(() => {
 	// 	if (user.loaded) {
@@ -82,7 +82,7 @@ const Onboarding = () => {
 				<meta name="description" content="Get to know the platform by completing all the onboarding tasks" />
 			</Head>
 			<h1 className={classes.h1}>
-				Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {userSession.firstName} 👋
+				Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {globalSession.firstName} 👋
 			</h1>
 			<div className={classes.main}>
 				{/* <div className={classes.tasks}>
@@ -111,5 +111,7 @@ const Onboarding = () => {
 Onboarding.getLayout = (page) => {
 	return <MainLayout page="onboarding">{page}</MainLayout>;
 };
+
+Onboarding.auth = "any";
 
 export default Onboarding;

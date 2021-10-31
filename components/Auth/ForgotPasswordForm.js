@@ -222,11 +222,12 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 	);
 };
 
-const ForgotPassword = ({ code, email }) => {
+const ForgotPassword = () => {
+	const router = useRouter();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { sendForgotPasswordCode } = useAuthHelper();
-	const [step, setStep] = useState(code && email ? 2 : 0);
-	const [inputValues, setInputValues] = useState({ email: email, code: code });
+	const [step, setStep] = useState(router?.query?.code && router?.query?.email ? 2 : 0);
+	const [inputValues, setInputValues] = useState({ email: router?.query?.email, code: router?.query?.code });
 
 	const resendCode = async () => {
 		await sendForgotPasswordCode({

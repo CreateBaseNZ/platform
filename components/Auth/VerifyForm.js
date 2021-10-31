@@ -1,40 +1,55 @@
 import { useRef, useState, useContext } from "react";
-import useAuthHelper from "../../hooks/useAuthHelper";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 import VisualBellContext from "../../store/visual-bell-context";
+import GlobalSessionContext from "../../store/global-session-context";
 import Input from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
 
 import classes from "./AuthForms.module.scss";
-import UserSessionContext from "../../store/user-session";
-import { useRouter } from "next/router";
+import useHandleResponse from "../../hooks/useHandleResponse";
 
 const CODE_LENGTH = 6;
 
 const Verify = () => {
 	const router = useRouter();
+	const { handleResponse } = useHandleResponse();
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { userSession } = useContext(UserSessionContext);
-	const { verifyAccount } = useAuthHelper();
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const [code, setCode] = useState(router?.query?.code || [...Array(CODE_LENGTH)].map(() => ""));
 	const refs = useRef([]);
 
-	console.log(code);
-
 	const submitCode = async (code) => {
 		setIsLoading(true);
-		await verifyAccount({
-			details: { email: userSession.email, code: code },
-			failHandler: () => {
-				setError("The code you entered is invalid");
-				setIsLoading(false);
-			},
-			successHandler: () => {
-				router.push(router?.query?.redirect || "/");
-				setVisualBell({ type: "success", message: "Welcome to CreateBase!" });
-			},
-		});
+		const details = { email: globalSession.email, code: code };
+		const DUMMY_STATUS = "succeeded";
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			console.log(data);
+			handleResponse({
+				data,
+				failHandler: () => {
+					if (data.content === "incorrect") {
+						setError("The code you entered is invalid");
+					} else if (data.content === "expired") {
+						setError("The code you entered has expired");
+					}
+					setIsLoading(false);
+				},
+				successHandler: () => {
+					setGlobalSession((state) => ({ ...state, verified: true }));
+					router.push(router.query.callbackUrl || "/");
+					setVisualBell({ type: "success", message: "Welcome to CreateBase!" });
+				},
+			});
+		}
 	};
 
 	const changeHandler = (e, idx) => {
@@ -71,36 +86,50 @@ const Verify = () => {
 		submitCode(newCode.join(""));
 	};
 
+	if (!globalSession.loaded) return null;
+
+	if (!globalSession.email) {
+		signIn();
+		return null;
+	}
+
+	if (globalSession.verified) {
+		router.replace("/");
+		return null;
+	}
+
 	return (
-		<form className={`${classes.form} ${classes.codeForm}`}>
-			<h1>Verification code</h1>
-			<div className={classes.instructions}>Enter the verification code sent to your email</div>
-			<div className={classes.verifCode}>
-				{code.map((char, idx) => (
-					<Input
-						key={idx}
-						className={classes.verifCodeInput}
-						inputProps={{
-							className: classes.input,
-							type: "text",
-							maxLength: 1,
-							value: char,
-							autoFocus: !code[0].length && idx === 0,
-							readOnly: isLoading,
-							onChange: (e) => changeHandler(e, idx),
-							onKeyDown: (e) => keyDownHandler(e, idx),
-							onPaste: (e) => pasteHandler(e),
-							ref: (ref) => refs.current.push(ref),
-						}}
-						error={error}
-					/>
-				))}
-			</div>
-			<div className={classes.errorMessage} style={{ opacity: error ? 1 : 0 }}>
-				The code you entered is incorrect or has expired
-			</div>
-			<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
-		</form>
+		<div className={classes.authCard} style={{ width: 600, height: "auto" }}>
+			<form className={`${classes.form} ${classes.codeForm}`}>
+				<h1>Verification code</h1>
+				<div className={classes.instructions}>Enter the verification code sent to your email</div>
+				<div className={classes.verifCode}>
+					{code.map((char, idx) => (
+						<Input
+							key={idx}
+							className={classes.verifCodeInput}
+							inputProps={{
+								className: classes.input,
+								type: "text",
+								maxLength: 1,
+								value: char,
+								autoFocus: !code[0].length && idx === 0,
+								readOnly: isLoading,
+								onChange: (e) => changeHandler(e, idx),
+								onKeyDown: (e) => keyDownHandler(e, idx),
+								onPaste: (e) => pasteHandler(e),
+								ref: (ref) => refs.current.push(ref),
+							}}
+							error={error}
+						/>
+					))}
+				</div>
+				<div className={classes.errorMessage} style={{ opacity: error ? 1 : 0 }}>
+					{error}
+				</div>
+				<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
+			</form>
+		</div>
 	);
 };
 

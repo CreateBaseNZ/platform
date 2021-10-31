@@ -14,23 +14,27 @@ export const GlobalSessionContextProvider = (props) => {
 	const [globalSession, setGlobalSession] = useState({ loaded: false });
 
 	useEffect(async () => {
-		if (status !== "loading" && session) {
-			const DUMMY_INPUT = {
-				accountId: session.user,
-			};
-			const DUMMY_STATUS = "succeeded";
-			let data;
-			try {
-				data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.PUBLIC_API_KEY, input: DUMMY_INPUT, status: DUMMY_STATUS }))["data"];
-			} catch (error) {
-				data.status = "error";
-			} finally {
-				console.log(data);
-				if (data.status === "error" || data.status === "failed") {
-					// TODO handle error or fail
-				} else {
-					setGlobalSession((state) => ({ ...state, loaded: true, ...data.content }));
+		if (status !== "loading") {
+			if (session) {
+				const DUMMY_INPUT = {
+					accountId: session.user,
+				};
+				const DUMMY_STATUS = "succeeded";
+				let data;
+				try {
+					data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: DUMMY_INPUT, status: DUMMY_STATUS }))["data"];
+				} catch (error) {
+					data.status = "error";
+				} finally {
+					console.log(data);
+					if (data.status === "error" || data.status === "failed") {
+						// TODO handle error or fail
+					} else {
+						setGlobalSession((state) => ({ ...state, loaded: true, ...data.content }));
+					}
 				}
+			} else {
+				setGlobalSession((state) => ({ ...state, loaded: true }));
 			}
 		}
 	}, [status, session]);

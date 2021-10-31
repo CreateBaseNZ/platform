@@ -1,4 +1,3 @@
-// The API file located in ./api/signup.js
 // IMPORT ===================================================
 
 // [REQUIREMENT] Output Object
@@ -7,7 +6,7 @@ const DUMMY_SESSION = {
 	firstName: "Louis",
 	lastName: "Lin",
 	verified: false,
-	isViewingGroup: true,
+	isViewingGroup: false,
 	recentGroups: [
 		{ id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
 		{ id: "456", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },

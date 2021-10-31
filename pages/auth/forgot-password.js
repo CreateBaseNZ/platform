@@ -1,19 +1,17 @@
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
+import GlobalSessionContext from "../../store/global-session-context";
 import ForgotPasswordForm from "../../components/Auth/ForgotPasswordForm";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 
 const ForgotPassword = () => {
-	const router = useRouter();
-	const { data: session, status } = useSession();
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (status !== "loading" && session) router.replace("/");
-	}, [session, status]);
+		if (globalSession.loaded && globalSession.email) router.replace("/");
+	}, [globalSession]);
 
-	if (status === "loading" || session) return null;
+	if (!globalSession.loaded || globalSession.email) return null;
 
 	return (
 		<>
@@ -21,7 +19,7 @@ const ForgotPassword = () => {
 				<title>Forgot Password | CreateBase</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
-			<ForgotPasswordForm code={router?.query?.ocl} email={router?.query?.email} />
+			<ForgotPasswordForm />
 		</>
 	);
 };

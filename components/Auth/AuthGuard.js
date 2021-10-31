@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
+import router from "next/router";
 
 const hasAccess = (role, auth) => {
 	switch (auth) {
@@ -14,7 +15,6 @@ const hasAccess = (role, auth) => {
 };
 
 const AuthGuard = ({ children, auth }) => {
-	const { data: session, status } = useSession();
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	console.log(globalSession);
@@ -22,13 +22,21 @@ const AuthGuard = ({ children, auth }) => {
 	//TODO email verification
 
 	useEffect(() => {
-		if (globalSession.loaded && globalSession.email) {
-			signIn();
+		if (globalSession.loaded) {
+			if (!globalSession.email) {
+				signIn();
+			} else if (!globalSession.verified) {
+				router.push({ pathname: "/auth/verify", query: router.query });
+			}
 		}
-	}, [status, session]);
+	}, [globalSession]);
+
+	if (!globalSession.loaded) return <div>App loading</div>;
 
 	if (globalSession.email) {
-		if (hasAccess(globalSession.recentGroups[0].role, auth)) {
+		if (!globalSession.verified) {
+			return null;
+		} else if (hasAccess(globalSession.recentGroups[0].role, auth)) {
 			return children;
 		} else {
 			return <div>No access</div>;

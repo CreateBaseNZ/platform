@@ -10,11 +10,11 @@ const Login = () => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 
-	// useEffect(() => {
-	// 	if (globalSession.loaded && globalSession.email) router.replace("/");
-	// }, [globalSession]);
+	useEffect(() => {
+		if (globalSession.loaded && globalSession.email) router.replace("/");
+	}, [globalSession]);
 
-	// if (!globalSession.loaded || globalSession.email) return null;
+	if (!globalSession.loaded || globalSession.email) return null;
 
 	return (
 		<>

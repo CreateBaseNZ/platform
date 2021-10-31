@@ -1,20 +1,21 @@
-// TODO refactor this
-import { useContext, useEffect, useState } from "react";
-import router from "next/router";
+import { useContext, useState } from "react";
 import Link from "next/link";
+import router from "next/router";
+import { signIn } from "next-auth/react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import VisualBellContext from "../../store/visual-bell-context";
+import useHandleResponse from "../../hooks/useHandleResponse";
 import { PrimaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import { isBlacklisted, namePattern } from "../../utils/formValidation";
-import { displayNameMinLength, displayNamePattern, emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
-import useAuthHelper from "../../hooks/useAuthHelper";
+import { emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
 import classes from "./AuthForms.module.scss";
 
 const SignupForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { signUp, logIn } = useAuthHelper();
+	const { handleResponse } = useHandleResponse();
 	const {
 		register,
 		handleSubmit,
@@ -45,22 +46,35 @@ const SignupForm = () => {
 		if (frontEndError) {
 			return setIsLoading(false);
 		}
-		signUp({
-			details: { email: input.email, firstName: input.firstName, lastName: input.lastName, password: input.password },
-			failHandler: (content) => {
-				if (content.email === "taken")
-					setError("email", {
-						type: "manual",
-						message: "This email is already registered",
-					});
-				setIsLoading(false);
-			},
-			successHandler: async () =>
-				await logIn({
-					email: input.email,
-					password: input.password,
-				}),
-		});
+
+		const details = { email: input.email, firstName: input.firstName, lastName: input.lastName, password: input.password };
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/signup", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...details, date: new Date().toString() } }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {
+					if (data.content.email === "taken")
+						setError("email", {
+							type: "manual",
+							message: "This email is already registered",
+						});
+					setIsLoading(false);
+				},
+				successHandler: async () => {
+					await signIn("credentials", {
+						redirect: false,
+						user: input.email,
+						password: input.password,
+						PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+					}),
+						router.push({ pathname: "/auth/verify", query: router.query });
+				},
+			});
+		}
 	};
 
 	return (

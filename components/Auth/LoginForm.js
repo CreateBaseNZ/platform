@@ -1,49 +1,60 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import router from "next/router";
+import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import classes from "./AuthForms.module.scss";
-import useAuthHelper from "../../hooks/useAuthHelper";
 
 export const LoginForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const { logIn } = useAuthHelper();
 	const {
 		register,
 		handleSubmit,
 		setError,
+		reset,
 		formState: { errors },
 	} = useForm({
-		defaultValues: {
-			email: window.localStorage.getItem("createbase__remember-me"),
-			remember: window.localStorage.getItem("createbase__remember-me") && true,
-		},
 		mode: "onTouched",
 	});
 
+	useEffect(() => {
+		if (window) {
+			reset({ email: window.localStorage.getItem("createbase__remember-me"), remember: !!window.localStorage.getItem("createbase__remember-me") });
+		}
+	}, []);
+
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		await logIn({
-			email: input.email,
+		window.localStorage.setItem("createbase__remember-me", input.email);
+		const result = await signIn("credentials", {
+			redirect: false,
+			user: input.email,
 			password: input.password,
-			failHandler: (content) => {
-				if (content.account === "does not exist") {
+			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+		});
+		if (result.error) {
+			const error = JSON.parse(result.error);
+			if (error.status === "failed") {
+				if (error.content.account === "does not exist") {
 					setError("email", {
 						type: "manual",
 						message: "No accounts registered with this email",
 					});
-				} else if (content.password === "incorrect") {
-					console.log("incorrect");
+				} else if (error.content.password === "incorrect") {
 					setError("password", {
 						type: "manual",
 						message: "Incorrect password",
 					});
 				}
 				setIsLoading(false);
-			},
-		});
+			} else {
+				return router.push("/404");
+			}
+		} else {
+			router.push(router.query.callbackUrl);
+		}
 	};
 
 	return (
@@ -86,7 +97,13 @@ export const LoginForm = () => {
 					</Link>
 				</div>
 			</form>
-			<SecondaryButton className={classes.secondaryBtn} isDisabled={isLoading} type="button" mainLabel="Create an Account" onClick={() => router.replace("/auth/signup")} />
+			<SecondaryButton
+				className={classes.secondaryBtn}
+				isDisabled={isLoading}
+				type="button"
+				mainLabel="Create an Account"
+				onClick={() => router.replace({ pathname: "/auth/signup", query: router.query })}
+			/>
 		</div>
 	);
 };

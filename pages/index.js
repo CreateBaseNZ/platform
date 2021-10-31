@@ -1,27 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { useSession, signOut, signIn } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
-import Head from "next/head";
-import { SecondaryButton } from "../components/UI/Buttons";
-import { initSession } from "../utils/authHelpers";
-
-import WhiteLogo, { FBIcon, IGIcon, TwitterIcon, YTIcon } from "/components/UI/Icons";
-
-import axios from "axios";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
+import GlobalSessionContext from "../store/global-session-context";
 
 import classes from "/styles/Index.module.scss";
-import { useRouter } from "next/router";
 
 const Index = () => {
 	const router = useRouter();
-	// const { userSession } = useContext(UserSessionContext);
-	const { data: session, status } = useSession();
+	const { globalSession } = useContext(GlobalSessionContext);
+
+	console.log(globalSession);
 
 	useEffect(() => {
-		if (status !== "loading") {
-			if (session) {
-				if (session.isViewingGroup) {
+		if (globalSession.loaded) {
+			if (globalSession.email) {
+				if (globalSession.isViewingGroup) {
 					console.log("viewing a group");
 					// router.replace("/browse");
 				} else {
@@ -29,11 +22,10 @@ const Index = () => {
 					router.replace("/my-groups");
 				}
 			} else {
-				console.log("not signed in");
 				signIn();
 			}
 		}
-	}, [status, session]);
+	}, [globalSession]);
 
 	return null;
 };

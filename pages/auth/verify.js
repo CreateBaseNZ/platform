@@ -1,22 +1,21 @@
-import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 import VerifyForm from "../../components/Auth/VerifyForm";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
+import GlobalSessionContext from "../../store/global-session-context";
 
 import classes from "/styles/auth.module.scss";
 
 const Verify = () => {
-	const { data: session, status } = useSession();
 	const router = useRouter();
+	const { globalSession } = useContext(GlobalSessionContext);
 
-	if (status === "loading") return null;
+	useEffect(() => {
+		if (globalSession.loaded && globalSession.verified) router.replace("/");
+	}, [globalSession]);
 
-	// TODO include verified in session object
-	if (session.user?.verified) {
-		router.replace("/");
-		return null;
-	}
+	if (!globalSession.loaded || globalSession.verified) return null;
 
 	return (
 		<>
@@ -24,9 +23,7 @@ const Verify = () => {
 				<title>Verify | CreateBase</title>
 				<meta name="description" content="Verify your CreateBase account" />
 			</Head>
-			<div className={`${classes.authMain} ${classes.verifyMain}`}>
-				<VerifyForm />
-			</div>
+			<VerifyForm />
 		</>
 	);
 };
