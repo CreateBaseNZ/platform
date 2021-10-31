@@ -61,13 +61,16 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 
 	return (
 		<SessionProvider session={session}>
-			<GlobalSessionContextProvider>
-				<ClassesContextProvider>
-					<MainLayoutContextProvider>
-						{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
-					</MainLayoutContextProvider>
-				</ClassesContextProvider>
-			</GlobalSessionContextProvider>
+			<VisualBellContextProvider>
+				<GlobalSessionContextProvider>
+					<ClassesContextProvider>
+						<MainLayoutContextProvider>
+							{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
+							<VisualBell />
+						</MainLayoutContextProvider>
+					</ClassesContextProvider>
+				</GlobalSessionContextProvider>
+			</VisualBellContextProvider>
 		</SessionProvider>
 	);
 };
