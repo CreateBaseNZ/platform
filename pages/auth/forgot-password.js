@@ -1,16 +1,19 @@
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { useSession } from "next-auth/react";
 import ForgotPasswordForm from "../../components/Auth/ForgotPasswordForm";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
-import { useSession } from "next-auth/react";
 
 const ForgotPassword = () => {
 	const router = useRouter();
 	const { data: session, status } = useSession();
 
-	if (status === "loading") return null;
+	useEffect(() => {
+		if (status !== "loading" && session) router.replace("/");
+	}, [session, status]);
 
-	if (session) return router.replace("/");
+	if (status === "loading" || session) return null;
 
 	return (
 		<>

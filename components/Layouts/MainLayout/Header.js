@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import router from "next/router";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import UserSessionContext from "../../../store/user-session";
 import MainLayoutContext from "../../../store/main-layout-context";
 
@@ -26,7 +26,7 @@ const Header = () => {
 			</button>
 			<header className={classes.header}>
 				<ColourLogoIcon className={`${classes.home} ${navIsCollapsed ? classes.collapsed : ""}`} />
-				{userSession?.viewingGroup && (
+				{userSession?.isViewingGroup && (
 					<div className={classes.viewingAs}>
 						<div className={classes.viewingAsName}>{userSession.recentGroups[0].name}</div>
 						<div className={classes.viewingAsRole}>{userSession.recentGroups[0].role}</div>

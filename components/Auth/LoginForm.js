@@ -43,7 +43,6 @@ export const LoginForm = () => {
 				}
 				setIsLoading(false);
 			},
-			successHandler: () => router.push(router?.query?.redirect || "/"),
 		});
 	};
 

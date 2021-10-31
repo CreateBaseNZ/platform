@@ -51,25 +51,15 @@ const SignupForm = () => {
 				if (content.email === "taken")
 					setError("email", {
 						type: "manual",
-						message: "This email is already taken",
+						message: "This email is already registered",
 					});
 				setIsLoading(false);
 			},
-			successHandler: async () => console.log("very nice"),
-			// await logIn({
-			// 	email: input.email,
-			// 	password: input.password,
-			// 	failHandler: () =>
-			// 		setVisualBell({
-			// 			type: "catastrophe",
-			// 			message: "Something unexpected happened, please reload the page",
-			// 		}),
-			// 	successHandler: () =>
-			// 		setVisualBell({
-			// 			type: "success",
-			// 			message: "Success! Your account has been created",
-			// 		}),
-			// }),
+			successHandler: async () =>
+				await logIn({
+					email: input.email,
+					password: input.password,
+				}),
 		});
 	};
 

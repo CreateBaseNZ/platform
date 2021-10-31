@@ -18,7 +18,11 @@ const DUMMY_GROUPS = [
 
 const MyGroups = () => {
 	const router = useRouter();
-	const { userSession, setUserSession } = useContext(UserSessionContext);
+	// const { userSession, setUserSession } = useContext(UserSessionContext);
+
+	// remove
+	const userSession = {};
+	const setUserSession = () => {};
 
 	const cardClickHandler = (group) => {
 		console.log([group, ...userSession.recentGroups]);
@@ -93,6 +97,6 @@ MyGroups.getLayout = (page) => {
 	return <MainLayout page="my-groups">{page}</MainLayout>;
 };
 
-MyGroups.authorisation = "user";
+MyGroups.auth = "user";
 
 export default MyGroups;

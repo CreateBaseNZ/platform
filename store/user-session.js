@@ -2,29 +2,18 @@ import { useSession } from "next-auth/react";
 import { useState, createContext, useMemo, useEffect } from "react";
 
 const UserSessionContext = createContext({
-	userSession: {
-		email: "",
-		firstName: "",
-		lastName: "",
-		verified: false,
-		viewingGroup: false,
-		recentGroups: [],
-		numOfGroups: 0,
-	},
+	userSession: {},
 	setUserSession: () => {},
-	sessionLoaded: null,
-	setSessionLoaded: () => {},
 });
 
 export default UserSessionContext;
 
-// TODO change to real default values
-const defaultUserSession = {
+const DUMMY_DATA = {
 	email: "louiscflin@gmail.com",
 	firstName: "Louis",
 	lastName: "Lin",
 	verified: true,
-	viewingGroup: true,
+	isViewingGroup: true,
 	recentGroups: [
 		{ _id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
 		{ _id: "456", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
@@ -34,26 +23,23 @@ const defaultUserSession = {
 };
 
 export const UserSessionContextProvider = (props) => {
-	const { data, status } = useSession();
-	const [sessionLoaded, setSessionLoaded] = useState(true);
+	const { data: session, status } = useSession();
 	const [userSession, setUserSession] = useState({});
 
+	console.log(session);
+
 	useEffect(() => {
-		if (status !== "loading") {
-			console.log(data);
-			setSessionLoaded(true);
-			setUserSession(data);
+		if (status !== "loading" && session) {
+			setUserSession((state) => ({ ...state, ...session.user }));
 		}
-	}, [data, status]);
+	}, [status, session]);
 
 	const value = useMemo(
 		() => ({
 			userSession: userSession,
 			setUserSession: setUserSession,
-			sessionLoaded: sessionLoaded,
-			setSessionLoaded: setSessionLoaded,
 		}),
-		[userSession, setUserSession, sessionLoaded, setSessionLoaded]
+		[userSession, setUserSession]
 	);
 
 	return <UserSessionContext.Provider value={value}>{props.children}</UserSessionContext.Provider>;

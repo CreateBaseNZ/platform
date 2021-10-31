@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import VerifyForm from "../components/Auth/VerifyForm";
-import AuthLayout from "../components/Layouts/AuthLayout/AuthLayout";
+import VerifyForm from "../../components/Auth/VerifyForm";
+import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 
 import classes from "/styles/auth.module.scss";
 
@@ -12,7 +12,11 @@ const Verify = () => {
 
 	if (status === "loading") return null;
 
-	if (session.user.verified) router.replace("/");
+	// TODO include verified in session object
+	if (session.user?.verified) {
+		router.replace("/");
+		return null;
+	}
 
 	return (
 		<>

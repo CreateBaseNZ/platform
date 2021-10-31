@@ -1,7 +1,5 @@
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import DEFAULT_TABS from "../../constants/mainTabs";
+import { useContext, useEffect } from "react";
+import { useSession, signIn } from "next-auth/react";
 import UserSessionContext from "../../store/user-session";
 
 const hasAccess = (role, authorisation) => {
@@ -15,66 +13,26 @@ const hasAccess = (role, authorisation) => {
 	}
 };
 
-const isDefaultTab = (route) => {
-	const pathname = "/" + route.split("/")[1];
-	console.log(DEFAULT_TABS.some((tab) => tab.urlObject.pathname === pathname));
-	return DEFAULT_TABS.some((tab) => tab.urlObject.pathname === pathname);
-};
-
-const AuthGuard = ({ children }) => {
-	// const router = useRouter();
-	// const { sessionLoaded, userSession } = useContext(UserSessionContext);
-	// // TODO app loading page
-	// const [render, setRender] = useState(<div>App loading</div>);
-
-	// console.log(router);
-
-	// useEffect(() => {
-	// 	if (sessionLoaded) {
-	// 		if (router.route.startsWith("/auth")) {
-	// 			if (userSession.email) {
-	// 				router.replace("/");
-	// 			} else {
-	// 				setRender(children);
-	// 			}
-	// 		} else if (router.route.startsWith("/verify")) {
-	// 			if (userSession.email) {
-	// 				if (userSession.verified) {
-	// 					router.replace("/");
-	// 				} else {
-	// 					setRender(children);
-	// 				}
-	// 			} else {
-	// 				router.replace({ pathname: "/auth/login", query: { redirect: router.asPath } });
-	// 			}
-	// 		} else if (authorisation) {
-	// 			if (!userSession.email) {
-	// 				router.replace({ pathname: "/auth/signup", query: { redirect: router.asPath } });
-	// 			} else if (!userSession.verified) {
-	// 				router.replace("/verify");
-	// 			} else if (!userSession.viewingGroup && !isDefaultTab(router.route)) {
-	// 				router.replace("/my-groups");
-	// 			} else if (userSession.viewingGroup && !hasAccess(userSession.recentGroups[0].role, authorisation)) {
-	// 				setRender(<div>Not authorised</div>);
-	// 			} else {
-	// 				setRender(children);
-	// 			}
-	// 		} else {
-	// 			setRender(children);
-	// 		}
-	// 	}
-	// }, [sessionLoaded, userSession, children, router]);
-
+const AuthGuard = ({ children, auth }) => {
 	const { data: session, status } = useSession();
-	const isUser = !!session?.user;
+	const { userSession } = useContext(UserSessionContext);
+
+	console.log(userSession);
+	console.log("guard rendered");
+	//TODO email verification
 
 	useEffect(() => {
-		if (status === "loading") return;
-		if (!isUser) signIn();
-	}, [isUser, status]);
+		if (status !== "loading" && !session) {
+			signIn();
+		}
+	}, [status, session]);
 
-	if (isUser) {
-		return children;
+	if (session) {
+		if (hasAccess(userSession.recentGroups[0].role, auth)) {
+			return children;
+		} else {
+			return <div>No access</div>;
+		}
 	}
 
 	return <div>App loading</div>;
