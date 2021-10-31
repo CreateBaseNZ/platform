@@ -1,5 +1,6 @@
-import { useSession } from "next-auth/react";
 import { useState, createContext, useMemo, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import axios from "axios";
 
 const GlobalSessionContext = createContext({
 	globalSession: { loaded: false },
@@ -14,16 +15,17 @@ export const GlobalSessionContextProvider = (props) => {
 
 	useEffect(async () => {
 		if (status !== "loading" && session) {
-			const input = {
+			const DUMMY_INPUT = {
 				accountId: session.user,
 			};
-			const status = "succeeded";
+			const DUMMY_STATUS = "succeeded";
 			let data;
 			try {
-				data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.PUBLIC_API_KEY, input, status }))["data"];
+				data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.PUBLIC_API_KEY, input: DUMMY_INPUT, status: DUMMY_STATUS }))["data"];
 			} catch (error) {
 				data.status = "error";
 			} finally {
+				console.log(data);
 				if (data.status === "error" || data.status === "failed") {
 					// TODO handle error or fail
 				} else {
