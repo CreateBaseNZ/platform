@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import UserSessionContext from "../../store/user-session";
+import UserSessionContext from "../../store/global-session-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { PrimaryButton } from "../../components/UI/Buttons";
 

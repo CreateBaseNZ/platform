@@ -1,19 +1,20 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import AuthCard from "../../components/Auth/AuthCard";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
+import GlobalSessionContext from "../../store/global-session-context";
 
 const Login = () => {
 	const router = useRouter();
-	const { data: session, status } = useSession();
+	const { globalSession } = useContext(GlobalSessionContext);
 
-	useEffect(() => {
-		if (status !== "loading" && session) router.replace("/");
-	}, [session, status]);
+	// useEffect(() => {
+	// 	if (globalSession.loaded && globalSession.email) router.replace("/");
+	// }, [globalSession]);
 
-	if (status === "loading" || session) return null;
+	// if (!globalSession.loaded || globalSession.email) return null;
 
 	return (
 		<>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import LoadingScreen from "../components/UI/Loading";
 import { SessionProvider } from "next-auth/react";
-import { UserSessionContextProvider } from "../store/user-session";
+import { GlobalSessionContextProvider } from "../store/global-session-context";
 
 import "../styles/globals.scss";
 import { VisualBellContextProvider } from "../store/visual-bell-context";
@@ -61,13 +61,13 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 
 	return (
 		<SessionProvider session={session}>
-			<UserSessionContextProvider>
+			<GlobalSessionContextProvider>
 				<ClassesContextProvider>
 					<MainLayoutContextProvider>
 						{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
 					</MainLayoutContextProvider>
 				</ClassesContextProvider>
-			</UserSessionContextProvider>
+			</GlobalSessionContextProvider>
 		</SessionProvider>
 	);
 };

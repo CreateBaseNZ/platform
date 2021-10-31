@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import router from "next/router";
-import { signOut, useSession } from "next-auth/react";
-import UserSessionContext from "../../../store/user-session";
+import { signOut } from "next-auth/react";
+import GlobalSessionContext from "../../../store/global-session-context";
 import MainLayoutContext from "../../../store/main-layout-context";
 
 import UserAvatar from "../../UI/UserAvatar";
@@ -11,12 +11,12 @@ import DEFAULT_TABS from "../../../constants/mainTabs";
 import classes from "./Header.module.scss";
 
 const Header = () => {
-	const { userSession, setUserSession } = useContext(UserSessionContext);
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { navIsCollapsed, setNavIsCollapsed } = useContext(MainLayoutContext);
 	const [showDropdown, setShowDropdown] = useState(false);
 
 	const changeGroup = (group) => {
-		setUserSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group._id !== group._id)].slice(0, 3) }));
+		setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group._id !== group._id)].slice(0, 3) }));
 	};
 
 	return (
@@ -26,30 +26,30 @@ const Header = () => {
 			</button>
 			<header className={classes.header}>
 				<ColourLogoIcon className={`${classes.home} ${navIsCollapsed ? classes.collapsed : ""}`} />
-				{userSession?.isViewingGroup && (
+				{globalSession.isViewingGroup && (
 					<div className={classes.viewingAs}>
-						<div className={classes.viewingAsName}>{userSession.recentGroups[0].name}</div>
-						<div className={classes.viewingAsRole}>{userSession.recentGroups[0].role}</div>
+						<div className={classes.viewingAsName}>{globalSession.recentGroups[0].name}</div>
+						<div className={classes.viewingAsRole}>{globalSession.recentGroups[0].role}</div>
 					</div>
 				)}
-				{userSession?.email && (
-					<div className={`${classes.headerUserContainer} ${userSession.email ? classes.loaded : ""}`} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
+				{globalSession.email && (
+					<div className={`${classes.headerUserContainer} ${globalSession.email ? classes.loaded : ""}`} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
 						<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>
-							<UserAvatar size={40} name={`${userSession.firstName}${userSession.lastName}`} className={classes.avatar} />
+							<UserAvatar size={40} name={`${globalSession.firstName}${globalSession.lastName}`} className={classes.avatar} />
 							<div className={classes.headerName}>
-								{userSession.firstName} {userSession.lastName}
+								{globalSession.firstName} {globalSession.lastName}
 							</div>
 							<i className="material-icons-outlined">expand_more</i>
 						</div>
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
-							{userSession.recentGroups.map((group, i) => (
+							{globalSession.recentGroups.map((group, i) => (
 								//TODO switching between views
 								<button key={i} onMouseDown={() => changeGroup(group)} title={group.name}>
 									<i className="material-icons-outlined">{group.type === "school" ? "holiday_village" : group.type === "family" ? "cottage" : ""}</i>
 									<span>{group.name}</span>
 								</button>
 							))}
-							{userSession.numOfGroups > 3 && <div className={classes.moreGroups}>and {userSession.numOfGroups - 3} more ...</div>}
+							{globalSession.numOfGroups > 3 && <div className={classes.moreGroups}>and {globalSession.numOfGroups - 3} more ...</div>}
 							<div className={classes.divider} />
 							{DEFAULT_TABS.map((tab, i) => (
 								<button key={i} onMouseDown={() => router.push(tab.urlObject)} title={tab.label}>

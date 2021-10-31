@@ -1,17 +1,21 @@
+import { useContext } from "react";
 import Link from "next/link";
+import GlobalSessionContext from "../../../store/global-session-context";
 import { ColourLogo } from "../../UI/Icons";
 import DEFAULT_TABS, { MAIN_TABS } from "../../../constants/mainTabs";
+
 import classes from "./Nav.module.scss";
 
-const Nav = ({ page, userSession }) => {
-	const defaultTabs = userSession?.viewingGroup ? [...MAIN_TABS[userSession?.recentGroups?.[0].type]?.[userSession?.recentGroups?.[0].role], { page: null }] || [] : [];
+const Nav = ({ page }) => {
+	const { globalSession } = useContext(GlobalSessionContext);
+	const defaultTabs = globalSession.viewingGroup ? [...MAIN_TABS[globalSession.recentGroups?.[0].type]?.[globalSession.recentGroups?.[0].role], { page: null }] || [] : [];
 
 	const activeTab = [...defaultTabs, ...DEFAULT_TABS].findIndex((t) => t.page === page);
 
 	return (
 		<nav className={classes.nav}>
 			<ColourLogo width="131.25" height="24" />
-			{userSession.email && (
+			{globalSession.email && (
 				<div className={classes.menu}>
 					<div
 						className={classes.slider}
