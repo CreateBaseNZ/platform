@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import UserSessionContext from "../../store/user-session";
+import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
 import BrowseThumb from "./BrowseThumb";
 import BrowsePreview from "./BrowsePreview";
@@ -13,7 +13,7 @@ import classes from "/styles/browse.module.scss";
 
 const Browse = () => {
 	const router = useRouter();
-	const { userSession } = useContext(UserSessionContext);
+	const { globalSession } = useContext(GlobalSessionContext);
 	const [activeProject, setActiveProject] = useState(allData[0]);
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ const Browse = () => {
 			</Head>
 			<div className={classes.inner}>
 				<div className={classes.preview}>
-					<BrowsePreview project={activeProject} role={userSession.recentGroups[0].role} />
+					<BrowsePreview project={activeProject} role={globalSession.recentGroups[0].role} />
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>

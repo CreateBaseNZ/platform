@@ -16,7 +16,7 @@ const Header = () => {
 	const [showDropdown, setShowDropdown] = useState(false);
 
 	const changeGroup = (group) => {
-		setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group._id !== group._id)].slice(0, 3) }));
+		setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
 	};
 
 	return (
@@ -27,13 +27,13 @@ const Header = () => {
 			<header className={classes.header}>
 				<ColourLogoIcon className={`${classes.home} ${navIsCollapsed ? classes.collapsed : ""}`} />
 				{globalSession.isViewingGroup && (
-					<div className={classes.viewingAs}>
+					<div className={classes.viewingAs} key={globalSession.recentGroups[0].name}>
 						<div className={classes.viewingAsName}>{globalSession.recentGroups[0].name}</div>
 						<div className={classes.viewingAsRole}>{globalSession.recentGroups[0].role}</div>
 					</div>
 				)}
-				{globalSession.email && (
-					<div className={`${classes.headerUserContainer} ${globalSession.email ? classes.loaded : ""}`} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
+				{globalSession.id && (
+					<div className={`${classes.headerUserContainer} ${globalSession.id ? classes.loaded : ""}`} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
 						<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>
 							<UserAvatar size={40} name={`${globalSession.firstName}${globalSession.lastName}`} className={classes.avatar} />
 							<div className={classes.headerName}>

@@ -8,8 +8,8 @@ import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import classes from "/styles/classes.module.scss";
 
 const DUMMY_CLASSES = [
-	{ _id: "room12id", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 },
-	{ _id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
+	{ id: "room12id", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 },
+	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
 ];
 
 const ClassesTabRoot = () => {
@@ -18,7 +18,7 @@ const ClassesTabRoot = () => {
 
 	const cardClickHandler = (_class) => {
 		setClassSession(_class);
-		router.push({ pathname: "/classes/[id]/announcements", query: { id: _class._id } });
+		router.push({ pathname: "/classes/[id]/announcements", query: { id: _class.id } });
 	};
 
 	return (

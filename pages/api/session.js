@@ -2,10 +2,11 @@
 
 // [REQUIREMENT] Output Object
 const DUMMY_SESSION = {
+	id: "test123",
 	email: "louiscflin@gmail.com",
 	firstName: "Louis",
 	lastName: "Lin",
-	verified: false,
+	verified: true,
 	isViewingGroup: false,
 	recentGroups: [
 		{ id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },

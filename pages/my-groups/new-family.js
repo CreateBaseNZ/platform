@@ -44,7 +44,7 @@ const NewFamily = () => {
 							inputProps={{ placeholder: "Group name", type: "text", maxLength: 254, ...register("name", { required: "Please enter a name for your group" }) }}
 							error={errors.name}
 						/>
-						<div className={classes.caption}>Note: this does NOT need to be your surname, so get creative!</div>
+						<div className={classes.caption}>Note: this does NOT need to be your surname, so be creative if you want!</div>
 						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Creating ..." mainLabel="Create" />
 					</form>
 				</div>
@@ -57,6 +57,6 @@ NewFamily.getLayout = (page) => {
 	return <MainLayout page="my-groups">{page}</MainLayout>;
 };
 
-NewFamily.authorisation = "user";
+NewFamily.auth = "user";
 
 export default NewFamily;

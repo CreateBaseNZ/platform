@@ -1,33 +1,41 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import UserSessionContext from "../../store/global-session-context";
+import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/myGroups.module.scss";
-
-const DUMMY_GROUPS = [
-	{ _id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
-	{ _id: "789", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
-	{ _id: "shellypark", name: "Shelly Park Primary", role: "student", numOfUsers: { admins: 1, teachers: 1, students: 34 }, type: "school" },
-	{ _id: "school_trial", name: "School trial as an admin", role: "admin", numOfUsers: { admins: 1, teachers: 0, students: 0 }, type: "school" },
-	{ _id: "456", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
-	{ name: "Family trial as an admin", role: "admin", numOfUsers: { members: 1 }, type: "family" },
-];
+import useHandleResponse from "../../hooks/useHandleResponse";
 
 const MyGroups = () => {
 	const router = useRouter();
-	// const { userSession, setUserSession } = useContext(UserSessionContext);
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const { handleResponse } = useHandleResponse();
+	const [allGroups, setAllGroups] = useState([]);
 
-	// remove
-	const userSession = {};
-	const setUserSession = () => {};
+	useEffect(async () => {
+		const details = { id: globalSession.id };
+		const DUMMY_STATUS = "succeeded";
+		let data = {};
+		try {
+			data = (await axios.post("/api/groups/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					setAllGroups(data.content);
+				},
+			});
+		}
+	}, []);
 
-	const cardClickHandler = (group) => {
-		console.log([group, ...userSession.recentGroups]);
-		setUserSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group._id !== group._id)].slice(0, 3) }));
-	};
+	const cardClickHandler = (group) =>
+		setGlobalSession((state) => ({ ...state, isViewingGroup: true, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
 
 	return (
 		<div className={classes.view}>
@@ -49,21 +57,23 @@ const MyGroups = () => {
 							</div>
 							<div className={classes.groupName}>Register a school</div>
 						</div>
-						{DUMMY_GROUPS.filter((group) => group.type === "school").map((group) => (
-							<div
-								key={group.name}
-								className={`${classes.card} ${userSession.viewingGroup && userSession.recentGroups[0]._id === group._id ? classes.activeCard : ""}`}
-								onClick={() => cardClickHandler(group)}>
-								<div className={classes.groupRole}>
-									{group.role} {userSession.viewingGroup && userSession.recentGroups[0]._id === group._id ? " (viewing)" : ""}
+						{allGroups
+							.filter((group) => group.type === "school")
+							.map((group) => (
+								<div
+									key={group.name}
+									className={`${classes.card} ${globalSession.isViewingGroup && globalSession.recentGroups[0].id === group.id ? classes.activeCard : ""}`}
+									onClick={() => cardClickHandler(group)}>
+									<div className={classes.groupRole}>
+										{group.role} {globalSession.isViewingGroup && globalSession.recentGroups[0].id === group.id ? " (viewing)" : ""}
+									</div>
+									<div className={classes.groupName}>{group.name}</div>
+									<div className={classes.groupNums}>
+										{group.numOfUsers.admins} admin{group.numOfUsers.admins === 1 ? "" : "s"}, {group.numOfUsers.teachers} teacher{group.numOfUsers.teachers === 1 ? "" : "s"},{" "}
+										{group.numOfUsers.students} student{group.numOfUsers.students === 1 ? "" : "s"}
+									</div>
 								</div>
-								<div className={classes.groupName}>{group.name}</div>
-								<div className={classes.groupNums}>
-									{group.numOfUsers.admins} admin{group.numOfUsers.admins === 1 ? "" : "s"}, {group.numOfUsers.teachers} teacher{group.numOfUsers.teachers === 1 ? "" : "s"},{" "}
-									{group.numOfUsers.students} student{group.numOfUsers.students === 1 ? "" : "s"}
-								</div>
-							</div>
-						))}
+							))}
 					</div>
 					<div className={classes.h2Container}>
 						<h2>Families</h2>
@@ -77,15 +87,17 @@ const MyGroups = () => {
 							</div>
 							<div className={classes.groupName}>Create a family</div>
 						</div>
-						{DUMMY_GROUPS.filter((group) => group.groupType === "family").map((group) => (
-							<div key={group.name} className={classes.card}>
-								<div className={classes.groupRole}>{group.role}</div>
-								<div className={classes.groupName}>{group.name}</div>
-								<div className={classes.groupNums}>
-									{group.numOfUsers.members} member{group.numOfUsers.members === 1 ? "" : "s"}
+						{allGroups
+							.filter((group) => group.groupType === "family")
+							.map((group) => (
+								<div key={group.name} className={classes.card}>
+									<div className={classes.groupRole}>{group.role}</div>
+									<div className={classes.groupName}>{group.name}</div>
+									<div className={classes.groupNums}>
+										{group.numOfUsers.members} member{group.numOfUsers.members === 1 ? "" : "s"}
+									</div>
 								</div>
-							</div>
-						))}
+							))}
 					</div>
 				</div>
 			</div>

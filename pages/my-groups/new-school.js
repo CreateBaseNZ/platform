@@ -78,6 +78,6 @@ NewSchool.getLayout = (page) => {
 	return <MainLayout page="my-groups">{page}</MainLayout>;
 };
 
-NewSchool.authorisation = "user";
+NewSchool.auth = "user";
 
 export default NewSchool;

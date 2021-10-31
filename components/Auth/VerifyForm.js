@@ -88,7 +88,7 @@ const Verify = () => {
 
 	if (!globalSession.loaded) return null;
 
-	if (!globalSession.email) {
+	if (!globalSession.id) {
 		signIn();
 		return null;
 	}

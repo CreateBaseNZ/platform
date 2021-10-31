@@ -63,6 +63,6 @@ JoinFamily.getLayout = (page) => {
 	return <MainLayout page="my-groups">{page}</MainLayout>;
 };
 
-JoinFamily.authorisation = "user";
+JoinFamily.auth = "user";
 
 export default JoinFamily;

@@ -11,7 +11,7 @@ const ClassesContext = createContext({
 
 export default ClassesContext;
 
-const DUMMY = { _id: "abc123", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 };
+const DUMMY = { id: "abc123", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 };
 
 export const ClassesContextProvider = (props) => {
 	const [classSession, setClassSession] = useState(DUMMY);
