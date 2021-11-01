@@ -1,6 +1,11 @@
 // TODO: Integration - Backend
+// IMPORT ===================================================
 
-const DUMMY_SESSION = {
+import axios from "axios";
+
+// TEST OUTPUT ==============================================
+
+let output = {
 	accountId: "accountId123",
 	profileId: "profileId123",
 	email: "louiscflin@gmail.com",
@@ -15,6 +20,8 @@ const DUMMY_SESSION = {
 	],
 	numOfGroups: 5,
 };
+
+// MAIN =====================================================
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
@@ -33,11 +40,15 @@ export default async function (req, res) {
 	// Integration Logic
 	let data;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/session", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { account: accountId } }))["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/session", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { account: input.accountId, date: input.date } }))["data"];
 	} catch (error) {
 		data = { status: "error", content: error };
 	}
 	if (data.status !== "succeeded") return res.send({ status: "error" });
-	// no failure modes for this route
-	return res.send(data);
+	Object.assign(output, data.content);
+	return res.send({ status: "succeeded", content: output });
 }
+
+// HELPERS ==================================================
+
+// END ======================================================

@@ -25,7 +25,7 @@ const Verify = () => {
 
 	const submitCode = async (code) => {
 		setIsLoading(true);
-		const details = { email: globalSession.email, code: code };
+		const details = { email: globalSession.email, code: code, date: new Date().toString() };
 		const DUMMY_STATUS = "failed 1";
 		let data = {};
 		try {
@@ -54,7 +54,7 @@ const Verify = () => {
 
 	const resendCodeHandler = async () => {
 		setIsResending(true);
-		const details = { accountId: globalSession.accountId, code: code };
+		const details = { accountId: globalSession.accountId, date: new Date().toString() };
 		const DUMMY_STATUS = "success";
 		let data = {};
 		try {

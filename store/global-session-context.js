@@ -18,6 +18,7 @@ export const GlobalSessionContextProvider = (props) => {
 			if (session) {
 				const DUMMY_INPUT = {
 					accountId: session.user,
+					date: new Date().toString(),
 				};
 				const DUMMY_STATUS = "succeeded";
 				let data;
