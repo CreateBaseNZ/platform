@@ -13,7 +13,7 @@ const Index = () => {
 
 	useEffect(() => {
 		if (globalSession.loaded) {
-			if (globalSession.id) {
+			if (globalSession.accountId) {
 				if (globalSession.isViewingGroup) {
 					console.log("viewing a group");
 					// router.replace("/browse");

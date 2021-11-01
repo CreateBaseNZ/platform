@@ -1,6 +1,5 @@
-// IMPORT ===================================================
+// TODO integration
 
-// [REQUIREMENT] Output Object
 const DUMMY_GROUPS = [
 	{ id: "bdsc", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
 	{ id: "rc", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
@@ -9,15 +8,12 @@ const DUMMY_GROUPS = [
 	{ id: "does", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
 	{ id: "family_trial", name: "Family trial as an admin", role: "admin", numOfUsers: { members: 1 }, type: "family" },
 ];
-// MAIN =====================================================
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error" });
 	}
-	// Create the user account and profile
 	let data;
 	if (req.body.status === "succeeded") {
 		data = {
@@ -25,10 +21,6 @@ export default async function (req, res) {
 			content: DUMMY_GROUPS,
 		};
 	}
-	// Return outcome of the request
+	// no failure modes for this route
 	return res.send(data);
 }
-
-// HELPERS ==================================================
-
-// END ======================================================

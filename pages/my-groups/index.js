@@ -16,11 +16,11 @@ const MyGroups = () => {
 	const [allGroups, setAllGroups] = useState([]);
 
 	useEffect(async () => {
-		const details = { id: globalSession.id };
+		const details = { id: globalSession.accountId };
 		const DUMMY_STATUS = "succeeded";
 		let data = {};
 		try {
-			data = (await axios.post("/api/groups/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/groups/fetch-joined", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {

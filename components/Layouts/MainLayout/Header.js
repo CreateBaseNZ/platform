@@ -32,8 +32,8 @@ const Header = () => {
 						<div className={classes.viewingAsRole}>{globalSession.recentGroups[0].role}</div>
 					</div>
 				)}
-				{globalSession.id && (
-					<div className={`${classes.headerUserContainer} ${globalSession.id ? classes.loaded : ""}`} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
+				{globalSession.accountId && (
+					<div className={classes.headerUserContainer} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
 						<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>
 							<UserAvatar size={40} name={`${globalSession.firstName}${globalSession.lastName}`} className={classes.avatar} />
 							<div className={classes.headerName}>

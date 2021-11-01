@@ -14,6 +14,7 @@
 	flex-direction: column;
 	align-items: center;
 	padding: 2rem 0;
+	overflow-y: scroll;
 }
 
 .wrapper {
@@ -194,6 +195,82 @@
 	height: 1px;
 	background: $lighter;
 	margin: 2rem 0;
+}
+
+.successMessage {
+	margin: 1rem 0;
+	font-size: 14px;
+	font-weight: 500;
+	color: $green-mid;
+	display: flex;
+	align-items: center;
+	i {
+		margin-right: 0.5rem;
+		color: inherit;
+	}
+}
+
+.joinAnotherBtn {
+	width: 100%;
+	font-size: 1rem;
+	margin-top: 2rem;
+	height: 3.5rem;
+	border-color: $blue-mid;
+	color: $blue-mid;
+	&:hover {
+		border-color: $blue-dark;
+		color: $blue-dark;
+	}
+}
+
+.queryWrapper {
+	width: 100%;
+	position: relative;
+}
+
+.validInput {
+	input {
+		background: rgba($green-mid, 0.05);
+		color: $green-mid;
+	}
+}
+.validTick {
+	color: $green-mid;
+	position: absolute;
+	right: 1.25rem;
+	top: 2.5rem;
+}
+
+.queryDropdown {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	transform: translateY(calc(100% - 0.5rem));
+	background: white;
+	border-radius: 1rem;
+	padding: 0.5rem 0;
+	overflow: hidden;
+	box-shadow: 0 8px 16px 0 rgba(black, 0.05);
+	.queryItem {
+		width: 100%;
+		height: 2.5rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 1.5rem;
+		color: $dark;
+		font-weight: 500;
+		font-size: 14px;
+		cursor: pointer;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
+		&:hover {
+			color: $darkest;
+			background: rgba($blue-mid, 0.05);
+		}
+	}
 }
 
 @media only screen and (min-width: 1200px) {

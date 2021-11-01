@@ -1,8 +1,8 @@
-// IMPORT ===================================================
+// TODO integration
 
-// [REQUIREMENT] Output Object
 const DUMMY_SESSION = {
-	id: "test123",
+	accountId: "accountId123",
+	profileId: "profileId123",
 	email: "louiscflin@gmail.com",
 	firstName: "Louis",
 	lastName: "Lin",
@@ -16,31 +16,18 @@ const DUMMY_SESSION = {
 	numOfGroups: 5,
 };
 
-// MAIN =====================================================
-
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	// Validate PUBLIC_API_KEY
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error" });
 	}
-	// Create the user account and profile
 	let data;
 	if (req.body.status === "succeeded") {
 		data = {
 			status: "succeeded",
 			content: DUMMY_SESSION,
 		};
-	} else if (req.body.status === "failed") {
-		// [REQUIREMENT] Failed Event #1
-		data = {
-			status: "failed",
-		};
 	}
-	// Return outcome of the request
+	// no failure modes for this route
 	return res.send(data);
 }
-
-// HELPERS ==================================================
-
-// END ======================================================

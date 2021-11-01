@@ -1,3 +1,5 @@
+// TODO integration
+
 const DUMMY_GROUP = { id: "mit", name: "Massachusetts Institute of Technology", role: "student", numOfUsers: { admins: 2, teachers: 5, students: 350 }, type: "school" };
 
 export default async function (req, res) {
@@ -27,6 +29,5 @@ export default async function (req, res) {
 			content: "already joined",
 		};
 	}
-	console.log(data);
 	return res.send(data);
 }

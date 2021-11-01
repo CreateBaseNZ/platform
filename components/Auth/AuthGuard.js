@@ -23,7 +23,7 @@ const AuthGuard = ({ children, auth }) => {
 
 	useEffect(() => {
 		if (globalSession.loaded) {
-			if (!globalSession.id) {
+			if (!globalSession.accountId) {
 				signIn();
 			} else if (!globalSession.verified) {
 				router.push({ pathname: "/auth/verify", query: router.query });
@@ -33,7 +33,7 @@ const AuthGuard = ({ children, auth }) => {
 
 	if (!globalSession.loaded) return <div>App loading</div>;
 
-	if (globalSession.id) {
+	if (globalSession.accountId) {
 		if (!globalSession.verified) {
 			return null;
 		} else if (hasAccess(globalSession.recentGroups[0].role, auth)) {

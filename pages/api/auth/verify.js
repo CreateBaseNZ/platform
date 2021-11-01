@@ -1,3 +1,5 @@
+// TODO integration
+
 const DUMMY_VERIFY = {
 	verified: true,
 };
@@ -24,6 +26,5 @@ export default async function (req, res) {
 			content: "expired",
 		};
 	}
-	console.log(data);
 	return res.send(data);
 }

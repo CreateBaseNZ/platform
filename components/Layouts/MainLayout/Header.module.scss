@@ -75,9 +75,7 @@
 	opacity: 0;
 	transform: translateX(50%);
 	width: calc(10rem + 5vw);
-	&.loaded {
-		animation: slide-in 0.8s ease-out forwards;
-	}
+	animation: slide-in 0.8s ease-out forwards;
 	.headerUser {
 		width: 100%;
 		display: flex;
