@@ -1,4 +1,4 @@
-// TODO: Integration - Backend
+// TODO: Integration - Review
 
 // IMPORT ===================================================
 
@@ -67,9 +67,7 @@ export default async function (req, res) {
 	} catch (error) {
 		data2 = { status: "error", content: error };
 	}
-	console.log(data2);
 	if (data2.status !== "succeeded") return res.send({ status: "error" });
-	console.log("succeeded");
 	return res.send({ status: "succeeded" });
 }
 
