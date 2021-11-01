@@ -9,7 +9,9 @@ export default VisualBellContext;
 
 export const VisualBellContextProvider = (props) => {
 	const timer = useRef();
-	const [visualBell, setVisualBell] = useState({ type: null, message: null });
+	const [visualBell, setVisualBell] = useState({ type: null, message: null, key: null });
+
+	console.log(visualBell);
 
 	useEffect(() => {
 		if (visualBell.message) {
@@ -20,12 +22,16 @@ export const VisualBellContextProvider = (props) => {
 				timer.current = setTimeout(() => setVisualBell({}), 5100);
 			}
 		}
-	}, [visualBell.message]);
+	}, [visualBell.key]);
+
+	const setVisualBellWithTrigger = (param) => {
+		setVisualBell({ ...param, key: Math.random() });
+	};
 
 	const value = useMemo(
 		() => ({
 			visualBell: visualBell,
-			setVisualBell: setVisualBell,
+			setVisualBell: setVisualBellWithTrigger,
 		}),
 		[visualBell]
 	);

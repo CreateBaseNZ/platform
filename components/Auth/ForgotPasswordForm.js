@@ -1,8 +1,10 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import router from "next/router";
 import Link from "next/link";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import useAuthHelper from "../../hooks/useAuthHelper";
+import useHandleResponse from "../../hooks/useHandleResponse";
 import Input, { PasswordInput } from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
 import VisualBellContext from "../../store/visual-bell-context";
@@ -16,7 +18,7 @@ import classes from "./AuthForms.module.scss";
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { sendForgotPasswordCode } = useAuthHelper();
+	const { handleResponse } = useHandleResponse();
 	const {
 		register,
 		handleSubmit,
@@ -28,21 +30,32 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		await sendForgotPasswordCode({
-			details: { email: input.email },
-			failHandler: () => {
-				setError("email", {
-					type: "manual",
-					message: "We could not find an account with that email",
-				});
-				setIsLoading(false);
-			},
-			successHandler: () => {
-				setInputValues((state) => ({ ...state, email: input.email }));
-				setStep(1);
-				setVisualBell({ type: "neutral", message: "Recovery code sent" });
-			},
-		});
+		const details = { email: input.email };
+		const DUMMY_STATUS = "succeeded";
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/send-recovery-code", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {
+					if (data.content === "does not exist") {
+						setError("email", {
+							type: "manual",
+							message: "We could not find an account with that email",
+						});
+					}
+					setIsLoading(false);
+				},
+				successHandler: () => {
+					setInputValues((state) => ({ ...state, email: input.email }));
+					setVisualBell({ type: "success", message: "A recovery code has been sent to your email" });
+					setStep(1);
+				},
+			});
+		}
 	};
 
 	return (
@@ -63,30 +76,71 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 				error={errors.email}
 			/>
 			<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Loading ..." mainLabel="Continue" />
+			<div className={classes.forgotOptions}>
+				<Link href="/auth/login">
+					<a className={`${classes.smallFont} ${classes.linkBtn}`}>Back to Login</a>
+				</Link>
+			</div>
 		</form>
 	);
 };
 
 const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
-	const { resetPassword } = useAuthHelper();
+	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isResending, setIsResending] = useState(false);
+	const { handleResponse } = useHandleResponse();
 	const [error, setError] = useState();
 	const [code, setCode] = useState([...Array(codeLength)].map(() => ""));
 	const refs = useRef([]);
 
+	const resendCode = async () => {
+		setIsResending(true);
+		const details = { email: inputValues.email };
+		const DUMMY_STATUS = "success";
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/send-recovery-code", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					setVisualBell({ type: "neutral", message: "A new recovery code has been sent to your email" });
+					setIsResending(false);
+				},
+			});
+		}
+	};
+
 	const submitCode = async (code) => {
 		setIsLoading(true);
-		await resetPassword({
-			details: { email: inputValues.email, code: code, password: "" },
-			failHandler: () => {
-				setError("The code you entered is invalid");
-				setIsLoading(false);
-			},
-			successHandler: () => {
-				setStep(2);
-				setInputValues((state) => ({ ...state, code: code }));
-			},
-		});
+		const details = { email: inputValues.email, code: code };
+		const DUMMY_STATUS = "succeeded";
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/recover", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {
+					if (data.content === "incorrect") {
+						setError("The code you entered is incorrect");
+					} else if (data.content === "expired") {
+						setError("The code you entered has expired");
+					}
+					setIsLoading(false);
+				},
+				successHandler: () => {
+					setInputValues((state) => ({ ...state, code: code }));
+					setStep(2);
+				},
+			});
+		}
 	};
 
 	const changeHandler = (e, idx) => {
@@ -149,16 +203,28 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 				))}
 			</div>
 			<div className={classes.errorMessage} style={{ opacity: error ? 1 : 0 }}>
-				The code you entered is incorrect or has expired
+				{error}
 			</div>
 			<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
+			<div className={classes.forgotOptions}>
+				<Link href="/auth/login">
+					<a className={`${classes.smallFont} ${classes.linkBtn}`}>Back to Login</a>
+				</Link>
+				{isResending ? (
+					<div className={classes.smallFont}>Resending ...</div>
+				) : (
+					<button type="button" className={`${classes.linkBtn} ${classes.smallFont}`} onClick={resendCode}>
+						Resend code
+					</button>
+				)}
+			</div>
 		</form>
 	);
 };
 
 const ForgotPasswordStepThree = ({ inputValues }) => {
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { resetPassword } = useAuthHelper();
+	const { handleResponse } = useHandleResponse();
 	const newPassword = useRef({});
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -176,19 +242,25 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 		touchedFields.confirmPassword && trigger("confirmPassword");
 	}, [newPassword.current]);
 
-	const onSubmit = (input) => {
+	const onSubmit = async (input) => {
 		setIsLoading(true);
-		resetPassword({
-			details: { email: inputValues.email, code: inputValues.code, password: input.newPassword },
-			failHandler: () => {
-				setError("An error occurred, please try again");
-				setIsLoading(false);
-			},
-			successHandler: () => {
-				router.replace({ query: { action: "login" } });
-				setVisualBell({ type: "success", message: "Successfully reset password, please log in to continue" });
-			},
-		});
+		const details = { email: inputValues.email, password: input.newPassword };
+		const DUMMY_STATUS = "succeeded";
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					router.replace("/auth/login");
+					setVisualBell({ type: "success", message: "Successfully reset password, please log in to continue" });
+				},
+			});
+		}
 	};
 
 	return (
@@ -218,50 +290,24 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 				error={errors.confirmPassword}
 			/>
 			<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Saving ..." mainLabel="Set new password" />
+			<div className={classes.forgotOptions}>
+				<Link href="/auth/login">
+					<a className={`${classes.smallFont} ${classes.linkBtn}`}>Back to Login</a>
+				</Link>
+			</div>
 		</form>
 	);
 };
 
 const ForgotPassword = () => {
-	const router = useRouter();
-	const { setVisualBell } = useContext(VisualBellContext);
-	const { sendForgotPasswordCode } = useAuthHelper();
 	const [step, setStep] = useState(router?.query?.code && router?.query?.email ? 2 : 0);
 	const [inputValues, setInputValues] = useState({ email: router?.query?.email, code: router?.query?.code });
-
-	const resendCode = async () => {
-		await sendForgotPasswordCode({
-			details: { email: inputValues.email },
-			failHandler: () => {
-				setError("email", {
-					type: "manual",
-					message: "Something went wrong, please reload the page",
-				});
-			},
-			successHandler: () => {
-				setVisualBell({ type: "neutral", message: "Another recovery code was sent to your email" });
-			},
-		});
-	};
 
 	return (
 		<div className={`${classes.forgotContainer} roundScrollbar`}>
 			{step === 0 && <ForgotPasswordStepOne setStep={setStep} setInputValues={setInputValues} />}
 			{step === 1 && <ForgotPasswordStepTwo setStep={setStep} inputValues={inputValues} setInputValues={setInputValues} />}
 			{step === 2 && <ForgotPasswordStepThree inputValues={inputValues} />}
-			<div className={classes.forgotOptions}>
-				<Link href="/auth/login">
-					<a className={`${classes.smallFont} ${classes.linkBtn}`}>Back to Login</a>
-				</Link>
-				{step === 1 && (
-					<div className={`${classes.smallFont} ${classes.switch}`}>
-						Didn't receive a code?
-						<button type="button" className={classes.linkBtn} onClick={resendCode}>
-							Resend
-						</button>
-					</div>
-				)}
-			</div>
 		</div>
 	);
 };
