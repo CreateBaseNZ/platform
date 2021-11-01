@@ -11,7 +11,7 @@ import classes from "/styles/myGroups.module.scss";
 
 const JoinSchoolStudent = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const { setGlobalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 	const {
 		register,
@@ -22,12 +22,7 @@ const JoinSchoolStudent = () => {
 
 	const onStudentSubmit = async (inputs) => {
 		setIsLoading(true);
-		// TODO: Integration - Frontend
-		// More input data is required.
-		// I need to be aware of who is the user making the request.
-		// So, I either need their accountId or their profileId.
-		// Ideally, profileId is what's provided, but accountId will do.
-		const details = { code: inputs.code };
+		const details = { profileId: globalSession.profileId, code: inputs.code };
 		const DUMMY_STATUS = "succeeded";
 		let data = {};
 		try {
