@@ -22,16 +22,28 @@ export default async function (req, res) {
 		date: req.body.input.date,
 	};
 	// Create the user account and profile
-	let data;
+	let data1;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/signup", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data1 = (await axios.post(process.env.ROUTE_URL + "/signup", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
-	// Clear the content
-	if (data.status === "succeeded") data.content = undefined;
+	const account = data1.content.account;
+	// Send verification code
+	let data2;
+	try {
+		data2 = (
+			await axios.post(process.env.ROUTE_URL + "/account/verification/email", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: { account: account._id, date: input.date },
+			})
+		)["data"];
+	} catch (error) {
+		data2 = { status: "error", content: error };
+	}
+	if (data2.status !== "succeeded") return res.send({ status: "error" });
 	// Return outcome of the request
-	return res.send(data);
+	return res.send({ status: "succeeded" });
 }
 
 // HELPERS ==================================================
