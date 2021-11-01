@@ -1,4 +1,4 @@
-// TODO integration
+// TODO: Integration - Backend
 // TODO decide how to handle already joined school
 
 const DUMMY_ALL_SCHOOLS = [

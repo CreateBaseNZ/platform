@@ -1,4 +1,4 @@
-// TODO integration
+// TODO: Integration - Backend
 
 const DUMMY_SESSION = {
 	accountId: "accountId123",
