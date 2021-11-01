@@ -1,6 +1,4 @@
-// TODO: Integration - Backend
-// TODO depends on auth to be completed - will need to be reviewed
-
+// TODO: Integration - Review
 // IMPORT ===================================================
 
 import axios from "axios";

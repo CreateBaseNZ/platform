@@ -29,7 +29,7 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		const details = { email: input.email };
+		const details = { email: input.email, date: new Date().toString() };
 		const DUMMY_STATUS = "succeeded";
 		let data = {};
 		try {
@@ -95,7 +95,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 
 	const resendCode = async () => {
 		setIsResending(true);
-		const details = { email: inputValues.email };
+		const details = { email: inputValues.email, date: new Date().toString() };
 		const DUMMY_STATUS = "success";
 		let data = {};
 		try {
@@ -243,7 +243,11 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		const details = { email: inputValues.email, password: input.newPassword };
+		const details = {
+			email: inputValues.email,
+			password: input.newPassword,
+			date: new Date().toString(),
+		};
 		const DUMMY_STATUS = "succeeded";
 		let data = {};
 		try {
