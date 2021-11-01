@@ -22,6 +22,11 @@ const JoinSchoolStudent = () => {
 
 	const onStudentSubmit = async (inputs) => {
 		setIsLoading(true);
+		// TODO: Integration - Frontend
+		// More input data is required.
+		// I need to be aware of who is the user making the request.
+		// So, I either need their accountId or their profileId.
+		// Ideally, profileId is what's provided, but accountId will do.
 		const details = { code: inputs.code };
 		const DUMMY_STATUS = "succeeded";
 		let data = {};
