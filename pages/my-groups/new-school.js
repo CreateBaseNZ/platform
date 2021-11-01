@@ -33,6 +33,7 @@ const NewSchool = () => {
 			address: inputs.address,
 			city: inputs.city,
 			country: inputs.country,
+			date: new Date().toString(),
 		};
 		const DUMMY_STATUS = "succeeded";
 		let data;
