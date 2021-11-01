@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import Head from "next/head";
 import GlobalSessionContext from "../../store/global-session-context";
 import ForgotPasswordForm from "../../components/Auth/ForgotPasswordForm";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
+import router from "next/router";
 
 const ForgotPassword = () => {
 	const { globalSession } = useContext(GlobalSessionContext);

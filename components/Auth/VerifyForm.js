@@ -18,6 +18,7 @@ const Verify = () => {
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isResending, setIsResending] = useState(false);
 	const [error, setError] = useState();
 	const [code, setCode] = useState(router?.query?.code || [...Array(CODE_LENGTH)].map(() => ""));
 	const refs = useRef([]);
@@ -25,14 +26,13 @@ const Verify = () => {
 	const submitCode = async (code) => {
 		setIsLoading(true);
 		const details = { email: globalSession.email, code: code };
-		const DUMMY_STATUS = "succeeded";
+		const DUMMY_STATUS = "failed 1";
 		let data = {};
 		try {
 			data = (await axios.post("/api/auth/verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {
@@ -47,6 +47,27 @@ const Verify = () => {
 					setGlobalSession((state) => ({ ...state, verified: true }));
 					router.push(router.query.callbackUrl || "/");
 					setVisualBell({ type: "success", message: "Welcome to CreateBase!" });
+				},
+			});
+		}
+	};
+
+	const resendCodeHandler = async () => {
+		setIsResending(true);
+		const details = { accountId: globalSession.accountId, code: code };
+		const DUMMY_STATUS = "success";
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/resend-verify-code", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					setVisualBell({ type: "neutral", message: "A new verification code has been sent" });
+					setIsResending(false);
 				},
 			});
 		}
@@ -128,6 +149,15 @@ const Verify = () => {
 					{error}
 				</div>
 				<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
+				<div className={`${classes.smallFont} ${classes.switch}`}>
+					{isResending ? (
+						"Resending ..."
+					) : (
+						<button type="button" className={classes.linkBtn} onClick={resendCodeHandler}>
+							Resend code
+						</button>
+					)}
+				</div>
 			</form>
 		</div>
 	);

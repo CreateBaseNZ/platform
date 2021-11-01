@@ -1,6 +1,6 @@
 // TODO: Integration - Backend
 
-const DUMMY_VERIFY = {
+const DUMMY_SENT = {
 	verified: true,
 };
 
@@ -13,17 +13,7 @@ export default async function (req, res) {
 	if (req.body.status === "succeeded") {
 		data = {
 			status: "succeeded",
-			content: DUMMY_VERIFY, // could also return nothing as succeeded will automatically indicate successful verification
-		};
-	} else if (req.body.status === "failed 1") {
-		data = {
-			status: "failed",
-			content: "incorrect",
-		};
-	} else if (req.body.status === "failed 2") {
-		data = {
-			status: "failed",
-			content: "expired",
+			content: DUMMY_SENT, // could also return nothing as succeeded will automatically indicate successful verification
 		};
 	}
 	return res.send(data);

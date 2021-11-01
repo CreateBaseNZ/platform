@@ -1,7 +1,7 @@
 // TODO: Integration - Backend
 
-const DUMMY_RESET = {
-	success: true,
+const DUMMY_SENT = {
+	sent: true,
 };
 
 export default async function (req, res) {
@@ -13,7 +13,7 @@ export default async function (req, res) {
 	if (req.body.status === "succeeded") {
 		data = {
 			status: "succeeded",
-			content: DUMMY_RESET, // could also return nothing as succeeded will automatically indicate successful verification
+			content: DUMMY_SENT, // could also return nothing as succeeded will automatically indicate successful verification
 		};
 	}
 	return res.send(data);

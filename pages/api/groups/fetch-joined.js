@@ -1,4 +1,4 @@
-// TODO integration
+// TODO: Integration - Backend
 
 const DUMMY_GROUPS = [
 	{ id: "bdsc", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
