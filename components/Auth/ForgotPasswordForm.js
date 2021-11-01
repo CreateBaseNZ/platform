@@ -3,7 +3,6 @@ import router from "next/router";
 import Link from "next/link";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import useAuthHelper from "../../hooks/useAuthHelper";
 import useHandleResponse from "../../hooks/useHandleResponse";
 import Input, { PasswordInput } from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
