@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 
 import classes from "/styles/myGroups.module.scss";
+import useHandleResponse from "../../hooks/useHandleResponse";
+import GlobalSessionContext from "../../store/global-session-context";
 
 const NewSchool = () => {
 	const [isLoading, setIsLoading] = useState(false);
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { handleResponse } = useHandleResponse();
 	const {
 		register,
 		handleSubmit,
@@ -17,8 +22,31 @@ const NewSchool = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	//TODO
-	const onSubmit = () => {};
+	const onSubmit = async (inputs) => {
+		setIsLoading(true);
+		const details = {
+			profileId: globalSession.profileId,
+			name: inputs.name,
+			address: inputs.address,
+			city: inputs.city,
+			country: inputs.country,
+		};
+		const DUMMY_STATUS = "succeeded";
+		let data;
+		try {
+			data = (await axios.post("/api/groups/register-school", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					setIsLoading(false);
+				},
+			});
+		}
+	};
 
 	return (
 		<div className={classes.view}>
@@ -46,21 +74,21 @@ const NewSchool = () => {
 						/>
 						<Input
 							className={classes.input}
-							label="Address"
+							label="Address*"
 							labelProps={{ className: classes.inputLabel }}
 							inputProps={{ placeholder: "Address", type: "text", maxLength: 254, ...register("address", { required: "Please enter your school's address" }) }}
 							error={errors.address}
 						/>
 						<Input
 							className={classes.input}
-							label="City/State"
+							label="City/State*"
 							labelProps={{ className: classes.inputLabel }}
-							inputProps={{ placeholder: "City/State", type: "text", maxLength: 254, ...register("cityState", { required: "Please enter your school's city/state" }) }}
-							error={errors.cityState}
+							inputProps={{ placeholder: "City/State", type: "text", maxLength: 254, ...register("city", { required: "Please enter your school's city/state" }) }}
+							error={errors.city}
 						/>
 						<Input
 							className={classes.input}
-							label="Country"
+							label="Country*"
 							labelProps={{ className: classes.inputLabel }}
 							inputProps={{ placeholder: "Country", type: "text", maxLength: 254, ...register("country", { required: "Please enter your school's country" }) }}
 							error={errors.country}
