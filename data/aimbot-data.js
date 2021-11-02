@@ -19,7 +19,7 @@ export default {
 	caption:
 		'TBD',
 	stacked: true,
-	scenePrefix: "TBD",
+	scenePrefix: "Project_Aimbot",
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 7,
