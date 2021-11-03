@@ -1,16 +1,22 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import Head from "next/head";
-import VisualBellContext from "../../store/visual-bell-context";
-import useLicenseHelper from "../../hooks/useLicenseHelper";
-import { PasswordInput } from "../UI/Input";
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import useHandleResponse from "../../hooks/useHandleResponse";
+import GlobalSessionContext from "../../store/global-session-context";
+import VisualBellContext from "../../store/visual-bell-context";
+import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
+import MyAccountLayout from "../../components/Layouts/MyAccountLayout/MyAccountLayout";
+import { PasswordInput } from "../../components/UI/Input";
+import { PrimaryButton } from "../../components/UI/Buttons";
 import { passwordMinLength, passwordValidate } from "../../utils/formValidation";
-import { PrimaryButton } from "../UI/Buttons";
-import classes from "./MyAccount.module.scss";
 
-export const MySecurity = ({ user }) => {
-	const ctx = useContext(VisualBellContext);
-	const { changePassword } = useLicenseHelper({ ...ctx });
+import classes from "../../styles/myAccount.module.scss";
+
+const MySecurity = () => {
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { setVisualBell } = useContext(VisualBellContext);
+	const { handleResponse } = useHandleResponse();
 	const [isLoading, setIsLoading] = useState(false);
 	const password = useRef({});
 	const {
@@ -19,26 +25,46 @@ export const MySecurity = ({ user }) => {
 		trigger,
 		watch,
 		setError,
+		reset,
 		formState: { errors, touchedFields },
 	} = useForm({ mode: "onTouched" });
 	password.current = watch("newPassword", "");
 
-	const onSubmit = async (input) => {
+	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		changePassword({
-			details: { oldPassword: input.currentPassword, password: input.newPassword },
-			failHandler: (content) => {
-				if (content.password) setError("currentPassword", { type: "manual", message: "Incorrect password" }, { shouldFocus: true });
-				setIsLoading(false);
-			},
-			successHandler: () => {
-				setIsLoading(false);
-				ctx.setBell({
-					type: "success",
-					message: "Successfully changed password",
-				});
-			},
-		});
+		const details = { oldPassword: inputs.currentPassword, password: inputs.newPassword };
+		const DUMMY_STATUS = "succeeded";
+		let data = {};
+		try {
+			data = (await axios.post("/api/auth/update-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {
+					if (data.content === "incorrect") {
+						setError(
+							"currentPassword",
+							{
+								type: "manual",
+								message: "Password incorrect",
+							},
+							{ shouldFocus: true }
+						);
+						setIsLoading(false);
+					}
+				},
+				successHandler: () => {
+					setVisualBell({
+						type: "success",
+						message: "Your password has been updated",
+					});
+					reset();
+					setIsLoading(false);
+				},
+			});
+		}
 	};
 
 	useEffect(() => {
@@ -48,8 +74,10 @@ export const MySecurity = ({ user }) => {
 	return (
 		<div className={classes.myView}>
 			<Head>
-				<title>Security • {user.displayName} | CreateBase</title>
-				<meta name="description" content="Change your password. CreateBase" />
+				<title>
+					Security • {globalSession.firstName} {globalSession.lastName} | CreateBase
+				</title>
+				<meta name="description" content="Edit your account security on CreateBase" />
 			</Head>
 			<div className={classes.section}>
 				<h2>Change password</h2>
@@ -101,5 +129,15 @@ export const MySecurity = ({ user }) => {
 		</div>
 	);
 };
+
+MySecurity.getLayout = (page) => {
+	return (
+		<MainLayout page="my-account">
+			<MyAccountLayout name="security">{page}</MyAccountLayout>
+		</MainLayout>
+	);
+};
+
+MySecurity.auth = "user";
 
 export default MySecurity;

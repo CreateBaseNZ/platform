@@ -12,7 +12,7 @@ import UserAvatar from "../../components/UI/UserAvatar";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import { namePattern, isBlacklisted, emailPattern } from "../../utils/formValidation";
 
-import classes from "../../components/Layouts/MyAccountLayout/MyAccountLayout.module.scss";
+import classes from "../../styles/myAccount.module.scss";
 
 const MyProfile = () => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
@@ -65,10 +65,14 @@ const MyProfile = () => {
 				data,
 				failHandler: () => {
 					if (data.content === "email taken") {
-						setError("email", {
-							type: "manual",
-							message: "This email is already registered to another account",
-						});
+						setError(
+							"email",
+							{
+								type: "manual",
+								message: "This email is already registered to another account",
+							},
+							{ shouldFocus: true }
+						);
 						setIsLoading(false);
 					}
 				},
