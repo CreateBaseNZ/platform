@@ -68,8 +68,12 @@ const JoinSchoolTeacher = () => {
 
 	const onTeacherSubmit = async () => {
 		setIsLoading(true);
-		// TODO: Integration - Backend
-		const details = { profileId: globalSession.profileId, schoolId: queryDropdown.selectedId };
+		// TODO: Integration - Test
+		const details = {
+			profileId: globalSession.profileId,
+			schoolId: queryDropdown.selectedId,
+			date: new Date().toString(),
+		};
 		const DUMMY_STATUS = "succeeded";
 		let data = {};
 		try {
