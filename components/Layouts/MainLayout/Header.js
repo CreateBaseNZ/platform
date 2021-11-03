@@ -16,7 +16,6 @@ const Header = () => {
 	const [showDropdown, setShowDropdown] = useState(false);
 
 	const changeGroup = (group) => {
-		// TODO integrate with API
 		setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
 	};
 
@@ -36,7 +35,7 @@ const Header = () => {
 				{globalSession.accountId && (
 					<div className={classes.headerUserContainer} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
 						<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>
-							<UserAvatar size={40} name={`${globalSession.firstName}${globalSession.lastName}`} className={classes.avatar} />
+							<UserAvatar size={40} id={globalSession.profileId} className={classes.avatar} />
 							<div className={classes.headerName}>
 								{globalSession.firstName} {globalSession.lastName}
 							</div>
@@ -45,7 +44,6 @@ const Header = () => {
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
 							{globalSession.recentGroups.length ? (
 								globalSession.recentGroups.map((group, i) => (
-									//TODO switching between views
 									<button key={i} onMouseDown={() => changeGroup(group)} title={group.name}>
 										<i className="material-icons-outlined">{group.type === "school" ? "holiday_village" : group.type === "family" ? "cottage" : ""}</i>
 										<span>{group.name}</span>

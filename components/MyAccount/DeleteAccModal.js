@@ -5,7 +5,7 @@ import ClientOnlyPortal from "../UI/ClientOnlyPortal";
 import Input, { PasswordInput } from "../UI/Input";
 import classes from "./DeleteAccModal.module.scss";
 
-const DeleteModal = ({ setDeletingAcc }) => {
+const DeleteAccModal = ({ setDeletingAcc }) => {
 	const [loadingPasswordCheck, setLoadingPasswordCheck] = useState(false);
 	const {
 		register,
@@ -65,4 +65,4 @@ const DeleteModal = ({ setDeletingAcc }) => {
 	);
 };
 
-export default DeleteModal;
+export default DeleteAccModal;

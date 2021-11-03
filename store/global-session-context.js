@@ -43,8 +43,6 @@ export const GlobalSessionContextProvider = (props) => {
 	}, [status, session]);
 
 	useEffect(async () => {
-		console.log("this ran");
-		console.log(globalSession.recentGroups);
 		let data = {};
 		try {
 			data = (
