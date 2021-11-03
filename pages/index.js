@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../store/global-session-context";
 
-import classes from "/styles/Index.module.scss";
-
 const Index = () => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -14,7 +12,7 @@ const Index = () => {
 	useEffect(() => {
 		if (globalSession.loaded) {
 			if (globalSession.accountId) {
-				if (globalSession.isViewingGroup) {
+				if (globalSession.recentGroups.length) {
 					console.log("viewing a group");
 					// router.replace("/browse");
 				} else {

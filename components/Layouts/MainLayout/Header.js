@@ -26,12 +26,12 @@ const Header = () => {
 			</button>
 			<header className={classes.header}>
 				<ColourLogoIcon className={`${classes.home} ${navIsCollapsed ? classes.collapsed : ""}`} />
-				{globalSession.isViewingGroup && (
+				{globalSession.recentGroups.length ? (
 					<div className={classes.viewingAs} key={globalSession.recentGroups[0].name}>
 						<div className={classes.viewingAsName}>{globalSession.recentGroups[0].name}</div>
 						<div className={classes.viewingAsRole}>{globalSession.recentGroups[0].role}</div>
 					</div>
-				)}
+				) : null}
 				{globalSession.accountId && (
 					<div className={classes.headerUserContainer} tabIndex={-1} onBlur={() => setShowDropdown(false)}>
 						<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>

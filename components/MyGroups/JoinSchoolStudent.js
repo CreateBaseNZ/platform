@@ -53,7 +53,7 @@ const JoinSchoolStudent = () => {
 					setIsLoading(false);
 				},
 				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, isViewingGroup: true, recentGroups: [data.content, ...state.recentGroups.slice(0, 2)] }));
+					setGlobalSession((state) => ({ ...state, recentGroups: [data.content, ...state.recentGroups.slice(0, 2)] }));
 					router.push("/my-groups");
 				},
 			});

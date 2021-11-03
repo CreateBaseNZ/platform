@@ -34,8 +34,7 @@ const MyGroups = () => {
 		}
 	}, []);
 
-	const cardClickHandler = (group) =>
-		setGlobalSession((state) => ({ ...state, isViewingGroup: true, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
+	const cardClickHandler = (group) => setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
 
 	return (
 		<div className={classes.view}>
@@ -60,12 +59,9 @@ const MyGroups = () => {
 						{allGroups
 							.filter((group) => group.type === "school")
 							.map((group) => (
-								<div
-									key={group.name}
-									className={`${classes.card} ${globalSession.isViewingGroup && globalSession.recentGroups[0].id === group.id ? classes.activeCard : ""}`}
-									onClick={() => cardClickHandler(group)}>
+								<div key={group.name} className={`${classes.card} ${globalSession.recentGroups[0]?.id === group.id ? classes.activeCard : ""}`} onClick={() => cardClickHandler(group)}>
 									<div className={classes.groupRole}>
-										{group.role} {globalSession.isViewingGroup && globalSession.recentGroups[0].id === group.id ? " (viewing)" : ""}
+										{group.role} {globalSession.recentGroups[0]?.id === group.id ? " (viewing)" : ""}
 									</div>
 									<div className={classes.groupName}>{group.name}</div>
 									<div className={classes.groupNums}>
