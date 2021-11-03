@@ -14,7 +14,7 @@ const Index = () => {
 			if (globalSession.accountId) {
 				if (globalSession.recentGroups.length) {
 					console.log("viewing a group");
-					// router.replace("/browse");
+					router.replace("/browse");
 				} else {
 					console.log("not viewing a group");
 					router.replace("/my-groups");

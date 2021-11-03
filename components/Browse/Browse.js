@@ -52,6 +52,6 @@ Browse.getLayout = (page) => {
 	return <MainLayout page="browse">{page}</MainLayout>;
 };
 
-Browse.authorisation = "user";
+Browse.auth = "user";
 
 export default Browse;

@@ -5,7 +5,7 @@ import { SCHOOL_TABS } from "../../constants/manageGroup";
 
 const ManageStudents = () => <ManageGroup role="students" />;
 
-ManageStudents.getLayout = function getLayout(page) {
+ManageStudents.getLayout = (page) => {
 	return (
 		<MainLayout page="manage-group">
 			<InnerLayout tabs={SCHOOL_TABS} showBack={false}>
@@ -15,6 +15,6 @@ ManageStudents.getLayout = function getLayout(page) {
 	);
 };
 
-ManageStudents.authorisation = "staff";
+ManageStudents.auth = "staff";
 
 export default ManageStudents;

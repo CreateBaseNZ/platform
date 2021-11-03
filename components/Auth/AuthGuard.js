@@ -29,7 +29,7 @@ const AuthGuard = ({ children, auth }) => {
 				router.push({ pathname: "/auth/verify", query: router.query });
 			}
 		}
-	}, [globalSession]);
+	}, [globalSession.loaded, globalSession.accountId, globalSession.verified]);
 
 	if (!globalSession.loaded) return <div>App loading</div>;
 

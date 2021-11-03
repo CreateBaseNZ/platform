@@ -61,6 +61,6 @@ ClassesTabRoot.getLayout = (page) => {
 	return <MainLayout page="classes">{page}</MainLayout>;
 };
 
-ClassesTabRoot.authorisation = "user";
+ClassesTabRoot.auth = "user";
 
 export default ClassesTabRoot;

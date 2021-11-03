@@ -15,6 +15,6 @@ ManageTeachers.getLayout = function getLayout(page) {
 	);
 };
 
-ManageTeachers.authorisation = "admin";
+ManageTeachers.auth = "admin";
 
 export default ManageTeachers;

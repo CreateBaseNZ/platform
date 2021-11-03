@@ -15,6 +15,6 @@ ManageAdmins.getLayout = function getLayout(page) {
 	);
 };
 
-ManageAdmins.authorisation = "admin";
+ManageAdmins.auth = "admin";
 
 export default ManageAdmins;

@@ -1,21 +1,21 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import Head from "next/head";
+import MainLayoutContext from "../../store/main-layout-context";
+import GlobalSessionContext from "../../store/global-session-context";
 import useOrganisationHelper from "../../hooks/useOrganisationHelper";
-import UserSessionContext from "../../store/user-session";
 import Table from "./Table";
 // import TableControls from "./TableControls";
 import GROUP_CONFIG, { COLUMNS, SIZES } from "../../constants/manageGroup";
 
 import classes from "/styles/manageGroup.module.scss";
 import { useRouter } from "next/router";
-import MainLayoutContext from "../../store/main-layout-context";
 
 const ManageGroup = ({ role }) => {
 	const router = useRouter();
-	const { userSession } = useContext(UserSessionContext);
+	const { globalSession } = useContext(GlobalSessionContext);
 	const { getOrgUsers } = useOrganisationHelper();
 	const { headerIsCollapsed, setHeaderIsCollapsed } = useContext(MainLayoutContext);
-	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[userSession.recentGroups[0].type].roles }).map(([_, b]) => ({ [b.name]: [] }))));
+	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[globalSession.recentGroups[0].type].roles }).map(([_, b]) => ({ [b.name]: [] }))));
 	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
 
@@ -26,21 +26,21 @@ const ManageGroup = ({ role }) => {
 		return null;
 	}
 
-	useEffect(async () => {
-		await getOrgUsers({
-			successHandler: (data) => {
-				let result = Object.keys(data.users).reduce((res, key) => {
-					return {
-						...res,
-						[key]: data.users[key].map((user) => ({ firstName: user.firstName, lastName: user.lastName, email: user.email, checked: false, index: data.users[key].length })),
-					};
-				}, {});
-				setAllUsers(result);
-			},
-		});
-		setIsLoading(false);
-		console.log("fetched data");
-	}, []);
+	// useEffect(async () => {
+	// 	await getOrgUsers({
+	// 		successHandler: (data) => {
+	// 			let result = Object.keys(data.users).reduce((res, key) => {
+	// 				return {
+	// 					...res,
+	// 					[key]: data.users[key].map((user) => ({ firstName: user.firstName, lastName: user.lastName, email: user.email, checked: false, index: data.users[key].length })),
+	// 				};
+	// 			}, {});
+	// 			setAllUsers(result);
+	// 		},
+	// 	});
+	// 	setIsLoading(false);
+	// 	console.log("fetched data");
+	// }, []);
 
 	const removeUserHandler = () => {
 		//TODO [IGNORE]
@@ -69,7 +69,7 @@ const ManageGroup = ({ role }) => {
 		<div className={classes.manageGroup}>
 			<Head>
 				<title>
-					Manage {role} • {userSession.recentGroups[0].name} | CreateBase
+					Manage {role} • {globalSession.recentGroups[0].name} | CreateBase
 				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>

@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
-import UserSessionContext from "../../../store/user-session";
+import { useContext } from "react";
+import GlobalSessionContext from "../../../store/global-session-context";
 
 import classes from "./InnerLayout.module.scss";
 
 const InnerLayout = ({ tabs, children, backHref }) => {
-	const { userSession } = useContext(UserSessionContext);
+	const { globalSession } = useContext(GlobalSessionContext);
 	const router = useRouter();
 
 	console.log(router);
@@ -22,7 +22,7 @@ const InnerLayout = ({ tabs, children, backHref }) => {
 						</a>
 					</Link>
 				)}
-				{tabs[userSession.recentGroups[0]?.role]?.map((tab) => (
+				{tabs[globalSession.recentGroups[0].role]?.map((tab) => (
 					<Link key={tab.title} href={{ pathname: tab.pathname, query: router.query }}>
 						<div className={`${classes.tab} ${router.pathname === tab.pathname ? classes.active : ""}`}>
 							<i className="material-icons-outlined">{tab.icon}</i>

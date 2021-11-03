@@ -8,6 +8,6 @@ const ClassesTabRoot = () => {
 	return null;
 };
 
-ClassesTabRoot.authorisation = "user";
+ClassesTabRoot.auth = "user";
 
 export default ClassesTabRoot;

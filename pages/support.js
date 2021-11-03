@@ -118,6 +118,6 @@ Support.getLayout = (page) => {
 	return <MainLayout page="support">{page}</MainLayout>;
 };
 
-Support.authorisation = "user";
+Support.auth = "user";
 
 export default Support;

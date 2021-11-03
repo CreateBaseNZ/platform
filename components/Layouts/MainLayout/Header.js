@@ -26,7 +26,7 @@ const Header = () => {
 			</button>
 			<header className={classes.header}>
 				<ColourLogoIcon className={`${classes.home} ${navIsCollapsed ? classes.collapsed : ""}`} />
-				{globalSession.recentGroups.length ? (
+				{globalSession.recentGroups?.length ? (
 					<div className={classes.viewingAs} key={globalSession.recentGroups[0].name}>
 						<div className={classes.viewingAsName}>{globalSession.recentGroups[0].name}</div>
 						<div className={classes.viewingAsRole}>{globalSession.recentGroups[0].role}</div>
