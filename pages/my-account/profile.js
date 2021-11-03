@@ -54,10 +54,11 @@ const MyProfile = () => {
 		if (frontendError) {
 			return setIsLoading(false);
 		}
-		const DUMMY_STATUS = "succeeded";
+		inputs.date = new Date().toString();
+		inputs.profileId = globalSession.profileId;
 		let data = {};
 		try {
-			data = (await axios.post("/api/profile/update-profile", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/profile/update-profile", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {

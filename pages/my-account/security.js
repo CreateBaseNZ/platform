@@ -32,11 +32,15 @@ const MySecurity = () => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		const details = { oldPassword: inputs.currentPassword, password: inputs.newPassword };
-		const DUMMY_STATUS = "succeeded";
+		const details = {
+			oldPassword: inputs.currentPassword,
+			password: inputs.newPassword,
+			email: globalSession.email,
+			date: new Date().toString(),
+		};
 		let data = {};
 		try {
-			data = (await axios.post("/api/auth/update-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/auth/update-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {

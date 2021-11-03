@@ -1,5 +1,5 @@
-// TODO: Integration - Backend
-
+// TODO: Integration - Review
+// Note: Not Required - Groups array already exist in global session
 const DUMMY_GROUPS = [
 	{ id: "bdsc", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
 	{ id: "rc", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },

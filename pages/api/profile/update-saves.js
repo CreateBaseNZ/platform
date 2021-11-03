@@ -15,10 +15,7 @@ export default async function (req, res) {
 	let updates = [];
 	for (let i = 0; i < input.updates.length; i++) {
 		const update = input.updates[i];
-		updates.push({
-			type: "saves",
-			update,
-		});
+		updates.push({ type: "saves", update });
 	}
 	// Send the data to the main backend
 	let data;
@@ -36,8 +33,6 @@ export default async function (req, res) {
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
-
-	console.log(data);
 	// Return outcome of the request
 	return res.send(data);
 }
