@@ -16,6 +16,7 @@ const Header = () => {
 	const [showDropdown, setShowDropdown] = useState(false);
 
 	const changeGroup = (group) => {
+		// TODO integrate with API
 		setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
 	};
 
@@ -42,13 +43,34 @@ const Header = () => {
 							<i className="material-icons-outlined">expand_more</i>
 						</div>
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
-							{globalSession.recentGroups.map((group, i) => (
-								//TODO switching between views
-								<button key={i} onMouseDown={() => changeGroup(group)} title={group.name}>
-									<i className="material-icons-outlined">{group.type === "school" ? "holiday_village" : group.type === "family" ? "cottage" : ""}</i>
-									<span>{group.name}</span>
-								</button>
-							))}
+							{globalSession.recentGroups.length ? (
+								globalSession.recentGroups.map((group, i) => (
+									//TODO switching between views
+									<button key={i} onMouseDown={() => changeGroup(group)} title={group.name}>
+										<i className="material-icons-outlined">{group.type === "school" ? "holiday_village" : group.type === "family" ? "cottage" : ""}</i>
+										<span>{group.name}</span>
+									</button>
+								))
+							) : (
+								<>
+									<button onMouseDown={() => router.push("/my-groups/join-school")} title="Join a school">
+										<i className="material-icons-outlined">add</i>
+										<span>Join a school</span>
+									</button>
+									<button onMouseDown={() => router.push("/my-groups/new-school")} title="Register a school">
+										<i className="material-icons-outlined">holiday_village</i>
+										<span>Register a school</span>
+									</button>
+									<button onMouseDown={() => router.push("/my-groups/join-family")} title="Join a family">
+										<i className="material-icons-outlined">add</i>
+										<span>Join a family</span>
+									</button>
+									<button onMouseDown={() => router.push("/my-groups/new-family")} title="Create a family">
+										<i className="material-icons-outlined">cottage</i>
+										<span>Create a family</span>
+									</button>
+								</>
+							)}
 							{globalSession.numOfGroups > 3 && <div className={classes.moreGroups}>and {globalSession.numOfGroups - 3} more ...</div>}
 							<div className={classes.divider} />
 							{DEFAULT_TABS.map((tab, i) => (
