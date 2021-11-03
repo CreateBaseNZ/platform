@@ -22,6 +22,7 @@ const JoinSchoolStudent = () => {
 
 	const onStudentSubmit = async (inputs) => {
 		setIsLoading(true);
+		// TODO: Integration - Review
 		const details = {
 			profileId: globalSession.profileId,
 			code: inputs.code,

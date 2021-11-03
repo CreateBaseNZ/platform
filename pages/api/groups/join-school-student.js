@@ -1,4 +1,4 @@
-// TODO: Integration - Backend
+// TODO: Integration - Review
 // IMPORT ===================================================
 
 import axios from "axios";
@@ -57,33 +57,38 @@ export default async function (req, res) {
 	} catch (error) {
 		data1 = { status: "error", content: error };
 	}
-	const group = data1.content;
 	// Check if a group with the specified student code exist
-	if (data1.status === "failed" && data1.content.group) {
-		return res.send({ status: "failed", content: "incorrect" });
+	if (data1.status !== "succeeded") {
+		if (data1.status === "failed" && data1.content.group) {
+			return res.send({ status: "failed", content: "incorrect" });
+		} else {
+			return res.send({ status: "error" });
+		}
 	}
+	const group = data1.content;
 	// Fetch user's profile
 	let data2;
 	try {
 		data2 = (
 			await axios.post(process.env.ROUTE_URL + "/profile/retrieve", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: { query: { _id: input.profileId } },
+				input: { query: { _id: input.profileId }, option: {} },
 			})
 		)["data"];
 	} catch (error) {
 		data2 = { status: "error", content: error };
 	}
+	if (data2.status !== "succeeded") return res.send({ status: "error" });
 	const profile = data2.content[0];
 	// Check if the user is already part of the group
 	for (let i = 0; i < profile.licenses.length; i++) {
 		const licenseId = profile.licenses[i];
 		let id;
 		// Group active licenses
-		id = group.licenses.active.find((license) => license.toString() === licenseId.toString());
+		id = group.licenses.active.find((license) => license._id.toString() === licenseId.toString());
 		if (id) return res.send({ status: "failed", content: "already joined" });
 		// Group queue licenses
-		id = group.licenses.queue.find((license) => license.toString() === licenseId.toString());
+		id = group.licenses.queue.find((license) => license._id.toString() === licenseId.toString());
 		if (id) return res.send({ status: "failed", content: "already joined" });
 	}
 	// Add the user to the group
