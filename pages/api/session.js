@@ -6,16 +6,16 @@ import axios from "axios";
 // TEST OUTPUT ==============================================
 
 let output = {
-	accountId: "accountId123",
-	profileId: "profileId123",
+	accountId: "617cb718450a3488115f7844",
+	profileId: "617cb718450a3488115f7845",
 	email: "louiscflin@gmail.com",
 	firstName: "Louis",
 	lastName: "Lin",
 	verified: true,
 	recentGroups: [
-		// { id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
-		// { id: "456", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
-		// { id: "789", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
+		{ id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
+		{ id: "456", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
+		{ id: "789", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
 	],
 	numOfGroups: 5,
 };

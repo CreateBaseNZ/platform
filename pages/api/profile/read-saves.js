@@ -11,12 +11,10 @@ export default async function (req, res) {
 		return res.send({ status: "critical error", content: "" });
 	}
 	const input = req.body.input;
-	// Create the input data
-	let input = { query: { _id: input.profileId }, option: {} };
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/profile/retrieve", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/profile/retrieve", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { query: { _id: input.profileId }, option: {} } }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}

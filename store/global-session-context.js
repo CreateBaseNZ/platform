@@ -1,6 +1,7 @@
 import { useState, createContext, useMemo, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import useHandleResponse from "../hooks/useHandleResponse";
 
 const GlobalSessionContext = createContext({
 	globalSession: { loaded: false },
@@ -12,6 +13,7 @@ export default GlobalSessionContext;
 export const GlobalSessionContextProvider = (props) => {
 	const { data: session, status } = useSession();
 	const [globalSession, setGlobalSession] = useState({ loaded: false });
+	const { handleResponse } = useHandleResponse();
 
 	useEffect(async () => {
 		if (status !== "loading") {
@@ -39,6 +41,30 @@ export const GlobalSessionContextProvider = (props) => {
 			}
 		}
 	}, [status, session]);
+
+	useEffect(async () => {
+		console.log("this ran");
+		console.log(globalSession.recentGroups);
+		let data = {};
+		try {
+			data = (
+				await axios.post("/api/profile/update-saves", {
+					PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+					input: { profileId: globalSession.profileId, updates: [{ recentGroups: globalSession.recentGroups }], date: new Date().toString() },
+				})
+			)["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					console.log("success!");
+				},
+			});
+		}
+	}, [globalSession.recentGroups]);
 
 	const value = useMemo(
 		() => ({
