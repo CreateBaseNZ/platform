@@ -1,6 +1,11 @@
-// TODO: Integration - Backend
+// TODO: Integration - Review
+// IMPORT ===================================================
 
-const DUMMY_SESSION = {
+import axios from "axios";
+
+// TEST OUTPUT ==============================================
+
+let output = {
 	accountId: "accountId123",
 	profileId: "profileId123",
 	email: "louiscflin@gmail.com",
@@ -15,18 +20,34 @@ const DUMMY_SESSION = {
 	numOfGroups: 5,
 };
 
+// MAIN =====================================================
+
 export default async function (req, res) {
 	if (req.method !== "POST") return;
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error" });
 	}
+	const input = req.body.input;
+	// // Test Logic
+	// let data;
+	// if (req.body.status === "succeeded") {
+	// 	data = {
+	// 		status: "succeeded",
+	// 		content: DUMMY_SESSION,
+	// 	};
+	// }
+	// Integration Logic
 	let data;
-	if (req.body.status === "succeeded") {
-		data = {
-			status: "succeeded",
-			content: DUMMY_SESSION,
-		};
+	try {
+		data = (await axios.post(process.env.ROUTE_URL + "/session", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { account: input.accountId, date: input.date } }))["data"];
+	} catch (error) {
+		data = { status: "error", content: error };
 	}
-	// no failure modes for this route
-	return res.send(data);
+	if (data.status !== "succeeded") return res.send({ status: "error" });
+	Object.assign(output, data.content);
+	return res.send({ status: "succeeded", content: output });
 }
+
+// HELPERS ==================================================
+
+// END ======================================================

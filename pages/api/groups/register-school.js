@@ -1,4 +1,4 @@
-// TODO: Integration - Backend
+// TODO: Integration - Review
 
 // IMPORT ===================================================
 
@@ -17,15 +17,58 @@ export default async function (req, res) {
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error" });
 	}
-	let data;
-	// Test Logic
-	if (req.body.status === "succeeded") {
-		data = {
-			status: "succeeded",
-			content: DUMMY_SENT, // does not require content
-		};
+	const input = req.body.input;
+	// // Test Logic
+	// let data;
+	// if (req.body.status === "succeeded") {
+	// 	data = {
+	// 		status: "succeeded",
+	// 		content: DUMMY_SENT, // does not require content
+	// 	};
+	// }
+	// Integration Logic
+	// Register a school
+	let data1;
+	try {
+		data1 = (
+			await axios.post(process.env.ROUTE_URL + "/group/school/register", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: {
+					name: input.name,
+					location: {
+						address: input.address,
+						city: input.city,
+						country: input.country,
+					},
+					date: input.date,
+				},
+			})
+		)["data"];
+	} catch (error) {
+		data1 = { status: "error", content: error };
 	}
-	return res.send(data);
+	if (data1.status === "error") return res.send(data1);
+	const group = data1.content;
+	// Add the admin
+	let data2;
+	try {
+		data2 = (
+			await axios.post(process.env.ROUTE_URL + "/group/add-member", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: {
+					group: group._id,
+					profile: input.profileId,
+					role: "admin",
+					status: "activated",
+					date: input.date,
+				},
+			})
+		)["data"];
+	} catch (error) {
+		data2 = { status: "error", content: error };
+	}
+	if (data2.status !== "succeeded") return res.send({ status: "error" });
+	return res.send({ status: "succeeded" });
 }
 
 // HELPER ===================================================

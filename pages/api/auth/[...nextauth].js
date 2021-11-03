@@ -7,11 +7,11 @@ export default NextAuth({
 		jwt: true,
 	},
 	callbacks: {
-		async jwt(token, user) {
+		async jwt({ token, user, account, profile, isNewUser }) {
 			if (user) return { user };
 			return token;
 		},
-		async session(session, token) {
+		async session({ session, token, user }) {
 			if (!token) return session;
 			session.user = token.user;
 			return session;

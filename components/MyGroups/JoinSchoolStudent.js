@@ -22,7 +22,11 @@ const JoinSchoolStudent = () => {
 
 	const onStudentSubmit = async (inputs) => {
 		setIsLoading(true);
-		const details = { profileId: globalSession.profileId, code: inputs.code };
+		const details = {
+			profileId: globalSession.profileId,
+			code: inputs.code,
+			date: new Date().toString(),
+		};
 		const DUMMY_STATUS = "succeeded";
 		let data = {};
 		try {
