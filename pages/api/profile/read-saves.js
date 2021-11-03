@@ -1,7 +1,6 @@
 // IMPORT ===================================================
 
 import axios from "axios";
-import { getSession } from "next-auth/client";
 
 // MAIN =====================================================
 
@@ -11,26 +10,26 @@ export default async function (req, res) {
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error", content: "" });
 	}
-	// Check if a session exist
-	const session = await getSession({ req });
-	if (!session) {
-		return res.send({ status: "critical error", content: "" });
-	}
+	const input = req.body.input;
 	// Create the input data
-	let input = { profile: session.user.profile, date: req.body.input.date };
-	if (req.body.input.displayName) input.displayName = req.body.input.displayName;
-	if (req.body.input.saves) input.saves = req.body.input.saves;
+	let input = { query: { _id: input.profileId }, option: {} };
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/profile/update", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/profile/retrieve", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
+	// Build the properties
+	let object = {};
+	for (let i = 0; i < input.properties.length; i++) {
+		const property = input.properties[i];
+		object[property] = data.content[0].saves[property];
+	}
 	// Return outcome of the request
-	return res.send(data);
+	return res.send({ status: "succeeded", content: object });
 }
 
-// SECONDARY ================================================
-
 // HELPER ===================================================
+
+// END  =====================================================

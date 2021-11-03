@@ -1,7 +1,6 @@
 // IMPORT ===================================================
 
 import axios from "axios";
-import { getSession } from "next-auth/client";
 
 // MAIN =====================================================
 
@@ -12,16 +11,25 @@ export default async function (req, res) {
 		return res.send({ status: "critical error", content: "" });
 	}
 	const input = req.body.input;
+	// Construct the updates array
+	let updates = [];
+	for (let i = 0; i < input.updates.length; i++) {
+		const update = input.updates[i];
+		updates.push({
+			type: "saves",
+			update,
+		});
+	}
 	// Create the input data
 	let input = {
 		query: { _id: input.profileId },
-		properties: input.properties,
+		updates,
 		date: input.date,
 	};
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/profile/delete-saves", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/profile/update", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
