@@ -52,7 +52,8 @@ export default async function (req, res) {
 			content: DUMMY_USERS,
 		};
 	} else if (req.body.status === "failed 1") {
-		// this fail mode is only required if we double check access is admin
+		// this fail mode is only required if we double check access
+		// do we want to allow teachers to be able to access Manage Group but only the Students tab?
 		data = {
 			status: "failed",
 			content: "unauthorised",

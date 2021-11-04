@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState, useEffect } from "react";
+import { useContext, useMemo, useState, useEffect, useRef } from "react";
 import router from "next/router";
 import Head from "next/head";
 import axios from "axios";
@@ -11,6 +11,7 @@ import { COLUMNS, SIZES } from "../../constants/manageGroup";
 import classes from "/styles/manageGroup.module.scss";
 
 const ManageGroup = ({ role }) => {
+	const ref = useRef();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 	const { headerIsCollapsed, setHeaderIsCollapsed } = useContext(MainLayoutContext);
@@ -33,10 +34,12 @@ const ManageGroup = ({ role }) => {
 						router.replace("/404");
 					}
 				},
-				successHandler: () => setData(data.content.filter((user) => user.role === role)),
+				successHandler: () => ref.current && setData(data.content.filter((user) => user.role === role)),
 			});
 		}
 	}, []);
+
+	useEffect(() => (ref.current = null), []);
 
 	if (!role) {
 		router.replace("/manage-group/students");
@@ -51,7 +54,7 @@ const ManageGroup = ({ role }) => {
 				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
-			<h2 className={classes.header}>
+			<h2 ref={ref} className={classes.header}>
 				Manage {role}s
 				<button className={classes.toggleHeader} onClick={() => setHeaderIsCollapsed((state) => !state)} title="Expand table view">
 					<span>{headerIsCollapsed ? "Collapse" : "Expand"}</span>
