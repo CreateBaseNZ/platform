@@ -1,4 +1,4 @@
-// TODO: Integration - Backend
+// TODO: Integration - Test
 
 // IMPORT ===================================================
 
@@ -18,17 +18,51 @@ export default async function (req, res) {
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error" });
 	}
-	// Test Logic
-	let data;
-	if (req.body.status === "succeeded") {
-		data = {
-			status: "succeeded",
-			content: DUMMY_CLASSES,
-		};
-	} // no failed modes for this route
+	const input = req.body.input;
+	// // Test Logic
+	// let data;
+	// if (req.body.status === "succeeded") {
+	// 	data = {
+	// 		status: "succeeded",
+	// 		content: DUMMY_CLASSES,
+	// 	};
+	// } // no failed modes for this route
+	// Integration Logic
+	// Fetch the classes associated with this group
+	let data1;
+	try {
+		data1 = (
+			await axios.post(process.env.ROUTE_URL + "/group/retrieve", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: {
+					query: { _id: input.schoolId },
+					option: { class: [], license: [], profile: [] },
+				},
+			})
+		)["data"];
+	} catch (error) {
+		data1 = { status: "error", content: error };
+	}
+	// Construct the success object
+	const data = { status: "succeeded", content: constructClasses(data1.content[0].classes) };
 	return res.send(data);
 }
 
 // HELPERS ==================================================
+
+const constructClasses = (classes) => {
+	return classes.map((instance) => {
+		let teachers = instance.licenses.filter((license) => license.role === "teacher");
+		teachers = teachers.map((license) => {
+			return `${license.profile.name.first} ${license.profile.name.last}`;
+		});
+		return {
+			id: instance._id,
+			name: instance.name,
+			teachers,
+			numOfStudents: instance.licenses.filter((license) => license.role === "student").length,
+		};
+	});
+};
 
 // END ======================================================

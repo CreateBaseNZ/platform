@@ -20,6 +20,11 @@ const ManageGroup = ({ role }) => {
 	useEffect(async () => {
 		const DUMMY_STATUS = "succeeded";
 		// profileId is optional to double check user has admin privileges to access
+		// FEEDBACK (CARL): Roles or privileges are specific to groups. Therefore, this property lives within
+		// the license document. We can fetch the license document using the profileId, by checking the connections.
+		// However, a more direct approach is to send the licenseId instead of the profileId. You could notice that
+		// each group object, there is a property called licenseId. That licenseId is associated with the license
+		// specific to that group.
 		const details = { profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id };
 		let data = {};
 		try {

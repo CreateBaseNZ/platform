@@ -35,11 +35,11 @@ export default async function (req, res) {
 		};
 	}
 	// Integration Logic
-	let data;
+	let data1;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: {} }))["data"];
+		data1 = (await axios.post(process.env.ROUTE_URL + "/", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: {} }))["data"];
 	} catch (error) {
-		data = { status: "error", content: error };
+		data1 = { status: "error", content: error };
 	}
 	return res.send(data);
 }

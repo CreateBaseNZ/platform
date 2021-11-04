@@ -26,6 +26,17 @@ const ClassesNew = () => {
 	const onSubmit = async (input) => {
 		const DUMMY_STATUS = "succeeded";
 		let data;
+		// FEEDBACK (CARL): When creating a class we will also need these additional inputs:
+		// groupId		-	so we know which group the class is being created on.
+		// licenseId	-	so we know which user within the organisation is creating the group.
+		//							This user will be the first teacher of the class.
+		// date				-	for date and time stamping.
+		// subject		-	on the Figma mockup, I saw a field for a subject, do we still want this
+		//							property? It's okay if we no longer want this property.
+		// alias			- this is the name of the teacher, you have on your example Mrs Applecrumb.
+		//							How do we determine the title name (e.g., Mr, Miss, Mrs, etc.)?
+		//							But yeah, just so I don't need to fetch the user's profile details, just
+		//							send through their name as alias, and that's what's going to be returned.
 		const details = { name: input.name };
 		try {
 			data = (await axios.post("/api/classes/new", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
