@@ -34,6 +34,8 @@ const MyProfile = () => {
 		mode: "onTouched",
 	});
 
+	console.log(globalSession.email);
+
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
 		let frontendError = false;
@@ -105,16 +107,13 @@ const MyProfile = () => {
 						<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 							<Input
 								className={classes.input}
+								style={{ pointerEvents: "none" }}
 								label="Email*"
 								inputProps={{
+									className: classes.emailInput,
 									type: "text",
-									maxLength: 254,
-									...register("email", {
-										required: "Please enter an email",
-										pattern: emailPattern,
-									}),
+									value: globalSession.email,
 								}}
-								error={errors.email}
 							/>
 							<Input
 								className={classes.input}
@@ -142,7 +141,6 @@ const MyProfile = () => {
 								}}
 								error={errors.lastName}
 							/>
-
 							<PrimaryButton
 								className={classes.submit}
 								isLoading={isLoading}
