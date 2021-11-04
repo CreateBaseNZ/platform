@@ -1,23 +1,41 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import axios from "axios";
 import ClassesContext from "../../store/classes-context";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 
 import classes from "/styles/classes.module.scss";
-
-const DUMMY_CLASSES = [
-	{ id: "room12id", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 },
-	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
-];
+import GlobalSessionContext from "../../store/global-session-context";
+import useHandleResponse from "../../hooks/useHandleResponse";
 
 const ClassesTabRoot = () => {
 	const router = useRouter();
-	const { classSession, setClassSession } = useContext(ClassesContext);
+	const { handleResponse } = useHandleResponse();
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { classObjects, setClassObjects } = useContext(ClassesContext);
+
+	useEffect(async () => {
+		const DUMMY_STATUS = "succeeded";
+		let data;
+		const inputs = { profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id };
+		try {
+			data = (await axios.post("/api/classes/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					setClassObjects(data.content);
+				},
+			});
+		}
+	}, []);
 
 	const cardClickHandler = (_class) => {
-		setClassSession(_class);
 		router.push({ pathname: "/classes/[id]/announcements", query: { id: _class.id } });
 	};
 
@@ -34,14 +52,16 @@ const ClassesTabRoot = () => {
 						<PrimaryButton className={classes.joinBtn} mainLabel="Join a class" onClick={() => router.push("/classes/join")} />
 					</div>
 					<div className={classes.cardContainer}>
-						<div className={`${classes.card} ${classes.addCard}`} onClick={() => router.push("/classes/new")}>
-							<div className={classes.addIcons}>
-								<i className="material-icons-outlined">add</i>
-								<i className="material-icons-outlined">chair_alt</i>
+						{globalSession.groups[globalSession.recentGroups[0]].role !== "student" && (
+							<div className={`${classes.card} ${classes.addCard}`} onClick={() => router.push("/classes/new")}>
+								<div className={classes.addIcons}>
+									<i className="material-icons-outlined">add</i>
+									<i className="material-icons-outlined">chair_alt</i>
+								</div>
+								<div className={classes.className}>Create a class</div>
 							</div>
-							<div className={classes.className}>Create a class</div>
-						</div>
-						{DUMMY_CLASSES.map((_class) => (
+						)}
+						{classObjects.map((_class) => (
 							<div key={_class.name} className={classes.card} onClick={() => cardClickHandler(_class)}>
 								<div className={classes.className}>{_class.name}</div>
 								<div className={classes.classTeachers}>{_class.teachers.join(", ")}</div>

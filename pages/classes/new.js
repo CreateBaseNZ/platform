@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/classes.module.scss";
+import useHandleResponse from "../../hooks/useHandleResponse";
+import VisualBellContext from "../../store/visual-bell-context";
+import router from "next/router";
 
 const ClassesNew = () => {
+	const { handleResponse } = useHandleResponse();
+	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -17,7 +23,37 @@ const ClassesNew = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	const onSubmit = () => {};
+	const onSubmit = async (input) => {
+		const DUMMY_STATUS = "succeeded";
+		let data;
+		const details = { name: input.name };
+		try {
+			data = (await axios.post("/api/classes/new", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {
+					if (data.content === "taken") {
+						setError(
+							"name",
+							{
+								type: "manual",
+								message: "There is already another class with this name in your school",
+							},
+							{ shouldFocus: true }
+						);
+						setIsLoading(false);
+					}
+				},
+				successHandler: () => {
+					setVisualBell({ type: "success", message: `Welcome to ${data.content.name}!` });
+					router.push(`/classes/${data.content.id}`);
+				},
+			});
+		}
+	};
 
 	return (
 		<div className={classes.view}>
@@ -54,5 +90,7 @@ const ClassesNew = () => {
 ClassesNew.getLayout = function getLayout(page) {
 	return <MainLayout page="classes">{page}</MainLayout>;
 };
+
+ClassesNew.auth = "staff";
 
 export default ClassesNew;

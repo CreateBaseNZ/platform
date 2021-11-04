@@ -1,27 +1,26 @@
 import { useState, createContext, useMemo } from "react";
 
 const ClassesContext = createContext({
-	classSession: {
+	classObjects: {
+		id: "",
 		name: "",
 		teachers: [],
 		numOfStudents: 0,
 	},
-	setClassSession: () => {},
+	setClassObjects: () => {},
 });
 
 export default ClassesContext;
 
-const DUMMY = { id: "abc123", name: "Room 23", teachers: ["Mrs Applecrumb"], numOfStudents: 23 };
-
 export const ClassesContextProvider = (props) => {
-	const [classSession, setClassSession] = useState(DUMMY);
+	const [classObjects, setClassObjects] = useState([]);
 
 	const value = useMemo(
 		() => ({
-			classSession: classSession,
-			setClassSession: setClassSession,
+			classObjects: classObjects,
+			setClassObjects: setClassObjects,
 		}),
-		[classSession, setClassSession]
+		[classObjects, setClassObjects]
 	);
 
 	return <ClassesContext.Provider value={value}>{props.children}</ClassesContext.Provider>;
