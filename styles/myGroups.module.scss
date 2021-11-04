@@ -103,6 +103,12 @@
 	&.activeCard {
 		box-shadow: 0 0 24px 0 rgba($logo-mid, 0.25);
 	}
+	&.notVerified {
+		pointer-events: none;
+		box-shadow: none;
+		background: $lighter;
+		justify-content: center;
+	}
 }
 
 .addCard {

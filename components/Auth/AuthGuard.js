@@ -36,7 +36,7 @@ const AuthGuard = ({ children, auth }) => {
 	if (globalSession.accountId) {
 		if (!globalSession.verified) {
 			return null;
-		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]]?.role, auth)) {
+		} else if (hasAccess(globalSession.groups[globalSession.recentGroups.[0]]?.role, auth)) {
 			return children;
 		} else {
 			return <div>No access</div>;

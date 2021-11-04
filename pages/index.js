@@ -12,7 +12,7 @@ const Index = () => {
 	useEffect(() => {
 		if (globalSession.loaded) {
 			if (globalSession.accountId) {
-				if (globalSession.recentGroups.length) {
+				if (globalSession.groups.length) {
 					console.log("viewing a group");
 					router.replace("/browse");
 				} else {

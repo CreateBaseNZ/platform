@@ -28,7 +28,7 @@ const Header = () => {
 			</button>
 			<header className={classes.header}>
 				<ColourLogoIcon className={`${classes.home} ${navIsCollapsed ? classes.collapsed : ""}`} />
-				{globalSession.groups.length ? (
+				{globalSession.recentGroups.length ? (
 					<div className={classes.viewingAs} key={globalSession.groups[globalSession.recentGroups[0]].name}>
 						<div className={classes.viewingAsName}>{globalSession.groups[globalSession.recentGroups[0]].name}</div>
 						<div className={classes.viewingAsRole}>{globalSession.groups[globalSession.recentGroups[0]].role}</div>
@@ -44,7 +44,7 @@ const Header = () => {
 							<i className="material-icons-outlined">expand_more</i>
 						</div>
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
-							{globalSession.groups.length ? (
+							{globalSession.recentGroups.length ? (
 								globalSession.recentGroups.map((groupIndex) => (
 									<button key={groupIndex} onMouseDown={() => changeGroup(groupIndex)} title={globalSession.groups[groupIndex].name}>
 										<i className="material-icons-outlined">

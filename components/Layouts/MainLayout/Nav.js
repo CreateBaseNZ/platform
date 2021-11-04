@@ -11,7 +11,7 @@ const Nav = ({ page }) => {
 
 	console.log(globalSession);
 
-	const defaultTabs = globalSession.groups.length
+	const defaultTabs = globalSession.recentGroups.length
 		? [...MAIN_TABS[globalSession.groups[globalSession.recentGroups[0]].type]?.[globalSession.groups[globalSession.recentGroups[0]].role], { page: null }]
 		: [];
 

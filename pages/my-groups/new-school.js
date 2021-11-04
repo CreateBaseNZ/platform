@@ -15,7 +15,7 @@ import GlobalSessionContext from "../../store/global-session-context";
 const NewSchool = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasSubmitted, setHasSubmitted] = useState(false);
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 	const {
 		register,
@@ -46,7 +46,7 @@ const NewSchool = () => {
 				data,
 				failHandler: () => {},
 				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
+					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
 					setHasSubmitted(true);
 					setIsLoading(false);
 					reset();

@@ -21,7 +21,7 @@ export const GlobalSessionContextProvider = (props) => {
 				const DUMMY_INPUT = {
 					accountId: session.user,
 					date: new Date().toString(),
-					properties: [], // Properties of the saves that we want to retrieve
+					properties: ["recentGroups"],
 				};
 				const DUMMY_STATUS = "succeeded";
 				let data;
@@ -34,7 +34,7 @@ export const GlobalSessionContextProvider = (props) => {
 					if (data.status === "error" || data.status === "failed") {
 						// TODO handle error or fail
 					} else {
-						setGlobalSession((state) => ({ ...state, loaded: true, ...data.content }));
+						setGlobalSession((state) => ({ recentGroups: [], ...state, loaded: true, ...data.content }));
 					}
 				}
 			} else {
