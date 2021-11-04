@@ -31,24 +31,25 @@ export default async function (req, res) {
 	// Integration Logic
 	let data;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/group/retrieve", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { query: {}, option: { license: ["role"] } } }))["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/group/retrieve", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { query: {}, option: { license: [] } } }))["data"];
 	} catch (error) {
 		data = { status: "error", content: error };
 	}
+	if (data.status !== "succeeded") return res.send({ status: "error" });
 	let groups = getQueriedGroups(input.query, data.content);
 	for (let i = 0; i < groups.length; i++) {
 		const group = groups[i];
 		groups[i] = {
-			id: data3.content.group._id,
-			number: data3.content.group.number,
-			name: data3.content.group.name,
-			type: data3.content.group.type,
+			id: group._id,
+			number: group.number,
+			name: group.name,
+			type: group.type,
 			numOfUsers: {
 				admins: group.licenses.active.filter((license) => license.role === "admin").length,
 				teachers: group.licenses.active.filter((license) => license.role === "teacher").length,
 				students: group.licenses.active.filter((license) => license.role === "student").length,
 			},
-			verified: data3.content.group.verified,
+			verified: group.verified,
 		};
 	}
 	return res.send({ status: "succeeded", content: groups });
