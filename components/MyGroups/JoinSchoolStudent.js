@@ -58,7 +58,7 @@ const JoinSchoolStudent = () => {
 					setIsLoading(false);
 				},
 				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, recentGroups: [data.content, ...state.recentGroups.slice(0, 2)] }));
+					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
 					router.push("/my-groups");
 				},
 			});

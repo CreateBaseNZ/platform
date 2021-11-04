@@ -11,7 +11,7 @@ import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
 
 const JoinSchoolTeacher = () => {
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasRequested, setHasRequested] = useState(false);
 	const [queryDropdown, setQueryDropdown] = useState({ show: false, groups: null, selectedId: "" });
@@ -85,6 +85,7 @@ const JoinSchoolTeacher = () => {
 				data,
 				failHandler: () => {},
 				successHandler: () => {
+					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
 					setVisualBell({ type: "success", message: "Your request has been sent" });
 					setHasRequested(true);
 					reset();

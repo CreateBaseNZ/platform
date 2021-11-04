@@ -69,7 +69,7 @@ const ManageGroup = ({ role }) => {
 		<div className={classes.manageGroup}>
 			<Head>
 				<title>
-					Manage {role} • {globalSession.recentGroups[0].name} | CreateBase
+					Manage {role} • {globalSession.groups[globalSession.recentGroups[0]].name} | CreateBase
 				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>

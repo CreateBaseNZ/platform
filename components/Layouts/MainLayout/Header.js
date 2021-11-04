@@ -15,8 +15,10 @@ const Header = () => {
 	const { navIsCollapsed, setNavIsCollapsed } = useContext(MainLayoutContext);
 	const [showDropdown, setShowDropdown] = useState(false);
 
-	const changeGroup = (group) => {
-		setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
+	console.log(globalSession);
+
+	const changeGroup = (groupIndex) => {
+		setGlobalSession((state) => ({ ...state, recentGroups: [groupIndex, ...state.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3) }));
 	};
 
 	return (
@@ -26,10 +28,10 @@ const Header = () => {
 			</button>
 			<header className={classes.header}>
 				<ColourLogoIcon className={`${classes.home} ${navIsCollapsed ? classes.collapsed : ""}`} />
-				{globalSession.recentGroups.length ? (
-					<div className={classes.viewingAs} key={globalSession.recentGroups[0].name}>
-						<div className={classes.viewingAsName}>{globalSession.recentGroups[0].name}</div>
-						<div className={classes.viewingAsRole}>{globalSession.recentGroups[0].role}</div>
+				{globalSession.groups.length ? (
+					<div className={classes.viewingAs} key={globalSession.groups[globalSession.recentGroups[0]].name}>
+						<div className={classes.viewingAsName}>{globalSession.groups[globalSession.recentGroups[0]].name}</div>
+						<div className={classes.viewingAsRole}>{globalSession.groups[globalSession.recentGroups[0]].role}</div>
 					</div>
 				) : null}
 				{globalSession.accountId && (
@@ -42,11 +44,13 @@ const Header = () => {
 							<i className="material-icons-outlined">expand_more</i>
 						</div>
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
-							{globalSession.recentGroups.length ? (
-								globalSession.recentGroups.map((group, i) => (
-									<button key={i} onMouseDown={() => changeGroup(group)} title={group.name}>
-										<i className="material-icons-outlined">{group.type === "school" ? "holiday_village" : group.type === "family" ? "cottage" : ""}</i>
-										<span>{group.name}</span>
+							{globalSession.groups.length ? (
+								globalSession.recentGroups.map((groupIndex) => (
+									<button key={groupIndex} onMouseDown={() => changeGroup(groupIndex)} title={globalSession.groups[groupIndex].name}>
+										<i className="material-icons-outlined">
+											{globalSession.groups[groupIndex].type === "school" ? "holiday_village" : globalSession.groups[groupIndex].type === "family" ? "cottage" : ""}
+										</i>
+										<span>{globalSession.groups[groupIndex].name}</span>
 									</button>
 								))
 							) : (

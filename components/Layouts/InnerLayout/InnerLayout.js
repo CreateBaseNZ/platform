@@ -22,7 +22,7 @@ const InnerLayout = ({ tabs, children, backHref }) => {
 						</a>
 					</Link>
 				)}
-				{tabs[globalSession.recentGroups[0].role]?.map((tab) => (
+				{tabs[globalSession.groups[globalSession.recentGroups[0]].role]?.map((tab) => (
 					<Link key={tab.title} href={{ pathname: tab.pathname, query: router.query }}>
 						<div className={`${classes.tab} ${router.pathname === tab.pathname ? classes.active : ""}`}>
 							<i className="material-icons-outlined">{tab.icon}</i>

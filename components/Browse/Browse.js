@@ -32,7 +32,7 @@ const Browse = () => {
 			</Head>
 			<div className={classes.inner}>
 				<div className={classes.preview}>
-					<BrowsePreview project={activeProject} role={globalSession.recentGroups[0].role} />
+					<BrowsePreview project={activeProject} role={globalSession.groups[globalSession.recentGroups[0]].role} />
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>

@@ -11,7 +11,7 @@ const MyGroups = () => {
 	const router = useRouter();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 
-	const cardClickHandler = (group) => setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
+	const cardClickHandler = (groupIndex) => setGlobalSession((state) => ({ ...state, recentGroups: [groupIndex, ...state.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3) }));
 
 	return (
 		<div className={classes.view}>
@@ -36,9 +36,12 @@ const MyGroups = () => {
 						{globalSession.groups
 							.filter((group) => group.type === "school")
 							.map((group) => (
-								<div key={group.name} className={`${classes.card} ${globalSession.recentGroups[0]?.id === group.id ? classes.activeCard : ""}`} onClick={() => cardClickHandler(group)}>
+								<div
+									key={group.name}
+									className={`${classes.card} ${globalSession.groups[globalSession.recentGroups[0]]?.id === group.id ? classes.activeCard : ""}`}
+									onClick={() => cardClickHandler(group)}>
 									<div className={classes.groupRole}>
-										{group.role} {globalSession.recentGroups[0]?.id === group.id ? " (viewing)" : ""}
+										{group.role} {globalSession.groups[globalSession.recentGroups[0]]?.id === group.id ? " (viewing)" : ""}
 									</div>
 									<div className={classes.groupName}>{group.name}</div>
 									<div className={classes.groupNums}>
