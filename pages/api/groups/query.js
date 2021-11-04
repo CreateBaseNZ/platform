@@ -31,11 +31,27 @@ export default async function (req, res) {
 	// Integration Logic
 	let data;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/group/retrieve", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { query: {}, option: {} } }))["data"];
+		data = (await axios.post(process.env.ROUTE_URL + "/group/retrieve", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { query: {}, option: { license: ["role"] } } }))["data"];
 	} catch (error) {
 		data = { status: "error", content: error };
 	}
-	return res.send({ status: "succeeded", content: getQueriedGroups(input.query, data.content) });
+	let groups = getQueriedGroups(input.query, data.content);
+	for (let i = 0; i < groups.length; i++) {
+		const group = groups[i];
+		groups[i] = {
+			id: data3.content.group._id,
+			number: data3.content.group.number,
+			name: data3.content.group.name,
+			type: data3.content.group.type,
+			numOfUsers: {
+				admins: group.licenses.active.filter((license) => license.role === "admin").length,
+				teachers: group.licenses.active.filter((license) => license.role === "teacher").length,
+				students: group.licenses.active.filter((license) => license.role === "student").length,
+			},
+			verified: data3.content.group.verified,
+		};
+	}
+	return res.send({ status: "succeeded", content: groups });
 }
 
 // HELPERS ==================================================

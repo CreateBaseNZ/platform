@@ -36,7 +36,16 @@ export default async function (req, res) {
 	// Integration Logic
 	let data;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/session", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: { account: input.accountId, date: input.date } }))["data"];
+		data = (
+			await axios.post(process.env.ROUTE_URL + "/session", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: {
+					account: input.accountId,
+					date: input.date,
+					properties: input.properties,
+				},
+			})
+		)["data"];
 	} catch (error) {
 		data = { status: "error", content: error };
 	}
