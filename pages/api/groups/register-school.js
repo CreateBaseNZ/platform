@@ -68,7 +68,18 @@ export default async function (req, res) {
 		data2 = { status: "error", content: error };
 	}
 	if (data2.status !== "succeeded") return res.send({ status: "error" });
-	return res.send({ status: "succeeded" });
+	const content = {
+		licenseId: data2.content.license._id,
+		id: data2.content.group._id,
+		number: data2.content.group.number,
+		name: data2.content.group.name,
+		role: data2.content.license.role,
+		type: data2.content.group.type,
+		numOfUsers: { admins: 1, teachers: 0, students: 0 },
+		verified: data2.content.group.verified,
+		status: data2.content.license.status,
+	};
+	return res.send({ status: "succeeded", content });
 }
 
 // HELPER ===================================================

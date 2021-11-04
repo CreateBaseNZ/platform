@@ -114,16 +114,19 @@ export default async function (req, res) {
 	const data = {
 		status: "succeeded",
 		content: {
-			id: group._id,
-			number: group.number,
-			name: group.name,
-			role: "student",
+			licenseId: data3.content.license._id,
+			id: data3.content.group._id,
+			number: data3.content.group.number,
+			name: data3.content.group.name,
+			role: data3.content.license.role,
+			type: data3.content.group.type,
 			numOfUsers: {
 				admins: group.licenses.active.filter((license) => license.role === "admin").length,
 				teachers: group.licenses.active.filter((license) => license.role === "teacher").length,
-				students: group.licenses.active.filter((license) => license.role === "student").length,
+				students: group.licenses.active.filter((license) => license.role === "student").length + 1,
 			},
-			type: "school",
+			verified: data3.content.group.verified,
+			status: data3.content.license.status,
 		},
 	};
 	// Success handler

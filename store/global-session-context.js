@@ -21,6 +21,7 @@ export const GlobalSessionContextProvider = (props) => {
 				const DUMMY_INPUT = {
 					accountId: session.user,
 					date: new Date().toString(),
+					properties: [], // Properties of the saves that we want to retrieve
 				};
 				const DUMMY_STATUS = "succeeded";
 				let data;
