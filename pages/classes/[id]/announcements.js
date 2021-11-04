@@ -4,16 +4,17 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesTabs";
 
 import classes from "../../../components/Classes/Announcements.module.scss";
-import { useContext } from "react";
-import ClassesContext from "../../../store/classes-context";
+import useClass from "../../../hooks/useClass";
 
 const ClassesAnnouncements = () => {
-	const { classSession } = useContext(ClassesContext);
+	const { classObject, classLoaded } = useClass();
+
+	if (!classLoaded) return null;
 
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Announcements • {classSession.name} | CreateBase</title>
+				<title>Announcements • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>Announcements</h1>
@@ -31,5 +32,7 @@ ClassesAnnouncements.getLayout = function getLayout(page) {
 		</MainLayout>
 	);
 };
+
+ClassesAnnouncements.auth = "user";
 
 export default ClassesAnnouncements;

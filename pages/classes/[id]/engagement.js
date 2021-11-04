@@ -4,16 +4,16 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesTabs";
 
 import classes from "../../../components/Classes/Engagement.module.scss";
-import { useContext } from "react";
-import ClassesContext from "../../../store/classes-context";
+import useClass from "../../../hooks/useClass";
 
 const ClassesEngagement = () => {
-	const { classSession } = useContext(ClassesContext);
+	const { classObject, classLoaded } = useClass();
 
+	if (!classLoaded) return null;
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Engagement • {classSession.name} | CreateBase</title>
+				<title>Engagement • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>Engagement</h1>
@@ -31,5 +31,7 @@ ClassesEngagement.getLayout = function getLayout(page) {
 		</MainLayout>
 	);
 };
+
+ClassesEngagement.auth = "user";
 
 export default ClassesEngagement;

@@ -1,9 +1,7 @@
-import { useRouter } from "next/router";
+import router from "next/router";
 
 const ClassesTabRoot = () => {
-	const router = useRouter();
-
-	if (router.query.id) router.replace({ pathname: "/classes/[id]/announcements", query: { id: router.query.id } });
+	if (router.query?.id) router.replace({ pathname: "/classes/[id]/announcements", query: { id: router.query.id } });
 
 	return null;
 };

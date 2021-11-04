@@ -4,16 +4,17 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesTabs";
 
 import classes from "../../../components/Classes/Reporting.module.scss";
-import { useContext } from "react";
-import ClassesContext from "../../../store/classes-context";
+import useClass from "../../../hooks/useClass";
 
 const ClassesReporting = () => {
-	const { classSession } = useContext(ClassesContext);
+	const { classObject, classLoaded } = useClass();
+
+	if (!classLoaded) return null;
 
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Reporting • {classSession.name} | CreateBase</title>
+				<title>Reporting • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>Reporting</h1>
@@ -31,5 +32,7 @@ ClassesReporting.getLayout = function getLayout(page) {
 		</MainLayout>
 	);
 };
+
+ClassesReporting.auth = "user";
 
 export default ClassesReporting;

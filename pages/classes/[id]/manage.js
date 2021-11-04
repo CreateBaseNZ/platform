@@ -4,16 +4,17 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesTabs";
 
 import classes from "../../../components/Classes/Manage.module.scss";
-import { useContext } from "react";
-import ClassesContext from "../../../store/classes-context";
+import useClass from "../../../hooks/useClass";
 
 const ClassesManage = () => {
-	const { classSession } = useContext(ClassesContext);
+	const { classObject, classLoaded } = useClass();
+
+	if (!classLoaded) return null;
 
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Manage • {classSession.name} | CreateBase</title>
+				<title>Manage • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>Manage {classSession.name}</h1>
@@ -31,5 +32,7 @@ ClassesManage.getLayout = function getLayout(page) {
 		</MainLayout>
 	);
 };
+
+ClassesManage.auth = "user";
 
 export default ClassesManage;

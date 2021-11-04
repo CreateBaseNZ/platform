@@ -2,18 +2,19 @@ import Head from "next/head";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesTabs";
+import useClass from "../../../hooks/useClass";
 
 import classes from "../../../components/Classes/Assignments.module.scss";
-import { useContext } from "react";
-import ClassesContext from "../../../store/classes-context";
 
 const ClassesAssignments = () => {
-	const { classSession } = useContext(ClassesContext);
+	const { classObject, classLoaded } = useClass();
+
+	if (!classLoaded) return null;
 
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Assignments • {classSession.name} | CreateBase</title>
+				<title>Assignments • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>Assignments</h1>
@@ -31,5 +32,7 @@ ClassesAssignments.getLayout = function getLayout(page) {
 		</MainLayout>
 	);
 };
+
+ClassesAssignments.auth = "user";
 
 export default ClassesAssignments;
