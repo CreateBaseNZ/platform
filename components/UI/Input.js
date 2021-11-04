@@ -57,8 +57,6 @@ export const TextArea = ({ className = "", inputProps = {}, label, labelProps = 
 	);
 };
 
-<i className="material-icons-outlined">search</i>;
-
 export const SearchBar = ({ className = "", inputProps = {}, label, labelProps = {}, error, children, ...rest }) => {
 	return (
 		<Input

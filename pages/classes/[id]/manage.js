@@ -2,9 +2,9 @@ import Head from "next/head";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesTabs";
+import useClass from "../../../hooks/useClass";
 
 import classes from "../../../components/Classes/Manage.module.scss";
-import useClass from "../../../hooks/useClass";
 
 const ClassesManage = () => {
 	const { classObject, classLoaded } = useClass();
@@ -17,7 +17,7 @@ const ClassesManage = () => {
 				<title>Manage • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
-			<h1>Manage {classSession.name}</h1>
+			<h1>Manage {classObject.name}</h1>
 			Coming soon!
 		</div>
 	);

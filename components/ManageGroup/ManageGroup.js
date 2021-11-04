@@ -15,7 +15,6 @@ const ManageGroup = ({ role }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { getOrgUsers } = useOrganisationHelper();
 	const { headerIsCollapsed, setHeaderIsCollapsed } = useContext(MainLayoutContext);
-	const [allUsers, setAllUsers] = useState(Object.assign({}, ...Object.entries({ ...GROUP_CONFIG[globalSession.recentGroups[0].type].roles }).map(([_, b]) => ({ [b.name]: [] }))));
 	const [isLoading, setIsLoading] = useState(true);
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
 
@@ -57,8 +56,8 @@ const ManageGroup = ({ role }) => {
 	const data = useMemo(
 		() => [
 			{ firstName: "John", lastName: "Doe", email: "johndoe@gmail.com" },
-			{ firstName: "Doe", lastName: "John", email: "doejohn@gmail.com" },
-			{ firstName: "Dohn", lastName: "Joe", email: "dohnjoe@gmail.com" },
+			{ firstName: "Lee", lastName: "Statham", email: "lee_statham@gmail.com" },
+			{ firstName: "Bane", lastName: "Batman", email: "banebatman@gmail.com" },
 		],
 		[]
 	);

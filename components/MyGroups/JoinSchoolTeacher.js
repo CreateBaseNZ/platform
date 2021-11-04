@@ -25,8 +25,6 @@ const JoinSchoolTeacher = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	console.log(queryDropdown);
-
 	const debounceFn = useCallback(_debounce(handleDebounceFn, 200), []);
 
 	async function handleDebounceFn(value) {

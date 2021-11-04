@@ -4,7 +4,7 @@ const CLASSES_TABS = {
 		{ title: "Assignments", name: "assignments", icon: "assignment", pathname: "/classes/[id]/assignments" },
 		{ title: "Progress", name: "progress", icon: "table_chart", pathname: "/classes/[id]/progress" },
 		{ title: "Reporting", name: "reporting", icon: "pending_actions", pathname: "/classes/[id]/reporting" },
-		{ title: "Engagement", name: "engagement", icon: "stacked_bar_chart", pathname: "/classes/[id]/engagement]" },
+		{ title: "Engagement", name: "engagement", icon: "stacked_bar_chart", pathname: "/classes/[id]/engagement" },
 		{ title: "Manage", name: "manage", icon: "manage_accounts", pathname: "/classes/[id]/manage" },
 	],
 	teacher: [

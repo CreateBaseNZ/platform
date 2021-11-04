@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo } from "react";
-import { useTable, usePagination, useColumnOrder, useRowSelect, useSortBy } from "react-table";
+import { useTable, usePagination, useColumnOrder, useRowSelect, useSortBy, useGlobalFilter } from "react-table";
 import IndeterminateCheckbox from "./IndeterminateCheckbox";
 import PageNav from "./PageNav";
 import PageSizeSelect from "./PageSizeSelect";
@@ -20,13 +20,15 @@ const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLo
 		nextPage,
 		previousPage,
 		setPageSize,
-		state: { pageIndex, pageSize, selectedRowIds },
+		setGlobalFilter,
+		state: { pageIndex, pageSize, selectedRowIds, globalFilter },
 	} = useTable(
 		{
 			columns,
 			data,
 			initialState: { pageIndex: 0 },
 		},
+		useGlobalFilter,
 		useColumnOrder,
 		useSortBy,
 		usePagination,
@@ -57,7 +59,7 @@ const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLo
 
 	return (
 		<div className={classes.container}>
-			<TableControls numOfSelected={Object.keys(selectedRowIds).length} />
+			<TableControls numOfSelected={Object.keys(selectedRowIds).length} globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
 			<div className={classes.tableWrapper}>
 				<table {...getTableProps()} className={classes.table}>
 					<thead className={classes.thead}>
@@ -66,7 +68,7 @@ const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLo
 								{headerGroup.headers.map((column) => {
 									// console.log(column);
 									return (
-										<th {...column.getHeaderProps(column.getSortByToggleProps())} className={`${classes.th} ${column.isSorted ? classes.sorted : ""}`}>
+										<th {...column.getHeaderProps(column.getSortByToggleProps())} className={`${classes.th} ${column.isSorted ? classes.sorted : ""}`} style={column.style}>
 											{column.render("Header")}
 											{column.canSort && (
 												<i className={`material-icons-outlined ${classes.sortArrow} ${column.isSorted ? (column.isSortedDesc ? classes.descending : classes.ascending) : ""}`}>arrow_upward</i>
