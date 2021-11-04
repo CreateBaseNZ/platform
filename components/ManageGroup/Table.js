@@ -1,4 +1,3 @@
-import { memo, useEffect, useMemo } from "react";
 import { useTable, usePagination, useColumnOrder, useRowSelect, useSortBy, useGlobalFilter } from "react-table";
 import IndeterminateCheckbox from "./IndeterminateCheckbox";
 import PageNav from "./PageNav";
@@ -6,7 +5,7 @@ import PageSizeSelect from "./PageSizeSelect";
 import classes from "./Table.module.scss";
 import TableControls from "./TableControls";
 
-const Table = ({ columns, data, pageSizes, tab, checkHandler, sort, search, isLoading, setIsLoading }) => {
+const Table = ({ columns, data, pageSizes }) => {
 	const {
 		getTableProps,
 		getTableBodyProps,

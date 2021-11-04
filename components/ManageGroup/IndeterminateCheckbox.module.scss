@@ -19,8 +19,8 @@
 		position: absolute;
 		z-index: 1;
 		opacity: 0;
-		height: calc(100% + 1px);
-		width: calc(100% + 1px);
+		height: calc(100% + 2px);
+		width: calc(100% + 2px);
 	}
 	&:hover {
 		background: $lighter;

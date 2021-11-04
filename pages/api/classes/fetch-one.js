@@ -17,6 +17,7 @@ const DUMMY_CLASS_DATA = {
 	],
 	announcements: {},
 	assignments: {},
+	// more properties TBD
 };
 
 // MAIN =====================================================

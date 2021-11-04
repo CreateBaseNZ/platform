@@ -14,7 +14,7 @@ const IndeterminateCheckbox = forwardRef(({ indeterminate, checked, onChange, ti
 		<div className={`${classes.checkbox} ${indeterminate ? classes.indeterminate : ""} ${checked ? classes.checked : ""}`} title={title}>
 			{checked && <i className="material-icons-outlined">check</i>}
 			{indeterminate && <div className={classes.bar} />}
-			<input type="checkbox" ref={resolvedRef} onChange={onChange} />
+			<input type="checkbox" ref={resolvedRef} checked={checked} onChange={onChange} />
 		</div>
 	);
 });

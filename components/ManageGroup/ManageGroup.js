@@ -1,95 +1,58 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useMemo, useState, useEffect } from "react";
+import router from "next/router";
 import Head from "next/head";
+import axios from "axios";
+import useHandleResponse from "../../hooks/useHandleResponse";
 import MainLayoutContext from "../../store/main-layout-context";
 import GlobalSessionContext from "../../store/global-session-context";
-import useOrganisationHelper from "../../hooks/useOrganisationHelper";
 import Table from "./Table";
-// import TableControls from "./TableControls";
-import GROUP_CONFIG, { COLUMNS, SIZES } from "../../constants/manageGroup";
+import { COLUMNS, SIZES } from "../../constants/manageGroup";
 
 import classes from "/styles/manageGroup.module.scss";
-import { useRouter } from "next/router";
 
 const ManageGroup = ({ role }) => {
-	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { getOrgUsers } = useOrganisationHelper();
+	const { handleResponse } = useHandleResponse();
 	const { headerIsCollapsed, setHeaderIsCollapsed } = useContext(MainLayoutContext);
-	const [isLoading, setIsLoading] = useState(true);
-	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
+	const [data, setData] = useState([]);
 
-	console.log(role);
+	useEffect(async () => {
+		const DUMMY_STATUS = "succeeded";
+		// profileId is optional to double check user has admin privileges to access
+		const details = { profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id };
+		let data = {};
+		try {
+			data = (await axios.post("/api/groups/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {
+					if (data.content === "unauthorised") {
+						router.replace("/404");
+					}
+				},
+				successHandler: () => setData(data.content.filter((user) => user.role === role)),
+			});
+		}
+	}, []);
 
 	if (!role) {
 		router.replace("/manage-group/students");
 		return null;
 	}
 
-	// useEffect(async () => {
-	// 	await getOrgUsers({
-	// 		successHandler: (data) => {
-	// 			let result = Object.keys(data.users).reduce((res, key) => {
-	// 				return {
-	// 					...res,
-	// 					[key]: data.users[key].map((user) => ({ firstName: user.firstName, lastName: user.lastName, email: user.email, checked: false, index: data.users[key].length })),
-	// 				};
-	// 			}, {});
-	// 			setAllUsers(result);
-	// 		},
-	// 	});
-	// 	setIsLoading(false);
-	// 	console.log("fetched data");
-	// }, []);
-
-	const removeUserHandler = () => {
-		//TODO [IGNORE]
-		setShowRemoveConfirm(false);
-	};
-
-	const promoteHandler = () => {};
-
-	const searchHandler = (e) => {
-		setIsLoading(true);
-		setSearch(e.target.value);
-	};
-
-	const data = useMemo(
-		() => [
-			{ firstName: "John", lastName: "Doe", email: "johndoe@gmail.com" },
-			{ firstName: "Lee", lastName: "Statham", email: "lee_statham@gmail.com" },
-			{ firstName: "Bane", lastName: "Batman", email: "banebatman@gmail.com" },
-		],
-		[]
-	);
-
-	const columns = useMemo(() => COLUMNS, []);
-
 	return (
 		<div className={classes.manageGroup}>
 			<Head>
 				<title>
-					Manage {role} • {globalSession.groups[globalSession.recentGroups[0]].name} | CreateBase
+					Manage {role}s • {globalSession.groups[globalSession.recentGroups[0]].name} | CreateBase
 				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
-			{/* <TableControls
-				isChecked={isChecked}
-				tab={tab}
-				setTab={setTab}
-				tabs={tabs}
-				allUsers={allUsers}
-				collapseHeader={collapseHeader}
-				setCollapseHeader={setCollapseHeader}
-				search={search}
-				searchHandler={searchHandler}
-				removeUserHandler={removeUserHandler}
-				showRemoveConfirm={showRemoveConfirm}
-				setShowRemoveConfirm={setShowRemoveConfirm}
-				showChangePassword={showChangePassword}
-				setShowChangePassword={setShowChangePassword}
-			/> */}
 			<h2 className={classes.header}>
-				Manage {role}
+				Manage {role}s
 				<button className={classes.toggleHeader} onClick={() => setHeaderIsCollapsed((state) => !state)} title="Expand table view">
 					<span>{headerIsCollapsed ? "Collapse" : "Expand"}</span>
 					<i className="material-icons-outlined" style={{ transform: headerIsCollapsed && "rotate(180deg)" }}>
@@ -97,7 +60,7 @@ const ManageGroup = ({ role }) => {
 					</i>
 				</button>
 			</h2>
-			<Table columns={columns} data={data} pageSizes={SIZES} />
+			<Table columns={COLUMNS} data={data} pageSizes={SIZES} />
 		</div>
 	);
 };
