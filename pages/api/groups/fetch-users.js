@@ -28,6 +28,13 @@ const DUMMY_USERS = [
 		lastName: "Buttercup",
 		role: "teacher",
 	},
+	{
+		accountId: "accountId123", // not sure whether to pass account or profile ID or both
+		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		firstName: "Cash",
+		lastName: "Buttercup",
+		role: "admin",
+	},
 ];
 
 // MAIN =====================================================

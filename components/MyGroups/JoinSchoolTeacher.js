@@ -20,8 +20,10 @@ const JoinSchoolTeacher = () => {
 	const {
 		register,
 		handleSubmit,
+		setError,
 		setValue,
 		reset,
+		clearErrors,
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
@@ -40,7 +42,6 @@ const JoinSchoolTeacher = () => {
 				data,
 				failHandler: () => {},
 				successHandler: () => {
-					console.log("queried successfully");
 					setQueryDropdown((state) => ({ ...state, show: true, groups: data.content, selectedId: "" }));
 				},
 			});
@@ -49,6 +50,7 @@ const JoinSchoolTeacher = () => {
 
 	const onSearch = (e) => {
 		if (e.target.value) {
+			clearErrors();
 			debounceFn(e.target.value);
 		} else {
 			setQueryDropdown((state) => ({ ...state, groups: null, show: false, selectedId: "" }));
@@ -66,7 +68,6 @@ const JoinSchoolTeacher = () => {
 
 	const onTeacherSubmit = async (inputs) => {
 		setIsLoading(true);
-		// TODO: Integration - Test
 		const details = {
 			profileId: globalSession.profileId,
 			schoolId: queryDropdown.selectedId,
@@ -80,9 +81,26 @@ const JoinSchoolTeacher = () => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
-				failHandler: () => {},
+				failHandler: () => {
+					if (data.content === "already joined") {
+						setError("name", {
+							type: "manual",
+							message: "You are already in this school",
+						});
+						setQueryDropdown({ show: false, groups: null, selectedId: "" });
+						setIsLoading(false);
+					} else if (data.content === "already requested") {
+						setError("name", {
+							type: "manual",
+							message: "You have already sent a request to join this school",
+						});
+						setQueryDropdown({ show: false, groups: null, selectedId: "" });
+						setIsLoading(false);
+					}
+				},
 				successHandler: () => {
 					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
 					setVisualBell({ type: "success", message: "Your request has been sent" });

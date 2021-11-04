@@ -2,6 +2,7 @@ import { useState, createContext, useMemo, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import useHandleResponse from "../hooks/useHandleResponse";
+import router from "next/router";
 
 const GlobalSessionContext = createContext({
 	globalSession: { loaded: false },
@@ -32,7 +33,7 @@ export const GlobalSessionContextProvider = (props) => {
 				} finally {
 					console.log(data);
 					if (data.status === "error" || data.status === "failed") {
-						// TODO handle error or fail
+						router.push("/404");
 					} else {
 						setGlobalSession((state) => ({ recentGroups: [], ...state, loaded: true, ...data.content }));
 					}

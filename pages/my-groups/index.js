@@ -33,33 +33,37 @@ const MyGroups = () => {
 							</div>
 							<div className={classes.groupName}>Register a school</div>
 						</div>
-						{globalSession.groups.map(
-							(group, i) =>
-								group.type === "school" && (
-									<div
-										key={group.name}
-										className={`${classes.card} ${group.verified ? (globalSession.groups[globalSession.recentGroups[0]]?.id === group.id ? classes.activeCard : "") : classes.notVerified}`}
-										onClick={() => cardClickHandler(i)}>
-										{group.verified && (
-											<div className={classes.groupRole}>
-												{group.role} {globalSession.groups[globalSession.recentGroups[0]]?.id === group.id ? " (viewing)" : ""}
-											</div>
-										)}
-										<div className={classes.groupName}>{group.name}</div>
-										{!group.verified && (
-											<div className={classes.groupRole} style={{ marginTop: 8, color: "grey" }}>
-												Pending verification
-											</div>
-										)}
-										{group.verified && (
-											<div className={classes.groupNums}>
-												{group.numOfUsers.admins} admin{group.numOfUsers.admins === 1 ? "" : "s"}, {group.numOfUsers.teachers} teacher{group.numOfUsers.teachers === 1 ? "" : "s"},{" "}
-												{group.numOfUsers.students} student{group.numOfUsers.students === 1 ? "" : "s"}
-											</div>
-										)}
-									</div>
-								)
-						)}
+						{globalSession.groups.map((group, i) => {
+							if (group.type !== "school") return null;
+							const disabled = !group.verified || group.status !== "activated";
+							const isActive = globalSession.groups[globalSession.recentGroups[0]]?.id === group.id;
+							return (
+								<div key={group.name} className={`${classes.card} ${disabled ? classes.disabled : ""} ${isActive ? classes.activeCard : ""}`} onClick={() => cardClickHandler(i)}>
+									{!disabled && (
+										<div className={classes.groupRole}>
+											{group.role} {globalSession.groups[globalSession.recentGroups[0]]?.id === group.id ? " (viewing)" : ""}
+										</div>
+									)}
+									<div className={classes.groupName}>{group.name}</div>
+									{!group.verified && (
+										<div className={classes.groupRole} style={{ marginTop: 8, color: "grey" }}>
+											Pending verification ...
+										</div>
+									)}
+									{group.status === "requested" && (
+										<div className={classes.groupRole} style={{ marginTop: 8, color: "grey" }}>
+											Pending request ...
+										</div>
+									)}
+									{!disabled && (
+										<div className={classes.groupNums}>
+											{group.numOfUsers.admins} admin{group.numOfUsers.admins === 1 ? "" : "s"}, {group.numOfUsers.teachers} teacher{group.numOfUsers.teachers === 1 ? "" : "s"},{" "}
+											{group.numOfUsers.students} student{group.numOfUsers.students === 1 ? "" : "s"}
+										</div>
+									)}
+								</div>
+							);
+						})}
 					</div>
 					<div className={classes.h2Container}>
 						<h2>Families</h2>
