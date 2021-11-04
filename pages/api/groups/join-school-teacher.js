@@ -75,6 +75,7 @@ export default async function (req, res) {
 					role: "teacher",
 					date: input.date,
 					status: "requested",
+					requestMessage: input.message,
 				},
 			})
 		)["data"];

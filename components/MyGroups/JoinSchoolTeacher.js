@@ -66,12 +66,13 @@ const JoinSchoolTeacher = () => {
 		setQueryDropdown((state) => ({ ...state, show: false, selectedId: group.id }));
 	};
 
-	const onTeacherSubmit = async () => {
+	const onTeacherSubmit = async (inputs) => {
 		setIsLoading(true);
 		// TODO: Integration - Test
 		const details = {
 			profileId: globalSession.profileId,
 			schoolId: queryDropdown.selectedId,
+			message: inputs.message,
 			date: new Date().toString(),
 		};
 		const DUMMY_STATUS = "succeeded";
