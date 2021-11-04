@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import GlobalSessionContext from "../../store/global-session-context";
@@ -7,17 +6,10 @@ import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/myGroups.module.scss";
-import useHandleResponse from "../../hooks/useHandleResponse";
 
 const MyGroups = () => {
 	const router = useRouter();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const { handleResponse } = useHandleResponse();
-	const [allGroups, setAllGroups] = useState([]);
-
-	useEffect(async () => {
-		setAllGroups(globalSession.groups);
-	}, []);
 
 	const cardClickHandler = (group) => setGlobalSession((state) => ({ ...state, recentGroups: [group, ...state.recentGroups.filter((_group) => _group.id !== group.id)].slice(0, 3) }));
 
@@ -41,7 +33,7 @@ const MyGroups = () => {
 							</div>
 							<div className={classes.groupName}>Register a school</div>
 						</div>
-						{allGroups
+						{globalSession.groups
 							.filter((group) => group.type === "school")
 							.map((group) => (
 								<div key={group.name} className={`${classes.card} ${globalSession.recentGroups[0]?.id === group.id ? classes.activeCard : ""}`} onClick={() => cardClickHandler(group)}>
@@ -68,7 +60,7 @@ const MyGroups = () => {
 							</div>
 							<div className={classes.groupName}>Create a family</div>
 						</div>
-						{allGroups
+						{globalSession.groups
 							.filter((group) => group.groupType === "family")
 							.map((group) => (
 								<div key={group.name} className={classes.card}>

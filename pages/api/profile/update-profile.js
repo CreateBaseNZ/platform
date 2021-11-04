@@ -22,11 +22,6 @@ export default async function (req, res) {
 	// 		status: "succeeded",
 	// 		content: DUMMY_CONTENT, // content not required; returning just the succeeded status is sufficient
 	// 	};
-	// } else if (req.body.status === "failed 1") {
-	// 	data = {
-	// 		status: "failed",
-	// 		content: "email taken", // content not required; returning just the succeeded status is sufficient
-	// 	};
 	// }
 	// Integration Logic
 	let data;

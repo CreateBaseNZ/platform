@@ -66,19 +66,7 @@ const MyProfile = () => {
 		} finally {
 			handleResponse({
 				data,
-				failHandler: () => {
-					if (data.content === "email taken") {
-						setError(
-							"email",
-							{
-								type: "manual",
-								message: "This email is already registered to another account",
-							},
-							{ shouldFocus: true }
-						);
-						setIsLoading(false);
-					}
-				},
+				failHandler: () => {},
 				successHandler: () => {
 					setGlobalSession((state) => ({ ...state, ...inputs }));
 					setVisualBell({
@@ -113,6 +101,7 @@ const MyProfile = () => {
 									className: classes.emailInput,
 									type: "text",
 									value: globalSession.email,
+									readOnly: true,
 								}}
 							/>
 							<Input

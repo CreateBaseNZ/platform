@@ -13,11 +13,18 @@ let output = {
 	lastName: "Lin",
 	verified: true,
 	recentGroups: [
-		{ id: "123", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
-		{ id: "456", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
-		{ id: "789", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
+		{ id: "bdsc", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
+		{ id: "rc", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
+		{ id: "does", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
 	],
-	numOfGroups: 5,
+	groups: [
+		{ id: "bdsc", name: "Botany Downs Secondary School", role: "teacher", numOfUsers: { admins: 1, teachers: 3, students: 78 }, type: "school" },
+		{ id: "rc", name: "Rosehill College", role: "admin", numOfUsers: { admins: 2, teachers: 2, students: 64 }, type: "school" },
+		{ id: "spp", name: "Shelly Park Primary", role: "student", numOfUsers: { admins: 1, teachers: 1, students: 34 }, type: "school" },
+		{ id: "school_trial", name: "School trial as an admin", role: "admin", numOfUsers: { admins: 1, teachers: 0, students: 0 }, type: "school" },
+		{ id: "does", name: "The Doe's", role: "member", numOfUsers: { members: 5 }, type: "family" },
+		{ id: "family_trial", name: "Family trial as an admin", role: "admin", numOfUsers: { members: 1 }, type: "family" },
+	],
 };
 
 // MAIN =====================================================
@@ -43,6 +50,7 @@ export default async function (req, res) {
 	} catch (error) {
 		data = { status: "error", content: error };
 	}
+	console.log(data.content);
 	if (data.status !== "succeeded") return res.send({ status: "error" });
 	Object.assign(output, data.content);
 	return res.send({ status: "succeeded", content: output });
