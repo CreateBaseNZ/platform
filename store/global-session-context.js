@@ -22,7 +22,7 @@ export const GlobalSessionContextProvider = (props) => {
 				const DUMMY_INPUT = {
 					accountId: session.user,
 					date: new Date().toString(),
-					properties: { profile: ["recentGroups"], license: [] },
+					properties: { profile: ["recentGroups"], license: ["alias"] },
 				};
 				const DUMMY_STATUS = "succeeded";
 				let data;
