@@ -15,20 +15,22 @@ export default async function (req, res) {
 	let data;
 	try {
 		data = (
-			await axios.post(process.env.ROUTE_URL + "/profile/update", {
+			await axios.post(process.env.ROUTE_URL + "/license/retrieve", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: {
-					query: { _id: input.profileId },
-					updates: [{ type: "saves", update: input.update }],
-					date: input.date,
-				},
+				input: { query: { _id: input.licenseId }, option: {} },
 			})
 		)["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
+	// Build the properties
+	let object = {};
+	for (let i = 0; i < input.properties.length; i++) {
+		const property = input.properties[i];
+		object[property] = data.content[0].metadata[property];
+	}
 	// Return outcome of the request
-	return res.send(data);
+	return res.send({ status: "succeeded", content: object });
 }
 
 // HELPER ===================================================

@@ -1,7 +1,6 @@
 // IMPORT ===================================================
 
 import axios from "axios";
-import { getSession } from "next-auth/client";
 
 // MAIN =====================================================
 
@@ -15,11 +14,16 @@ export default async function (req, res) {
 	// Send the data to the main backend
 	let data;
 	try {
-		data = (await axios.post(process.env.ROUTE_URL + "/profile/delete-saves", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: {
-      query: { _id: input.profileId },
-      properties: input.properties,
-      date: input.date,
-    }; }))["data"];
+		data = (
+			await axios.post(process.env.ROUTE_URL + "/profile/delete-saves", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: {
+					query: { _id: input.profileId },
+					properties: input.properties,
+					date: input.date,
+				},
+			})
+		)["data"];
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
