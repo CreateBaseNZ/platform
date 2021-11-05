@@ -7,15 +7,15 @@ const ClassesTabRoot = () => {
 	return null;
 };
 
-// ClassesTabRoot.getLayout = function getLayout(page) {
-// 	return (
-// 		<MainLayout page="classes">
-// 			<InnerLayout tabs={CLASSES_TABS} backHref="/classes">
-// 				{page}
-// 			</InnerLayout>
-// 		</MainLayout>
-// 	);
-// };
+ClassesTabRoot.getLayout = function getLayout(page) {
+	return (
+		<MainLayout page="classes">
+			<InnerLayout tabs={CLASSES_TABS} backHref="/classes">
+				{page}
+			</InnerLayout>
+		</MainLayout>
+	);
+};
 
 ClassesTabRoot.auth = "user";
 

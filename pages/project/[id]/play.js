@@ -15,7 +15,7 @@ const GameWrapper = ({ data }) => {
 		project: data.query,
 		scenePrefix: data.scenePrefix,
 		scene: "manual",
-		iteration: 0,
+		iteration: 0, // TODO iteration for play
 		setLoaded: setLoaded,
 	});
 

@@ -25,7 +25,7 @@ const Nav = ({ page }) => {
 					<div
 						className={classes.slider}
 						style={{
-							top: `calc(${activeTab} * 4.5rem)`,
+							top: `calc(${activeTab} * 4rem)`,
 						}}
 					/>
 					{defaultTabs.map((l, i) =>
