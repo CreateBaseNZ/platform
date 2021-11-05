@@ -1,12 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Header from "./Header";
 import Nav from "./Nav";
 
 import classes from "./MainLayout.module.scss";
 import MainLayoutContext from "../../../store/main-layout-context";
+import AliasModal from "./AliasModal";
 
 const MainLayout = ({ children, page }) => {
-	const { navIsCollapsed, setNavIsCollapsed, headerIsCollapsed } = useContext(MainLayoutContext);
+	const { navIsCollapsed, headerIsCollapsed } = useContext(MainLayoutContext);
+	const [showAliasModal, setShowAliasModal] = useState(false);
 
 	return (
 		<div className={classes.frame}>
@@ -19,6 +21,7 @@ const MainLayout = ({ children, page }) => {
 				</div>
 				{children}
 			</div>
+			{showAliasModal && <AliasModal setShow={setShowAliasModal} />}
 		</div>
 	);
 };

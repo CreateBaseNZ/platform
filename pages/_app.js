@@ -65,6 +65,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 				<GlobalSessionContextProvider>
 					<ClassesContextProvider>
 						<MainLayoutContextProvider>
+							<div id="modal-root"></div>
 							{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
 							<VisualBell />
 						</MainLayoutContextProvider>
