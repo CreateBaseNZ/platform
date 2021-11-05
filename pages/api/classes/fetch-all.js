@@ -53,7 +53,7 @@ export default async function (req, res) {
 
 const constructClasses = (classes) => {
 	return classes.map((instance) => {
-		let teachers = instance.licenses.filter((license) => license.role === "teacher");
+		let teachers = instance.licenses.filter((license) => license.role === "teacher" || license.role === "admin");
 		teachers = teachers.map((license) => {
 			return `${license.profile.name.first} ${license.profile.name.last}`;
 		});

@@ -67,7 +67,7 @@ export default async function (req, res) {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
 					class: data1.content.class._id,
-					license: input.license,
+					license: input.licenseId,
 					date: input.date,
 				},
 			})

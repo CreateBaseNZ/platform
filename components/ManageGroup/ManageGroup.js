@@ -19,7 +19,10 @@ const ManageGroup = ({ role }) => {
 
 	useEffect(async () => {
 		const DUMMY_STATUS = "succeeded";
-		const details = { licenseId: globalSession.licenseId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id };
+		const details = {
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+		};
 		let data = {};
 		try {
 			data = (await axios.post("/api/groups/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];

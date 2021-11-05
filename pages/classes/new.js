@@ -34,7 +34,13 @@ const ClassesNew = () => {
 		//							But yeah, just so I don't need to fetch the user's profile details, just
 		//							send through their name as alias, and that's what's going to be returned.
 		// TBD
-		const details = { groupId: globalSession.groups[globalSession.recentGroups[0]].id, licenseId: globalSession.licenseId, name: input.name, date: new Date().toString() };
+		const details = {
+			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+			name: input.name,
+			date: new Date().toString(),
+			alias: `${globalSession.firstName} ${globalSession.lastName}`,
+		};
 		try {
 			data = (await axios.post("/api/classes/new", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
