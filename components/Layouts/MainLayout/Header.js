@@ -10,12 +10,10 @@ import DEFAULT_TABS from "../../../constants/mainTabs";
 
 import classes from "./Header.module.scss";
 
-const Header = () => {
+const Header = ({ setShowAliasModal }) => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { navIsCollapsed, setNavIsCollapsed } = useContext(MainLayoutContext);
 	const [showDropdown, setShowDropdown] = useState(false);
-
-	console.log(globalSession);
 
 	const changeGroup = (groupIndex) => {
 		setGlobalSession((state) => ({ ...state, recentGroups: [groupIndex, ...state.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3) }));
@@ -39,20 +37,27 @@ const Header = () => {
 						<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>
 							<UserAvatar size={40} id={globalSession.profileId} className={classes.avatar} />
 							<div className={classes.headerName}>
-								{globalSession.firstName} {globalSession.lastName}
+								{globalSession.recentGroups.length ? globalSession.groups[globalSession.recentGroups[0]].alias : `${globalSession.firstName} ${globalSession.lastName}`}
 							</div>
 							<i className="material-icons-outlined">expand_more</i>
 						</div>
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
 							{globalSession.recentGroups.length ? (
-								globalSession.recentGroups.map((groupIndex) => (
-									<button key={groupIndex} onMouseDown={() => changeGroup(groupIndex)} title={globalSession.groups[groupIndex].name}>
-										<i className="material-icons-outlined">
-											{globalSession.groups[groupIndex].type === "school" ? "holiday_village" : globalSession.groups[groupIndex].type === "family" ? "cottage" : ""}
-										</i>
-										<span>{globalSession.groups[groupIndex].name}</span>
+								<>
+									<button onMouseDown={() => setShowAliasModal(true)} title="Edit group alias">
+										<i className="material-icons-outlined">badge</i>
+										<span>Edit group alias</span>
 									</button>
-								))
+									<div className={classes.divider} />
+									{globalSession.recentGroups.map((groupIndex) => (
+										<button key={groupIndex} onMouseDown={() => changeGroup(groupIndex)} title={globalSession.groups[groupIndex].name}>
+											<i className="material-icons-outlined">
+												{globalSession.groups[groupIndex].type === "school" ? "holiday_village" : globalSession.groups[groupIndex].type === "family" ? "cottage" : ""}
+											</i>
+											<span>{globalSession.groups[groupIndex].name}</span>
+										</button>
+									))}
+								</>
 							) : (
 								<>
 									<button onMouseDown={() => router.push("/my-groups/join-school")} title="Join a school">

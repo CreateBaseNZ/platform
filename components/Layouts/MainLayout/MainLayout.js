@@ -17,7 +17,7 @@ const MainLayout = ({ children, page }) => {
 			</div>
 			<div className={classes.view}>
 				<div className={`${classes.header} ${headerIsCollapsed ? classes.headerCollapsed : ""}`}>
-					<Header />
+					<Header setShowAliasModal={setShowAliasModal} />
 				</div>
 				{children}
 			</div>
