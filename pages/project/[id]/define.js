@@ -1,11 +1,28 @@
-import Img from "../UI/Img";
-import VideoViewer from "../UI/VideoViewer";
+import { useState, useEffect } from "react";
+import router from "next/router";
+import Head from "next/head";
+import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
+import Img from "../../../components/UI/Img";
+import VideoViewer from "../../../components/UI/VideoViewer";
+import getProjectData from "../../../utils/getProjectData";
 
-import classes from "./Define.module.scss";
+import classes from "/styles/define.module.scss";
 
-const Define = ({ data }) => {
+const Define = () => {
+	const [data, setData] = useState({});
+
+	useEffect(() => {
+		if (router.query.id) {
+			setData(getProjectData(router.query.id).define);
+		}
+	}, [router.query.id]);
+
 	return (
 		<div className={`${classes.container} roundScrollbar`}>
+			<Head>
+				<title>Define • {data.name} | CreateBase</title>
+				<meta name="description" content={data.caption} />
+			</Head>
 			<div className={classes.wrapper}>
 				{data && <VideoViewer data={data} />}
 				{data && data.word && data.docs && (
@@ -36,5 +53,11 @@ const Define = ({ data }) => {
 		</div>
 	);
 };
+
+Define.getLayout = (page) => {
+	return <ProjectLayout activeStep="define">{page}</ProjectLayout>;
+};
+
+Define.auth = "user";
 
 export default Define;
