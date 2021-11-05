@@ -6,8 +6,6 @@ import axios from "axios";
 
 // TEST OUTPUT ==============================================
 
-// FEEDBACK (CARL): Assignments and announcements might also be an array of object.
-// For example, announcements might require the message, the date, etc.
 const DUMMY_CLASS_DATA = {
 	id: "room21id",
 	name: "Room 21",
@@ -17,8 +15,8 @@ const DUMMY_CLASS_DATA = {
 		{ firstName: "Jane", lastName: "Passionfruit" },
 		{ firstName: "Joe", lastName: "Mango" },
 	],
-	announcements: {},
-	assignments: {},
+	announcements: [],
+	assignments: [],
 	// more properties TBD
 };
 

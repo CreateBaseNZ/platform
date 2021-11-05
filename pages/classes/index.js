@@ -25,6 +25,7 @@ const ClassesTabRoot = () => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {},

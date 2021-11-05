@@ -29,9 +29,9 @@ export default async function (req, res) {
 	// } // no failed modes for this route
 	// Integration Logic
 	// Fetch the classes associated with this group
-	let data1;
+	let _data;
 	try {
-		data1 = (
+		_data = (
 			await axios.post(process.env.ROUTE_URL + "/group/retrieve", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
@@ -41,10 +41,10 @@ export default async function (req, res) {
 			})
 		)["data"];
 	} catch (error) {
-		data1 = { status: "error", content: error };
+		_data = { status: "error", content: error };
 	}
 	// Construct the success object
-	const data = { status: "succeeded", content: constructClasses(data1.content[0].classes) };
+	const data = { status: "succeeded", content: constructClasses(_data.content[0].classes) };
 	return res.send(data);
 }
 
