@@ -23,9 +23,6 @@ const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
 		unityContext.on("GetSensorData", (sensorData) => {
 			setSensorData(sensorData);
 		});
-	}, []);
-
-	useEffect(() => {
 		unityContext.on("GetGameState", (gameState) => {
 			setGameState(gameState);
 		});
