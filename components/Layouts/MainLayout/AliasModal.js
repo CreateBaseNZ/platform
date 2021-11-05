@@ -23,7 +23,7 @@ const AliasModal = ({ setShow }) => {
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
 		const DUMMY_STATUS = "failed 1";
-		const details = { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, updates: [{ alias: inputs.alias }], date: new Date().toString() };
+		const details = { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, update: { alias: inputs.alias }, date: new Date().toString() };
 		try {
 			data = (await axios.post("/api/license/update-saves", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
