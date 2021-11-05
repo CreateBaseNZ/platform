@@ -74,7 +74,7 @@ export default {
 			},
 		],
 	},
-	iterations: [
+	subsystems: [
 		{
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],

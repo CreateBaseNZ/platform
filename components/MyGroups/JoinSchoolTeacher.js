@@ -71,6 +71,7 @@ const JoinSchoolTeacher = () => {
 		const details = {
 			profileId: globalSession.profileId,
 			schoolId: queryDropdown.selectedId,
+			alias: `${globalSession.firstName} ${globalSession.lastName}`,
 			message: inputs.message,
 			date: new Date().toString(),
 		};

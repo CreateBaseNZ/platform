@@ -29,6 +29,7 @@ const NewSchool = () => {
 		setIsLoading(true);
 		const details = {
 			profileId: globalSession.profileId,
+			alias: `${globalSession.firstName} ${globalSession.lastName}`,
 			name: inputs.name,
 			address: inputs.address,
 			city: inputs.city,
