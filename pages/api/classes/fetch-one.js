@@ -56,6 +56,7 @@ export default async function (req, res) {
 	} catch (error) {
 		data1 = { status: "error", content: error };
 	}
+	if (data1.status !== "succeeded") return res.send({ status: "error" });
 	// Construct the success object
 	const data = { status: "succeeded", content: constructClass(data1.content[0]) };
 	return res.send(data);
