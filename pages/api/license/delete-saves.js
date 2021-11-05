@@ -15,11 +15,11 @@ export default async function (req, res) {
 	let data;
 	try {
 		data = (
-			await axios.post(process.env.ROUTE_URL + "/profile/update", {
+			await axios.post(process.env.ROUTE_URL + "/license/delete-metadata", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
-					query: { _id: input.profileId },
-					updates: [{ type: "saves", update: input.update }],
+					query: { _id: input.licenseId },
+					properties: input.properties,
 					date: input.date,
 				},
 			})
@@ -31,6 +31,6 @@ export default async function (req, res) {
 	return res.send(data);
 }
 
-// HELPER ===================================================
+// HELPERS ==================================================
 
-// END  =====================================================
+// END ======================================================

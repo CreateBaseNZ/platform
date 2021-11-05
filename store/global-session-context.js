@@ -22,7 +22,7 @@ export const GlobalSessionContextProvider = (props) => {
 				const DUMMY_INPUT = {
 					accountId: session.user,
 					date: new Date().toString(),
-					properties: ["recentGroups"],
+					properties: { profile: ["recentGroups"], license: [] },
 				};
 				const DUMMY_STATUS = "succeeded";
 				let data;
@@ -50,7 +50,11 @@ export const GlobalSessionContextProvider = (props) => {
 			data = (
 				await axios.post("/api/profile/update-saves", {
 					PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-					input: { profileId: globalSession.profileId, updates: [{ recentGroups: globalSession.recentGroups }], date: new Date().toString() },
+					input: {
+						profileId: globalSession.profileId,
+						update: { recentGroups: globalSession.recentGroups },
+						date: new Date().toString(),
+					},
 				})
 			)["data"];
 		} catch (error) {
