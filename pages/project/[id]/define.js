@@ -13,7 +13,7 @@ const Define = () => {
 
 	useEffect(() => {
 		if (router.query.id) {
-			setData(getProjectData(router.query.id).define);
+			setData(getProjectData(router.query.id));
 		}
 	}, [router.query.id]);
 
@@ -24,8 +24,8 @@ const Define = () => {
 				<meta name="description" content={data.caption} />
 			</Head>
 			<div className={classes.wrapper}>
-				{data && <VideoViewer data={data} />}
-				{data && data.word && data.docs && (
+				{data && <VideoViewer data={data.define} />}
+				{data && data.define?.word && data.define?.docs && (
 					<div className={classes.instructions}>
 						<div className={classes.imgContainer}>
 							<Img src="/define.svg" alt="Define" layout="fill" objectFit="contain" />
@@ -33,13 +33,13 @@ const Define = () => {
 						<div className={classes.content}>
 							<p>Open one of the learning journals and save it somewhere that you can access. Your teacher will tell you which file to open and where to save your copy.</p>
 							<div className={classes.files}>
-								<a href={data.docs} target="_blank" title="Learning Journal - Google Docs" style={{ backgroundColor: "#3086F6" }}>
+								<a href={data.define?.docs} target="_blank" title="Learning Journal - Google Docs" style={{ backgroundColor: "#3086F6" }}>
 									<div className={classes.iconContainer}>
 										<span className="material-icons-outlined">link</span>
 									</div>
 									Google Docs
 								</a>
-								<a href={data.word} title="Learning Journal - Word" download style={{ backgroundColor: "#144EB2" }}>
+								<a href={data.define?.word} title="Learning Journal - Word" download style={{ backgroundColor: "#144EB2" }}>
 									<div className={classes.iconContainer}>
 										<span className="material-icons-outlined">file_download</span>
 									</div>
