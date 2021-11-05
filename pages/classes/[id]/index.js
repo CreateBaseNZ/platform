@@ -1,6 +1,7 @@
 import router from "next/router";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
+import CLASSES_TABS from "../../../constants/classesTabs";
 
 const ClassesTabRoot = () => {
 	if (router.query?.id) router.replace({ pathname: "/classes/[id]/announcements", query: { id: router.query.id } });
