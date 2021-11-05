@@ -29,6 +29,7 @@
 	h2 {
 		font-size: 18px;
 		font-weight: 600;
+		width: calc(20rem + 5vw);
 	}
 	.close {
 		position: absolute;
@@ -49,7 +50,7 @@
 .form {
 	display: flex;
 	flex-direction: column;
-	width: calc(20rem + 5vw);
+	width: 100%;
 	margin-top: 0.5rem;
 	.inputContainer {
 		margin: 1rem 0;

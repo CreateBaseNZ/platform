@@ -44,9 +44,9 @@ const Header = ({ setShowAliasModal }) => {
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
 							{globalSession.recentGroups.length ? (
 								<>
-									<button onMouseDown={() => setShowAliasModal(true)} title="Edit group alias">
+									<button onMouseDown={() => setShowAliasModal(true)} title="Edit alias">
 										<i className="material-icons-outlined">badge</i>
-										<span>Edit group alias</span>
+										<span>Edit alias</span>
 									</button>
 									<div className={classes.divider} />
 									{globalSession.recentGroups.map((groupIndex) => (
