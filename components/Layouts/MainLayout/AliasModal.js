@@ -8,10 +8,12 @@ import Input from "../../UI/Input";
 
 import classes from "./AliasModal.module.scss";
 import VisualBellContext from "../../../store/visual-bell-context";
+import useHandleResponse from "../../../hooks/useHandleResponse";
 
 const AliasModal = ({ setShow }) => {
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
+	const { handleResponse } = useHandleResponse();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const {
 		register,
@@ -22,6 +24,7 @@ const AliasModal = ({ setShow }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
+		let data = {};
 		const DUMMY_STATUS = "failed 1";
 		const details = { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, update: { alias: inputs.alias }, date: new Date().toString() };
 		try {
@@ -29,6 +32,7 @@ const AliasModal = ({ setShow }) => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {
@@ -38,7 +42,7 @@ const AliasModal = ({ setShow }) => {
 					setIsLoading(false);
 				},
 				successHandler: () => {
-					setClassObjects(data.content);
+					setGlobalSession((state) => ({ ...state, groups: [...state.groups].map((_group, i) => (i === state.recentGroups[0] ? { ..._group, alias: inputs.alias } : _group)) }));
 					setVisualBell({ type: "success", message: "Your alias has been updated" });
 					setShow(false);
 				},
