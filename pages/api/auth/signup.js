@@ -28,6 +28,13 @@ export default async function (req, res) {
 	} catch (error) {
 		return res.send({ status: "error", content: error });
 	}
+	if (data1.status !== "succeeded") {
+		if (data1.status === "failed" && data1.content.email) {
+			return res.send(data1);
+		} else {
+			return res.send({ status: "error" });
+		}
+	}
 	const account = data1.content.account;
 	// Send verification code
 	let data2;
