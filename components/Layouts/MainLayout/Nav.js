@@ -19,9 +19,9 @@ const Nav = ({ page }) => {
 
 	return (
 		<nav className={classes.nav}>
-			<ColourLogo width="131.25" height="24" />
+			<ColourLogo width="131.25" height="24" className={classes.logo} />
 			{globalSession.accountId && (
-				<div className={classes.menu}>
+				<div className={`${classes.menu} roundScollbar`}>
 					<div
 						className={classes.slider}
 						style={{

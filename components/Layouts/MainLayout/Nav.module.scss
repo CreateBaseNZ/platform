@@ -3,7 +3,7 @@
 .nav {
 	height: 100%;
 	width: 16rem;
-	padding: 2rem 1.5rem;
+	padding: 2rem 0;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -15,8 +15,13 @@
 	}
 }
 
+.logo {
+	margin-left: 1.5rem !important;
+}
+
 .menu {
-	margin-top: 4vh;
+	margin-top: 6vh;
+	padding: 0 1.5rem;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -26,8 +31,8 @@
 .slider {
 	position: absolute;
 	margin-top: 0.25rem;
-	left: 0;
-	width: 100%;
+	left: 1.5rem;
+	width: calc(100% - 3rem);
 	height: 3.5rem;
 	background: $logo-mid;
 	border-radius: 8px;

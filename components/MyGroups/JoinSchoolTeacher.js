@@ -103,7 +103,7 @@ const JoinSchoolTeacher = () => {
 					}
 				},
 				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
+					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
 					setVisualBell({ type: "success", message: "Your request has been sent" });
 					setHasRequested(true);
 					reset();
