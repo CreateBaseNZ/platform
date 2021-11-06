@@ -83,6 +83,23 @@ export default async function (req, res) {
 		data3 = { status: "error", content: error };
 	}
 	if (data3.status !== "succeeded") return res.send({ status: "error" });
+	// Update the alias of the teacher
+	let data4;
+	try {
+		data4 = (
+			await axios.post(process.env.ROUTE_URL + "/license/update", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: {
+					query: { _id: data3.content.license._id },
+					updates: [{ type: "metadata", update: { alias: input.alias } }],
+					date: input.date,
+				},
+			})
+		)["data"];
+	} catch (error) {
+		data4 = { status: "error", content: error };
+	}
+	if (data4.status !== "succeeded") return res.send({ status: "error" });
 	// no failure modes here
 	const content = {
 		licenseId: data3.content.license._id,
@@ -98,6 +115,7 @@ export default async function (req, res) {
 		},
 		verified: data3.content.group.verified,
 		status: data3.content.license.status,
+		alias: input.alias,
 	};
 	return res.send({ status: "succeeded", content });
 }

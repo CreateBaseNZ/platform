@@ -68,18 +68,40 @@ export default async function (req, res) {
 		data2 = { status: "error", content: error };
 	}
 	if (data2.status !== "succeeded") return res.send({ status: "error" });
-	const content = {
-		licenseId: data2.content.license._id,
-		id: data2.content.group._id,
-		number: data2.content.group.number,
-		name: data2.content.group.name,
-		role: data2.content.license.role,
-		type: data2.content.group.type,
-		numOfUsers: { admins: 1, teachers: 0, students: 0 },
-		verified: data2.content.group.verified,
-		status: data2.content.license.status,
+	// Update the alias of the teacher
+	let data3;
+	try {
+		data3 = (
+			await axios.post(process.env.ROUTE_URL + "/license/update", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: {
+					query: { _id: data2.content.license._id },
+					updates: [{ type: "metadata", update: { alias: input.alias } }],
+					date: input.date,
+				},
+			})
+		)["data"];
+	} catch (error) {
+		data3 = { status: "error", content: error };
+	}
+	if (data3.status !== "succeeded") return res.send({ status: "error" });
+	// Success handler
+	const data = {
+		status: "succeeded",
+		content: {
+			licenseId: data2.content.license._id,
+			id: data2.content.group._id,
+			number: data2.content.group.number,
+			name: data2.content.group.name,
+			role: data2.content.license.role,
+			type: data2.content.group.type,
+			numOfUsers: { admins: 1, teachers: 0, students: 0 },
+			verified: data2.content.group.verified,
+			status: data2.content.license.status,
+			alias: input.alias,
+		},
 	};
-	return res.send({ status: "succeeded", content });
+	return res.send(data);
 }
 
 // HELPER ===================================================
