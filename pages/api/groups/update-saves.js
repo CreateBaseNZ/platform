@@ -15,23 +15,21 @@ export default async function (req, res) {
 	let data;
 	try {
 		data = (
-			await axios.post(process.env.ROUTE_URL + "/license/retrieve", {
+			await axios.post(process.env.ROUTE_URL + "/group/update", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: { query: { _id: input.licenseId }, option: {} },
+				input: {
+					query: { _id: input.groupId },
+					updates: [{ type: "metadata", update: input.update }],
+					date: input.date,
+				},
 			})
 		)["data"];
 	} catch (error) {
 		data = { status: "error", content: error };
 	}
 	if (data.status !== "succeeded") return res.send({ status: "error" });
-	// Build the properties
-	let object = {};
-	for (let i = 0; i < input.properties.length; i++) {
-		const property = input.properties[i];
-		object[property] = data.content[0].metadata[property];
-	}
 	// Return outcome of the request
-	return res.send({ status: "succeeded", content: object });
+	return res.send(data);
 }
 
 // HELPER ===================================================

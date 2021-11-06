@@ -15,9 +15,9 @@ export default async function (req, res) {
 	let data;
 	try {
 		data = (
-			await axios.post(process.env.ROUTE_URL + "/license/retrieve", {
+			await axios.post(process.env.ROUTE_URL + "/class/retrieve", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: { query: { _id: input.licenseId }, option: {} },
+				input: { query: { _id: input.classId }, option: {} },
 			})
 		)["data"];
 	} catch (error) {

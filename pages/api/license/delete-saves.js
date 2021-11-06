@@ -25,8 +25,9 @@ export default async function (req, res) {
 			})
 		)["data"];
 	} catch (error) {
-		return res.send({ status: "error", content: error });
+		data = { status: "error", content: error };
 	}
+	if (data.status !== "succeeded") return res.send({ status: "error" });
 	// Return outcome of the request
 	return res.send(data);
 }
