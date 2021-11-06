@@ -25,28 +25,30 @@ const DUMMY_SUBSYSTEMS = [
 
 const Create = () => {
 	const [data, setData] = useState();
-	const [activeSubsystem, setActiveSubsystem] = useState(DUMMY_SUBSYSTEMS[0]);
+	const [activeSubsystem, setActiveSubsystem] = useState();
 
 	useEffect(() => {
-		if (router.query.id) {
-			setData(getProjectData(router.query.id));
+		if (router.query?.id) {
+			const _data = getProjectData(router.query.id);
+			setData(_data);
+			setActiveSubsystem(_data.subsystems[0]);
 		}
 	}, [router.query.id]);
 
 	useEffect(() => {
-		if (router.query.subsystem) {
-			const found = DUMMY_SUBSYSTEMS.find((subsystem) => subsystem.title === router.query.subsystem);
-			if (found) {
-				setActiveSubsystem(found);
+		if (router.query?.subsystem && data) {
+			const _subsystem = data.subsystems.find((subsystem) => subsystem.title === router.query.subsystem);
+			if (_subsystem) {
+				setActiveSubsystem(_subsystem);
 			} else {
 				router.push("/404");
 			}
 		}
-	}, [router.query.subsystem]);
-
-	console.log(activeSubsystem);
+	}, [router.query.subsystem, data]);
 
 	if (!data) return null;
+
+	// TODO progress tracking
 
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
@@ -60,7 +62,7 @@ const Create = () => {
 					<h3>The Create step is made up of one or more subsystems. Each subsystem focuses on part of the overall problem, and some must be done before others. Click on the cards to get started.</h3>
 				</div>
 				<div className={classes.cardContainer}>
-					{DUMMY_SUBSYSTEMS.map((subsystem, j) => (
+					{data.subsystems.map((subsystem, j) => (
 						<Link key={j} href={{ query: { ...router.query, subsystem: subsystem.title } }}>
 							<a className={`${classes.card} ${activeSubsystem.title === subsystem.title ? classes.activeCard : ""}`}>
 								<h2>{subsystem.title}</h2>
@@ -69,7 +71,7 @@ const Create = () => {
 									{subsystem.requirements.length ? (
 										subsystem.requirements
 											.map((req, i) => (
-												<span key={i} className={DUMMY_SUBSYSTEMS.find((_subsystem) => _subsystem.title === req)?.progress === 1 ? classes.completed : ""}>
+												<span key={i} className={data.subsystems.find((_subsystem) => _subsystem.title === req)?.progress === 1 ? classes.completed : ""}>
 													{req}
 												</span>
 											))
@@ -94,7 +96,7 @@ const Create = () => {
 						Requirements:
 						{activeSubsystem.requirements.length ? (
 							activeSubsystem.requirements.map((req, i) => (
-								<div key={i} className={`${classes.item} ${DUMMY_SUBSYSTEMS.find((subsystem) => subsystem.title === req)?.progress === 1 ? classes.completed : ""}`}>
+								<div key={i} className={`${classes.item} ${data.subsystems.find((subsystem) => subsystem.title === req)?.progress === 1 ? classes.completed : ""}`}>
 									<i className="material-icons-outlined">check</i>
 									<div className={classes.dot} />
 									<Link href={{ query: { ...router.query, subsystem: req } }}>

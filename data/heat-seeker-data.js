@@ -76,6 +76,10 @@ export default {
 	},
 	subsystems: [
 		{
+			title: "Speed control",
+			requirements: [],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -126,30 +130,12 @@ export default {
 				],
 			},
 			blockList: [{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] }],
-			// improve: {
-			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-			// 	alert:
-			// 		"Oh no, it looks like some of the fires have spread throughout the warehouse! You will now need to use your water hose to put out the smaller fires on the way to your final destination.",
-			// 	tasks: [
-			// 		"Congratulations on successfully creating a line following algorithm! You will now need improve your solution to take into account the smaller fires.",
-			// 		"We will go through another iteration, repeating the same process that we just completed to build up our improved solution.",
-			// 	],
-			// },
 		},
 		{
-			// define: {
-			// 	caption: [
-			// 		"As a class, dive into group discussions around the Project theme to fully define our problem.",
-			// 		"Don't have a teacher to guide you through? Check back soon for individual content!",
-			// 	],
-			// 	modules: [
-			// 		{
-			// 			title: "Define the New Problem",
-			// 			img: "/heat-seeker/img/define-1.jpg",
-			// 			url: "/heat-seeker/files/define-1-heat-seeker.pdf",
-			// 		},
-			// 	],
-			// },
+			title: "Navigating curves",
+			requirements: ["Speed control"],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -180,10 +166,6 @@ export default {
 				"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			// plan: [
-			// 	"In the next Create step, you will need to improve your program so that you can put out the fires on the way to your destination.",
-			// 	"But first, we need to plan what our changes will be. Open up your learning journal and answer all of the questions in the second Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			// ],
 			create: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line using the sensors."],
@@ -202,6 +184,10 @@ export default {
 			],
 		},
 		{
+			title: "Navigating turns",
+			requirements: ["Speed control"],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no research step. Move onto Plan."],
 				modules: [],
@@ -227,17 +213,12 @@ export default {
 				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 				{ name: "Conditionals", blocks: [<NodeIfMini />] },
 			],
-			// improve: {
-			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-			// 	alert:
-			// 		"Oh no, it looks like some of the fires have spread throughout the warehouse! You will now need to use your water hose to put out the smaller fires on the way to your final destination.",
-			// 	tasks: [
-			// 		"Congratulations on successfully creating a line following algorithm! You will now need improve your solution to take into account the smaller fires.",
-			// 		"We will go through another iteration, repeating the same process that we just completed to build up our improved solution.",
-			// 	],
-			// },
 		},
 		{
+			title: "Extinguishing fires",
+			requirements: [],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -290,6 +271,10 @@ export default {
 			],
 		},
 		{
+			title: "Putting it all together",
+			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no research step. Move onto Plan."],
 				modules: [],
