@@ -1,20 +1,31 @@
 import { useState, useEffect } from "react";
 import router from "next/router";
 import Head from "next/head";
+import Link from "next/link";
 import ProjectLayout from "../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import getProjectData from "../../../../utils/getProjectData";
+import Img from "../../../../components/UI/Img";
+import { PrimaryButton } from "../../../../components/UI/Buttons";
 
 import classes from "/styles/create.module.scss";
 
 const DUMMY_SUBSYSTEMS = [
-	{ title: "Some subsystem", req: [] },
-	{ title: "Another subsytem", req: ["Some subsytem"] },
-	{ title: "Third subsytem", req: ["Some subsytem"] },
-	{ title: "Final subsytem", req: ["Another subsystem", "Third subsystem"] },
+	{
+		title: "Some subsystem",
+		requirements: [],
+		progress: 1,
+		imgSrc: "/heat-seeker/img/thumbnail.png",
+		description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum",
+	},
+	{ title: "Another subsystem", requirements: ["Some subsystem"], progress: 1, imgSrc: "/heat-seeker/img/define.jpg" },
+	{ title: "Another subsystem", requirements: ["Some subsystem"], progress: 1, imgSrc: "/heat-seeker/img/define.jpg" },
+	{ title: "Third subsystem", requirements: ["Some subsystem"], progress: 0.25, imgSrc: "/heat-seeker/img/define.jpg" },
+	{ title: "Final subsystem", requirements: ["Another subsystem", "Third subsystem"], imgSrc: "/heat-seeker/img/thumbnail.png" },
 ];
 
 const Create = () => {
 	const [data, setData] = useState();
+	const [activeSubsystem, setActiveSubsystem] = useState(DUMMY_SUBSYSTEMS[0]);
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -22,7 +33,18 @@ const Create = () => {
 		}
 	}, [router.query.id]);
 
-	console.log(data);
+	useEffect(() => {
+		if (router.query.subsystem) {
+			const found = DUMMY_SUBSYSTEMS.find((subsystem) => subsystem.title === router.query.subsystem);
+			if (found) {
+				setActiveSubsystem(found);
+			} else {
+				router.push("/404");
+			}
+		}
+	}, [router.query.subsystem]);
+
+	console.log(activeSubsystem);
 
 	if (!data) return null;
 
@@ -38,14 +60,23 @@ const Create = () => {
 					<h3>The Create step is made up of one or more subsystems. Each subsystem focuses on part of the overall problem, and some must be done before others. Click on the cards to get started.</h3>
 				</div>
 				<div className={classes.cardContainer}>
-					{DUMMY_SUBSYSTEMS.map((subsystem) => (
-						<Link href={{ query: { subsystem: subsystem.title } }}>
-							<a className={classes.card}>
+					{DUMMY_SUBSYSTEMS.map((subsystem, j) => (
+						<Link key={j} href={{ query: { ...router.query, subsystem: subsystem.title } }}>
+							<a className={`${classes.card} ${activeSubsystem.title === subsystem.title ? classes.activeCard : ""}`}>
 								<h2>{subsystem.title}</h2>
+								<div className={classes.reqHead}>Requirements:</div>
 								<div className={classes.requirements}>
-									{subsystem.requirements.map((req) => (
-										<span className={subsystem.requirements.find((_subsystem) => _subsystem.title === req)?.progress === 100 ? classes.completed : classes.notCompleted}>{req}</span>
-									))}
+									{subsystem.requirements.length ? (
+										subsystem.requirements
+											.map((req, i) => (
+												<span key={i} className={DUMMY_SUBSYSTEMS.find((_subsystem) => _subsystem.title === req)?.progress === 1 ? classes.completed : ""}>
+													{req}
+												</span>
+											))
+											.reduce((prev, curr) => [prev, ", ", curr])
+									) : (
+										<span className={classes.completed}>None</span>
+									)}
 								</div>
 							</a>
 						</Link>
@@ -53,7 +84,36 @@ const Create = () => {
 				</div>
 			</div>
 			<div className={classes.rightSide}>
-				<div className={classes.floatCard}></div>
+				<div className={classes.floatCard}>
+					<div className={classes.imgContainer}>
+						<Img src={activeSubsystem.imgSrc} layout="fill" objectFit="cover" />
+					</div>
+					<h2>{activeSubsystem.title}</h2>
+					<div className={classes.description}>{activeSubsystem.description}</div>
+					<div className={classes.requirements}>
+						Requirements:
+						{activeSubsystem.requirements.length ? (
+							activeSubsystem.requirements.map((req, i) => (
+								<div key={i} className={`${classes.item} ${DUMMY_SUBSYSTEMS.find((subsystem) => subsystem.title === req)?.progress === 1 ? classes.completed : ""}`}>
+									<i className="material-icons-outlined">check</i>
+									<div className={classes.dot} />
+									<Link href={{ query: { ...router.query, subsystem: req } }}>
+										<a>{req}</a>
+									</Link>
+								</div>
+							))
+						) : (
+							<div className={`${classes.item} ${classes.noneItem}`}>
+								<a>None</a>
+							</div>
+						)}
+					</div>
+					<Link href={{ pathname: "/code/[id]/[subsystem]", query: { id: router.query.id, subsystem: activeSubsystem.title } }}>
+						<div style={{ alignSelf: "flex-end" }}>
+							<PrimaryButton className={classes.goBtn} mainLabel="Go" iconRight={<i className="material-icons-outlined">double_arrow</i>} />
+						</div>
+					</Link>
+				</div>
 			</div>
 		</div>
 	);
