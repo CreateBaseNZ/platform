@@ -15,7 +15,7 @@ const GameWrapper = ({ data }) => {
 		project: data.query,
 		scenePrefix: data.scenePrefix,
 		scene: "manual",
-		iteration: data.subsystem.length,
+		iteration: data.subsystems.length,
 		setLoaded: setLoaded,
 	});
 
