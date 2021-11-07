@@ -121,7 +121,7 @@ export default {
 				"In the first step, our aim is to understand how we could move the robot through different paths by adjusting the speed of the wheels.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, following a straight line accross the map."],
 				hints: [
@@ -166,7 +166,7 @@ export default {
 				"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line using the sensors."],
 				hints: [
@@ -197,7 +197,7 @@ export default {
 				"In this step, our aim is to create a plan for how our robot could navigate around multiple turns.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line achieve turns properly."],
 				hints: [
@@ -254,7 +254,7 @@ export default {
 				"In this step, our aim is to create a plan for how our robot could put out fires using the water hose",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, putting out fires along the way."],
 				hints: [
@@ -284,7 +284,7 @@ export default {
 				"In this step, we will combine all of the logic and solutions that we have built so far to solve the full problem: navigating around the entire warehouse and putting out any fires in our way.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can follow the line, putting out fires along the way."],
 				hints: [
