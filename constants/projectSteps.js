@@ -10,3 +10,5 @@ const STEPS = [
 ];
 
 export default STEPS;
+
+export const SUBSYSTEM_TABS = ["research", "plan", "code"];

@@ -110,7 +110,7 @@ const Create = () => {
 							</div>
 						)}
 					</div>
-					<Link href={{ pathname: "/code/[id]/[subsystem]", query: { id: router.query.id, subsystem: activeSubsystem.title } }}>
+					<Link href={{ pathname: "/project/[id]/create/[subsystem]/research", query: { id: router.query.id, subsystem: activeSubsystem.title } }}>
 						<div style={{ alignSelf: "flex-end" }}>
 							<PrimaryButton className={classes.goBtn} mainLabel="Go" iconRight={<i className="material-icons-outlined">double_arrow</i>} />
 						</div>

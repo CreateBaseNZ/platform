@@ -53,6 +53,7 @@ export default {
 			title: "TODO",
 			requirements: ["TODO"],
 			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
