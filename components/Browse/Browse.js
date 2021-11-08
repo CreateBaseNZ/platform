@@ -11,10 +11,18 @@ import { allData } from "../../utils/getProjectData";
 import "overlayscrollbars/css/OverlayScrollbars.css";
 import classes from "/styles/browse.module.scss";
 
+import { io } from "socket.io-client";
+
 const Browse = () => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [activeProject, setActiveProject] = useState(allData[0]);
+
+	// EXAMPLE: Socket - Trigger Socket on Event
+	const socket = io();
+	useEffect(() => {
+		socket.emit("trigger", "browse", globalSession.firstName);
+	}, []);
 
 	useEffect(() => {
 		const query = router?.query?.project;
@@ -22,6 +30,7 @@ const Browse = () => {
 		if (queriedProject) {
 			setActiveProject(queriedProject);
 		}
+		socket.emit("trigger", globalSession.groups[globalSession.recentGroups[0]].id);
 	}, [router.query.project]);
 
 	return (

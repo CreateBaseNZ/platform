@@ -28,6 +28,8 @@
 		"react-table": "^7.7.0",
 		"react-unity-webgl": "^8.4.10",
 		"sass": "^1.43.2",
+		"socket.io": "^4.3.1",
+		"socket.io-client": "^4.3.2",
 		"swiper": "^7.0.9",
 		"use-sound": "^4.0.1"
 	},

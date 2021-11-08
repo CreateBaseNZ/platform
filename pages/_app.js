@@ -12,6 +12,8 @@ import AuthGuard from "../components/Auth/AuthGuard";
 import { ClassesContextProvider } from "../store/classes-context";
 import { MainLayoutContextProvider } from "../store/main-layout-context";
 
+import { io } from "socket.io-client";
+
 // function MyApp({ Component, pageProps }) {
 // 	const [loaded, setLoaded] = useState(false);
 // 	const [blockView, setBlockView] = useState(true);
@@ -58,6 +60,26 @@ import { MainLayoutContextProvider } from "../store/main-layout-context";
 
 const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	const getLayout = Component.getLayout || ((page) => page);
+
+	// EXAMPLE: Socket - Listen to a Trigger
+	const socket = io();
+	let initSocket = false;
+	useEffect(() => {
+		if (!initSocket) {
+			socket.on("browse", (...data) => {
+				console.log(`${data[0]} visited the browse page`);
+			});
+			initSocket = true;
+		}
+	}, []);
+
+	useEffect(async () => {
+		try {
+			await fetch("/api/socket");
+		} catch (error) {
+			console.log(error);
+		}
+	}, []);
 
 	return (
 		<SessionProvider session={session}>
