@@ -350,6 +350,8 @@ export const defineObject = (projectName) => {
 			return "Arm";
 		case "heat-seeker":
 			return "Car";
+		case "aimbot":
+			return "aimbot";
 	}
 	return "";
 };
@@ -358,6 +360,7 @@ export const isOnceCode = (projectName) => {
 	switch (projectName) {
 		case "send-it":
 		case "heat-seeker":
+		case "aimbot":
 			return false;
 		case "magnebot":
 			return true;

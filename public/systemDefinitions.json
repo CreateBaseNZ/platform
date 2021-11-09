@@ -196,6 +196,59 @@
 		}
 	},
 	{
+		"robot": "aimbot",
+		"startingCode": "",
+		"sensors": {
+			"NodeAimBotYaw": {
+				"name": "yawSensor",
+				"simpleName": "Yaw"
+			},
+			"NodeAimBotPitch": {
+				"name": "pitchSensor",
+				"simpleName": "Pitch"
+			},
+			"NodeAimBotPositionX": {
+				"name": "enemyPosition.x",
+				"simpleName": "Xpos"
+			},
+			"NodeAimBotPositionY": {
+				"name": "enemyPosition.y",
+				"simpleName": "Ypos"
+			},
+			"NodeAimBotPositionZ": {
+				"name": "enemyPosition.z",
+				"simpleName": "Zpos"
+			}
+		},
+		"actions": {
+			"NodeAimBotShoot": {
+				"inputs": [],
+				"syntaxSimple": "Shoot",
+				"syntax": "unityContext.send(\"Weapon\",\"Shoot\");"
+			}
+		},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "while(gameIsON){",
+				"inputs": [],
+				"logic": "if(sensorData){\n",
+				"await": false
+			},
+			"NodeAimBotYaw": {
+				"simpleLogic": "yawSpeed",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "unityContext.send(\"Weapon\", \"SetYawVelocity\", a)",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "}",
+				"inputs": [],
+				"logic": "}",
+				"await": false
+			}
+		}
+	},
+	{
 		"mathOps": {
 			"NodeAdd": "+",
 			"NodeSubtract": "-",
@@ -206,7 +259,8 @@
 			"NodeEquals": "==",
 			"NodeNotEquals": "!=",
 			"NodeAnd": "&&",
-			"NodeOr": "||"
+			"NodeOr": "||",
+			"NodePower": "^^"
 		},
 		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute"],
 		"functions": {
