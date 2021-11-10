@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { signIn } from "next-auth/react";
@@ -12,7 +12,7 @@ import useHandleResponse from "../../hooks/useHandleResponse";
 
 const CODE_LENGTH = 6;
 
-const Verify = () => {
+const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	const router = useRouter();
 	const { handleResponse } = useHandleResponse();
 	const { setVisualBell } = useContext(VisualBellContext);
@@ -20,19 +20,29 @@ const Verify = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isResending, setIsResending] = useState(false);
 	const [error, setError] = useState();
-	const [code, setCode] = useState(router?.query?.code || [...Array(CODE_LENGTH)].map(() => ""));
+	const [email, setEmail] = useState(globalSession.email || routerEmail);
+	const [code, setCode] = useState(Array.from(Array(CODE_LENGTH).keys()).map((i) => routerCode[i] || "") || [...Array(CODE_LENGTH)].map(() => ""));
 	const refs = useRef([]);
 
+	useEffect(async () => {
+		if (code.every((char) => char !== "") && email) {
+			await submitCode(code.join(""));
+		}
+	}, []);
+
+	// note that the session email takes precedence over url query
+	// i.e. if the session is an unverified user and the url is a ocl, then the session email is used as the API input
 	const submitCode = async (code) => {
 		setIsLoading(true);
-		const details = { email: globalSession.email, code: code, date: new Date().toString() };
-		const DUMMY_STATUS = "failed 1";
+		const details = { email: email, code: code, date: new Date().toString() };
+		console.log(details);
 		let data = {};
 		try {
-			data = (await axios.post("/api/auth/verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/auth/verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {
@@ -46,7 +56,7 @@ const Verify = () => {
 				successHandler: () => {
 					setGlobalSession((state) => ({ ...state, verified: true }));
 					router.push(router.query.callbackUrl || "/");
-					setVisualBell({ type: "success", message: "Welcome to CreateBase!" });
+					setVisualBell({ type: "success", message: "Your account is now verified" });
 				},
 			});
 		}
@@ -107,15 +117,15 @@ const Verify = () => {
 		submitCode(newCode.join(""));
 	};
 
-	if (!globalSession.loaded) return null;
-
-	if (!globalSession.accountId) {
-		signIn();
-		return null;
-	}
+	if (!globalSession.loaded || !router.isReady) return null;
 
 	if (globalSession.verified) {
 		router.replace("/");
+		return null;
+	}
+
+	if (!email) {
+		signIn();
 		return null;
 	}
 

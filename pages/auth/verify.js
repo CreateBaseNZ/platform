@@ -5,8 +5,6 @@ import VerifyForm from "../../components/Auth/VerifyForm";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 import GlobalSessionContext from "../../store/global-session-context";
 
-import classes from "/styles/auth.module.scss";
-
 const Verify = () => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -23,7 +21,7 @@ const Verify = () => {
 				<title>Verify | CreateBase</title>
 				<meta name="description" content="Verify your CreateBase account" />
 			</Head>
-			<VerifyForm />
+			{router.isReady && globalSession.loaded && <VerifyForm routerCode={router.query.code} routerEmail={router.query.email} />}
 		</>
 	);
 };
