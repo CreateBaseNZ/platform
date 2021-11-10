@@ -53,7 +53,7 @@ const ClassesTabRoot = () => {
 						<PrimaryButton className={classes.joinBtn} mainLabel="Join a class" onClick={() => router.push("/classes/join")} />
 					</div>
 					<div className={classes.cardContainer}>
-						{globalSession.groups[globalSession.recentGroups[0]].role !== "student" && (
+						{classObjects && globalSession.groups[globalSession.recentGroups[0]].role !== "student" && (
 							<div className={`${classes.card} ${classes.addCard}`} onClick={() => router.push("/classes/new")}>
 								<div className={classes.addIcons}>
 									<i className="material-icons-outlined">add</i>
@@ -62,15 +62,22 @@ const ClassesTabRoot = () => {
 								<div className={classes.className}>Create a class</div>
 							</div>
 						)}
-						{classObjects.map((_class) => (
-							<div key={_class.name} className={classes.card} onClick={() => cardClickHandler(_class)}>
-								<div className={classes.className}>{_class.name}</div>
-								<div className={classes.classTeachers}>{_class.teachers.join(", ")}</div>
-								<div className={classes.classStudents}>
-									{_class.numOfStudents} student{_class.numOfStudents === 1 ? "" : "s"}
+						{classObjects &&
+							classObjects.map((_class) => (
+								<div key={_class.name} className={classes.card} onClick={() => cardClickHandler(_class)}>
+									<div className={classes.className}>{_class.name}</div>
+									<div className={classes.classTeachers}>{_class.teachers.join(", ")}</div>
+									<div className={classes.classStudents}>
+										{_class.numOfStudents} student{_class.numOfStudents === 1 ? "" : "s"}
+									</div>
 								</div>
-							</div>
-						))}
+							))}
+						{!classObjects && (
+							<>
+								<div className={`${classes.card} ${classes.loadingCard}`} />
+								<div className={`${classes.card} ${classes.loadingCard}`} />
+							</>
+						)}
 					</div>
 				</div>
 			</div>

@@ -134,6 +134,45 @@
 	}
 }
 
+.loadingCard {
+	padding: 0;
+	background: $lighter;
+	box-shadow: none;
+	overflow: hidden;
+	position: relative;
+	pointer-events: none;
+	&::before {
+		content: "";
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		background: white;
+		filter: blur(4px);
+		animation: loading 1.2s linear infinite;
+	}
+}
+
+@keyframes loading {
+	0% {
+		transform: translateX(0);
+		left: -100%;
+	}
+	50% {
+		transform: translateX(100%);
+		left: 100%;
+	}
+	100% {
+		transform: translateX(100%);
+		left: 100%;
+	}
+}
+
+@for $i from 1 through 10 {
+	.cardContainer .loadingCard:nth-child(#{$i}n)::before {
+		animation-delay: #{$i * 1.4}s;
+	}
+}
+
 .backBtn {
 	display: flex;
 	align-items: center;

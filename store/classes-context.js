@@ -13,7 +13,7 @@ const ClassesContext = createContext({
 export default ClassesContext;
 
 export const ClassesContextProvider = (props) => {
-	const [classObjects, setClassObjects] = useState([]);
+	const [classObjects, setClassObjects] = useState(null);
 
 	const value = useMemo(
 		() => ({
