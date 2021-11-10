@@ -21,7 +21,7 @@ const ClassesTabRoot = () => {
 		let data;
 		const inputs = { profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id };
 		try {
-			data = (await axios.post("/api/classes/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/fetch-joined", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {

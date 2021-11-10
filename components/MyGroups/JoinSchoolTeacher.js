@@ -75,10 +75,9 @@ const JoinSchoolTeacher = () => {
 			message: inputs.message,
 			date: new Date().toString(),
 		};
-		const DUMMY_STATUS = "succeeded";
 		let data = {};
 		try {
-			data = (await axios.post("/api/groups/join-school-teacher", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/groups/join-school-teacher", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {

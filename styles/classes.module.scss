@@ -227,35 +227,63 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	height: 50vh;
+	height: 40vh;
+	overflow-y: auto;
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
 	.queryItem {
 		width: 100%;
-		height: 3rem;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		padding: 0 1rem;
-		justify-content: space-between;
-		color: $dark;
+		flex: 0 0 3.5rem;
+		overflow: hidden;
 		margin: 2px 0;
-		font-weight: 500;
-		border-radius: 8px;
-		cursor: pointer;
-		transition: background-color 0.1s ease-out, color 0.1s ease-out;
-		i {
-			color: $dark;
+		padding-right: 4px;
+		position: relative;
+		input {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			opacity: 0;
+			cursor: pointer;
 		}
-		&:hover {
-			color: $blue-mid;
+		label {
+			border-radius: 12px;
+			height: 100%;
+			font-weight: 500;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			padding: 0 1.25rem;
+			justify-content: space-between;
+			color: $dark;
+			background: $lightest;
+			transition: background-color 0.1s ease-out, color 0.1s ease-out;
+			i {
+				color: $dark;
+			}
+			.checkIcon {
+				display: none;
+			}
+		}
+		&:hover label {
 			background: $lighter;
+			color: $blue-mid;
 			i {
 				color: $blue-mid;
 			}
 		}
-		&.selected {
-			background: rgba($blue-dark, 0.1);
+		input:checked ~ label {
+			background: rgba($blue-mid, 0.05);
 			i {
 				color: $blue-mid;
+			}
+			.checkIcon {
+				display: block;
+			}
+			.addIcon {
+				display: none;
 			}
 		}
 	}
