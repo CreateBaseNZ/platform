@@ -1,6 +1,12 @@
 import { getOutgoers, getConnectedEdges, getIncomers } from "react-flow-renderer";
 import BlocksF from "../public/systemDefinitions.json";
 
+/**
+ *
+ * @param {*} projectName
+ * @returns
+ * EXPLAIN: Salim - What is this function for?
+ */
 export const findStartingCode = (projectName) => {
 	const robot = defineObject(projectName);
 	const correctSystem = BlocksF.filter((element) => {
@@ -16,6 +22,14 @@ export const findStartingCode = (projectName) => {
 	return startCode;
 };
 
+/**
+ * EXPLAIN: Salim - Define this input variable
+ * @param {*} currentNode
+ * @param {*} path
+ * @param {*} elements
+ * @returns
+ * EXPLAIN: Salim - What is this function for?
+ */
 const findNextNode = (currentNode, path, elements) => {
 	const nodes = [currentNode];
 	let nodeCollection = getConnectedEdges(nodes, elements);
@@ -42,6 +56,7 @@ const findNextNode = (currentNode, path, elements) => {
 		return [false, "Wrong Connection"];
 	}
 
+	// EXPLAIN: Salim - What is the purpose of this for loop?
 	for (let i = 0; i < nextNodeList.length; i++) {
 		if (nextNodeID == nextNodeList[i].id) {
 			return [true, nextNodeList[i]];
@@ -51,14 +66,27 @@ const findNextNode = (currentNode, path, elements) => {
 	return [true, false];
 };
 
-const determineType = (block, currentNode, generalBlocks, mathOperations, actions, sensors, allFunctions, genralSystem) => {
+/**
+ * EXPLAIN: Salim - Define these input variables
+ * @param {*} block
+ * @param {*} currentNode
+ * @param {*} generalBlocks
+ * @param {*} mathOperations
+ * @param {*} actions
+ * @param {*} sensors
+ * @param {*} allFunctions
+ * @param {*} generalSystem
+ * @returns
+ * EXPLAIN: Salim - What is this function for?
+ */
+const determineType = (block, currentNode, generalBlocks, mathOperations, actions, sensors, allFunctions, generalSystem) => {
 	console.log(currentNode.type);
 	if (generalBlocks.includes(currentNode.type)) {
 		block.name = currentNode.type;
 	} else if (mathOperations.includes(currentNode.type)) {
 		block.type = "NodeOperatorGeneral";
 		block.name = currentNode.type;
-		block.value.operator = genralSystem.mathOps[currentNode.type];
+		block.value.operator = generalSystem.mathOps[currentNode.type];
 	} else if (actions.includes(currentNode.type)) {
 		block.type = "move";
 		block.name = currentNode.type;
@@ -76,7 +104,14 @@ const determineType = (block, currentNode, generalBlocks, mathOperations, action
 	return block;
 };
 
-const CheckPreviuos = (currentNode, elements) => {
+/**
+ * EXPLAIN: Salim - Define these input variables
+ * @param {*} currentNode
+ * @param {*} elements
+ * @returns
+ * EXPLAIN: Salim - What is this function for?
+ */
+const checkPrevious = (currentNode, elements) => {
 	const nodes = [currentNode];
 	let edgeCollection = getConnectedEdges(nodes, elements);
 	const prevConnection = edgeCollection.filter((connection) => {
@@ -94,40 +129,57 @@ const CheckPreviuos = (currentNode, elements) => {
 	return true;
 };
 
+/**
+ * EXPLAIN: Salim - Define these input variables
+ * @param {*} blocksOrder
+ * @param {*} currentNode
+ * @param {*} elements
+ * @param {*} val
+ * @param {*} robotName
+ * @param {*} level
+ * @returns
+ * EXPLAIN: Salim - What is this function for?
+ */
 const findInputs = (blocksOrder, currentNode, elements, val, robotName, level = 0) => {
-	const correctSystem = BlocksF.filter((element) => {
-		return element.robot == robotName;
-	})[0];
-	const genralSystem = BlocksF.filter((element) => {
-		return element.robot == undefined;
-	})[0];
-	const generalBlocks = genralSystem.general;
-	const mathOperations = [...Object.keys(genralSystem.mathOps)];
-	const actions = [...Object.keys(correctSystem.actions)];
-	const sensors = [...Object.keys(correctSystem.sensors)];
-	const allFunctions = [...Object.keys(correctSystem.functions), ...Object.keys(genralSystem.functions)];
+	// Fetch the configuration associated with the robot
+	const correctSystem = BlocksF.find((element) => element.robot === robotName);
+	// Fetch the configuration universal to the all systems
+	const generalSystem = BlocksF.find((element) => !element.robot);
+	const generalBlocks = generalSystem.general; // Universal blocks
+	const mathOperations = [...Object.keys(generalSystem.mathOps)]; // Operations
+	const actions = [...Object.keys(correctSystem.actions)]; // Actuators/actions associated with the robot
+	const sensors = [...Object.keys(correctSystem.sensors)]; // Sensors associated with the robot
+	const allFunctions = [...Object.keys(correctSystem.functions), ...Object.keys(generalSystem.functions)]; // Functions associated with the robot
 	const nodes = [currentNode];
 	let edgeCollection = getConnectedEdges(nodes, elements);
 	let prevNodeList = getIncomers(currentNode, elements);
 	let IDlist = [];
 	let inputs = [];
+	// EXPLAIN: Salim - What is the purpose of this if statement?
 	if (level != 0) {
 		let outName = null;
 		let executionBlock = false;
+		// EXPLAIN: Salim - What is the purpose of this for loop?
 		for (let i = 0; i < edgeCollection.length; i++) {
+			// EXPLAIN: Salim - What is this if statement checking for?
 			if (currentNode.id == edgeCollection[i].source) {
+				// EXPLAIN: Salim - What are these conditions check for? What are the purpose of these conditions?
 				if (edgeCollection[i].sourceHandle && edgeCollection[i].sourceHandle.split("__")[0] == "execution") {
 					executionBlock = true;
 				} else if (edgeCollection[i].sourceHandle && edgeCollection[i].sourceHandle.split("__")[0] == "execution") {
 					outName = blocksOrder[i].value[edgeCollection[i].sourceHandle];
 				}
+				// EXPLAIN: Salim - What is the purpose of this if statement?
 				if (executionBlock == true && outName) {
 					break;
 				}
 			}
 		}
+		// EXPLAIN: Salim - What is the purpose of this if statement?
 		if (executionBlock) {
+			// EXPLAIN: Salim - What is the purpose of this for loop?
 			for (let i = 0; i < blocksOrder.length; i++) {
+				// EXPLAIN: Salim - What is the purpose of this if statement?
 				if (blocksOrder[i].id == currentNode.id) {
 					return [blocksOrder, val, outName];
 				}
@@ -135,13 +187,16 @@ const findInputs = (blocksOrder, currentNode, elements, val, robotName, level = 
 			return [null, null, null, "Wrong execution order"];
 		}
 	}
-
+	// EXPLAIN: Salim - What is the purpose of this for loop?
 	for (let i = 0; i < edgeCollection.length; i++) {
+		// EXPLAIN: Salim - What is the purpose of this if statement?
 		if (currentNode.id == edgeCollection[i].target) {
+			// EXPLAIN: Salim - What is the purpose of this if statement?
 			if (edgeCollection[i].targetHandle && edgeCollection[i].targetHandle.split("__")[0] != "execution") {
 				const splitName = edgeCollection[i].targetHandle.split("__");
 				const inputName = splitName[splitName.length - 1];
 				inputs.push(inputName);
+				// EXPLAIN: Salim - What is the purpose of this for loop?
 				for (let j = 0; j < prevNodeList.length; j++) {
 					if (edgeCollection[i].source == prevNodeList[j].id) {
 						IDlist.push(prevNodeList[j]);
@@ -153,6 +208,7 @@ const findInputs = (blocksOrder, currentNode, elements, val, robotName, level = 
 	}
 	const unduplicatedArray = [...new Set(inputs)];
 
+	// EXPLAIN: Salim - What is the purpose of this if statement?
 	if (unduplicatedArray.length != inputs.length) {
 		return [null, null, null, "One of the inputs has more than one entry"];
 	}
@@ -161,11 +217,13 @@ const findInputs = (blocksOrder, currentNode, elements, val, robotName, level = 
 		id: currentNode.id,
 		type: currentNode.type,
 	};
+	// EXPLAIN: Salim - What is the purpose of this if statement?
 	if (currentNode.data != undefined) {
 		block.value = { ...currentNode.data.values };
 	}
-	block = determineType(block, currentNode, generalBlocks, mathOperations, actions, sensors, allFunctions, genralSystem);
+	block = determineType(block, currentNode, generalBlocks, mathOperations, actions, sensors, allFunctions, generalSystem);
 	let output;
+	// EXPLAIN: Salim - What is the purpose of this for loop?
 	for (let i = 0; i < IDlist.length; i++) {
 		let message;
 		[blocksOrder, val, output, message] = findInputs(blocksOrder, IDlist[i], elements, val, robotName, 1);
@@ -176,8 +234,11 @@ const findInputs = (blocksOrder, currentNode, elements, val, robotName, level = 
 		}
 	}
 	let edgeNum;
+	// EXPLAIN: Salim - What is the purpose of this for loop?
 	for (let i = 0; i < edgeCollection.length; i++) {
+		// EXPLAIN: Salim - What is the purpose of this if statement?
 		if (currentNode.id == edgeCollection[i].source) {
+			// EXPLAIN: Salim - What is the purpose of this if statement?
 			if (edgeCollection[i].sourceHandle && edgeCollection[i].sourceHandle.split("__")[0] != "execution") {
 				edgeNum = i;
 				break;
@@ -187,17 +248,20 @@ const findInputs = (blocksOrder, currentNode, elements, val, robotName, level = 
 	let outName = false;
 	switch (currentNode.type) {
 		default:
+			// EXPLAIN: Salim - What is the purpose of this if statement?
 			if (edgeNum || edgeNum == 0) {
 				const splitArray = edgeCollection[edgeNum].sourceHandle.split("__");
 				let NextOut = splitArray[splitArray.length - 1];
 				const doneBlock = blocksOrder.filter((block) => {
 					return currentNode.id === block.id;
 				});
+				// EXPLAIN: Salim - What is the purpose of this if statement?
 				if (doneBlock.length > 0) {
 					if (doneBlock[0].value.out) {
 						outName = doneBlock[0].value.out;
 					}
 				}
+				// EXPLAIN: Salim - What is the purpose of this if statement?
 				if (NextOut && !outName) {
 					console.log(val);
 					outName = "out_" + String(val);
@@ -211,7 +275,14 @@ const findInputs = (blocksOrder, currentNode, elements, val, robotName, level = 
 	return [blocksOrder, val, outName, ""];
 };
 
+/**
+ *
+ * @param {[Object]} elements An array of block detail
+ * @param {*} projectName The name of the project
+ * @returns
+ */
 export const flow2Text = (elements, projectName) => {
+	// Declare variables
 	let blocksConfig = [];
 	let currentNode = elements[0];
 	let traverse = true;
@@ -219,15 +290,12 @@ export const flow2Text = (elements, projectName) => {
 	let path = [];
 	let maxPath = [];
 	let nodeContext = [];
+	// Fetch the robot name associated with the project
 	const robotName = defineObject(projectName);
-	if (robotName == "") {
-		console.log("G");
-		return "Robot doesn't Exist";
-	}
+	// Construct the block config
 	while (traverse) {
-		console.log(blocksConfig);
 		if (currentNode) {
-			if (!CheckPreviuos(currentNode, elements)) {
+			if (!checkPrevious(currentNode, elements)) {
 				return ["One Node has more than one input", null, null];
 			}
 			let f, message;
@@ -254,12 +322,14 @@ export const flow2Text = (elements, projectName) => {
 				break;
 			case undefined:
 				let block = blocksConfig.pop();
+				// EXPLAIN: Salim - What is the purpose of this if statement?
 				if (block.type != "else-condition") {
 					blocksConfig.push(block);
 				}
 				executionNext = undefined;
 				break;
 		}
+		// EXPLAIN: Salim - What is the purpose of this if statement?
 		if (executionNext) {
 			let state;
 			[state, nextNode] = findNextNode(currentNode, executionNext, elements);
@@ -267,9 +337,11 @@ export const flow2Text = (elements, projectName) => {
 				return [nextNode, null, null];
 			}
 		}
+		// EXPLAIN: Salim - What is the purpose of this if statement?
 		if (nextNode) {
 			currentNode = nextNode;
 		} else {
+			// EXPLAIN: Salim - What is the purpose of this if statement?
 			if (path.length == 0) {
 				traverse = false;
 				break;
@@ -283,6 +355,7 @@ export const flow2Text = (elements, projectName) => {
 					return [nextNode, null, null];
 				}
 				let interBlock;
+				// EXPLAIN: Salim - What is the purpose of this if statement?
 				if (path[path.length - 1] == maxPath[path.length - 1]) {
 					switch (currentNode.type) {
 						case "NodeWhile":
@@ -336,12 +409,18 @@ export const flow2Text = (elements, projectName) => {
 	};
 	blocksConfig.push(endNode);
 	console.log(blocksConfig);
+	// EXPLAIN: Salim - What is the purpose of this if statement?
 	if (blocksConfig.length == 2) {
 		return [blocksConfig, "warning", "You have no blocks connected. Nothing interesting will happen."];
 	}
 	return [blocksConfig, null, null];
 };
 
+/**
+ *
+ * @param {*} projectName
+ * @returns
+ */
 export const defineObject = (projectName) => {
 	switch (projectName) {
 		case "send-it":

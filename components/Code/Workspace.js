@@ -24,6 +24,11 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
 });
 
+/**
+ *
+ * @param {*} props.query is the project's name
+ * @returns
+ */
 const Workspace = (props) => {
 	const editorRef = useRef();
 	const [activeTab, setActiveTab] = useState("flow");
@@ -66,6 +71,7 @@ const Workspace = (props) => {
 	}, [flowVisualBell.switch, flowVisualBell.show]);
 
 	const compileCode = (onceCode) => {
+		// Convert the flow arrangement to a configuration of blocks
 		const [blocks, type, message] = flow2Text(elements, props.query);
 		if (type && type === "warning" && activeTab == "flow") {
 			ctx.addWarning(message);
@@ -81,8 +87,8 @@ const Workspace = (props) => {
 			return [newText, dispCode];
 		} else {
 			ctx.addError(blocks);
-			const meassage = "// Oops! An error occurred, please check the Console for more info";
-			return [meassage, meassage];
+			const message = "// Oops! An error occurred, please check the Console for more info";
+			return [message, message];
 		}
 	};
 

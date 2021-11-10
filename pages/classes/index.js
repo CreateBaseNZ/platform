@@ -17,11 +17,13 @@ const ClassesTabRoot = () => {
 	const { classObjects, setClassObjects } = useContext(ClassesContext);
 
 	useEffect(async () => {
-		const DUMMY_STATUS = "succeeded";
 		let data;
-		const inputs = { profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id };
+		const inputs = {
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+		};
 		try {
-			data = (await axios.post("/api/classes/fetch-joined", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/fetch-joined", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {

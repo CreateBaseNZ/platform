@@ -19,16 +19,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_CLASSES,
-	// 	};
-	// } // no failed modes for this route
-	// Integration Logic
-	// Fetch the classes associated with this group
 	let _data;
 	try {
 		_data = (
@@ -44,6 +34,10 @@ export default async function (req, res) {
 		_data = { status: "error", content: error };
 	}
 	if (_data.status !== "succeeded") return res.send({ status: "error" });
+	// Filter the classes
+	_data.content[0].classes = _data.content[0].classes.filter((instance) => {
+		return instance.licenses.find((licenseId) => licenseId.toString() === input.licenseId.toString());
+	});
 	// Construct the success object
 	const data = { status: "succeeded", content: constructClasses(_data.content[0].classes) };
 	return res.send(data);
