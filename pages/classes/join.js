@@ -7,11 +7,11 @@ import Input, { SearchBar } from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/classes.module.scss";
-import UserSessionContext from "../../store/user-session";
+import GlobalSessionContext from "../../store/global-session-context";
 
 const ClassJoin = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const { userSession } = useContext(UserSessionContext);
+	const { globalSession } = useContext(GlobalSessionContext);
 	const {
 		register,
 		handleSubmit,
@@ -40,7 +40,7 @@ const ClassJoin = () => {
 					<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 						<SearchBar
 							className={classes.input}
-							label={`Search for a class in ${userSession.recentGroups[0].name}`}
+							label={`Search for a class in ${globalSession.groups[globalSession.recentGroups[0]].name}`}
 							labelProps={{ className: classes.inputLabel }}
 							inputProps={{ placeholder: "Class name", type: "text", maxLength: 254, ...register("name", { required: "Please select a class" }) }}
 							error={errors.name}

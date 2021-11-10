@@ -16,18 +16,20 @@ export const GlobalSessionContextProvider = (props) => {
 	const [globalSession, setGlobalSession] = useState({ loaded: false });
 	const { handleResponse } = useHandleResponse();
 
+	console.log("this was run");
+
 	useEffect(async () => {
+		console.log(status, session);
 		if (status !== "loading") {
 			if (session) {
-				const DUMMY_INPUT = {
+				const inputs = {
 					accountId: session.user,
 					date: new Date().toString(),
 					properties: { profile: ["recentGroups"], license: ["alias"] },
 				};
-				const DUMMY_STATUS = "succeeded";
 				let data;
 				try {
-					data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: DUMMY_INPUT, status: DUMMY_STATUS }))["data"];
+					data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
 				} catch (error) {
 					data.status = "error";
 				} finally {

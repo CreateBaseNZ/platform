@@ -3,7 +3,6 @@
 import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import router from "next/router";
-import useProfileHelper from "../hooks/useProfileHelper";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 
 import classes from "/styles/onboarding.module.scss";
@@ -32,7 +31,6 @@ const teachingContent = {
 const Onboarding = () => {
 	const [tasks, setTasks] = useState([]);
 	const [popup, setPopup] = useState();
-	const { updateProfile } = useProfileHelper();
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	// useEffect(() => {

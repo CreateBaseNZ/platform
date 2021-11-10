@@ -9,20 +9,6 @@ import { PrimaryButton } from "../../../../components/UI/Buttons";
 
 import classes from "/styles/create.module.scss";
 
-const DUMMY_SUBSYSTEMS = [
-	{
-		title: "Some subsystem",
-		requirements: [],
-		progress: 1,
-		imgSrc: "/heat-seeker/img/thumbnail.png",
-		description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum",
-	},
-	{ title: "Another subsystem", requirements: ["Some subsystem"], progress: 1, imgSrc: "/heat-seeker/img/define.jpg" },
-	{ title: "Another subsystem", requirements: ["Some subsystem"], progress: 1, imgSrc: "/heat-seeker/img/define.jpg" },
-	{ title: "Third subsystem", requirements: ["Some subsystem"], progress: 0.25, imgSrc: "/heat-seeker/img/define.jpg" },
-	{ title: "Final subsystem", requirements: ["Another subsystem", "Third subsystem"], imgSrc: "/heat-seeker/img/thumbnail.png" },
-];
-
 const Create = () => {
 	const [data, setData] = useState();
 	const [activeSubsystem, setActiveSubsystem] = useState();
