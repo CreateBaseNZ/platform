@@ -58,28 +58,30 @@ import { io } from "socket.io-client";
 
 // export default MyApp;
 
+function browseSocket(...data) {
+	console.log(data);
+	console.log(`${data[0]} visited the browse page`);
+}
+
 const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	const getLayout = Component.getLayout || ((page) => page);
 
 	// EXAMPLE: Socket - Listen to a Trigger
-	// const socket = io();
-	// let initSocket = false;
-	// useEffect(() => {
-	// 	if (!initSocket) {
-	// 		socket.on("browse", (...data) => {
-	// 			console.log(`${data[0]} visited the browse page`);
-	// 		});
-	// 		initSocket = true;
-	// 	}
-	// }, []);
+	const socket = io();
+	useEffect(() => {
+		socket.on("browse", browseSocket);
+		return () => {
+			socket.off("browse", browseSocket);
+		};
+	}, []);
 
-	// useEffect(async () => {
-	// 	try {
-	// 		await fetch("/api/socket");
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// }, []);
+	useEffect(async () => {
+		try {
+			await fetch("/api/socket");
+		} catch (error) {
+			console.log(error);
+		}
+	}, []);
 
 	return (
 		<SessionProvider session={session}>
