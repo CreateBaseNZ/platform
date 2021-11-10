@@ -223,6 +223,44 @@
 	}
 }
 
+.queryContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	height: 50vh;
+	.queryItem {
+		width: 100%;
+		height: 3rem;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding: 0 1rem;
+		justify-content: space-between;
+		color: $dark;
+		margin: 2px 0;
+		font-weight: 500;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
+		i {
+			color: $dark;
+		}
+		&:hover {
+			color: $blue-mid;
+			background: $lighter;
+			i {
+				color: $blue-mid;
+			}
+		}
+		&.selected {
+			background: rgba($blue-dark, 0.1);
+			i {
+				color: $blue-mid;
+			}
+		}
+	}
+}
+
 @media only screen and (min-width: 1200px) {
 	.cardContainer {
 		grid-template-columns: 15rem 15rem 15rem;
