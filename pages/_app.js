@@ -62,24 +62,24 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	const getLayout = Component.getLayout || ((page) => page);
 
 	// EXAMPLE: Socket - Listen to a Trigger
-	const socket = io();
-	let initSocket = false;
-	useEffect(() => {
-		if (!initSocket) {
-			socket.on("browse", (...data) => {
-				console.log(`${data[0]} visited the browse page`);
-			});
-			initSocket = true;
-		}
-	}, []);
+	// const socket = io();
+	// let initSocket = false;
+	// useEffect(() => {
+	// 	if (!initSocket) {
+	// 		socket.on("browse", (...data) => {
+	// 			console.log(`${data[0]} visited the browse page`);
+	// 		});
+	// 		initSocket = true;
+	// 	}
+	// }, []);
 
-	useEffect(async () => {
-		try {
-			await fetch("/api/socket");
-		} catch (error) {
-			console.log(error);
-		}
-	}, []);
+	// useEffect(async () => {
+	// 	try {
+	// 		await fetch("/api/socket");
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// }, []);
 
 	return (
 		<SessionProvider session={session}>

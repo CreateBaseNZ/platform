@@ -25,7 +25,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	const refs = useRef([]);
 
 	useEffect(async () => {
-		if (code && email) {
+		if (code.every((char) => char !== "") && email) {
 			await submitCode(code.join(""));
 		}
 	}, []);
