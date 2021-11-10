@@ -184,11 +184,11 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private move(blockDetail: any, correctSystem, genralSystem) {
+	private move(blockDetail: any, correctSystem, generalSystem) {
 		// Fetch the Block Function
 		let blockFunction = correctSystem.functions[blockDetail.name];
 		if (!blockFunction) {
-			blockFunction = genralSystem.functions[blockDetail.name];
+			blockFunction = generalSystem.functions[blockDetail.name];
 		}
 		// Build input
 		let inputVariables: string = "";
@@ -425,17 +425,12 @@ export class CodeGenerator {
 		this.simpleExecute = "";
 		this.simpleContent = "";
 		let printNum = 0;
-		//
 		let state: any = true;
 		let type = null;
 		let message = null;
 		const systemName = blockDetails[0].robot;
-		const correctSystem = BlocksF.filter((element) => {
-			return element.robot == systemName;
-		})[0];
-		const genralSystem = BlocksF.filter((element) => {
-			return element.robot == undefined;
-		})[0];
+		const correctSystem = BlocksF.find((element) => element.robot == systemName);
+		const generalSystem = BlocksF.find((element) => element.robot == undefined);
 		for (let i = 0; i < blockDetails.length; i++) {
 			const element = blockDetails[i];
 			switch (element.type) {
@@ -443,7 +438,7 @@ export class CodeGenerator {
 					state = this.start(correctSystem);
 					break;
 				case "specific":
-					[state, type, message] = this.move(element, correctSystem, genralSystem);
+					[state, type, message] = this.move(element, correctSystem, generalSystem);
 					break;
 				case "NodeEnd":
 					state = this.end(correctSystem);
