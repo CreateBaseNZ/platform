@@ -266,6 +266,9 @@
 			.checkIcon {
 				display: none;
 			}
+			span {
+				display: none;
+			}
 		}
 		&:hover label {
 			background: $lighter;
@@ -284,6 +287,20 @@
 			}
 			.addIcon {
 				display: none;
+			}
+		}
+	}
+	.disabled {
+		pointer-events: none;
+		opacity: 0.25;
+		label {
+			i {
+				display: none !important;
+			}
+			span {
+				display: block;
+				font-size: 12px;
+				color: $dark;
 			}
 		}
 	}

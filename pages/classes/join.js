@@ -10,20 +10,22 @@ import { PrimaryButton } from "../../components/UI/Buttons";
 import classes from "/styles/classes.module.scss";
 import GlobalSessionContext from "../../store/global-session-context";
 import useHandleResponse from "../../hooks/useHandleResponse";
+import router from "next/router";
+import VisualBellContext from "../../store/visual-bell-context";
 
 const ClassJoin = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [queriedClasses, setQueriedClasses] = useState([]);
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
+	const { setVisualBell } = useContext(VisualBellContext);
 	const { register, handleSubmit, watch } = useForm({ mode: "onTouched" });
 	const queryValue = watch("searchQuery");
 
 	useEffect(async () => {
-		const DUMMY_STATUS = "succeeded";
 		let data = {};
-		const details = { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, schoolId: globalSession.groups[globalSession.recentGroups[0]].groupId };
-		console.log("loading");
+		const details = { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id };
+		const DUMMY_STATUS = "succeeded";
 		try {
 			data = (await axios.post("/api/classes/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
@@ -38,9 +40,38 @@ const ClassJoin = () => {
 		}
 	}, []);
 
-	const onSubmit = (inputs) => {
+	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		console.log(inputs);
+		const { searchQuery, ...rest } = inputs;
+		inputs = rest;
+		const details = {
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+			classes: Object.keys(inputs).filter((key) => inputs[key]),
+		};
+		if (!details.classes.length) {
+			return setIsLoading(false);
+		}
+		console.log(details);
+
+		let data = {};
+
+		const DUMMY_STATUS = "succeeded";
+		try {
+			data = (await axios.post("/api/classes/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			console.log(data);
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					setVisualBell({ type: "success", message: `Your request${details.classes.length === 1 ? "" : "s"} have been successfully sent` });
+					router.push("/classes");
+				},
+			});
+		}
 	};
 
 	return (
@@ -70,17 +101,18 @@ const ClassJoin = () => {
 							{queriedClasses.map(
 								(_class) =>
 									_class.name.toLowerCase().includes((queryValue || "").toLowerCase()) && (
-										<div className={classes.queryItem} key={_class.name}>
-											<input type="checkbox" id={_class.name} name={_class.name} {...register(_class.name)} />
+										<div className={`${classes.queryItem} ${_class.joined ? classes.disabled : ""}`} key={_class.id}>
+											<input type="checkbox" id={_class.id} name={_class.id} {...register(_class.id)} />
 											<label>
 												{_class.name} <i className={`material-icons-outlined ${classes.addIcon}`}>add_circle_outline</i>
 												<i className={`material-icons ${classes.checkIcon}`}>check_circle</i>
+												<span>Already in this class</span>
 											</label>
 										</div>
 									)
 							)}
 						</div>
-						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Joining ..." mainLabel="Join" />
+						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Sending requests ..." mainLabel="Request to join" />
 					</form>
 				</div>
 			</div>

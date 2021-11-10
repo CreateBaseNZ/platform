@@ -9,14 +9,20 @@ import axios from "axios";
 // TEST OUTPUT ==============================================
 
 const DUMMY_CLASSES = [
-	{ id: "room21id", name: "Room 21", teachers: ["Mrs Mints"], numOfStudents: 12 },
-	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 25 },
-	{ id: "dfsg4", name: "Room 28", teachers: ["Mr Bumblebee"], numOfStudents: 24 },
-	{ id: "5ythfdg", name: "Room 29", teachers: ["Mr Bumblebee"], numOfStudents: 23 },
-	{ id: "dsfasd", name: "Room 27", teachers: ["Mr Bumblebee"], numOfStudents: 22 },
+	{ id: "room21id", name: "Room 21", joined: true },
+	{ id: "room26id", name: "Room 26", joined: false },
+	{ id: "dfsg4", name: "Room 28", joined: true },
+	{ id: "5ythfdg", name: "Room 29", joined: true },
+	{ id: "dsfasd", name: "Room 27", joined: false },
+	{ id: "asd", name: "Room 27", joined: false },
+	{ id: "hgjk", name: "Room 27", joined: false },
+	{ id: "uio", name: "Room 27", joined: false },
+	{ id: "2345", name: "Room 27", joined: false },
 ];
 
 // MAIN =====================================================
+
+// profile and license ID are both passed as input
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
@@ -24,7 +30,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	// Test Logic
-	console.log("api running");
 	let data;
 	if (req.body.status === "succeeded") {
 		data = {
@@ -32,4 +37,5 @@ export default async function (req, res) {
 			content: DUMMY_CLASSES,
 		};
 	} // no failure modes
+	return res.send(data);
 }
