@@ -79,11 +79,9 @@ export default async function (req, res) {
 	if (data.status !== "succeeded") return res.send({ status: "error" });
 	// Construct the return array object
 	let users = [];
-	users.concat(constructUsers(data.content[0].licenses.active));
-	users.concat(constructUsers(data.content[0].licenses.queue));
-	users.concat(constructUsers(data.content[0].licenses.inactive));
-	console.log(users);
-
+	users = users.concat(constructUsers(data.content[0].licenses.active));
+	users = users.concat(constructUsers(data.content[0].licenses.queue));
+	users = users.concat(constructUsers(data.content[0].licenses.inactive));
 	// TODO: Check the privileges
 	return res.send({ status: "succeeded", content: users });
 }
