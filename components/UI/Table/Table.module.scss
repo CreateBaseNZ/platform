@@ -30,7 +30,8 @@
 
 .th,
 .td {
-	padding-left: 0.5rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 
 .theadWrapper {
@@ -52,12 +53,19 @@
 		height: 3rem;
 		border-bottom: thin solid $lighter;
 		&:hover {
+			background: #f3f3f3;
 			.td {
 				color: black;
 			}
 		}
 		&.trSelected {
-			background: #fefefe;
+			background: rgba($blue-mid, 0.05);
+			.td {
+				color: $blue-dark;
+			}
+			&:hover {
+				background: rgba($blue-dark, 0.1);
+			}
 		}
 	}
 }

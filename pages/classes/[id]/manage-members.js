@@ -71,7 +71,7 @@ const ClassesManage = () => {
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>
-				Manage {classObject.name} Members
+				Manage Members
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} /> <HeaderToggle />
 			</h1>
 			<Table columns={MANAGE_MEMBERS_COLUMNS} data={DUMMY_STUDENTS} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} />

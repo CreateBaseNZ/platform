@@ -37,10 +37,9 @@ const Table = ({ columns, data, pageSizes, renderBtns = [] }) => {
 			hooks.allColumns.push((columns) => [
 				{
 					id: "selection",
-					disableResizing: true,
-					minWidth: 35,
-					width: 35,
-					maxWidth: 35,
+					style: {
+						width: "32px",
+					},
 					Header: ({ getToggleAllRowsSelectedProps }) => (
 						<div>
 							<IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
@@ -68,7 +67,7 @@ const Table = ({ columns, data, pageSizes, renderBtns = [] }) => {
 						{headerGroups.map((headerGroup) => (
 							<tr {...headerGroup.getHeaderGroupProps()} className={classes.tr}>
 								{headerGroup.headers.map((column) => {
-									// console.log(column);
+									console.log(column);
 									return (
 										<th {...column.getHeaderProps(column.getSortByToggleProps())} className={`${classes.th} ${column.isSorted ? classes.sorted : ""}`} style={column.style}>
 											{column.render("Header")}
