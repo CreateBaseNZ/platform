@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { TertiaryButton } from "../../UI/Buttons";
 import Input from "../../UI/Input";
 import useHandleResponse from "../../../hooks/useHandleResponse";
 import classes from "./NameForm.module.scss";
+import GlobalSessionContext from "../../../store/global-session-context";
 
 const NameForm = ({ defaultValue, classId }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const { globalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 	const {
 		register,
@@ -18,14 +20,12 @@ const NameForm = ({ defaultValue, classId }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		// TODO: Integration - Frontend
-		// NOTE:	I need you to include the group ID so I can check if the class name
-		//				is already taken for that specific group
+		// TODO: Integration - Backend (groupId added)
 		const details = {
+			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			classId: classId,
 			name: inputs.name,
 			date: new Date().toString(),
-			groupId: "", // TODO
 		};
 		let data = {};
 		const DUMMY_STATUS = "failed 1";
