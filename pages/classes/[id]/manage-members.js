@@ -1,19 +1,18 @@
 import Head from "next/head";
 import { useState } from "react";
 import axios from "axios";
-import AddModal from "../../../components/Classes/Manage/AddModal";
-import NameForm from "../../../components/Classes/Manage/NameForm";
+import AddModal from "../../../components/Classes/ManageMembers/AddModal";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import { PrimaryButton, TertiaryButton } from "../../../components/UI/Buttons";
 import Table from "../../../components/UI/Table/Table";
-import CLASSES_TABS from "../../../constants/classesTabs";
-import { COLUMNS, SIZES } from "../../../constants/manageClass";
+import CLASSES_TABS from "../../../constants/classesConstants";
+import { MANAGE_MEMBERS_COLUMNS, MANAGE_MEMBERS_SIZES } from "../../../constants/classesConstants";
 import useClass from "../../../hooks/useClass";
-
-import classes from "../../../styles/manageClass.module.scss";
 import useHandleResponse from "../../../hooks/useHandleResponse";
+
+import classes from "../../../styles/classManageMembers.module.scss";
 
 const DUMMY_STUDENTS = [
 	{ accountId: "abc123", firstName: "asdfasdasdf", lastName: "asfsasdasddf", email: "abc123@gmail.com" },
@@ -68,17 +67,14 @@ const ClassesManage = () => {
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Manage • {classObject.name} | CreateBase</title>
+				<title>Manage Members • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>
-				Manage {classObject.name} <HeaderToggle />
+				Manage {classObject.name} Members
+				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} /> <HeaderToggle />
 			</h1>
-			<div className={classes.controls}>
-				<NameForm defaultValue={classObject.name} classId={classObject.id} />
-				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} />
-			</div>
-			<Table columns={COLUMNS} data={DUMMY_STUDENTS} pageSizes={SIZES} renderBtns={renderBtns} />
+			<Table columns={MANAGE_MEMBERS_COLUMNS} data={DUMMY_STUDENTS} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} />
 			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} setClassObject={setClassObject} />}
 		</div>
 	);

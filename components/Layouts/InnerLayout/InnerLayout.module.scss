@@ -48,6 +48,7 @@
 		cursor: pointer;
 		height: 3rem;
 		width: 3rem;
+		min-width: 3rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -71,6 +72,7 @@
 		margin-left: 0.5rem;
 		opacity: 0;
 		z-index: 1;
+		white-space: nowrap;
 		transition: opacity 0.1s ease-out;
 	}
 	i:hover {

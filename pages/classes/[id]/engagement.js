@@ -1,7 +1,7 @@
 import Head from "next/head";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
-import CLASSES_TABS from "../../../constants/classesTabs";
+import CLASSES_TABS from "../../../constants/classesConstants";
 
 import classes from "../../../components/Classes/Engagement.module.scss";
 import useClass from "../../../hooks/useClass";

@@ -14,20 +14,15 @@
 		justify-content: space-between;
 		font-size: 1.5rem;
 		font-weight: 600;
+		margin-bottom: 2rem;
 	}
 }
 
-.controls {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
-	margin: 0.5rem 0;
-	.addBtn {
-		margin-bottom: 1rem;
-		i {
-			margin-right: 0.5rem;
-			font-size: 18px;
-		}
+.addBtn {
+	margin-left: auto;
+	i {
+		margin-right: 0.5rem;
+		font-size: 18px;
 	}
 }
 

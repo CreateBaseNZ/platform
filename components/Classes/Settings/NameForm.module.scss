@@ -1,0 +1,17 @@
+@import "/styles/variables";
+
+.form {
+	display: flex;
+	flex-direction: column;
+	margin: 2rem 0;
+	width: 400px;
+}
+
+.submit {
+	background: rgba($blue-mid, 0.1);
+	color: $blue-mid;
+	&:hover {
+		background: $blue-mid;
+		color: white;
+	}
+}

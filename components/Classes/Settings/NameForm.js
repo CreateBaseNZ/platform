@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { TertiaryButton } from "../../UI/Buttons";
 import Input from "../../UI/Input";
-import classes from "./NameForm.module.scss";
 import useHandleResponse from "../../../hooks/useHandleResponse";
+import classes from "./NameForm.module.scss";
 
 const NameForm = ({ defaultValue, classId }) => {
 	const [isLoading, setIsLoading] = useState(false);
