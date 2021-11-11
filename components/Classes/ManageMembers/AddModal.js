@@ -59,11 +59,11 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		// licenseIds is an object where keys are licenseIds and values are checkbox booleans
 		// e.g. { abc123: true, xyz789: false, ijk456: true }
 		const details = {
-			id: classObject.id,
+			classId: classObject.id,
 			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]), // convert licenseIds object to an array of licenseIds
 			date: new Date().toString(),
 		};
-		// continuing the example above, details.licenseIds would now look like this [ abc123, ijk456 ]
+		// continuing the example above, details.licenseIds would be [ abc123, ijk456 ]
 		console.log(details);
 		if (!details.users.length) return setIsLoading(false);
 		let data = {};
