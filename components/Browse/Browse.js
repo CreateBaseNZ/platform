@@ -19,10 +19,10 @@ const Browse = () => {
 	const [activeProject, setActiveProject] = useState(allData[0]);
 
 	// EXAMPLE: Socket - Trigger Socket on Event
-	const socket = io();
-	useEffect(() => {
-		socket.emit("trigger", "browse", globalSession.firstName);
-	}, []);
+	// const socket = io();
+	// useEffect(() => {
+	// 	socket.emit("trigger", "browse", globalSession.firstName);
+	// }, []);
 
 	useEffect(() => {
 		const query = router?.query?.project;
@@ -30,7 +30,7 @@ const Browse = () => {
 		if (queriedProject) {
 			setActiveProject(queriedProject);
 		}
-		socket.emit("trigger", globalSession.groups[globalSession.recentGroups[0]].id);
+		// socket.emit("trigger", globalSession.groups[globalSession.recentGroups[0]].id);
 	}, [router.query.project]);
 
 	return (

@@ -67,21 +67,21 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	const getLayout = Component.getLayout || ((page) => page);
 
 	// EXAMPLE: Socket - Listen to a Trigger
-	const socket = io();
-	useEffect(() => {
-		socket.on("browse", browseSocket);
-		return () => {
-			socket.off("browse", browseSocket);
-		};
-	}, []);
+	// const socket = io();
+	// useEffect(() => {
+	// 	socket.on("browse", browseSocket);
+	// 	return () => {
+	// 		socket.off("browse", browseSocket);
+	// 	};
+	// }, []);
 
-	useEffect(async () => {
-		try {
-			await fetch("/api/socket");
-		} catch (error) {
-			console.log(error);
-		}
-	}, []);
+	// useEffect(async () => {
+	// 	try {
+	// 		await fetch("/api/socket");
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// }, []);
 
 	return (
 		<SessionProvider session={session}>
