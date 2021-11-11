@@ -5,6 +5,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	margin-bottom: 1rem;
 }
 
 .selectedControls {
@@ -20,7 +21,6 @@
 }
 
 .search {
-	margin: 1rem 0;
 	width: 16rem;
 	.input {
 		height: 3rem;

@@ -4,8 +4,9 @@ import { SearchBar } from "../Input";
 
 import classes from "./TableControls.module.scss";
 
-const TableControls = ({ numOfSelected, globalFilter, setGlobalFilter }) => {
+const TableControls = ({ data, selectedRowIds, globalFilter, setGlobalFilter, renderBtns }) => {
 	const [value, setValue] = useState(globalFilter);
+	const numOfSelected = Object.keys(selectedRowIds).length;
 
 	const debounceFn = useAsyncDebounce((value) => {
 		setGlobalFilter(value || undefined);
@@ -23,6 +24,7 @@ const TableControls = ({ numOfSelected, globalFilter, setGlobalFilter }) => {
 					<div className={classes.num}>{numOfSelected} selected</div>
 				</div>
 			) : null}
+			<div style={{ opacity: numOfSelected ? 1 : 0.25, pointerEvents: numOfSelected ? "auto" : "none" }}>{renderBtns.map((fn, i) => fn(i, data, selectedRowIds))}</div>
 			<SearchBar inputProps={{ placeholder: "Search", className: classes.input, value: value || "", onChange: changeHandler }} className={classes.search} />
 		</div>
 	);

@@ -6,7 +6,7 @@ import TableControls from "./TableControls";
 
 import classes from "./Table.module.scss";
 
-const Table = ({ columns, data, pageSizes }) => {
+const Table = ({ columns, data, pageSizes, renderBtns = [] }) => {
 	const {
 		getTableProps,
 		getTableBodyProps,
@@ -57,11 +57,11 @@ const Table = ({ columns, data, pageSizes }) => {
 		}
 	);
 
-	console.log(data);
+	console.log(selectedRowIds);
 
 	return (
 		<div className={classes.container}>
-			<TableControls numOfSelected={Object.keys(selectedRowIds).length} globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
+			<TableControls data={data} selectedRowIds={selectedRowIds} globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} renderBtns={renderBtns} />
 			<div className={classes.tableWrapper}>
 				<table {...getTableProps()} className={classes.table}>
 					<thead className={classes.thead}>

@@ -33,10 +33,14 @@
 	padding-left: 0.5rem;
 }
 
+.theadWrapper {
+	width: 100%;
+}
+
 .thead {
 	height: 2.5rem;
-	background: $lightest;
 	border-radius: 8px 8px 0 0;
+	background: $lighter;
 	.tr {
 		height: 100%;
 	}

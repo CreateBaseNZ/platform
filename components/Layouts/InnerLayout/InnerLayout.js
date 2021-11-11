@@ -9,8 +9,6 @@ const InnerLayout = ({ tabs, children, backHref }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const router = useRouter();
 
-	console.log(router);
-
 	return (
 		<div className={classes.layout}>
 			<div className={classes.sidebar}>

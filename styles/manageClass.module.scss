@@ -6,6 +6,7 @@
 	padding: 1.5rem 2.5rem;
 	display: flex;
 	flex-direction: column;
+	background: white;
 	h1 {
 		width: 100%;
 		display: flex;
@@ -27,5 +28,20 @@
 			margin-right: 0.5rem;
 			font-size: 18px;
 		}
+	}
+}
+
+.removeBtn {
+	background: $lighter;
+	color: $dark;
+	font-size: 12px;
+	margin-right: 1rem;
+	i {
+		font-size: 1rem;
+		margin-right: 0.5em;
+	}
+	&:hover {
+		background: rgba($red, 0.1);
+		color: $red;
 	}
 }
