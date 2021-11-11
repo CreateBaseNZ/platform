@@ -12,7 +12,7 @@ import useClass from "../../../hooks/useClass";
 import classes from "/styles/manageClass.module.scss";
 
 const ClassesManage = () => {
-	const { classObject, classLoaded } = useClass();
+	const { classObject, setClassObject, classLoaded } = useClass();
 	const [showAddModal, setShowAddModal] = useState(false);
 
 	console.log(classObject);
@@ -32,7 +32,7 @@ const ClassesManage = () => {
 				<NameForm defaultValue={classObject.name} classId={classObject.id} />
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} />
 			</div>
-			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} />}
+			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} setClassObject={setClassObject} />}
 		</div>
 	);
 };

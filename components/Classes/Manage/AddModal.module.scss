@@ -91,7 +91,7 @@
 	&::-webkit-scrollbar {
 		width: 8px;
 	}
-	.queryItem {
+	.item {
 		width: 100%;
 		flex: 0 0 3.5rem;
 		overflow: hidden;
@@ -110,17 +110,27 @@
 		label {
 			border-radius: 12px;
 			height: 100%;
-			font-weight: 500;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			padding: 0 1.25rem;
 			justify-content: space-between;
-			color: $dark;
 			background: $lightest;
-			transition: background-color 0.1s ease-out, color 0.1s ease-out;
-			i {
+			transition: background-color 0.1s ease-out;
+			p {
+				font-weight: 500;
+				transition: color 0.1s ease-out;
+			}
+			p:first-child {
+				color: $darkest;
+			}
+			p:nth-child(2) {
+				font-size: 11px;
 				color: $dark;
+				text-transform: capitalize;
+			}
+			i {
+				color: $darkest;
 			}
 			.checkIcon {
 				display: none;
@@ -131,7 +141,9 @@
 		}
 		&:hover label {
 			background: $lighter;
-			color: $blue-mid;
+			p {
+				color: $blue-mid;
+			}
 			i {
 				color: $blue-mid;
 			}

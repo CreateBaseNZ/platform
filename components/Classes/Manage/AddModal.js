@@ -11,8 +11,9 @@ import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 import { SearchBar } from "../../UI/Input";
 
 import classes from "./AddModal.module.scss";
+import router from "next/router";
 
-const AddModal = ({ setShow, classObject }) => {
+const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const ref = useRef();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
@@ -29,7 +30,7 @@ const AddModal = ({ setShow, classObject }) => {
 		};
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
-		// TODO move api's into hooks
+		// TODO move api's into hooks (make reusable)
 		try {
 			data = (await axios.post("/api/groups/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
@@ -43,16 +44,37 @@ const AddModal = ({ setShow, classObject }) => {
 						router.replace("/404");
 					}
 				},
-				successHandler: () => ref.current && setUserList(data.content),
+				// TODO either query all with an extra "joined" prop (preferred)
+				// or only query users not already in class
+				successHandler: () => ref.current && setUserList(data.content.map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
 			});
 		}
 		return () => (ref.current = null);
 	}, []);
 
-	const onSubmit = (inputs) => {
+	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		// TODO add
-		console.log(inputs);
+		const { searchValue, ...rest } = inputs;
+		const details = { id: classObject.id, users: Object.keys(rest).filter((key) => rest[key]) };
+		console.log(details);
+		if (!details.users.length) return setIsLoading(false);
+		let data = {};
+		const DUMMY_STATUS = "succeeded";
+		try {
+			data = (await axios.post("/api/classes/add-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					setClassObject((state) => ({ ...state, ...data.content }));
+					setShow(false);
+					setVisualBell({ type: "success", message: `${details.users.length} new user${details.users.length === 1 ? "" : "s"} added` });
+				},
+			});
+		}
 	};
 
 	return (
@@ -75,10 +97,14 @@ const AddModal = ({ setShow, classObject }) => {
 							{userList.map(
 								(user) =>
 									user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
-										<div className={`${classes.queryItem} ${user.joined ? classes.disabled : ""}`} key={user.id}>
-											<input type="checkbox" id={user.id} name={user.id} {...register(user.id)} />
+										<div key={user.accountId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`} key={user.accountId}>
+											<input type="checkbox" id={user.accountId} name={user.accountId} {...register(user.accountId)} />
 											<label>
-												{user.name} <i className={`material-icons-outlined ${classes.addIcon}`}>add_circle_outline</i>
+												<div>
+													<p>{user.name}</p>
+													<p>{user.role}</p>
+												</div>
+												<i className={`material-icons-outlined ${classes.addIcon}`}>add_circle_outline</i>
 												<i className={`material-icons ${classes.checkIcon}`}>check_circle</i>
 												<span>Already in this class</span>
 											</label>
@@ -86,7 +112,7 @@ const AddModal = ({ setShow, classObject }) => {
 									)
 							)}
 						</div>
-						<PrimaryButton className={classes.submitBtn} isLoading={isLoading} type="submit" mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} />
+						<PrimaryButton className={classes.submitBtn} isLoading={isLoading} type="submit" mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} loadingLabel="Adding" />
 					</form>
 				</div>
 			</div>
