@@ -35,7 +35,7 @@
 	width: calc(100% - 3rem);
 	height: 3.5rem;
 	background: $logo-mid;
-	border-radius: 8px;
+	border-radius: 1rem;
 	box-shadow: 0 8px 36px -8px rgba($logo-mid, 0.75);
 	transition: top 0.2s ease-out;
 	animation: slide-down 0.4s ease-out forwards;
@@ -52,7 +52,7 @@
 	font-weight: 500;
 	padding-left: 1rem;
 	transform: translateX(-100%);
-	border-radius: 8px;
+	border-radius: 1rem;
 	opacity: 0;
 	animation: slide-in 0.4s ease-out forwards;
 	transition: color 0.1s ease-out, padding-left 0.1s ease-out;
@@ -60,10 +60,14 @@
 		color: inherit;
 		font-size: 20px;
 		margin-right: 1rem;
+		transition: transform 0.1s ease-out;
 	}
 	&:hover {
 		color: $darker;
 		background: rgba(black, 0.025);
+		i {
+			transform: translateX(2px);
+		}
 	}
 	&.active {
 		z-index: 1;
@@ -71,6 +75,9 @@
 		background: transparent;
 		font-weight: 600;
 		padding-left: 1.5rem;
+		i {
+			transform: translateX(2px);
+		}
 	}
 }
 

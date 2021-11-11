@@ -5,6 +5,7 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesConstants";
 import useClass from "../../../hooks/useClass";
 import NameForm from "../../../components/Classes/Settings/NameForm";
+import { TertiaryButton } from "../../../components/UI/Buttons";
 
 import classes from "../../../styles/classesSettings.module.scss";
 
@@ -14,7 +15,7 @@ const ClassesSettings = () => {
 	if (!classLoaded) return null;
 
 	return (
-		<div className={classes.view}>
+		<div className={`${classes.view} roundScrollbar`}>
 			<Head>
 				<title>Settings • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
@@ -23,7 +24,25 @@ const ClassesSettings = () => {
 				Settings <HeaderToggle />
 			</h1>
 			<div className={classes.container}>
-				<NameForm defaultValue={classObject.name} classId={classObject.id} />
+				<div className={classes.wrapper}>
+					<NameForm defaultValue={classObject.name} classId={classObject.id} />
+					<div className={classes.divider} />
+					<TertiaryButton
+						className={classes.leaveBtn}
+						mainLabel="Leave class"
+						onClick={() => {
+							console.log("//TODO");
+						}}
+					/>
+					<div className={classes.divider} />
+					<TertiaryButton
+						className={classes.deleteBtn}
+						mainLabel="Delete class"
+						onClick={() => {
+							console.log("//TODO");
+						}}
+					/>
+				</div>
 			</div>
 		</div>
 	);

@@ -2,7 +2,7 @@ import classes from "./Buttons.module.scss";
 
 export const PrimaryButton = ({ className, isDisabled, isLoading = false, loadingLabel = "Loading ...", mainLabel = "Button", iconLeft, iconRight, ...rest }) => {
 	return (
-		<button {...rest} className={`${classes.primary} ${isDisabled || isLoading ? classes.disabled : ""} ${className}`}>
+		<button {...rest} className={`${classes.primary} ${isDisabled || isLoading ? classes.disabled : ""} ${className}`} title={mainLabel}>
 			{isLoading ? <div className={classes.loader} /> : iconLeft}
 			{isLoading ? loadingLabel : mainLabel}
 			{!isLoading ? iconRight : null}
@@ -12,7 +12,7 @@ export const PrimaryButton = ({ className, isDisabled, isLoading = false, loadin
 
 export const SecondaryButton = ({ className, isDisabled, isLoading = false, loadingLabel = "Loading ...", mainLabel = "Button", iconLeft, iconRight, ...rest }) => {
 	return (
-		<button {...rest} className={`${classes.tertiary} ${isDisabled || isLoading ? classes.disabled : ""} ${className}`}>
+		<button {...rest} className={`${classes.tertiary} ${isDisabled || isLoading ? classes.disabled : ""} ${className}`} title={mainLabel}>
 			{isLoading ? <div className={classes.loader} /> : iconLeft}
 			{isLoading ? loadingLabel : mainLabel}
 			{!isLoading ? iconRight : null}
@@ -22,7 +22,7 @@ export const SecondaryButton = ({ className, isDisabled, isLoading = false, load
 
 export const TertiaryButton = ({ className, isDisabled, isLoading = false, loadingLabel = "Loading ...", mainLabel = "Button", iconLeft, iconRight, ...rest }) => {
 	return (
-		<button {...rest} className={`${classes.tertiary} ${isDisabled || isLoading ? classes.disabled : ""} ${className}`}>
+		<button {...rest} className={`${classes.tertiary} ${isDisabled || isLoading ? classes.disabled : ""} ${className}`} title={mainLabel}>
 			{isLoading ? <div className={classes.loader} /> : iconLeft}
 			{isLoading ? loadingLabel : mainLabel}
 			{!isLoading ? iconRight : null}

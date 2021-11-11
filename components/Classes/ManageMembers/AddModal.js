@@ -30,7 +30,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		};
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
-		// TODO move api's into hooks (make reusable)
+		// TODO move api's into hooks (make reusable) [FRONTEND]
 		try {
 			data = (await axios.post("/api/groups/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
@@ -44,7 +44,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 						router.replace("/404");
 					}
 				},
-				// TODO either query all with an extra "joined" prop (preferred)
+				// TODO either query all with an extra "joined" prop (preferred) [TBD]
 				// or only query users not already in class
 				successHandler: () => ref.current && setUserList(data.content.map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
 			});
@@ -54,17 +54,16 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		const { searchValue, ...rest } = inputs;
-		// TODO: Integration - Frontend
-		// EXPLAIN:	Louis - Can you expand on what these properties are?
-		// NOTE:		What I will need in order to add users to a class is their licenseId
-		//					associated with the group that their in and the group which the class is
-		//					created on. So, you users property should be an array of licenseIds.
+		const { searchValue, ...licenseIds } = inputs;
+		// TODO: Integration - Backend (continued)
+		// licenseIds is an object where keys are licenseIds and values are checkbox booleans
+		// e.g. { abc123: true, xyz789: false, ijk456: true }
 		const details = {
 			id: classObject.id,
-			users: Object.keys(rest).filter((key) => rest[key]),
+			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]), // convert licenseIds object to an array of licenseIds
 			date: new Date().toString(),
 		};
+		// continuing the example above, details.licenseIds would now look like this [ abc123, ijk456 ]
 		console.log(details);
 		if (!details.users.length) return setIsLoading(false);
 		let data = {};
@@ -106,8 +105,8 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 							{userList.map(
 								(user) =>
 									user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
-										<div key={user.accountId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`} key={user.accountId}>
-											<input type="checkbox" id={user.accountId} name={user.accountId} {...register(user.accountId)} />
+										<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`} key={user.licenseId}>
+											<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(user.licenseId)} />
 											<label>
 												<div>
 													<p>{user.name}</p>
