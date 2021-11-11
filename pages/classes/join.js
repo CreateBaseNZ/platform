@@ -7,7 +7,7 @@ import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { SearchBar } from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
-import classes from "/styles/classes.module.scss";
+import classes from "../../styles/classes.module.scss";
 import GlobalSessionContext from "../../store/global-session-context";
 import useHandleResponse from "../../hooks/useHandleResponse";
 import router from "next/router";
@@ -67,7 +67,7 @@ const ClassJoin = () => {
 				data,
 				failHandler: () => {},
 				successHandler: () => {
-					setVisualBell({ type: "success", message: `Your request${details.classes.length === 1 ? "" : "s"} have been successfully sent` });
+					setVisualBell({ type: "success", message: `Request${details.classes.length === 1 ? "" : "s"} sent` });
 					router.push("/classes");
 				},
 			});

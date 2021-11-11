@@ -82,6 +82,8 @@ export default async function (req, res) {
 	users.concat(constructUsers(data.content[0].licenses.active));
 	users.concat(constructUsers(data.content[0].licenses.queue));
 	users.concat(constructUsers(data.content[0].licenses.inactive));
+	console.log(users);
+
 	// TODO: Check the privileges
 	return res.send({ status: "succeeded", content: users });
 }

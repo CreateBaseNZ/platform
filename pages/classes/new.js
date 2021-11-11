@@ -28,18 +28,12 @@ const ClassesNew = () => {
 	const onSubmit = async (input) => {
 		const DUMMY_STATUS = "succeeded";
 		let data;
-		// FEEDBACK (CARL): When creating a class we will also need these additional inputs:
-		// alias			- this is the name of the teacher, you have on your example Mrs Applecrumb.
-		//							How do we determine the title name (e.g., Mr, Miss, Mrs, etc.)?
-		//							But yeah, just so I don't need to fetch the user's profile details, just
-		//							send through their name as alias, and that's what's going to be returned.
-		// TBD
 		const details = {
 			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			name: input.name,
 			date: new Date().toString(),
-			alias: `${globalSession.firstName} ${globalSession.lastName}`,
+			alias: globalSession.groups[globalSession.recentGroups[0]].alias,
 		};
 		try {
 			data = (await axios.post("/api/classes/new", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];

@@ -10,6 +10,8 @@ import classes from "/styles/classes.module.scss";
 import GlobalSessionContext from "../../store/global-session-context";
 import useHandleResponse from "../../hooks/useHandleResponse";
 
+// TODO fetch all classes (i.e. also those pending approval)
+
 const ClassesTabRoot = () => {
 	const router = useRouter();
 	const { handleResponse } = useHandleResponse();
@@ -36,7 +38,8 @@ const ClassesTabRoot = () => {
 				},
 			});
 		}
-	}, []);
+		// TODO refetch when alias changes (to be upgraded to websocket)
+	}, [globalSession.groups[globalSession.recentGroups[0]].alias]);
 
 	const cardClickHandler = (_class) => {
 		router.push({ pathname: "/classes/[id]/announcements", query: { id: _class.id } });
