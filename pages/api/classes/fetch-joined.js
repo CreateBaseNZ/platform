@@ -36,7 +36,7 @@ export default async function (req, res) {
 	if (_data.status !== "succeeded") return res.send({ status: "error" });
 	// Filter the classes
 	_data.content[0].classes = _data.content[0].classes.filter((instance) => {
-		return instance.licenses.find((licenseId) => licenseId.toString() === input.licenseId.toString());
+		return instance.licenses.find((license) => license._id.toString() === input.licenseId.toString());
 	});
 	// Construct the success object
 	const data = { status: "succeeded", content: constructClasses(_data.content[0].classes) };
