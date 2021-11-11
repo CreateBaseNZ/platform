@@ -37,18 +37,22 @@ const Header = ({ setShowAliasModal }) => {
 						<div className={`${classes.headerUser} ${showDropdown ? classes.active : ""}`} onClick={() => setShowDropdown((state) => !state)}>
 							<UserAvatar size={40} id={globalSession.profileId} className={classes.avatar} />
 							<div className={classes.headerName}>
-								{globalSession.recentGroups.length ? globalSession.groups[globalSession.recentGroups[0]].alias : `${globalSession.firstName} ${globalSession.lastName}`}
+								{(globalSession.recentGroups.length && globalSession.groups[globalSession.recentGroups[0]].alias) || `${globalSession.firstName} ${globalSession.lastName}`}
 							</div>
 							<i className="material-icons-outlined">expand_more</i>
 						</div>
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
 							{globalSession.recentGroups.length ? (
 								<>
-									<button onMouseDown={() => setShowAliasModal(true)} title="Edit alias">
-										<i className="material-icons-outlined">badge</i>
-										<span>Edit alias</span>
-									</button>
-									<div className={classes.divider} />
+									{globalSession.groups[globalSession.recentGroups[0]].role !== "student" && (
+										<>
+											<button onMouseDown={() => setShowAliasModal(true)} title="Edit alias">
+												<i className="material-icons-outlined">badge</i>
+												<span>Edit alias</span>
+											</button>
+											<div className={classes.divider} />
+										</>
+									)}
 									{globalSession.recentGroups.map((groupIndex) => (
 										<button key={groupIndex} onMouseDown={() => changeGroup(groupIndex)} title={globalSession.groups[groupIndex].name}>
 											<i className="material-icons-outlined">

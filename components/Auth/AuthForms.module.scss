@@ -201,11 +201,12 @@
 		flex: 0 0 3.5rem;
 		margin-top: auto;
 		margin-bottom: 4vh;
-		border-color: $green-mid;
+		background: rgba($green-mid, 0.1);
 		color: $green-mid;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
 		&:hover {
-			border-color: $green-dark;
-			color: $green-dark;
+			color: white;
+			background: $green-mid;
 		}
 	}
 }

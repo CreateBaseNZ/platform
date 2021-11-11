@@ -3,7 +3,7 @@ import Link from "next/link";
 import router from "next/router";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
-import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
+import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import classes from "./AuthForms.module.scss";
 
@@ -97,7 +97,7 @@ export const LoginForm = () => {
 					</Link>
 				</div>
 			</form>
-			<SecondaryButton
+			<TertiaryButton
 				className={classes.secondaryBtn}
 				isDisabled={isLoading}
 				type="button"

@@ -2,8 +2,9 @@ import { useTable, usePagination, useColumnOrder, useRowSelect, useSortBy, useGl
 import IndeterminateCheckbox from "./IndeterminateCheckbox";
 import PageNav from "./PageNav";
 import PageSizeSelect from "./PageSizeSelect";
-import classes from "./Table.module.scss";
 import TableControls from "./TableControls";
+
+import classes from "./Table.module.scss";
 
 const Table = ({ columns, data, pageSizes }) => {
 	const {
@@ -55,6 +56,8 @@ const Table = ({ columns, data, pageSizes }) => {
 			]);
 		}
 	);
+
+	console.log(data);
 
 	return (
 		<div className={classes.container}>

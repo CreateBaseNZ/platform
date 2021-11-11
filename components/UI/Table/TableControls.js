@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAsyncDebounce } from "react-table";
-import { SearchBar } from "../UI/Input";
+import { SearchBar } from "../Input";
 
 import classes from "./TableControls.module.scss";
 

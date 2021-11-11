@@ -4,7 +4,7 @@ import Head from "next/head";
 import axios from "axios";
 import useHandleResponse from "../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../store/global-session-context";
-import Table from "./Table";
+import Table from "../UI/Table/Table";
 import { COLUMNS, SIZES } from "../../constants/manageGroup";
 
 import classes from "/styles/manageGroup.module.scss";
@@ -16,6 +16,7 @@ const ManageGroup = ({ role }) => {
 	const { handleResponse } = useHandleResponse();
 	const [data, setData] = useState([]);
 
+	// TODO also return emails
 	useEffect(async () => {
 		const details = {
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
@@ -28,6 +29,8 @@ const ManageGroup = ({ role }) => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
+			console.log(ref.current);
 			handleResponse({
 				data,
 				failHandler: () => {
@@ -38,9 +41,8 @@ const ManageGroup = ({ role }) => {
 				successHandler: () => ref.current && setData(data.content.filter((user) => user.role === role)),
 			});
 		}
+		() => (ref.current = null);
 	}, []);
-
-	useEffect(() => (ref.current = null), []);
 
 	if (!role) {
 		router.replace("/manage-group/students");
