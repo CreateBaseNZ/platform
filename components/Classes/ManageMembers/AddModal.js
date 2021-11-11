@@ -55,7 +55,16 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
 		const { searchValue, ...rest } = inputs;
-		const details = { id: classObject.id, users: Object.keys(rest).filter((key) => rest[key]) };
+		// TODO: Integration - Frontend
+		// EXPLAIN:	Louis - Can you expand on what these properties are?
+		// NOTE:		What I will need in order to add users to a class is their licenseId
+		//					associated with the group that their in and the group which the class is
+		//					created on. So, you users property should be an array of licenseIds.
+		const details = {
+			id: classObject.id,
+			users: Object.keys(rest).filter((key) => rest[key]),
+			date: new Date().toString(),
+		};
 		console.log(details);
 		if (!details.users.length) return setIsLoading(false);
 		let data = {};

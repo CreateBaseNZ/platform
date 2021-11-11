@@ -18,9 +18,14 @@ const NameForm = ({ defaultValue, classId }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
+		// TODO: Integration - Frontend
+		// NOTE:	I need you to include the group ID so I can check if the class name
+		//				is already taken for that specific group
 		const details = {
 			classId: classId,
 			name: inputs.name,
+			date: new Date().toString(),
+			groupId: "", // TODO
 		};
 		let data = {};
 		const DUMMY_STATUS = "failed 1";

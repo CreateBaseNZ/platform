@@ -72,6 +72,7 @@ const constructClass = (instance) => {
 	let students = instance.licenses.filter((license) => license.role === "student");
 	students = students.map((license) => {
 		return {
+			licenseId: license._id,
 			firstName: license.profile.name.first,
 			lastName: license.profile.name.last,
 		};
