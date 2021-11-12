@@ -9,8 +9,6 @@ import classes from "./Nav.module.scss";
 const Nav = ({ page }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
-	console.log(globalSession);
-
 	const defaultTabs = globalSession.recentGroups.length
 		? [...MAIN_TABS[globalSession.groups[globalSession.recentGroups[0]].type]?.[globalSession.groups[globalSession.recentGroups[0]].role], { page: null }]
 		: [];
@@ -45,6 +43,7 @@ const Nav = ({ page }) => {
 							<button className={`${classes.tab} ${activeTab === i + defaultTabs.length ? classes.active : ""}`}>
 								<i className="material-icons-outlined">{l.icon}</i>
 								{l.label}
+								{l.page === "inbox" && <div className={classes.inbox}>3</div>}
 							</button>
 						</Link>
 					))}
@@ -53,5 +52,7 @@ const Nav = ({ page }) => {
 		</nav>
 	);
 };
+
+// TODO populate notification number [FRONTEND]
 
 export default Nav;

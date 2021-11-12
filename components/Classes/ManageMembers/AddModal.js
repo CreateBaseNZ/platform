@@ -66,7 +66,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		};
 		// continuing the example above, details.licenseIds would be [ abc123, ijk456 ]
 		console.log(details);
-		if (!details.users.length) return setIsLoading(false);
+		if (!details.licenseIds.length) return setIsLoading(false);
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
 		try {
@@ -80,7 +80,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 				successHandler: () => {
 					setClassObject((state) => ({ ...state, ...data.content }));
 					setShow(false);
-					setVisualBell({ type: "success", message: `${details.users.length} new user${details.users.length === 1 ? "" : "s"} added` });
+					setVisualBell({ type: "success", message: `${details.users.length} new user${details.licenseIds.length === 1 ? "" : "s"} added` });
 				},
 			});
 		}

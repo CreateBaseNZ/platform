@@ -81,6 +81,26 @@
 	}
 }
 
+.inbox {
+	height: 1.5rem;
+	width: 1.5rem;
+	border-radius: 1rem;
+	background: $red;
+	color: white;
+	font-size: 14px;
+	margin-left: auto;
+	margin-right: 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.1s ease-out, color 0.1s ease-out;
+}
+
+.active .inbox {
+	background: white;
+	color: $logo-mid;
+}
+
 .divider {
 	height: 3.5rem;
 	margin: 0.25rem 0;

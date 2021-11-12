@@ -12,7 +12,7 @@ export const PrimaryButton = ({ className, isDisabled, isLoading = false, loadin
 
 export const SecondaryButton = ({ className, isDisabled, isLoading = false, loadingLabel = "Loading ...", mainLabel = "Button", iconLeft, iconRight, ...rest }) => {
 	return (
-		<button {...rest} className={`${classes.tertiary} ${isDisabled || isLoading ? classes.disabled : ""} ${className}`} title={mainLabel}>
+		<button {...rest} className={`${classes.secondary} ${isDisabled || isLoading ? classes.disabled : ""} ${className}`} title={mainLabel}>
 			{isLoading ? <div className={classes.loader} /> : iconLeft}
 			{isLoading ? loadingLabel : mainLabel}
 			{!isLoading ? iconRight : null}
