@@ -10,10 +10,12 @@ import { TertiaryButton } from "../../../components/UI/Buttons";
 import classes from "../../../styles/classesSettings.module.scss";
 import { useState } from "react";
 import LeaveModal from "../../../components/Classes/Settings/LeaveModal";
+import DeleteModal from "../../../components/Classes/Settings/DeleteModal";
 
 const ClassesSettings = () => {
 	const { classObject, classLoaded } = useClass();
 	const [showLeaveModal, setShowLeaveModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	if (!classLoaded) return null;
 
@@ -29,19 +31,18 @@ const ClassesSettings = () => {
 			<div className={classes.container}>
 				<div className={classes.wrapper}>
 					<NameForm defaultValue={classObject.name} classId={classObject.id} />
+					{classObject.teachers.length > 1 && (
+						<>
+							<div className={classes.divider} />
+							<TertiaryButton className={classes.leaveBtn} mainLabel="Leave class" onClick={() => setShowLeaveModal(true)} />
+						</>
+					)}
 					<div className={classes.divider} />
-					<TertiaryButton className={classes.leaveBtn} mainLabel="Leave class" onClick={() => setShowLeaveModal(true)} />
-					<div className={classes.divider} />
-					<TertiaryButton
-						className={classes.deleteBtn}
-						mainLabel="Delete class"
-						onClick={() => {
-							console.log("//TODO");
-						}}
-					/>
+					<TertiaryButton className={classes.deleteBtn} mainLabel="Delete class" onClick={() => setShowDeleteModal(true)} />
 				</div>
 			</div>
 			{showLeaveModal && <LeaveModal setShow={setShowLeaveModal} classObject={classObject} />}
+			{showDeleteModal && <DeleteModal setShow={setShowDeleteModal} classObject={classObject} />}
 		</div>
 	);
 };
