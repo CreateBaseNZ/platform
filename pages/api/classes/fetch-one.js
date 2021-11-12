@@ -1,5 +1,4 @@
-// TODO: Integration - Backend
-// TODO include email property in student objects
+// TODO: Integration - Test
 
 // IMPORT ===================================================
 
@@ -50,7 +49,7 @@ export default async function (req, res) {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
 					query: { _id: input.classId },
-					option: { license: [], profile: [] },
+					option: { license: [], profile: [], account: [] },
 				},
 			})
 		)["data"];
@@ -66,16 +65,17 @@ export default async function (req, res) {
 // HELPERS ==================================================
 
 const constructClass = (instance) => {
-	let teachers = instance.licenses.filter((license) => license.role === "teacher" || license.role === "admin");
+	let teachers = instance.licenses.active.filter((license) => license.role === "teacher" || license.role === "admin");
 	teachers = teachers.map((license) => {
 		return license.metadata.alias;
 	});
-	let students = instance.licenses.filter((license) => license.role === "student");
+	let students = instance.licenses.active.filter((license) => license.role === "student");
 	students = students.map((license) => {
 		return {
 			licenseId: license._id,
 			firstName: license.profile.name.first,
 			lastName: license.profile.name.last,
+			email: license.profile.account.email,
 		};
 	});
 	return {

@@ -1,5 +1,4 @@
-// TODO: Integration - Backend
-// TODO add email property
+// TODO: Integration - Test
 
 // IMPORT ===================================================
 
@@ -74,7 +73,7 @@ export default async function (req, res) {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
 					query: { _id: input.schoolId },
-					option: { license: [], profile: [] },
+					option: { license: [], profile: [], account: [] },
 				},
 			})
 		)["data"];
@@ -103,6 +102,7 @@ const constructUsers = (licenses) => {
 			lastName: license.profile.name.last,
 			role: license.role,
 			status: license.status,
+			email: license.profile.account.email,
 		};
 	});
 };

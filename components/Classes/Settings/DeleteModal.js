@@ -17,6 +17,7 @@ const DeleteModal = ({ setShow, classObject }) => {
 		const details = {
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			classId: classObject.id,
+			date: new Date().toString(),
 		};
 		let data = {};
 		const DUMMY_STATUS = "succeeded";

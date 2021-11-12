@@ -32,8 +32,6 @@ const ClassesManage = () => {
 			<TertiaryButton
 				key={key}
 				onClick={async () => {
-					// TODO: Integration - Backend (continued)
-					// Same properties as adding users
 					const details = {
 						classId: classObject.id,
 						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),

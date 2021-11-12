@@ -20,7 +20,6 @@ const NameForm = ({ defaultValue, classId }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		// TODO: Integration - Backend (groupId added)
 		const details = {
 			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			classId: classId,

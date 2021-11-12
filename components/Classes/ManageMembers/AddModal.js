@@ -56,9 +56,6 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
 		const { searchValue, ...licenseIds } = inputs;
-		// TODO: Integration - Backend (continued)
-		// licenseIds is an object where keys are licenseIds and values are checkbox booleans
-		// e.g. { abc123: true, xyz789: false, ijk456: true }
 		const details = {
 			classId: classObject.id,
 			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]), // convert licenseIds object to an array of licenseIds
