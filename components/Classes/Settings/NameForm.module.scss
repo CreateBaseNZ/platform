@@ -3,11 +3,12 @@
 .form {
 	display: flex;
 	flex-direction: column;
-	margin: 2rem 0;
-	width: 400px;
+	margin-top: 2rem;
+	width: 100%;
 }
 
 .submit {
+	margin-top: 1rem;
 	background: rgba($blue-mid, 0.1);
 	color: $blue-mid;
 	&:hover {

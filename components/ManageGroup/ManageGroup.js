@@ -16,7 +16,7 @@ const ManageGroup = ({ role }) => {
 	const { handleResponse } = useHandleResponse();
 	const [data, setData] = useState([]);
 
-	// TODO also return emails
+	// TODO also return emails - Backend
 	useEffect(async () => {
 		const details = {
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,

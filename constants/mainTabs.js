@@ -6,8 +6,9 @@ const MANAGE_GROUP = { urlObject: { pathname: "/manage-group" }, page: "manage-g
 const MY_GROUPS = { urlObject: { pathname: "/my-groups" }, page: "my-groups", label: "My Groups", icon: "groups" };
 const MY_ACCOUNT = { urlObject: { pathname: "/my-account" }, page: "my-account", label: "My Account", icon: "person" };
 const SUPPORT = { urlObject: { pathname: "/support" }, page: "support", label: "Support", icon: "support" };
+const INBOX = { urlObject: { pathname: "/inbox" }, page: "inbox", label: "Inbox", icon: "inbox" };
 
-const DEFAULT_TABS = [MY_GROUPS, ONBOARDING, MY_ACCOUNT, SUPPORT];
+const DEFAULT_TABS = [MY_GROUPS, ONBOARDING, INBOX, MY_ACCOUNT, SUPPORT];
 export default DEFAULT_TABS;
 
 export const MAIN_TABS = {

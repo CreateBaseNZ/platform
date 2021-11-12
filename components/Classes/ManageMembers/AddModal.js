@@ -1,7 +1,9 @@
-// TODO make modals a component
+// TODO make modals a component [FRONTEND]
+// TODO add enter transition animation to modals [FRONTEND]
 
 import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import router from "next/router";
 import axios from "axios";
 import useHandleResponse from "../../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../../store/global-session-context";
@@ -11,7 +13,6 @@ import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 import { SearchBar } from "../../UI/Input";
 
 import classes from "./AddModal.module.scss";
-import router from "next/router";
 
 const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const ref = useRef();
@@ -30,7 +31,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		};
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
-		// TODO move api's into hooks (make reusable)
+		// TODO move api's into hooks (make reusable) [FRONTEND]
 		try {
 			data = (await axios.post("/api/groups/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
@@ -44,7 +45,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 						router.replace("/404");
 					}
 				},
-				// TODO either query all with an extra "joined" prop (preferred)
+				// TODO either query all with an extra "joined" prop (preferred) [TBD]
 				// or only query users not already in class
 				successHandler: () => ref.current && setUserList(data.content.map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
 			});
@@ -54,19 +55,15 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		const { searchValue, ...rest } = inputs;
-		// TODO: Integration - Frontend
-		// EXPLAIN:	Louis - Can you expand on what these properties are?
-		// NOTE:		What I will need in order to add users to a class is their licenseId
-		//					associated with the group that their in and the group which the class is
-		//					created on. So, you users property should be an array of licenseIds.
+		const { searchValue, ...licenseIds } = inputs;
 		const details = {
-			id: classObject.id,
-			users: Object.keys(rest).filter((key) => rest[key]),
+			classId: classObject.id,
+			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]), // convert licenseIds object to an array of licenseIds
 			date: new Date().toString(),
 		};
+		// continuing the example above, details.licenseIds would be [ abc123, ijk456 ]
 		console.log(details);
-		if (!details.users.length) return setIsLoading(false);
+		if (!details.licenseIds.length) return setIsLoading(false);
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
 		try {
@@ -80,7 +77,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 				successHandler: () => {
 					setClassObject((state) => ({ ...state, ...data.content }));
 					setShow(false);
-					setVisualBell({ type: "success", message: `${details.users.length} new user${details.users.length === 1 ? "" : "s"} added` });
+					setVisualBell({ type: "success", message: `${details.users.length} new user${details.licenseIds.length === 1 ? "" : "s"} added` });
 				},
 			});
 		}
@@ -106,8 +103,8 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 							{userList.map(
 								(user) =>
 									user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
-										<div key={user.accountId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`} key={user.accountId}>
-											<input type="checkbox" id={user.accountId} name={user.accountId} {...register(user.accountId)} />
+										<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`} key={user.licenseId}>
+											<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(user.licenseId)} />
 											<label>
 												<div>
 													<p>{user.name}</p>

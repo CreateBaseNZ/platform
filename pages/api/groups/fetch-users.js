@@ -8,29 +8,33 @@ import axios from "axios";
 
 const DUMMY_USERS = [
 	{
-		accountId: "accountId123", // not sure whether to pass account or profile ID or both
-		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		accountId: "accountId123",
+		profileId: "profileId123",
+		email: "asd@asdf.com",
 		firstName: "Cash",
 		lastName: "Buttercup",
 		role: "student",
 	},
 	{
-		accountId: "accountId123", // not sure whether to pass account or profile ID or both
-		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		accountId: "accountId123",
+		profileId: "profileId123",
+		email: "asd@asdf.com",
 		firstName: "Cash",
 		lastName: "Buttercup",
 		role: "student",
 	},
 	{
-		accountId: "accountId123", // not sure whether to pass account or profile ID or both
-		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		accountId: "accountId123",
+		profileId: "profileId123",
+		email: "asd@asdf.com",
 		firstName: "Cash",
 		lastName: "Buttercup",
 		role: "teacher",
 	},
 	{
-		accountId: "accountId123", // not sure whether to pass account or profile ID or both
-		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		accountId: "accountId123",
+		profileId: "profileId123",
+		email: "asd@asdf.com",
 		firstName: "Cash",
 		lastName: "Buttercup",
 		role: "admin",
@@ -69,7 +73,7 @@ export default async function (req, res) {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
 					query: { _id: input.schoolId },
-					option: { license: [], profile: [] },
+					option: { license: [], profile: [], account: [] },
 				},
 			})
 		)["data"];
@@ -98,6 +102,7 @@ const constructUsers = (licenses) => {
 			lastName: license.profile.name.last,
 			role: license.role,
 			status: license.status,
+			email: license.profile.account.email,
 		};
 	});
 };

@@ -32,21 +32,15 @@ const ClassesManage = () => {
 			<TertiaryButton
 				key={key}
 				onClick={async () => {
-					// TODO: Integration - Frontend
-					// EXPLAIN:	Louis - Can you expand on what these properties are? I'm assuming that
-					//					these are the same as the add route. If so, you don't have to explain.
-					// NOTE:		What I will need in order to remove users from a class is their licenseId
-					//					associated with the group that their in and the group which the class is
-					//					created on. So, you users property should be an array of licenseIds.
-					const inputs = {
+					const details = {
 						classId: classObject.id,
-						users: Object.keys(selectedRowIds).map((i) => data[i].accountId),
+						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),
 						date: new Date().toString(),
 					};
 					let _data;
 					const DUMMY_STATUS = "succeeded";
 					try {
-						_data = (await axios.post("/api/classes/remove-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
+						_data = (await axios.post("/api/classes/remove-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 					} catch (error) {
 						_data.status = "error";
 					} finally {
@@ -67,7 +61,7 @@ const ClassesManage = () => {
 		),
 	];
 
-	// TODO replace DUMMY_STUDENTS with classObject.students
+	// TODO replace DUMMY_STUDENTS with classObject.students [FRONTEND]
 
 	if (!classLoaded) return null;
 

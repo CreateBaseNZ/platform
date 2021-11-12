@@ -7,8 +7,9 @@ import axios from "axios";
 // TEST OUTPUT ==============================================
 
 const DUMMY_CLASSES = [
-	{ id: "room21id", name: "Room 21", teachers: ["Mrs Mints"], numOfStudents: 12 },
-	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
+	{ id: "room21id", name: "Room 21", teachers: ["Mrs Mints"], numOfStudents: 12, status: "joined" },
+	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28, status: "invited" },
+	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28, status: "requested" },
 ];
 
 // MAIN =====================================================
@@ -35,19 +36,42 @@ export default async function (req, res) {
 	}
 	if (_data.status !== "succeeded") return res.send({ status: "error" });
 	// Filter the classes
-	_data.content[0].classes = _data.content[0].classes.filter((instance) => {
-		return instance.licenses.find((license) => license._id.toString() === input.licenseId.toString());
-	});
+	// status [str] : joined | invited | requested
+	let classes = [];
+	classes = classes.concat(
+		constructClasses(
+			_data.content[0].classes.filter((instance) => {
+				return instance.licenses.active.find((license) => license._id.toString() === input.licenseId.toString());
+			}),
+			"joined"
+		)
+	);
+	classes = classes.concat(
+		constructClasses(
+			_data.content[0].classes.filter((instance) => {
+				return instance.licenses.requested.find((license) => license._id.toString() === input.licenseId.toString());
+			}),
+			"requested"
+		)
+	);
+	classes = classes.concat(
+		constructClasses(
+			_data.content[0].classes.filter((instance) => {
+				return instance.licenses.invited.find((license) => license._id.toString() === input.licenseId.toString());
+			}),
+			"invited"
+		)
+	);
 	// Construct the success object
-	const data = { status: "succeeded", content: constructClasses(_data.content[0].classes) };
+	const data = { status: "succeeded", content: classes };
 	return res.send(data);
 }
 
 // HELPERS ==================================================
 
-const constructClasses = (classes) => {
+const constructClasses = (classes, status) => {
 	return classes.map((instance) => {
-		let teachers = instance.licenses.filter((license) => license.role === "teacher" || license.role === "admin");
+		let teachers = instance.licenses.active.filter((license) => license.role === "teacher" || license.role === "admin");
 		teachers = teachers.map((license) => {
 			return license.metadata.alias;
 		});
@@ -55,7 +79,8 @@ const constructClasses = (classes) => {
 			id: instance._id,
 			name: instance.name,
 			teachers,
-			numOfStudents: instance.licenses.filter((license) => license.role === "student").length,
+			numOfStudents: instance.licenses.active.filter((license) => license.role === "student").length,
+			status,
 		};
 	});
 };

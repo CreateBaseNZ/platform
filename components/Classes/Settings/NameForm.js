@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { TertiaryButton } from "../../UI/Buttons";
 import Input from "../../UI/Input";
 import useHandleResponse from "../../../hooks/useHandleResponse";
 import classes from "./NameForm.module.scss";
+import GlobalSessionContext from "../../../store/global-session-context";
 
 const NameForm = ({ defaultValue, classId }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const { globalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 	const {
 		register,
@@ -18,14 +20,11 @@ const NameForm = ({ defaultValue, classId }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		// TODO: Integration - Frontend
-		// NOTE:	I need you to include the group ID so I can check if the class name
-		//				is already taken for that specific group
 		const details = {
+			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			classId: classId,
 			name: inputs.name,
 			date: new Date().toString(),
-			groupId: "", // TODO
 		};
 		let data = {};
 		const DUMMY_STATUS = "failed 1";
@@ -38,7 +37,7 @@ const NameForm = ({ defaultValue, classId }) => {
 				data,
 				failHandler: () => {
 					if (data.content === "name taken") {
-						setError("name", { type: "manual", message: "Name taken in your school" });
+						setError("name", { type: "manual", message: "This name is already taken in your school" });
 					}
 					setIsLoading(false);
 				},

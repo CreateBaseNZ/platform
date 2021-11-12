@@ -1,4 +1,4 @@
-// TODO: Integration - Review
+// TODO: Integration - Test
 
 // IMPORT ===================================================
 
@@ -38,7 +38,7 @@ export default async function (req, res) {
 
 const constructClasses = (classes) => {
 	return classes.map((instance) => {
-		let teachers = instance.licenses.filter((license) => license.role === "teacher" || license.role === "admin");
+		let teachers = instance.licenses.active.filter((license) => license.role === "teacher" || license.role === "admin");
 		teachers = teachers.map((license) => {
 			return license.metadata.alias;
 		});
@@ -46,7 +46,7 @@ const constructClasses = (classes) => {
 			id: instance._id,
 			name: instance.name,
 			teachers,
-			numOfStudents: instance.licenses.filter((license) => license.role === "student").length,
+			numOfStudents: instance.licenses.active.filter((license) => license.role === "student").length,
 		};
 	});
 };
