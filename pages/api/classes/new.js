@@ -69,6 +69,7 @@ export default async function (req, res) {
 					class: data1.content.class._id,
 					license: input.licenseId,
 					date: input.date,
+					status: "activated",
 				},
 			})
 		)["data"];
