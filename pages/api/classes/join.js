@@ -24,12 +24,18 @@ export default async function (req, res) {
 	// } // no failure modes that I can think of
 	// return res.send(data);
 	// Integration Logic
+	let status;
+	if (input.role === "teacher" || input.role === "admin") {
+		status = "activated";
+	} else {
+		status = "requested";
+	}
 	let data;
 	try {
 		data = (
 			await axios.post(process.env.ROUTE_URL + "/class/add-member", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: { class: input.classId, license: input.licenseId, date: input.date, status: "requested" },
+				input: { class: input.classId, license: input.licenseId, date: input.date, status },
 			})
 		)["data"];
 	} catch (error) {

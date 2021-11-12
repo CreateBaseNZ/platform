@@ -40,7 +40,7 @@ export default async function (req, res) {
 			data = (
 				await axios.post(process.env.ROUTE_URL + "/class/add-member", {
 					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-					input: { class: input.classId, license: licenseId, date: input.date, status: "invited" },
+					input: { class: input.classId, license: licenseId, date: input.date, status: "activated" },
 				})
 			)["data"];
 		} catch (error) {
