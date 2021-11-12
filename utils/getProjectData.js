@@ -1,6 +1,7 @@
 import sendItData from "../data/send-it-data";
 import magnebotData from "../data/magnebot-data";
 import heatSeekerData from "../data/heat-seeker-data";
+import hyperloopData from "../data/hyperloop-data";
 
 // ----- How to Add Projects -----
 //
@@ -17,6 +18,8 @@ const getProjectData = (query) => {
 			return magnebotData;
 		case "heat-seeker":
 			return heatSeekerData;
+		case "hyperloop":
+			return hyperloopData;
 		default:
 			return null;
 	}
@@ -24,4 +27,4 @@ const getProjectData = (query) => {
 
 export default getProjectData;
 
-export const allData = [magnebotData, sendItData, heatSeekerData];
+export const allData = [magnebotData, sendItData, heatSeekerData, hyperloopData];
