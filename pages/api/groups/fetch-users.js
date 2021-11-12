@@ -1,4 +1,5 @@
-// TODO: Integration - Test
+// TODO: Integration - Backend
+// TODO add email property
 
 // IMPORT ===================================================
 
@@ -8,29 +9,33 @@ import axios from "axios";
 
 const DUMMY_USERS = [
 	{
-		accountId: "accountId123", // not sure whether to pass account or profile ID or both
-		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		accountId: "accountId123",
+		profileId: "profileId123",
+		email: "asd@asdf.com",
 		firstName: "Cash",
 		lastName: "Buttercup",
 		role: "student",
 	},
 	{
-		accountId: "accountId123", // not sure whether to pass account or profile ID or both
-		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		accountId: "accountId123",
+		profileId: "profileId123",
+		email: "asd@asdf.com",
 		firstName: "Cash",
 		lastName: "Buttercup",
 		role: "student",
 	},
 	{
-		accountId: "accountId123", // not sure whether to pass account or profile ID or both
-		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		accountId: "accountId123",
+		profileId: "profileId123",
+		email: "asd@asdf.com",
 		firstName: "Cash",
 		lastName: "Buttercup",
 		role: "teacher",
 	},
 	{
-		accountId: "accountId123", // not sure whether to pass account or profile ID or both
-		profileId: "profileId123", // not sure whether to pass account or profile ID or both
+		accountId: "accountId123",
+		profileId: "profileId123",
+		email: "asd@asdf.com",
 		firstName: "Cash",
 		lastName: "Buttercup",
 		role: "admin",

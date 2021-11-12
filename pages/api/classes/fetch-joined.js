@@ -1,4 +1,6 @@
-// TODO: Integration - Test
+// TODO: Integration - Backend
+// TODO: add a `status` property to the class object
+// status [str] : joined | invited | requested
 
 // IMPORT ===================================================
 
@@ -7,8 +9,9 @@ import axios from "axios";
 // TEST OUTPUT ==============================================
 
 const DUMMY_CLASSES = [
-	{ id: "room21id", name: "Room 21", teachers: ["Mrs Mints"], numOfStudents: 12 },
-	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28 },
+	{ id: "room21id", name: "Room 21", teachers: ["Mrs Mints"], numOfStudents: 12, status: "joined" },
+	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28, status: "invited" },
+	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28, status: "requested" },
 ];
 
 // MAIN =====================================================

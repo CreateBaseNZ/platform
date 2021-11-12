@@ -10,8 +10,6 @@ import classes from "/styles/classes.module.scss";
 import GlobalSessionContext from "../../store/global-session-context";
 import useHandleResponse from "../../hooks/useHandleResponse";
 
-// TODO fetch all classes (i.e. also those pending approval)
-
 const ClassesTabRoot = () => {
 	const router = useRouter();
 	const { handleResponse } = useHandleResponse();

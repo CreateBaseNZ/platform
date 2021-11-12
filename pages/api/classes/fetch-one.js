@@ -1,4 +1,5 @@
-// TODO: Integration - Test
+// TODO: Integration - Backend
+// TODO include email property in student objects
 
 // IMPORT ===================================================
 
@@ -11,9 +12,9 @@ const DUMMY_CLASS_DATA = {
 	name: "Room 21",
 	teachers: ["Mrs Mints"],
 	students: [
-		{ firstName: "Jack", lastName: "Pumpkin" },
-		{ firstName: "Jane", lastName: "Passionfruit" },
-		{ firstName: "Joe", lastName: "Mango" },
+		{ firstName: "Jack", lastName: "Pumpkin", email: "email@email.com" },
+		{ firstName: "Jane", lastName: "Passionfruit", email: "email@email.com" },
+		{ firstName: "Joe", lastName: "Mango", email: "email@email.com" },
 	],
 	announcements: [],
 	assignments: [],
