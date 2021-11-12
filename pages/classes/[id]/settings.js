@@ -8,9 +8,12 @@ import NameForm from "../../../components/Classes/Settings/NameForm";
 import { TertiaryButton } from "../../../components/UI/Buttons";
 
 import classes from "../../../styles/classesSettings.module.scss";
+import { useState } from "react";
+import LeaveModal from "../../../components/Classes/Settings/LeaveModal";
 
 const ClassesSettings = () => {
 	const { classObject, classLoaded } = useClass();
+	const [showLeaveModal, setShowLeaveModal] = useState(false);
 
 	if (!classLoaded) return null;
 
@@ -27,13 +30,7 @@ const ClassesSettings = () => {
 				<div className={classes.wrapper}>
 					<NameForm defaultValue={classObject.name} classId={classObject.id} />
 					<div className={classes.divider} />
-					<TertiaryButton
-						className={classes.leaveBtn}
-						mainLabel="Leave class"
-						onClick={() => {
-							console.log("//TODO");
-						}}
-					/>
+					<TertiaryButton className={classes.leaveBtn} mainLabel="Leave class" onClick={() => setShowLeaveModal(true)} />
 					<div className={classes.divider} />
 					<TertiaryButton
 						className={classes.deleteBtn}
@@ -44,6 +41,7 @@ const ClassesSettings = () => {
 					/>
 				</div>
 			</div>
+			{showLeaveModal && <LeaveModal setShow={setShowLeaveModal} classObject={classObject} />}
 		</div>
 	);
 };

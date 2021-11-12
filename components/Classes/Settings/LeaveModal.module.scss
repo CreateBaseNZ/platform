@@ -1,0 +1,75 @@
+@import "/styles/variables";
+
+.view {
+	z-index: 50;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.overlay {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: rgba(250, 242, 216, 0.5);
+	backdrop-filter: blur(2px);
+}
+
+.modal {
+	padding: 2rem 2.5rem;
+	background: white;
+	border-radius: 2rem;
+	box-shadow: 0 8px 2rem 0 rgba(black, 0.1);
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	h2 {
+		font-size: 18px;
+		font-weight: 600;
+		width: calc(20rem + 5vw);
+	}
+	.close {
+		position: absolute;
+		right: 1rem;
+		top: 1rem;
+		padding: 0.5rem;
+		border-radius: 8px;
+		cursor: pointer;
+		color: $dark;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
+		&:hover {
+			background: $lighter;
+			color: $red;
+		}
+	}
+}
+
+.btnContainer {
+	width: 100%;
+	display: flex;
+	margin-top: 2rem;
+}
+
+.leaveBtn {
+	width: 100%;
+	background: $amber;
+	color: white;
+	box-shadow: 0 4px 16px 0 rgba($amber, 0.1);
+	&:hover {
+		box-shadow: 0 8px 24px 0 rgba($amber, 0.25);
+	}
+}
+
+.cancelBtn {
+	margin-right: 1rem;
+	width: 100%;
+	background: $lightest;
+	color: $dark;
+	&:hover {
+		background: $lighter;
+		color: $darkest;
+	}
+}

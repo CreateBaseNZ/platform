@@ -38,7 +38,7 @@ const NameForm = ({ defaultValue, classId }) => {
 				data,
 				failHandler: () => {
 					if (data.content === "name taken") {
-						setError("name", { type: "manual", message: "Name taken in your school" });
+						setError("name", { type: "manual", message: "This name is already taken in your school" });
 					}
 					setIsLoading(false);
 				},

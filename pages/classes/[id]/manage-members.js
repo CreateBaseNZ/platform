@@ -63,7 +63,7 @@ const ClassesManage = () => {
 		),
 	];
 
-	// TODO replace DUMMY_STUDENTS with classObject.students
+	// TODO replace DUMMY_STUDENTS with classObject.students [FRONTEND]
 
 	if (!classLoaded) return null;
 

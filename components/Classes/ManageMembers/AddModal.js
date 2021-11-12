@@ -1,7 +1,9 @@
-// TODO make modals a component
+// TODO make modals a component [FRONTEND]
+// TODO add enter transition animation to modals [FRONTEND]
 
 import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import router from "next/router";
 import axios from "axios";
 import useHandleResponse from "../../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../../store/global-session-context";
@@ -11,7 +13,6 @@ import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 import { SearchBar } from "../../UI/Input";
 
 import classes from "./AddModal.module.scss";
-import router from "next/router";
 
 const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const ref = useRef();
