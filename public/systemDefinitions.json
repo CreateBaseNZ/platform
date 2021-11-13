@@ -268,7 +268,7 @@
 			"NodeOr": "||",
 			"NodePower": "^^"
 		},
-		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute"],
+		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute", "NodeArcTan"],
 		"functions": {
 			"NodeDelay": {
 				"simpleLogic": "Delay",

@@ -1,5 +1,5 @@
 import { NodeStart } from "../components/ReactFlow/NodeGeneral";
-import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeAbsolute, NodeGeneralOperator } from "../components/ReactFlow/NodeOperations";
+import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeAbsolute, NodeArcTan, NodeGeneralOperator } from "../components/ReactFlow/NodeOperations";
 import { NodeGreaterThan, NodeLessThan, NodeEquals, NodeNotEquals } from "../components/ReactFlow/NodeComparisons";
 import { NodeAnd, NodeOr, NodeNot } from "../components/ReactFlow/NodeLogicals";
 import { NodeIf, NodeRepeat, NodeWhile } from "../components/ReactFlow/NodeConditionals";
@@ -91,6 +91,7 @@ export const nodeTypes = {
 	NodeMultiply,
 	NodeDivide,
 	NodeAbsolute,
+	NodeArcTan,
 	NodeGeneralOperator,
 	NodeGreaterThan,
 	NodeLessThan,
@@ -140,6 +141,7 @@ export const tooltips = {
 	NodeMultiply: [<FloatType />, <FloatType />, "Outputs the multiplication of the two inputs"],
 	NodeDivide: [<FloatType />, <FloatType />, "Outputs the division of one input by the other"],
 	NodeAbsolute: [<FloatType />, <FloatType />, "Outputs the absolute of the input (i.e. number without the sign)"],
+	NodeArcTan: [<FloatType />, <FloatType />, "Outputs the arc tangent of the input (i.e. number without the sign)"],
 	NodeGeneralOperator: [<FloatType />, <FloatType />, "Outputs the calulation based on the operation selected"],
 	NodeGreaterThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is greater than the right input, and FALSE otherwise"],
 	NodeLessThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is less than the right input, and FALSE otherwise"],

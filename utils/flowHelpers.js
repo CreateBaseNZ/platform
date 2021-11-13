@@ -7,6 +7,7 @@ export const getDefaultValues = (type) => {
 		type === "NodePrint" ||
 		type === "NodeDelay" ||
 		type === "NodeAbsolute" ||
+		type === "NodeArcTan" ||
 		type === "NodeHeatSeekerMoveForward" ||
 		type === "NodeHeatSeekerMoveBackward" ||
 		type === "NodeAimBotYaw"
@@ -76,6 +77,7 @@ export const nodeTypeHandles = {
 	NodeMultiply: operatorHandles,
 	NodeDivide: operatorHandles,
 	NodeAbsolute: ["float__in__a", "float__out"],
+	NodeArcTan: ["float__in__a", "float__out"],
 	NodeGeneralOperator: operatorHandles,
 	NodeGreaterThan: comparisonHandles,
 	NodeLessThan: comparisonHandles,

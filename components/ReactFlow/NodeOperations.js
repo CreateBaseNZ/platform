@@ -42,6 +42,17 @@ export const NodeAbsolute = memo(({ id, data = { values: { a: 1 }, connections: 
 	);
 });
 
+export const NodeArcTan = memo(({ id, data = { values: { a: 1 }, connections: [] }, isConnectable }) => {
+	return (
+		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`}>
+			<CustomHandle type="target" position="top" id="float__in__a" style={{ left: "auto", right: "34px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+			<h4 style={{ marginLeft: 0 }}>Arc Tan</h4>
+			<InputWithHandle data={data} blockId={id} handleId="float__in__a" inputName="a" />
+			<CustomHandle type="source" position="right" id="float__out" isConnectable={isConnectable} connections={data.connections} />
+		</div>
+	);
+});
+
 export const NodeGeneralOperator = memo(({ id, data = { values: { a: 1, b: 2, operator: "+" }, connections: [] }, isConnectable }) => {
 	const changeHandlerOperator = (event) => {
 		data.callBack({ ...data.values, operator: event.target.value }, id);
@@ -111,3 +122,13 @@ export const NodeAbsoluteMini = memo(() => {
 		</NodeMini>
 	);
 });
+
+export const NodeArcTanMini = memo(() => {
+	return (
+		<NodeMini className={classes.operating} nodeType="NodeArcTan" node={<NodeArcTan />}>
+			<h4>Arc Tan</h4>
+			<div className={classes.blankInput} />
+		</NodeMini>
+	);
+});
+

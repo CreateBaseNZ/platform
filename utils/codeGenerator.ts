@@ -145,6 +145,27 @@ export class CodeGenerator {
 		return [true];
 	}
 
+	private arcTan(blockDetail){
+		let inputs = "a";
+		let val = String(blockDetail.value[inputs]).trim();
+		if (!this.isNumber(val)) {
+			if (!this.checkVariable(val)) {
+				return [false, "error", "The inputs to one of the operators is not a number"];
+			}
+		} else {
+			val = String(Number(val));
+		}
+
+		let output: any;
+		output = "";
+		output = this.checkCorrectVar(String(blockDetail.value.out));
+		const str = `${output}Math.atan(${val})`;
+		const simpleStr = `${output}atan(${val})`;
+		this.simpleExecutes.push(simpleStr);
+		this.executes.push(str);
+		return [true];
+	}
+
 	private start(correctSystem) {
 		this.executes.push(correctSystem.functions.NodeStart.logic);
 		this.simpleExecutes.push(correctSystem.functions.NodeStart.simpleLogic);
@@ -462,6 +483,9 @@ export class CodeGenerator {
 					break;
 				case "NodeAbsolute":
 					[state, type, message] = this.absolute(element);
+					break;
+				case "NodeArcTan":
+					[state, type, message] = this.arcTan(element);
 					break;
 				case "NodeRepeat":
 					[state, type, message] = this.forStart(element);
