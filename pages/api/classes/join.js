@@ -30,7 +30,6 @@ export default async function (req, res) {
 	} else {
 		status = "requested";
 	}
-
 	for (let i = 0; i < input.classIds.length; i++) {
 		let data;
 		try {

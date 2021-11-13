@@ -51,6 +51,7 @@ const ClassJoin = () => {
 			classIds: Object.keys(inputs).filter((key) => inputs[key]),
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			role: globalSession.groups[globalSession.recentGroups[0]].role,
+			date: new Date().toString(),
 		};
 		if (!details.classIds.length) {
 			return setIsLoading(false);
