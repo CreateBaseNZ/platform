@@ -16,6 +16,7 @@ import header from "../../utils/header";
 let codeChanged = false;
 
 let codesDone = 0;
+let m = {};
 
 const TabBar = dynamic(() => import("./TabBar"), {
 	ssr: false,
@@ -136,6 +137,7 @@ const Workspace = (props) => {
 	const runCode = async (code, onceCode) => {
 		let com;
 		codeChanged = true;
+		m = {};
 
 		code += "\nresolve(true);";
 		let functionExecute = async () => {

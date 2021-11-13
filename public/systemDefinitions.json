@@ -229,9 +229,9 @@
 		},
 		"functions": {
 			"NodeStart": {
-				"simpleLogic": "while(gameIsON){",
+				"simpleLogic": "",
 				"inputs": [],
-				"logic": "if(sensorData){\n",
+				"logic": "",
 				"await": false
 			},
 			"NodeAimBotYaw": {
@@ -247,9 +247,9 @@
 				"await": false
 			},
 			"NodeEnd": {
-				"simpleLogic": "}",
+				"simpleLogic": "",
 				"inputs": [],
-				"logic": "}",
+				"logic": "",
 				"await": false
 			}
 		}

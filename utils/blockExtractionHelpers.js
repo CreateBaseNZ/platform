@@ -360,9 +360,9 @@ export const isOnceCode = (projectName) => {
 	switch (projectName) {
 		case "send-it":
 		case "heat-seeker":
+		case "aimbot":
 			return false;
 		case "magnebot":
-		case "aimbot":
 			return true;
 	}
 };
