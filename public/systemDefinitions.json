@@ -240,6 +240,12 @@
 				"logic": "unityContext.send(\"Weapon\", \"SetYawVelocity\", a)",
 				"await": false
 			},
+			"NodeAimBotPitch": {
+				"simpleLogic": "pitchSpeed",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "unityContext.send(\"Weapon\", \"SetPitchVelocity\", a)",
+				"await": false
+			},
 			"NodeEnd": {
 				"simpleLogic": "}",
 				"inputs": [],
