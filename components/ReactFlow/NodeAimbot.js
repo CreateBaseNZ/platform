@@ -7,6 +7,7 @@ import NodeSensing, { NodeSensingBool } from "./NodeSensing";
 import classes from "./Nodes.module.scss";
 
 const NodeAimBotAction = ({ data = { values: getDefaultValues({ selectName }), connections: [] }, id, className, label, selectName, isConnectable, style }) => {
+	console.log(id);
 	return (
 		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.heatSeekerAction}`} style={style}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -29,8 +30,8 @@ export const NodeAimBotYawS = memo(({ data, isConnectable }) => {
 	return <NodeSensing data={data} isConnectable={isConnectable} label="Yaw Sensor" style={{ width: "10rem", height: "2rem" }} />;
 });
 
-export const NodeAimBotYaw = memo(({ data, isConnectable }) => {
-	return <NodeAimBotAction data={data} className={classes.nodeCrouch} label="Set Yaw Speed" selectName="Yaw" dataName="entity" isConnectable={isConnectable} />;
+export const NodeAimBotYaw = memo(({ id, data, isConnectable }) => {
+	return <NodeAimBotAction data={data} id={id} className={classes.nodeCrouch} label="Set Yaw Speed" selectName="Yaw" dataName="entity" isConnectable={isConnectable} />;
 });
 
 export const NodeAimBotPitch = memo(({ data, isConnectable }) => {
@@ -47,7 +48,7 @@ const NodeAimBotActionMini = (props) => {
 
 export const NodeAimBotYawMini = memo(() => {
 	return (
-		<NodeMini className={classes.actioning} nodeType="NodeAimBotYaw" node={<NodeAimBotYaw/>}>
+		<NodeMini className={classes.actioning} nodeType="NodeAimBotYaw" node={<NodeAimBotYaw />}>
 			<h4>Set Yaw Speed</h4>
 		</NodeMini>
 	);
