@@ -12,6 +12,7 @@ import { CodeGenerator } from "../../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
 import { flow2Text, isOnceCode, defineObject, findStartingCode } from "../../utils/blockExtractionHelpers";
 import { convertCode } from "../../utils/textConvertor";
+import header from "../../utils/header";
 let codeChanged = false;
 
 let codesDone = 0;
@@ -100,8 +101,9 @@ const Workspace = (props) => {
 					resolve(true);
 				}
 			};
+			const headerFunctions = header("general") + header(props.query);
 			try {
-				eval("(async ()=>{" + text + "})()").catch((e) => dispError(e));
+				eval(headerFunctions + "(async ()=>{" + text + "})()");
 			} catch (error) {
 				dispError(error);
 			}
@@ -124,6 +126,11 @@ const Workspace = (props) => {
 		const systemName = defineObject(props.query);
 		let code = convertCode(t, systemName, onceCode);
 		runCode(code, onceCode);
+		setFlowVisualBell((state) => ({
+			message: "Code is now running",
+			switch: !state.switch,
+			show: true,
+		}));
 	};
 
 	const runCode = async (code, onceCode) => {
