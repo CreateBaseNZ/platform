@@ -17,6 +17,8 @@ const ClassesSettings = () => {
 	const [showLeaveModal, setShowLeaveModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+	console.log(classObject);
+
 	if (!classLoaded) return null;
 
 	return (

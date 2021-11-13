@@ -29,11 +29,11 @@ const ClassesNew = () => {
 		const DUMMY_STATUS = "succeeded";
 		let data;
 		const details = {
+			alias: globalSession.groups[globalSession.recentGroups[0]].alias,
+			date: new Date().toString(),
 			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			name: input.name,
-			date: new Date().toString(),
-			alias: globalSession.groups[globalSession.recentGroups[0]].alias,
 		};
 		try {
 			data = (await axios.post("/api/classes/new", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];

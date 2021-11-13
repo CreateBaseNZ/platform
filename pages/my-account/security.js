@@ -33,10 +33,10 @@ const MySecurity = () => {
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
 		const details = {
-			oldPassword: inputs.currentPassword,
-			password: inputs.newPassword,
-			email: globalSession.email,
 			date: new Date().toString(),
+			email: globalSession.email,
+			password: inputs.newPassword,
+			oldPassword: inputs.currentPassword,
 		};
 		let data = {};
 		try {

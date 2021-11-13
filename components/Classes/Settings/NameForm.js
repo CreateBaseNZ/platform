@@ -22,9 +22,9 @@ const NameForm = ({ defaultValue, classId }) => {
 		setIsLoading(true);
 		const details = {
 			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+			date: new Date().toString(),
 			classId: classId,
 			name: inputs.name,
-			date: new Date().toString(),
 		};
 		let data = {};
 		const DUMMY_STATUS = "failed 1";

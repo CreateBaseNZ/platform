@@ -25,7 +25,6 @@ export const GlobalSessionContextProvider = (props) => {
 					properties: { profile: ["recentGroups"], license: ["alias"] },
 				};
 				let data;
-				console.log("running");
 				try {
 					data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
 				} catch (error) {

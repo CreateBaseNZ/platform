@@ -15,9 +15,9 @@ const DeleteModal = ({ setShow, classObject }) => {
 
 	const deleteHandler = async () => {
 		const details = {
-			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			classId: classObject.id,
 			date: new Date().toString(),
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 		};
 		let data = {};
 		const DUMMY_STATUS = "succeeded";

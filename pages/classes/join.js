@@ -48,8 +48,8 @@ const ClassJoin = () => {
 		const { searchQuery, ...rest } = inputs;
 		inputs = rest;
 		const details = {
-			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			classIds: Object.keys(inputs).filter((key) => inputs[key]),
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			role: globalSession.groups[globalSession.recentGroups[0]].role,
 		};
 		if (!details.classIds.length) {
@@ -68,7 +68,7 @@ const ClassJoin = () => {
 				data,
 				failHandler: () => {},
 				successHandler: () => {
-					setVisualBell({ type: "success", message: `Request${details.classes.length === 1 ? "" : "s"} sent` });
+					setVisualBell({ type: "success", message: `Request${details.classIds.length === 1 ? "" : "s"} sent` });
 					router.push("/classes");
 				},
 			});

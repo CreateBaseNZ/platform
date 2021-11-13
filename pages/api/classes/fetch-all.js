@@ -1,4 +1,5 @@
-// TODO: Integration - Test
+// TODO: Integration - Documented
+// TODO: Add status property to returned objects
 
 // IMPORT ===================================================
 

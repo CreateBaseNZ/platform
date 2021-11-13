@@ -14,9 +14,9 @@ const LeaveModal = ({ setShow, classObject }) => {
 
 	const leaveHandler = async () => {
 		const details = {
-			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			classId: classObject.id,
 			date: new Date().toString(),
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 		};
 		let data = {};
 		const DUMMY_STATUS = "failed 1";

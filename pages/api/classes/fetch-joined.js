@@ -1,16 +1,10 @@
-// TODO: Integration - Test
+// TODO: Integration - Documented
 
 // IMPORT ===================================================
 
 import axios from "axios";
 
 // TEST OUTPUT ==============================================
-
-const DUMMY_CLASSES = [
-	{ id: "room21id", name: "Room 21", teachers: ["Mrs Mints"], numOfStudents: 12, status: "joined" },
-	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28, status: "invited" },
-	{ id: "room26id", name: "Room 26", teachers: ["Mr Bumblebee"], numOfStudents: 28, status: "requested" },
-];
 
 // MAIN =====================================================
 
@@ -37,7 +31,7 @@ export default async function (req, res) {
 	console.log(_data.content[0].classes);
 	if (_data.status !== "succeeded") return res.send({ status: "error" });
 	// Filter the classes
-	// status [str] : joined | invited | requested
+	// status [str] : joined | requested
 	let classes = [];
 	classes = classes.concat(
 		constructClasses(
