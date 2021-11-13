@@ -19,7 +19,6 @@ const AuthGuard = ({ children, auth }) => {
 
 	console.log(globalSession);
 	console.log("guard rendered");
-	//TODO email verification
 
 	useEffect(() => {
 		if (globalSession.loaded) {

@@ -24,7 +24,10 @@ const ClassJoin = () => {
 
 	useEffect(async () => {
 		let data = {};
-		const details = { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id };
+		const details = {
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+		};
 		const DUMMY_STATUS = "succeeded";
 		try {
 			data = (await axios.post("/api/classes/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
@@ -46,19 +49,17 @@ const ClassJoin = () => {
 		inputs = rest;
 		const details = {
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
-			classes: Object.keys(inputs).filter((key) => inputs[key]),
+			classIds: Object.keys(inputs).filter((key) => inputs[key]),
+			role: globalSession.groups[globalSession.recentGroups[0]].role,
 		};
-		if (!details.classes.length) {
+		if (!details.classIds.length) {
 			return setIsLoading(false);
 		}
-		console.log(details);
-
-		let data = {};
 
 		const DUMMY_STATUS = "succeeded";
+		let data = {};
 		try {
-			data = (await axios.post("/api/classes/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/join", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {

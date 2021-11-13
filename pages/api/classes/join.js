@@ -30,16 +30,20 @@ export default async function (req, res) {
 	} else {
 		status = "requested";
 	}
-	let data;
-	try {
-		data = (
-			await axios.post(process.env.ROUTE_URL + "/class/add-member", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: { class: input.classId, license: input.licenseId, date: input.date, status },
-			})
-		)["data"];
-	} catch (error) {
-		data = { status: "error", content: error };
+
+	for (let i = 0; i < input.classIds.length; i++) {
+		let data;
+		try {
+			data = (
+				await axios.post(process.env.ROUTE_URL + "/class/add-member", {
+					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+					input: { class: input.classIds[i], license: input.licenseId, date: input.date, status },
+				})
+			)["data"];
+		} catch (error) {
+			data = { status: "error", content: error };
+		}
+		if (data.status !== "succeeded") return res.send({ status: "error" });
 	}
-	if (data.status !== "succeeded") return res.send({ status: "error" });
+	return res.send({ status: "succeeded" });
 }

@@ -34,6 +34,7 @@ export default async function (req, res) {
 	} catch (error) {
 		_data = { status: "error", content: error };
 	}
+	console.log(_data.content[0].classes);
 	if (_data.status !== "succeeded") return res.send({ status: "error" });
 	// Filter the classes
 	// status [str] : joined | invited | requested
