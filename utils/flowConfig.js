@@ -5,6 +5,7 @@ import { NodeAnd, NodeOr, NodeNot } from "../components/ReactFlow/NodeLogicals";
 import { NodeIf, NodeRepeat, NodeWhile } from "../components/ReactFlow/NodeConditionals";
 import { NodePrint, NodeDelay, NodeTrue, NodeFalse } from "../components/ReactFlow/NodeUtils";
 import { NodeMagnebotMoveArm, NodeMagnebotSwitch } from "../components/ReactFlow/NodeMagneBot";
+import { NodeAimBotYaw, NodeAimBotYawS } from "../components/ReactFlow/NodeAimbot";
 import { NodeSendItJump, NodeSendItCrouch, NodeSendItDistance, NodeSendItHeightOf, NodeSendItWidthOf, NodeSendItSpeedOf, NodeSendItElevationOf } from "../components/ReactFlow/NodeSendIt";
 import {
 	NodeHeatSeekerLeftWheel,
@@ -129,6 +130,8 @@ export const nodeTypes = {
 	NodeHeatSeekerIsFireNear,
 	NodeHeatSeekerDifference,
 	NodeHeatSeekerFireSensor,
+	NodeAimBotYaw,
+	NodeAimBotYawS
 };
 
 export const tooltips = {
@@ -238,6 +241,15 @@ export const tooltips = {
 	NodeHeatSeekerIsFireNear: [<NoneType />, <BooleanType />, "Outputs whether there is fire in front of the car"],
 	NodeHeatSeekerDifference: [<NoneType />, <FloatType />, "Outputs the difference in reading between the right and left sensors"],
 	NodeHeatSeekerFireSensor: [<NoneType />, <FloatType />, "Outputs the reading from the fire sensor"],
+	NodeAimBotYaw: [
+		<>
+			<ExecutionType />,
+			<FloatType />
+		</>,
+		<ExecutionType />,
+		"Orders both motors to move backwards. If input is zero then they move at equal speed. If input is positive, Left motor is sped up and right is slowed and vice versa ",
+	],
+	NodeAimBotYawS: [<NoneType />, <FloatType />, "Outputs the reading from left line sensor"],
 };
 
 export const initialElements = [

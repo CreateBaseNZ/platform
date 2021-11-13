@@ -1,12 +1,6 @@
 import {
-	NodeSendItCrouchMini,
-	NodeSendItDistanceMini,
-	NodeSendItElevationOfMini,
-	NodeSendItHeightOfMini,
-	NodeSendItJumpMini,
-	NodeSendItSpeedOfMini,
-	NodeSendItWidthOfMini,
-} from "../components/ReactFlow/NodeSendIt";
+	NodeAimBotYawMini, NodeAimBotYawSMini
+} from "../components/ReactFlow/NodeAimbot";
 import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
 import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
 import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
@@ -78,6 +72,8 @@ export default {
 				],
 			},
 			blockList: [
+				{ name: "Sensing", blocks: [<NodeAimBotYawSMini />] },
+				{ name: "Actions", blocks: [<NodeAimBotYawMini />] },
 				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
 				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },

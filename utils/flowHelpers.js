@@ -8,7 +8,8 @@ export const getDefaultValues = (type) => {
 		type === "NodeDelay" ||
 		type === "NodeAbsolute" ||
 		type === "NodeHeatSeekerMoveForward" ||
-		type === "NodeHeatSeekerMoveBackward"
+		type === "NodeHeatSeekerMoveBackward" ||
+		type === "NodeAimBotYaw"
 	) {
 		return { a: 0 };
 	}

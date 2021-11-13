@@ -199,7 +199,7 @@
 		"robot": "aimbot",
 		"startingCode": "",
 		"sensors": {
-			"NodeAimBotYaw": {
+			"NodeAimBotYawS": {
 				"name": "yawSensor",
 				"simpleName": "Yaw"
 			},
@@ -236,7 +236,7 @@
 			},
 			"NodeAimBotYaw": {
 				"simpleLogic": "yawSpeed",
-				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"inputs": [{ "variable": "a", "type": "number", "value": 3 }],
 				"logic": "unityContext.send(\"Weapon\", \"SetYawVelocity\", a)",
 				"await": false
 			},
