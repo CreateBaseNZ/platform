@@ -9,6 +9,8 @@ const getIcon = (type) => {
 			return "play_circle";
 		case "pdf":
 			return "attach_file";
+			case "task":
+				return "quiz";
 		case "tut":
 			return "emoji_objects";
 		case "explore":

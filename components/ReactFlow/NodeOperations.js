@@ -42,6 +42,52 @@ export const NodeAbsolute = memo(({ id, data = { values: { a: 1 }, connections: 
 	);
 });
 
+export const NodeArcTan = memo(({ id, data = { values: { a: 1 }, connections: [] }, isConnectable }) => {
+	return (
+		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`}>
+			<CustomHandle type="target" position="top" id="float__in__a" style={{ left: "auto", right: "34px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+			<h4 style={{ marginLeft: 0 }}>Arc Tan</h4>
+			<InputWithHandle data={data} blockId={id} handleId="float__in__a" inputName="a" />
+			<CustomHandle type="source" position="right" id="float__out" isConnectable={isConnectable} connections={data.connections} />
+		</div>
+	);
+});
+
+export const NodeSqrt = memo(({ id, data = { values: { a: 1 }, connections: [] }, isConnectable }) => {
+	return (
+		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`}>
+			<CustomHandle type="target" position="top" id="float__in__a" style={{ left: "auto", right: "34px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+			<h4 style={{ marginLeft: 0 }}>Sqrt</h4>
+			<InputWithHandle data={data} blockId={id} handleId="float__in__a" inputName="a" />
+			<CustomHandle type="source" position="right" id="float__out" isConnectable={isConnectable} connections={data.connections} />
+		</div>
+	);
+});
+
+export const NodePI = memo(({ data = { connections: [] }, isConnectable }) => {
+	return (
+		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`}>
+			<h4 style={{ marginLeft: 0 }}>PI</h4>
+			<CustomHandle type="source" position="right" id="float__out" isConnectable={isConnectable} connections={data.connections} />
+		</div>
+	);
+});
+
+export const NodeClamp = memo(({ id, data = { values: { a: 1, b: 2, c: 3}, connections: [] }, isConnectable }) => {
+	return (
+		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`} style={{width: "10em"}}> 
+			<CustomHandle type="target" position="top" id="float__in__a" style={{ left: "auto", right: "22px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+			<CustomHandle type="target" position="top" id="float__in__b" style={{ left: "auto", right: "44px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+			<CustomHandle type="target" position="top" id="float__in__c" style={{ left: "auto", right: "66px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+			<h4 style={{ marginLeft: 0 }}>Clamp</h4>
+			<InputWithHandle data={data} blockId={id} handleId="float__in__a" inputName="a" />
+			<InputWithHandle data={data} blockId={id} handleId="float__in__b" inputName="b" />
+			<InputWithHandle data={data} blockId={id} handleId="float__in__c" inputName="c" />
+			<CustomHandle type="source" position="right" id="float__out" isConnectable={isConnectable} connections={data.connections} />
+		</div>
+	);
+});
+
 export const NodeGeneralOperator = memo(({ id, data = { values: { a: 1, b: 2, operator: "+" }, connections: [] }, isConnectable }) => {
 	const changeHandlerOperator = (event) => {
 		data.callBack({ ...data.values, operator: event.target.value }, id);
@@ -107,6 +153,42 @@ export const NodeAbsoluteMini = memo(() => {
 	return (
 		<NodeMini className={classes.operating} nodeType="NodeAbsolute" node={<NodeAbsolute />}>
 			<h4>Absolute</h4>
+			<div className={classes.blankInput} />
+		</NodeMini>
+	);
+});
+
+export const NodeArcTanMini = memo(() => {
+	return (
+		<NodeMini className={classes.operating} nodeType="NodeArcTan" node={<NodeArcTan />}>
+			<h4>Arc Tan</h4>
+			<div className={classes.blankInput} />
+		</NodeMini>
+	);
+});
+
+export const NodePIMini = memo(() => {
+	return (
+		<NodeMini className={classes.operating} nodeType="NodePI" node={<NodePI />}>
+			<h4>PI</h4>
+			<div className={classes.blankInput} />
+		</NodeMini>
+	);
+});
+
+export const NodeSqrtMini = memo(() => {
+	return (
+		<NodeMini className={classes.operating} nodeType="NodeSqrt" node={<NodeSqrt />}>
+			<h4>Sqrt</h4>
+			<div className={classes.blankInput} />
+		</NodeMini>
+	);
+});
+
+export const NodeClampMini = memo(() => {
+	return (
+		<NodeMini className={classes.operating} nodeType="NodeClamp" node={<NodeClamp />}>
+			<h4>Clamp</h4>
 			<div className={classes.blankInput} />
 		</NodeMini>
 	);
