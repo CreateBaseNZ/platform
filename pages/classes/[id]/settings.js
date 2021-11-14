@@ -13,7 +13,7 @@ import LeaveModal from "../../../components/Classes/Settings/LeaveModal";
 import DeleteModal from "../../../components/Classes/Settings/DeleteModal";
 
 const ClassesSettings = () => {
-	const { classObject, classLoaded } = useClass();
+	const { classObject, classLoaded, setClassObject } = useClass();
 	const [showLeaveModal, setShowLeaveModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -32,7 +32,7 @@ const ClassesSettings = () => {
 			</h1>
 			<div className={classes.container}>
 				<div className={classes.wrapper}>
-					<NameForm defaultValue={classObject.name} classId={classObject.id} />
+					<NameForm defaultValue={classObject.name} classId={classObject.id} setClassObject={setClassObject} />
 					{classObject.teachers.length > 1 && (
 						<>
 							<div className={classes.divider} />

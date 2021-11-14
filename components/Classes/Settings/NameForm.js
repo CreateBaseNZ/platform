@@ -7,7 +7,7 @@ import useHandleResponse from "../../../hooks/useHandleResponse";
 import classes from "./NameForm.module.scss";
 import GlobalSessionContext from "../../../store/global-session-context";
 
-const NameForm = ({ defaultValue, classId }) => {
+const NameForm = ({ defaultValue, classId, setClassObject }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
@@ -41,7 +41,7 @@ const NameForm = ({ defaultValue, classId }) => {
 					}
 					setIsLoading(false);
 				},
-				successHandler: () => ref.current && setData(data.content.filter((user) => user.role === role)),
+				successHandler: () => setClassObject((state) => ({ ...state, name: inputs.name })),
 			});
 		}
 	};

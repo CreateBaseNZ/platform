@@ -58,11 +58,9 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		const { searchValue, ...licenseIds } = inputs;
 		const details = {
 			classId: classObject.id,
-			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]), // convert licenseIds object to an array of licenseIds
+			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]),
 			date: new Date().toString(),
 		};
-		// continuing the example above, details.licenseIds would be [ abc123, ijk456 ]
-		console.log(details);
 		if (!details.licenseIds.length) return setIsLoading(false);
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
@@ -71,6 +69,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {},

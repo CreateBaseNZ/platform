@@ -6,13 +6,6 @@ import axios from "axios";
 
 // TEST OUTPUT ==============================================
 
-const DUMMY_OUTPUT = {
-	id: "abcd123",
-	name: "Room 23",
-	teachers: ["Mrs Applecrumb"],
-	students: [],
-};
-
 // MAIN =====================================================
 
 export default async function (req, res) {
