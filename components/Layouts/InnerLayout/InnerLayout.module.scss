@@ -1,6 +1,7 @@
 @import "/styles/variables";
 
 .layout {
+	min-height: 0;
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -90,4 +91,5 @@
 
 .viewport {
 	flex: 1;
+	height: 100%;
 }

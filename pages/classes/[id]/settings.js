@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
@@ -8,7 +9,6 @@ import NameForm from "../../../components/Classes/Settings/NameForm";
 import { TertiaryButton } from "../../../components/UI/Buttons";
 
 import classes from "../../../styles/classesSettings.module.scss";
-import { useState } from "react";
 import LeaveModal from "../../../components/Classes/Settings/LeaveModal";
 import DeleteModal from "../../../components/Classes/Settings/DeleteModal";
 

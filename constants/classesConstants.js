@@ -22,3 +22,8 @@ export const MANAGE_MEMBERS_COLUMNS = [
 ];
 
 export const MANAGE_MEMBERS_SIZES = [10, 20, 50, 100];
+
+export const PROGRESS_VIEW_OPTIONS = [
+	{ id: "project", name: "Project" },
+	{ id: "student", name: "Student" },
+];
