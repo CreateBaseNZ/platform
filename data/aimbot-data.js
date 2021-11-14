@@ -1,10 +1,18 @@
 import {
-	NodeAimBotYawMini, NodeAimBotYawSMini
+	NodeAimBotGetYawAngleMini,
+	NodeAimBotGetPitchAngleMini,
+	NodeAimBotGetMosquitoXPosMini,
+	NodeAimBotGetMosquitoYPosMini,
+	NodeAimBotGetMosquitoZPosMini,
+	NodeAimBotSetYawSpeedMini,
+	NodeAimBotSetPitchSpeedMini,
+	NodeAimBotShootMini
+
 } from "../components/ReactFlow/NodeAimbot";
 import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
 import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
 import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
-import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini } from "../components/ReactFlow/NodeOperations";
+import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini, NodePIMini, NodeSqrtMini, NodeClampMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
 import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 
@@ -73,9 +81,9 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeAimBotYawSMini />] },
-				{ name: "Actions", blocks: [<NodeAimBotYawMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
 				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
 				{ name: "Conditionals", blocks: [<NodeIfMini />] },
@@ -99,7 +107,9 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
 				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
 				{ name: "Conditionals", blocks: [<NodeIfMini />] },
@@ -126,7 +136,9 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
 				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
 				{ name: "Conditionals", blocks: [<NodeIfMini />] },
@@ -150,7 +162,9 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />, <NodeClampMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
 				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
 				{ name: "Conditionals", blocks: [<NodeIfMini />] },
@@ -167,7 +181,9 @@ export default {
 		hints: ["TBD"],
 		code: true,
 		blockList: [
-			{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />] },
+			{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+			{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
+			{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />, <NodeClampMini />] },
 			{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
 			{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
 			{ name: "Conditionals", blocks: [<NodeIfMini />] },

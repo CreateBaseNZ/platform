@@ -199,31 +199,31 @@
 		"robot": "aimbot",
 		"startingCode": "",
 		"sensors": {
-			"NodeAimBotYawS": {
+			"NodeAimBotGetYawAngle": {
 				"name": "yawSensor",
-				"simpleName": "Yaw"
+				"simpleName": "yaw"
 			},
-			"NodeAimBotPitch": {
+			"NodeAimBotGetPitchAngle": {
 				"name": "pitchSensor",
-				"simpleName": "Pitch"
+				"simpleName": "pitch"
 			},
-			"NodeAimBotPositionX": {
+			"NodeAimBotGetMosquitoXPos": {
 				"name": "enemyPosition.x",
-				"simpleName": "Xpos"
+				"simpleName": "xPos"
 			},
-			"NodeAimBotPositionY": {
+			"NodeAimBotGetMosquitoYPos": {
 				"name": "enemyPosition.y",
-				"simpleName": "Ypos"
+				"simpleName": "yPos"
 			},
-			"NodeAimBotPositionZ": {
+			"NodeAimBotGetMosquitoZPos": {
 				"name": "enemyPosition.z",
-				"simpleName": "Zpos"
+				"simpleName": "zPos"
 			}
 		},
 		"actions": {
 			"NodeAimBotShoot": {
 				"inputs": [],
-				"syntaxSimple": "Shoot",
+				"syntaxSimple": "shoot",
 				"syntax": "unityContext.send(\"Weapon\",\"Shoot\");"
 			}
 		},
@@ -234,13 +234,13 @@
 				"logic": "",
 				"await": false
 			},
-			"NodeAimBotYaw": {
+			"NodeAimBotSetYawSpeed": {
 				"simpleLogic": "yawSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 3 }],
 				"logic": "unityContext.send(\"Weapon\", \"SetYawVelocity\", a)",
 				"await": false
 			},
-			"NodeAimBotPitch": {
+			"NodeAimBotSetPitchSpeed": {
 				"simpleLogic": "pitchSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
 				"logic": "unityContext.send(\"Weapon\", \"SetPitchVelocity\", a)",
@@ -268,7 +268,7 @@
 			"NodeOr": "||",
 			"NodePower": "^^"
 		},
-		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute", "NodeArcTan"],
+		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute", "NodeArcTan", "NodePI", "NodeSqrt", "NodeClamp"],
 		"functions": {
 			"NodeDelay": {
 				"simpleLogic": "Delay",
