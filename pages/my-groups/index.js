@@ -65,7 +65,7 @@ const MyGroups = () => {
 							);
 						})}
 					</div>
-					<div className={classes.h2Container}>
+					{/* <div className={classes.h2Container}>
 						<h2>Families</h2>
 						<PrimaryButton className={classes.joinBtn} mainLabel="Join a family" onClick={() => router.push("/my-groups/join-family")} />
 					</div>
@@ -88,7 +88,7 @@ const MyGroups = () => {
 									</div>
 								</div>
 							))}
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>

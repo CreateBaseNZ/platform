@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import useUnity from "../../../hooks/useUnity";
 import Unity from "../../../components/Game/Unity";
@@ -40,6 +41,10 @@ const Play = () => {
 
 	return (
 		<div className={classes.manual}>
+			<Head>
+				<title>Play {data.name} | CreateBase</title>
+				<meta name="description" content="CreateBase" />
+			</Head>
 			<Link href={{ pathname: "/project/[id]/imagine", query: router.query }}>
 				<a className={classes.backButton} title="Back to Imagine">
 					<span className="material-icons-outlined">exit_to_app</span>
