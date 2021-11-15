@@ -62,14 +62,12 @@ const Improve = () => {
 					<Img src="/improve.svg" layout="responsive" width={1000} height={1000} objectFit="cover" />
 				</div>
 				<div className={classes.caption}>{data.improve.caption}</div>
-				{
-					<Link href={{ pathname: "/project/[id]/code/improve", query: router.query }}>
-						<button className={classes.btn}>
-							Improve It!
-							<span className="material-icons-outlined">trending_up</span>
-						</button>
-					</Link>
-				}
+				<Link href={{ pathname: "/game/[id]/improve", query: { id: router.query.id } }}>
+					<button className={classes.btn}>
+						Improve It!
+						<span className="material-icons-outlined">trending_up</span>
+					</button>
+				</Link>
 			</div>
 		</div>
 	);

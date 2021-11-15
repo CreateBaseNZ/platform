@@ -28,7 +28,7 @@ const Research = () => {
 				<title>Research • {subsystemData.title} | CreateBase</title>
 				<meta name="description" content={subsystemData.description} />
 			</Head>
-			<ModuleContainer active={activeModule} clickHandler={(i) => setActiveModule(i)} modules={subsystemData.research.modules} caption={subsystemData.research.caption} />
+			<ModuleContainer active={activeModule} clickHandler={(i) => setActiveModule(i)} modules={subsystemData.research.modules} caption={subsystemData.research.caption} showManualBtn={false} />
 			<div className={classes.mainContainer}>
 				{subsystemData.research.modules[activeModule]?.type === "pdf" && (
 					<div style={{ width: "100%", height: "100%" }}>

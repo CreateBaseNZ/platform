@@ -5,7 +5,7 @@ import useUnity from "../../../hooks/useUnity";
 import Unity from "../../../components/Game/Unity";
 import getProjectData from "../../../utils/getProjectData";
 
-import classes from "/styles/manual.module.scss";
+import classes from "../../../styles/manual.module.scss";
 
 // TODO re integrate loading screen
 const setLoaded = () => {};
@@ -14,8 +14,8 @@ const UnityWrapper = ({ data }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: data.query,
 		scenePrefix: data.scenePrefix,
-		scene: "manual",
-		iteration: data.subsystems.length,
+		mode: "manual",
+		index: data.subsystems.length,
 		setLoaded: setLoaded,
 	});
 
@@ -39,7 +39,7 @@ const Play = () => {
 	if (!data) return null;
 
 	return (
-		<div className={classes.play}>
+		<div className={classes.manual}>
 			<Link href={{ pathname: "/project/[id]/imagine", query: router.query }}>
 				<a className={classes.backButton} title="Back to Imagine">
 					<span className="material-icons-outlined">exit_to_app</span>

@@ -18,7 +18,7 @@ const getIcon = (type) => {
 	}
 };
 
-const ModuleContainer = ({ active, modules = [], clickHandler = () => {}, caption = [] }) => {
+const ModuleContainer = ({ active, modules = [], clickHandler = () => {}, caption = [], showManualBtn = true }) => {
 	return (
 		<div className={`${classes.container} roundScrollbar`}>
 			<div className={classes.captionContainer}>
@@ -36,15 +36,15 @@ const ModuleContainer = ({ active, modules = [], clickHandler = () => {}, captio
 					<p>{item.title}</p>
 				</button>
 			))}
-			<Link href={{ pathname: "/project/[id]/manual", query: router.query }}>
-				<button className={classes.play}>
-					<span className="material-icons-outlined">sports_esports</span>Try the Game
-				</button>
-			</Link>
+			{showManualBtn && (
+				<Link href={{ pathname: "/project/[id]/manual", query: router.query }}>
+					<button className={classes.play}>
+						<span className="material-icons-outlined">sports_esports</span>Try the Game
+					</button>
+				</Link>
+			)}
 		</div>
 	);
 };
-
-// TODO play route
 
 export default ModuleContainer;

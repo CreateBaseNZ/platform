@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 
-const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
+const useUnity = ({ scenePrefix, mode, index, project, setLoaded }) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
 			loaderUrl: `/${project}/unity-build/Build.loader.js`,
@@ -28,7 +28,7 @@ const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
 		});
 	}, []);
 
-	const sceneName = scene === "manual" || scene === "improve" ? `${scenePrefix}_${iteration},${scene}` : `${scenePrefix}_${iteration}`;
+	const sceneName = mode ? `${scenePrefix}_${index},${mode}` : `${scenePrefix}_${index}`;
 
 	useEffect(() => {
 		unityContext.on("loaded", () => {
