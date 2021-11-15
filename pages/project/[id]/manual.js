@@ -15,7 +15,7 @@ const UnityWrapper = ({ data }) => {
 		project: data.query,
 		scenePrefix: data.scenePrefix,
 		mode: "manual",
-		index: data.subsystems.length,
+		index: data.subsystems.length - 1,
 		setLoaded: setLoaded,
 	});
 

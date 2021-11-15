@@ -24,7 +24,7 @@ const ImproveGame = () => {
 
 	if (!data) return null;
 
-	return <Game setLoaded={setLoaded} mode="improve" project={data} index={data.subsystems.length} query={data.query} blockList={data.improve.blockList} />;
+	return <Game setLoaded={setLoaded} mode="improve" project={data} index={data.subsystems.length - 1} query={data.query} blockList={data.improve.blockList} />;
 };
 
 export default ImproveGame;
