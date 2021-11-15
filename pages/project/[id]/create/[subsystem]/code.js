@@ -49,7 +49,7 @@ const Code = () => {
 					<Img src="/create.svg" layout="responsive" width={1000} height={1000} objectFit="contain" />
 				</div>
 				<div className={classes.caption}>{subsystemData.code.caption}</div>
-				<Link href={{ pathname: "/flow/[id]/[subsystem]", query: router.query }}>
+				<Link href={{ pathname: "/game/[id]/[subsystem]", query: router.query }}>
 					<button className={classes.btn}>
 						Start Coding!
 						<span className="material-icons-outlined">arrow_right</span>

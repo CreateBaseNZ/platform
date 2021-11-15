@@ -9,8 +9,8 @@ const getIcon = (type) => {
 			return "play_circle";
 		case "pdf":
 			return "attach_file";
-			case "task":
-				return "quiz";
+		case "task":
+			return "quiz";
 		case "tut":
 			return "emoji_objects";
 		case "explore":
@@ -36,7 +36,7 @@ const ModuleContainer = ({ active, modules = [], clickHandler = () => {}, captio
 					<p>{item.title}</p>
 				</button>
 			))}
-			<Link href={{ pathname: "/project/[id]/play", query: router.query }}>
+			<Link href={{ pathname: "/project/[id]/manual", query: router.query }}>
 				<button className={classes.play}>
 					<span className="material-icons-outlined">sports_esports</span>Try the Game
 				</button>

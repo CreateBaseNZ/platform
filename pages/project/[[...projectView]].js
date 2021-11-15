@@ -10,7 +10,7 @@
 // import Define from "../../components/Project/Define";
 // import Review from "../../components/Project/Review";
 // import Play from "../../components/Play";
-// import Code from "../../components/Code/Code";
+// import Code from "../../components/Game/Game";
 
 // import getProjectData from "../../utils/getProjectData";
 // import classes from "/styles/projectView.module.scss";
@@ -147,3 +147,5 @@
 // ProjectView.auth = "user";
 
 // export default ProjectView;
+
+// TODO delete this file

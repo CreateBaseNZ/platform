@@ -1,8 +1,8 @@
-import Unity from "react-unity-webgl";
+import UnityWebgl from "react-unity-webgl";
 
-import classes from "./Game.module.scss";
+import classes from "./Unity.module.scss";
 
-const Game = ({ unityContext }) => {
+const Unity = ({ unityContext }) => {
 	const focusHandler = () => {
 		unityContext.send("GameController", "FocusCanvas", "1");
 	};
@@ -13,9 +13,9 @@ const Game = ({ unityContext }) => {
 
 	return (
 		<div className={classes.game} onFocus={focusHandler} onBlur={blurHandler} tabIndex={1}>
-			<Unity unityContext={unityContext} style={{ height: "100%", width: "100%" }} />
+			<UnityWebgl unityContext={unityContext} style={{ height: "100%", width: "100%" }} />
 		</div>
 	);
 };
 
-export default Game;
+export default Unity;

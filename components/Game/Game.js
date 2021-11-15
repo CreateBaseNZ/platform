@@ -3,14 +3,14 @@ import Link from "next/link";
 import Head from "next/head";
 import useUnity from "/hooks/useUnity";
 
-import Game from "./Game";
+import Unity from "./Unity";
 import Workspace from "./Workspace";
 
 import { ConsoleContextProvider } from "../../store/console-context";
 
-import classes from "./code.module.scss";
+import classes from "./Game.module.scss";
 
-const Code = ({ setLoaded, mode, project, iteration, query, blockList }) => {
+const Game = ({ setLoaded, mode, project, iteration, query, blockList }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
@@ -32,7 +32,7 @@ const Code = ({ setLoaded, mode, project, iteration, query, blockList }) => {
 							<span className="material-icons-outlined">exit_to_app</span>
 						</button>
 					</Link>
-					<Game unityContext={unityContext} />
+					<Unity unityContext={unityContext} />
 					<Workspace query={query} blockList={blockList} stacked={project.stacked} unityContext={unityContext} sensorData={sensorData} gameState={gameState} />
 				</div>
 			</ConsoleContextProvider>
@@ -40,4 +40,4 @@ const Code = ({ setLoaded, mode, project, iteration, query, blockList }) => {
 	);
 };
 
-export default Code;
+export default Game;

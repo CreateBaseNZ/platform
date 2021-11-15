@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useUnity from "../../../hooks/useUnity";
-import Game from "../../../components/Code/Game";
-
-import classes from "/styles/play.module.scss";
+import Unity from "../../../components/Game/Unity";
 import getProjectData from "../../../utils/getProjectData";
+
+import classes from "/styles/manual.module.scss";
 
 // TODO re integrate loading screen
 const setLoaded = () => {};
 
-const GameWrapper = ({ data }) => {
+const UnityWrapper = ({ data }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: data.query,
 		scenePrefix: data.scenePrefix,
@@ -19,7 +19,7 @@ const GameWrapper = ({ data }) => {
 		setLoaded: setLoaded,
 	});
 
-	return <Game unityContext={unityContext} />;
+	return <Unity unityContext={unityContext} />;
 };
 
 const Play = () => {
@@ -45,7 +45,7 @@ const Play = () => {
 					<span className="material-icons-outlined">exit_to_app</span>
 				</a>
 			</Link>
-			<GameWrapper data={data} />
+			<UnityWrapper data={data} />
 		</div>
 	);
 };
