@@ -20,7 +20,11 @@ export const getDefaultValues = (type) => {
 		type === "NodeAimBotGetMosquitoZPos" ||
 		type === "NodeAimBotShoot" ||
 		type === "NodeAimBotSetYawSpeed" ||
-		type === "NodeAimBotSetPitchSpeed"
+		type === "NodeAimBotSetPitchSpeed" ||
+		type === "NodeAimBotSetCurrentYawSpeed" ||
+		type === "NodeAimBotSetCurrentPitchSpeed" ||
+		type === "NodeAimBotGetCurrentYawSpeed" ||
+		type === "NodeAimBotGetCurrentPitchSpeed"
 	) {
 		return { a: 0 };
 	}
@@ -144,6 +148,10 @@ export const nodeTypeHandles = {
 	NodeAimBotSetYawSpeed: actionHandles,
 	NodeAimBotSetPitchSpeed: actionHandles,
 	NodeAimBotShoot: actionHandles,
+	NodeAimBotSetCurrentYawSpeed: actionHandles,
+	NodeAimBotSetCurrentPitchSpeed: actionHandles,
+	NodeAimBotGetCurrentYawSpeed: sensingHandles,
+	NodeAimBotGetCurrentPitchSpeed: sensingHandles,
 };
 
 export const infoLogs = [

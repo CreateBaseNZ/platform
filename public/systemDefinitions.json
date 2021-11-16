@@ -260,7 +260,7 @@
 				"logic": "return m.currentPitchSpeed",
 				"await": false
 			},
-			"NodeAimBotSetCurentYawSpeed": {
+			"NodeAimBotSetCurrentYawSpeed": {
 				"simpleLogic": "setCurrentYawSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
 				"logic": "return m.currentYawSpeed = a;",

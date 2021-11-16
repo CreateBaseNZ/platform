@@ -61,7 +61,7 @@ export const NodeAimBotGetCurrentPitchSpeed = memo(({ data, isConnectable }) => 
 	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Current Pitch Speed" style={{ width: "10rem", height: "2rem" }} />;
 });
 
-export const NodeAimBotSetCurentYawSpeed = memo(({ id, data, isConnectable }) => {
+export const NodeAimBotSetCurrentYawSpeed = memo(({ id, data, isConnectable }) => {
 	return <NodeAimBotAction data={data} id={id} label="Set Current Yaw Speed" isConnectable={isConnectable} />;
 });
 
