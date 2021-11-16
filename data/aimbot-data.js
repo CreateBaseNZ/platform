@@ -7,10 +7,6 @@ import {
 	NodeAimBotSetYawSpeedMini,
 	NodeAimBotSetPitchSpeedMini,
 	NodeAimBotShootMini,
-	NodeAimBotGetCurrentPitchSpeedMini,
-	NodeAimBotGetCurrentYawSpeedMini,
-	NodeAimBotSetCurrentPitchSpeedMini,
-	NodeAimBotSetCurrentYawSpeedMini,
 } from "../components/ReactFlow/NodeAimbot";
 import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
 import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
@@ -22,8 +18,7 @@ import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 export default {
 	name: "AimBot (WIP)",
 	query: "aimbot",
-	caption:
-		'TBD',
+	caption: "TBD",
 	stacked: true,
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
@@ -63,28 +58,24 @@ export default {
 			},
 		],
 	},
-	iterations: [
+	subsystems: [
 		{
+			title: "Subsystem 1",
+			requirements: [],
+			imgSrc: "/aimbot/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
-				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
-				modules: [
-					{
-					},
-				],
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
+				modules: [],
 			},
-			plan: [
-				"TBD",
-			],
-			create: {
+			plan: ["TBD"],
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["TBD"],
-				hints: [
-					"TBD",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
-				],
+				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
 				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
 				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
@@ -94,23 +85,25 @@ export default {
 			],
 		},
 		{
+			title: "Subsystem 2",
+			requirements: ["Subsystem 1"],
+			imgSrc: "/aimbot/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no new research for this sub-problem. Move onto Plan."],
 				modules: [],
 			},
-			plan: [
-				"TBD",
-			],
-			create: {
+			plan: ["TBD"],
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["TBD"],
-				hints: [
-					"TBD",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
-				],
+				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+				{
+					name: "Sensing",
+					blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />],
+				},
 				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
 				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
@@ -120,26 +113,22 @@ export default {
 			],
 		},
 		{
+			title: "Subsystem 3",
+			requirements: ["Subsystem 1"],
+			imgSrc: "/aimbot/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
-				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
-				modules: [
-					{
-					},
-				],
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
+				modules: [],
 			},
-			plan: [
-				"TBD",
-			],
-			create: {
+			plan: ["TBD"],
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["TBD"],
-				hints: [
-					"TBD",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
-				],
+				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
 				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
 				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
@@ -149,23 +138,25 @@ export default {
 			],
 		},
 		{
+			title: "Subsystem 4",
+			requirements: ["Subsystem 2", "Subsystem 3"],
+			imgSrc: "/aimbot/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no new research for this sub-problem. Move directly to Plan. Do not pass Go. Do not collect $100."],
 				modules: [],
 			},
-			plan: [
-				"TBD",
-			],
-			create: {
+			plan: ["TBD"],
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["TBD"],
-				hints: [
-					"TBD",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
-				],
+				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+				{
+					name: "Sensing",
+					blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />],
+				},
 				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
 				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />, <NodeClampMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
@@ -178,13 +169,14 @@ export default {
 	improve: {
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert: "TBD",
-		tasks: [
-			"TBD",
-		],
+		tasks: ["TBD"],
 		hints: ["TBD"],
 		code: true,
 		blockList: [
-			{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />,] },
+			{
+				name: "Sensing",
+				blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />],
+			},
 			{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
 			{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />, <NodeClampMini />] },
 			{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },

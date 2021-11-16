@@ -1,30 +1,37 @@
-import { useEffect, useState } from "react";
-import BrowseThumb from "./BrowseThumb";
+import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import "overlayscrollbars/css/OverlayScrollbars.css";
+import GlobalSessionContext from "../../store/global-session-context";
+import MainLayout from "../Layouts/MainLayout/MainLayout";
+import BrowseThumb from "./BrowseThumb";
 import BrowsePreview from "./BrowsePreview";
 import { allData } from "../../utils/getProjectData";
 
-import classes from "./Browse.module.scss";
-import { useRouter } from "next/router";
+import "overlayscrollbars/css/OverlayScrollbars.css";
+import classes from "/styles/browse.module.scss";
 
-const Browse = ({ user }) => {
+import { io } from "socket.io-client";
+
+const Browse = () => {
 	const router = useRouter();
+	const { globalSession } = useContext(GlobalSessionContext);
 	const [activeProject, setActiveProject] = useState(allData[0]);
-	const [videoLoaded, setVideoLoaded] = useState(false);
+
+	// EXAMPLE: Socket - Trigger Socket on Event
+	// const socket = io();
+	// useEffect(() => {
+	// 	socket.emit("trigger", "browse", globalSession.firstName);
+	// }, []);
 
 	useEffect(() => {
-		if (router.query && router.query.view[0] === "browse") {
-			const query = router.query.view[1] || "";
-			const queriedProject = allData.filter((data) => data.query === query)[0];
-			if (queriedProject) {
-				setActiveProject(queriedProject);
-			} else {
-				router.replace(`/browse/${allData[0].query}`);
-			}
+		const query = router?.query?.project;
+		const queriedProject = allData.find((data) => data.query === query);
+		if (queriedProject) {
+			setActiveProject(queriedProject);
 		}
-	}, [router.query]);
+		// socket.emit("trigger", globalSession.groups[globalSession.recentGroups[0]].id);
+	}, [router.query.project]);
 
 	return (
 		<OverlayScrollbarsComponent className={classes.browse}>
@@ -34,12 +41,12 @@ const Browse = ({ user }) => {
 			</Head>
 			<div className={classes.inner}>
 				<div className={classes.preview}>
-					<BrowsePreview project={activeProject} videoLoaded={videoLoaded} setVideoLoaded={setVideoLoaded} user={user} />
+					<BrowsePreview project={activeProject} role={globalSession.groups[globalSession.recentGroups[0]].role} />
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>
 					{allData.map((project, index) => (
-						<BrowseThumb key={index} isActive={activeProject.query === project.query} project={project} query={project.query} name={project.name} setVideoLoaded={setVideoLoaded} />
+						<BrowseThumb key={index} isActive={activeProject.query === project.query} project={project} query={project.query} name={project.name} />
 					))}
 					{[...Array(allData.length % 4).keys()].map((i) => (
 						<div key={i} className={classes.empty} />
@@ -49,5 +56,11 @@ const Browse = ({ user }) => {
 		</OverlayScrollbarsComponent>
 	);
 };
+
+Browse.getLayout = (page) => {
+	return <MainLayout page="browse">{page}</MainLayout>;
+};
+
+Browse.auth = "user";
 
 export default Browse;

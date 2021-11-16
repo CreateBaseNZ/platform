@@ -1,0 +1,67 @@
+@import "/styles/variables";
+
+.view {
+	z-index: 50;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.overlay {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: rgba(216, 234, 250, 0.5);
+	backdrop-filter: blur(2px);
+}
+
+.modal {
+	padding: 2rem 2.5rem;
+	background: white;
+	border-radius: 2rem;
+	box-shadow: 0 8px 2rem 0 rgba(black, 0.1);
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	h2 {
+		font-size: 18px;
+		font-weight: 600;
+		width: calc(20rem + 5vw);
+	}
+	.close {
+		position: absolute;
+		right: 1rem;
+		top: 1rem;
+		padding: 0.5rem;
+		border-radius: 8px;
+		cursor: pointer;
+		color: $dark;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
+		&:hover {
+			background: $lighter;
+			color: $red;
+		}
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-top: 0.5rem;
+	.inputContainer {
+		margin: 1rem 0;
+	}
+	.submitBtn {
+		align-self: flex-end;
+		font-size: 1rem;
+		i {
+			margin-left: -0.5rem;
+			margin-right: 0.5rem;
+			font-size: 20px;
+		}
+	}
+}

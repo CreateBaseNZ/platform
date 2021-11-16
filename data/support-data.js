@@ -1,6 +1,6 @@
 import Link from "next/dist/client/link";
 
-const supportData = [
+const SUPPORT_DATA = [
 	{
 		header: "How-To: Videos",
 		icon: "ondemand_video",
@@ -513,4 +513,4 @@ const supportData = [
 	},
 ];
 
-export default supportData;
+export default SUPPORT_DATA;

@@ -92,10 +92,10 @@ svg {
 }
 
 .react-flow__handle-valid {
-	border-color: $green-mid !important;
-	background: $green-mid !important;
+	border-color: $green-light !important;
+	background: $green-light !important;
 	&::after {
-		background: $green-mid !important;
+		background: $green-light !important;
 	}
 }
 

@@ -11,8 +11,8 @@ export default {
 	runType: "once",
 	durPerLesson: "45 mins",
 	numOfLessons: 5,
-	difficulty: "Introductory",
-	subjects: ["Technology", "Engineering", "Computer Science", "Automation", "Maths", "Social Science"],
+	difficulty: "introductory",
+	subjects: ["technology", "engineering", "computerScience", "automation", "math", "socialScience"],
 	learningOutcome: "/magnebot/project_overview.pdf",
 	curriculumAlignment: "/magnebot/curriculum_standards.pdf",
 	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
@@ -48,8 +48,12 @@ export default {
 			},
 		],
 	},
-	iterations: [
+	subsystems: [
 		{
+			title: "TODO",
+			requirements: ["TODO"],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -99,7 +103,7 @@ export default {
 				"As a human, you had to decide which actions to perform in which order to move and control the magnetic sphere. Writing a program is the exact same thing! A program is simply a set of pre-written instructions that tell a robot or other device which action to perform in which order!",
 				"In the Create step, you will write a program (a set of instructions) and upload it to MagneBot. The robot will then follow your exact instructions to automatically complete the same task! Unlike you, however, the robot is unable to make decisions on its own. You will need to tell it exactly what do, testing often to find and solve any problems along the way.",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that MagneBot can clean up the recycling facility for you", "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!"],
 				hints: [

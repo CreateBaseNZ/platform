@@ -1,0 +1,39 @@
+@import "/styles/variables";
+
+.controls {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-bottom: 1rem;
+}
+
+.selectedControls {
+	margin-right: auto;
+	display: flex;
+	align-items: center;
+	.num {
+		width: 4rem;
+		font-size: 12px;
+		font-weight: 600;
+		color: $blue-mid;
+	}
+}
+
+.search {
+	width: 16rem;
+	.input {
+		height: 3rem;
+		padding-left: 2.25rem;
+		font-size: 14px;
+	}
+	p {
+		height: 0;
+	}
+	label {
+		i {
+			top: 1rem !important;
+			left: 0.75rem !important;
+		}
+	}
+}

@@ -23,8 +23,8 @@ export default {
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 6,
-	difficulty: "Proficient",
-	subjects: ["Technology", "Engineering", "Computer Science", "Automation", "AI", "Ethics"],
+	difficulty: "proficient",
+	subjects: ["technology", "engineering", "computerScience", "automation", "ai", "ethics"],
 	learningOutcome: "/send-it/project_overview.pdf",
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
@@ -76,8 +76,12 @@ export default {
 			},
 		],
 	},
-	iterations: [
+	subsystems: [
 		{
+			title: "TODO",
+			requirements: ["TODO"],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through the five modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -145,7 +149,7 @@ export default {
 				"Open up your learning journal and answer all of the questions in the Plan section.",
 				"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
 				hints: ["Make sure that you hit the compile button to upload your code to the robot"],

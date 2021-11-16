@@ -28,18 +28,20 @@ export default {
 	learningOutcome: "/heat-seeker/files/project-overview.pdf",
 	curriculumAlignment: "/heat-seeker/files/curriculum-alignment.pdf",
 	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
-	learnings: ["Explain how and why line-following is used for navigation.",
-	"Understand why we decompose problems.",
-	"Understand the fundamentals of flow-based coding and write code using the Flow editor.",
-	"Describe DC motors and outline how they work (optional).",
-	"Describe IR sensors and outline how they work.",
-	"Define comparators and conditionals.",
-	"Write programs that use sensor data to control an output.",
-	"Use logical reasoning to derive simple and more complex algorithms.",
-	"Write programs that use conditional statements to control an output.",
-	"Differentiate between different types of fires and how to deal with them.",
-	"Define while loops and use them to solve problems.",
-	"Explore ways a solution can be optimised.",],
+	learnings: [
+		"Explain how and why line-following is used for navigation.",
+		"Understand why we decompose problems.",
+		"Understand the fundamentals of flow-based coding and write code using the Flow editor.",
+		"Describe DC motors and outline how they work (optional).",
+		"Describe IR sensors and outline how they work.",
+		"Define comparators and conditionals.",
+		"Write programs that use sensor data to control an output.",
+		"Use logical reasoning to derive simple and more complex algorithms.",
+		"Write programs that use conditional statements to control an output.",
+		"Differentiate between different types of fires and how to deal with them.",
+		"Define while loops and use them to solve problems.",
+		"Explore ways a solution can be optimised.",
+	],
 	define: {
 		url: "https://youtu.be/a7ahjbh_lUg",
 		src: "/heat-seeker/vid/situation.mp4",
@@ -72,8 +74,12 @@ export default {
 			},
 		],
 	},
-	iterations: [
+	subsystems: [
 		{
+			title: "Speed control",
+			requirements: [],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -115,7 +121,7 @@ export default {
 				"In the first step, our aim is to understand how we could move the robot through different paths by adjusting the speed of the wheels.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, following a straight line accross the map."],
 				hints: [
@@ -124,30 +130,12 @@ export default {
 				],
 			},
 			blockList: [{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] }],
-			// improve: {
-			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-			// 	alert:
-			// 		"Oh no, it looks like some of the fires have spread throughout the warehouse! You will now need to use your water hose to put out the smaller fires on the way to your final destination.",
-			// 	tasks: [
-			// 		"Congratulations on successfully creating a line following algorithm! You will now need improve your solution to take into account the smaller fires.",
-			// 		"We will go through another iteration, repeating the same process that we just completed to build up our improved solution.",
-			// 	],
-			// },
 		},
 		{
-			// define: {
-			// 	caption: [
-			// 		"As a class, dive into group discussions around the Project theme to fully define our problem.",
-			// 		"Don't have a teacher to guide you through? Check back soon for individual content!",
-			// 	],
-			// 	modules: [
-			// 		{
-			// 			title: "Define the New Problem",
-			// 			img: "/heat-seeker/img/define-1.jpg",
-			// 			url: "/heat-seeker/files/define-1-heat-seeker.pdf",
-			// 		},
-			// 	],
-			// },
+			title: "Navigating curves",
+			requirements: ["Speed control"],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -178,11 +166,7 @@ export default {
 				"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			// plan: [
-			// 	"In the next Create step, you will need to improve your program so that you can put out the fires on the way to your destination.",
-			// 	"But first, we need to plan what our changes will be. Open up your learning journal and answer all of the questions in the second Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			// ],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line using the sensors."],
 				hints: [
@@ -200,6 +184,10 @@ export default {
 			],
 		},
 		{
+			title: "Navigating turns",
+			requirements: ["Speed control"],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no research step. Move onto Plan."],
 				modules: [],
@@ -209,7 +197,7 @@ export default {
 				"In this step, our aim is to create a plan for how our robot could navigate around multiple turns.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line achieve turns properly."],
 				hints: [
@@ -225,17 +213,12 @@ export default {
 				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 				{ name: "Conditionals", blocks: [<NodeIfMini />] },
 			],
-			// improve: {
-			// 	caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-			// 	alert:
-			// 		"Oh no, it looks like some of the fires have spread throughout the warehouse! You will now need to use your water hose to put out the smaller fires on the way to your final destination.",
-			// 	tasks: [
-			// 		"Congratulations on successfully creating a line following algorithm! You will now need improve your solution to take into account the smaller fires.",
-			// 		"We will go through another iteration, repeating the same process that we just completed to build up our improved solution.",
-			// 	],
-			// },
 		},
 		{
+			title: "Extinguishing fires",
+			requirements: [],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -271,7 +254,7 @@ export default {
 				"In this step, our aim is to create a plan for how our robot could put out fires using the water hose",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, putting out fires along the way."],
 				hints: [
@@ -288,6 +271,10 @@ export default {
 			],
 		},
 		{
+			title: "Putting it all together",
+			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
+			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no research step. Move onto Plan."],
 				modules: [],
@@ -297,7 +284,7 @@ export default {
 				"In this step, we will combine all of the logic and solutions that we have built so far to solve the full problem: navigating around the entire warehouse and putting out any fires in our way.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can follow the line, putting out fires along the way."],
 				hints: [
@@ -337,13 +324,14 @@ export default {
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert:
 			"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
-			tasks: ["In the Improve step, you will optimise your solution to try and put out all the fires in the shortest possible time.",
-					"If you want an additional challenge, try and solve the problem using as few blocks as possible."
-					],
-			hints: [
-					"Your robot's straight-line speed is maximised when the amount of time it spends turning is minimised. You want to be turning as fast as possible but not too fast, or else you may over-shoot the line and have to do another turn.",
-					"You could try sending a variable speed to each motor: if you are far away from the line, then turn quickly. If you are only slightly off the line, then turn slower so that your robot doesn't end up oscillating."
-					],
+		tasks: [
+			"In the Improve step, you will optimise your solution to try and put out all the fires in the shortest possible time.",
+			"If you want an additional challenge, try and solve the problem using as few blocks as possible.",
+		],
+		hints: [
+			"Your robot's straight-line speed is maximised when the amount of time it spends turning is minimised. You want to be turning as fast as possible but not too fast, or else you may over-shoot the line and have to do another turn.",
+			"You could try sending a variable speed to each motor: if you are far away from the line, then turn quickly. If you are only slightly off the line, then turn slower so that your robot doesn't end up oscillating.",
+		],
 		blockList: [
 			{
 				name: "Sensing",

@@ -1,0 +1,69 @@
+@import "/styles/variables";
+
+.myAccount {
+	height: 100%;
+	width: 100%;
+	padding: 5vh 5vw;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	background: white;
+	overflow-y: scroll;
+}
+
+.leftColumn {
+	position: sticky;
+	top: 0;
+	margin-right: 4vw;
+	display: flex;
+	flex-direction: column;
+	h1 {
+		font-size: 2rem;
+		font-weight: 600;
+		color: $darker;
+		margin-bottom: 2vh;
+	}
+}
+
+.menu {
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+	button {
+		margin: 0.5rem 0;
+		width: 100%;
+		height: 3.5rem;
+		display: flex;
+		align-items: center;
+		border-radius: 1rem;
+		padding-left: 1.5rem;
+		font-weight: 500;
+		font-size: 14px;
+		color: $dark;
+		background: $lighter;
+		transition: background-color 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+		i {
+			color: inherit;
+			font-size: 20px;
+			margin-right: 0.75rem;
+		}
+		&:hover {
+			color: $blue-mid;
+			background: rgb($blue-mid, 0.05);
+			transform: translateY(-2px);
+			transition: background-color 0.1s ease-out, color 0.1s ease-out, transform 0.1s ease-out, box-shadow 0.1s ease-out;
+		}
+		&.active {
+			background: $blue-mid;
+			color: white;
+			transform: translateY(-2px);
+			box-shadow: 0 8px 16px 0 rgba($blue-mid, 0.25);
+		}
+	}
+}
+
+.rightColumn {
+	display: flex;
+	flex-direction: column;
+	width: 600px;
+}
