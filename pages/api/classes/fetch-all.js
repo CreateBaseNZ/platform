@@ -31,23 +31,35 @@ export default async function (req, res) {
 	}
 	if (_data.status !== "succeeded") return res.send({ status: "error" });
 	// Construct the success object
-	const data = { status: "succeeded", content: constructClasses(_data.content[0].classes) };
+	const data = { status: "succeeded", content: constructClasses(_data.content[0].classes, input.licenseId) };
+	console.log(data);
 	return res.send(data);
 }
 
 // HELPERS ==================================================
 
-const constructClasses = (classes) => {
+const constructClasses = (classes, licenseId) => {
 	return classes.map((instance) => {
-		let teachers = instance.licenses.active.filter((license) => license.role === "teacher" || license.role === "admin");
-		teachers = teachers.map((license) => {
-			return license.metadata.alias;
+		let teachers = instance.licenses.active.filter((document) => document.role === "teacher" || document.role === "admin");
+		teachers = teachers.map((document) => {
+			return document.metadata.alias;
 		});
+		let status;
+		if (instance.licenses.active.find((document) => document._id.toString() === licenseId.toString())) {
+			status = "joined";
+		} else if (instance.licenses.requested.find((document) => document._id.toString() === licenseId.toString())) {
+			status = "requested";
+		} else if (instance.licenses.invited.find((document) => document._id.toString() === licenseId.toString())) {
+			status = "invited";
+		} else {
+			status = "";
+		}
 		return {
 			id: instance._id,
 			name: instance.name,
 			teachers,
-			numOfStudents: instance.licenses.active.filter((license) => license.role === "student").length,
+			numOfStudents: instance.licenses.active.filter((document) => document.role === "student").length,
+			status,
 		};
 	});
 };
