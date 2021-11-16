@@ -14,6 +14,10 @@ import {
 	NodeAimBotSetYawSpeed,
 	NodeAimBotSetPitchSpeed,
 	NodeAimBotShoot,
+	NodeAimBotSetCurrentYawSpeed,
+	NodeAimBotSetCurrentPitchSpeed,
+	NodeAimBotGetCurrentYawSpeed,
+	NodeAimBotGetCurrentPitchSpeed,
 } from "../components/ReactFlow/NodeAimbot";
 import { NodeSendItJump, NodeSendItCrouch, NodeSendItDistance, NodeSendItHeightOf, NodeSendItWidthOf, NodeSendItSpeedOf, NodeSendItElevationOf } from "../components/ReactFlow/NodeSendIt";
 import {
@@ -151,6 +155,10 @@ export const nodeTypes = {
 	NodeAimBotSetYawSpeed,
 	NodeAimBotSetPitchSpeed,
 	NodeAimBotShoot,
+	NodeAimBotSetCurrentYawSpeed,
+	NodeAimBotSetCurrentPitchSpeed,
+	NodeAimBotGetCurrentYawSpeed,
+	NodeAimBotGetCurrentPitchSpeed,
 };
 
 export const tooltips = {
@@ -274,6 +282,10 @@ export const tooltips = {
 	NodeAimBotSetYawSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Sets the yaw speed of the robot in degrees per second",],
 	NodeAimBotSetPitchSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Sets the pitch speed of the robot in degrees per second",],
 	NodeAimBotShoot: [<ExecutionType />, <ExecutionType />, "Fire the robot's high powered arm laser blaster",],
+	NodeAimBotSetCurrentYawSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Set the value of the variable"],
+	NodeAimBotSetCurrentPitchSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Set the value of the variable"],
+	NodeAimBotGetCurrentYawSpeed: [<NoneType />, <FloatType />, "Return the value from variable"],
+	NodeAimBotGetCurrentPitchSpeed: [<NoneType />, <FloatType />, "Return the value from variable"],
 };
 
 export const initialElements = [
