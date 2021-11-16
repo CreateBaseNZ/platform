@@ -53,6 +53,22 @@ export const NodeAimBotSetPitchSpeed = memo(({ id, data, isConnectable }) => {
 	return <NodeAimBotAction data={data} id={id} label="Set Pitch Speed" isConnectable={isConnectable} />;
 });
 
+export const NodeAimBotGetCurrentYawSpeed = memo(({ data, isConnectable }) => {
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Current Yaw Speed" style={{ width: "10rem", height: "2rem" }} />;
+});
+
+export const NodeAimBotGetCurrentPitchSpeed = memo(({ data, isConnectable }) => {
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Current Pitch Speed" style={{ width: "10rem", height: "2rem" }} />;
+});
+
+export const NodeAimBotSetCurentYawSpeed = memo(({ id, data, isConnectable }) => {
+	return <NodeAimBotAction data={data} id={id} label="Set Current Yaw Speed" isConnectable={isConnectable} />;
+});
+
+export const NodeAimBotSetCurrentPitchSpeed = memo(({ id, data, isConnectable }) => {
+	return <NodeAimBotAction data={data} id={id} label="Set Current Pitch Speed" isConnectable={isConnectable} />;
+});
+
 export const NodeAimBotShoot = memo(({data, isConnectable }) => {
 	return (
 		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
@@ -87,6 +103,22 @@ export const NodeAimBotSetPitchSpeedMini = memo(() => {
 	);
 });
 
+export const NodeAimBotSetCurrentYawSpeedMini = memo(() => {
+	return (
+		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentYawSpeed" node={<NodeAimBotSetCurrentYawSpeed />}>
+			<h4>Set Current Yaw Speed</h4>
+		</NodeMini>
+	);
+});
+
+export const NodeAimBotSetCurrentPitchSpeedMini = memo(() => {
+	return (
+		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentPitchSpeed" node={<NodeAimBotSetCurrentPitchSpeed />}>
+			<h4>Set Current Pitch Speed</h4>
+		</NodeMini>
+	);
+});
+
 export const NodeAimBotShootMini = memo(() => {
 	return (
 		<NodeMini className={classes.actioning} nodeType="NodeAimBotShoot" node={<NodeAimBotShoot />}>
@@ -107,6 +139,22 @@ export const NodeAimBotGetPitchAngleMini = memo(() => {
 	return (
 		<NodeMini className={classes.sensing} nodeType="NodeAimBotGetPitchAngle" node={<NodeAimBotGetPitchAngle />}>
 			<h4>Get Pitch Angle</h4>
+		</NodeMini>
+	);
+});
+
+export const NodeAimBotGetCurrentYawSpeedMini = memo(() => {
+	return (
+		<NodeMini className={classes.sensing} nodeType="NodeAimBotGetCurrentYawSpeed" node={<NodeAimBotGetCurrentYawSpeed />}>
+			<h4>Get Current Yaw Speed</h4>
+		</NodeMini>
+	);
+});
+
+export const NodeAimBotGetCurrentPitchSpeedMini = memo(() => {
+	return (
+		<NodeMini className={classes.sensing} nodeType="NodeAimBotGetCurrentPitchSpeed" node={<NodeAimBotGetCurrentPitchSpeed />}>
+			<h4>Get Current Pitch Speed</h4>
 		</NodeMini>
 	);
 });

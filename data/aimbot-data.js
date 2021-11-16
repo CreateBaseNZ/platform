@@ -6,8 +6,11 @@ import {
 	NodeAimBotGetMosquitoZPosMini,
 	NodeAimBotSetYawSpeedMini,
 	NodeAimBotSetPitchSpeedMini,
-	NodeAimBotShootMini
-
+	NodeAimBotShootMini,
+	NodeAimBotGetCurrentPitchSpeedMini,
+	NodeAimBotGetCurrentYawSpeedMini,
+	NodeAimBotSetCurrentPitchSpeedMini,
+	NodeAimBotSetCurrentYawSpeedMini,
 } from "../components/ReactFlow/NodeAimbot";
 import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
 import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";

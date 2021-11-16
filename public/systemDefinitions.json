@@ -237,13 +237,39 @@
 			"NodeAimBotSetYawSpeed": {
 				"simpleLogic": "yawSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 3 }],
-				"logic": "unityContext.send(\"Weapon\", \"SetYawVelocity\", a)",
+				"logic": "unityContext.send(\"Weapon\", \"SetYawVelocity\", a);",
 				"await": false
 			},
 			"NodeAimBotSetPitchSpeed": {
 				"simpleLogic": "pitchSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "unityContext.send(\"Weapon\", \"SetPitchVelocity\", a)",
+				"logic": "unityContext.send(\"Weapon\", \"SetPitchVelocity\", a);",
+				"await": false
+			},
+			"NodeAimBotGetCurrentYawSpeed": {
+				"simpleLogic": "getCurrentYawSpeed",
+				"output": { "variable": "out" },
+				"inputs": [],
+				"logic": "return m.currentYawSpeed",
+				"await": false
+			},
+			"NodeAimBotGetCurrentPitchSpeed": {
+				"simpleLogic": "getCurrentPitchSpeed",
+				"output": { "variable": "out" },
+				"inputs": [],
+				"logic": "return m.currentPitchSpeed",
+				"await": false
+			},
+			"NodeAimBotSetCurentYawSpeed": {
+				"simpleLogic": "setCurrentYawSpeed",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "return m.currentYawSpeed = a;",
+				"await": false
+			},
+			"NodeAimBotSetCurrentPitchSpeed": {
+				"simpleLogic": "setCurrentPitchSpeed",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "return m.currentPitchSpeed = a;",
 				"await": false
 			},
 			"NodeEnd": {
