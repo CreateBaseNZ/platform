@@ -32,7 +32,7 @@ export default async function (req, res) {
 			data = (
 				await axios.post(process.env.ROUTE_URL + "/class/remove-member", {
 					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-					input: { class: input.classId, license: licenseId, date: input.date },
+					input: { query: { class: { _id: input.classId }, license: { _id: licenseId } }, date: input.date },
 				})
 			)["data"];
 		} catch (error) {

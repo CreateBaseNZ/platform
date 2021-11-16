@@ -27,7 +27,7 @@ const ClassRequestNotification = ({ notification, setNotifications }) => {
 
 	const denyHandler = async () => {
 		const DUMMY_STATUS = "succeeded";
-		const inputs = { licenseId: notification.params.user.licenseId, classId: notification.params.class.id };
+		const inputs = { licenseId: notification.params.user.licenseId, classId: notification.params.class.id, date: new Date().toString() };
 		let data = {};
 		try {
 			data = (await axios.post("/api/classes/deny-student", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];

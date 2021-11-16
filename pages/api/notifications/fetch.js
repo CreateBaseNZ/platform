@@ -1,8 +1,9 @@
-// TODO: Integration - Backend
+// TODO: Integration - Review
 
 // IMPORT ===================================================
 
 import axios from "axios";
+import randomize from "randomatic";
 
 // TEST OUTPUT ==============================================
 
@@ -43,65 +44,121 @@ export default async function (req, res) {
 	// 	};
 	// }
 	// Integration Logic
-	// Fetch the user's profile document
+	let notifications = [];
+	// Fetch the groups associated with this user
+	const groupIds = input.groups.map((group) => group.id);
+	if (!groupIds.length) return res.send({ status: "succeeded", content: notifications });
 	let data1;
 	try {
 		data1 = (
-			await axios.post(process.env.ROUTE_URL + "/profile/retrieve", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: { query: { _id: input.profileId }, option: {} },
-			})
-		)["data"];
-	} catch (error) {
-		data1 = { status: "error", content: error };
-	}
-	if (data1.status !== "succeeded") return res.send({ status: "error" });
-	// Fetch the licenses associated with the profile
-	let data2;
-	try {
-		data2 = (
-			await axios.post(process.env.ROUTE_URL + "/license/retrieve", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: { query: { _id: data1.content[0].licenses }, option: {} },
-			})
-		)["data"];
-	} catch (error) {
-		data2 = { status: "error", content: error };
-	}
-	if (data2.status !== "succeeded") return res.send({ status: "error" });
-	// For each license, fetch the associated group
-	let groupIds = [];
-	for (let i = 0; i < data2.content.length; i++) {
-		const license = data2.content[i];
-		if (license.role === "admin" || license.role === "teacher") {
-			groupIds.push(license.group);
-		}
-	}
-	let data3;
-	try {
-		data3 = (
 			await axios.post(process.env.ROUTE_URL + "/group/retrieve", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: { query: { _id: groupIds }, option: { class: [] } },
 			})
 		)["data"];
 	} catch (error) {
-		data3 = { status: "error", content: error };
+		data1 = { status: "error", content: error };
 	}
-	if (data3.status !== "succeeded") return res.send({ status: "error" });
-	// Filter groups where the use is an admin
-	const groupsAdmin = data3.content.filter((group) => {});
-	// Retrieve the classes where the user is a teacher
-	let classes = [];
-	for (let j = 0; j < data3.content.length; j++) {
-		const group = data3.content[j];
-		// Get the user's license associated with this group
-		// Get the classes associated with the license
-		classes = classes.concat(group.classes.filter((instance) => {}));
+	if (data1.status !== "succeeded") return res.send({ status: "error" });
+	// Create an array of licenses to fetch
+	let licenseIds = [];
+	for (let i = 0; i < data1.content.length; i++) {
+		const group = data1.content[i];
+		// Check if the user is an admin of this group
+		if (
+			input.groups.find((inputGroup) => {
+				return inputGroup.id.toString() === group._id.toString() && inputGroup.role === "admin";
+			})
+		) {
+			licenseIds = licenseIds.concat(group.licenses.queue);
+		}
+		for (let j = 0; j < group.classes.length; j++) {
+			const instance = group.classes[j];
+			licenseIds = licenseIds.concat(instance.licenses.requested);
+		}
 	}
-	return res.send(data);
+	// Remove duplicates of license IDs
+	licenseIds = [...new Set(licenseIds)];
+	if (!licenseIds.length) return res.send({ status: "succeeded", content: notifications });
+	// Fetch the licenses of interest and retrieve their profile and profile
+	let data2;
+	try {
+		data2 = (
+			await axios.post(process.env.ROUTE_URL + "/license/retrieve", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: { query: { _id: licenseIds }, option: { profile: [], account: [] } },
+			})
+		)["data"];
+	} catch (error) {
+		data2 = { status: "error", content: error };
+	}
+	if (data2.status !== "succeeded") return res.send({ status: "error" });
+	// Build the notification array
+	notifications = groupRequestNotifications(data1.content, data2.content);
+	// Success handler
+	return res.send({ status: "succeeded", content: notifications });
 }
 
 // HELPERS ==================================================
+
+function groupRequestNotifications(groups, licenses) {
+	let notifications = [];
+	for (let i = 0; i < groups.length; i++) {
+		const group = groups[i];
+		notifications = notifications.concat(classRequestNotifications(group, licenses));
+		for (let j = 0; j < group.licenses.queue.length; j++) {
+			const licenseId = group.licenses.queue[j];
+			const license = licenses.find((document) => document._id.toString() === licenseId.toString());
+			if (license.status === "requested") {
+				const notification = {
+					id: randomize("Aa0", 12),
+					type: "group-request",
+					params: {
+						group: { id: group._id, name: group.name },
+						user: {
+							accountId: license.profile.account._id,
+							profileId: license.profile._id,
+							licenseId: license._id,
+							firstName: license.profile.name.first,
+							lastName: license.profile.name.last,
+							email: license.profile.account.email,
+						},
+					},
+				};
+				notifications.push(notification);
+			}
+		}
+	}
+	return notifications;
+}
+
+function classRequestNotifications(group, licenses) {
+	let notifications = [];
+	for (let i = 0; i < group.classes.length; i++) {
+		const instance = group.classes[i];
+		for (let j = 0; j < instance.licenses.requested.length; j++) {
+			const licenseId = instance.licenses.requested[j];
+			const license = licenses.find((document) => document._id.toString() === licenseId.toString());
+			const notification = {
+				id: randomize("Aa0", 12),
+				type: "class-request",
+				params: {
+					class: { id: instance._id, name: instance.name },
+					group: { id: group._id, name: group.name },
+					user: {
+						accountId: license.profile.account._id,
+						profileId: license.profile._id,
+						licenseId: license._id,
+						firstName: license.profile.name.first,
+						lastName: license.profile.name.last,
+						email: license.profile.account.email,
+					},
+				},
+			};
+			notifications.push(notification);
+		}
+	}
+	return notifications;
+}
 
 // END ======================================================

@@ -8,7 +8,7 @@ const GroupRequestNotification = ({ notification, setNotifications }) => {
 
 	const approveHandler = async () => {
 		const DUMMY_STATUS = "succeeded";
-		const inputs = { accountId: notification.params.user.accountId, groupId: notification.params.group.id };
+		const inputs = { licenseId: notification.params.user.licenseId, groupId: notification.params.group.id, date: new Date().toString() };
 		let data = {};
 		try {
 			data = (await axios.post("/api/groups/approve-teacher", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
@@ -25,7 +25,7 @@ const GroupRequestNotification = ({ notification, setNotifications }) => {
 
 	const denyHandler = async () => {
 		const DUMMY_STATUS = "succeeded";
-		const inputs = { accountId: notification.params.user.accountId, groupId: notification.params.group.id };
+		const inputs = { licenseId: notification.params.user.licenseId, groupId: notification.params.group.id, date: new Date().toString() };
 		let data = {};
 		try {
 			data = (await axios.post("/api/groups/deny-teacher", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];

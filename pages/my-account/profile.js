@@ -34,8 +34,6 @@ const MyProfile = () => {
 		mode: "onTouched",
 	});
 
-	console.log(globalSession.email);
-
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
 		let frontendError = false;

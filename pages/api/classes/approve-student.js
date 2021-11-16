@@ -1,4 +1,4 @@
-// TODO: Integration - Backend
+// TODO: Integration - Review
 
 // IMPORT ===================================================
 
@@ -16,14 +16,28 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// Test Logic
+	// // Test Logic
+	// let data;
+	// if (req.body.status === "succeeded") {
+	// 	data = {
+	// 		status: "succeeded",
+	// 		content: {},
+	// 	};
+	// }
+	// return res.send(data);
+	// Integration Logic
 	let data;
-	if (req.body.status === "succeeded") {
-		data = {
-			status: "succeeded",
-			content: {},
-		};
+	try {
+		data = (
+			await axios.post(process.env.ROUTE_URL + "/class/accept-member", {
+				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				input: { query: { _id: input.classId }, license: input.licenseId },
+			})
+		)["data"];
+	} catch (error) {
+		data = { status: "error", content: error };
 	}
+	if (data.status !== "succeeded") return res.send({ status: "error" });
 	return res.send(data);
 }
 

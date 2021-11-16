@@ -41,6 +41,7 @@ export default async function (req, res) {
 	} catch (error) {
 		data1 = { status: "error", content: error };
 	}
+	if (data1.status !== "succeeded") return res.send({ status: "error" });
 	return res.send(data);
 }
 
