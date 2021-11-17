@@ -4,7 +4,7 @@ import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
 import { SecondaryButton } from "../UI/Buttons";
-import { ADMIN_TABS, MEMBER_TABS, STUDENT_TABS, TEACHER_TABS } from "../../constants/browseTabs";
+import { ADMIN_TABS, TRIAL_TABS, STUDENT_TABS, TEACHER_TABS } from "../../constants/browseTabs";
 
 import classes from "./BrowsePreview.module.scss";
 import { useRouter } from "next/router";
@@ -13,14 +13,12 @@ const getTabs = (role) => {
 	switch (role) {
 		case "student":
 			return STUDENT_TABS;
-		case "member":
-			return MEMBER_TABS;
 		case "teacher":
 			return TEACHER_TABS;
 		case "admin":
 			return ADMIN_TABS;
 		default:
-			return [];
+			return TRIAL_TABS;
 	}
 };
 
@@ -77,9 +75,9 @@ const BrowsePreview = ({ project, role }) => {
 					))}
 				</div>
 				<div className={classes.container}>
-					{tab === "overview" && <BrowseOverview project={project} role={role} />}
-					{tab === "teaching" && <BrowseTeaching project={project} />}
+					{tab === "overview" && <BrowseOverview project={project} />}
 					{tab === "learning" && <BrowseLearning learnings={project.learnings} />}
+					{tab === "teaching" && <BrowseTeaching project={project} role={role} />}
 				</div>
 				<Link href={`/project/${project.query}`}>
 					<div>

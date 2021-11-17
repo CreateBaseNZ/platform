@@ -3,8 +3,8 @@ import PROJECT_SUBJECTS from "../../constants/projectSubjects";
 
 import classes from "./BrowseTeaching.module.scss";
 
-const BrowseTeaching = ({ project }) => {
-	return (
+const BrowseTeaching = ({ project, role }) => {
+	return role ? (
 		<>
 			<div className={classes.teachingCaption}>
 				<span>{project.numOfLessons}</span> lessons <div className={classes.pipe} /> <span>{project.durPerLesson}</span> per lesson <div className={classes.pipe} />{" "}
@@ -37,6 +37,8 @@ const BrowseTeaching = ({ project }) => {
 				))}
 			</div>
 		</>
+	) : (
+		<p className={classes.createAccount}>To view lesson plans and teaching content, please create or log into a FREE educator account.</p>
 	);
 };
 
