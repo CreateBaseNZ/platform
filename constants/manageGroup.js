@@ -23,9 +23,10 @@ export const SCHOOL_TABS = {
 };
 
 export const COLUMNS = [
-	{ Header: "First Name", accessor: "firstName", style: { width: "25%", cursor: "pointer" } },
-	{ Header: "Last Name", accessor: "lastName", style: { width: "25%", cursor: "pointer" } },
+	{ Header: "First Name", accessor: "firstName", style: { width: "20%", cursor: "pointer" } },
+	{ Header: "Last Name", accessor: "lastName", style: { width: "20%", cursor: "pointer" } },
 	{ Header: "Email", accessor: "email", style: { cursor: "pointer" } },
+	{ Header: "Status", accessor: "status", style: { width: "15%", cursor: "pointer" } },
 ];
 
 export const SIZES = [10, 20, 50, 100];

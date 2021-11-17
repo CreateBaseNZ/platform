@@ -22,7 +22,7 @@ export const GlobalSessionContextProvider = (props) => {
 				const inputs = {
 					accountId: session.user,
 					date: new Date().toString(),
-					properties: { profile: ["recentGroups"], license: ["alias"] },
+					properties: { profile: ["recentGroups", "notifications"], license: ["alias"] }, // TODO - Integration Backend - added notifications [TBD]
 				};
 				let data;
 				try {
@@ -34,7 +34,7 @@ export const GlobalSessionContextProvider = (props) => {
 					if (data.status === "error" || data.status === "failed") {
 						router.push("/404");
 					} else {
-						setGlobalSession((state) => ({ recentGroups: [], ...state, loaded: true, ...data.content }));
+						setGlobalSession((state) => ({ recentGroups: [], ...state, ...data.content, loaded: true }));
 					}
 				}
 			} else {

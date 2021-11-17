@@ -34,27 +34,27 @@ const ClassJoin = () => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {},
-				successHandler: () => setQueriedClasses(data.content),
+				successHandler: () => setQueriedClasses(data.content.filter((_class) => _class.status !== "joined" && _class.status !== "requested")),
 			});
 		}
 	}, []);
 
 	const onSubmit = async (inputs) => {
+		console.log(inputs);
 		setIsLoading(true);
-		const { searchQuery, ...rest } = inputs;
-		inputs = rest;
+		if (!inputs.classIds) {
+			return setIsLoading(false);
+		}
 		const details = {
-			classIds: Object.keys(inputs).filter((key) => inputs[key]),
+			classId: inputs.classId, // TODO - BREAKING CHANGE - backend (new changes)
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			role: globalSession.groups[globalSession.recentGroups[0]].role,
 			date: new Date().toString(),
 		};
-		if (!details.classIds.length) {
-			return setIsLoading(false);
-		}
 
 		const DUMMY_STATUS = "succeeded";
 		let data = {};
@@ -63,7 +63,6 @@ const ClassJoin = () => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {},
@@ -103,9 +102,9 @@ const ClassJoin = () => {
 								(_class) =>
 									_class.name.toLowerCase().includes((queryValue || "").toLowerCase()) && (
 										<div className={`${classes.queryItem} ${_class.joined ? classes.disabled : ""}`} key={_class.id}>
-											<input type="checkbox" id={_class.id} name={_class.id} {...register(_class.id)} />
+											<input {...register("classId", { required: true })} type="radio" name="classId" id={_class.id} value={_class.id} />
 											<label>
-												{_class.name} <i className={`material-icons-outlined ${classes.addIcon}`}>add_circle_outline</i>
+												{_class.name} <i className={`material-icons-outlined ${classes.addIcon}`}>circle</i>
 												<i className={`material-icons ${classes.checkIcon}`}>check_circle</i>
 												<span>Already in this class</span>
 											</label>
