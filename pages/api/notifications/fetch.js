@@ -94,38 +94,45 @@ export default async function (req, res) {
 	}
 	if (data2.status !== "succeeded") return res.send({ status: "error" });
 	// Build the notification array
-	notifications = groupRequestNotifications(data1.content, data2.content);
+	notifications = groupRequestNotifications(data1.content, data2.content, input.groups);
 	// Success handler
 	return res.send({ status: "succeeded", content: notifications });
 }
 
 // HELPERS ==================================================
 
-function groupRequestNotifications(groups, licenses) {
+function groupRequestNotifications(groups, licenses, inputGroups) {
 	let notifications = [];
 	for (let i = 0; i < groups.length; i++) {
 		const group = groups[i];
 		notifications = notifications.concat(classRequestNotifications(group, licenses));
-		for (let j = 0; j < group.licenses.queue.length; j++) {
-			const licenseId = group.licenses.queue[j];
-			const license = licenses.find((document) => document._id.toString() === licenseId.toString());
-			if (license.status === "requested") {
-				const notification = {
-					id: randomize("Aa0", 12),
-					type: "group-request",
-					params: {
-						group: { id: group._id, name: group.name },
-						user: {
-							accountId: license.profile.account._id,
-							profileId: license.profile._id,
-							licenseId: license._id,
-							firstName: license.profile.name.first,
-							lastName: license.profile.name.last,
-							email: license.profile.account.email,
+		// If the user is an admin
+		if (
+			inputGroups.find((inputGroup) => {
+				return inputGroup.id.toString() === group._id.toString() && inputGroup.role === "admin";
+			})
+		) {
+			for (let j = 0; j < group.licenses.queue.length; j++) {
+				const licenseId = group.licenses.queue[j];
+				const license = licenses.find((document) => document._id.toString() === licenseId.toString());
+				if (license.status === "requested") {
+					const notification = {
+						id: randomize("Aa0", 12),
+						type: "group-request",
+						params: {
+							group: { id: group._id, name: group.name },
+							user: {
+								accountId: license.profile.account._id,
+								profileId: license.profile._id,
+								licenseId: license._id,
+								firstName: license.profile.name.first,
+								lastName: license.profile.name.last,
+								email: license.profile.account.email,
+							},
 						},
-					},
-				};
-				notifications.push(notification);
+					};
+					notifications.push(notification);
+				}
 			}
 		}
 	}
