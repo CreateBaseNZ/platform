@@ -6,8 +6,6 @@ import useHandleResponse from "../../hooks/useHandleResponse";
 const ClassRequestNotification = ({ notification, setNotifications }) => {
 	const { handleResponse } = useHandleResponse();
 
-	console.log(notification);
-
 	const approveHandler = async () => {
 		const DUMMY_STATUS = "succeeded";
 		const inputs = { licenseId: notification.params.user.licenseId, classId: notification.params.class.id };

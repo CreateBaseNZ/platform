@@ -50,7 +50,7 @@ const ClassJoin = () => {
 			return setIsLoading(false);
 		}
 		const details = {
-			classId: inputs.classId, // TODO - backend (new changes)
+			classId: inputs.classId, // TODO - BREAKING CHANGE - backend (new changes)
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			role: globalSession.groups[globalSession.recentGroups[0]].role,
 			date: new Date().toString(),
@@ -63,7 +63,6 @@ const ClassJoin = () => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {},

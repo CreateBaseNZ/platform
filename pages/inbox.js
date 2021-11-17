@@ -27,11 +27,11 @@ const Inbox = () => {
 
 	useEffect(async () => {
 		const DUMMY_STATUS = "succeeded";
-		// NOTE: To accelerate fetching, pass all the groups where the user is either an admin or a teacher
-		const groups = globalSession.groups.filter((group) => {
-			return (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated";
-		});
-		const inputs = { profileId: globalSession.profileId, groups };
+		// to accelerate fetching, pass all the groups where the user is either an admin or a teacher
+		const inputs = {
+			profileId: globalSession.profileId,
+			groups: globalSession.groups.filter((group) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated"),
+		};
 		let data = {};
 		try {
 			data = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
