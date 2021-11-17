@@ -4,9 +4,9 @@ import { UnityContext } from "react-unity-webgl";
 const useUnity = ({ scenePrefix, mode, index, project, setLoaded }) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
-			loaderUrl: `https://raw.githubusercontent.com/CreateBaseNZ/platform/main/public/${project}/unity-build/Build.loader.js`,
+			loaderUrl: `https://cdn.statically.io/gh/CreateBaseNZ/platform/main/public/${project}/unity-build/Build.loader.js`,
 			dataUrl: `https://raw.githubusercontent.com/CreateBaseNZ/platform/main/public/${project}/unity-build/Build.data`,
-			frameworkUrl: `https://raw.githubusercontent.com/CreateBaseNZ/platform/main/public/${project}/unity-build/Build.framework.js`,
+			frameworkUrl: `https://cdn.statically.io/gh/CreateBaseNZ/platform/main/public/${project}/unity-build/Build.framework.js`,
 			codeUrl: `https://raw.githubusercontent.com/CreateBaseNZ/platform/main/public/${project}/unity-build/Build.wasm`,
 			productName: "Simulation",
 			productVersion: "0.1",
