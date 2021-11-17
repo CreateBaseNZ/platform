@@ -28,8 +28,6 @@ const ManageGroup = ({ role }) => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
-			console.log(ref.current);
 			handleResponse({
 				data,
 				failHandler: () => {

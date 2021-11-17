@@ -37,7 +37,6 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {
@@ -69,7 +68,6 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {},

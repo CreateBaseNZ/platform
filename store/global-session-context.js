@@ -30,7 +30,6 @@ export const GlobalSessionContextProvider = (props) => {
 				} catch (error) {
 					data.status = "error";
 				} finally {
-					console.log(data);
 					if (data.status === "error" || data.status === "failed") {
 						router.push("/404");
 					} else {

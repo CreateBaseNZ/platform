@@ -76,7 +76,6 @@ export const convertCode = (text, system, onceCode) => {
 				} else if (RHS == "console.log") {
 					RHS = "ctx.addLog";
 				} else if (RHS == "if" || RHS == "while" || RHS == "for") {
-					console.log(element);
 					if (element[element.length - 1] != "{") {
 						i++;
 						removeNewLine = true;
@@ -118,8 +117,6 @@ export const convertCode = (text, system, onceCode) => {
 				if (quotes.length > quotesDone) {
 					element = element.substring(0, startPoints[j]) + quotes[quotesDone] + element.substring(endPoints[j] + 1);
 					quotesDone++;
-				} else {
-					console.log("lol");
 				}
 			}
 			if (removeNewLine) {
@@ -213,7 +210,6 @@ const splitSingleEqual = (input) => {
 
 		return [[LHS, RHS], 2];
 	} else {
-		console.log("something went Wrong");
 		return [input, 0];
 	}
 };
@@ -244,7 +240,6 @@ const findQuotePoints = (text) => {
 	if (quoteStart.length == quoteEnd.length) {
 		return [quoteStart, quoteEnd];
 	} else {
-		console.log("something is wrong");
 		return [[], []];
 	}
 };

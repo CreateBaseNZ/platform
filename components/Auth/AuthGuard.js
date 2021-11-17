@@ -17,9 +17,6 @@ const hasAccess = (role, auth) => {
 const AuthGuard = ({ children, auth }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
-	console.log(globalSession);
-	console.log("guard rendered");
-
 	useEffect(() => {
 		if (globalSession.loaded) {
 			if (!globalSession.accountId) {

@@ -1,10 +1,8 @@
-// TODO: Integration - Test
+// TODO: Integration - Review
 
 // IMPORT ===================================================
 
 import axios from "axios";
-
-// TEST OUTPUT ==============================================
 
 // MAIN =====================================================
 
@@ -14,15 +12,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: {}, // return nothing
-	// 	};
-	// } // no failure modes that I can think of
-	// return res.send(data);
 	// Integration Logic
 	let status;
 	if (input.role === "teacher" || input.role === "admin") {

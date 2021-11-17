@@ -105,7 +105,7 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 	let notifications = [];
 	for (let i = 0; i < groups.length; i++) {
 		const group = groups[i];
-		notifications = notifications.concat(classRequestNotifications(group, licenses));
+		notifications = notifications.concat(classRequestNotifications(group, licenses, inputGroups));
 		// If the user is an admin
 		if (
 			inputGroups.find((inputGroup) => {

@@ -89,7 +89,6 @@ const findNextNode = (currentNode, path, elements) => {
  * name to the name of the function
  */
 const determineType = (block, currentNode, generalBlocks, mathOperations, actions, sensors, allFunctions, generalSystem) => {
-	console.log(currentNode.type);
 	if (generalBlocks.includes(currentNode.type)) {
 		block.name = currentNode.type;
 	} else if (mathOperations.includes(currentNode.type)) {
@@ -107,8 +106,6 @@ const determineType = (block, currentNode, generalBlocks, mathOperations, action
 	} else if (allFunctions.includes(currentNode.type)) {
 		block.type = "specific";
 		block.name = currentNode.type;
-	} else {
-		console.log(block, currentNode);
 	}
 	return block;
 };
@@ -303,7 +300,6 @@ const findInputs = (blocksOrder, currentNode, elements, val, robotName, level = 
 				// EXPLAINDone: Salim - What is the purpose of this if statement?
 				// I guess this could have been just else for the if above (I am unsure currently maybe it would have not worked), but basically if a block hasn't been already added before this creates the variable name for the output
 				if (NextOut && !outName) {
-					console.log(val);
 					outName = "out_" + String(val);
 					val++;
 				}
@@ -453,7 +449,6 @@ export const flow2Text = (elements, projectName) => {
 		type: "NodeEnd",
 	};
 	blocksConfig.push(endNode);
-	console.log(blocksConfig);
 	// EXPLAINDone: Salim - What is the purpose of this if statement?
 	// Display a warning if they have no blocks connected to the start block
 	if (blocksConfig.length == 2) {
