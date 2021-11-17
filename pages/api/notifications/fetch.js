@@ -139,30 +139,36 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 	return notifications;
 }
 
-function classRequestNotifications(group, licenses) {
+function classRequestNotifications(group, licenses, inputGroups) {
 	let notifications = [];
 	for (let i = 0; i < group.classes.length; i++) {
 		const instance = group.classes[i];
-		for (let j = 0; j < instance.licenses.requested.length; j++) {
-			const licenseId = instance.licenses.requested[j];
-			const license = licenses.find((document) => document._id.toString() === licenseId.toString());
-			const notification = {
-				id: randomize("Aa0", 12),
-				type: "class-request",
-				params: {
-					class: { id: instance._id, name: instance.name },
-					group: { id: group._id, name: group.name },
-					user: {
-						accountId: license.profile.account._id,
-						profileId: license.profile._id,
-						licenseId: license._id,
-						firstName: license.profile.name.first,
-						lastName: license.profile.name.last,
-						email: license.profile.account.email,
+		if (
+			inputGroups.find((inputGroup) => {
+				return instance.licenses.active.find((id) => id.toString() === inputGroup.licenseId.toString());
+			})
+		) {
+			for (let j = 0; j < instance.licenses.requested.length; j++) {
+				const licenseId = instance.licenses.requested[j];
+				const license = licenses.find((document) => document._id.toString() === licenseId.toString());
+				const notification = {
+					id: randomize("Aa0", 12),
+					type: "class-request",
+					params: {
+						class: { id: instance._id, name: instance.name },
+						group: { id: group._id, name: group.name },
+						user: {
+							accountId: license.profile.account._id,
+							profileId: license.profile._id,
+							licenseId: license._id,
+							firstName: license.profile.name.first,
+							lastName: license.profile.name.last,
+							email: license.profile.account.email,
+						},
 					},
-				},
-			};
-			notifications.push(notification);
+				};
+				notifications.push(notification);
+			}
 		}
 	}
 	return notifications;
