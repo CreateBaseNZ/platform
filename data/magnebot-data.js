@@ -13,9 +13,9 @@ export default {
 	numOfLessons: 5,
 	difficulty: "introductory",
 	subjects: ["technology", "engineering", "computerScience", "automation", "math", "socialScience"],
-	learningOutcome: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/project_overview.pdf",
-	curriculumAlignment: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/curriculum_standards.pdf",
-	lessonPlan: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/files/lesson-plan-magnebot.pdf",
+	learningOutcome: "/magnebot/project_overview.pdf",
+	curriculumAlignment: "/magnebot/curriculum_standards.pdf",
+	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
 	learnings: [
 		"Understand the basics of programming a robotic system.",
 		"Convert simple human decisions into an instruction set for a robot.",
@@ -31,7 +31,7 @@ export default {
 		h2: "Unfortunately, a self-driving cart has driven through our recycling facility and spilt bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...",
 		title: "MagneBot",
 		docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
-		word: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/files/learning-journal.docx",
+		word: "/magnebot/files/learning-journal.docx",
 	},
 	imagine: {
 		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
@@ -39,12 +39,12 @@ export default {
 			{
 				title: "Intro to recycling",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/recycling.jpg",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/pdf/recycling.pdf",
+				url: "/magnebot/pdf/recycling.pdf",
 			},
 			{
 				title: "Intro to robotics",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/robot.png",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/pdf/robotics.pdf",
+				url: "/magnebot/pdf/robotics.pdf",
 			},
 		],
 	},
@@ -71,7 +71,7 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/intro-to-flow.pdf",
+						url: "/intro-to-flow.pdf",
 					},
 					{
 						type: "tut",

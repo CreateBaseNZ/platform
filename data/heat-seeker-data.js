@@ -25,9 +25,9 @@ export default {
 	numOfLessons: 9,
 	difficulty: "Advanced",
 	subjects: ["Technology", "Engineering", "Computer Science", "Fire Safety"],
-	learningOutcome: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/project-overview.pdf",
-	curriculumAlignment: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/curriculum-alignment.pdf",
-	lessonPlan: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/lesson-plan-heat-seeker.pdf",
+	learningOutcome: "/heat-seeker/files/project-overview.pdf",
+	curriculumAlignment: "/heat-seeker/files/curriculum-alignment.pdf",
+	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
 	learnings: [
 		"Explain how and why line-following is used for navigation.",
 		"Understand why we decompose problems.",
@@ -60,17 +60,17 @@ export default {
 			{
 				title: "Imagine...",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/12050102AB-imagine_page1.pdf",
+				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
 			},
 			{
 				title: "Define Our Solution",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/12050102AB-imagine_page2.pdf",
+				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
 			},
 			{
 				title: "Define Our Solution",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/12050102AB-imagine_page3.pdf",
+				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
 			},
 		],
 	},
@@ -86,7 +86,7 @@ export default {
 					{
 						type: "task",
 						title: "Task: Line following",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-02-heat-seeker.pdf",
+						url: "/heat-seeker/files/Research-02-heat-seeker.pdf",
 					},
 					{
 						type: "video",
@@ -102,17 +102,17 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Subproblem1.pdf",
+						url: "/heat-seeker/pdf/Subproblem1.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Action blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Iter_0.pdf",
+						url: "/heat-seeker/pdf/Iter_0.pdf",
 					},
 					{
 						type: "task",
 						title: "Task: Actions",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-heat-seeker-1.pdf",
+						url: "/heat-seeker/files/Research-heat-seeker-1.pdf",
 					},
 				],
 			},
@@ -142,17 +142,17 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Subproblem2.pdf",
+						url: "/heat-seeker/pdf/Subproblem2.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Sensing blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Iter_1.pdf",
+						url: "/heat-seeker/pdf/Iter_1.pdf",
 					},
 					{
 						type: "task",
 						title: "Task: Sensing",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-heat-seeker-2.pdf",
+						url: "/heat-seeker/files/Research-heat-seeker-2.pdf",
 					},
 					{
 						type: "explore",
@@ -225,22 +225,22 @@ export default {
 					{
 						type: "task",
 						title: "Task: Fire fighting",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-01-heat-seeker.pdf",
+						url: "/heat-seeker/files/Research-01-heat-seeker.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Subproblem3.pdf",
+						url: "/heat-seeker/pdf/Subproblem3.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Fire blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Iter_3.pdf",
+						url: "/heat-seeker/pdf/Iter_3.pdf",
 					},
 					{
 						type: "task",
 						title: "Task: Fire",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-heat-seeker-4.pdf",
+						url: "/heat-seeker/files/Research-heat-seeker-4.pdf",
 					},
 					{
 						type: "explore",

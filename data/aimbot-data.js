@@ -58,7 +58,7 @@ export default {
 			{
 				title: "TBD",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/files/imagine.pdf",
+				url: "/aimbot/files/imagine.pdf",
 			},
 		],
 	},
