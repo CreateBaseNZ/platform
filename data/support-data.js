@@ -156,7 +156,7 @@ const SUPPORT_DATA = [
 							To add an image, use the `img` self-enclosed tag and adding the `src` url. Please make sure all support images are in `/public/support`. Remember the url begins in the `/public` folder, so all
 							image url's should begin with `/support/...`
 						</p>
-						<img src="/support/support-1.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-1.jpg" />
 						<p>
 							To embed YouTube videos, right click the video player and copy embed code. Use the existing iFrame code and replace the src and title properties with the copied embed code.
 						</p>
@@ -175,14 +175,14 @@ const SUPPORT_DATA = [
 							Each Project has its own set of 5-10 lesson plans. To access a Project’s lesson plans, click on the Project image at the bottom of the screen that corresponds to the Project you are
 							interested in. The ‘Teaching’ tab will then appear. Click on that tab to reveal the teaching resources.
 						</p>
-						<img src="/support/support-1-1.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-1-1.jpg" />
 						<p>You can now click on the “Lesson Plan” button to open all the lesson plans for that Project in a new tab.</p>
-						<img src="/support/support-1.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-1.jpg" />
 						<p>
 							The lesson plan button will only appear if you are signed in with an educator account. If you cannot see the button and are not signed in, you can sign in with an educator account in the
 							top right of the screen.
 						</p>
-						<img src="/support/support-4.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-4.jpg" />
 					</>
 				),
 			},
@@ -223,7 +223,7 @@ const SUPPORT_DATA = [
 							Each lesson plan includes a glossary at the start of each section. This contains explanations for all of the terminology that you need to know in order to be able to effectively deliver
 							the Project and have class discussions.
 						</p>
-						<img src="/support/support-7.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-7.jpg" />
 						<p>
 							Each Project will include links to additional resources. Reading and understanding this content is optional; however, they are an excellent place to start if you want to learn more about
 							any of the content covered in the Project.
@@ -266,7 +266,7 @@ const SUPPORT_DATA = [
 						<p>
 							All of our Projects use the Flow programming language purposefully built by CreateBase to enable students and teachers to learn about coding concepts and code solutions to our Projects.
 						</p>
-						<img src="/support/support-6.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-6.jpg" />
 						<p>
 							Flow coding is designed to be easy to learn for teachers and students, being analogous to creating a logic-based flowchart. This is because we want the coding section of each Project to
 							be based around learning logical thinking, information flow, computational skills, and problem-solving, without the need for memorising lots of arbitrary syntaxes.
@@ -301,7 +301,7 @@ const SUPPORT_DATA = [
 					<>
 						<p>Learning journals are where students document what they've done throughout their Project journey.</p>
 						<p>Learning journals are found under the Imagine step in each Project and are available as either a Google Doc or Microsoft Word file.</p>
-						<img src="/support/support-8.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-8.jpg" />
 						<p>
 							Like with most content in a Project, learning journals are optional for teachers. If you do not want your students to complete a learning journal or you want to replace them with your
 							own, then you are free to do so. If you are going to do either of these, then make sure that you communicate it clearly to your class. We would also appreciate you sending us a message
@@ -327,12 +327,12 @@ const SUPPORT_DATA = [
 							<Link href="/support/2-8">click here</Link>.
 						</p>
 						<p>If your students already have CreateBase accounts, they can click log in and enter their account details.</p>
-						<img src="/support/support-2.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-2.jpg" />
 						<p>
 							Once they are logged in, they will need to navigate to the Browse page and select the Project you're teaching. In the example below, the Send It Project has been selected. They can then
 							click continue to start the Project.
 						</p>
-						<img src="/support/support-5.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-5.jpg" />
 					</>
 				),
 			},
@@ -419,7 +419,7 @@ const SUPPORT_DATA = [
 							page and click "Join an Org". You will then be prompted to enter your organisation's code, your school's ID and your school's name. If you don't know your organisation's code, talk to
 							one of your organisation's admin users. They can generate a code for you from their admin console.
 						</p>
-						<img src="/support/support-9.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-9.jpg" />
 					</>
 				),
 			},
@@ -438,7 +438,7 @@ const SUPPORT_DATA = [
 							</a>{" "}
 							page and click Register your Org. You will then be prompted to enter your school's ID and name.
 						</p>
-						<img src="/support/support-10.jpg" />
+						<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-10.jpg" />
 						<p>If an organisation has already been created for your school and you think that this was a mistake, then contact CreateBase via our email for support.</p>
 					</>
 				),

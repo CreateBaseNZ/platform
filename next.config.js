@@ -44,4 +44,7 @@ module.exports = {
 		return config;
 	},
 	mode: "development",
+	images: {
+		domains: ["raw.githubusercontent.com"],
+	},
 };

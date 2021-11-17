@@ -7,12 +7,12 @@ const AuthLayout = ({ children }) => {
 		<div className={classes.bg}>
 			<div className={classes.squiggle}>
 				<div>
-					<Image src="/auth/squiggle-thin.svg" layout="fill" objectFit="contain" />
+					<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/squiggle-thin.svg" layout="fill" objectFit="contain" />
 				</div>
 			</div>
 			<div className={`${classes.squiggle} ${classes.squiggle2}`}>
 				<div>
-					<Image src="/auth/squiggle-thin.svg" layout="fill" objectFit="contain" />
+					<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/squiggle-thin.svg" layout="fill" objectFit="contain" />
 				</div>
 			</div>
 			<div className={classes.triangle} />

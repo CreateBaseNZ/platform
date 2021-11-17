@@ -25,9 +25,9 @@ export default {
 	numOfLessons: 6,
 	difficulty: "proficient",
 	subjects: ["technology", "engineering", "computerScience", "automation", "ai", "ethics"],
-	learningOutcome: "/send-it/project_overview.pdf",
-	curriculumAlignment: "/send-it/curriculum_standards.pdf",
-	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
+	learningOutcome: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/project_overview.pdf",
+	curriculumAlignment: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/curriculum_standards.pdf",
+	lessonPlan: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/files/lesson-plan-send-it.pdf",
 	learnings: [
 		"Formalise the logic occurring in their head into logical code to allow them to automate a task they would normally do manually.",
 		"Use flow control/branching capabilities (if, else if, else) in the Flow editor.",
@@ -36,12 +36,12 @@ export default {
 	],
 	define: {
 		url: "https://youtu.be/wB53GoLXzME",
-		src: "/send-it/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
 		title: "Send It",
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
-		word: "/send-it/files/learning-journal.docx",
+		word: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/files/learning-journal.docx",
 	},
 	imagine: {
 		caption: [
@@ -51,28 +51,28 @@ export default {
 		modules: [
 			{
 				title: "Vehicular Delivery",
-				img: "/send-it/img/types-0.png",
-				url: "/send-it/pdf/delivery.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/types-0.png",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/delivery.pdf",
 			},
 			{
 				title: "Your Robot has Mail",
-				img: "/send-it/img/mail-2.png",
-				url: "/send-it/pdf/mail.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/mail-2.png",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/mail.pdf",
 			},
 			{
 				title: "Controlling a Robot",
-				img: "/send-it/img/controlling-1.png",
-				url: "/send-it/pdf/controlling.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-1.png",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/controlling.pdf",
 			},
 			{
 				title: "Sensing Sensors",
-				img: "/send-it/img/controlling-0.png",
-				url: "/send-it/pdf/sensors.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-0.png",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/sensors.pdf",
 			},
 			{
 				title: "Automation & Ethics",
-				img: "/send-it/img/thumbnail.png",
-				url: "/send-it/pdf/ethics.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/ethics.pdf",
 			},
 		],
 	},
@@ -80,7 +80,7 @@ export default {
 		{
 			title: "TODO",
 			requirements: ["TODO"],
-			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through the five modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -90,7 +90,7 @@ export default {
 						title: "Flow tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "/flow-tut.mp4",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 							title: "Flow Tutorial",
@@ -111,11 +111,11 @@ export default {
 						title: "How to Send It",
 						items: [
 							{
-								src: "/send-it/vid/tut-1.mp4",
+								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-1.mp4",
 								subtitle: <p>Run 1000m to deliver the Pizza</p>,
 							},
 							{
-								src: "/send-it/vid/tut-2.mp4",
+								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-2.mp4",
 								subtitle: (
 									<p>
 										Jump over obstacles to avoid crashing into them
@@ -124,7 +124,7 @@ export default {
 								),
 							},
 							{
-								src: "/send-it/vid/tut-3.mp4",
+								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-3.mp4",
 								subtitle: (
 									<p>
 										Crouch under flying obstacles to avoid crashing into them
@@ -133,7 +133,7 @@ export default {
 								),
 							},
 							{
-								src: "/send-it/vid/tut-4.mp4",
+								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-4.mp4",
 								subtitle: <p>Change the simulation speed to allow more time for your code to react</p>,
 							},
 						],

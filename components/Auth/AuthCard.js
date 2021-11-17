@@ -10,10 +10,10 @@ const AuthCard = ({ isSignup }) => {
 		<div className={classes.authCard}>
 			<div className={`${classes.imgContainer} ${isSignup ? classes.signup : classes.login}`}>
 				<div className={classes.imgWrapper}>
-					<Image src="/auth/turtle.svg" layout="fill" objectFit="cover" />
+					<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/turtle.svg" layout="fill" objectFit="cover" />
 					<div style={{ marginLeft: "-10%", height: "100%", width: "140%" }}>
 						<Img
-							src={isSignup ? "/auth/signup.svg" : "/auth/login.svg"}
+							src={isSignup ? "https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/signup.svg" : "https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/login.svg"}
 							layout="fill"
 							objectFit="contain"
 							style={{ transform: isSignup ? "rotate(-45deg) scaleX(-1) translate(-2%, -8%)" : "scaleX(-1)" }}

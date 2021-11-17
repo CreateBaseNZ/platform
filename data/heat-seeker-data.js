@@ -25,9 +25,9 @@ export default {
 	numOfLessons: 9,
 	difficulty: "Advanced",
 	subjects: ["Technology", "Engineering", "Computer Science", "Fire Safety"],
-	learningOutcome: "/heat-seeker/files/project-overview.pdf",
-	curriculumAlignment: "/heat-seeker/files/curriculum-alignment.pdf",
-	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
+	learningOutcome: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/project-overview.pdf",
+	curriculumAlignment: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/curriculum-alignment.pdf",
+	lessonPlan: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/lesson-plan-heat-seeker.pdf",
 	learnings: [
 		"Explain how and why line-following is used for navigation.",
 		"Understand why we decompose problems.",
@@ -44,7 +44,7 @@ export default {
 	],
 	define: {
 		url: "https://youtu.be/a7ahjbh_lUg",
-		src: "/heat-seeker/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/vid/situation.mp4",
 		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
 		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
 		title: "Heat Seeker",
@@ -59,18 +59,18 @@ export default {
 		modules: [
 			{
 				title: "Imagine...",
-				img: "/heat-seeker/img/define.jpg",
-				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/12050102AB-imagine_page1.pdf",
 			},
 			{
 				title: "Define Our Solution",
-				img: "/heat-seeker/img/define.jpg",
-				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/12050102AB-imagine_page2.pdf",
 			},
 			{
 				title: "Define Our Solution",
-				img: "/heat-seeker/img/define.jpg",
-				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/12050102AB-imagine_page3.pdf",
 			},
 		],
 	},
@@ -78,7 +78,7 @@ export default {
 		{
 			title: "Speed control",
 			requirements: [],
-			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -86,14 +86,14 @@ export default {
 					{
 						type: "task",
 						title: "Task: Line following",
-						url: "/heat-seeker/files/Research-02-heat-seeker.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-02-heat-seeker.pdf",
 					},
 					{
 						type: "video",
 						title: "Flow tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "/flow-tut.mp4",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 							title: "Flow Tutorial",
@@ -102,17 +102,17 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem1.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Subproblem1.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Action blocks",
-						url: "/heat-seeker/pdf/Iter_0.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Iter_0.pdf",
 					},
 					{
 						type: "task",
 						title: "Task: Actions",
-						url: "/heat-seeker/files/Research-heat-seeker-1.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-heat-seeker-1.pdf",
 					},
 				],
 			},
@@ -134,7 +134,7 @@ export default {
 		{
 			title: "Navigating curves",
 			requirements: ["Speed control"],
-			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -142,17 +142,17 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem2.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Subproblem2.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Sensing blocks",
-						url: "/heat-seeker/pdf/Iter_1.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Iter_1.pdf",
 					},
 					{
 						type: "task",
 						title: "Task: Sensing",
-						url: "/heat-seeker/files/Research-heat-seeker-2.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-heat-seeker-2.pdf",
 					},
 					{
 						type: "explore",
@@ -186,7 +186,7 @@ export default {
 		{
 			title: "Navigating turns",
 			requirements: ["Speed control"],
-			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no research step. Move onto Plan."],
@@ -217,7 +217,7 @@ export default {
 		{
 			title: "Extinguishing fires",
 			requirements: [],
-			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -225,22 +225,22 @@ export default {
 					{
 						type: "task",
 						title: "Task: Fire fighting",
-						url: "/heat-seeker/files/Research-01-heat-seeker.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-01-heat-seeker.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem3.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Subproblem3.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Fire blocks",
-						url: "/heat-seeker/pdf/Iter_3.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/pdf/Iter_3.pdf",
 					},
 					{
 						type: "task",
 						title: "Task: Fire",
-						url: "/heat-seeker/files/Research-heat-seeker-4.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/files/Research-heat-seeker-4.pdf",
 					},
 					{
 						type: "explore",
@@ -273,7 +273,7 @@ export default {
 		{
 			title: "Putting it all together",
 			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
-			imgSrc: "/heat-seeker/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no research step. Move onto Plan."],

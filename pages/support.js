@@ -83,7 +83,7 @@ const Support = () => {
 							))}
 						</div>
 						<div className={classes.img}>
-							<Img src="/support/get-in-touch.svg" height={200} width={200} layout="responsive" />
+							<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/get-in-touch.svg" height={200} width={200} layout="responsive" />
 							<p>
 								Still got questions?
 								<a href="https://createbase.co.nz/contact" target="_blank" title="https://createbase.co.nz/contact">

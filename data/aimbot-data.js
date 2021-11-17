@@ -42,7 +42,7 @@ export default {
 	],
 	define: {
 		url: "https://youtu.be/wB53GoLXzME",
-		src: "/aimbot/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
 		title: "TBD",
@@ -57,8 +57,8 @@ export default {
 		modules: [
 			{
 				title: "TBD",
-				img: "/aimbot/img/thumbnail.png",
-				url: "/aimbot/files/imagine.pdf",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png",
+				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/files/imagine.pdf",
 			},
 		],
 	},
@@ -66,7 +66,7 @@ export default {
 		{
 			title: "Subsystem 1",
 			requirements: [],
-			imgSrc: "/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
@@ -92,7 +92,7 @@ export default {
 		{
 			title: "Subsystem 2",
 			requirements: ["Subsystem 1"],
-			imgSrc: "/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no new research for this sub-problem. Move onto Plan."],
@@ -120,7 +120,7 @@ export default {
 		{
 			title: "Subsystem 3",
 			requirements: ["Subsystem 1"],
-			imgSrc: "/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
@@ -146,7 +146,7 @@ export default {
 		{
 			title: "Subsystem 4",
 			requirements: ["Subsystem 2", "Subsystem 3"],
-			imgSrc: "/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no new research for this sub-problem. Move directly to Plan. Do not pass Go. Do not collect $100."],
