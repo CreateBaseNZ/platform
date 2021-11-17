@@ -75,10 +75,10 @@ export const NodePI = memo(({ data = { connections: [] }, isConnectable }) => {
 
 export const NodeClamp = memo(({ id, data = { values: { a: 1, b: 2, c: 3}, connections: [] }, isConnectable }) => {
 	return (
-		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`} style={{width: "10em"}}> 
-			<CustomHandle type="target" position="top" id="float__in__a" style={{ left: "auto", right: "22px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
-			<CustomHandle type="target" position="top" id="float__in__b" style={{ left: "auto", right: "44px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
-			<CustomHandle type="target" position="top" id="float__in__c" style={{ left: "auto", right: "66px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle}`} style={{width: "15em"}}> 
+			<CustomHandle type="target" position="top" id="float__in__a" style={{ left: "auto", right: "8em", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+			<CustomHandle type="target" position="top" id="float__in__b" style={{ left: "auto", right: "5em", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
+			<CustomHandle type="target" position="top" id="float__in__c" style={{ left: "auto", right: "2em", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
 			<h4 style={{ marginLeft: 0 }}>Clamp</h4>
 			<InputWithHandle data={data} blockId={id} handleId="float__in__a" inputName="a" />
 			<InputWithHandle data={data} blockId={id} handleId="float__in__b" inputName="b" />
