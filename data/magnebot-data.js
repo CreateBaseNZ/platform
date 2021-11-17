@@ -71,7 +71,7 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/intro-to-flow.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/intro-to-flow.pdf",
 					},
 					{
 						type: "tut",

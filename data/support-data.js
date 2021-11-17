@@ -277,7 +277,7 @@ const SUPPORT_DATA = [
 						</p>
 						<ul>
 							<li>
-								<a href="/intro-to-flow.pdf" target="_blank">
+								<a href="https://raw.githubusercontent.com/CreateBaseNZ/public/main/intro-to-flow.pdf" target="_blank">
 									Intro to Flow pdf
 								</a>
 							</li>

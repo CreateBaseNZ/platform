@@ -99,12 +99,12 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/intro-to-flow.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/intro-to-flow.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Tips & tricks: sensing blocks",
-						url: "/sensing-blocks.pdf",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/sensing-blocks.pdf",
 					},
 					{
 						type: "tut",

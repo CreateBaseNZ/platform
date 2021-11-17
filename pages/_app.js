@@ -46,7 +46,7 @@ import { io } from "socket.io-client";
 // 								</b>{" "}
 // 								supported on all devices 👏
 // 							</h3>
-// 							<img src="/mobile.png" />
+// 							<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/mobile.png" />
 // 						</div>
 // 					)}
 // 				</InviteOrgContextProvider>
