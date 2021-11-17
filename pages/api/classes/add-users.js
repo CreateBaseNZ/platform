@@ -33,7 +33,7 @@ export default async function (req, res) {
 	// } // no failure mode
 	// Integration Logic
 	// Add each user
-	for (let i = 0; i < input.users.length; i++) {
+	for (let i = 0; i < input.licenseIds.length; i++) {
 		const licenseId = input.licenseIds[i];
 		let data;
 		try {

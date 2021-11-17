@@ -26,14 +26,15 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 
 	useEffect(async () => {
 		const details = {
+			classId: classObject.id,
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 		};
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
 		// TODO move api's into hooks (make reusable) [FRONTEND]
 		try {
-			data = (await axios.post("/api/groups/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
