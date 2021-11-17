@@ -250,14 +250,14 @@
 				"simpleLogic": "getCurrentYawSpeed",
 				"output": { "variable": "out" },
 				"inputs": [],
-				"logic": "return m.currentYawSpeed",
+				"logic": "return m.currentYawSpeed ? m.currentYawSpeed : 0;",
 				"await": false
 			},
 			"NodeAimBotGetCurrentPitchSpeed": {
 				"simpleLogic": "getCurrentPitchSpeed",
 				"output": { "variable": "out" },
 				"inputs": [],
-				"logic": "return m.currentPitchSpeed",
+				"logic": "return m.currentPitchSpeed ? m.currentPitchSpeed : 0;",
 				"await": false
 			},
 			"NodeAimBotSetCurrentYawSpeed": {
