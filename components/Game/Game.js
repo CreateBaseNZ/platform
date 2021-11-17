@@ -16,6 +16,8 @@ const Game = ({ setLoaded, mode = "", project, index, query, blockList }) => {
 		setLoaded: setLoaded,
 	});
 
+	console.log("rendered game");
+
 	return (
 		<div className={classes.code}>
 			<ConsoleContextProvider>

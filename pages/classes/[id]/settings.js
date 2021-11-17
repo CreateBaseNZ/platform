@@ -5,7 +5,7 @@ import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesConstants";
 import useClass from "../../../hooks/useClass";
-import NameForm from "../../../components/Classes/Settings/NameForm";
+import ClassNameForm from "../../../components/Classes/Settings/ClassNameForm";
 import { TertiaryButton } from "../../../components/UI/Buttons";
 
 import classes from "../../../styles/classesSettings.module.scss";
@@ -32,7 +32,7 @@ const ClassesSettings = () => {
 			</h1>
 			<div className={classes.container}>
 				<div className={classes.wrapper}>
-					<NameForm defaultValue={classObject.name} classId={classObject.id} setClassObject={setClassObject} />
+					<ClassNameForm defaultValue={classObject.name} classId={classObject.id} setClassObject={setClassObject} />
 					{classObject.teachers.length > 1 && (
 						<>
 							<div className={classes.divider} />

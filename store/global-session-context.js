@@ -62,9 +62,7 @@ export const GlobalSessionContextProvider = (props) => {
 			handleResponse({
 				data,
 				failHandler: () => {},
-				successHandler: () => {
-					console.log("success!");
-				},
+				successHandler: () => {},
 			});
 		}
 	}, [globalSession.recentGroups]);

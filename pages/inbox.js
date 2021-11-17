@@ -1,22 +1,63 @@
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
+import axios from "axios";
+import ClassRequestNotification from "../components/Inbox/ClassRequestNotification";
+import GroupRequestNotification from "../components/Inbox/GroupRequestNotification";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
+import useHandleResponse from "../hooks/useHandleResponse";
+import GlobalSessionContext from "../store/global-session-context";
 
-import classes from "/styles/inbox.module.scss";
+import classes from "../styles/inbox.module.scss";
 
-const DUMMY_INBOX = [
-	{ type: "group", groupId: "xyz123", className: "CreateBase Academy" },
-	{ type: "class", classId: "abc123", className: "Room 23" },
-];
+const renderNotification = (notificationObject, setNotifications) => {
+	switch (notificationObject.type) {
+		case "class-request":
+			return <ClassRequestNotification key={notificationObject.id} notification={notificationObject} setNotifications={setNotifications} />;
+		case "group-request":
+			return <GroupRequestNotification key={notificationObject.id} notification={notificationObject} setNotifications={setNotifications} />;
+		default:
+			return null;
+	}
+};
 
 const Inbox = () => {
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { handleResponse } = useHandleResponse();
+	const [notifications, setNotifications] = useState([]);
+
+	useEffect(async () => {
+		const DUMMY_STATUS = "succeeded";
+		// NOTE: To accelerate fetching, pass all the groups where the user is either an admin or a teacher
+		const groups = globalSession.groups.filter((group) => {
+			return (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated";
+		});
+		const inputs = { profileId: globalSession.profileId, groups };
+		let data = {};
+		try {
+			data = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
+		} catch (error) {
+			data.status = "error";
+		} finally {
+			handleResponse({
+				data,
+				failHandler: () => {},
+				successHandler: () => {
+					setNotifications(data.content);
+				},
+			});
+		}
+	}, []);
+
 	return (
-		<div className={classes.inbox}>
+		<div className={`${classes.inbox} roundScrollbar`}>
 			<Head>
-				<title>Inbox | CreateBase</title>
+				<title>Inbox ({notifications.length}) | CreateBase</title>
 				<meta name="description" content="Check out your inbox on CreateBase" />
 			</Head>
 			<div className={classes.view}>
 				<h1>Inbox</h1>
+				<div className={classes.total}>{notifications.length} notifications</div>
+				{notifications.map((notification) => renderNotification(notification, setNotifications))}
 			</div>
 		</div>
 	);

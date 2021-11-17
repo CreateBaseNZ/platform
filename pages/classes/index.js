@@ -2,13 +2,13 @@ import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import axios from "axios";
+import useHandleResponse from "../../hooks/useHandleResponse";
 import ClassesContext from "../../store/classes-context";
+import GlobalSessionContext from "../../store/global-session-context";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 
-import classes from "/styles/classes.module.scss";
-import GlobalSessionContext from "../../store/global-session-context";
-import useHandleResponse from "../../hooks/useHandleResponse";
+import classes from "../../styles/classes.module.scss";
 
 const ClassesTabRoot = () => {
 	const router = useRouter();
@@ -36,11 +36,11 @@ const ClassesTabRoot = () => {
 				},
 			});
 		}
-		// TODO refetch when alias changes (to be upgraded to websocket)
+		// TODO refetch when alias changes (to be upgraded with websocket)
 	}, [globalSession.groups[globalSession.recentGroups[0]].alias]);
 
 	const cardClickHandler = (_class) => {
-		router.push({ pathname: "/classes/[id]/announcements", query: { id: _class.id } });
+		_class.status === "joined" && router.push({ pathname: "/classes/[id]/announcements", query: { id: _class.id } });
 	};
 
 	return (
@@ -67,7 +67,8 @@ const ClassesTabRoot = () => {
 						)}
 						{classObjects &&
 							classObjects.map((_class) => (
-								<div key={_class.name} className={classes.card} onClick={() => cardClickHandler(_class)}>
+								<div key={_class.name} className={`${classes.card} ${classes[_class.status]}`} onClick={() => cardClickHandler(_class)}>
+									{_class.status === "requested" && <div className={classes.pending}>Pending approval</div>}
 									<div className={classes.className}>{_class.name}</div>
 									<div className={classes.classTeachers}>{_class.teachers.join(", ")}</div>
 									<div className={classes.classStudents}>

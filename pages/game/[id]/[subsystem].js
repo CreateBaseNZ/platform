@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import Game from "../../../components/Game/Game";
 import getProjectData from "../../../utils/getProjectData";
@@ -25,9 +26,19 @@ const SubsystemGame = () => {
 		}
 	}, [router.isReady, router.query.id]);
 
-	if (!data || (subsystemIndex ?? null === null)) return null;
+	if (!data || subsystemIndex === null) return null;
 
-	return <Game setLoaded={setLoaded} project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />;
+	return (
+		<>
+			<Head>
+				<title>
+					{data.subsystems[subsystemIndex].title} • {data.name} | CreateBase
+				</title>
+				<meta name="description" content="CreateBase" />
+			</Head>
+			<Game setLoaded={setLoaded} project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
+		</>
+	);
 };
 
 export default SubsystemGame;

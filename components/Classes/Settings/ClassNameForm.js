@@ -4,10 +4,10 @@ import axios from "axios";
 import { TertiaryButton } from "../../UI/Buttons";
 import Input from "../../UI/Input";
 import useHandleResponse from "../../../hooks/useHandleResponse";
-import classes from "./NameForm.module.scss";
+import classes from "./ClassNameForm.module.scss";
 import GlobalSessionContext from "../../../store/global-session-context";
 
-const NameForm = ({ defaultValue, classId, setClassObject }) => {
+const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
@@ -21,9 +21,9 @@ const NameForm = ({ defaultValue, classId, setClassObject }) => {
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
 		const details = {
-			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-			date: new Date().toString(),
 			classId: classId,
+			date: new Date().toString(),
+			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			name: inputs.name,
 		};
 		let data = {};
@@ -59,4 +59,4 @@ const NameForm = ({ defaultValue, classId, setClassObject }) => {
 	);
 };
 
-export default NameForm;
+export default ClassNameForm;

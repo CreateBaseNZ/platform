@@ -37,7 +37,7 @@ const ManageGroup = ({ role }) => {
 						router.replace("/404");
 					}
 				},
-				successHandler: () => ref.current && setData(data.content.filter((user) => user.role === role)),
+				successHandler: () => ref.current && setData(data.content.filter((user) => user.role === role && user.status !== "deactivated")),
 			});
 		}
 		() => (ref.current = null);

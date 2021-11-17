@@ -101,6 +101,23 @@
 			color: $logo-mid;
 		}
 	}
+	&.requested {
+		pointer-events: none;
+		opacity: 0.75;
+		box-shadow: none;
+		background: $lightest;
+		.classTeachers {
+			display: none;
+		}
+		.classStudents {
+			display: none;
+		}
+		.pending {
+			font-size: 12px;
+			color: $dark;
+			font-weight: 600;
+		}
+	}
 }
 
 .addCard {

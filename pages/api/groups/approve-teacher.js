@@ -1,10 +1,12 @@
-// TODO: Integration - Test
+// TODO: Integration - Review
 
 // IMPORT ===================================================
 
 import axios from "axios";
 
 // TEST OUTPUT ==============================================
+
+const DUMMY_OUTPUT = {};
 
 // MAIN =====================================================
 
@@ -19,27 +21,25 @@ export default async function (req, res) {
 	// if (req.body.status === "succeeded") {
 	// 	data = {
 	// 		status: "succeeded",
-	// 		content: {}, // return nothing
-	// 	};
-	// } else if (req.body.status === "failed 1") {
-	// 	data = {
-	// 		status: "failed",
-	// 		content: "teacher required",
+	// 		content: {},
 	// 	};
 	// }
-	// TODO: Check if the teacher leaving is the last one in the class
-	// Remove the member
-	let data2;
+	// Integration Logic
+	let data;
 	try {
-		data2 = (
-			await axios.post(process.env.ROUTE_URL + "/class/remove-member", {
+		data = (
+			await axios.post(process.env.ROUTE_URL + "/group/accept-member", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: { query: { class: { _id: input.classId }, license: { _id: input.licenseId } }, date: input.date },
+				input: { query: { group: { _id: input.groupId }, license: { _id: input.licenseId } }, date: input.date },
 			})
 		)["data"];
 	} catch (error) {
-		data2 = { status: "error", content: error };
+		data = { status: "error", content: error };
 	}
-	if (data2.status !== "succeeded") return res.send({ status: "error" });
+	if (data.status !== "succeeded") return res.send({ status: "error" });
 	return res.send({ status: "succeeded" });
 }
+
+// HELPERS ==================================================
+
+// END ======================================================
