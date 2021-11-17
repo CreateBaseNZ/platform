@@ -11,6 +11,7 @@ import {
 } from "../components/ReactFlow/NodeHeatSeeker";
 import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
+import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 export default {
@@ -24,7 +25,7 @@ export default {
 	durPerLesson: "45 mins",
 	numOfLessons: 9,
 	difficulty: "Advanced",
-	subjects: ["Technology", "Engineering", "Computer Science", "Fire Safety"],
+	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
 	learningOutcome: "/heat-seeker/files/project-overview.pdf",
 	curriculumAlignment: "/heat-seeker/files/curriculum-alignment.pdf",
 	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",

@@ -12,6 +12,7 @@ import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
 import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
+import { AI, AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, ETHICS, TECHNOLOGY } from "../constants/projectSubjects";
 
 export default {
 	name: "Send It",
@@ -24,7 +25,7 @@ export default {
 	durPerLesson: "45 mins",
 	numOfLessons: 6,
 	difficulty: "proficient",
-	subjects: ["technology", "engineering", "computerScience", "automation", "ai", "ethics"],
+	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
 	learningOutcome: "/send-it/project_overview.pdf",
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",

@@ -4,7 +4,6 @@ import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
 import { SecondaryButton } from "../UI/Buttons";
-import { ADMIN_TABS, TRIAL_TABS, STUDENT_TABS, TEACHER_TABS } from "../../constants/browseTabs";
 
 import classes from "./BrowsePreview.module.scss";
 import { useRouter } from "next/router";
@@ -12,13 +11,13 @@ import { useRouter } from "next/router";
 const getTabs = (role) => {
 	switch (role) {
 		case "student":
-			return STUDENT_TABS;
+			return ["overview"];
 		case "teacher":
-			return TEACHER_TABS;
+			return ["overview", "learning", "teaching"];
 		case "admin":
-			return ADMIN_TABS;
+			return ["overview", "learning", "teaching"];
 		default:
-			return TRIAL_TABS;
+			return ["overview", "learning", "teaching"];
 	}
 };
 

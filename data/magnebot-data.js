@@ -1,4 +1,5 @@
 import { NodeMagnebotMoveArmMini, NodeMagnebotSwitchMini } from "../components/ReactFlow/NodeMagneBot";
+import { AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, MATH, SOCIAL_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
 import { recycleRightData } from "./explore-data";
 
 export default {
@@ -12,7 +13,7 @@ export default {
 	durPerLesson: "45 mins",
 	numOfLessons: 5,
 	difficulty: "introductory",
-	subjects: ["technology", "engineering", "computerScience", "automation", "math", "socialScience"],
+	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, MATH, SOCIAL_SCIENCE],
 	learningOutcome: "/magnebot/project_overview.pdf",
 	curriculumAlignment: "/magnebot/curriculum_standards.pdf",
 	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",

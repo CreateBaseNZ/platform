@@ -12,8 +12,8 @@ const BrowseTeaching = ({ project, role }) => {
 			</div>
 			<div className={classes.subjects}>
 				{project.subjects.map((s) => (
-					<div key={s} className={classes.tag} style={{ color: PROJECT_SUBJECTS[s].color }}>
-						{PROJECT_SUBJECTS[s].label}
+					<div key={s.label} className={classes.tag} style={{ color: s.color }}>
+						{s.label}
 					</div>
 				))}
 			</div>
