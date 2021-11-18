@@ -23,26 +23,31 @@ export const GlobalSessionContextProvider = (props) => {
 				const inputs = {
 					accountId: session.user,
 					date: new Date().toString(),
-					// TODO - Integration Backend
-					// not sure where to add numOfNotifications prop
 					properties: { profile: ["recentGroups"], license: ["alias"] },
 				};
-				let data;
+				let data1;
 				try {
-					data = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
+					data1 = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
 				} catch (error) {
-					data.status = "error";
-				} finally {
-					if (data.status === "error" || data.status === "failed") {
-						if (data.content === "invalid account id") {
-							signOut();
-						} else {
-							router.push("/404");
-						}
-					} else {
-						setGlobalSession((state) => ({ recentGroups: [], ...state, ...data.content, loaded: true }));
-					}
+					data1.status = "error";
 				}
+				if (data1.status === "error" || data1.status === "failed") {
+					if (data1.content === "invalid account id") {
+						signOut();
+					} else {
+						router.push("/404");
+					}
+					return;
+				}
+				let data2;
+				try {
+					data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups: data1.content.groups } }))["data"];
+				} catch (error) {
+					data2.status = "error";
+				}
+				if (data2.status === "error" || data2.status === "failed") return router.push("/404");
+				data1.content.numOfNotifications = data2.content.length;
+				setGlobalSession((state) => ({ recentGroups: [], ...state, ...data1.content, loaded: true }));
 			} else {
 				setGlobalSession((state) => ({ ...state, loaded: true }));
 			}
