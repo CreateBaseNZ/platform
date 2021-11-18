@@ -1,9 +1,18 @@
+import router from "next/router";
 import Img from "../UI/Img";
 import classes from "./OnboardingTask.module.scss";
 
 const OnboardingTask = ({ task, isCompleted, checkHandler }) => {
+	const clickHandler = () => {
+		if (task.type === "video") {
+		} else if (task.type === "link") {
+			router.push(task.link);
+		} else if (task.type === "text") {
+		}
+	};
+
 	return (
-		<div className={`${classes.task} ${isCompleted ? classes.completed : ""}`}>
+		<div className={`${classes.task} ${isCompleted ? classes.completed : ""}`} onClick={clickHandler}>
 			<div className={classes.imgContainer}>
 				<Img style={{ height: "100%", width: "100%" }} src={task.imgUrl} layout="fill" objectFit="cover" />
 			</div>

@@ -13,6 +13,7 @@
 	z-index: 1;
 	margin-top: 1rem;
 	margin-right: 1rem;
+	cursor: pointer;
 	transition: opacity 0.1s ease-out;
 	&:hover {
 		opacity: 1 !important;
