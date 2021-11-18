@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import useHandleResponse from "../hooks/useHandleResponse";
 import router from "next/router";
+import { signOut } from "next-auth/react";
 
 const GlobalSessionContext = createContext({
 	globalSession: { loaded: false },
@@ -31,7 +32,11 @@ export const GlobalSessionContextProvider = (props) => {
 					data.status = "error";
 				} finally {
 					if (data.status === "error" || data.status === "failed") {
-						router.push("/404");
+						if (data.content === "invalid account id") {
+							signOut();
+						} else {
+							router.push("/404");
+						}
 					} else {
 						setGlobalSession((state) => ({ recentGroups: [], ...state, ...data.content, loaded: true }));
 					}
