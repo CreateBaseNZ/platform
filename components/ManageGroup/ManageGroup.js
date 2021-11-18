@@ -62,6 +62,8 @@ const ManageGroup = ({ role }) => {
 				<TertiaryButton
 					key={key}
 					onClick={async () => {
+						// TODO: Integration - Frontend
+						// licenseIds is null
 						const details = {
 							groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),
@@ -104,6 +106,8 @@ const ManageGroup = ({ role }) => {
 			<TertiaryButton
 				key={key}
 				onClick={async () => {
+					// TODO: Integration - Frontend
+					// licenseIds is null
 					const details = {
 						groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),

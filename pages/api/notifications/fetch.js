@@ -134,6 +134,31 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 					notifications.push(notification);
 				}
 			}
+		} else if (
+			inputGroups.find((inputGroup) => {
+				return inputGroup.id.toString() === group._id.toString() && inputGroup.status === "invited";
+			})
+		) {
+			const element = inputGroups.find((inputGroup) => {
+				return inputGroup.id.toString() === group._id.toString() && inputGroup.status === "invited";
+			});
+			const license = licenses.find((document) => document._id.toString() === element.licenseId.toString());
+			const notification = {
+				id: randomize("Aa0", 12),
+				type: "group-invite",
+				params: {
+					group: { id: group._id, name: group.name },
+					user: {
+						accountId: license.profile.account._id,
+						profileId: license.profile._id,
+						licenseId: license._id,
+						firstName: license.profile.name.first,
+						lastName: license.profile.name.last,
+						email: license.profile.account.email,
+					},
+				},
+			};
+			notifications.push(notification);
 		}
 	}
 	return notifications;
