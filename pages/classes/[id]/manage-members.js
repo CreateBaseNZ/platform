@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 import AddModal from "../../../components/Classes/ManageMembers/AddModal";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
@@ -14,13 +14,8 @@ import useHandleResponse from "../../../hooks/useHandleResponse";
 
 import classes from "../../../styles/classManageMembers.module.scss";
 
-const DUMMY_STUDENTS = [
-	{ accountId: "abc123", firstName: "asdfasdasdf", lastName: "asfsasdasddf", email: "abc123@gmail.com" },
-	{ accountId: "gh", firstName: "asdsfsddf", lastName: "dsdasdf", email: "123@gmail.com" },
-	{ accountId: "asdf", firstName: "ssasdsa", lastName: "asdasds", email: "abc@gmail.com" },
-];
-
 const ClassesManage = () => {
+	const ref = useRef();
 	const { classObject, setClassObject, classLoaded } = useClass();
 	const { handleResponse } = useHandleResponse();
 	const [showAddModal, setShowAddModal] = useState(false);
@@ -61,12 +56,10 @@ const ClassesManage = () => {
 		),
 	];
 
-	// TODO replace DUMMY_STUDENTS with classObject.students [FRONTEND]
-
 	if (!classLoaded) return null;
 
 	return (
-		<div className={classes.view}>
+		<div className={classes.view} ref={ref}>
 			<Head>
 				<title>Manage Members • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
@@ -75,7 +68,7 @@ const ClassesManage = () => {
 				Manage Members
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} /> <HeaderToggle />
 			</h1>
-			<Table columns={MANAGE_MEMBERS_COLUMNS} data={DUMMY_STUDENTS} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} />
+			<Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} />
 			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} setClassObject={setClassObject} />}
 		</div>
 	);

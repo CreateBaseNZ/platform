@@ -23,7 +23,9 @@ export const GlobalSessionContextProvider = (props) => {
 				const inputs = {
 					accountId: session.user,
 					date: new Date().toString(),
-					properties: { profile: ["recentGroups", "notifications"], license: ["alias"] }, // TODO - Integration Backend - added notifications [TBD]
+					// TODO - Integration Backend
+					// not sure where to add numOfNotifications prop
+					properties: { profile: ["recentGroups"], license: ["alias"] },
 				};
 				let data;
 				try {

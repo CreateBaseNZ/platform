@@ -59,6 +59,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]),
 			date: new Date().toString(),
 		};
+		console.log(details);
 		if (!details.licenseIds.length) return setIsLoading(false);
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
@@ -67,13 +68,22 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {},
 				successHandler: () => {
-					setClassObject((state) => ({ ...state, ...data.content }));
+					setClassObject((state) => ({
+						...state,
+						students: [
+							...state.students,
+							...userList
+								.filter((user) => details.licenseIds.some((id) => id === user.licenseId))
+								.map((user) => ({ email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId })),
+						],
+					}));
 					setShow(false);
-					setVisualBell({ type: "success", message: `${details.users.length} new user${details.licenseIds.length === 1 ? "" : "s"} added` });
+					setVisualBell({ type: "success", message: `${details.licenseIds.length} new user${details.licenseIds.length === 1 ? "" : "s"} added` });
 				},
 			});
 		}
@@ -99,8 +109,8 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 							{userList.map(
 								(user) =>
 									user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
-										<div key={user.profileId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`}>
-											<input type="checkbox" id={user.profileId} name={user.profileId} {...register(user.profileId)} />
+										<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`}>
+											<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(user.licenseId)} />
 											<label>
 												<div>
 													<p>{user.name}</p>
