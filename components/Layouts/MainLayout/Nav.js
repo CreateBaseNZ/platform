@@ -7,12 +7,14 @@ import DEFAULT_TABS, { BROWSE, MAIN_TABS } from "../../../constants/mainTabs";
 import classes from "./Nav.module.scss";
 
 const NavTab = ({ tab, page }) => {
+	const { globalSession } = useContext(GlobalSessionContext);
+
 	return tab.page ? (
 		<Link href={tab.urlObject}>
 			<button className={`${classes.tab} ${tab.page === page ? classes.active : ""}`}>
 				<i className="material-icons-outlined">{tab.icon}</i>
 				{tab.label}
-				{tab.page === "inbox" && <div className={classes.inbox}>3</div>}
+				{tab.page === "inbox" && globalSession.numOfNotifications ? <div className={classes.inbox}>{globalSession.numOfNotifications}</div> : null}
 			</button>
 		</Link>
 	) : (
@@ -52,7 +54,5 @@ const Nav = ({ page }) => {
 		</nav>
 	);
 };
-
-// TODO populate notification number [FRONTEND]
 
 export default Nav;
