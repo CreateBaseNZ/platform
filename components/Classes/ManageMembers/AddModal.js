@@ -32,12 +32,12 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 		};
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
-		// TODO move api's into hooks (make reusable) [FRONTEND]
 		try {
 			data = (await axios.post("/api/classes/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {
@@ -45,9 +45,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 						router.replace("/404");
 					}
 				},
-				// TODO either query all with an extra "joined" prop (preferred) [TBD]
-				// or only query users not already in class
-				successHandler: () => ref.current && setUserList(data.content.map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
+				successHandler: () => ref.current && setUserList(data.content.filter((user) => !user.status).map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
 			});
 		}
 		return () => (ref.current = null);
@@ -101,8 +99,8 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 							{userList.map(
 								(user) =>
 									user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
-										<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`} key={user.licenseId}>
-											<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(user.licenseId)} />
+										<div key={user.profileId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`}>
+											<input type="checkbox" id={user.profileId} name={user.profileId} {...register(user.profileId)} />
 											<label>
 												<div>
 													<p>{user.name}</p>
