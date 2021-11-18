@@ -41,7 +41,7 @@ export default {
 		"Apply control systems theory a control plant.",
 	],
 	define: {
-		url: "https://youtu.be/wB53GoLXzME",
+		url: "https://www.youtube.com/watch?v=znMZhBSDW_I",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
@@ -70,7 +70,13 @@ export default {
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
-				modules: [],
+				modules: [
+					{
+						type: "pdf",
+						title: "Introduction to Flow blocks 1",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+					},
+				],
 			},
 			plan: ["TBD"],
 			code: {
@@ -96,7 +102,13 @@ export default {
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["There is no new research for this sub-problem. Move onto Plan."],
-				modules: [],
+				modules: [
+					{
+						type: "pdf",
+						title: "Introduction to Flow blocks 2",
+						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/pdf/2105050301AD_research_2_blocks.pdf",
+					},
+				],
 			},
 			plan: ["TBD"],
 			code: {
