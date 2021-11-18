@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { useRef, useState } from "react";
 import axios from "axios";
+import useClass from "../../../hooks/useClass";
+import useHandleResponse from "../../../hooks/useHandleResponse";
 import AddModal from "../../../components/Classes/ManageMembers/AddModal";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
@@ -9,8 +11,6 @@ import { PrimaryButton, TertiaryButton } from "../../../components/UI/Buttons";
 import Table from "../../../components/UI/Table/Table";
 import CLASSES_TABS from "../../../constants/classesConstants";
 import { MANAGE_MEMBERS_COLUMNS, MANAGE_MEMBERS_SIZES } from "../../../constants/classesConstants";
-import useClass from "../../../hooks/useClass";
-import useHandleResponse from "../../../hooks/useHandleResponse";
 
 import classes from "../../../styles/classManageMembers.module.scss";
 
@@ -20,8 +20,6 @@ const ClassesManage = () => {
 	const { handleResponse } = useHandleResponse();
 	const [showAddModal, setShowAddModal] = useState(false);
 
-	console.log(classObject);
-
 	const renderBtns = [
 		(key, data, selectedRowIds) => (
 			<TertiaryButton
@@ -29,9 +27,10 @@ const ClassesManage = () => {
 				onClick={async () => {
 					const details = {
 						classId: classObject.id,
-						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),
+						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
 						date: new Date().toString(),
 					};
+					console.log(details);
 					let _data;
 					const DUMMY_STATUS = "succeeded";
 					try {
@@ -44,7 +43,7 @@ const ClassesManage = () => {
 							data: _data,
 							failHandler: () => {},
 							successHandler: () => {
-								setClassObject((state) => ({ ...state, students: state.students.filter((_, i) => !Object.keys(selectedRowIds).includes(i)) }));
+								setClassObject((state) => ({ ...state, students: state.students.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())) }));
 							},
 						});
 					}

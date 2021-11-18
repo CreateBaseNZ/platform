@@ -1,10 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import router from "next/router";
 import { signIn } from "next-auth/react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import VisualBellContext from "../../store/visual-bell-context";
 import useHandleResponse from "../../hooks/useHandleResponse";
 import { PrimaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
@@ -14,7 +13,6 @@ import classes from "./AuthForms.module.scss";
 
 const SignupForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const { setVisualBell } = useContext(VisualBellContext);
 	const { handleResponse } = useHandleResponse();
 	const {
 		register,

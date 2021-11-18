@@ -25,7 +25,7 @@ export default async function (req, res) {
 	// console.log(data);
 	// Integration Logic
 	// Remove each user
-	for (let i = 0; i < input.users.length; i++) {
+	for (let i = 0; i < input.licenseIds.length; i++) {
 		const licenseId = input.licenseIds[i];
 		let data;
 		try {
@@ -38,6 +38,7 @@ export default async function (req, res) {
 		} catch (error) {
 			data = { status: "error", content: error };
 		}
+		console.log(data);
 		if (data.status !== "succeeded") return res.send({ status: "error" });
 	}
 	return res.send({ status: "succeeded" });

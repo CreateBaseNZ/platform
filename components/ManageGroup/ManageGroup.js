@@ -4,15 +4,16 @@ import Head from "next/head";
 import axios from "axios";
 import useHandleResponse from "../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../store/global-session-context";
+import HeaderToggle from "../Layouts/MainLayout/HeaderToggle";
 import Table from "../UI/Table/Table";
+import { TertiaryButton } from "../UI/Buttons";
 import { COLUMNS, SIZES } from "../../constants/manageGroup";
 
-import classes from "/styles/manageGroup.module.scss";
-import HeaderToggle from "../Layouts/MainLayout/HeaderToggle";
+import classes from "../../styles/manageGroup.module.scss";
 
 const ManageGroup = ({ role }) => {
 	const ref = useRef();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 	const [data, setData] = useState([]);
 
@@ -46,6 +47,46 @@ const ManageGroup = ({ role }) => {
 		return null;
 	}
 
+	const renderBtns = [
+		(key, data, selectedRowIds) => (
+			<TertiaryButton
+				key={key}
+				onClick={async () => {
+					const details = {
+						groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),
+						date: new Date().toString(),
+					};
+					let _data;
+					const DUMMY_STATUS = "succeeded";
+					try {
+						_data = (await axios.post("/api/groups/remove-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+					} catch (error) {
+						_data.status = "error";
+					} finally {
+						console.log(Object.keys(selectedRowIds));
+						handleResponse({
+							data: _data,
+							failHandler: () => {},
+							successHandler: () => {
+								setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
+								setGlobalSession((state) => ({
+									...state,
+									groups: state.groups.map((group) =>
+										group.id === details.groupId ? { ...group, numOfUsers: { ...group.numOfUsers, [role]: group.numOfUsers[role] - details.licenseIds.length } } : group
+									),
+								}));
+							},
+						});
+					}
+				}}
+				mainLabel="Remove"
+				className={classes.removeBtn}
+				iconLeft={<i className="material-icons-outlined">person_remove</i>}
+			/>
+		),
+	];
+
 	return (
 		<div className={classes.manageGroup}>
 			<Head>
@@ -58,7 +99,7 @@ const ManageGroup = ({ role }) => {
 				Manage {role}s
 				<HeaderToggle />
 			</h2>
-			<Table columns={COLUMNS} data={data} pageSizes={SIZES} />
+			<Table columns={COLUMNS} data={data} pageSizes={SIZES} renderBtns={renderBtns} />
 		</div>
 	);
 };
