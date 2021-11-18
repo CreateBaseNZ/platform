@@ -9,7 +9,7 @@ const MY_ACCOUNT = { urlObject: { pathname: "/my-account" }, page: "my-account",
 const SUPPORT = { urlObject: { pathname: "/support" }, page: "support", label: "Support", icon: "support" };
 const INBOX = { urlObject: { pathname: "/inbox" }, page: "inbox", label: "Inbox", icon: "inbox" };
 
-const DEFAULT_TABS = [MY_GROUPS, ONBOARDING, INBOX, MY_ACCOUNT, SUPPORT];
+const DEFAULT_TABS = [ONBOARDING, MY_GROUPS, INBOX, MY_ACCOUNT, SUPPORT];
 export default DEFAULT_TABS;
 
 export const MAIN_TABS = {
@@ -23,5 +23,3 @@ export const MAIN_TABS = {
 		member: [],
 	},
 };
-
-// TODO FAMILY_ADMIN_TABS, FAMILY_MEMBER_TABS

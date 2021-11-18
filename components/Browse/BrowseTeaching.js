@@ -38,7 +38,7 @@ const BrowseTeaching = ({ project, role }) => {
 			</div>
 		</>
 	) : (
-		<p className={classes.createAccount}>To view lesson plans and teaching content, please create or log into a FREE educator account.</p>
+		<p className={classes.createAccount}>To view lesson plans and teaching content, you must be viewing as an admin or teacher of a group.</p>
 	);
 };
 
