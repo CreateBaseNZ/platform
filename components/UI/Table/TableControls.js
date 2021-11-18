@@ -19,12 +19,10 @@ const TableControls = ({ data, selectedRowIds, globalFilter, setGlobalFilter, re
 
 	return (
 		<div className={classes.controls}>
-			{numOfSelected ? (
-				<div className={classes.selectedControls}>
-					<div className={classes.num}>{numOfSelected} selected</div>
-				</div>
-			) : null}
-			<div style={{ opacity: numOfSelected ? 1 : 0.25, pointerEvents: numOfSelected ? "auto" : "none" }}>{renderBtns.map((fn, i) => fn(i, data, selectedRowIds))}</div>
+			{numOfSelected ? <div className={classes.num}>{numOfSelected} selected</div> : null}
+			<div className={classes.btnContainer} style={{ opacity: numOfSelected ? 1 : 0.25, pointerEvents: numOfSelected ? "auto" : "none" }}>
+				{renderBtns.map((fn, i) => fn(i, data, selectedRowIds))}
+			</div>
 			<SearchBar inputProps={{ placeholder: "Search", className: classes.input, value: value || "", onChange: changeHandler }} className={classes.search} />
 		</div>
 	);
