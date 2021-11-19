@@ -32,12 +32,11 @@ const Research = () => {
 			</Head>
 			<ModuleContainer active={activeModule} clickHandler={(i) => setActiveModule(i)} modules={subsystemData.research.modules} caption={subsystemData.research.caption} showManualBtn={false} />
 			<div className={classes.mainContainer}>
-				{subsystemData.research.modules[activeModule]?.type === "pdf" ||
-					(subsystemData.research.modules[activeModule]?.type === "task" && (
-						<div style={{ width: "100%", height: "100%" }}>
-							<embed src={subsystemData.research.modules[activeModule].url} width="100%" height="100%" />
-						</div>
-					))}
+				{(subsystemData.research.modules[activeModule]?.type === "pdf" || subsystemData.research.modules[activeModule]?.type === "task") && (
+					<div style={{ width: "100%", height: "100%" }}>
+						<embed src={subsystemData.research.modules[activeModule].url} width="100%" height="100%" />
+					</div>
+				)}
 				{subsystemData.research.modules[activeModule]?.type === "video" && (
 					<div style={{ width: "85%" }}>
 						<VideoViewer data={subsystemData.research.modules[activeModule].data} />
