@@ -40,7 +40,6 @@ const BrowsePreview = ({ project, role }) => {
 		const queriedStep = getTabs(role).find((t) => t === tab);
 		if (queriedStep) {
 			setTab(queriedStep);
-			console.log(`${project.name} ${tab}`);
 			mixpanel.track(`${project.name} ${tab}`);
 		}
 	}, [router.query.tab]);
@@ -49,7 +48,6 @@ const BrowsePreview = ({ project, role }) => {
 		if (ref.current) {
 			setVideoLoaded(false);
 		}
-		console.log(`${project.name} Card`);
 		mixpanel.track(`${project.name} Card`);
 	}, [project]);
 

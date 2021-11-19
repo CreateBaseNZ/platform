@@ -74,7 +74,7 @@ const ManageGroup = ({ role }) => {
 						console.log(details);
 						let _data;
 						try {
-							_data = (await axios.post("/api/groups/promote-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+							_data = (await axios.post("/api/groups/promote-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 						} catch (error) {
 							_data.status = "error";
 						} finally {
