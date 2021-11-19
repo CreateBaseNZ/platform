@@ -51,8 +51,7 @@ const Onboarding = () => {
 
 	if (!statuses) return null;
 
-	const checkHandler = (id, e) => {
-		e.preventDefault();
+	const checkHandler = (id) => {
 		setStatuses((state) => ({ ...state, [id]: !state[id] }));
 	};
 
