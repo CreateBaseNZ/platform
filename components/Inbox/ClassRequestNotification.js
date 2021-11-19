@@ -53,7 +53,7 @@ const ClassRequestNotification = ({ notification, setNotifications }) => {
 		<div className={classes.notification}>
 			<div className={classes.contents}>
 				<div className={classes.tag}>{notification.params.group.name}</div>
-				<div className={classes.message}>
+				<div className={classes.title}>
 					<span className={classes.bold}>
 						{notification.params.user.firstName} {notification.params.user.lastName}
 					</span>{" "}
