@@ -31,6 +31,7 @@ const ManageGroup = ({ role }) => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
+			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {
@@ -61,22 +62,22 @@ const ManageGroup = ({ role }) => {
 			globalSession.groups[globalSession.recentGroups[0]].role === "admin" && (
 				<TertiaryButton
 					key={key}
+					mainLabel="Promote"
+					className={classes.promoteBtn}
+					iconLeft={<i className="material-icons-outlined">add_moderator</i>}
 					onClick={async () => {
-						// TODO: Integration - Frontend
-						// licenseIds is null
 						const details = {
 							groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),
+							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
 							date: new Date().toString(),
 						};
+						console.log(details);
 						let _data;
-						const DUMMY_STATUS = "succeeded";
 						try {
 							_data = (await axios.post("/api/groups/promote-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 						} catch (error) {
 							_data.status = "error";
 						} finally {
-							console.log(Object.keys(selectedRowIds));
 							handleResponse({
 								data: _data,
 								failHandler: () => {},
@@ -97,20 +98,18 @@ const ManageGroup = ({ role }) => {
 							});
 						}
 					}}
-					mainLabel="Promote"
-					className={classes.promoteBtn}
-					iconLeft={<i className="material-icons-outlined">add_moderator</i>}
 				/>
 			),
 		(key, data, selectedRowIds) => (
 			<TertiaryButton
 				key={key}
+				mainLabel="Remove"
+				className={classes.removeBtn}
+				iconLeft={<i className="material-icons-outlined">person_remove</i>}
 				onClick={async () => {
-					// TODO: Integration - Frontend
-					// licenseIds is null
 					const details = {
 						groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),
+						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
 						date: new Date().toString(),
 					};
 					let _data;
@@ -120,7 +119,6 @@ const ManageGroup = ({ role }) => {
 					} catch (error) {
 						_data.status = "error";
 					} finally {
-						console.log(Object.keys(selectedRowIds));
 						handleResponse({
 							data: _data,
 							failHandler: () => {},
@@ -136,9 +134,6 @@ const ManageGroup = ({ role }) => {
 						});
 					}
 				}}
-				mainLabel="Remove"
-				className={classes.removeBtn}
-				iconLeft={<i className="material-icons-outlined">person_remove</i>}
 			/>
 		),
 	];

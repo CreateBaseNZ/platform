@@ -17,6 +17,8 @@ const TableControls = ({ data, selectedRowIds, globalFilter, setGlobalFilter, re
 		debounceFn(e.target.value);
 	};
 
+	console.log(data);
+
 	return (
 		<div className={classes.controls}>
 			{numOfSelected ? <div className={classes.num}>{numOfSelected} selected</div> : null}
