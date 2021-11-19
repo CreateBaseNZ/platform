@@ -15,7 +15,7 @@ const OnboardingSection = ({ section, checkHandler, statuses }) => {
 			<div className={classes.taskContainer}>
 				{section.tasks.map((task, i) => (
 					<Fragment key={task.id}>
-						<OnboardingTask task={task} isCompleted={section.hasOr ? statuses[section.orId] : statuses[task.id]} checkHandler={(e) => checkHandler(section.hasOr ? section.orId : task.id, e)} />
+						<OnboardingTask task={task} isCompleted={section.hasOr ? statuses[section.orId] : statuses[task.id]} checkHandler={() => checkHandler(section.hasOr ? section.orId : task.id)} />
 						{section.hasOr && i < section.tasks.length - 1 && <div className={classes.or}>OR</div>}
 					</Fragment>
 				))}
