@@ -129,6 +129,7 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 								lastName: license.profile.name.last,
 								email: license.profile.account.email,
 							},
+							message: license.metadata.requestMessage,
 						},
 					};
 					notifications.push(notification);
@@ -156,6 +157,7 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 						lastName: license.profile.name.last,
 						email: license.profile.account.email,
 					},
+					message: license.metadata.inviteMessage,
 				},
 			};
 			notifications.push(notification);
@@ -190,6 +192,7 @@ function classRequestNotifications(group, licenses, inputGroups) {
 							lastName: license.profile.name.last,
 							email: license.profile.account.email,
 						},
+						message: "",
 					},
 				};
 				notifications.push(notification);

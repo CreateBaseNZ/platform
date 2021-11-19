@@ -102,6 +102,7 @@ const constructUsers = (licenses) => {
 			role: license.role,
 			status: license.status,
 			email: license.profile.account.email,
+			message: license.status === "requested" ? license.metadata.requestMessage : "",
 		};
 	});
 };
