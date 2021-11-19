@@ -60,3 +60,15 @@
 		border-radius: 0 0 0.75rem 0.75rem;
 	}
 }
+
+.subsystem {
+	margin-left: auto;
+	margin-right: 2rem;
+	color: $logo-mid;
+	display: flex;
+	align-items: center;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	font-size: 12px;
+	text-transform: uppercase;
+}
