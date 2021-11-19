@@ -34,8 +34,6 @@ const Create = () => {
 
 	if (!data) return null;
 
-	// TODO progress tracking
-
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
 			<Head>

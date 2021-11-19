@@ -18,6 +18,7 @@ import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini, NodePIMini, NodeSqrtMini, NodeClampMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
 import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
+import { COMPUTER_SCIENCE, ENGINEERING, MATH, SCRIPTING } from "../constants/projectSubjects";
 
 export default {
 	name: "AimBot (WIP)",
@@ -29,7 +30,7 @@ export default {
 	durPerLesson: "45 mins",
 	numOfLessons: 7,
 	difficulty: "Proficient",
-	subjects: ["Computer Science", "Scripting", "Maths", "Engineering"],
+	subjects: [COMPUTER_SCIENCE, SCRIPTING, MATH, ENGINEERING],
 	learningOutcome: "TBD",
 	curriculumAlignment: "TBD",
 	lessonPlan: "TBD",
@@ -58,7 +59,7 @@ export default {
 			{
 				title: "TBD",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/files/imagine.pdf",
+				url: "/aimbot/files/imagine.pdf",
 			},
 		],
 	},

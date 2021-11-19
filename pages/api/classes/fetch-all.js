@@ -32,7 +32,6 @@ export default async function (req, res) {
 	if (_data.status !== "succeeded") return res.send({ status: "error" });
 	// Construct the success object
 	const data = { status: "succeeded", content: constructClasses(_data.content[0].classes, input.licenseId) };
-	console.log(data);
 	return res.send(data);
 }
 

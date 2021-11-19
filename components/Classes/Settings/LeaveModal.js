@@ -6,6 +6,7 @@ import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
 import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 import classes from "./LeaveModal.module.scss";
 import useHandleResponse from "../../../hooks/useHandleResponse";
+import router from "next/router";
 
 const LeaveModal = ({ setShow, classObject }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -19,13 +20,11 @@ const LeaveModal = ({ setShow, classObject }) => {
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 		};
 		let data = {};
-		const DUMMY_STATUS = "failed 1";
 		try {
-			data = (await axios.post("/api/classes/leave", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/leave", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {
@@ -35,6 +34,7 @@ const LeaveModal = ({ setShow, classObject }) => {
 					}
 				},
 				successHandler: () => {
+					router.push("/classes");
 					setVisualBell({ type: "neutral", message: "Class left" });
 					setShow(false);
 				},

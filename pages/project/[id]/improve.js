@@ -17,8 +17,6 @@ const Improve = () => {
 		}
 	}, [router.query.id]);
 
-	console.log(data);
-
 	if (!data) return null;
 
 	return (

@@ -6,9 +6,11 @@ import Input from "../../UI/Input";
 import useHandleResponse from "../../../hooks/useHandleResponse";
 import classes from "./ClassNameForm.module.scss";
 import GlobalSessionContext from "../../../store/global-session-context";
+import VisualBellContext from "../../../store/visual-bell-context";
 
 const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const { setVisualBell } = useContext(VisualBellContext);
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 	const {
@@ -27,9 +29,8 @@ const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 			name: inputs.name,
 		};
 		let data = {};
-		const DUMMY_STATUS = "failed 1";
 		try {
-			data = (await axios.post("/api/classes/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/update", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
@@ -41,7 +42,11 @@ const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 					}
 					setIsLoading(false);
 				},
-				successHandler: () => setClassObject((state) => ({ ...state, name: inputs.name })),
+				successHandler: () => {
+					setClassObject((state) => ({ ...state, name: inputs.name }));
+					setVisualBell({ type: "success", message: "Class details updated" });
+					setIsLoading(false);
+				},
 			});
 		}
 	};

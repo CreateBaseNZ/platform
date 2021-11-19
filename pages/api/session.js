@@ -37,6 +37,9 @@ export default async function (req, res) {
 	} catch (error) {
 		data = { status: "error", content: error };
 	}
+	if (data.status === "failed" && data.content.account === "does not exist") {
+		return res.send({ status: "failed", content: "invalid account id" });
+	}
 	if (data.status !== "succeeded") return res.send({ status: "error" });
 	return res.send({ status: "succeeded", content: data.content });
 }

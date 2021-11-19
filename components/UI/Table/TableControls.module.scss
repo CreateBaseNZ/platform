@@ -8,16 +8,17 @@
 	margin-bottom: 1rem;
 }
 
-.selectedControls {
+.num {
 	margin-right: auto;
+	width: 4rem;
+	font-size: 12px;
+	font-weight: 600;
+	color: $blue-mid;
+}
+
+.btnContainer {
 	display: flex;
 	align-items: center;
-	.num {
-		width: 4rem;
-		font-size: 12px;
-		font-weight: 600;
-		color: $blue-mid;
-	}
 }
 
 .search {

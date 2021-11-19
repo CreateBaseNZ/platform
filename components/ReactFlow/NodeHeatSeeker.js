@@ -53,7 +53,6 @@ export const NodeHeatSeekerStop = memo(({ id, data = { values: {}, connections: 
 
 export const NodeHeatSeekerTurn = memo(({ id, data = { values: {}, connections: [] }, isConnectable }) => {
 	const changeHandler = () => {
-		console.log(data.values.a);
 		data.callBack({ a: !data.values.a }, id);
 	};
 	return (

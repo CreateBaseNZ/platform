@@ -1,10 +1,8 @@
-// TODO: Integration - Test
+// TODO: Integration - Review
 
 // IMPORT ===================================================
 
 import axios from "axios";
-
-// TEST OUTPUT ==============================================
 
 // MAIN =====================================================
 
@@ -14,19 +12,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: {}, // return nothing
-	// 	};
-	// } else if (req.body.status === "failed 1") {
-	// 	data = {
-	// 		status: "failed",
-	// 		content: "unauthorised",
-	// 	};
-	// }
 	// Integration Logic
 	// TODO: Validate Authorisation
 	// Delete the class

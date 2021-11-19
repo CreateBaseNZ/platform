@@ -1,13 +1,10 @@
-const PROJECT_SUBJECTS = {
-	technology: { color: "#36c4e8", label: "Technology" },
-	engineering: { color: "#18dbac", label: "Engineering" },
-	computerScience: { color: "#fa6f6f", label: "Computer science" },
-	automation: { color: "#fdb554", label: "Automation" },
-	ai: { color: "#8dcbee", label: "AI" },
-	ethics: { color: "#7f21b3", label: "Ethics" },
-	math: { color: "#a2e483", label: "Math" },
-	socialScience: { color: "#ee92da", label: "Social science" },
-	fireSafety: { color: "#ffd84b", label: "Fire Safety" },
-};
-
-export default PROJECT_SUBJECTS;
+export const TECHNOLOGY = { color: "#36c4e8", label: "Technology" };
+export const ENGINEERING = { color: "#18dbac", label: "Engineering" };
+export const COMPUTER_SCIENCE = { color: "#fa6f6f", label: "Computer science" };
+export const AUTOMATION = { color: "#fdb554", label: "Automation" };
+export const AI = { color: "#8dcbee", label: "AI" };
+export const ETHICS = { color: "#ba62ff", label: "Ethics" };
+export const MATH = { color: "#a2e483", label: "Math" };
+export const SOCIAL_SCIENCE = { color: "#ee92da", label: "Social science" };
+export const FIRE_SAFETY = { color: "#ffd84b", label: "Fire safety" };
+export const SCRIPTING = { color: "#c8f028", label: "Scripting" };

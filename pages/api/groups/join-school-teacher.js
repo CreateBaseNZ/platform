@@ -1,11 +1,7 @@
-// TODO: Integration - Test
+// TODO: Integration - Review
 // IMPORT ===================================================
 
 import axios from "axios";
-
-// TEST OUTPUT ==============================================
-
-const DUMMY_CONTENT = { sent: true };
 
 // MAIN =====================================================
 
@@ -15,14 +11,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_CONTENT, // content not required; returning just the succeeded status is sufficient
-	// 	};
-	// }
 	// Integration Logic
 	// Fetch the group that the user is attempting to join in
 	let data1;

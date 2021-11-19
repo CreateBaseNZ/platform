@@ -26,14 +26,14 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 
 	useEffect(async () => {
 		const details = {
+			classId: classObject.id,
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 		};
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
-		// TODO move api's into hooks (make reusable) [FRONTEND]
 		try {
-			data = (await axios.post("/api/groups/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/fetch-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
@@ -45,9 +45,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 						router.replace("/404");
 					}
 				},
-				// TODO either query all with an extra "joined" prop (preferred) [TBD]
-				// or only query users not already in class
-				successHandler: () => ref.current && setUserList(data.content.map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
+				successHandler: () => ref.current && setUserList(data.content.filter((user) => !user.status).map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
 			});
 		}
 		return () => (ref.current = null);
@@ -61,6 +59,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]),
 			date: new Date().toString(),
 		};
+		console.log(details);
 		if (!details.licenseIds.length) return setIsLoading(false);
 		let data = {};
 		const DUMMY_STATUS = "succeeded";
@@ -74,9 +73,17 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 				data,
 				failHandler: () => {},
 				successHandler: () => {
-					setClassObject((state) => ({ ...state, ...data.content }));
+					setClassObject((state) => ({
+						...state,
+						students: [
+							...state.students,
+							...userList
+								.filter((user) => details.licenseIds.some((id) => id === user.licenseId))
+								.map((user) => ({ email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId })),
+						],
+					}));
 					setShow(false);
-					setVisualBell({ type: "success", message: `${details.users.length} new user${details.licenseIds.length === 1 ? "" : "s"} added` });
+					setVisualBell({ type: "success", message: `${details.licenseIds.length} new user${details.licenseIds.length === 1 ? "" : "s"} added` });
 				},
 			});
 		}
@@ -102,7 +109,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 							{userList.map(
 								(user) =>
 									user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
-										<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`} key={user.licenseId}>
+										<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`}>
 											<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(user.licenseId)} />
 											<label>
 												<div>
