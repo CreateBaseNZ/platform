@@ -56,6 +56,11 @@ const AddGroupUserModal = ({ setShow, role }) => {
 		}
 	};
 
+	const copyHandler = () => {
+		navigator.clipboard.writeText(globalSession.groups[globalSession.recentGroups[0]].studentCode);
+		setVisualBell({ type: "success", message: "Code copied to clipboard" });
+	};
+
 	return (
 		<ClientOnlyPortal selector="#modal-root">
 			<div className={classes.view}>
@@ -65,7 +70,16 @@ const AddGroupUserModal = ({ setShow, role }) => {
 					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setShow(false)}>
 						close
 					</i>
-					<TertiaryButton
+					<div className={classes.codeContainer}>
+						<h3>
+							<i className="material-icons-outlined">pin</i> Student code
+						</h3>
+						<button className={classes.code} title="Click to copy" onClick={copyHandler}>
+							{globalSession.groups[globalSession.recentGroups[0]].studentCode}
+							<i className="material-icons-outlined">content_copy</i>
+						</button>
+					</div>
+					{/* <TertiaryButton
 						type="button"
 						className={classes.addBtn}
 						mainLabel="Add invitation"
@@ -108,7 +122,7 @@ const AddGroupUserModal = ({ setShow, role }) => {
 							iconRight={<i className="material-icons-outlined">send</i>}
 							loadingLabel="Sending invitations"
 						/>
-					</form>
+					</form> */}
 				</div>
 			</div>
 		</ClientOnlyPortal>
