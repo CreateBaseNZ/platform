@@ -6,7 +6,7 @@ import Img from "../components/UI/Img";
 import SUPPORT_DATA from "../data/support-data";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 
-import classes from "/styles/support.module.scss";
+import classes from "../styles/support.module.scss";
 
 const awaitImages = async (images, callback) => {
 	let count = 0;
