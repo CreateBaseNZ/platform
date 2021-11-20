@@ -61,7 +61,13 @@ export default async function (req, res) {
 	}
 	// Send the success email
 	try {
-		await sendEmail(data2.content.profile);
+		await sendEmail(data2.content.profile, group.name);
+	} catch (error) {
+		return res.send(error);
+	}
+	// Send email notification to the team
+	try {
+		await notifyTeam(data2.content.profile, group);
 	} catch (error) {
 		return res.send(error);
 	}
@@ -104,12 +110,41 @@ function updateAlias(license, alias, date) {
 	});
 }
 
-function sendEmail(profile) {
+function sendEmail(profile, groupName) {
 	return new Promise(async (resolve, reject) => {
 		// Construct the input object
 		const input = {
 			accountId: profile.account.local,
-			option: { name: profile.name.first, receive: "organisation-created", notification: "onboarding", tone: "friendly" },
+			option: { name: profile.name.first, receive: "organisation-created", notification: "onboarding", tone: "friendly", group: groupName },
+		};
+		// Send the processing request
+		let data;
+		try {
+			data = (await axios.post(process.env.ROUTE_URL + "/mail/send-email", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		} catch (error) {
+			data = { status: "error", content: error };
+		}
+		// Error handler
+		if (data.status !== "succeeded") return reject({ status: "error" });
+		// Success handler
+		return resolve();
+	});
+}
+
+function notifyTeam(profile, group) {
+	return new Promise(async (resolve, reject) => {
+		// Construct the input object
+		const input = {
+			option: {
+				recipient: "team",
+				name: "Team",
+				receive: "new-org-notif",
+				notification: "createbase",
+				tone: "friendly",
+				orgName: group.name,
+				orgLocation: `${group.location.city}, ${group.location.country}`,
+				userName: profile.name.first,
+			},
 		};
 		// Send the processing request
 		let data;
