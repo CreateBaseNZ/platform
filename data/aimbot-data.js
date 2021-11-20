@@ -18,7 +18,7 @@ import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini, NodePIMini, NodeSqrtMini, NodeClampMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
 import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
-import { COMPUTER_SCIENCE, ENGINEERING, MATH, SCRIPTING } from "../constants/projectSubjects";
+import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
 
 export default {
 	name: "AimBot (WIP)",
@@ -30,7 +30,7 @@ export default {
 	durPerLesson: "45 mins",
 	numOfLessons: 7,
 	difficulty: "Proficient",
-	subjects: [COMPUTER_SCIENCE, SCRIPTING, MATH, ENGINEERING],
+	subjects: [COMPUTER_SCIENCE, SCRIPTING, TRIGONOMETRY, ENGINEERING],
 	learningOutcome: "TBD",
 	curriculumAlignment: "TBD",
 	lessonPlan: "TBD",
@@ -39,7 +39,7 @@ export default {
 		"Use while loops to continually perform micro-actions.",
 		"Apply trigonometry to calculate angles in a 2-dimensional plane.",
 		"Apply trigonometry to 3-dimensional space.",
-		"Apply control systems theory a control plant.",
+		"Apply control systems theory to a control plant.",
 	],
 	define: {
 		url: "https://www.youtube.com/watch?v=znMZhBSDW_I",
@@ -74,16 +74,35 @@ export default {
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks 1",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+						title: "Axis, Pitch and Yaw",
+						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Trigonometry",
+						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Introduction to Flow Part I",
+						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
 					},
 				],
 			},
 			plan: ["TBD"],
 			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
-				tasks: ["TBD"],
-				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."],
+				tasks: [
+					"Mosquitos will be appearing across your screen in a horizontal line.",
+					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
+					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly."
+				],
+				hints: [
+					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.", 
+					"You can aim by controlling the velocity of the motors in the robot's arm.",
+					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."
+				],
 			},
 			blockList: [
 				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
