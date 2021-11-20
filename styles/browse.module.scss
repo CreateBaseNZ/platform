@@ -30,9 +30,10 @@
 
 .allProjects {
 	margin: 1rem 5vw 1rem 2vw;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 1rem;
+	grid-row-gap: 1rem;
 	padding-bottom: 2rem;
 }
 
@@ -40,4 +41,16 @@
 	flex: 1 1 20%;
 	min-width: 200px;
 	margin: 0 1vw 4vh 1vw;
+}
+
+@media only screen and (min-width: 1200px) {
+	.allProjects {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media only screen and (min-width: 1600px) {
+	.allProjects {
+		grid-template-columns: repeat(5, 1fr);
+	}
 }

@@ -35,20 +35,22 @@ const Nav = ({ page }) => {
 		<nav className={classes.nav}>
 			<ColourLogo width="131.25" height="24" className={classes.logo} />
 			{globalSession.accountId && (
-				<div className={`${classes.menu} roundScollbar`}>
-					<div
-						className={classes.slider}
-						style={{
-							top: `calc(${activeTab} * 4rem)`,
-						}}
-					/>
-					<NavTab tab={BROWSE} page={page} />
-					{defaultTabs.map((tab, i) => (
-						<NavTab key={i} tab={tab} page={page} />
-					))}
-					{DEFAULT_TABS.map((tab, i) => (
-						<NavTab key={i} tab={tab} page={page} />
-					))}
+				<div className={`${classes.menu} roundScrollbar`}>
+					<div className={classes.inner}>
+						<div
+							className={classes.slider}
+							style={{
+								top: `calc(${activeTab} * 4rem)`,
+							}}
+						/>
+						<NavTab tab={BROWSE} page={page} />
+						{defaultTabs.map((tab, i) => (
+							<NavTab key={i} tab={tab} page={page} />
+						))}
+						{DEFAULT_TABS.map((tab, i) => (
+							<NavTab key={i} tab={tab} page={page} />
+						))}
+					</div>
 				</div>
 			)}
 		</nav>

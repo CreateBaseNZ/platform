@@ -9,7 +9,7 @@ import BrowsePreview from "./BrowsePreview";
 import { allData } from "../../utils/getProjectData";
 
 import "overlayscrollbars/css/OverlayScrollbars.css";
-import classes from "/styles/browse.module.scss";
+import classes from "../../styles/browse.module.scss";
 
 import { io } from "socket.io-client";
 
