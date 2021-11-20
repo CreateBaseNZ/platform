@@ -103,11 +103,11 @@
 .levelCard {
 	height: 20vh;
 	&.complete {
-		border-color: $green-mid;
-		color: $green-mid;
+		border-color: $green-light;
+		color: $green-light;
 		&::before {
 			opacity: 0.25;
-			background: $green-mid;
+			background: $green-light;
 		}
 	}
 }

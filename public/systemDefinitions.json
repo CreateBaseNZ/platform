@@ -6,9 +6,9 @@
 		"actions": {},
 		"functions": {
 			"NodeStart": {
-				"simpleLogic": "IntialiseRobot();",
+				"simpleLogic": "await InitialiseRobot();",
 				"inputs": [],
-				"logic": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 2500);\n})\n};\nawait reset()\n",
+				"logic": "",
 				"await": false
 			},
 			"NodeEnd": {
@@ -23,13 +23,13 @@
 					{ "variable": "y", "type": "number", "value": 0 },
 					{ "variable": "z", "type": "number", "value": 0 }
 				],
-				"logic": "const intialPoint=JSON.parse(sensorDataRef.current).endEffectorPosition\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 1;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nconst position=JSON.parse(sensorDataRef.current).endEffectorPosition;\n\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.01) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\n//ctx.addLog(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
+				"logic": "MoveArmAlgorithm(x, y, z);",
 				"simpleLogic": "MoveArm",
 				"await": true
 			},
 			"NodeMagnebotSwitch": {
 				"inputs": [{ "variable": "a", "type": "boolean", "value": true }],
-				"logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
+				"logic": "MagneticSwitchAlgorithm();",
 				"simpleLogic": "MagneticSwitch",
 				"await": true
 			}
@@ -196,6 +196,91 @@
 		}
 	},
 	{
+		"robot": "aimbot",
+		"startingCode": "",
+		"sensors": {
+			"NodeAimBotGetYawAngle": {
+				"name": "yawSensor",
+				"simpleName": "yaw"
+			},
+			"NodeAimBotGetPitchAngle": {
+				"name": "pitchSensor",
+				"simpleName": "pitch"
+			},
+			"NodeAimBotGetMosquitoXPos": {
+				"name": "enemyPosition.x",
+				"simpleName": "xPos"
+			},
+			"NodeAimBotGetMosquitoYPos": {
+				"name": "enemyPosition.y",
+				"simpleName": "yPos"
+			},
+			"NodeAimBotGetMosquitoZPos": {
+				"name": "enemyPosition.z",
+				"simpleName": "zPos"
+			}
+		},
+		"actions": {
+			"NodeAimBotShoot": {
+				"inputs": [],
+				"syntaxSimple": "shoot",
+				"syntax": "unityContext.send(\"Weapon\",\"Shoot\");"
+			}
+		},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "",
+				"await": false
+			},
+			"NodeAimBotSetYawSpeed": {
+				"simpleLogic": "yawSpeed",
+				"inputs": [{ "variable": "a", "type": "number", "value": 3 }],
+				"logic": "unityContext.send(\"Weapon\", \"SetYawVelocity\", a);",
+				"await": false
+			},
+			"NodeAimBotSetPitchSpeed": {
+				"simpleLogic": "pitchSpeed",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "unityContext.send(\"Weapon\", \"SetPitchVelocity\", a);",
+				"await": false
+			},
+			"NodeAimBotGetCurrentYawSpeed": {
+				"simpleLogic": "getCurrentYawSpeed",
+				"output": { "variable": "out" },
+				"inputs": [],
+				"logic": "return m.currentYawSpeed ? m.currentYawSpeed : 0;",
+				"await": false
+			},
+			"NodeAimBotGetCurrentPitchSpeed": {
+				"simpleLogic": "getCurrentPitchSpeed",
+				"output": { "variable": "out" },
+				"inputs": [],
+				"logic": "return m.currentPitchSpeed ? m.currentPitchSpeed : 0;",
+				"await": false
+			},
+			"NodeAimBotSetCurrentYawSpeed": {
+				"simpleLogic": "setCurrentYawSpeed",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "return m.currentYawSpeed = a;",
+				"await": false
+			},
+			"NodeAimBotSetCurrentPitchSpeed": {
+				"simpleLogic": "setCurrentPitchSpeed",
+				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
+				"logic": "return m.currentPitchSpeed = a;",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "",
+				"await": false
+			}
+		}
+	},
+	{
 		"mathOps": {
 			"NodeAdd": "+",
 			"NodeSubtract": "-",
@@ -206,9 +291,10 @@
 			"NodeEquals": "==",
 			"NodeNotEquals": "!=",
 			"NodeAnd": "&&",
-			"NodeOr": "||"
+			"NodeOr": "||",
+			"NodePower": "^^"
 		},
-		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute"],
+		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute", "NodeArcTan", "NodePI", "NodeSqrt", "NodeClamp"],
 		"functions": {
 			"NodeDelay": {
 				"simpleLogic": "Delay",

@@ -1,0 +1,42 @@
+@import "/styles/variables";
+
+.section {
+	margin: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	h3 {
+		font-size: 12px;
+		color: $dark;
+		font-weight: 500;
+	}
+	h4 {
+		color: $light;
+		font-weight: 500;
+		font-size: 12px;
+		flex: 0 0 auto;
+		margin-left: 4rem;
+	}
+}
+
+.sectionHeading {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.taskContainer {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	& > *:nth-child(3),
+	& > *:last-child {
+		margin-right: 0;
+	}
+}
+
+.or {
+	color: $light;
+	font-weight: 600;
+	margin: 0 2rem 0 1rem;
+}

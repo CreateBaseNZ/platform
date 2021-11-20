@@ -1,0 +1,26 @@
+@import "/styles/variables";
+
+.inbox {
+	padding: 2rem 0;
+	height: 100%;
+	width: 100%;
+	background: white;
+	display: flex;
+	justify-content: center;
+	h1 {
+		font-size: 2rem;
+		font-weight: 600;
+	}
+}
+
+.view {
+	width: 50vw;
+	display: flex;
+	flex-direction: column;
+}
+
+.total {
+	margin-bottom: 1rem;
+	font-size: 12px;
+	color: $light;
+}

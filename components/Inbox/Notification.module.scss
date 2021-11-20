@@ -1,0 +1,93 @@
+@import "/styles/variables";
+
+.notification {
+	width: 100%;
+	padding: 1rem 1rem 1.25rem 1.75rem;
+	background: white;
+	border-radius: 20px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1.5rem;
+	box-shadow: 0 4px 16px 0 rgba(black, 0.1);
+}
+
+.contents {
+	flex: 1;
+	margin-right: 1rem;
+	margin-top: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	.tag {
+		font-size: 12px;
+		color: $light;
+	}
+	.title {
+		font-size: 14px;
+		margin-top: 0.5rem;
+	}
+	span {
+		font-size: inherit;
+		color: inherit;
+		font-weight: inherit;
+	}
+	.highlight {
+		color: $blue-mid;
+	}
+	.bold {
+		font-weight: 600;
+	}
+	.message {
+		display: flex;
+		font-size: 12px;
+		background: $lighter;
+		border-radius: 8px;
+		padding: 0.75rem 1rem;
+		margin: 0.5rem 0;
+		i {
+			color: $light;
+			font-size: 18px;
+			margin-right: 0.75rem;
+		}
+	}
+	.btnContainer {
+		margin-top: 1rem;
+		display: flex;
+		button {
+			border-radius: 12px;
+			height: 2.5rem;
+			padding: 0 1.5rem;
+			font-size: 13px;
+			margin-right: 0.75rem;
+		}
+		.deny {
+			background: $lighter;
+			color: $dark;
+			&:hover {
+				color: $red;
+				background: rgba($red, 0.1);
+			}
+		}
+	}
+}
+
+.delete {
+	height: 2.5rem;
+	width: 2.5rem;
+	flex: 0 0 2.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	transition: background-color 0.1s ease-out;
+	i {
+		font-size: 20px;
+		color: $dark;
+		transition: color 0.1s ease-out;
+	}
+	&:hover {
+		background: rgba($red, 0.1);
+		i {
+			color: $red;
+		}
+	}
+}

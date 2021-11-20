@@ -12,6 +12,7 @@ import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
 import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
+import { AI, AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, ETHICS, TECHNOLOGY } from "../constants/projectSubjects";
 
 export default {
 	name: "Send It",
@@ -23,8 +24,8 @@ export default {
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 6,
-	difficulty: "Proficient",
-	subjects: ["Technology", "Engineering", "Computer Science", "Automation", "AI", "Ethics"],
+	difficulty: "proficient",
+	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
 	learningOutcome: "/send-it/project_overview.pdf",
 	curriculumAlignment: "/send-it/curriculum_standards.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
@@ -36,7 +37,7 @@ export default {
 	],
 	define: {
 		url: "https://youtu.be/wB53GoLXzME",
-		src: "/send-it/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
 		title: "Send It",
@@ -51,33 +52,37 @@ export default {
 		modules: [
 			{
 				title: "Vehicular Delivery",
-				img: "/send-it/img/types-0.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/types-0.png",
 				url: "/send-it/pdf/delivery.pdf",
 			},
 			{
 				title: "Your Robot has Mail",
-				img: "/send-it/img/mail-2.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/mail-2.png",
 				url: "/send-it/pdf/mail.pdf",
 			},
 			{
 				title: "Controlling a Robot",
-				img: "/send-it/img/controlling-1.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-1.png",
 				url: "/send-it/pdf/controlling.pdf",
 			},
 			{
 				title: "Sensing Sensors",
-				img: "/send-it/img/controlling-0.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-0.png",
 				url: "/send-it/pdf/sensors.pdf",
 			},
 			{
 				title: "Automation & Ethics",
-				img: "/send-it/img/thumbnail.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
 				url: "/send-it/pdf/ethics.pdf",
 			},
 		],
 	},
-	iterations: [
+	subsystems: [
 		{
+			title: "TODO",
+			requirements: ["TODO"],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
+			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
 				caption: ["Work through the five modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
@@ -86,7 +91,7 @@ export default {
 						title: "Flow tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "/flow-tut.mp4",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 							title: "Flow Tutorial",
@@ -107,11 +112,11 @@ export default {
 						title: "How to Send It",
 						items: [
 							{
-								src: "/send-it/vid/tut-1.mp4",
+								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-1.mp4",
 								subtitle: <p>Run 1000m to deliver the Pizza</p>,
 							},
 							{
-								src: "/send-it/vid/tut-2.mp4",
+								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-2.mp4",
 								subtitle: (
 									<p>
 										Jump over obstacles to avoid crashing into them
@@ -120,7 +125,7 @@ export default {
 								),
 							},
 							{
-								src: "/send-it/vid/tut-3.mp4",
+								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-3.mp4",
 								subtitle: (
 									<p>
 										Crouch under flying obstacles to avoid crashing into them
@@ -129,7 +134,7 @@ export default {
 								),
 							},
 							{
-								src: "/send-it/vid/tut-4.mp4",
+								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-4.mp4",
 								subtitle: <p>Change the simulation speed to allow more time for your code to react</p>,
 							},
 						],
@@ -145,7 +150,7 @@ export default {
 				"Open up your learning journal and answer all of the questions in the Plan section.",
 				"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 			],
-			create: {
+			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
 				hints: ["Make sure that you hit the compile button to upload your code to the robot"],

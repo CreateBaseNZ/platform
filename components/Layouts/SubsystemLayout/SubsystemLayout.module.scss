@@ -1,0 +1,74 @@
+@import "/styles/variables";
+
+.layout {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.head {
+	display: flex;
+	height: 2.5rem;
+	z-index: 1;
+	background: white;
+}
+
+.backBtn {
+	padding: 0 1.5rem;
+	display: flex;
+	align-items: center;
+	font-size: 11px;
+	font-weight: 500;
+	color: $light;
+	transition: color 0.1s ease-out, background-color 0.1s ease-out;
+	i {
+		color: inherit;
+		font-size: 1rem;
+		transition: transform 0.1s ease-out;
+	}
+	&:hover {
+		background: $lighter;
+		color: $dark;
+		i {
+			transform: translateX(-4px);
+		}
+	}
+}
+
+.tab {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 500;
+	color: $light;
+	padding: 0 2rem;
+	background: white;
+	text-transform: capitalize;
+	transition: height 0.1s ease-out, background-color 0.1s ease-out, color 0.1s ease-out, border-radius 0.1s ease-out;
+	&:hover {
+		height: calc(100% + 0.5rem);
+		color: $logo-mid;
+		border-radius: 0 0 0.75rem 0.75rem;
+		background: rgb(238, 236, 250);
+	}
+	&.active {
+		height: calc(100% + 0.5rem);
+		color: white;
+		background: $logo-mid;
+		border-radius: 0 0 0.75rem 0.75rem;
+	}
+}
+
+.subsystem {
+	margin-left: auto;
+	margin-right: 2rem;
+	color: $logo-mid;
+	display: flex;
+	align-items: center;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	font-size: 12px;
+	text-transform: uppercase;
+}

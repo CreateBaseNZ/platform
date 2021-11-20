@@ -1,0 +1,42 @@
+@import "/styles/variables";
+
+.authCard {
+	background: white;
+	border-radius: 32px;
+	box-shadow: 0 8px 24px 0 rgba(black, 0.1);
+	display: flex;
+	overflow: hidden;
+	width: 70vw;
+	max-width: 1000px;
+	z-index: 1;
+	&.verifyMain {
+		width: 500px;
+	}
+}
+
+.imgContainer {
+	position: relative;
+	width: 45%;
+	transition: background-color 0.1s ease-out;
+	&.signup {
+		background: rgba($green-mid, 0.25);
+	}
+	&.login {
+		background: rgba($blue-mid, 0.2);
+	}
+	.imgWrapper {
+		position: relative;
+		height: 100%;
+		width: 100%;
+	}
+}
+
+.formContainer {
+	width: 55%;
+	max-height: 95vh;
+	min-height: 75vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 2vh 4vw;
+}

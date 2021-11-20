@@ -145,13 +145,13 @@
 
 .questionWrapper.correctChoice {
 	.question {
-		color: $green-mid;
+		color: $green-light;
 	}
 	.choiceContainer {
 		.choice.answer {
-			background: $green-mid;
+			background: $green-light;
 			&::after {
-				border-color: $green-mid;
+				border-color: $green-light;
 			}
 		}
 		.choice.notAnswer {

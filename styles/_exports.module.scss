@@ -1,0 +1,33 @@
+@import "/styles/variables";
+
+:export {
+	darkest: $darkest;
+	darker: $darker;
+	dark: $dark;
+
+	light: $light;
+	lighter: $lighter;
+	lightest: $lightest;
+
+	logoLight: $logo-light;
+	logoMid: $logo-mid;
+	logoDark: $logo-dark;
+
+	blueLight: $blue-light;
+	blueMid: $blue-mid;
+	blueDark: $blue-dark;
+
+	magentaLight: $magenta-light;
+	magentaMid: $magenta-mid;
+	magentaDark: $magenta-dark;
+
+	red: $red;
+	redDark: $red-dark;
+	orange: $orange;
+	amber: $amber;
+	gold: $gold;
+
+	greenLight: $green-light;
+	greenMid: $green-mid;
+	greenDark: $green-dark;
+}

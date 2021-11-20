@@ -1,12 +1,12 @@
 import { useState } from "react";
 import classes from "./Input.module.scss";
 
-const Input = ({ className = "", inputProps = {}, label, error, children, ...rest }) => {
+const Input = ({ className = "", inputProps = {}, label, labelProps = {}, error, children, ...rest }) => {
 	return (
 		<div {...rest} className={`${classes.inputWrapper} ${className} ${error ? classes.hasError : ""}`}>
 			<p className={classes.error}>{error ? error.message : ""}</p>
 			<input {...inputProps} className={`${classes.input} ${inputProps.className}`} />
-			<label className={classes.label}>
+			<label {...labelProps} className={classes.label}>
 				{label}
 				{children}
 			</label>
@@ -38,6 +38,36 @@ export const PasswordInput = ({ className, inputProps, label, error, ...rest }) 
 						visibility
 					</i>
 				</>
+			}
+			{...rest}
+		/>
+	);
+};
+
+export const TextArea = ({ className = "", inputProps = {}, label, labelProps = {}, error, children, ...rest }) => {
+	return (
+		<div {...rest} className={`${classes.inputWrapper} ${className} ${error ? classes.hasError : ""}`}>
+			<p className={classes.error}>{error ? error.message : ""}</p>
+			<textarea rows={4} {...inputProps} className={`${classes.input} ${classes.textarea} ${inputProps.className} roundScrollbar`} />
+			<label {...labelProps} className={classes.label}>
+				{label}
+				{children}
+			</label>
+		</div>
+	);
+};
+
+export const SearchBar = ({ className = "", inputProps = {}, label, labelProps = {}, error, children, ...rest }) => {
+	return (
+		<Input
+			className={`${className} ${classes.searchBar}`}
+			inputProps={{ ...inputProps, type: "text" }}
+			label={label}
+			error={error}
+			children={
+				<i className="material-icons-outlined" style={{ top: label ? "2.5rem" : "1.5rem" }}>
+					search
+				</i>
 			}
 			{...rest}
 		/>

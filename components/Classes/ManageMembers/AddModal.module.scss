@@ -1,0 +1,176 @@
+@import "/styles/variables";
+
+.view {
+	z-index: 50;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.overlay {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: rgba(216, 234, 250, 0.5);
+	backdrop-filter: blur(2px);
+}
+
+.modal {
+	padding: 2rem 2.5rem;
+	background: white;
+	border-radius: 2rem;
+	box-shadow: 0 8px 2rem 0 rgba(black, 0.1);
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	h2 {
+		font-size: 18px;
+		font-weight: 600;
+		width: calc(20rem + 5vw);
+	}
+	.close {
+		position: absolute;
+		right: 1rem;
+		top: 1rem;
+		padding: 0.5rem;
+		border-radius: 8px;
+		cursor: pointer;
+		color: $dark;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
+		&:hover {
+			background: $lighter;
+			color: $red;
+		}
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-top: 0.5rem;
+	.input {
+		input {
+			height: 3rem;
+			font-size: 14px;
+		}
+		label {
+			margin-bottom: 0.3rem;
+			margin-left: 0;
+			font-size: 12px;
+			font-weight: 400;
+			color: $dark;
+			i {
+				top: 2.25rem !important;
+			}
+		}
+	}
+	.submitBtn {
+		margin-top: 1rem;
+		align-self: flex-end;
+		font-size: 1rem;
+		i {
+			margin-left: -0.5rem;
+			margin-right: 0.5rem;
+			font-size: 20px;
+		}
+	}
+}
+
+.container {
+	width: 450px;
+	display: flex;
+	flex-direction: column;
+	height: 50vh;
+	overflow-y: auto;
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+	.item {
+		width: 100%;
+		flex: 0 0 3.5rem;
+		overflow: hidden;
+		margin: 2px 0;
+		padding-right: 4px;
+		position: relative;
+		input {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			opacity: 0;
+			cursor: pointer;
+		}
+		label {
+			border-radius: 12px;
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			padding: 0 1.25rem;
+			justify-content: space-between;
+			background: $lightest;
+			transition: background-color 0.1s ease-out;
+			p {
+				font-weight: 500;
+				transition: color 0.1s ease-out;
+			}
+			p:first-child {
+				color: $darkest;
+			}
+			p:nth-child(2) {
+				font-size: 11px;
+				color: $dark;
+				text-transform: capitalize;
+			}
+			i {
+				color: $darkest;
+			}
+			.checkIcon {
+				display: none;
+			}
+			span {
+				display: none;
+			}
+		}
+		&:hover label {
+			background: $lighter;
+			p {
+				color: $blue-mid;
+			}
+			i {
+				color: $blue-mid;
+			}
+		}
+		input:checked ~ label {
+			background: rgba($blue-mid, 0.05);
+			i {
+				color: $blue-mid;
+			}
+			.checkIcon {
+				display: block;
+			}
+			.addIcon {
+				display: none;
+			}
+		}
+	}
+	.disabled {
+		pointer-events: none;
+		opacity: 0.25;
+		label {
+			i {
+				display: none !important;
+			}
+			span {
+				display: block;
+				font-size: 12px;
+				color: $dark;
+			}
+		}
+	}
+}

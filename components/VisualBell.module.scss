@@ -16,6 +16,7 @@
 	color: $lightest;
 	border-radius: 8px;
 	opacity: 0;
+	animation: animate 5s linear forwards;
 	i {
 		position: absolute;
 		top: 50%;
@@ -41,8 +42,8 @@
 }
 
 .success {
-	background: $green-dark;
-	box-shadow: 0 4px 12px 0 rgba($green-dark, 0.2);
+	background: $green-mid;
+	box-shadow: 0 4px 12px 0 rgba($green-mid, 0.2);
 	animation: animate 5s linear forwards;
 }
 
@@ -83,7 +84,7 @@
 @keyframes animate {
 	0% {
 		opacity: 0;
-		transform: translateY(-4px);
+		transform: translateY(-8px);
 	}
 	2% {
 		transform: translateY(0);

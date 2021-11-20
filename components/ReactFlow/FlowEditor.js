@@ -699,7 +699,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 				)}
 				<FlowVisualBell show={flowVisualBell.show} message={flowVisualBell.message} />
 			</div>
-			<ClientOnlyPortal selector="#ctx-menu-root">
+			<ClientOnlyPortal selector="#modal-root">
 				<NodeContextMenu
 					show={nodeCtxMenu.show}
 					x={nodeCtxMenu.x}
@@ -714,7 +714,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 					clearAllHandler={clearAll}
 				/>
 			</ClientOnlyPortal>
-			<ClientOnlyPortal selector="#ctx-menu-root">
+			<ClientOnlyPortal selector="#modal-root">
 				<PaneContextMenu
 					show={paneCtxMenu.show}
 					x={paneCtxMenu.x}

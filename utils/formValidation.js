@@ -7,22 +7,7 @@ export const emailPattern = {
 	message: "Please enter a valid email address",
 };
 
-export const usernameMinLength = {
-	value: 3,
-	message: "Usernames must be at least 3 characters long",
-};
-
-export const usernamePattern = {
-	value: /^[\w-]+$/,
-	message: "Usernames can only contain alphanumeric, -, and _",
-};
-
-export const displayNameMinLength = {
-	value: 3,
-	message: "Display names must be at least 3 characters long",
-};
-
-export const displayNamePattern = {
+export const namePattern = {
 	value: /^[a-zA-Z\-\. ]+$/,
 	message: "Display names can only contain A—Z, a—z, -, and .",
 };
