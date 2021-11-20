@@ -6,26 +6,33 @@ import OnboardingSection from "../components/Onboarding/OnboardingSection";
 
 import classes from "../styles/onboarding.module.scss";
 
-const DUMMY_STATUS = { "default-0": true, "default-1": false, "not-group": false, "group-0": true, "group-1": false, "group-2": true, "group-3": true, "group-4": false, "group-5": false };
+const DUMMY_STATUS = { "getting-started": true, "flow-0": false, "not-group": false, "group-0": true, "group-1": false, "group-2": true, "group-3": true, "group-4": false, "group-5": false };
 
 // TODO populate links, images, text, and videos
 
-const DEFAULT_SECTION = {
-	caption: "We’ve curated a couple of tasks to help you get started",
+const GETTING_STARTED_SECTION = {
+	caption: "Let's get you started! Here's a couple videos we've put together for you",
+	hasOr: true,
+	orId: "getting-started",
 	tasks: [
-		{ id: "default-0", type: "video", title: "Watch Getting Started on CreateBase", color: "#6853D9", imgUrl: "/task.png" },
-		{ id: "default-1", type: "link", title: "Your Flow Coding journey starts here", color: "#209CE2", imgUrl: "/task.png", link: "" },
+		{ id: "getting-started-0", type: "video", title: "Watch Teaching on CreateBase", subtitle: "For admins and teachers", color: "#6853D9", imgUrl: "/task.png" },
+		{ id: "getting-started-1", type: "video", title: "Watch Learning on CreateBase", subtitle: "For students", color: "#DF64D3", imgUrl: "/task.png" },
 	],
+};
+
+const FLOW_SECTION = {
+	caption: "Get started with the basics of flow coding",
+	tasks: [{ id: "flow-0", type: "link", title: "Your Flow Coding journey starts here", color: "#209CE2", imgUrl: "/task.png", link: "" }],
 };
 
 const NOT_GROUP_SECTION = {
 	caption: "To access group features, let’s get you into a group",
+	hasOr: true,
+	orId: "not-group",
 	tasks: [
 		{ id: "not-group-0", type: "link", title: "Register your school", subtitle: "For admins and teachers", color: "#FF862F", imgUrl: "/task.png", link: "" },
 		{ id: "not-group-1", type: "link", title: "Join your school group", subtitle: "For students", color: "#25D8B7", imgUrl: "/task.png", link: "" },
 	],
-	hasOr: true,
-	orId: "not-group",
 };
 
 const GROUP_SECTION = {
@@ -65,9 +72,9 @@ const Onboarding = () => {
 				<h1>
 					Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {globalSession.firstName} 👋
 				</h1>
-				<OnboardingSection section={DEFAULT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} />
-				<OnboardingSection section={NOT_GROUP_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} />
-				{globalSession.recentGroups.length && (
+				<OnboardingSection section={GETTING_STARTED_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} />
+				<OnboardingSection section={FLOW_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} />
+				{globalSession.recentGroups.length ? (
 					<OnboardingSection
 						section={{
 							...GROUP_SECTION,
@@ -79,7 +86,8 @@ const Onboarding = () => {
 						setStatuses={setStatuses}
 						checkHandler={checkHandler}
 					/>
-				)}
+				) : null}
+				<OnboardingSection section={NOT_GROUP_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} />
 			</div>
 		</div>
 	);

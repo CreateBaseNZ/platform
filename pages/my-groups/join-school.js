@@ -4,7 +4,7 @@ import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import JoinSchoolStudent from "../../components/MyGroups/JoinSchoolStudent";
 import JoinSchoolTeacher from "../../components/MyGroups/JoinSchoolTeacher";
 
-import classes from "/styles/myGroups.module.scss";
+import classes from "../../styles/myGroups.module.scss";
 
 const JoinSchool = () => {
 	return (

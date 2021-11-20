@@ -4,12 +4,6 @@
 
 import axios from "axios";
 
-// OUTPUT ===================================================
-
-const DUMMY_SENT = {
-	sent: true,
-};
-
 // MAIN =====================================================
 
 export default async function (req, res) {
@@ -18,15 +12,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_SENT, // does not require content
-	// 	};
-	// }
-	// Integration Logic
 	// Register a school
 	let data1;
 	try {
@@ -69,22 +54,17 @@ export default async function (req, res) {
 	}
 	if (data2.status !== "succeeded") return res.send({ status: "error" });
 	// Update the alias of the teacher
-	let data3;
 	try {
-		data3 = (
-			await axios.post(process.env.ROUTE_URL + "/license/update", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-				input: {
-					query: { _id: data2.content.license._id },
-					updates: [{ type: "metadata", update: { alias: input.alias } }],
-					date: input.date,
-				},
-			})
-		)["data"];
+		await updateAlias(data2.content.license, input.alias, input.date);
 	} catch (error) {
-		data3 = { status: "error", content: error };
+		return res.send(error);
 	}
-	if (data3.status !== "succeeded") return res.send({ status: "error" });
+	// Send the success email
+	try {
+		await sendEmail(data2.content.profile);
+	} catch (error) {
+		return res.send(error);
+	}
 	// Success handler
 	const data = {
 		status: "succeeded",
@@ -105,5 +85,44 @@ export default async function (req, res) {
 }
 
 // HELPER ===================================================
+
+function updateAlias(license, alias, date) {
+	return new Promise(async (resolve, reject) => {
+		// Construct the input object
+		const input = { query: { _id: license._id }, updates: [{ type: "metadata", update: { alias } }], date };
+		// Send the processing request
+		let data;
+		try {
+			data = (await axios.post(process.env.ROUTE_URL + "/license/update", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		} catch (error) {
+			data = { status: "error", content: error };
+		}
+		// Error handler
+		if (data.status !== "succeeded") return reject({ status: "error" });
+		// Success handler
+		return resolve();
+	});
+}
+
+function sendEmail(profile) {
+	return new Promise(async (resolve, reject) => {
+		// Construct the input object
+		const input = {
+			accountId: profile.account.local,
+			option: { name: profile.name.first, receive: "organisation-created", notification: "onboarding", tone: "friendly" },
+		};
+		// Send the processing request
+		let data;
+		try {
+			data = (await axios.post(process.env.ROUTE_URL + "/mail/send-email", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		} catch (error) {
+			data = { status: "error", content: error };
+		}
+		// Error handler
+		if (data.status !== "succeeded") return reject({ status: "error" });
+		// Success handler
+		return resolve();
+	});
+}
 
 // END  =====================================================
