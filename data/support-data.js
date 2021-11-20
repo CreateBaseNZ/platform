@@ -5,7 +5,6 @@ const SUPPORT_DATA = [
 		header: "Getting Started",
 		icon: "ondemand_video",
 		items: [
-			
 			{
 				q: "Teaching a Project",
 				a: (
@@ -23,8 +22,7 @@ const SUPPORT_DATA = [
 				a: (
 					<>
 						<p>
-							To begin setting up an Organisation you first need to register it on the CreateBase Platform. 
-							Learn how to register an Organisation 
+							To begin setting up an Organisation you first need to register it on the CreateBase Platform. Learn how to register an Organisation
 							<Link href="/support/3-3">here</Link>.
 						</p>
 						<p>
@@ -32,7 +30,7 @@ const SUPPORT_DATA = [
 							<Link href="/support/3-0">here</Link>.
 						</p>
 						<p>
-							To learn how to add Educators click 
+							To learn how to add Educators click
 							<Link href="/support/3-5">here</Link>.
 						</p>
 						<p>
@@ -40,17 +38,15 @@ const SUPPORT_DATA = [
 							<Link href="/support/3-6">here</Link>.
 						</p>
 						<iframe
-						src="https://www.youtube.com/embed/dmShaNP-rt8"
-						title="YouTube video player"
-						className="embedded-video-16-9"
-						frameBorder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowFullScreen></iframe>
+							src="https://www.youtube.com/embed/dmShaNP-rt8"
+							title="YouTube video player"
+							className="embedded-video-16-9"
+							frameBorder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen></iframe>
 					</>
 				),
-	
 			},
-			
 		],
 	},
 	{
@@ -121,13 +117,11 @@ const SUPPORT_DATA = [
 				q: "Flow coding",
 				a: (
 					<>
+						<p>All of our Projects use the Flow programming language purpose built by CreateBase to enable students and teachers to learn about coding concepts and code solutions to our Projects.</p>
 						<p>
-							All of our Projects use the Flow programming language purpose built by CreateBase to enable students and teachers to learn about coding concepts and code solutions to our Projects.
+							<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-6.jpg" />
 						</p>
-						<p>
-						<img src="/support/support-6.jpg" />
-						</p>
-						
+
 						<p>
 							Flow coding is designed to be easy to learn for teachers and students, being analogous to creating a logic-based flowchart. This is because we want the coding section of each Project to
 							be based around learning logical thinking, information flow, computational skills, and problem-solving, without the need for memorising lots of arbitrary syntaxes.
@@ -154,8 +148,15 @@ const SUPPORT_DATA = [
 							</li>
 						</ul>
 						<p>
-							Watch this video to learn how we convert our logic into a flow code solution for the Send It Project's Create step. 
-							<iframe width="560" height="315" src="https://www.youtube.com/embed/OUQmv4Q5GIE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>	
+							Watch this video to learn how we convert our logic into a flow code solution for the Send It Project's Create step.
+							<iframe
+								width="560"
+								height="315"
+								src="https://www.youtube.com/embed/OUQmv4Q5GIE"
+								title="YouTube video player"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen></iframe>
 						</p>
 					</>
 				),
@@ -167,7 +168,7 @@ const SUPPORT_DATA = [
 						<p>Learning journals are where Learners document their work throughout their Project.</p>
 						<p>Learning journals are found under the Define step in each Project and are available as either a Google Doc or Microsoft Word file.</p>
 						<p>
-						<img src="/support/support-8.jpg" />
+							<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-8.jpg" />
 						</p>
 						<p>
 							Like with most content in a Project, learning journals are optional for teachers. If you do not want your students to complete a learning journal or you want to replace them with your
@@ -177,8 +178,6 @@ const SUPPORT_DATA = [
 					</>
 				),
 			},
-			
-			
 		],
 	},
 	{
@@ -386,12 +385,10 @@ const SUPPORT_DATA = [
 						<p className="support__indent">
 							<span className="support__bold">Learner</span>: Learner accounts are for students and have the most restricted access. These accounts can only access Projects to reduce distractions and
 							keep students on task. Each student in your class needs to create their own learner account to access the platform.
-
-
 						</p>
 					</>
 				),
-			},	
+			},
 			{
 				q: "Upgrading to an Admin account",
 				a: (
@@ -408,17 +405,17 @@ const SUPPORT_DATA = [
 				a: (
 					<>
 						<p>
-						<span className="support__bold">There are 2 methods to join an Organisation:</span>
+							<span className="support__bold">There are 2 methods to join an Organisation:</span>
 						</p>
 						<p>
-						<span className="support__bold">1. Through a link sent from a collegue using the Invite feature</span>
+							<span className="support__bold">1. Through a link sent from a collegue using the Invite feature</span>
 						</p>
 						<p>
-							To find out more about this method click 
+							To find out more about this method click
 							<Link href="/support/3-5">here</Link>.
 						</p>
 						<p>
-						<span className="support__bold">2. By filling out the 'Join an Org' form</span>
+							<span className="support__bold">2. By filling out the 'Join an Org' form</span>
 						</p>
 						<p>
 							Go to the
@@ -437,8 +434,8 @@ const SUPPORT_DATA = [
 				a: (
 					<>
 						<p>
-							During your platform onboarding, there is a task to create or join an organisation. You will need your school email address, school name, and school ID number to register a
-							new organisation.
+							During your platform onboarding, there is a task to create or join an organisation. You will need your school email address, school name, and school ID number to register a new
+							organisation.
 						</p>
 						<p>
 							To join an organisation with an existing account, you can also go to the
@@ -456,50 +453,53 @@ const SUPPORT_DATA = [
 				q: "Password recovery",
 				a: (
 					<>
-				  		<p>
-						  <span className="support__bold">For Educators:</span>
-						</p>
 						<p>
-							If you know the email of the account, you can reset your password by clicking the “Forgot your password?” button at the bottom right log-in screen.
+							<span className="support__bold">For Educators:</span>
 						</p>
+						<p>If you know the email of the account, you can reset your password by clicking the “Forgot your password?” button at the bottom right log-in screen.</p>
 						<p>
-						<span className="support__bold">For Learners:</span>
+							<span className="support__bold">For Learners:</span>
 						</p>
+						<p>As an Educator you can change a Learner's passowrd from the Manage Users tab.</p>
 						<p>
-							As an Educator you can change a Learner's passowrd from the Manage Users tab.	
-						</p>
-						<p>
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/dmShaNP-rt8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<iframe
+								width="560"
+								height="315"
+								src="https://www.youtube.com/embed/dmShaNP-rt8"
+								title="YouTube video player"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen></iframe>
 						</p>
 					</>
 				),
-				
 			},
 			{
 				q: "Adding teachers to your Organisation",
 				a: (
 					<>
+						<p>To invite other teachers to your organisation, use the green Invite button.</p>
 						<p>
-							To invite other teachers to your organisation, use the green Invite button. 
+							<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-11.jpg" />
+						</p>
+
+						<p>Select the Educator tab.</p>
+						<p>
+							<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-12.jpg" />
+						</p>
+						<p>Either add the teacher's email (or a list of emails), or copy and share the link.</p>
+						<p>
+							<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-13.jpg" />
 						</p>
 						<p>
-						<img src="/support/support-11.jpg" />
-						</p>
-						
-						<p>
-							Select the Educator tab.
-						</p>
-						<p>
-						<img src="/support/support-12.jpg" />
-						</p>
-						<p>
-							Either add the teacher's email (or a list of emails), or copy and share the link.
-						</p>
-						<p>
-						<img src="/support/support-13.jpg" />
-						</p>
-						<p>
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/nb0zARtCCK0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>	
+							<iframe
+								width="560"
+								height="315"
+								src="https://www.youtube.com/embed/nb0zARtCCK0"
+								title="YouTube video player"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen></iframe>
 						</p>
 					</>
 				),
@@ -508,33 +508,27 @@ const SUPPORT_DATA = [
 				q: "Adding students to your Organisation",
 				a: (
 					<>
+						<p>Every student needs their own CreateBase account. In a future update, they will gain the ability to sign in using their Google account, for now please use the following process.</p>
+						<p>To get started, login to your account and click the green Invite button.</p>
+						<p>From the Learner tab copy the link and share to your students.</p>
+						<p>The link will send students to this sign up form.</p>
+						<p>After completing the form students will land on the Browse page. In the example below, the Send It Project has been selected. They can then click continue to start the Project.</p>
 						<p>
-							Every student needs their own CreateBase account. In a future update, they will gain the ability to sign in using their Google account, for now please use the following process.
+							<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-5.jpg" />
 						</p>
 						<p>
-							To get started, login to your account and click the green Invite button. 
-				
-						</p>
-						<p>
-							From the Learner tab copy the link and share to your students.
-						</p>
-						<p>
-							The link will send students to this sign up form. 
-						</p>
-						<p>
-							After completing the form students will land on the Browse page. 
-							In the example below, the Send It Project has been selected. They can then
-							click continue to start the Project.
-						</p>
-						<p>
-						<img src="/support/support-5.jpg" />
-						</p>
-						<p>
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/s80cEkCQXIE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<iframe
+								width="560"
+								height="315"
+								src="https://www.youtube.com/embed/s80cEkCQXIE"
+								title="YouTube video player"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen></iframe>
 						</p>
 					</>
 				),
-			},					
+			},
 		],
 	},
 	{
