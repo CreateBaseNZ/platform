@@ -3,8 +3,8 @@ import PROJECT_SUBJECTS from "../../constants/projectSubjects";
 
 import classes from "./BrowseTeaching.module.scss";
 
-const BrowseTeaching = ({ project }) => {
-	return (
+const BrowseTeaching = ({ project, role }) => {
+	return role ? (
 		<>
 			<div className={classes.teachingCaption}>
 				<span>{project.numOfLessons}</span> lessons <div className={classes.pipe} /> <span>{project.durPerLesson}</span> per lesson <div className={classes.pipe} />{" "}
@@ -12,8 +12,8 @@ const BrowseTeaching = ({ project }) => {
 			</div>
 			<div className={classes.subjects}>
 				{project.subjects.map((s) => (
-					<div key={s} className={classes.tag} style={{ color: PROJECT_SUBJECTS[s].color }}>
-						{PROJECT_SUBJECTS[s].label}
+					<div key={s.label} className={classes.tag} style={{ color: s.color }}>
+						{s.label}
 					</div>
 				))}
 			</div>
@@ -37,6 +37,8 @@ const BrowseTeaching = ({ project }) => {
 				))}
 			</div>
 		</>
+	) : (
+		<p className={classes.createAccount}>To view lesson plans and teaching content, you must be viewing as an admin or teacher of a group.</p>
 	);
 };
 

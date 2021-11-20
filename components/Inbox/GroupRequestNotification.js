@@ -1,9 +1,12 @@
 import axios from "axios";
+import { useContext } from "react";
 import useHandleResponse from "../../hooks/useHandleResponse";
+import GlobalSessionContext from "../../store/global-session-context";
 import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 import classes from "./Notification.module.scss";
 
 const GroupRequestNotification = ({ notification, setNotifications }) => {
+	const { setGlobalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 
 	const approveHandler = async () => {
@@ -18,7 +21,10 @@ const GroupRequestNotification = ({ notification, setNotifications }) => {
 			handleResponse({
 				data,
 				failHandler: () => {},
-				successHandler: () => setNotifications((state) => state.filter((notif) => notif.id !== notification.id)),
+				successHandler: () => {
+					setNotifications((state) => state.filter((notif) => notif.id !== notification.id));
+					setGlobalSession((state) => ({ ...state, numOfNotifications: state.numOfNotifications - 1 }));
+				},
 			});
 		}
 	};
@@ -35,7 +41,10 @@ const GroupRequestNotification = ({ notification, setNotifications }) => {
 			handleResponse({
 				data,
 				failHandler: () => {},
-				successHandler: () => setNotifications((state) => state.filter((notif) => notif.id !== notification.id)),
+				successHandler: () => {
+					setNotifications((state) => state.filter((notif) => notif.id !== notification.id));
+					setGlobalSession((state) => ({ ...state, numOfNotifications: state.numOfNotifications - 1 }));
+				},
 			});
 		}
 	};
@@ -44,11 +53,15 @@ const GroupRequestNotification = ({ notification, setNotifications }) => {
 		<div className={classes.notification}>
 			<div className={classes.contents}>
 				<div className={classes.tag}>{notification.params.group.name}</div>
-				<div className={classes.message}>
+				<div className={classes.title}>
 					<span className={classes.bold}>
 						{notification.params.user.firstName} {notification.params.user.lastName}
 					</span>{" "}
 					({notification.params.user.email}) would like to join your group <span className={`${classes.bold} ${classes.highlight}`}>{notification.params.group.name}</span>
+				</div>
+				<div className={classes.message}>
+					<i className="material-icons-outlined">chat</i>
+					{notification.params.message || "No message"}
 				</div>
 				<div className={classes.btnContainer}>
 					<PrimaryButton mainLabel="Approve" onClick={approveHandler} />

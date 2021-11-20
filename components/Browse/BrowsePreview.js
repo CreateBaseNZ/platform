@@ -4,23 +4,24 @@ import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
 import { SecondaryButton } from "../UI/Buttons";
-import { ADMIN_TABS, MEMBER_TABS, STUDENT_TABS, TEACHER_TABS } from "../../constants/browseTabs";
 
 import classes from "./BrowsePreview.module.scss";
 import { useRouter } from "next/router";
 
+import mixpanel from "mixpanel-browser";
+
+mixpanel.init("05ac2b14242d76453c53168b2304778d", { debug: true });
+
 const getTabs = (role) => {
 	switch (role) {
 		case "student":
-			return STUDENT_TABS;
-		case "member":
-			return MEMBER_TABS;
+			return ["overview"];
 		case "teacher":
-			return TEACHER_TABS;
+			return ["overview", "learning", "teaching"];
 		case "admin":
-			return ADMIN_TABS;
+			return ["overview", "learning", "teaching"];
 		default:
-			return [];
+			return ["overview", "learning", "teaching"];
 	}
 };
 
@@ -39,6 +40,7 @@ const BrowsePreview = ({ project, role }) => {
 		const queriedStep = getTabs(role).find((t) => t === tab);
 		if (queriedStep) {
 			setTab(queriedStep);
+			mixpanel.track(`${project.name} ${tab}`);
 		}
 	}, [router.query.tab]);
 
@@ -46,6 +48,7 @@ const BrowsePreview = ({ project, role }) => {
 		if (ref.current) {
 			setVideoLoaded(false);
 		}
+		mixpanel.track(`${project.name} Card`);
 	}, [project]);
 
 	const canPlayHandler = () => {
@@ -77,9 +80,9 @@ const BrowsePreview = ({ project, role }) => {
 					))}
 				</div>
 				<div className={classes.container}>
-					{tab === "overview" && <BrowseOverview project={project} role={role} />}
-					{tab === "teaching" && <BrowseTeaching project={project} />}
+					{tab === "overview" && <BrowseOverview project={project} />}
 					{tab === "learning" && <BrowseLearning learnings={project.learnings} />}
+					{tab === "teaching" && <BrowseTeaching project={project} role={role} />}
 				</div>
 				<Link href={`/project/${project.query}`}>
 					<div>

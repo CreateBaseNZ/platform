@@ -26,7 +26,6 @@ const ClassesNew = () => {
 	} = useForm({ mode: "onTouched" });
 
 	const onSubmit = async (input) => {
-		const DUMMY_STATUS = "succeeded";
 		let data;
 		const details = {
 			alias: globalSession.groups[globalSession.recentGroups[0]].alias,
@@ -36,7 +35,7 @@ const ClassesNew = () => {
 			name: input.name,
 		};
 		try {
-			data = (await axios.post("/api/classes/new", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/new", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {

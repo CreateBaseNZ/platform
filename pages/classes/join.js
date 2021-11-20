@@ -34,7 +34,6 @@ const ClassJoin = () => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {},
@@ -44,22 +43,19 @@ const ClassJoin = () => {
 	}, []);
 
 	const onSubmit = async (inputs) => {
-		console.log(inputs);
 		setIsLoading(true);
-		if (!inputs.classIds) {
+		if (!inputs.classId) {
 			return setIsLoading(false);
 		}
 		const details = {
-			classId: inputs.classId, // TODO - BREAKING CHANGE - backend (new changes)
+			classId: inputs.classId,
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			role: globalSession.groups[globalSession.recentGroups[0]].role,
 			date: new Date().toString(),
 		};
-
-		const DUMMY_STATUS = "succeeded";
 		let data = {};
 		try {
-			data = (await axios.post("/api/classes/join", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			data = (await axios.post("/api/classes/join", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
@@ -67,7 +63,7 @@ const ClassJoin = () => {
 				data,
 				failHandler: () => {},
 				successHandler: () => {
-					setVisualBell({ type: "success", message: `Request${details.classIds.length === 1 ? "" : "s"} sent` });
+					setVisualBell({ type: "success", message: "Request sent" });
 					router.push("/classes");
 				},
 			});

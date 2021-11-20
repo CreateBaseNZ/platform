@@ -35,14 +35,12 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	const submitCode = async (code) => {
 		setIsLoading(true);
 		const details = { email: email, code: code, date: new Date().toString() };
-		console.log(details);
 		let data = {};
 		try {
 			data = (await axios.post("/api/auth/verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
 			handleResponse({
 				data,
 				failHandler: () => {

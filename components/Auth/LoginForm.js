@@ -52,8 +52,6 @@ export const LoginForm = () => {
 			} else {
 				return router.push("/404");
 			}
-		} else {
-			router.push(router.query.callbackUrl);
 		}
 	};
 

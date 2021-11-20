@@ -33,8 +33,9 @@ export default async function (req, res) {
 	// } // no failure mode
 	// Integration Logic
 	// Add each user
-	for (let i = 0; i < input.users.length; i++) {
+	for (let i = 0; i < input.licenseIds.length; i++) {
 		const licenseId = input.licenseIds[i];
+		console.log(licenseId);
 		let data;
 		try {
 			data = (
@@ -46,6 +47,7 @@ export default async function (req, res) {
 		} catch (error) {
 			data = { status: "error", content: error };
 		}
+		console.log(data);
 		if (data.status !== "succeeded") return res.send({ status: "error" });
 	}
 	return res.send({ status: "succeeded" });

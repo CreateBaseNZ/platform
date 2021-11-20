@@ -12,6 +12,7 @@ import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
 import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
+import { AI, AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, ETHICS, TECHNOLOGY } from "../constants/projectSubjects";
 
 export default {
 	name: "Send It",
@@ -24,10 +25,10 @@ export default {
 	durPerLesson: "45 mins",
 	numOfLessons: 6,
 	difficulty: "proficient",
-	subjects: ["technology", "engineering", "computerScience", "automation", "ai", "ethics"],
-	learningOutcome: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/project_overview.pdf",
-	curriculumAlignment: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/curriculum_standards.pdf",
-	lessonPlan: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/files/lesson-plan-send-it.pdf",
+	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
+	learningOutcome: "/send-it/project_overview.pdf",
+	curriculumAlignment: "/send-it/curriculum_standards.pdf",
+	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	learnings: [
 		"Formalise the logic occurring in their head into logical code to allow them to automate a task they would normally do manually.",
 		"Use flow control/branching capabilities (if, else if, else) in the Flow editor.",
@@ -41,7 +42,7 @@ export default {
 		h2: "What do you think is happening here? Discuss with your peers!",
 		title: "Send It",
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
-		word: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/files/learning-journal.docx",
+		word: "/send-it/files/learning-journal.docx",
 	},
 	imagine: {
 		caption: [
@@ -52,27 +53,27 @@ export default {
 			{
 				title: "Vehicular Delivery",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/types-0.png",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/delivery.pdf",
+				url: "/send-it/pdf/delivery.pdf",
 			},
 			{
 				title: "Your Robot has Mail",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/mail-2.png",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/mail.pdf",
+				url: "/send-it/pdf/mail.pdf",
 			},
 			{
 				title: "Controlling a Robot",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-1.png",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/controlling.pdf",
+				url: "/send-it/pdf/controlling.pdf",
 			},
 			{
 				title: "Sensing Sensors",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-0.png",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/sensors.pdf",
+				url: "/send-it/pdf/sensors.pdf",
 			},
 			{
 				title: "Automation & Ethics",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
-				url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/pdf/ethics.pdf",
+				url: "/send-it/pdf/ethics.pdf",
 			},
 		],
 	},
@@ -99,12 +100,12 @@ export default {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/intro-to-flow.pdf",
+						url: "/intro-to-flow.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Tips & tricks: sensing blocks",
-						url: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/sensing-blocks.pdf",
+						url: "/sensing-blocks.pdf",
 					},
 					{
 						type: "tut",

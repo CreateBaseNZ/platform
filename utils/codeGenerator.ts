@@ -570,7 +570,6 @@ export class CodeGenerator {
 					break;
 			}
 			if (!state) {
-				console.log(element);
 				return ["// Oops! An error occurred, please check the Console for more info", type, message, "// Oops! An error occurred, please check the Console for more info"];
 			}
 			const str = "if(codeChanged){resolve(true);}";

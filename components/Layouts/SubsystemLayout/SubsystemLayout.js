@@ -19,6 +19,7 @@ const SubsystemLayout = ({ children, activeTab }) => {
 						<a className={`${classes.tab} ${activeTab === tab ? classes.active : ""}`}>{tab}</a>
 					</Link>
 				))}
+				<div className={classes.subsystem}>{router.query.subsystem}</div>
 			</header>
 			{children}
 		</div>

@@ -25,19 +25,20 @@ export default async function (req, res) {
 	// console.log(data);
 	// Integration Logic
 	// Remove each user
-	for (let i = 0; i < input.users.length; i++) {
+	for (let i = 0; i < input.licenseIds.length; i++) {
 		const licenseId = input.licenseIds[i];
 		let data;
 		try {
 			data = (
 				await axios.post(process.env.ROUTE_URL + "/class/remove-member", {
 					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
-					input: { query: { class: { _id: input.classId }, license: { _id: licenseId } }, date: input.date },
+					input: { query: { class: { _id: input.classId }, license: { _id: licenseId } }, date: input.date, status: "activated" },
 				})
 			)["data"];
 		} catch (error) {
 			data = { status: "error", content: error };
 		}
+		console.log(data);
 		if (data.status !== "succeeded") return res.send({ status: "error" });
 	}
 	return res.send({ status: "succeeded" });

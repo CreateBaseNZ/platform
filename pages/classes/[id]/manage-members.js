@@ -1,6 +1,8 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
+import useClass from "../../../hooks/useClass";
+import useHandleResponse from "../../../hooks/useHandleResponse";
 import AddModal from "../../../components/Classes/ManageMembers/AddModal";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
@@ -9,23 +11,14 @@ import { PrimaryButton, TertiaryButton } from "../../../components/UI/Buttons";
 import Table from "../../../components/UI/Table/Table";
 import CLASSES_TABS from "../../../constants/classesConstants";
 import { MANAGE_MEMBERS_COLUMNS, MANAGE_MEMBERS_SIZES } from "../../../constants/classesConstants";
-import useClass from "../../../hooks/useClass";
-import useHandleResponse from "../../../hooks/useHandleResponse";
 
 import classes from "../../../styles/classManageMembers.module.scss";
 
-const DUMMY_STUDENTS = [
-	{ accountId: "abc123", firstName: "asdfasdasdf", lastName: "asfsasdasddf", email: "abc123@gmail.com" },
-	{ accountId: "gh", firstName: "asdsfsddf", lastName: "dsdasdf", email: "123@gmail.com" },
-	{ accountId: "asdf", firstName: "ssasdsa", lastName: "asdasds", email: "abc@gmail.com" },
-];
-
 const ClassesManage = () => {
+	const ref = useRef();
 	const { classObject, setClassObject, classLoaded } = useClass();
 	const { handleResponse } = useHandleResponse();
 	const [showAddModal, setShowAddModal] = useState(false);
-
-	console.log(classObject);
 
 	const renderBtns = [
 		(key, data, selectedRowIds) => (
@@ -34,9 +27,10 @@ const ClassesManage = () => {
 				onClick={async () => {
 					const details = {
 						classId: classObject.id,
-						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseIds),
+						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
 						date: new Date().toString(),
 					};
+					console.log(details);
 					let _data;
 					const DUMMY_STATUS = "succeeded";
 					try {
@@ -49,7 +43,7 @@ const ClassesManage = () => {
 							data: _data,
 							failHandler: () => {},
 							successHandler: () => {
-								setClassObject((state) => ({ ...state, students: state.students.filter((_, i) => !Object.keys(selectedRowIds).includes(i)) }));
+								setClassObject((state) => ({ ...state, students: state.students.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())) }));
 							},
 						});
 					}
@@ -61,12 +55,10 @@ const ClassesManage = () => {
 		),
 	];
 
-	// TODO replace DUMMY_STUDENTS with classObject.students [FRONTEND]
-
 	if (!classLoaded) return null;
 
 	return (
-		<div className={classes.view}>
+		<div className={classes.view} ref={ref}>
 			<Head>
 				<title>Manage Members • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
@@ -75,7 +67,7 @@ const ClassesManage = () => {
 				Manage Members
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} /> <HeaderToggle />
 			</h1>
-			<Table columns={MANAGE_MEMBERS_COLUMNS} data={DUMMY_STUDENTS} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} />
+			<Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} />
 			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} setClassObject={setClassObject} />}
 		</div>
 	);

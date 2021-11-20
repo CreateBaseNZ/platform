@@ -1,106 +1,93 @@
-// TODO update onboarding page
-
 import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
-import router from "next/router";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
-
-import classes from "/styles/onboarding.module.scss";
 import GlobalSessionContext from "../store/global-session-context";
+import OnboardingSection from "../components/Onboarding/OnboardingSection";
 
-const teachingContent = {
-	title: "Teaching my first project",
-	content: (
-		<>
-			Projects are delivered through a combination of teachers, like yourself, and our platform. To help you deliver a Project to your class, each one comes with a detailed lesson plan.
-			<br />
-			<br />
-			We recommend going through the Project lesson plan and even the Project on the platform yourself before you start teaching the lesson to familiarise yourself with its content and structure. Key
-			things to look out for in the lesson plan are glossaries and useful resources at the start of each section.
-			<br />
-			<br />
-			If it is your first time delivering a lesson like this, then we recommend following the lesson plan step-by-step. If you feel more confident, you are also free to adapt the lesson plans to suit
-			your teaching style. There are no restrictions or pre-requisites in place on the platform so feel free to skip over any content or add in your own throughout the Project!
-			<br />
-			<br />
-			Most importantly, let your students dictate the flow of class discussions and don’t be afraid to go off track!
-		</>
-	),
+import classes from "../styles/onboarding.module.scss";
+
+const DUMMY_STATUS = { "getting-started": true, "flow-0": false, "not-group": false, "group-0": true, "group-1": false, "group-2": true, "group-3": true, "group-4": false, "group-5": false };
+
+// TODO populate links, images, text, and videos
+
+const GETTING_STARTED_SECTION = {
+	caption: "Let's get you started! Here's a couple videos we've put together for you",
+	hasOr: true,
+	orId: "getting-started",
+	tasks: [
+		{ id: "getting-started-0", type: "video", title: "Watch Teaching on CreateBase", subtitle: "For admins and teachers", color: "#6853D9", imgUrl: "/task.png" },
+		{ id: "getting-started-1", type: "video", title: "Watch Learning on CreateBase", subtitle: "For students", color: "#DF64D3", imgUrl: "/task.png" },
+	],
+};
+
+const FLOW_SECTION = {
+	caption: "Get started with the basics of flow coding",
+	tasks: [{ id: "flow-0", type: "link", title: "Your Flow Coding journey starts here", color: "#209CE2", imgUrl: "/task.png", link: "" }],
+};
+
+const NOT_GROUP_SECTION = {
+	caption: "To access group features, let’s get you into a group",
+	hasOr: true,
+	orId: "not-group",
+	tasks: [
+		{ id: "not-group-0", type: "link", title: "Register your school", subtitle: "For admins and teachers", color: "#FF862F", imgUrl: "/task.png", link: "" },
+		{ id: "not-group-1", type: "link", title: "Join your school group", subtitle: "For students", color: "#25D8B7", imgUrl: "/task.png", link: "" },
+	],
+};
+
+const GROUP_SECTION = {
+	caption: "Since you are an admin or teacher of CreateBase Academy and 3 other groups, here are a few tasks to help you set things up",
+	tasks: [
+		{ id: "group-0", type: "link", title: "Invite people to your group", color: "#FDB554", imgUrl: "/task.png", link: "" },
+		{ id: "group-1", type: "text", title: "A quick guide to lesson plans", color: "#3C7EFF", imgUrl: "/task.png" },
+		{ id: "group-2", type: "link", title: "Check out the Support tab", color: "#18DB66", imgUrl: "/task.png", link: "/support" },
+		{ id: "group-3", type: "link", title: "Tour of class features", subtitle: "Classes (1/3)", color: "#FF427B", imgUrl: "/task.png" },
+		{ id: "group-4", type: "link", title: "Create a class", subtitle: "Classes (2/3)", color: "#FF427B", imgUrl: "/task.png", link: "" },
+		{ id: "group-5", type: "link", title: "Add members to your class", subtitle: "Classes (3/3)", color: "#FF427B", imgUrl: "/task.png", link: "" },
+	],
 };
 
 const Onboarding = () => {
-	const [tasks, setTasks] = useState([]);
-	const [popup, setPopup] = useState();
 	const { globalSession } = useContext(GlobalSessionContext);
+	const [statuses, setStatuses] = useState();
 
-	// useEffect(() => {
-	// 	if (user.loaded) {
-	// 		setTasks([
-	// 			{ title: "Verify your account", progress: user.verified ? 100 : 0, clickHandler: () => router.push("/user/my-account/verification") },
-	// 			{ title: "Join or register an org", progress: user.org ? 100 : 0, clickHandler: () => router.push("/user/my-account/org") },
-	// 			{
-	// 				title: "Teaching my first project",
-	// 				progress: user.saves.teachingFirst === "done" ? 100 : 0,
-	// 				clickHandler: () => {
-	// 					setPopup(teachingContent);
-	// 					setUser((state) => ({ ...state, saves: { ...state.saves, teachingFirst: "done" } }));
-	// 					updateProfile({
-	// 						details: { saves: { teachingFirst: "done" } },
-	// 						successHandler: () => {
-	// 							setTasks((state) => state.map((task, i) => (i === 2 ? { ...task, progress: 100 } : task)));
-	// 						},
-	// 					});
-	// 				},
-	// 			},
-	// 			{
-	// 				title: "Check out the support tab",
-	// 				progress: user.saves.checkedSupport === "done" ? 100 : 0,
-	// 				clickHandler: () => {
-	// 					console.log("saving");
-	// 					setUser((state) => ({ ...state, saves: { ...state.saves, checkedSupport: "done" } }));
-	// 					updateProfile({
-	// 						details: { saves: { checkedSupport: "done" } },
-	// 						successHandler: () => {},
-	// 					});
-	// 					router.push("/support");
-	// 				},
-	// 			},
-	// 		]);
-	// 	}
-	// }, [user.loaded]);
+	useEffect(() => {
+		// TODO - retrieve saves
+		setStatuses(DUMMY_STATUS);
+	}, []);
 
-	// useEffect(() => {
-	// 	if (user.verified) setTasks((state) => state.map((task, i) => (i === 0 ? { ...task, progress: 100 } : task)));
-	// }, [user.verified]);
+	if (!statuses) return null;
+
+	const checkHandler = (id) => {
+		setStatuses((state) => ({ ...state, [id]: !state[id] }));
+	};
 
 	return (
-		<div className={classes.onboarding}>
+		<div className={`${classes.onboarding} roundScrollbar`}>
 			<Head>
 				<title>Onboarding | CreateBase</title>
 				<meta name="description" content="Get to know the platform by completing all the onboarding tasks" />
 			</Head>
-			<h1 className={classes.h1}>
-				Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {globalSession.firstName} 👋
-			</h1>
-			<div className={classes.main}>
-				{/* <div className={classes.tasks}>
-					<h2 className={classes.h2}>Onboarding tasks</h2>
-					<div className={classes.divider} />
-					{tasks.map((task, i) => (
-						<div key={i} className={`${classes.task} ${task.progress === 100 ? classes.done : task.progress > 0 ? classes.inProgress : ""}`} onClick={task.clickHandler}>
-							{task.progress > 0 ? <i className="material-icons-outlined">{task.progress === 100 ? "done" : "hourglass_top"}</i> : <i className={classes.dot} />}
-							<span>{task.title}</span>
-							{task.progress > 0 && <div className={classes.progress}>{task.progress}%</div>}
-							<i className={`material-icons-outlined ${classes.arrow}`}>chevron_right</i>
-						</div>
-					))}
-				</div>
-				{popup && (
-					<div className={`${classes.popup} roundScrollbar`}>
-						<h2 className={classes.h2}>{popup.title}</h2>
-						<p>{popup.content}</p>
-					</div>
-				)} */}
+			<div className={classes.view}>
+				<h1>
+					Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {globalSession.firstName} 👋
+				</h1>
+				<OnboardingSection section={GETTING_STARTED_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} />
+				<OnboardingSection section={FLOW_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} />
+				{globalSession.recentGroups.length ? (
+					<OnboardingSection
+						section={{
+							...GROUP_SECTION,
+							caption: `Since you are an admin or teacher of ${globalSession.groups[globalSession.recentGroups[0]].name}${
+								globalSession.recentGroups.length > 1 ? ` and ${globalSession.recentGroups.length - 1} other group${globalSession.recentGroups.length - 1 > 1 ? "s" : ""}` : ""
+							}, here are a few tasks to help you set things up`,
+						}}
+						statuses={statuses}
+						setStatuses={setStatuses}
+						checkHandler={checkHandler}
+					/>
+				) : null}
+				<OnboardingSection section={NOT_GROUP_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} />
 			</div>
 		</div>
 	);
