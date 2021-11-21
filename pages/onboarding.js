@@ -15,14 +15,14 @@ const GETTING_STARTED_SECTION = {
 	hasOr: true,
 	orId: "getting-started",
 	tasks: [
-		{ id: "getting-started-0", type: "video", title: "Watch Teaching on CreateBase", subtitle: "For admins and teachers", color: "#6853D9", imgUrl: "/task.png" },
-		{ id: "getting-started-1", type: "video", title: "Watch Learning on CreateBase", subtitle: "For students", color: "#DF64D3", imgUrl: "/task.png" },
+		{ id: "getting-started-0", type: "video", title: "Watch Teaching on CreateBase", subtitle: "For admins and teachers", color: "#6853D9", thumbnail: "/task.png" },
+		{ id: "getting-started-1", type: "video", title: "Watch Learning on CreateBase", subtitle: "For students", color: "#DF64D3", thumbnail: "/task.png" },
 	],
 };
 
 const FLOW_SECTION = {
 	caption: "Get started with the basics of flow coding",
-	tasks: [{ id: "flow-0", type: "link", title: "Your Flow Coding journey starts here", color: "#209CE2", imgUrl: "/task.png", link: "" }],
+	tasks: [{ id: "flow-0", type: "link", title: "Your Flow Coding journey starts here", link: "" }],
 };
 
 const NOT_GROUP_SECTION = {
@@ -30,20 +30,20 @@ const NOT_GROUP_SECTION = {
 	hasOr: true,
 	orId: "not-group",
 	tasks: [
-		{ id: "not-group-0", type: "link", title: "Register your school", subtitle: "For admins and teachers", color: "#FF862F", imgUrl: "/task.png", link: "" },
-		{ id: "not-group-1", type: "link", title: "Join your school group", subtitle: "For students", color: "#25D8B7", imgUrl: "/task.png", link: "" },
+		{ id: "not-group-0", type: "link", title: "Register your school", subtitle: "For admins and teachers", link: "" },
+		{ id: "not-group-1", type: "link", title: "Join your school group", subtitle: "For students", link: "" },
 	],
 };
 
 const GROUP_SECTION = {
 	caption: "Since you are an admin or teacher of CreateBase Academy and 3 other groups, here are a few tasks to help you set things up",
 	tasks: [
-		{ id: "group-0", type: "link", title: "Invite people to your group", color: "#FDB554", imgUrl: "/task.png", link: "" },
+		{ id: "group-0", type: "link", title: "Invite people to your group", link: "" },
 		{ id: "group-1", type: "text", title: "A quick guide to lesson plans", color: "#3C7EFF", imgUrl: "/task.png" },
-		{ id: "group-2", type: "link", title: "Check out the Support tab", color: "#18DB66", imgUrl: "/task.png", link: "/support" },
-		{ id: "group-3", type: "link", title: "Tour of class features", subtitle: "Classes (1/3)", color: "#FF427B", imgUrl: "/task.png" },
-		{ id: "group-4", type: "link", title: "Create a class", subtitle: "Classes (2/3)", color: "#FF427B", imgUrl: "/task.png", link: "" },
-		{ id: "group-5", type: "link", title: "Add members to your class", subtitle: "Classes (3/3)", color: "#FF427B", imgUrl: "/task.png", link: "" },
+		{ id: "group-2", type: "link", title: "Check out the Support tab", link: "/support" },
+		{ id: "group-3", type: "link", title: "Tour of class features", subtitle: "Classes (1/3)" },
+		{ id: "group-4", type: "link", title: "Create a class", subtitle: "Classes (2/3)", link: "" },
+		{ id: "group-5", type: "link", title: "Add members to your class", subtitle: "Classes (3/3)", link: "" },
 	],
 };
 
