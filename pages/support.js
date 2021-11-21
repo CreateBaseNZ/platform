@@ -37,9 +37,9 @@ const Support = () => {
 				)}
 			</div>
 			<div className={classes.body}>
-				<UserCard title="Students" imgSrc="/students.svg" />
-				<UserCard title="Teachers" imgSrc="/teachers.svg" />
-				<UserCard title="Admins" imgSrc="/admins.svg" />
+				<UserCard title="Students" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/students.svg" />
+				<UserCard title="Teachers" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/teachers.svg" />
+				<UserCard title="Admins" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/admins.svg" />
 			</div>
 		</div>
 	);
