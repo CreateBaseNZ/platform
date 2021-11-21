@@ -42,7 +42,7 @@
 	display: flex;
 	align-items: center;
 	font-size: 12px;
-	color: $darkest;
+	color: $dark;
 	font-weight: 600;
 	padding: 2px 2px 2px 8px;
 	border-radius: 8px;
@@ -51,7 +51,7 @@
 		display: flex;
 		align-self: center;
 		justify-content: center;
-		border: 2px solid $darkest;
+		border: 2px solid $dark;
 		border-radius: 6px;
 		height: 20px;
 		width: 20px;
@@ -59,18 +59,18 @@
 		i {
 			font-size: 1rem;
 			font-weight: 700;
-			color: $green-dark;
-		}
-		&.checked {
-			border-color: $green-mid;
-			background: $green-mid;
-			i {
-				color: white;
-			}
+			color: white;
 		}
 	}
 	&:hover {
-		background: rgba(black, 0.1);
+		background: rgba(black, 0.05);
+	}
+	&.checked {
+		color: $green-dark;
+		.checkbox {
+			border-color: $green-dark;
+			background: $green-dark;
+		}
 	}
 }
 
@@ -102,7 +102,7 @@
 	}
 	h2 {
 		font-size: 17px;
-		font-weight: 500;
+		font-weight: 600;
 		color: $darkest;
 		line-height: 1.4em;
 		width: 100%;

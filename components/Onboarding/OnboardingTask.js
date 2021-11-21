@@ -26,9 +26,9 @@ const OnboardingTask = ({ task, isCompleted, checkHandler }) => {
 					<Img style={{ height: "100%", width: "100%" }} src={task.thumbnail} layout="fill" objectFit="cover" />
 				</div>
 			)}
-			<button className={classes.status} onClick={_checkHandler} title={isCompleted ? "Uncheck" : "Mark complete"}>
+			<button className={`${classes.status} ${isCompleted ? classes.checked : ""}`} onClick={_checkHandler} title={isCompleted ? "Uncheck" : "Mark complete"}>
 				{isCompleted ? "Completed" : "Mark complete"}
-				<div className={`${classes.checkbox} ${isCompleted ? classes.checked : ""}`}>{isCompleted && <i className="material-icons-outlined">check</i>}</div>
+				<div className={classes.checkbox}>{isCompleted && <i className="material-icons-outlined">check</i>}</div>
 			</button>
 			{task.type === "video" && <i className={`material-icons-outlined ${classes.icon}`}>play_circle_outline</i>}
 			{task.type === "text" && (
