@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
 import { SecondaryButton } from "../UI/Buttons";
+import axios from "axios";
 
 import classes from "./BrowsePreview.module.scss";
 import { useRouter } from "next/router";
 
+import GlobalSessionContext from "../../store/global-session-context";
 import mixpanel from "mixpanel-browser";
-
-mixpanel.init("05ac2b14242d76453c53168b2304778d", { debug: true });
 
 const getTabs = (role) => {
 	switch (role) {
@@ -30,6 +30,26 @@ const BrowsePreview = ({ project, role }) => {
 	const router = useRouter();
 	const [tab, setTab] = useState(getTabs(role)[0]);
 	const [videoLoaded, setVideoLoaded] = useState(false);
+	const { globalSession } = useContext(GlobalSessionContext);
+
+	// Setup Mixpanel Config
+	useEffect(async () => {
+		mixpanel.init("05ac2b14242d76453c53168b2304778d", { api_host: "https://api.mixpanel.com" });
+		mixpanel.identify(globalSession.profileId);
+		// Test query mixpanel
+		const options = {
+			method: "GET",
+			headers: {
+				Accept: "text/plain",
+				Authorization: "Basic Yzk3NmNkMjFmYWViOTdhNmI0NzE2YWFkZDI4ODBjNDM6",
+			},
+		};
+
+		fetch("https://data.mixpanel.com/api/2.0/export?from_date=2021-01-01&to_date=2021-11-21", options)
+			.then((response) => response.json())
+			.then((response) => console.log(response))
+			.catch((err) => console.error(err));
+	}, []);
 
 	useEffect(() => {
 		return () => (ref.current = false);
@@ -40,7 +60,7 @@ const BrowsePreview = ({ project, role }) => {
 		const queriedStep = getTabs(role).find((t) => t === tab);
 		if (queriedStep) {
 			setTab(queriedStep);
-			mixpanel.track(`${project.name} ${tab}`);
+			mixpanel.track(`${project.name} ${tab}`, { Hello: "World!" });
 		}
 	}, [router.query.tab]);
 
@@ -48,7 +68,7 @@ const BrowsePreview = ({ project, role }) => {
 		if (ref.current) {
 			setVideoLoaded(false);
 		}
-		mixpanel.track(`${project.name} Card`);
+		mixpanel.track(`${project.name} Card`, { Hello: "World!" });
 	}, [project]);
 
 	const canPlayHandler = () => {
