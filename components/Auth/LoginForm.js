@@ -25,34 +25,53 @@ export const LoginForm = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (router.query?.error) {
+			const error = JSON.parse(router.query.error);
+			if (error.content.account === "does not exist") {
+				setError("email", {
+					type: "manual",
+					message: "No accounts registered with this email",
+				});
+			} else if (error.content.password === "incorrect") {
+				setError("password", {
+					type: "manual",
+					message: "Incorrect password",
+				});
+			}
+			setIsLoading(false);
+		}
+	}, [router.query.error]);
+
 	const onSubmit = async (input) => {
 		setIsLoading(true);
 		window.localStorage.setItem("createbase__remember-me", input.email);
 		const result = await signIn("credentials", {
-			redirect: false,
+			// redirect: false,
 			user: input.email,
 			password: input.password,
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+			callbackUrl: router.query.callbackUrl,
 		});
-		if (result.error) {
-			const error = JSON.parse(result.error);
-			if (error.status === "failed") {
-				if (error.content.account === "does not exist") {
-					setError("email", {
-						type: "manual",
-						message: "No accounts registered with this email",
-					});
-				} else if (error.content.password === "incorrect") {
-					setError("password", {
-						type: "manual",
-						message: "Incorrect password",
-					});
-				}
-				setIsLoading(false);
-			} else {
-				return router.push("/404");
-			}
-		}
+		// if (result.error) {
+		// 	const error = JSON.parse(result.error);
+		// 	if (error.status === "failed") {
+		// 		if (error.content.account === "does not exist") {
+		// 			setError("email", {
+		// 				type: "manual",
+		// 				message: "No accounts registered with this email",
+		// 			});
+		// 		} else if (error.content.password === "incorrect") {
+		// 			setError("password", {
+		// 				type: "manual",
+		// 				message: "Incorrect password",
+		// 			});
+		// 		}
+		// 		setIsLoading(false);
+		// 	} else {
+		// 		return router.push("/404");
+		// 	}
+		// }
 	};
 
 	return (

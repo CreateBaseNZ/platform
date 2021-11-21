@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
+import router from "next/router";
 
 export default NextAuth({
 	session: {
@@ -43,6 +44,7 @@ export default NextAuth({
 	],
 	pages: {
 		signIn: "/auth/login",
+		error: "/auth/login",
 		verifyRequest: "/auth/verify",
 	},
 });
