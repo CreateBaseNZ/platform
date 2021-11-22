@@ -7,17 +7,22 @@
 	background: white;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
 .banner {
 	width: 100%;
-	// height: 250px;
 	flex: 1 1 40%;
+	max-height: 40%;
+	min-height: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: relative;
 	overflow: hidden;
+	&.shrink {
+		flex: 0 0 200px;
+	}
 }
 
 .shape {
@@ -99,6 +104,7 @@
 	h2 {
 		font-size: 1rem;
 		font-weight: 500;
+		cursor: pointer;
 	}
 	.searchbar {
 		margin-top: 1rem;
@@ -140,11 +146,81 @@
 	}
 }
 
-.body {
-	background: $lightest;
+.cardContainer {
+	background: white;
 	flex: 1 1 60%;
 	padding-bottom: 10vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.resultsContainer {
+	width: 50vw;
+	min-width: 500px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 2rem 0;
+	h2 {
+		width: 100%;
+		font-size: 1rem;
+		font-weight: 600;
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		button {
+			font-size: 12px;
+			font-weight: 500;
+			display: flex;
+			align-items: center;
+			padding: 0.35rem 0.5rem;
+			border-radius: 8px;
+			color: $dark;
+			transition: background-color 0.1s ease-out, color 0.1s ease-out;
+			i {
+				color: inherit;
+				font-size: 1rem;
+				margin-right: 0.25rem;
+			}
+			&:hover {
+				background: $lighter;
+				color: $red;
+			}
+		}
+	}
+	.result {
+		padding: 1.5rem 0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		border-bottom: thin solid $lighter;
+		h3 {
+			font-size: 20px;
+			font-weight: 600;
+			color: $blue-mid;
+		}
+		.breadCrumbs {
+			margin: 0.5rem 0 0.5rem -0.5rem;
+			display: flex;
+			align-items: center;
+			.crumb {
+				display: flex;
+				align-items: center;
+				font-size: 12px;
+				padding: 0.25rem 0.5rem;
+				border-radius: 6px;
+				transition: background-color 0.1s ease-out, color 0.1s ease-out;
+				&:hover {
+					background: $lighter;
+					color: $logo-mid;
+				}
+			}
+			i {
+				font-size: 1rem;
+				font-weight: 200;
+			}
+		}
+	}
 }

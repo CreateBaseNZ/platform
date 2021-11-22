@@ -11,9 +11,10 @@
 	align-items: center;
 	justify-content: center;
 	box-shadow: 0 4px 24px -8px rgba(black, 0.1);
-	transition: box-shadow 0.1s ease-out;
+	transition: box-shadow 0.1s ease-out, transform 0.1s ease-out;
 	&:hover {
-		box-shadow: 0 16px 32px -12px rgba($logo-mid, 0.25);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 32px -4px rgba($logo-mid, 0.25);
 		.title {
 			color: $logo-mid;
 		}
