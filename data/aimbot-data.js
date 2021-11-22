@@ -45,10 +45,10 @@ export default {
 		url: "https://www.youtube.com/watch?v=znMZhBSDW_I",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
-		h2: "What do you think is happening here? Discuss with your peers!",
+		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
 		title: "TBD",
-		docs: "TBD",
-		word: "TBD",
+		docs: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
+		word: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
 	},
 	imagine: {
 		caption: [
@@ -68,7 +68,7 @@ export default {
 			title: "Subsystem 1",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
@@ -122,7 +122,7 @@ export default {
 			title: "Subsystem 2",
 			requirements: ["Subsystem 1"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
 			research: {
 				caption: ["There is no new research for this sub-problem. Move onto Plan."],
 				modules: [
@@ -156,7 +156,7 @@ export default {
 			title: "Subsystem 3",
 			requirements: ["Subsystem 1"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [],
@@ -182,7 +182,7 @@ export default {
 			title: "Subsystem 4",
 			requirements: ["Subsystem 2", "Subsystem 3"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			description: "Lets put together everything that we have learnt to program a solution to the full problem!",
 			research: {
 				caption: ["There is no new research for this sub-problem. Move directly to Plan. Do not pass Go. Do not collect $100."],
 				modules: [],
@@ -210,9 +210,18 @@ export default {
 	],
 	improve: {
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-		alert: "TBD",
-		tasks: ["TBD"],
-		hints: ["TBD"],
+		alert: "Congratulations! You now have a solution that will destroy any mosquitos that cross the path of your robot! Mosquitos everywhere will be trembling in fear! We have now added a timer to the simulation that will measure how long it takes your robot to find and destroy all of the mosquitos.",
+		tasks: [
+			"Mosquitos will be appearing across your screen in both the x and y directions.",
+			"You will need to find the position of each mosquito, aim your robot, and then fire to destroy all of the mosquitos, just like in the Create step.",
+			"You will need to move your arm as fast as possible to get the fastest possible time.",
+			"Compete with your peers to get the fastest time."
+		],
+		hints: [
+			"If you set the speed of your arm too high, you may overshoot your targets.",
+			"The best way to decrease your time will be to optimise your controller.",
+			"Don't forget to take a screenshot of your best time and paste it into your learning journal for proof!"
+		],
 		code: true,
 		blockList: [
 			{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
