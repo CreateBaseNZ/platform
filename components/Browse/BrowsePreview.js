@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 
 import GlobalSessionContext from "../../store/global-session-context";
 import mixpanel from "mixpanel-browser";
+import tracking from "../../utils/tracking";
 
 const getTabs = (role) => {
 	switch (role) {
@@ -32,23 +33,33 @@ const BrowsePreview = ({ project, role }) => {
 	const [videoLoaded, setVideoLoaded] = useState(false);
 	const { globalSession } = useContext(GlobalSessionContext);
 
+	// NOTE: Mixpanel Tracking
 	// Setup Mixpanel Config
 	useEffect(async () => {
-		mixpanel.init("05ac2b14242d76453c53168b2304778d", { api_host: "https://api.mixpanel.com" });
+		// Initialise the mixpanel channel
+		// The parameter is the API Key
+		mixpanel.init("05ac2b14242d76453c53168b2304778d");
+		// Set the distinct_id of the events that will be created
 		mixpanel.identify(globalSession.profileId);
-		// Test query mixpanel
-		const options = {
-			method: "GET",
-			headers: {
-				Accept: "text/plain",
-				Authorization: "Basic Yzk3NmNkMjFmYWViOTdhNmI0NzE2YWFkZDI4ODBjNDM6",
-			},
-		};
 
-		fetch("https://data.mixpanel.com/api/2.0/export?from_date=2021-01-01&to_date=2021-11-21", options)
-			.then((response) => response.json())
-			.then((response) => console.log(response))
-			.catch((err) => console.error(err));
+		// EXAMPLE: Fetching data
+		// Array of filters
+		// Each filter has two properties:
+		//			event - the event name that we want to retrieve
+		//			properties - further filter the datasets to only containing the properties specified
+		// const filters = [
+		// 	{
+		// 		event: "MagneBot Card",
+		// 		properties: [{ distinct_id: globalSession.profileId, string: "Hello World!" }],
+		// 	},
+		// ];
+		// let data;
+		// try {
+		// 	data = await tracking.retrieve(filters);
+		// } catch (error) {
+		// 	// TODO: Error handling
+		// }
+		// console.log(data);
 	}, []);
 
 	useEffect(() => {
@@ -60,7 +71,15 @@ const BrowsePreview = ({ project, role }) => {
 		const queriedStep = getTabs(role).find((t) => t === tab);
 		if (queriedStep) {
 			setTab(queriedStep);
-			mixpanel.track(`${project.name} ${tab}`, { Hello: "World!" });
+			// NOTE: Mixpanel Tracking
+			// Additional data to store
+			const data = {
+				property1: "value1",
+				property2: 2,
+			};
+			// Create an event, with the first parameter is the event name.
+			// The second parameter is optional, it contains additional data to store.
+			mixpanel.track(`${project.name} ${tab}`, data);
 		}
 	}, [router.query.tab]);
 
@@ -68,7 +87,16 @@ const BrowsePreview = ({ project, role }) => {
 		if (ref.current) {
 			setVideoLoaded(false);
 		}
-		mixpanel.track(`${project.name} Card`, { Hello: "World!" });
+		// NOTE: Mixpanel Tracking
+		// Additional data to store
+		const data = {
+			string: "Hello World!",
+			number: 42069,
+			array: [1, 2, 3, 4, 5],
+		};
+		// Create an event, with the first parameter is the event name.
+		// The second parameter is optional, it contains additional data to store.
+		mixpanel.track(`${project.name} Card`, data);
 	}, [project]);
 
 	const canPlayHandler = () => {
