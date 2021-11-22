@@ -57,9 +57,9 @@ export default {
 		],
 		modules: [
 			{
-				title: "TBD",
+				title: "In this Project...",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png",
-				url: "/aimbot/files/imagine.pdf",
+				url: "/aimbot/files/21050502AA_imagine.pdf",
 			},
 		],
 	},
@@ -89,7 +89,10 @@ export default {
 					},
 				],
 			},
-			plan: ["TBD"],
+			plan: [
+				"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
+				"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+			],
 			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
