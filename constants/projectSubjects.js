@@ -8,3 +8,4 @@ export const MATH = { color: "#a2e483", label: "Math" };
 export const SOCIAL_SCIENCE = { color: "#ee92da", label: "Social science" };
 export const FIRE_SAFETY = { color: "#ffd84b", label: "Fire safety" };
 export const SCRIPTING = { color: "#c8f028", label: "Scripting" };
+export const TRIGONOMETRY = { color: "#a2e483", label: "Trigonometry" };
