@@ -59,17 +59,17 @@ export default {
 		],
 		modules: [
 			{
-				title: "Imagine...",
+				title: "Imagine a solution",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
 			},
 			{
-				title: "Define Our Solution",
+				title: "We will build...",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
 			},
 			{
-				title: "Define Our Solution",
+				title: "Our approach",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
 			},
