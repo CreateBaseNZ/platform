@@ -6,12 +6,18 @@ import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/myGroups.module.scss";
+import VisualBellContext from "../../store/visual-bell-context";
 
 const MyGroups = () => {
 	const router = useRouter();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const { setVisualBell } = useContext(VisualBellContext);
 
-	const cardClickHandler = (i) => setGlobalSession((state) => ({ ...state, recentGroups: [i, ...state.recentGroups.filter((_group) => _group !== i)].slice(0, 3) }));
+	const cardClickHandler = (i) => {
+		setGlobalSession((state) => ({ ...state, recentGroups: [i, ...state.recentGroups.filter((_group) => _group !== i)].slice(0, 3) }));
+		router.push("/browse");
+		setVisualBell({ type: "success", message: `Now viewing as ${globalSession.groups[i].role} in ${globalSession.groups[i].name}` });
+	};
 
 	return (
 		<div className={classes.view}>

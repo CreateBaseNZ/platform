@@ -4,13 +4,13 @@
 	background: white;
 	height: 220px;
 	width: 220px;
-	margin: 0 2vw;
+	margin: 0 1rem;
 	border-radius: 2rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 4px 24px -8px rgba(black, 0.1);
+	box-shadow: 0 4px 24px 0px rgba(black, 0.1);
 	transition: box-shadow 0.1s ease-out, transform 0.1s ease-out;
 	&:hover {
 		transform: translateY(-2px);
