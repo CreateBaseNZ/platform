@@ -36,7 +36,7 @@ const Support = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [fuse] = useState(
 		new Fuse(FUSE_DATA, {
-			keys: ["query", "heading", "tags"],
+			keys: ["query", "heading", "caption", "tags"],
 		})
 	);
 	const [results, setResults] = useState();
@@ -103,6 +103,7 @@ const Support = () => {
 							<Link href={res.item.path.slice(-1)[0].pathname}>
 								<h3>{res.item.heading}</h3>
 							</Link>
+							<div className={classes.caption}>{res.item.caption}</div>
 							<div className={classes.breadCrumbs}>
 								{res.item.path.map((crumb, i) => (
 									<Fragment key={crumb.label}>

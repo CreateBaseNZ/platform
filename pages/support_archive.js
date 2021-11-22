@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
 import Img from "../components/UI/Img";
-import SUPPORT_DATA from "../data/support-data";
+import SUPPORT_DATA from "../data/support-data-archived";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 
-import classes from "../styles/support.module.scss";
+import classes from "../styles/support-archive.module.scss";
 
 const awaitImages = async (images, callback) => {
 	let count = 0;
