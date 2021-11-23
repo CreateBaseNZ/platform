@@ -10,8 +10,10 @@ import classes from "./BrowsePreview.module.scss";
 import { useRouter } from "next/router";
 
 import GlobalSessionContext from "../../store/global-session-context";
-import mixpanel from "mixpanel-browser";
-import tracking from "../../utils/tracking";
+// NOTE: Mixpanel Tracking
+// // Imports;
+// import mixpanel from "mixpanel-browser";
+// import tracking from "../../utils/tracking";
 
 const getTabs = (role) => {
 	switch (role) {
@@ -34,33 +36,32 @@ const BrowsePreview = ({ project, role }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	// NOTE: Mixpanel Tracking
-	// Setup Mixpanel Config
-	useEffect(async () => {
-		// Initialise the mixpanel channel
-		// The parameter is the API Key
-		mixpanel.init("05ac2b14242d76453c53168b2304778d");
-		// Set the distinct_id of the events that will be created
-		mixpanel.identify(globalSession.profileId);
-
-		// EXAMPLE: Fetching data
-		// Array of filters
-		// Each filter has two properties:
-		//			event - the event name that we want to retrieve
-		//			properties - further filter the datasets to only containing the properties specified
-		// const filters = [
-		// 	{
-		// 		event: "MagneBot Card",
-		// 		properties: [{ distinct_id: globalSession.profileId, string: "Hello World!" }],
-		// 	},
-		// ];
-		// let data;
-		// try {
-		// 	data = await tracking.retrieve(filters);
-		// } catch (error) {
-		// 	// TODO: Error handling
-		// }
-		// console.log(data);
-	}, []);
+	// // Setup Mixpanel Config Initialisation
+	// useEffect(async () => {
+	// 	// Initialise the mixpanel channel
+	// 	// The parameter is the API Key
+	// 	mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
+	// 	// Set the distinct_id of the events that will be created
+	// 	mixpanel.identify(globalSession.profileId);
+	// 	// EXAMPLE: Fetching data
+	// 	// Array of filters
+	// 	// Each filter has two properties:
+	// 	//			event - the event name that we want to retrieve
+	// 	//			properties - further filter the datasets to only containing the properties specified
+	// 	const filters = [
+	// 		{
+	// 			event: "MagneBot Card",
+	// 			properties: [{ distinct_id: globalSession.profileId, string: "Hello World!" }],
+	// 		},
+	// 	];
+	// 	let data;
+	// 	try {
+	// 		data = await tracking.retrieve(process.env.NEXT_PUBLIC_PROJECT_A_SECRET, filters);
+	// 	} catch (error) {
+	// 		// TODO: Error handling
+	// 	}
+	// 	console.log(data);
+	// }, []);
 
 	useEffect(() => {
 		return () => (ref.current = false);
@@ -72,14 +73,14 @@ const BrowsePreview = ({ project, role }) => {
 		if (queriedStep) {
 			setTab(queriedStep);
 			// NOTE: Mixpanel Tracking
-			// Additional data to store
-			const data = {
-				property1: "value1",
-				property2: 2,
-			};
-			// Create an event, with the first parameter is the event name.
-			// The second parameter is optional, it contains additional data to store.
-			mixpanel.track(`${project.name} ${tab}`, data);
+			// // Additional data to store
+			// const data = {
+			// 	property1: "value1",
+			// 	property2: 2,
+			// };
+			// // Create an event, with the first parameter is the event name.
+			// // The second parameter is optional, it contains additional data to store.
+			// mixpanel.track(`${project.name} ${tab}`, data);
 		}
 	}, [router.query.tab]);
 
@@ -88,15 +89,15 @@ const BrowsePreview = ({ project, role }) => {
 			setVideoLoaded(false);
 		}
 		// NOTE: Mixpanel Tracking
-		// Additional data to store
-		const data = {
-			string: "Hello World!",
-			number: 42069,
-			array: [1, 2, 3, 4, 5],
-		};
-		// Create an event, with the first parameter is the event name.
-		// The second parameter is optional, it contains additional data to store.
-		mixpanel.track(`${project.name} Card`, data);
+		// // Additional data to store
+		// const data = {
+		// 	string: "Hello World!",
+		// 	number: 42069,
+		// 	array: [1, 2, 3, 4, 5],
+		// };
+		// // Create an event, with the first parameter is the event name.
+		// // The second parameter is optional, it contains additional data to store.
+		// mixpanel.track(`${project.name} Card`, data);
 	}, [project]);
 
 	const canPlayHandler = () => {
