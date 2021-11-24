@@ -281,6 +281,43 @@
 		}
 	},
 	{
+		"robot": "hyperloop",
+		"startingCode": "",
+		"sensors": {
+			"NodeHyperloopGetPersonNumber": {
+				"name": "personNumber",
+				"simpleName": "personNumber"
+			}
+		},
+		"actions": {
+			"NodeHyperloopNoAction": {
+				"inputs": [],
+				"syntaxSimple": "",
+				"syntax": ""
+			}
+		},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "",
+				"await": false
+			},
+			"NodeAimBotMovePersonToHyperloop": {
+				"simpleLogic": "MovePersonToHyperloop",
+				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
+				"logic": "unityContext.send(\"People\", \"MovePersonToHyperloop\", a);",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "",
+				"await": false
+			}
+		}
+	},
+	{
 		"mathOps": {
 			"NodeAdd": "+",
 			"NodeSubtract": "-",

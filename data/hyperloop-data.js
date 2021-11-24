@@ -21,6 +21,7 @@ import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY } from "../constants/projectSubjects";
 
 export default {
+	wip: true,
 	name: "Hyperloop",
 	query: "hyperloop",
 	caption:
@@ -73,6 +74,168 @@ export default {
 	subsystems: [
 		{
 			title: "Subsystem 1",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+			research: {
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
+				modules: [
+					{
+						type: "pdf",
+						title: "Axis, Pitch and Yaw",
+						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Trigonometry",
+						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Introduction to Flow Part I",
+						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+					},
+				],
+			},
+			plan: [
+				"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
+				"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+			],
+			code: {
+				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
+				tasks: [
+					"Mosquitos will be appearing across your screen in a horizontal line.",
+					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
+					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly."
+				],
+				hints: [
+					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
+					"You can aim by controlling the velocity of the motors in the robot's arm.",
+					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps."
+				],
+			},
+			blockList: [
+				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
+				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Utilities", blocks: [<NodePrintMini />] },
+			],
+		},
+		{
+			title: "Subsystem 2",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+			research: {
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
+				modules: [
+					{
+						type: "pdf",
+						title: "Axis, Pitch and Yaw",
+						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Trigonometry",
+						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Introduction to Flow Part I",
+						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+					},
+				],
+			},
+			plan: [
+				"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
+				"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+			],
+			code: {
+				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
+				tasks: [
+					"Mosquitos will be appearing across your screen in a horizontal line.",
+					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
+					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly."
+				],
+				hints: [
+					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
+					"You can aim by controlling the velocity of the motors in the robot's arm.",
+					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps."
+				],
+			},
+			blockList: [
+				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
+				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Utilities", blocks: [<NodePrintMini />] },
+			],
+		},
+		{
+			title: "Subsystem 3",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+			research: {
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
+				modules: [
+					{
+						type: "pdf",
+						title: "Axis, Pitch and Yaw",
+						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Trigonometry",
+						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Introduction to Flow Part I",
+						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+					},
+				],
+			},
+			plan: [
+				"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
+				"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+			],
+			code: {
+				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
+				tasks: [
+					"Mosquitos will be appearing across your screen in a horizontal line.",
+					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
+					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly."
+				],
+				hints: [
+					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
+					"You can aim by controlling the velocity of the motors in the robot's arm.",
+					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps."
+				],
+			},
+			blockList: [
+				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
+				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
+				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Utilities", blocks: [<NodePrintMini />] },
+			],
+		},
+		{
+			title: "Subsystem 4",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
