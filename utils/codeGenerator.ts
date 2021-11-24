@@ -145,6 +145,84 @@ export class CodeGenerator {
 		return [true];
 	}
 
+	private arcTan(blockDetail) {
+		let inputs = "a";
+		let val = String(blockDetail.value[inputs]).trim();
+		if (!this.isNumber(val)) {
+			if (!this.checkVariable(val)) {
+				return [false, "error", "The inputs to one of the operators is not a number"];
+			}
+		} else {
+			val = String(Number(val));
+		}
+
+		let output: any;
+		output = "";
+		output = this.checkCorrectVar(String(blockDetail.value.out));
+		const str = `${output}Math.atan(${val})`;
+		const simpleStr = `${output}atan(${val})`;
+		this.simpleExecutes.push(simpleStr);
+		this.executes.push(str);
+		return [true];
+	}
+
+	private sqrt(blockDetail) {
+		let inputs = "a";
+		let val = String(blockDetail.value[inputs]).trim();
+		if (!this.isNumber(val)) {
+			if (!this.checkVariable(val)) {
+				return [false, "error", "The inputs to one of the operators is not a number"];
+			}
+		} else {
+			val = String(Number(val));
+		}
+
+		let output: any;
+		output = "";
+		output = this.checkCorrectVar(String(blockDetail.value.out));
+		const str = `${output}Math.sqrt(${val})`;
+		const simpleStr = `${output}sqrt(${val})`;
+		this.simpleExecutes.push(simpleStr);
+		this.executes.push(str);
+		return [true];
+	}
+
+	private clamp(blockDetail) {
+		let vals = [String(blockDetail.value["a"]).trim(),
+		String(blockDetail.value["b"]).trim(),
+		String(blockDetail.value["c"]).trim()];
+
+		vals.forEach(val => {
+			if (!this.isNumber(val)) {
+				if (!this.checkVariable(val)) {
+					return [false, "error", "The inputs to one of the operators is not a number"];
+				}
+			} else {
+				val = String(Number(val));
+			}
+		});
+
+		let output: any;
+		output = "";
+		output = this.checkCorrectVar(String(blockDetail.value.out));
+		const str = `${output}Math.min(Math.max(${vals[0]}, ${vals[1]}), ${vals[2]})`;
+		const simpleStr = `${output}clamp(${vals[0]}, ${vals[1]}, ${vals[2]})`;
+		this.simpleExecutes.push(simpleStr);
+		this.executes.push(str);
+		return [true];
+	}
+
+	private pi(blockDetail) {
+		let output: any;
+		output = "";
+		output = this.checkCorrectVar(String(blockDetail.value.out));
+		const str = `${output}Math.PI`;
+		const simpleStr = `${output}PI`;
+		this.simpleExecutes.push(simpleStr);
+		this.executes.push(str);
+		return [true];
+	}
+
 	private start(correctSystem) {
 		this.executes.push(correctSystem.functions.NodeStart.logic);
 		this.simpleExecutes.push(correctSystem.functions.NodeStart.simpleLogic);
@@ -184,11 +262,11 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private move(blockDetail: any, correctSystem, genralSystem) {
+	private move(blockDetail: any, correctSystem, generalSystem) {
 		// Fetch the Block Function
 		let blockFunction = correctSystem.functions[blockDetail.name];
 		if (!blockFunction) {
-			blockFunction = genralSystem.functions[blockDetail.name];
+			blockFunction = generalSystem.functions[blockDetail.name];
 		}
 		// Build input
 		let inputVariables: string = "";
@@ -425,17 +503,12 @@ export class CodeGenerator {
 		this.simpleExecute = "";
 		this.simpleContent = "";
 		let printNum = 0;
-		//
 		let state: any = true;
 		let type = null;
 		let message = null;
 		const systemName = blockDetails[0].robot;
-		const correctSystem = BlocksF.filter((element) => {
-			return element.robot == systemName;
-		})[0];
-		const genralSystem = BlocksF.filter((element) => {
-			return element.robot == undefined;
-		})[0];
+		const correctSystem = BlocksF.find((element) => element.robot == systemName);
+		const generalSystem = BlocksF.find((element) => element.robot == undefined);
 		for (let i = 0; i < blockDetails.length; i++) {
 			const element = blockDetails[i];
 			switch (element.type) {
@@ -443,7 +516,7 @@ export class CodeGenerator {
 					state = this.start(correctSystem);
 					break;
 				case "specific":
-					[state, type, message] = this.move(element, correctSystem, genralSystem);
+					[state, type, message] = this.move(element, correctSystem, generalSystem);
 					break;
 				case "NodeEnd":
 					state = this.end(correctSystem);
@@ -462,6 +535,18 @@ export class CodeGenerator {
 					break;
 				case "NodeAbsolute":
 					[state, type, message] = this.absolute(element);
+					break;
+				case "NodeArcTan":
+					[state, type, message] = this.arcTan(element);
+					break;
+				case "NodePI":
+					[state, type, message] = this.pi(element);
+					break;
+				case "NodeSqrt":
+					[state, type, message] = this.sqrt(element);
+					break;
+				case "NodeClamp":
+					[state, type, message] = this.clamp(element);
 					break;
 				case "NodeRepeat":
 					[state, type, message] = this.forStart(element);
@@ -485,7 +570,6 @@ export class CodeGenerator {
 					break;
 			}
 			if (!state) {
-				console.log(element);
 				return ["// Oops! An error occurred, please check the Console for more info", type, message, "// Oops! An error occurred, please check the Console for more info"];
 			}
 			const str = "if(codeChanged){resolve(true);}";

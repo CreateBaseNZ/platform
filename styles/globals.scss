@@ -92,10 +92,10 @@ svg {
 }
 
 .react-flow__handle-valid {
-	border-color: $green-mid !important;
-	background: $green-mid !important;
+	border-color: $green-light !important;
+	background: $green-light !important;
 	&::after {
-		background: $green-mid !important;
+		background: $green-light !important;
 	}
 }
 
@@ -164,6 +164,8 @@ svg {
 	}
 }
 
+// TODO remove these
+
 .support__bold {
 	font-weight: 600 !important;
 }
@@ -178,6 +180,14 @@ svg {
 
 .support__indent {
 	margin-left: 1em !important;
+}
+
+// required
+.embedded-video-16-9 {
+	width: 45vw;
+	height: 25.3125vw; // width * 9/16
+	margin-left: 2.5vw;
+	margin-right: 2.5vw;
 }
 
 .mobileView {

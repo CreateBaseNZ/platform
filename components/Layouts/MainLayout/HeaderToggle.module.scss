@@ -1,0 +1,33 @@
+@import "/styles/variables";
+
+.toggleHeader {
+	height: 2.5rem;
+	margin-left: 2rem;
+	flex: 0 0 6rem;
+	min-width: 6rem;
+	max-width: 6rem;
+	padding: 0 0.75rem 0 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: $blue-mid;
+	border-radius: 12px;
+	transition: background-color 0.1s ease-out;
+	span {
+		font-size: 12px;
+		font-weight: 500;
+		color: inherit;
+		margin-right: 0.5rem;
+	}
+	i {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: inherit;
+		font-size: 16px;
+		transition: transform 0.2s ease-out;
+	}
+	&:hover {
+		background-color: rgba($blue-mid, 0.1);
+	}
+}

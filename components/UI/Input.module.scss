@@ -28,11 +28,11 @@
 		background: #eeeeee;
 	}
 	&:focus {
-		border-color: $logo-light;
-		background: rgba($logo-light, 0.05);
+		border-color: $blue-mid;
+		background: rgba($blue-mid, 0.05);
 		color: black;
 		& ~ label {
-			color: $logo-light;
+			color: $blue-mid;
 		}
 	}
 	&::-webkit-outer-spin-button,
@@ -86,5 +86,33 @@
 		right: 0.75rem;
 		color: $light;
 		cursor: pointer;
+	}
+}
+
+.textarea {
+	height: auto;
+	padding: 0.75rem 1rem;
+	resize: none;
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+}
+
+.searchBar {
+	position: relative;
+	.input {
+		padding-left: 2.75rem;
+		&:focus {
+			& ~ label i {
+				color: inherit;
+			}
+		}
+	}
+	i {
+		font-size: 20px;
+		position: absolute;
+		left: 1rem;
+		color: $light;
+		transition: color 0.1s ease-out;
 	}
 }

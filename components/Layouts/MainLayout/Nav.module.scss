@@ -1,0 +1,162 @@
+@import "/styles/variables";
+
+.nav {
+	min-height: 0;
+	height: 100%;
+	width: 16rem;
+	padding-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	border-right: 2px solid $lighter;
+	overflow: hidden;
+	& > :first-child {
+		margin-top: 0.25rem;
+		margin-left: 0.5rem;
+	}
+}
+
+.logo {
+	margin-left: 1.5rem !important;
+}
+
+.menu {
+	margin-top: 3vh;
+	min-height: 0;
+	flex: 1;
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	position: relative;
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+}
+
+.inner {
+	margin-top: 3vh;
+	position: relative;
+	padding: 0 1.5rem;
+	margin-bottom: 6vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.slider {
+	position: absolute;
+	margin-top: 0.25rem;
+	left: 1.5rem;
+	width: calc(100% - 3rem);
+	height: 3.5rem;
+	background: $logo-mid;
+	border-radius: 1rem;
+	box-shadow: 0 8px 36px -8px rgba($logo-mid, 0.75);
+	transition: top 0.2s ease-out;
+	animation: slide-down 0.4s ease-out forwards;
+}
+
+.tab {
+	height: 3.5rem;
+	margin: 0.25rem 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	color: $light;
+	font-size: 14px;
+	font-weight: 500;
+	padding-left: 1rem;
+	transform: translateX(-100%);
+	border-radius: 1rem;
+	opacity: 0;
+	animation: slide-in 0.4s ease-out forwards;
+	transition: color 0.1s ease-out, padding-left 0.1s ease-out;
+	i {
+		color: inherit;
+		font-size: 20px;
+		margin-right: 1rem;
+		transition: transform 0.1s ease-out;
+	}
+	&:hover {
+		color: $darker;
+		background: rgba(black, 0.025);
+		i {
+			transform: translateX(2px);
+		}
+	}
+	&.active {
+		z-index: 1;
+		color: white;
+		background: transparent;
+		font-weight: 600;
+		padding-left: 1.5rem;
+		i {
+			transform: translateX(2px);
+		}
+	}
+}
+
+.inbox {
+	height: 1.5rem;
+	width: 1.5rem;
+	border-radius: 1rem;
+	background: $red;
+	color: white;
+	font-size: 14px;
+	margin-left: auto;
+	margin-right: 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.1s ease-out, color 0.1s ease-out;
+}
+
+.active .inbox {
+	background: white;
+	color: $logo-mid;
+}
+
+.divider {
+	height: 3.5rem;
+	margin: 0.25rem 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	&::after {
+		content: "";
+		width: 100%;
+		height: 2px;
+		background: $lighter;
+	}
+}
+
+@for $i from 1 through 10 {
+	.tab:nth-child(#{$i}n) {
+		animation-delay: #{$i * 0.15}s;
+	}
+}
+
+@keyframes slide-down {
+	from {
+		transform: translateY(-25%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slide-in {
+	from {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}

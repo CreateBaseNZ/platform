@@ -7,8 +7,24 @@ export const getDefaultValues = (type) => {
 		type === "NodePrint" ||
 		type === "NodeDelay" ||
 		type === "NodeAbsolute" ||
+		type === "NodeArcTan" ||
+		type === "NodePI" ||
+		type === "NodeSqrt" ||
+		type === "NodeClamp" ||
 		type === "NodeHeatSeekerMoveForward" ||
-		type === "NodeHeatSeekerMoveBackward"
+		type === "NodeHeatSeekerMoveBackward" ||
+		type === "NodeAimBotGetYawAngle" ||
+		type === "NodeAimBotGetPitchAngle" ||
+		type === "NodeAimBotGetMosquitoXPos" ||
+		type === "NodeAimBotGetMosquitoYPos" ||
+		type === "NodeAimBotGetMosquitoZPos" ||
+		type === "NodeAimBotShoot" ||
+		type === "NodeAimBotSetYawSpeed" ||
+		type === "NodeAimBotSetPitchSpeed" ||
+		type === "NodeAimBotSetCurrentYawSpeed" ||
+		type === "NodeAimBotSetCurrentPitchSpeed" ||
+		type === "NodeAimBotGetCurrentYawSpeed" ||
+		type === "NodeAimBotGetCurrentPitchSpeed"
 	) {
 		return { a: 0 };
 	}
@@ -75,6 +91,12 @@ export const nodeTypeHandles = {
 	NodeMultiply: operatorHandles,
 	NodeDivide: operatorHandles,
 	NodeAbsolute: ["float__in__a", "float__out"],
+	NodeArcTan: ["float__in__a", "float__out"],
+
+	NodePI: ["float__out"],
+	NodeSqrt: ["float__in__a", "float__out"],
+	NodeClamp: ["float__in__a", "float__in__b", "float__in__c", "float__out"],
+
 	NodeGeneralOperator: operatorHandles,
 	NodeGreaterThan: comparisonHandles,
 	NodeLessThan: comparisonHandles,
@@ -117,6 +139,19 @@ export const nodeTypeHandles = {
 	NodeHeatSeekerIsFireNear: ["boolean__out"],
 	NodeHeatSeekerDifference: sensingHandles,
 	NodeHeatSeekerFireSensor: sensingHandles,
+
+	NodeAimBotGetYawAngle: sensingHandles,
+	NodeAimBotGetPitchAngle: sensingHandles,
+	NodeAimBotGetMosquitoXPos: sensingHandles,
+	NodeAimBotGetMosquitoYPos: sensingHandles,
+	NodeAimBotGetMosquitoZPos: sensingHandles,
+	NodeAimBotSetYawSpeed: actionHandles,
+	NodeAimBotSetPitchSpeed: actionHandles,
+	NodeAimBotShoot: actionHandles,
+	NodeAimBotSetCurrentYawSpeed: actionHandles,
+	NodeAimBotSetCurrentPitchSpeed: actionHandles,
+	NodeAimBotGetCurrentYawSpeed: sensingHandles,
+	NodeAimBotGetCurrentPitchSpeed: sensingHandles,
 };
 
 export const infoLogs = [
