@@ -3,6 +3,7 @@ import magnebot from "./headers/magnebot";
 import sendIt from "./headers/sendIt";
 import heatSeeker from "./headers/heatSeeker";
 import aimBot from "./headers/aimBot";
+import hyperloop from "./headers/hyperloop";
 
 // MAIN =====================================================
 
@@ -18,6 +19,8 @@ export default function header(system) {
 			return heatSeeker();
 		case "aimbot":
 			return aimBot();
+		case "hyperloop":
+				return hyperloop();
 		default:
 			return "";
 	}
