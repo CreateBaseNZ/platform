@@ -18,6 +18,7 @@ const UnityWrapper = ({ data }) => {
 		mode: "manual",
 		index: data.subsystems.length - 1,
 		setLoaded: setLoaded,
+		wip: data.wip,
 	});
 
 	return <Unity unityContext={unityContext} />;

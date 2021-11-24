@@ -14,6 +14,7 @@ const Game = ({ setLoaded, mode = "", project, index, query, blockList }) => {
 		mode: mode,
 		index: index,
 		setLoaded: setLoaded,
+		wip: project.wip,
 	});
 
 	console.log("rendered game");
