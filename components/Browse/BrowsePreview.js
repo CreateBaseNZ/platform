@@ -10,9 +10,9 @@ import { useRouter } from "next/router";
 
 import GlobalSessionContext from "../../store/global-session-context";
 // NOTE: Mixpanel Tracking
-// // Imports
-// import mixpanel from "mixpanel-browser";
-// import tracking from "../../utils/tracking";
+// Imports
+import mixpanel from "mixpanel-browser";
+import tracking from "../../utils/tracking";
 
 const getTabs = (role) => {
 	switch (role) {
@@ -35,33 +35,33 @@ const BrowsePreview = ({ project, role }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	// NOTE: Mixpanel Tracking
-	// // Setup Mixpanel Config Initialisation
-	// useEffect(async () => {
-	// 	// Initialise the mixpanel channel
-	// 	// The parameter is the API Key
-	// 	mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
-	// 	// Set the distinct_id of the events that will be created
-	// 	mixpanel.identify(globalSession.profileId);
-	// 	// Establish the associated user details for the specified id
-	// 	mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
-	// 	// // EXAMPLE: Fetching data
-	// 	// // Array of filters
-	// 	// // Each filter has two properties:
-	// 	// //			event - the event name that we want to retrieve
-	// 	// //			properties - further filter the datasets to only containing the properties specified
-	// 	// const filters = [
-	// 	// 	{
-	// 	// 		event: "MagneBot Card",
-	// 	// 		properties: [{ distinct_id: globalSession.profileId }],
-	// 	// 	},
-	// 	// ];
-	// 	// let data;
-	// 	// try {
-	// 	// 	data = await tracking.retrieve(process.env.NEXT_PUBLIC_PROJECT_A_SECRET, filters);
-	// 	// } catch (error) {
-	// 	// 	// TODO: Error handling
-	// 	// }
-	// 	// console.log(data);
+	// Setup Mixpanel Config Initialisation
+	useEffect(async () => {
+		// Initialise the mixpanel channel
+		// The parameter is the API Key
+		mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
+		// Set the distinct_id of the events that will be created
+		mixpanel.identify(globalSession.profileId);
+		// Establish the associated user details for the specified id
+		mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
+		// // EXAMPLE: Fetching data
+		// // Array of filters
+		// // Each filter has two properties:
+		// //			event - the event name that we want to retrieve
+		// //			properties - further filter the datasets to only containing the properties specified
+		// const filters = [
+		// 	{
+		// 		event: "MagneBot Card",
+		// 		properties: [{ distinct_id: globalSession.profileId }],
+		// 	},
+		// ];
+		// let data;
+		// try {
+		// 	data = await tracking.retrieve(process.env.NEXT_PUBLIC_PROJECT_A_SECRET, filters);
+		// } catch (error) {
+		// 	// TODO: Error handling
+		// }
+		// console.log(data);
 	}, []);
 
 	useEffect(() => {
