@@ -39,11 +39,11 @@ const BrowsePreview = ({ project, role }) => {
 	useEffect(async () => {
 		// Initialise the mixpanel channel
 		// The parameter is the API Key
-		mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
+		//mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
 		// Set the distinct_id of the events that will be created
-		mixpanel.identify(globalSession.profileId);
+		//mixpanel.identify(globalSession.profileId);
 		// Establish the associated user details for the specified id
-		mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
+		//mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
 		// // EXAMPLE: Fetching data
 		// // Array of filters
 		// // Each filter has two properties:
