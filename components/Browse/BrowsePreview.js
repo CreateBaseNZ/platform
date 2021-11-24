@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 import GlobalSessionContext from "../../store/global-session-context";
 // NOTE: Mixpanel Tracking
-// // Imports;
+// // Imports
 // import mixpanel from "mixpanel-browser";
 // import tracking from "../../utils/tracking";
 
@@ -52,7 +52,7 @@ const BrowsePreview = ({ project, role }) => {
 	// 	// const filters = [
 	// 	// 	{
 	// 	// 		event: "MagneBot Card",
-	// 	// 		properties: [{ distinct_id: globalSession.profileId, string: "Hello World!" }],
+	// 	// 		properties: [{ distinct_id: globalSession.profileId }],
 	// 	// 	},
 	// 	// ];
 	// 	// let data;
@@ -62,7 +62,7 @@ const BrowsePreview = ({ project, role }) => {
 	// 	// 	// TODO: Error handling
 	// 	// }
 	// 	// console.log(data);
-	// }, []);
+	}, []);
 
 	useEffect(() => {
 		return () => (ref.current = false);
