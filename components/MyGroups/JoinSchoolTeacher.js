@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import useHandleResponse from "../../hooks/useHandleResponse";
 import { SearchBar, TextArea } from "../../components/UI/Input";
 import { PrimaryButton, SecondaryButton } from "../../components/UI/Buttons";
-
-import classes from "/styles/myGroups.module.scss";
 import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
+
+import classes from "../../styles/myGroups.module.scss";
 
 const JoinSchoolTeacher = () => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
@@ -134,8 +134,11 @@ const JoinSchoolTeacher = () => {
 					<div className={classes.queryDropdown}>
 						{queryDropdown.groups.length ? (
 							queryDropdown.groups.map((group) => (
-								<div key={group.name} className={classes.queryItem} onMouseDown={() => selectGroupHandler(group)}>
+								<div key={group.id} className={classes.queryItem} onMouseDown={() => selectGroupHandler(group)}>
 									{group.name}
+									<div className={classes.groupLocation}>
+										{group.location.cityState}, {group.location.country}
+									</div>
 								</div>
 							))
 						) : (
