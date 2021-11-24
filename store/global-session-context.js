@@ -39,9 +39,10 @@ export const GlobalSessionContextProvider = (props) => {
 					}
 					return;
 				}
+				const groups = data1.content.groups.filter((group) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated");
 				let data2;
 				try {
-					data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups: data1.content.groups } }))["data"];
+					data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups } }))["data"];
 				} catch (error) {
 					data2.status = "error";
 				}
