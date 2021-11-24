@@ -4,7 +4,6 @@ import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
 import { SecondaryButton } from "../UI/Buttons";
-import axios from "axios";
 
 import classes from "./BrowsePreview.module.scss";
 import { useRouter } from "next/router";
@@ -43,24 +42,26 @@ const BrowsePreview = ({ project, role }) => {
 	// 	mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
 	// 	// Set the distinct_id of the events that will be created
 	// 	mixpanel.identify(globalSession.profileId);
-	// 	// EXAMPLE: Fetching data
-	// 	// Array of filters
-	// 	// Each filter has two properties:
-	// 	//			event - the event name that we want to retrieve
-	// 	//			properties - further filter the datasets to only containing the properties specified
-	// 	const filters = [
-	// 		{
-	// 			event: "MagneBot Card",
-	// 			properties: [{ distinct_id: globalSession.profileId, string: "Hello World!" }],
-	// 		},
-	// 	];
-	// 	let data;
-	// 	try {
-	// 		data = await tracking.retrieve(process.env.NEXT_PUBLIC_PROJECT_A_SECRET, filters);
-	// 	} catch (error) {
-	// 		// TODO: Error handling
-	// 	}
-	// 	console.log(data);
+	// 	// Establish the associated user details for the specified id
+	// 	mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
+	// 	// // EXAMPLE: Fetching data
+	// 	// // Array of filters
+	// 	// // Each filter has two properties:
+	// 	// //			event - the event name that we want to retrieve
+	// 	// //			properties - further filter the datasets to only containing the properties specified
+	// 	// const filters = [
+	// 	// 	{
+	// 	// 		event: "MagneBot Card",
+	// 	// 		properties: [{ distinct_id: globalSession.profileId, string: "Hello World!" }],
+	// 	// 	},
+	// 	// ];
+	// 	// let data;
+	// 	// try {
+	// 	// 	data = await tracking.retrieve(process.env.NEXT_PUBLIC_PROJECT_A_SECRET, filters);
+	// 	// } catch (error) {
+	// 	// 	// TODO: Error handling
+	// 	// }
+	// 	// console.log(data);
 	// }, []);
 
 	useEffect(() => {
