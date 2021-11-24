@@ -1,0 +1,164 @@
+@import "/styles/variables";
+
+.container {
+	width: 100%;
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.tableHeader {
+	width: 100%;
+	display: flex;
+}
+
+.tableWrapper {
+	display: block; // required
+	max-width: 100%; // required
+	overflow-x: auto;
+	margin-bottom: 2rem;
+}
+
+.table {
+	width: 100%;
+}
+
+.tr {
+	padding: 0 1rem;
+}
+
+.th,
+.td {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.theadWrapper {
+	width: 100%;
+}
+
+.thead {
+	height: 2.5rem;
+	border-radius: 8px 8px 0 0;
+	background: #eeeeee;
+	.tr {
+		height: 100%;
+	}
+}
+
+.tbody {
+	background: rgb(250, 250, 250);
+	.tr {
+		height: 3rem;
+		border-bottom: thin solid $lighter;
+		&:hover {
+			background: #f3f3f3;
+			.td {
+				color: black;
+			}
+		}
+		&.trSelected {
+			background: rgba($blue-mid, 0.05);
+			.td {
+				color: $blue-dark;
+			}
+			&:hover {
+				background: rgba($blue-dark, 0.1);
+			}
+		}
+	}
+}
+
+.th {
+	height: 100%;
+	text-align: left;
+	text-transform: uppercase;
+	font-size: 12px;
+	color: $darkest;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	.sortArrow {
+		display: inline-block;
+		text-align: center;
+		vertical-align: middle;
+		margin-left: 0.25rem;
+		opacity: 0;
+		height: 16px;
+		width: 16px;
+		color: $blue-mid;
+		font-size: 16px;
+		transform: rotate(180deg);
+		transition: transform 0.2s ease-out, opacity 0.1s ease-out;
+		&.descending {
+			opacity: 1;
+			transform: rotate(180deg);
+		}
+		&.ascending {
+			opacity: 1;
+			transform: none;
+			transition: opacity 0.1s ease-out;
+		}
+	}
+	&:hover {
+		color: $blue-mid;
+	}
+	&.sorted {
+		color: $blue-mid;
+	}
+}
+
+.td {
+	color: $darker;
+	font-weight: 500;
+	font-size: 14px;
+}
+
+.pagination {
+	margin-top: auto;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	& > * {
+		flex: 1 1 0 !important;
+	}
+}
+
+.goTo {
+	height: 100%;
+	font-size: 14px;
+	font-weight: 500;
+	color: $dark;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.pageInput {
+	margin: 0 2rem 0 0.5rem;
+	height: 100%;
+	width: 3.5rem;
+	border: thin solid $light;
+	border-radius: 8px;
+	text-align: end;
+	padding-right: 0.75rem;
+	color: $blue-mid;
+	font-weight: 600;
+	font-family: $poppins;
+	transition: color 0.1s ease-out, border-color 0.1s ease-out, background-color 0.1s ease-out;
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	&[type="number"] {
+		-moz-appearance: textfield;
+	}
+	&:hover {
+		color: $blue-mid;
+		background: rgba($blue-mid, 0.05);
+	}
+	&:focus {
+		border-color: $blue-mid;
+	}
+}

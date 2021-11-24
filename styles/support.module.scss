@@ -1,0 +1,235 @@
+@import "/styles/variables";
+
+.support {
+	min-height: 0;
+	height: 100%;
+	width: 100%;
+	background: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.banner {
+	width: 100%;
+	flex: 1 1 40%;
+	max-height: 40%;
+	min-height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+	&.shrink {
+		flex: 0 0 200px;
+	}
+}
+
+.shape {
+	position: absolute;
+	&::after {
+		content: "";
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		border: thin solid;
+		border-radius: inherit;
+	}
+}
+
+.red {
+	top: 0;
+	left: 0;
+	height: 300px;
+	width: 300px;
+	border-radius: 6rem;
+	background: rgba($orange, 0.05);
+	transform: translate(-30%, -70%) rotate(45deg);
+	&::after {
+		border-color: rgba($orange, 0.2);
+		transform: translate(2rem, -2rem);
+	}
+}
+
+.green {
+	top: 0;
+	right: 30%;
+	height: 450px;
+	width: 450px;
+	border-radius: 450px;
+	background: rgba($green-mid, 0.05);
+	transform: translate(40%, -85%);
+	&::after {
+		border-color: rgba($green-mid, 0.25);
+		transform: translate(-10%, -2%);
+	}
+}
+
+.blue {
+	bottom: 0;
+	right: 0;
+	height: 350px;
+	width: 350px;
+	border-radius: 2rem;
+	background: rgba($blue-mid, 0.05);
+	transform: scaleY(150%) rotate(45deg) translate(70%, -40%);
+	&::after {
+		border-color: rgba($blue-mid, 0.25);
+		transform: translate(-1rem, -2rem);
+	}
+}
+
+.yellow {
+	left: 25%;
+	bottom: 5%;
+	height: 400px;
+	width: 200px;
+	border-radius: 4rem;
+	background: rgba($gold, 0.05);
+	transform: translate(0, 70%) rotate(-75deg);
+	&::after {
+		border-color: rgba($gold, 0.25);
+		transform: translate(1rem, 4rem);
+	}
+}
+
+.bannerContent {
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	h1 {
+		font-size: 2rem;
+		font-weight: 600;
+	}
+	h2 {
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+	}
+	.searchbar {
+		margin-top: 1rem;
+		width: 500px;
+		input {
+			height: 3rem;
+		}
+		p {
+			display: none;
+		}
+		i {
+			top: 1rem !important;
+		}
+	}
+}
+
+.auth {
+	position: absolute;
+	top: 1.5rem;
+	right: 2vw;
+	display: flex;
+	align-items: center;
+	.signup {
+		margin-right: 1rem;
+		background: $logo-mid;
+		box-shadow: 0 4px 16px 0 rgba($logo-mid, 0.25);
+		&:hover {
+			box-shadow: 0 8px 24px 0 rgba($logo-mid, 0.25);
+		}
+	}
+	.login {
+		color: $blue-mid;
+		border-color: $blue-mid;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
+		&:hover {
+			color: white;
+			background: $blue-mid;
+		}
+	}
+}
+
+.cardContainer {
+	background: white;
+	flex: 1 1 60%;
+	padding-bottom: 10vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.resultsContainer {
+	width: 50vw;
+	min-width: 500px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 2rem 0;
+	h2 {
+		width: 100%;
+		font-size: 1rem;
+		font-weight: 600;
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		button {
+			font-size: 12px;
+			font-weight: 500;
+			display: flex;
+			align-items: center;
+			padding: 0.35rem 0.5rem;
+			border-radius: 8px;
+			color: $dark;
+			transition: background-color 0.1s ease-out, color 0.1s ease-out;
+			i {
+				color: inherit;
+				font-size: 1rem;
+				margin-right: 0.25rem;
+			}
+			&:hover {
+				background: $lighter;
+				color: $red;
+			}
+		}
+	}
+	.result {
+		padding: 2rem 0 1rem 0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		border-bottom: 2px solid $lighter;
+		h3 {
+			font-size: 20px;
+			font-weight: 600;
+			color: $blue-mid;
+			cursor: pointer;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		.caption {
+			font-size: 15px;
+			margin: 0.5rem 0;
+		}
+		.breadCrumbs {
+			margin: 0.5rem 0 0.5rem -0.5rem;
+			display: flex;
+			align-items: center;
+			.crumb {
+				display: flex;
+				align-items: center;
+				font-size: 12px;
+				padding: 0.25rem 0.5rem;
+				border-radius: 6px;
+				transition: background-color 0.1s ease-out, color 0.1s ease-out;
+				&:hover {
+					background: $lighter;
+					color: $logo-mid;
+				}
+			}
+			i {
+				font-size: 1rem;
+				font-weight: 200;
+			}
+		}
+	}
+}

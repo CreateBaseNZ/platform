@@ -3,13 +3,13 @@ import VisualBellContext from "../store/visual-bell-context";
 import classes from "./VisualBell.module.scss";
 
 const VisualBell = () => {
-	const ctx = useContext(VisualBellContext);
+	const { visualBell, setVisualBell } = useContext(VisualBellContext);
 
 	return (
-		<div className={classes.container} style={{ pointerEvents: !ctx.bell.message && "none" }}>
-			<div key={Math.random()} className={`${classes.bell} ${classes[ctx.bell.type]}`}>
-				{ctx.bell.message}
-				<i className="material-icons-outlined" onClick={() => ctx.setBell({})} title="Close">
+		<div className={classes.container} style={{ pointerEvents: !visualBell.message && "none" }}>
+			<div key={Math.random()} className={`${classes.bell} ${classes[visualBell.type]}`}>
+				{visualBell.message}
+				<i className="material-icons-outlined" onClick={() => setVisualBell({})} title="Close">
 					close
 				</i>
 			</div>

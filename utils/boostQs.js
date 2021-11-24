@@ -724,8 +724,6 @@ export const whileBoostLvl4Item = () => {
 		}
 	}
 
-	console.log(ans);
-
 	return {
 		q: `If fire being near is ${conditions.join("➞")}, what is the sequence of actions?`,
 		els: [

@@ -1,10 +1,24 @@
 import { NodeStart } from "../components/ReactFlow/NodeGeneral";
-import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeAbsolute, NodeGeneralOperator } from "../components/ReactFlow/NodeOperations";
+import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeAbsolute, NodeArcTan, NodePI, NodeSqrt, NodeClamp, NodeGeneralOperator } from "../components/ReactFlow/NodeOperations";
 import { NodeGreaterThan, NodeLessThan, NodeEquals, NodeNotEquals } from "../components/ReactFlow/NodeComparisons";
 import { NodeAnd, NodeOr, NodeNot } from "../components/ReactFlow/NodeLogicals";
 import { NodeIf, NodeRepeat, NodeWhile } from "../components/ReactFlow/NodeConditionals";
 import { NodePrint, NodeDelay, NodeTrue, NodeFalse } from "../components/ReactFlow/NodeUtils";
 import { NodeMagnebotMoveArm, NodeMagnebotSwitch } from "../components/ReactFlow/NodeMagneBot";
+import {
+	NodeAimBotGetYawAngle,
+	NodeAimBotGetPitchAngle,
+	NodeAimBotGetMosquitoXPos,
+	NodeAimBotGetMosquitoYPos,
+	NodeAimBotGetMosquitoZPos,
+	NodeAimBotSetYawSpeed,
+	NodeAimBotSetPitchSpeed,
+	NodeAimBotShoot,
+	NodeAimBotSetCurrentYawSpeed,
+	NodeAimBotSetCurrentPitchSpeed,
+	NodeAimBotGetCurrentYawSpeed,
+	NodeAimBotGetCurrentPitchSpeed,
+} from "../components/ReactFlow/NodeAimbot";
 import { NodeSendItJump, NodeSendItCrouch, NodeSendItDistance, NodeSendItHeightOf, NodeSendItWidthOf, NodeSendItSpeedOf, NodeSendItElevationOf } from "../components/ReactFlow/NodeSendIt";
 import {
 	NodeHeatSeekerLeftWheel,
@@ -90,6 +104,10 @@ export const nodeTypes = {
 	NodeMultiply,
 	NodeDivide,
 	NodeAbsolute,
+	NodeArcTan,
+	NodePI,
+	NodeSqrt,
+	NodeClamp,
 	NodeGeneralOperator,
 	NodeGreaterThan,
 	NodeLessThan,
@@ -129,6 +147,18 @@ export const nodeTypes = {
 	NodeHeatSeekerIsFireNear,
 	NodeHeatSeekerDifference,
 	NodeHeatSeekerFireSensor,
+	NodeAimBotGetYawAngle,
+	NodeAimBotGetPitchAngle,
+	NodeAimBotGetMosquitoXPos,
+	NodeAimBotGetMosquitoYPos,
+	NodeAimBotGetMosquitoZPos,
+	NodeAimBotSetYawSpeed,
+	NodeAimBotSetPitchSpeed,
+	NodeAimBotShoot,
+	NodeAimBotSetCurrentYawSpeed,
+	NodeAimBotSetCurrentPitchSpeed,
+	NodeAimBotGetCurrentYawSpeed,
+	NodeAimBotGetCurrentPitchSpeed,
 };
 
 export const tooltips = {
@@ -136,7 +166,13 @@ export const tooltips = {
 	NodeSubtract: [<FloatType />, <FloatType />, "Outputs the subtraction of one input from the other"],
 	NodeMultiply: [<FloatType />, <FloatType />, "Outputs the multiplication of the two inputs"],
 	NodeDivide: [<FloatType />, <FloatType />, "Outputs the division of one input by the other"],
-	NodeAbsolute: [<FloatType />, <FloatType />, "Outputs the absolute of the input (i.e. number without the sign)"],
+	NodeAbsolute: [<FloatType />, "Outputs the absolute of the input (i.e. number without the sign)"],
+	NodeArcTan: [<FloatType />, <FloatType />, "Outputs the arc tangent of the input"],
+
+	NodePI: [<NoneType />, <FloatType />, "Outputs the number PI"],
+	NodeSqrt: [<FloatType />, <FloatType />, "Outputs the square root of the input"],
+	NodeClamp: [<><FloatType /> <FloatType /> <FloatType /></>, <FloatType />, "Outputs an input number that is restricted between the given minimum and maximum values"],
+
 	NodeGeneralOperator: [<FloatType />, <FloatType />, "Outputs the calulation based on the operation selected"],
 	NodeGreaterThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is greater than the right input, and FALSE otherwise"],
 	NodeLessThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is less than the right input, and FALSE otherwise"],
@@ -238,6 +274,18 @@ export const tooltips = {
 	NodeHeatSeekerIsFireNear: [<NoneType />, <BooleanType />, "Outputs whether there is fire in front of the car"],
 	NodeHeatSeekerDifference: [<NoneType />, <FloatType />, "Outputs the difference in reading between the right and left sensors"],
 	NodeHeatSeekerFireSensor: [<NoneType />, <FloatType />, "Outputs the reading from the fire sensor"],
+	NodeAimBotGetYawAngle: [<NoneType />, <FloatType />, "Outputs the yaw of the robot (Angle rotated about the y-axis)"],
+	NodeAimBotGetPitchAngle: [<NoneType />, <FloatType />, "Outputs the pitch of the robot (Angle rotated about the x-axis)"],
+	NodeAimBotGetMosquitoXPos: [<NoneType />, <FloatType />, "Outputs the distance the mosquito is away from the robot along the x-axis"],
+	NodeAimBotGetMosquitoYPos: [<NoneType />, <FloatType />, "Outputs the distance the mosquito is away from the robot along the y-axis"],
+	NodeAimBotGetMosquitoZPos: [<NoneType />, <FloatType />, "Outputs the distance the mosquito is away from the robot along the z-axis"],
+	NodeAimBotSetYawSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Sets the yaw speed of the robot in degrees per second",],
+	NodeAimBotSetPitchSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Sets the pitch speed of the robot in degrees per second",],
+	NodeAimBotShoot: [<ExecutionType />, <ExecutionType />, "Fire the robot's high powered arm laser blaster",],
+	NodeAimBotSetCurrentYawSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Set the value of the variable"],
+	NodeAimBotSetCurrentPitchSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Set the value of the variable"],
+	NodeAimBotGetCurrentYawSpeed: [<NoneType />, <FloatType />, "Return the value from variable"],
+	NodeAimBotGetCurrentPitchSpeed: [<NoneType />, <FloatType />, "Return the value from variable"],
 };
 
 export const initialElements = [

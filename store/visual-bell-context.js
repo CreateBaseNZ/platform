@@ -1,33 +1,37 @@
 import { useState, createContext, useMemo, useEffect, useRef } from "react";
 
 const VisualBellContext = createContext({
-	bell: {},
-	setBell: () => {},
+	visualBell: {},
+	setVisualBell: () => {},
 });
 
 export default VisualBellContext;
 
 export const VisualBellContextProvider = (props) => {
 	const timer = useRef();
-	const [bell, setBell] = useState({});
+	const [visualBell, setVisualBell] = useState({ type: null, message: null, key: null });
 
 	useEffect(() => {
-		if (bell.message) {
-			if (timer.current && bell.type !== "catastrophe" && bell.type !== "warning") {
+		if (visualBell.message) {
+			if (timer.current && visualBell.type !== "catastrophe" && visualBell.type !== "warning") {
 				clearTimeout(timer.current);
 			}
-			if (bell.type !== "catastrophe" && bell.type !== "warning") {
-				timer.current = setTimeout(() => setBell({}), 5100);
+			if (visualBell.type !== "catastrophe" && visualBell.type !== "warning") {
+				timer.current = setTimeout(() => setVisualBell({}), 5100);
 			}
 		}
-	}, [bell.message]);
+	}, [visualBell.key]);
+
+	const setVisualBellWithTrigger = (param) => {
+		setVisualBell({ ...param, key: Math.random() });
+	};
 
 	const value = useMemo(
 		() => ({
-			bell: bell,
-			setBell: setBell,
+			visualBell: visualBell,
+			setVisualBell: setVisualBellWithTrigger,
 		}),
-		[bell]
+		[visualBell]
 	);
 
 	return <VisualBellContext.Provider value={value}>{props.children}</VisualBellContext.Provider>;

@@ -1,0 +1,83 @@
+@import "/styles/variables";
+
+.selectContainer {
+	margin-left: 1.25rem;
+	display: flex;
+	align-items: center;
+	.selectLabel {
+		height: 2.5rem;
+		display: flex;
+		align-items: center;
+		font-size: 12px;
+		color: $dark;
+		font-weight: 600;
+		margin-right: 0.5rem;
+	}
+	.select {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		width: 150px;
+		.selected {
+			height: 2.5rem;
+			width: 100%;
+			padding: 0 0.5rem 0 0.75rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			text-align: left;
+			border-radius: 8px;
+			background: $lighter;
+			transition: background-color 0.1s ease-out, color 0.1s ease-out;
+			span {
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				color: inherit;
+				font-size: 12px;
+				font-weight: 600;
+			}
+			i {
+				font-size: 1rem;
+				color: inherit;
+				transition: transform 0.1s ease-out;
+			}
+			&:hover,
+			&.active {
+				background: rgba($blue-mid, 0.1);
+				color: $blue-mid;
+			}
+			&.active i {
+				transform: rotate(180deg);
+			}
+		}
+		.options {
+			width: 100%;
+			top: calc(100% + 4px);
+			position: absolute;
+			display: flex;
+			flex-direction: column;
+			border-radius: 8px;
+			overflow: hidden;
+			background: white;
+			z-index: 2;
+			box-shadow: 0 4px 16px 0 rgba(black, 0.1);
+			.option {
+				position: relative;
+				width: 100%;
+				padding: 0.5rem 0.75rem;
+				display: flex;
+				align-items: center;
+				text-align: left;
+				font-size: 12px;
+				font-weight: 500;
+				cursor: pointer;
+				transition: color 0.1s ease-out, background-color 0.1s ease-out;
+				&:hover {
+					background: $lighter;
+					color: $blue-mid;
+				}
+			}
+		}
+	}
+}

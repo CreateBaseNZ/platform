@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 
-const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
+const useUnity = ({ scenePrefix, mode, index, project, setLoaded }) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
-			loaderUrl: `/${project}/unity-build/Build.loader.js`,
-			dataUrl: `/${project}/unity-build/Build.data`,
-			frameworkUrl: `/${project}/unity-build/Build.framework.js`,
-			codeUrl: `/${project}/unity-build/Build.wasm`,
+			loaderUrl: `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.loader.js`,
+			dataUrl: `https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project}/unity-build/Build.data`,
+			frameworkUrl: `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.framework.js`,
+			codeUrl: `https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project}/unity-build/Build.wasm`,
 			productName: "Simulation",
 			productVersion: "0.1",
 			companyName: "CreateBase",
@@ -23,15 +23,12 @@ const useUnity = ({ scenePrefix, scene, iteration, project, setLoaded }) => {
 		unityContext.on("GetSensorData", (sensorData) => {
 			setSensorData(sensorData);
 		});
-	}, []);
-
-	useEffect(() => {
 		unityContext.on("GetGameState", (gameState) => {
 			setGameState(gameState);
 		});
 	}, []);
 
-	const sceneName = scene === "manual" || scene === "improve" ? `${scenePrefix}_${iteration},${scene}` : `${scenePrefix}_${iteration}`;
+	const sceneName = mode ? `${scenePrefix}_${index},${mode}` : `${scenePrefix}_${index}`;
 
 	useEffect(() => {
 		unityContext.on("loaded", () => {
