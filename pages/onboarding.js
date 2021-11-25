@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
+import useApi from "../hooks/useApi";
 import GlobalSessionContext from "../store/global-session-context";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 import OnboardingSection from "../components/Onboarding/OnboardingSection";
@@ -8,8 +9,6 @@ import OnboardingVideo from "../components/Onboarding/OnboardingVideo";
 import classes from "../styles/onboarding.module.scss";
 
 const DUMMY_STATUS = { "getting-started": true, "flow-0": false, "not-group": false, "group-0": true, "group-1": false, "group-2": true, "group-3": true, "group-4": false, "group-5": false };
-
-// TODO populate links, images, text, and videos
 
 const GETTING_STARTED_SECTION = {
 	caption: "Let's get you started! Here's a couple videos we've put together for you",
@@ -114,11 +113,19 @@ const SUPPORT_SECTION = {
 
 const Onboarding = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
+	const post = useApi();
 	const [statuses, setStatuses] = useState();
 	const [videoModal, setVideoModal] = useState({ show: false, videoUrl: "" });
 
-	useEffect(() => {
+	useEffect(async () => {
 		// TODO - retrieve saves
+		// await post({
+		// 	route: "/profile/read-saves",
+		// 	input: { profileId: globalSession.profileId },
+		// 	successHandler: (data) => {
+		// 		console.log(data);
+		// 	},
+		// });
 		setStatuses(DUMMY_STATUS);
 	}, []);
 

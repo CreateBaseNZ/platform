@@ -1,9 +1,7 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import router from "next/router";
 import Link from "next/link";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import useHandleResponse from "../../hooks/useHandleResponse";
 import Input, { PasswordInput } from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
 import VisualBellContext from "../../store/visual-bell-context";
@@ -13,11 +11,12 @@ import { passwordMinLength, passwordValidate } from "../../utils/formValidation"
 const codeLength = 6;
 
 import classes from "./AuthForms.module.scss";
+import useApi from "../../hooks/useApi";
 
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const post = useApi();
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { handleResponse } = useHandleResponse();
 	const {
 		register,
 		handleSubmit,
@@ -29,32 +28,27 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		const details = { email: input.email, date: new Date().toString() };
-		const DUMMY_STATUS = "succeeded";
-		let data = {};
-		try {
-			data = (await axios.post("/api/auth/send-recovery-code", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "does not exist") {
-						setError("email", {
-							type: "manual",
-							message: "We could not find an account with that email",
-						});
-					}
-					setIsLoading(false);
-				},
-				successHandler: () => {
-					setInputValues((state) => ({ ...state, email: input.email }));
-					setVisualBell({ type: "success", message: "A recovery code has been sent to your email" });
-					setStep(1);
-				},
-			});
-		}
+		await post({
+			route: "/api/auth/send-recovery-code",
+			input: {
+				email: input.email,
+				date: new Date().toString(),
+			},
+			failHandler: (data) => {
+				if (data.content === "does not exist") {
+					setError("email", {
+						type: "manual",
+						message: "We could not find an account with that email",
+					});
+				}
+				setIsLoading(false);
+			},
+			successHandler: () => {
+				setInputValues((state) => ({ ...state, email: input.email }));
+				setVisualBell({ type: "success", message: "A recovery code has been sent to your email" });
+				setStep(1);
+			},
+		});
 	};
 
 	return (
@@ -88,58 +82,41 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isResending, setIsResending] = useState(false);
-	const { handleResponse } = useHandleResponse();
+	const post = useApi();
 	const [error, setError] = useState();
 	const [code, setCode] = useState([...Array(codeLength)].map(() => ""));
 	const refs = useRef([]);
 
 	const resendCode = async () => {
 		setIsResending(true);
-		const details = { email: inputValues.email, date: new Date().toString() };
-		const DUMMY_STATUS = "success";
-		let data = {};
-		try {
-			data = (await axios.post("/api/auth/send-recovery-code", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					setVisualBell({ type: "neutral", message: "A new recovery code has been sent to your email" });
-					setIsResending(false);
-				},
-			});
-		}
+		await post({
+			route: "/api/auth/send-recovery-code",
+			input: { email: inputValues.email, date: new Date().toString() },
+			successHandler: () => {
+				setVisualBell({ type: "neutral", message: "A new recovery code has been sent to your email" });
+				setIsResending(false);
+			},
+		});
 	};
 
 	const submitCode = async (code) => {
 		setIsLoading(true);
-		const details = { email: inputValues.email, code: code };
-		const DUMMY_STATUS = "succeeded";
-		let data = {};
-		try {
-			data = (await axios.post("/api/auth/recover", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "incorrect") {
-						setError("The code you entered is incorrect");
-					} else if (data.content === "expired") {
-						setError("The code you entered has expired");
-					}
-					setIsLoading(false);
-				},
-				successHandler: () => {
-					setInputValues((state) => ({ ...state, code: code }));
-					setStep(2);
-				},
-			});
-		}
+		await post({
+			route: "/api/auth/recover",
+			input: { email: inputValues.email, code: code },
+			failHandler: (data) => {
+				if (data.content === "incorrect") {
+					setError("The code you entered is incorrect");
+				} else if (data.content === "expired") {
+					setError("The code you entered has expired");
+				}
+				setIsLoading(false);
+			},
+			successHandler: () => {
+				setInputValues((state) => ({ ...state, code: code }));
+				setStep(2);
+			},
+		});
 	};
 
 	const changeHandler = (e, idx) => {
@@ -223,8 +200,8 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 
 const ForgotPasswordStepThree = ({ inputValues }) => {
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { handleResponse } = useHandleResponse();
 	const newPassword = useRef({});
+	const post = useApi();
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -243,27 +220,14 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		const details = {
-			email: inputValues.email,
-			password: input.newPassword,
-			date: new Date().toString(),
-		};
-		const DUMMY_STATUS = "succeeded";
-		let data = {};
-		try {
-			data = (await axios.post("/api/auth/reset-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					router.replace("/auth/login");
-					setVisualBell({ type: "success", message: "Successfully reset password, please log in to continue" });
-				},
-			});
-		}
+		await post({
+			route: "/api/auth/reset-password",
+			input: { email: inputValues.email, password: input.newPassword, date: new Date().toString() },
+			successHandler: () => {
+				router.replace("/auth/login");
+				setVisualBell({ type: "success", message: "Successfully reset password, please log in to continue" });
+			},
+		});
 	};
 
 	return (

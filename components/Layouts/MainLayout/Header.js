@@ -82,7 +82,7 @@ const Header = ({ setShowAliasModal }) => {
 									</button>
 								</>
 							)}
-							{globalSession.groups.length > 3 && <div className={classes.moreGroups}>and {globalSession.groups.length - 3} more ...</div>}
+							{globalSession.groups.filter((group) => group.verified).length > 3 && <div className={classes.moreGroups}>and {globalSession.groups.length - 3} more ...</div>}
 							<div className={classes.divider} />
 							{DEFAULT_TABS.map((tab, i) => (
 								<button key={i} onMouseDown={() => router.push(tab.urlObject)} title={tab.label}>
