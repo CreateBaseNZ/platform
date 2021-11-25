@@ -19,8 +19,8 @@ const useApi = () => {
 			console.log(data);
 			handleResponse({
 				data,
-				failHandler: (data) => failHandler(data),
-				successHandler: (data) => successHandler(data),
+				failHandler,
+				successHandler,
 			});
 		}
 	};

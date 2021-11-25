@@ -20,7 +20,7 @@ const ManageGroup = ({ role }) => {
 
 	useEffect(async () => {
 		await post({
-			route: "/api/group/fetch-users",
+			route: "/api/groups/fetch-users",
 			input: {
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
