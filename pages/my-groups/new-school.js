@@ -3,18 +3,21 @@ import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import useHandleResponse from "../../hooks/useHandleResponse";
+import GlobalSessionContext from "../../store/global-session-context";
 import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { SecondaryButton } from "../../components/UI/Buttons";
+import DuplicateWarning from "../../components/MyGroups/DuplicateWarning";
 
 import classes from "/styles/myGroups.module.scss";
-import useHandleResponse from "../../hooks/useHandleResponse";
-import GlobalSessionContext from "../../store/global-session-context";
 
 const NewSchool = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasSubmitted, setHasSubmitted] = useState(false);
+	const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
+	const [duplicateParams, setDuplicateParams] = useState();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { handleResponse } = useHandleResponse();
 	const {
@@ -30,13 +33,14 @@ const NewSchool = () => {
 		const details = {
 			profileId: globalSession.profileId,
 			alias: `${globalSession.firstName} ${globalSession.lastName}`,
+			bypassDuplicate: false,
 			name: inputs.name,
 			address: inputs.address,
 			city: inputs.city,
 			country: inputs.country,
 			date: new Date().toString(),
 		};
-		const DUMMY_STATUS = "succeeded";
+		const DUMMY_STATUS = "duplicate";
 		let data;
 		try {
 			data = (await axios.post("/api/groups/register-school", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
@@ -45,7 +49,26 @@ const NewSchool = () => {
 		} finally {
 			handleResponse({
 				data,
-				failHandler: () => {},
+				failHandler: async () => {
+					if (data.content === "duplicate") {
+						let _data;
+						try {
+							_data = (await axios.post("/api/groups/query", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { query: details.name }, status: DUMMY_STATUS }))["data"];
+						} catch (error) {
+							_data.status = "error";
+						} finally {
+							handleResponse({
+								_data,
+								failHandler: () => {},
+								successHandler: () => {
+									setDuplicateParams({ details: details, otherGroups: _data.content.filter((group) => group.country === details.country) });
+									setShowDuplicateWarning(true);
+								},
+							});
+						}
+					}
+					setIsLoading(false);
+				},
 				successHandler: () => {
 					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
 					setHasSubmitted(true);
@@ -118,6 +141,7 @@ const NewSchool = () => {
 					)}
 				</div>
 			</div>
+			{showDuplicateWarning && <DuplicateWarning setShow={setShowDuplicateWarning} duplicateParams={duplicateParams} reset={reset} />}
 		</div>
 	);
 };

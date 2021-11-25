@@ -9,13 +9,11 @@ import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
 
 import classes from "../../styles/myGroups.module.scss";
-import DuplicateWarning from "./DuplicateWarning";
 
 const JoinSchoolTeacher = () => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasRequested, setHasRequested] = useState(false);
-	const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
 	const [queryDropdown, setQueryDropdown] = useState({ show: false, groups: null, selectedId: "" });
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { handleResponse } = useHandleResponse();
@@ -33,7 +31,6 @@ const JoinSchoolTeacher = () => {
 
 	async function handleDebounceFn(value) {
 		const input = { query: value };
-		const DUMMY_STATUS = "succeeded";
 		let data;
 		try {
 			data = (await axios.post("/api/groups/query", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input, status: DUMMY_STATUS }))["data"];
@@ -161,7 +158,6 @@ const JoinSchoolTeacher = () => {
 				/>
 			)}
 			{queryDropdown.selectedId && <PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Sending request ..." mainLabel="Request to join" />}
-			{showDuplicateWarning && <DuplicateWarning />}
 		</form>
 	);
 };
