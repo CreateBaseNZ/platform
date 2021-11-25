@@ -1,8 +1,7 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import Head from "next/head";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import useHandleResponse from "../../hooks/useHandleResponse";
+import useApi from "../../hooks/useApi";
 import GlobalSessionContext from "../../store/global-session-context";
 import VisualBellContext from "../../store/visual-bell-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
@@ -14,9 +13,9 @@ import { passwordMinLength, passwordValidate } from "../../utils/formValidation"
 import classes from "../../styles/myAccount.module.scss";
 
 const MySecurity = () => {
+	const post = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { handleResponse } = useHandleResponse();
 	const [isLoading, setIsLoading] = useState(false);
 	const password = useRef({});
 	const {
@@ -32,43 +31,36 @@ const MySecurity = () => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		const details = {
-			date: new Date().toString(),
-			email: globalSession.email,
-			password: inputs.newPassword,
-			oldPassword: inputs.currentPassword,
-		};
-		let data = {};
-		try {
-			data = (await axios.post("/api/auth/update-password", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "incorrect") {
-						setError(
-							"currentPassword",
-							{
-								type: "manual",
-								message: "Password incorrect",
-							},
-							{ shouldFocus: true }
-						);
-						setIsLoading(false);
-					}
-				},
-				successHandler: () => {
-					setVisualBell({
-						type: "success",
-						message: "Your password has been updated",
-					});
-					reset();
+		await post({
+			route: "/api/auth/update-password",
+			input: {
+				date: new Date().toString(),
+				email: globalSession.email,
+				password: inputs.newPassword,
+				oldPassword: inputs.currentPassword,
+			},
+			failHandler: (data) => {
+				if (data.content === "incorrect") {
+					setError(
+						"currentPassword",
+						{
+							type: "manual",
+							message: "Password incorrect",
+						},
+						{ shouldFocus: true }
+					);
 					setIsLoading(false);
-				},
-			});
-		}
+				}
+			},
+			successHandler: () => {
+				setVisualBell({
+					type: "success",
+					message: "Your password has been updated",
+				});
+				reset();
+				setIsLoading(false);
+			},
+		});
 	};
 
 	useEffect(() => {
