@@ -1,14 +1,17 @@
-import router from "next/router";
+import { useRouter } from "next/router";
 import Img from "../UI/Img";
-
 import styles from "../../styles/_exports.module.scss";
+
 import classes from "./OnboardingTask.module.scss";
 
-const OnboardingTask = ({ task, isCompleted, checkHandler }) => {
+const OnboardingTask = ({ task, isCompleted, checkHandler, setVideoModal }) => {
+	const router = useRouter();
+
 	const clickHandler = () => {
 		if (task.type === "video") {
+			setVideoModal({ ...task, show: true });
 		} else if (task.type === "link") {
-			router.push(task.link);
+			router.push(task.linkUrl);
 		} else if (task.type === "text") {
 		}
 	};
@@ -20,17 +23,16 @@ const OnboardingTask = ({ task, isCompleted, checkHandler }) => {
 	};
 
 	return (
-		<div className={`${classes.task} ${classes[task.type]} ${isCompleted ? classes.completed : ""}`} onClick={clickHandler} title={task.title}>
-			{task.thumbnail && (
-				<div className={classes.imgContainer}>
-					<Img style={{ height: "100%", width: "100%" }} src={task.thumbnail} layout="fill" objectFit="cover" />
-				</div>
-			)}
+		<div className={`${classes.task} ${isCompleted ? classes.completed : ""}`} onClick={clickHandler} title={task.title}>
 			<button className={`${classes.status} ${isCompleted ? classes.checked : ""}`} onClick={_checkHandler} title={isCompleted ? "Uncheck" : "Mark complete"}>
 				{isCompleted ? "Completed" : "Mark complete"}
 				<div className={classes.checkbox}>{isCompleted && <i className="material-icons-outlined">check</i>}</div>
 			</button>
-			{task.type === "video" && <i className={`material-icons-outlined ${classes.icon}`}>play_circle_outline</i>}
+			{task.type === "video" && (
+				<i className={`material-icons-outlined ${classes.icon}`} style={{ color: styles.red }}>
+					play_circle_outline
+				</i>
+			)}
 			{task.type === "text" && (
 				<i className={`material-icons-outlined ${classes.icon}`} style={{ color: styles.blueDark }}>
 					sticky_note_2
