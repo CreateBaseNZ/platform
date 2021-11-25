@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
-import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 import GlobalSessionContext from "../store/global-session-context";
+import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 import OnboardingSection from "../components/Onboarding/OnboardingSection";
+import OnboardingVideo from "../components/Onboarding/OnboardingVideo";
 
 import classes from "../styles/onboarding.module.scss";
-import OnboardingVideo from "../components/Onboarding/OnboardingVideo";
 
 const DUMMY_STATUS = { "getting-started": true, "flow-0": false, "not-group": false, "group-0": true, "group-1": false, "group-2": true, "group-3": true, "group-4": false, "group-5": false };
 
@@ -128,6 +128,8 @@ const Onboarding = () => {
 		setStatuses((state) => ({ ...state, [id]: !state[id] }));
 	};
 
+	console.log(statuses);
+
 	return (
 		<div className={`${classes.onboarding} roundScrollbar`}>
 			<Head>
@@ -147,6 +149,7 @@ const Onboarding = () => {
 							caption: `Since you are an admin or teacher of ${globalSession.groups[globalSession.recentGroups[0]].name}${
 								globalSession.recentGroups.length > 1 ? ` and ${globalSession.recentGroups.length - 1} other group${globalSession.recentGroups.length - 1 > 1 ? "s" : ""}` : ""
 							}, here are a few tasks to help you set things up`,
+							tasks: STAFF_SECTION.tasks.filter((task) => (task.id === "group-5" ? statuses["group-4"] : true)),
 						}}
 						statuses={statuses}
 						setStatuses={setStatuses}

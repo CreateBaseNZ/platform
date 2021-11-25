@@ -5,6 +5,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import useHandleResponse from "../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../store/global-session-context";
+import VisualBellContext from "../../store/visual-bell-context";
 import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
@@ -12,6 +13,7 @@ import { SecondaryButton } from "../../components/UI/Buttons";
 import DuplicateWarning from "../../components/MyGroups/DuplicateWarning";
 
 import classes from "/styles/myGroups.module.scss";
+import router from "next/router";
 
 const NewSchool = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +21,7 @@ const NewSchool = () => {
 	const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
 	const [duplicateParams, setDuplicateParams] = useState();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const { setVisualBell } = useContext(VisualBellContext);
 	const { handleResponse } = useHandleResponse();
 	const {
 		register,
@@ -40,40 +43,42 @@ const NewSchool = () => {
 			country: inputs.country,
 			date: new Date().toString(),
 		};
-		const DUMMY_STATUS = "duplicate";
-		let data;
+
+		let _data;
 		try {
-			data = (await axios.post("/api/groups/register-school", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+			_data = (await axios.post("/api/groups/query", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { query: details.name } }))["data"];
 		} catch (error) {
-			data.status = "error";
+			_data.status = "error";
 		} finally {
+			console.log(_data);
 			handleResponse({
-				data,
-				failHandler: async () => {
-					if (data.content === "duplicate") {
-						let _data;
+				data: _data,
+				failHandler: () => {},
+				successHandler: async () => {
+					const otherGroups = _data.content.filter((group) => group.location.country.toLowerCase() === details.country.toLowerCase());
+					setDuplicateParams({ details, otherGroups });
+					if (otherGroups.length) {
+						setShowDuplicateWarning(true);
+					} else {
+						let data;
 						try {
-							_data = (await axios.post("/api/groups/query", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { query: details.name }, status: DUMMY_STATUS }))["data"];
+							data = (await axios.post("/api/groups/register-school", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
 						} catch (error) {
-							_data.status = "error";
+							data.status = "error";
 						} finally {
+							console.log(data);
 							handleResponse({
-								_data,
+								data,
 								failHandler: () => {},
 								successHandler: () => {
-									setDuplicateParams({ details: details, otherGroups: _data.content.filter((group) => group.country === details.country) });
-									setShowDuplicateWarning(true);
+									setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+									setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
+									router.push("/my-groups");
 								},
 							});
 						}
 					}
 					setIsLoading(false);
-				},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-					setHasSubmitted(true);
-					setIsLoading(false);
-					reset();
 				},
 			});
 		}

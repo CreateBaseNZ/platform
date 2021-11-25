@@ -44,7 +44,7 @@ const MyGroups = () => {
 							const disabled = !group.verified || group.status !== "activated";
 							const isActive = globalSession.groups[globalSession.recentGroups[0]]?.id === group.id;
 							return (
-								<div key={group.name} className={`${classes.card} ${disabled ? classes.disabled : ""} ${isActive ? classes.activeCard : ""}`} onClick={() => cardClickHandler(i)}>
+								<div key={group.id} className={`${classes.card} ${disabled ? classes.disabled : ""} ${isActive ? classes.activeCard : ""}`} onClick={() => cardClickHandler(i)}>
 									{!disabled && (
 										<div className={classes.groupRole}>
 											{group.role} {globalSession.groups[globalSession.recentGroups[0]]?.id === group.id ? " (viewing)" : ""}
