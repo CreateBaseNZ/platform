@@ -49,6 +49,7 @@ export default async function (req, res) {
 				teachers: group.licenses.active.filter((license) => license.role === "teacher").length,
 				students: group.licenses.active.filter((license) => license.role === "student").length,
 			},
+			location: { cityState: group.location.city, country: group.location.country },
 			verified: group.verified,
 		};
 	}

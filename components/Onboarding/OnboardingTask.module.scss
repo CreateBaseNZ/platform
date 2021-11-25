@@ -26,16 +26,6 @@
 	}
 }
 
-.imgContainer {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	z-index: -1;
-	filter: brightness(0.25);
-}
-
 .status {
 	margin-bottom: auto;
 	align-self: flex-end;
@@ -106,25 +96,5 @@
 		color: $darkest;
 		line-height: 1.4em;
 		width: 100%;
-	}
-}
-
-.video {
-	.status {
-		color: white;
-		&:hover {
-			background: rgba(white, 0.2);
-		}
-	}
-	.icon {
-		color: white;
-	}
-	.titleWrapper {
-		.subtitle {
-			color: white;
-		}
-		h2 {
-			color: white;
-		}
 	}
 }

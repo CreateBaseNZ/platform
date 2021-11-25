@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import axios from "axios";
 import { useFieldArray, useForm } from "react-hook-form";
+import { emailPattern } from "../../utils/formValidation";
 import useHandleResponse from "../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../store/global-session-context";
-import ClientOnlyPortal from "../UI/ClientOnlyPortal";
-import Input from "../UI/Input";
-import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
-import { emailPattern } from "../../utils/formValidation";
-import classes from "./AddGroupUserModal.module.scss";
 import VisualBellContext from "../../store/visual-bell-context";
+import Input from "../UI/Input";
+import Modal from "../UI/Modal";
+import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
+import classes from "./AddGroupUserModal.module.scss";
 
 const ROLES = ["student", "teacher", "admin"];
 
@@ -62,24 +62,17 @@ const AddGroupUserModal = ({ setShow, role }) => {
 	};
 
 	return (
-		<ClientOnlyPortal selector="#modal-root">
-			<div className={classes.view}>
-				<div className={classes.overlay} onClick={() => setShow(false)} />
-				<div className={classes.modal}>
-					<h2>Add members to {globalSession.groups[globalSession.recentGroups[0]].name}</h2>
-					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setShow(false)}>
-						close
-					</i>
-					<div className={classes.codeContainer}>
-						<h3>
-							<i className="material-icons-outlined">pin</i> Student code
-						</h3>
-						<button className={classes.code} title="Click to copy" onClick={copyHandler}>
-							{globalSession.groups[globalSession.recentGroups[0]].studentCode}
-							<i className="material-icons-outlined">content_copy</i>
-						</button>
-					</div>
-					{/* <TertiaryButton
+		<Modal setShow={setShow} title={`Add members to ${globalSession.groups[globalSession.recentGroups[0]].name}`}>
+			<div className={classes.codeContainer}>
+				<h3>
+					<i className="material-icons-outlined">pin</i> Student code
+				</h3>
+				<button className={classes.code} title="Click to copy" onClick={copyHandler}>
+					{globalSession.groups[globalSession.recentGroups[0]].studentCode}
+					<i className="material-icons-outlined">content_copy</i>
+				</button>
+			</div>
+			{/* <TertiaryButton
 						type="button"
 						className={classes.addBtn}
 						mainLabel="Add invitation"
@@ -123,9 +116,7 @@ const AddGroupUserModal = ({ setShow, role }) => {
 							loadingLabel="Sending invitations"
 						/>
 					</form> */}
-				</div>
-			</div>
-		</ClientOnlyPortal>
+		</Modal>
 	);
 };
 

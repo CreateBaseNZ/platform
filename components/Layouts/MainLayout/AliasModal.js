@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import useHandleResponse from "../../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../../store/global-session-context";
+import VisualBellContext from "../../../store/visual-bell-context";
 import { PrimaryButton } from "../../UI/Buttons";
-import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 import Input from "../../UI/Input";
+import Modal from "../../UI/Modal";
 
 import classes from "./AliasModal.module.scss";
-import VisualBellContext from "../../../store/visual-bell-context";
-import useHandleResponse from "../../../hooks/useHandleResponse";
 
 const AliasModal = ({ setShow }) => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
@@ -50,25 +50,16 @@ const AliasModal = ({ setShow }) => {
 	};
 
 	return (
-		<ClientOnlyPortal selector="#modal-root">
-			<div className={classes.view}>
-				<div className={classes.overlay} onClick={() => setShow(false)} />
-				<div className={classes.modal}>
-					<h2>Edit alias in {globalSession.groups[globalSession.recentGroups[0]].name}</h2>
-					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setShow(false)}>
-						close
-					</i>
-					<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-						<Input
-							className={classes.inputContainer}
-							inputProps={{ className: classes.input, placeholder: "Alias in this group", ...register("alias", { required: "Please enter an alias" }) }}
-							error={errors.alias}
-						/>
-						<PrimaryButton className={classes.submitBtn} isLoading={isLoading} type="submit" mainLabel="Save" iconLeft={<i className="material-icons-outlined">check</i>} />
-					</form>
-				</div>
-			</div>
-		</ClientOnlyPortal>
+		<Modal setShow={setShow} title={`Edit alias in ${globalSession.groups[globalSession.recentGroups[0]].name}`}>
+			<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+				<Input
+					className={classes.inputContainer}
+					inputProps={{ className: classes.input, placeholder: "Alias in this group", ...register("alias", { required: "Please enter an alias" }) }}
+					error={errors.alias}
+				/>
+				<PrimaryButton className={classes.submitBtn} isLoading={isLoading} type="submit" mainLabel="Save" iconLeft={<i className="material-icons-outlined">check</i>} />
+			</form>
+		</Modal>
 	);
 };
 

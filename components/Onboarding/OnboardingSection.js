@@ -3,7 +3,7 @@ import OnboardingTask from "./OnboardingTask";
 
 import classes from "./OnboardingSection.module.scss";
 
-const OnboardingSection = ({ section, checkHandler, statuses }) => {
+const OnboardingSection = ({ section, checkHandler, statuses, setVideoModal }) => {
 	return (
 		<section className={classes.section}>
 			<div className={classes.sectionHeading}>
@@ -15,7 +15,12 @@ const OnboardingSection = ({ section, checkHandler, statuses }) => {
 			<div className={classes.taskContainer}>
 				{section.tasks.map((task, i) => (
 					<Fragment key={task.id}>
-						<OnboardingTask task={task} isCompleted={section.hasOr ? statuses[section.orId] : statuses[task.id]} checkHandler={() => checkHandler(section.hasOr ? section.orId : task.id)} />
+						<OnboardingTask
+							task={task}
+							isCompleted={section.hasOr ? statuses[section.orId] : statuses[task.id]}
+							checkHandler={() => checkHandler(section.hasOr ? section.orId : task.id)}
+							setVideoModal={setVideoModal}
+						/>
 						{section.hasOr && i < section.tasks.length - 1 && <div className={classes.or}>OR</div>}
 					</Fragment>
 				))}

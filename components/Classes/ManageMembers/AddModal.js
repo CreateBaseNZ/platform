@@ -1,6 +1,3 @@
-// TODO make modals a component [FRONTEND]
-// TODO add enter transition animation to modals [FRONTEND]
-
 import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import router from "next/router";
@@ -9,8 +6,8 @@ import useHandleResponse from "../../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
 import { PrimaryButton } from "../../UI/Buttons";
-import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 import { SearchBar } from "../../UI/Input";
+import Modal from "../../UI/Modal";
 
 import classes from "./AddModal.module.scss";
 
@@ -90,45 +87,36 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 	};
 
 	return (
-		<ClientOnlyPortal selector="#modal-root">
-			<div className={classes.view}>
-				<div className={classes.overlay} onClick={() => setShow(false)} />
-				<div className={classes.modal}>
-					<h2>Add members to {classObject.name}</h2>
-					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setShow(false)}>
-						close
-					</i>
-					<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-						<SearchBar
-							className={classes.input}
-							label={`Add members from ${globalSession.groups[globalSession.recentGroups[0]].name}`}
-							labelProps={{ className: classes.inputLabel }}
-							inputProps={{ placeholder: "Search for members", type: "text", maxLength: 254, ...register("searchValue") }}
-						/>
-						<div ref={ref} className={`${classes.container} roundScrollbar`}>
-							{userList.map(
-								(user) =>
-									user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
-										<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`}>
-											<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(user.licenseId)} />
-											<label>
-												<div>
-													<p>{user.name}</p>
-													<p>{user.role}</p>
-												</div>
-												<i className={`material-icons-outlined ${classes.addIcon}`}>add_circle_outline</i>
-												<i className={`material-icons ${classes.checkIcon}`}>check_circle</i>
-												<span>Already in this class</span>
-											</label>
+		<Modal setShow={setShow} title={`Add members to ${classObject.name}`}>
+			<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+				<SearchBar
+					className={classes.input}
+					label={`Add members from ${globalSession.groups[globalSession.recentGroups[0]].name}`}
+					labelProps={{ className: classes.inputLabel }}
+					inputProps={{ placeholder: "Search for members", type: "text", maxLength: 254, ...register("searchValue") }}
+				/>
+				<div ref={ref} className={`${classes.container} roundScrollbar`}>
+					{userList.map(
+						(user) =>
+							user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
+								<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`}>
+									<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(user.licenseId)} />
+									<label>
+										<div>
+											<p>{user.name}</p>
+											<p>{user.role}</p>
 										</div>
-									)
-							)}
-						</div>
-						<PrimaryButton className={classes.submitBtn} isLoading={isLoading} type="submit" mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} loadingLabel="Adding" />
-					</form>
+										<i className={`material-icons-outlined ${classes.addIcon}`}>add_circle_outline</i>
+										<i className={`material-icons ${classes.checkIcon}`}>check_circle</i>
+										<span>Already in this class</span>
+									</label>
+								</div>
+							)
+					)}
 				</div>
-			</div>
-		</ClientOnlyPortal>
+				<PrimaryButton className={classes.submitBtn} isLoading={isLoading} type="submit" mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} loadingLabel="Adding" />
+			</form>
+		</Modal>
 	);
 };
 

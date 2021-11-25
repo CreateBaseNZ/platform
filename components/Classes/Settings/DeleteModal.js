@@ -1,12 +1,12 @@
 import { useContext } from "react";
+import router from "next/router";
+import axios from "axios";
+import useHandleResponse from "../../../hooks/useHandleResponse";
+import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
+import Modal from "../../UI/Modal";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
-import axios from "axios";
-import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
-import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
-import useHandleResponse from "../../../hooks/useHandleResponse";
 import classes from "./DeleteModal.module.scss";
-import router from "next/router";
 
 const DeleteModal = ({ setShow, classObject }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -43,22 +43,13 @@ const DeleteModal = ({ setShow, classObject }) => {
 	};
 
 	return (
-		<ClientOnlyPortal selector="#modal-root">
-			<div className={classes.view}>
-				<div className={classes.overlay} onClick={() => setShow(false)} />
-				<div className={classes.modal}>
-					<h2>Are you sure you want to delete {classObject.name}?</h2>
-					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setShow(false)}>
-						close
-					</i>
-					<div className={classes.p}>All members will be removed and class data deleted permanently</div>
-					<div className={classes.btnContainer}>
-						<TertiaryButton mainLabel="Cancel" className={classes.cancelBtn} onClick={() => setShow(false)} />
-						<PrimaryButton mainLabel="Delete" className={classes.deleteBtn} onClick={deleteHandler} />
-					</div>
-				</div>
+		<Modal setShow={setShow} title={`Are you sure you want to delete ${classObject.name}?`} backgroundColor="#fae3d880">
+			<div className={classes.p}>All members will be removed and class data deleted permanently</div>
+			<div className={classes.btnContainer}>
+				<TertiaryButton mainLabel="Cancel" className={classes.cancelBtn} onClick={() => setShow(false)} />
+				<PrimaryButton mainLabel="Delete" className={classes.deleteBtn} onClick={deleteHandler} />
 			</div>
-		</ClientOnlyPortal>
+		</Modal>
 	);
 };
 

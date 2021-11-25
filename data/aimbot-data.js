@@ -21,7 +21,7 @@ import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
 
 export default {
-	name: "AimBot (WIP)",
+	name: "AimBot",
 	query: "aimbot",
 	caption: "TBD",
 	stacked: true,
