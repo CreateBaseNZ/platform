@@ -1,45 +1,37 @@
 import { useContext } from "react";
 import router from "next/router";
-import axios from "axios";
-import useHandleResponse from "../../../hooks/useHandleResponse";
-import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
-import Modal from "../../UI/Modal";
+import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
+import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
+import Modal from "../../UI/Modal";
+
 import classes from "./DeleteModal.module.scss";
 
 const DeleteModal = ({ setShow, classObject }) => {
+	const post = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { handleResponse } = useHandleResponse();
 
 	const deleteHandler = async () => {
-		const details = {
-			classId: classObject.id,
-			date: new Date().toString(),
-			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-		};
-		let data = {};
-		const DUMMY_STATUS = "succeeded";
-		try {
-			data = (await axios.post("/api/classes/delete", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "unauthorised") {
-						setVisualBell({ type: "error", message: "You do not have permission to delete this class" });
-						setShow(false);
-					}
-				},
-				successHandler: () => {
-					router.push("/classes");
-					setVisualBell({ type: "neutral", message: "Class deleted" });
-				},
-			});
-		}
+		await post({
+			route: "/api/classes/delete",
+			input: {
+				classId: classObject.id,
+				date: new Date().toString(),
+				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+			},
+			failHandler: (data) => {
+				if (data.content === "unauthorised") {
+					setVisualBell({ type: "error", message: "You do not have permission to delete this class" });
+					setShow(false);
+				}
+			},
+			successHandler: () => {
+				router.push("/classes");
+				setVisualBell({ type: "neutral", message: "Class deleted" });
+			},
+		});
 	};
 
 	return (
