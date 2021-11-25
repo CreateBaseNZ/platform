@@ -1,12 +1,12 @@
 import { useContext } from "react";
+import router from "next/router";
+import axios from "axios";
+import useHandleResponse from "../../../hooks/useHandleResponse";
+import Modal from "../../UI/Modal";
+import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
-import axios from "axios";
-import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
-import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 import classes from "./LeaveModal.module.scss";
-import useHandleResponse from "../../../hooks/useHandleResponse";
-import router from "next/router";
 
 const LeaveModal = ({ setShow, classObject }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -43,21 +43,12 @@ const LeaveModal = ({ setShow, classObject }) => {
 	};
 
 	return (
-		<ClientOnlyPortal selector="#modal-root">
-			<div className={classes.view}>
-				<div className={classes.overlay} onClick={() => setShow(false)} />
-				<div className={classes.modal}>
-					<h2>Are you sure you want to leave {classObject.name}?</h2>
-					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setShow(false)}>
-						close
-					</i>
-					<div className={classes.btnContainer}>
-						<TertiaryButton mainLabel="Cancel" className={classes.cancelBtn} onClick={() => setShow(false)} />
-						<PrimaryButton mainLabel="Leave" className={classes.leaveBtn} onClick={leaveHandler} />
-					</div>
-				</div>
+		<Modal setShow={setShow} title={`Are you sure you want to leave ${classObject.name}?`} backgroundColor="#faf2d880">
+			<div className={classes.btnContainer}>
+				<TertiaryButton mainLabel="Cancel" className={classes.cancelBtn} onClick={() => setShow(false)} />
+				<PrimaryButton mainLabel="Leave" className={classes.leaveBtn} onClick={leaveHandler} />
 			</div>
-		</ClientOnlyPortal>
+		</Modal>
 	);
 };
 
