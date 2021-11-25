@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import useHandleResponse from "../../../hooks/useHandleResponse";
+import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
 import { PrimaryButton } from "../../UI/Buttons";
@@ -13,8 +12,8 @@ import classes from "./AliasModal.module.scss";
 const AliasModal = ({ setShow }) => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
-	const { handleResponse } = useHandleResponse();
 	const { setVisualBell } = useContext(VisualBellContext);
+	const post = useApi();
 	const {
 		register,
 		handleSubmit,
@@ -24,29 +23,21 @@ const AliasModal = ({ setShow }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		let data = {};
-		const DUMMY_STATUS = "failed 1";
-		const details = { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, update: { alias: inputs.alias }, date: new Date().toString() };
-		try {
-			data = (await axios.post("/api/license/update-saves", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "taken") {
-						setError("alias", { type: "manual", message: "This alias is already taken in your group" });
-					}
-					setIsLoading(false);
-				},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups].map((_group, i) => (i === state.recentGroups[0] ? { ..._group, alias: inputs.alias } : _group)) }));
-					setVisualBell({ type: "success", message: "Your alias has been updated" });
-					setShow(false);
-				},
-			});
-		}
+		await post({
+			route: "/api/license/update-saves",
+			input: { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, update: { alias: inputs.alias }, date: new Date().toString() },
+			failHandler: (data) => {
+				if (data.content === "taken") {
+					setError("alias", { type: "manual", message: "This alias is already taken in your group" });
+				}
+				setIsLoading(false);
+			},
+			successHandler: () => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups].map((_group, i) => (i === state.recentGroups[0] ? { ..._group, alias: inputs.alias } : _group)) }));
+				setVisualBell({ type: "success", message: "Your alias has been updated" });
+				setShow(false);
+			},
+		});
 	};
 
 	return (

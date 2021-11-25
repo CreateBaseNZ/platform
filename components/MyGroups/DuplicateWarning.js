@@ -1,6 +1,4 @@
 import { useContext, useState } from "react";
-import axios from "axios";
-import useHandleResponse from "../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../store/global-session-context";
 import VisualBellContext from "../../store/visual-bell-context";
 import Modal from "../UI/Modal";
@@ -8,12 +6,13 @@ import Modal from "../UI/Modal";
 import classes from "./DuplicateWarning.module.scss";
 import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 import router from "next/router";
+import useApi from "../../hooks/useApi";
 
 const DuplicateWarning = ({ setShow, duplicateParams, reset }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [selected, setSelected] = useState({});
 	const [error, setError] = useState("");
-	const { handleResponse } = useHandleResponse();
+	const post = useApi();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
 
@@ -32,57 +31,43 @@ const DuplicateWarning = ({ setShow, duplicateParams, reset }) => {
 			setError("Please select a school to join");
 			return setIsLoading(false);
 		}
-		const details = {
-			profileId: globalSession.profileId,
-			schoolId: selected.id,
-			alias: `${globalSession.firstName} ${globalSession.lastName}`,
-			message: "",
-			date: new Date().toString(),
-		};
-		let data = {};
-		try {
-			data = (await axios.post("/api/groups/join-school-teacher", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "already joined") {
-						setError("You are already in this school");
-					} else if (data.content === "already requested") {
-						setError("You have already sent a request to join this school");
-					}
-					setIsLoading(false);
-				},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-					setVisualBell({ type: "success", message: "Your request has been sent" });
-					reset();
-					setShow(false);
-				},
-			});
-		}
+		await post({
+			route: "/api/groups/join-school-teacher",
+			input: {
+				profileId: globalSession.profileId,
+				schoolId: selected.id,
+				alias: `${globalSession.firstName} ${globalSession.lastName}`,
+				message: "",
+				date: new Date().toString(),
+			},
+			failHandler: (data) => {
+				if (data.content === "already joined") {
+					setError("You are already in this school");
+				} else if (data.content === "already requested") {
+					setError("You have already sent a request to join this school");
+				}
+				setIsLoading(false);
+			},
+			successHandler: (data) => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+				setVisualBell({ type: "success", message: "Your request has been sent" });
+				reset();
+				setShow(false);
+			},
+		});
 	};
 
 	const registerHandler = async () => {
 		setIsLoading(true);
-		let data;
-		try {
-			data = (await axios.post("/api/groups/register-school", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { ...duplicateParams.details, bypassDuplicate: true } }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-					setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
-					router.push("/my-groups");
-				},
-			});
-		}
+		await post({
+			route: "/api/groups/register-school",
+			input: { ...duplicateParams.details, bypassDuplicate: true },
+			successHandler: () => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+				setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
+				router.push("/my-groups");
+			},
+		});
 	};
 
 	return (
