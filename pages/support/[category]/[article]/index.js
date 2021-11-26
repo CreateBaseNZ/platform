@@ -37,7 +37,7 @@ const SupportArticle = () => {
 				router.replace("/404");
 			}
 		}
-	}, []);
+	}, [router.query.article]);
 
 	if (!data) return null;
 
