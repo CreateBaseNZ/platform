@@ -62,7 +62,7 @@ const DuplicateWarning = ({ setShow, duplicateParams, reset }) => {
 		await post({
 			route: "/api/groups/register-school",
 			input: { ...duplicateParams.details, bypassDuplicate: true },
-			successHandler: () => {
+			successHandler: (data) => {
 				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
 				setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
 				router.push("/my-groups");
