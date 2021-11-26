@@ -8,8 +8,6 @@ import OnboardingVideo from "../components/Onboarding/OnboardingVideo";
 
 import classes from "../styles/onboarding.module.scss";
 
-const DUMMY_STATUS = { "getting-started": true, "flow-0": false, "not-group": false, "group-0": true, "group-1": false, "group-2": true, "group-3": true, "group-4": false, "group-5": false };
-
 const GETTING_STARTED_SECTION = {
 	caption: "Let's get you started! Here's a couple videos we've put together for you",
 	hasOr: true,
@@ -118,24 +116,23 @@ const Onboarding = () => {
 	const [videoModal, setVideoModal] = useState({ show: false, videoUrl: "" });
 
 	useEffect(async () => {
-		// TODO - retrieve saves
-		// await post({
-		// 	route: "/profile/read-saves",
-		// 	input: { profileId: globalSession.profileId },
-		// 	successHandler: (data) => {
-		// 		console.log(data);
-		// 	},
-		// });
-		setStatuses(DUMMY_STATUS);
+		await post({
+			route: "/api/profile/read-saves",
+			input: { profileId: globalSession.profileId, properties: ["onboardingStatuses"] },
+			successHandler: (data) => setStatuses(data.content.onboardingStatuses),
+		});
 	}, []);
 
 	if (!statuses) return null;
 
-	const checkHandler = (id) => {
-		setStatuses((state) => ({ ...state, [id]: !state[id] }));
+	const checkHandler = async (id) => {
+		const newStatuses = { ...statuses, [id]: !statuses[id] };
+		await post({
+			route: "/api/profile/update-saves",
+			input: { profileId: globalSession.profileId, update: { onboardingStatuses: newStatuses } },
+			successHandler: () => setStatuses((state) => ({ ...state, [id]: !state[id] })),
+		});
 	};
-
-	console.log(statuses);
 
 	return (
 		<div className={`${classes.onboarding} roundScrollbar`}>
