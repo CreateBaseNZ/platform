@@ -22,6 +22,7 @@ body {
 	min-height: 100vh;
 	background: $lightest;
 	font-family: $poppins;
+	position: relative;
 }
 
 input,
@@ -164,88 +165,10 @@ svg {
 	}
 }
 
-// TODO remove these
-
-.support__bold {
-	font-weight: 600 !important;
-}
-
-.support__italic {
-	font-style: italic !important;
-}
-
-.support__highlight {
-	color: $blue-light !important;
-}
-
-.support__indent {
-	margin-left: 1em !important;
-}
-
 // required
 .embedded-video-16-9 {
 	width: 45vw;
 	height: 25.3125vw; // width * 9/16
 	margin-left: 2.5vw;
 	margin-right: 2.5vw;
-}
-
-.mobileView {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 500;
-	height: 100vh;
-	width: 100vw;
-	max-height: 100vh;
-	max-width: 100vw;
-	overflow: hidden;
-	background: $lightest;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 10vh 5vw;
-	* {
-		text-align: center;
-	}
-	a {
-		font-size: inherit;
-		color: $logo-mid;
-		font-weight: 600;
-		text-decoration: underline;
-	}
-	b {
-		font-weight: 700;
-		font-size: inherit;
-		color: inherit;
-	}
-	em {
-		font-style: italic;
-		font-weight: inherit;
-		font-size: inherit;
-		color: inherit;
-	}
-	h1 {
-		font-weight: 600;
-		font-size: 8vw;
-		line-height: 1.1em;
-		margin-bottom: 4vh;
-		color: $logo-mid;
-	}
-	h2 {
-		font-size: 4vw;
-		font-weight: 500;
-		margin-bottom: 2vh;
-	}
-	h3 {
-		font-size: 3vw;
-		font-weight: 500;
-	}
-	img {
-		margin-top: -35vh;
-		margin-bottom: -60vh;
-		width: 200%;
-		pointer-events: none;
-	}
 }
