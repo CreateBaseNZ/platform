@@ -17,6 +17,7 @@ const FUSE_DATA = Object.keys(SUPPORT_DATA)
 					{ label: article.heading, pathname: `/support/${key}/${article.query}` },
 				],
 				...article,
+				query: `${key}-${article.query}`,
 			}))
 		)
 	)
@@ -30,16 +31,18 @@ const SupportArticle = () => {
 
 	useEffect(() => {
 		if (router.isReady) {
-			const _data = FUSE_DATA.find((article) => article.query === router.query.article);
+			const _data = FUSE_DATA.find((article) => article.query === `${router.query.category}-${router.query.article}`);
 			if (_data) {
 				setData(_data);
 			} else {
 				router.replace("/404");
 			}
 		}
-	}, []);
+	}, [router.query.article]);
 
 	if (!data) return null;
+
+	console.log(data);
 
 	return (
 		<div className={`${classes.article} roundScrollbar`}>

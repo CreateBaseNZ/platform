@@ -73,7 +73,7 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 		volume: volume.curr,
 	});
 
-	useEffect(() => setLoaded(true), []);
+	// useEffect(() => setLoaded(true), []);
 
 	useEffect(() => {
 		if (flowVisualBell.message) {
