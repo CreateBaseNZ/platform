@@ -1,15 +1,15 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import useClass from "../../../hooks/useClass";
 import ProgressTable from "../../../components/Classes/Progress/ProgressTable";
 import Select from "../../../components/Classes/Progress/Select";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
+import { allData } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
-import useClass from "../../../hooks/useClass";
 
 import classes from "../../../styles/classesProgress.module.scss";
-import { allData } from "../../../utils/getProjectData";
 
 const printStatus = (status) => {
 	switch (status) {

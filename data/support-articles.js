@@ -104,7 +104,7 @@ export const FLOW_CODING = {
 			</ol>
 			<p>
 				We want to simplify the process for students of translating their thought processes and problem-solving into runnable code that they can test and see a result. The Flow visual programming
-				language allows us to do that and, in our experience, there’s no better way to start a student’s coding education.
+				language allows us to do that and, in our experience, there's no better way to start a student's coding education.
 			</p>
 			<h2>The basics of Flow coding</h2>
 			<p>With Flow, coding is as simple as making a flowchart:</p>
@@ -169,7 +169,7 @@ export const LEARNING_JOURNALS = {
 			<p>
 				Learning journals are like answer booklets for Projects and are completed by students to show proof of their work. Learning journals are specific to a Project and contain questions and answers
 				that link directly to that Project. Learning journals are exclusively digital documents to enable students to paste screenshots of their code; however, they can be printed out if this
-				functionality isn’t desired.
+				functionality isn't desired.
 			</p>
 			<h2>Why are learning journals useful?</h2>
 			<p>
@@ -191,7 +191,7 @@ export const LEARNING_JOURNALS = {
 				reflect on at the end of their project.
 			</p>
 			<p>
-				As a student, your teacher will let you know how they want you to use your learning journal as you complete the Project. Even if they don’t explicitly instruct you to use one, we still
+				As a student, your teacher will let you know how they want you to use your learning journal as you complete the Project. Even if they don't explicitly instruct you to use one, we still
 				recommend downloading a copy as it provides instructions for how to progress through the Project.
 			</p>
 		</>
@@ -206,14 +206,14 @@ export const WHAT_ARE_GROUPS = {
 				multiple groups.
 			</p>
 			<p>
-				Groups can either be a learning institution (school/other) or a family (coming soon). School groups are managed by <Link href="/support/admin/group-roles">admin accounts</Link> and must
+				Groups can either be a learning institution (school/other) or a family (coming soon). School groups are managed by <Link href="/support/admins/group-roles">admin accounts</Link> and must
 				contain all of the teachers and students in your school who wish to use the platform.
 			</p>
 			<p>
-				Learn how to register or join a school group <Link href={`/support/admin/register-or-join-your-school`}>here</Link>.
+				Learn how to register or join a school group <Link href={`/support/admins/register-or-join-your-school`}>here</Link>.
 			</p>
 			<p>
-				Learn how to add students to your group <Link href="/support/admin/adding-students">here</Link>.
+				Learn how to add students to your group <Link href="/support/admins/adding-students">here</Link>.
 			</p>
 		</>
 	),
@@ -240,7 +240,7 @@ export const GROUP_ROLES = {
 			<p>Within groups, there are different types of roles. For schools, there are three types:</p>
 			<ul>
 				<li>
-					<b>Admins</b>—the admin role has access to the entire group. They are responsible for managing teachers and students. For example, this include approving teacher’s join requests and updating
+					<b>Admins</b>—the admin role has access to the entire group. They are responsible for managing teachers and students. For example, this include approving teacher's join requests and updating
 					billing information for the group.
 				</li>
 				<li>
@@ -266,7 +266,7 @@ export const SECURITY = {
 	),
 };
 
-export const CONTACING_CREATEBASE = {
+export const CONTACTING_CREATEBASE = {
 	shared: (
 		<>
 			<p>
@@ -274,6 +274,350 @@ export const CONTACING_CREATEBASE = {
 				<Link href="createbase.co.nz">website</Link>.
 			</p>
 			<p>We aim to respond to any questions, comments or enquiries within one working day.</p>
+		</>
+	),
+};
+
+export const THE_5_STEP_CREATION_PROCESS = {
+	staff: (
+		<>
+			<p>
+				The CreateBase 5 Step Creation Process is unique to our platform. Its purpose is to give students a repeatable framework to follow when building solutions to difficult problems. Students can
+				apply this process anywhere, both inside and outside of the platform.
+			</p>
+			<p>Our Creation Process has been developed by some of the best engineering graduates from the University of Auckland alongside leading STEAM and Digital Technologies teachers.</p>
+			<p>The 5 Step Creation Process is a fundamental structure that's built into all the Project content on the Platform.</p>
+			<p>The Creation Process is reflected in the Project view</p>
+			<p>learning journals ...</p>
+			<p>and lesson plans ...</p>
+			<p>To learn more check out the 5 Step Creation Process section below.</p>
+		</>
+	),
+};
+
+export const REGISTER_A_SCHOOL = {
+	staff: (
+		<>
+			<p>Registering your school starts on the My Groups page.</p>
+			<p>Simply complete the Registration form</p>
+			<p>And our team will verify your school within 24 hours.</p>
+		</>
+	),
+};
+
+export const CREATE_A_CLASS = {
+	staff: (
+		<>
+			<p>To create a class head to the Classes page and click “Create class”.</p>
+			<p>Enter a class name and you are good to go.</p>
+			<p>To add Students, visit the "Manage Members" tab, click "Add" and then select all the users from your group that you want to add to your class. Click "Add" to confirm the users.</p>
+		</>
+	),
+};
+
+export const STEP_1_DEFINE = {
+	staff: (
+		<>
+			<p>When faced with a new scenario, our first step is to accurately understand the problem that we need to solve by defining key details such as:</p>
+			<ul>
+				<li>How did this problem occur?</li>
+				<li>Where did this problem occur?</li>
+				<li>What are the implications or consequences of this problem?</li>
+				<li>Who is affected?</li>
+			</ul>
+			<p>
+				By defining the problem correctly, we can target our thinking to the specific circumstances and issues that are occurring. This is incredibly important to not just solve a problem but ensure
+				we solve the correct problem for the right people.
+			</p>
+			<p>
+				Students that excel in the Define step will show an ability to identify the most meaningful details and use these to derive the problem correctly. They will be able to think beyond the
+				explicit content that is provided to them as part of the Project when detailing impacts, consequences and causes.
+			</p>
+		</>
+	),
+};
+
+export const STEP_2_IMAGINE = {
+	staff: (
+		<>
+			<p>
+				Imagine gives students the opportunity to develop their own ideas to solve the problem they defined. This can be an unconstrained exercise with activities chosen by the teacher. However, we
+				also provide question prompts for class or group discussions and group or individual brainstorming/sketching.
+			</p>
+			<p>Benefits of this step include:</p>
+			<ul>
+				<li>Enabling students to showcase their creativity when unconstrained by the tools that they have access to.</li>
+				<li>Solution seeking like this is used by high performing engineering teams all over the world.</li>
+				<li>The craziest wild ideas can become the solution that no one was expecting.</li>
+			</ul>
+			<p>This makes the step hugely important to educate the great problem solvers and innovators of tomorrow.</p>
+			<p>
+				The Imagine step ends with students being introduced to the robotic system that they will be using in this Project to solve the problem. Students then interact with the robotic system in a
+				simulated environment and discuss how the robotic system is a viable solution. After starting with a broad solution defined by the students, this second half reframes and narrows their focus
+				for the tasks at hand.
+			</p>
+		</>
+	),
+};
+
+export const STEP_3_THE_CREATE_LOOP = {
+	staff: (
+		<>
+			<h2>Overview</h2>
+			<p>
+				All of our Projects require students to program robotic systems to create solutions to an authentic problem. This coding occurs after Define and Imagine in the Create step. In the real world,
+				software developers work through knowledge barriers and upskill themselves as they build solutions. In our platform, students create by iterating over three steps:
+			</p>
+			<ol>
+				<li>Research the tools available to build this solution</li>
+				<li>Plan how to construct the solution</li>
+				<li>Code the solution using Flow or text programming and our simulations</li>
+			</ol>
+			<p>
+				Each iteration normally comprises one sub-system. A sub-system is one component of the full solution and is normally framed as the solution to a sub-problem of the full problem. These
+				iterative steps enable students to build complicated coding solutions by learning about and then implementing one iteration at a time. Students get to code and test continuously throughout the
+				process rather than having to wait until the end.
+			</p>
+			<h2>Research</h2>
+			<p>
+				When solving cutting edge problems, you rarely know how to create a solution right away. A lot of the time, you don't even know what you don't know. You could be repurposing tools you've used
+				before or learning about entirely new tools. Through Research, a problem solver seeks to find out the tools available to create their solution and how to use these tools.
+			</p>
+			<p>
+				On the CreateBase platform, students answer a series of questions in their learning journals. The answers to these questions will come from interacting with the Research content on the
+				platform and/or by looking up the information themselves on the internet or through other external resources.
+			</p>
+			<p>Potential Plan activities include:</p>
+			<ul>
+				<li>Researching relevant background information.</li>
+				<li>Researching relevant algorithms.</li>
+				<li>Researching the Flow editor and how to use it to write code.</li>
+				<li>Learning to use the Flow blocks for the current sub-system.</li>
+			</ul>
+			<h2>Plan</h2>
+			<p>
+				Code solutions can be incredibly long and complicated, especially if you don't have any structure before you start coding. During our Create process, we make students stop and think about
+				everything they have learnt so far and how to structure this into a solution. Even if this first solution is not correct, the thinking students go through at this stage dictates how they will
+				attempt to solve the problem, and ultimately how long it will take them to solve it.
+			</p>
+			<p>Potential Plan activities include:</p>
+			<ul>
+				<li>Choosing code blocks</li>
+				<li>Identifying keywords in the problem statement</li>
+				<li>Writing logic in pseudo-code</li>
+				<li>Matching code blocks with pseudo-code</li>
+				<li>Selecting their desired robotic system (coming soon)</li>
+				<li>Selecting specific components (coming soon)</li>
+			</ul>
+			<p>
+				After completing their Plan, students will not necessarily have a complete answer to the Code step, but will at least have enough information to start testing and iterating as well as a
+				concrete understanding of the logical process(es) that their solution will need to follow.
+			</p>
+			<h2>Code</h2>
+			<p>
+				At the end of the day, all the research and planning needs to be turned into a working solution. The process of developing a coded solution is rarely straightforward and most of the time the
+				planned solution will not work out.
+			</p>
+			<p>
+				When arriving at Code, students start by coding their solution in the Flow or text editor. They compile this code and test it in the simulated environment. Depending on the outcome, students
+				will either continue to the next iteration or will have to edit their code to get a working solution. Once the edited code is compiled, it's then tested again until the task is complete.
+			</p>
+			<p>
+				This iterative process of code ➞ compile ➞ evaluate is driven by the feedback that students receive from the 3D simulations when they run their code. This feedback makes the code that students
+				are writing much more tangible as there are clear (and sometimes catastrophic) results for every change that they make. With a digital solution, there are no consequences for breaking the
+				robot so students are free to experiment and push boundaries with their testing, providing a rich opportunity for guided discovery learning.
+			</p>
+		</>
+	),
+};
+
+export const STEP_4_IMPROVE = {
+	staff: (
+		<>
+			<p>
+				Once a working solution has been created, the development focus turns to how this solution could be improved. Improvements are built upon the original idea and are usually driven by industry
+				competition, technological advancements or a changing problem.
+			</p>
+			<p>
+				On the CreateBase platform, Improve gives students a chance to apply what they have learnt in more difficult circumstances with less guidance. It seeks to widen the scope of students'
+				abilities through multiple expansion pathways.
+			</p>
+			<p>Potential activities include:</p>
+			<ul>
+				<li>Solution optimisation</li>
+				<li>Problem extensions</li>
+				<li>Text-based coding</li>
+			</ul>
+			<p>
+				Although every student should be able to complete the Create step, the Improve step is often more open-ended, with room for students to create increasingly better-performing solutions. This
+				makes the Improve step an ideal place to cultivate the abilities of excelling students as an extension activity.
+			</p>
+		</>
+	),
+};
+
+export const STEP_5_REVIEW = {
+	staff: (
+		<>
+			<h2>Overview</h2>
+			<p>
+				Review is the final step of each Project, where students will analyse what they have accomplished throughout the Project by reflecting on their work and sharing any outcomes with their peers.
+				Share and reflect can be used interchangeably depending on class/teacher preference (or do both!). Either way, students will gain value by understanding their own or their peers' journeys
+				through the Project. To help complete these tasks, students fill out a learning journal while progressing through the Project that they can refer back to as a reminder or to provide evidence.
+			</p>
+			<h2>Share</h2>
+			<p>
+				By sharing their solutions or other outcomes, students will gain a deeper understanding of their solutions as they find a way to communicate their thoughts with their peers. They also get to
+				hear about the solutions, difficulties and successes of their peers. There are many different ways to complete each Project. Hearing about the outcomes of other students and the thought
+				processes that they underwent to arrive at their solutions provides opportunities to think about how they could further improve their own solution or the other paths that they could have
+				taken.
+			</p>
+			<h2>Reflect</h2>
+			<p>
+				Reflecting on the learning journey is a key method to emphasise learning from our mistakes and our successes. Reflection is not always easy, so we provide questions to engage students in the
+				process of reflection. This is a solo activity, so it is perfect for distance learning!
+			</p>
+		</>
+	),
+};
+
+export const LESSON_PLANS = {
+	staff: (
+		<>
+			<h2>Overview</h2>
+			<p>Every Project on the CreateBase Platform comes with a pre-written set of lesson plans co-written by leading STEAM and Digital technology teachers.</p>
+			<p>
+				Just like Projects themselves, lesson plans are structured to our 5 Step Creation Process, so it is easy to know what you're teaching and when to progress. In fact, using lesson plans reduces
+				the time it takes to prepare for each lesson significantly. In saying this, lesson plans are entirely optional. They serve as an example of how the content could be delivered as part of a
+				classroom setting, but you are free to integrate our Projects into your lessons in any way that you please.
+			</p>
+			<p>To access lesson plans:</p>
+			<ul>
+				<li>Choose a Project from the Project Library</li>
+				<li>Open the teaching tab</li>
+				<li>Open or download the lesson plan pdf</li>
+			</ul>
+			<p>And presto, it's that easy.</p>
+			<h2>Learning about the concepts you're teaching</h2>
+			<p>
+				Some of the concepts that you see in lesson plans may be beyond your current understanding. To help you upskill, lesson plans contain links to external resources that can help you better
+				understand the content.
+			</p>
+			<p>
+				If you're still having trouble, we recommend working around that content in your lesson as a lot of content can be removed, substituted or added depending on what you feel comfortable teaching
+				and what you think your students will best respond to.
+			</p>
+			<h2>How we help achieve the curriculum</h2>
+			<p>
+				Each project has a series of learning outcomes for your students. These rubrics show what students should be able to do/know when the Project is delivered using the CreateBase lesson plans.
+				You can use these learning outcomes to figure out the best way and time to integrate each CreateBase Project into your curriculum.
+			</p>
+			<p>Learning outcomes can be found by selecting a Project and opening the learning tab or at the front of that Project's lesson plan.</p>
+		</>
+	),
+};
+
+export const REGISTER_OR_JOIN_YOUR_SCHOOL = {
+	staff: (
+		<>
+			<h2>Register</h2>
+			<p>Registering your school starts by completing the registration form on the My Groups page.</p>
+			<p>
+				Each form is individually verified by our team to ensure that bad actors can’t make fake schools on our Platform. Once a form is submitted, our team will get in touch via email within 24 hours
+				to notify you of your School’s registration. Upon positive confirmation, your school group will be formed and you will automatically become the{" "}
+				<Link href="/support/admins/group-roles">admin user</Link>.
+			</p>
+			<p>
+				In these 24 hours, please feel free to learn more about our platform from the Support tab or complete our <Link href="/onboarding">Platform Onboarding</Link>. You can also experience the
+				non-teaching aspects of Projects from the Browse tab.
+			</p>
+		</>
+	),
+};
+
+export const ADDING_STUDENTS = {
+	staff: (
+		<>
+			<p>Adding students to your group is a requirement to teach on the platform. To do this students must:</p>
+			<ol>
+				<li>Create their own account</li>
+				<li>Open the My Groups tab and select join a group</li>
+				<li>Enter the student code</li>
+			</ol>
+			<p>You can find the student code for your group by clicking "Add" on the Manage Group page.</p>
+		</>
+	),
+};
+
+export const MANAGE_USERS_IN_YOUR_SCHOOL = {
+	staff: (
+		<>
+			<p>
+				To use the Manage Users tab, please note that you need to be an <Link href="/support/admins/group-roles">admin</Link> or a <Link href="/support/teachers/group-roles">teacher</Link> in a{" "}
+				<Link href="/support/admins/what-are-groups">group</Link>.
+			</p>
+			<p>In the Manage Users tab, you can view all the accounts that have joined your group.</p>
+			<p>Users are grouped based on their role within the group: admin, teacher or student</p>
+			<p>For all users, you can view their first name, last name, email and who invited them.</p>
+			<p>On this page admins can:</p>
+			<ul>
+				<li>Remove teacher accounts</li>
+				<li>Remove student accounts</li>
+				<li>Promote teacher accounts to admins</li>
+			</ul>
+			<p>On this page teachers can:</p>
+			<ul>
+				<li>Remove student accounts.</li>
+			</ul>
+		</>
+	),
+};
+
+export const RECOVER_STUDENT_PASSWORDS = {
+	staff: (
+		<>
+			<p>All passwords can be reset with the "Forgot password" button on the login page.</p>
+			<p>Alternatively, teachers can change student passwords by:</p>
+			<ol>
+				<li>Selecting the desired account from the Manage Groups page</li>
+				<li>Entering the new password</li>
+			</ol>
+			<p>Students can then change their own passwords from their Account tab.</p>
+		</>
+	),
+};
+
+export const STUDENT_TRACKING = {
+	staff: (
+		<>
+			<h2>Overview</h2>
+			<p>As students interact with the platform, some of their actions are automatically tracked. This data is compiled for you, their teacher, in the classes that they have been added to.</p>
+			<p>Three metrics are provided:</p>
+			<ol>
+				<li>Progress</li>
+				<li>Engagement (coming soon)</li>
+				<li>Performance (coming soon)</li>
+			</ol>
+			<h2>Progress</h2>
+			<p>
+				The progress metric measures how far a student has progressed in a Project. This metric is measured using the pages that a user has visited, the time they spend on each page, and the
+				completion or partial completion of coding activities.
+			</p>
+			<p>This metric is displayed in the Progress table on the My Classes page.</p>
+			<ul>
+				<li>
+					<span style={{ color: "#999999", fontWeight: "500" }}>Blank</span>—no page visits.
+				</li>
+				<li>
+					<span style={{ color: "#fdd135", fontWeight: "500" }}>Yellow</span>—a short amount of time spent on the page or unfinished code.
+				</li>
+				<li>
+					<span style={{ color: "#18dbac", fontWeight: "500" }}>Green</span>—an adequate amount of time spent on the page or completed code.
+				</li>
+			</ul>
+			<p>You can also hover over entries in the table to get more information.</p>
+			<h2>Engagement (coming soon)</h2>
+			<h2>Performance (coming soon)</h2>
 		</>
 	),
 };

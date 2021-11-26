@@ -56,7 +56,7 @@ const SupportCategory = () => {
 						<h2>{section.heading}</h2>
 						<div className={classes.linkContainer}>
 							{section.articles.map((article) => (
-								<Link key={article.query} href={{ pathname: "/support/[category]/[article]", query: { category: router.query.category, article: article.query } }}>
+								<Link key={`${data.heading}-${article.query}`} href={{ pathname: "/support/[category]/[article]", query: { category: router.query.category, article: article.query } }}>
 									<div className={classes.link} title={article.heading}>
 										{article.heading}
 									</div>
