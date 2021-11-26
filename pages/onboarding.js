@@ -119,7 +119,7 @@ const Onboarding = () => {
 		await post({
 			route: "/api/profile/read-saves",
 			input: { profileId: globalSession.profileId, properties: ["onboardingStatuses"] },
-			successHandler: (data) => setStatuses(data.content.onboardingStatuses),
+			successHandler: (data) => setStatuses(data.content.onboardingStatuses || {}),
 		});
 	}, []);
 
