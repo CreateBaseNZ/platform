@@ -35,37 +35,23 @@ export default async function (req, res) {
 	} catch (error) {
 		data = { status: "error", content: error };
 	}
-	let skip = false;
-	if (data.status !== "succeeded") {
-		if (data.status === "failed") {
-			if (data.content.groups !== "do not exists") {
-				return res.send({ status: "error" });
-			} else {
-				skip = true;
-			}
-		} else {
-			return res.send({ status: "error" });
-		}
-	}
-	let groups = [];
-	if (!skip) {
-		groups = getQueriedGroups(input.query, data.content);
-		for (let i = 0; i < groups.length; i++) {
-			const group = groups[i];
-			groups[i] = {
-				id: group._id,
-				number: group.number,
-				name: group.name,
-				type: group.type,
-				numOfUsers: {
-					admins: group.licenses.active.filter((license) => license.role === "admin").length,
-					teachers: group.licenses.active.filter((license) => license.role === "teacher").length,
-					students: group.licenses.active.filter((license) => license.role === "student").length,
-				},
-				location: { cityState: group.location.city, country: group.location.country },
-				verified: group.verified,
-			};
-		}
+	if (data.status !== "succeeded") return res.send({ status: "error" });
+	let groups = getQueriedGroups(input.query, data.content);
+	for (let i = 0; i < groups.length; i++) {
+		const group = groups[i];
+		groups[i] = {
+			id: group._id,
+			number: group.number,
+			name: group.name,
+			type: group.type,
+			numOfUsers: {
+				admins: group.licenses.active.filter((license) => license.role === "admin").length,
+				teachers: group.licenses.active.filter((license) => license.role === "teacher").length,
+				students: group.licenses.active.filter((license) => license.role === "student").length,
+			},
+			location: { cityState: group.location.city, country: group.location.country },
+			verified: group.verified,
+		};
 	}
 	return res.send({ status: "succeeded", content: groups });
 }
