@@ -21,9 +21,9 @@ import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
 
 export default {
-	name: "AimBot (WIP)",
+	name: "AimBot",
 	query: "aimbot",
-	caption: "TBD",
+	caption: "Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
 	stacked: true,
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
@@ -135,7 +135,7 @@ export default {
 			},
 			plan: [
 				"In this second subsystem, our aim is to expand our code from subsystem 1 to also aim in the vertical direction by controlling the pitch rotation of the robot's arm.",
-				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 			],
 			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
@@ -171,20 +171,25 @@ export default {
 				modules: [
 					{
 						type: "pdf",
+						title: "Intro to Forces",
+						url: "/aimbot/pdf/2105050301AE_research_IntroToForces.pdf",
+					},
+					{
+						type: "pdf",
 						title: "Intro to Controllers",
-						url: "/aimbot/pdf/2105050301AF_research_intro_to_controllers.pdf",
+						url: "/aimbot/pdf/2105050301AF_research_IntroToControllers.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Finer Velocity Control",
-						url: "/aimbot/pdf/2105050301AG_Research_Finer_Velocity_Control.pdf",
+						url: "/aimbot/pdf/2105050301AG_research_FinerVelocityControl.pdf",
 					},
 				],
 			},
 			plan: [
 				"In the third subsystem, we are trying to implement a controller for our motors to avoid changing our velocity too quickly and breaking the arm.",
 				"To keep things simple, we will start by just considering mosquitos appearing along one direction (the x-axis).",
-				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 3. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 			],
 			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
@@ -220,12 +225,19 @@ export default {
 				modules: [],
 			},
 			plan: [
-				"Lets plan how we will put everything that we have learnt so far together to solve the full problem. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				"We will now plan how we will put everything that we have learnt so far together to solve the full problem. Open up your learning journal and answer all of the questions in the Plan section for subsystem 4. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 			],
 			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
-				tasks: ["TBD"],
-				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."],
+				tasks: [
+					"Just like in subsystem 2, mosquitos will appear to the left, to the right, up and down.",
+					"Your task is to destroy all of the mosquitos quickly before they disappear but without breaking the robot's arm by applying too much force.",
+					],
+				hints: [
+					"If you try and change the speed of your robot's arm by more than 180 degrees per second, then your arm will break.",
+					"If you saved your solution to subsystem 2 or 3, you can use either as a starting point for this subsystem by pressing the restore button in the dropzone.",
+					"You need to upgrade your solution to subsystem 2 by using a simple proportional controller to calculate the velocity to assign to the pitch and yaw motors.",
+				],
 			},
 			blockList: [
 				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
