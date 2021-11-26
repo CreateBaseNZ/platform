@@ -76,14 +76,14 @@ const STAFF_SECTION = {
 			id: "group-2",
 			type: "link",
 			title: "The 5 Step Creation Process",
-			linkUrl: "", // TODO
+			linkUrl: "/support/teachers#the-5-step-creation-process",
 		},
 		{
 			id: "group-3",
 			type: "link",
 			title: "Tour of class features",
 			subtitle: "Classes (1/3)",
-			linkUrl: "", // TODO
+			linkUrl: "/support/teachers/student-tracking",
 		},
 		{
 			id: "group-4",
@@ -105,7 +105,7 @@ const STAFF_SECTION = {
 };
 
 const SUPPORT_SECTION = {
-	caption: "To access group features, let’s get you into a group",
+	caption: "Here's some additional help and support",
 	tasks: [{ id: "support-0", type: "link", title: "Visit the Support Center", linkUrl: "/support" }],
 };
 
@@ -134,6 +134,8 @@ const Onboarding = () => {
 		});
 	};
 
+	const staffOfVerifiedGroups = globalSession.groups.filter((group) => group.verified && (group.role === "teacher" || group.role === "admin"));
+
 	return (
 		<div className={`${classes.onboarding} roundScrollbar`}>
 			<Head>
@@ -146,12 +148,12 @@ const Onboarding = () => {
 				</h1>
 				<OnboardingSection section={GETTING_STARTED_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
 				<OnboardingSection section={FLOW_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
-				{globalSession.recentGroups.length ? (
+				{staffOfVerifiedGroups.length ? (
 					<OnboardingSection
 						section={{
 							...STAFF_SECTION,
-							caption: `Since you are an admin or teacher of ${globalSession.groups[globalSession.recentGroups[0]].name}${
-								globalSession.recentGroups.length > 1 ? ` and ${globalSession.recentGroups.length - 1} other group${globalSession.recentGroups.length - 1 > 1 ? "s" : ""}` : ""
+							caption: `Since you are an admin or teacher of ${staffOfVerifiedGroups[0].name}${
+								staffOfVerifiedGroups.length > 1 ? ` and ${staffOfVerifiedGroups.length - 1} other group${staffOfVerifiedGroups.length - 1 > 1 ? "s" : ""}` : ""
 							}, here are a few tasks to help you set things up`,
 							tasks: STAFF_SECTION.tasks.filter((task) => (task.id === "group-5" ? statuses["group-4"] : true)),
 						}}
