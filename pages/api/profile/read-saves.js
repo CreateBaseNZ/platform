@@ -20,9 +20,13 @@ export default async function (req, res) {
 	}
 	// Build the properties
 	let object = {};
-	for (let i = 0; i < input.properties.length; i++) {
-		const property = input.properties[i];
-		object[property] = data.content[0].saves[property];
+	if (input.properties) {
+		for (let i = 0; i < input.properties.length; i++) {
+			const property = input.properties[i];
+			object[property] = data.content[0].saves[property];
+		}
+	} else {
+		object = data.content[0].saves;
 	}
 	// Return outcome of the request
 	return res.send({ status: "succeeded", content: object });

@@ -12,11 +12,13 @@ export default async function (req, res) {
 	}
 	const input = req.body.input;
 	// Send the data to the main backend
+	const url = process.env.ROUTE_URL + "/profile/update";
+	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
 	let data;
 	try {
 		data = (
-			await axios.post(process.env.ROUTE_URL + "/profile/update", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(url, {
+				...keys,
 				input: {
 					query: { _id: input.profileId },
 					updates: [{ type: "saves", update: input.update }],
