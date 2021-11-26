@@ -115,7 +115,7 @@ function sendEmail(profile, groupName) {
 		// Construct the input object
 		const input = {
 			accountId: profile.account.local,
-			option: { name: profile.name.first, receive: "organisation-created", notification: "onboarding", tone: "friendly", group: groupName },
+			option: { name: profile.name.first, receive: "organisation-created", notification: "general", tone: "friendly", group: groupName },
 		};
 		// Send the processing request
 		let data;
