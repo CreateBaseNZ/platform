@@ -23,17 +23,17 @@ import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../const
 export default {
 	name: "AimBot",
 	query: "aimbot",
-	caption: "TBD",
+	caption: "Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
 	stacked: true,
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
 	durPerLesson: "45 mins",
-	numOfLessons: 7,
+	numOfLessons: 9,
 	difficulty: "Proficient",
 	subjects: [COMPUTER_SCIENCE, SCRIPTING, TRIGONOMETRY, ENGINEERING],
-	learningOutcome: "TBD",
-	curriculumAlignment: "TBD",
-	lessonPlan: "TBD",
+	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	curriculumAlignment: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Use and track multiple variables throughout a program.",
 		"Use while loops to continually perform micro-actions.",
@@ -46,9 +46,9 @@ export default {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
-		title: "TBD",
+		title: "AimBot",
 		docs: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
-		word: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
+		word: "/aimbot/files/210505AC AimBot Learning Journal.docx",
 	},
 	imagine: {
 		caption: [
@@ -58,7 +58,7 @@ export default {
 		modules: [
 			{
 				title: "In this Project...",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.jpg",
 				url: "/aimbot/files/21050502AA_imagine.pdf",
 			},
 		],
@@ -67,7 +67,7 @@ export default {
 		{
 			title: "Subsystem 1",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_1.jpg",
 			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
@@ -75,12 +75,12 @@ export default {
 					{
 						type: "pdf",
 						title: "Axis, Pitch and Yaw",
-						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
+						url: "/aimbot/pdf/2105050301AA_research_PitchYawAxis.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Trigonometry",
-						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
+						url: "/aimbot/pdf/2105050301AB_research_Trigonometry.pdf",
 					},
 					{
 						type: "pdf",
@@ -101,9 +101,9 @@ export default {
 					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly."
 				],
 				hints: [
-					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.", 
+					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
 					"You can aim by controlling the velocity of the motors in the robot's arm.",
-					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
+					"To avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps."
 				],
 			},
@@ -121,7 +121,7 @@ export default {
 		{
 			title: "Subsystem 2",
 			requirements: ["Subsystem 1"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_2.jpg",
 			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
 			research: {
 				caption: ["There is no new research for this sub-problem. Move onto Plan."],
@@ -135,7 +135,7 @@ export default {
 			},
 			plan: [
 				"In this second subsystem, our aim is to expand our code from subsystem 1 to also aim in the vertical direction by controlling the pitch rotation of the robot's arm.",
-				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 			],
 			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
@@ -144,7 +144,7 @@ export default {
 					"You need to find the x position of each mosquito, aim your robot by controlling its yaw angle then ALSO find the y position of each mosquito and aim your robot by controlling its pitch angle.",
 				],
 				hints: [
-					"You will need to use the x and y coordinates of the mosquitos to calculate the yaw and pitch angles that you need to aim at separately.", 
+					"You will need to use the x and y coordinates of the mosquitos to calculate the yaw and pitch angles that you need to aim at separately.",
 					"You can also break the movement of the arm into two separate movements: first yaw and then pitch (or the other way around).",
 				],
 			},
@@ -164,27 +164,32 @@ export default {
 		{
 			title: "Subsystem 3",
 			requirements: ["Subsystem 1"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_3.jpg",
 			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
 						type: "pdf",
+						title: "Intro to Forces",
+						url: "/aimbot/pdf/2105050301AE_research_IntroToForces.pdf",
+					},
+					{
+						type: "pdf",
 						title: "Intro to Controllers",
-						url: "/aimbot/pdf/2105050301AF_research_intro_to_controllers.pdf",
+						url: "/aimbot/pdf/2105050301AF_research_IntroToControllers.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Finer Velocity Control",
-						url: "/aimbot/pdf/2105050301AG_Research_Finer_Velocity_Control.pdf",
+						url: "/aimbot/pdf/2105050301AG_research_FinerVelocityControl.pdf",
 					},
 				],
 			},
 			plan: [
 				"In the third subsystem, we are trying to implement a controller for our motors to avoid changing our velocity too quickly and breaking the arm.",
 				"To keep things simple, we will start by just considering mosquitos appearing along one direction (the x-axis).",
-				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 3. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 			],
 			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
@@ -213,17 +218,26 @@ export default {
 		{
 			title: "Subsystem 4",
 			requirements: ["Subsystem 2", "Subsystem 3"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_4.jpg",
 			description: "Lets put together everything that we have learnt to program a solution to the full problem!",
 			research: {
 				caption: ["There is no new research for this sub-problem. Move directly to Plan. Do not pass Go. Do not collect $100."],
 				modules: [],
 			},
-			plan: ["TBD"],
+			plan: [
+				"We will now plan how we will put everything that we have learnt so far together to solve the full problem. Open up your learning journal and answer all of the questions in the Plan section for subsystem 4. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+			],
 			code: {
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
-				tasks: ["TBD"],
-				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."],
+				tasks: [
+					"Just like in subsystem 2, mosquitos will appear to the left, to the right, up and down.",
+					"Your task is to destroy all of the mosquitos quickly before they disappear but without breaking the robot's arm by applying too much force.",
+					],
+				hints: [
+					"If you try and change the speed of your robot's arm by more than 180 degrees per second, then your arm will break.",
+					"If you saved your solution to subsystem 2 or 3, you can use either as a starting point for this subsystem by pressing the restore button in the dropzone.",
+					"You need to upgrade your solution to subsystem 2 by using a simple proportional controller to calculate the velocity to assign to the pitch and yaw motors.",
+				],
 			},
 			blockList: [
 				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
