@@ -23,8 +23,6 @@ const FUSE_DATA = Object.keys(SUPPORT_DATA)
 	)
 	.flat(2);
 
-console.log(FUSE_DATA);
-
 const SupportArticle = () => {
 	const router = useRouter();
 	const [data, setData] = useState();
@@ -41,8 +39,6 @@ const SupportArticle = () => {
 	}, [router.query.article]);
 
 	if (!data) return null;
-
-	console.log(data);
 
 	return (
 		<div className={`${classes.article} roundScrollbar`}>

@@ -22,6 +22,68 @@ const printStatus = (status) => {
 	}
 };
 
+const randomProjects = () => {
+	return {
+		"heat-seeker": {
+			define: { ...generateRandom() },
+			imagine: { ...generateRandom() },
+			create: {
+				"sub-1": {
+					name: "Subsystem 1",
+					research: { ...generateRandom() },
+					plan: { ...generateRandom() },
+					code: { ...generateRandom() },
+				},
+				"sub-2": {
+					name: "Subsystem 2",
+					research: { ...generateRandom() },
+					plan: { ...generateRandom() },
+					code: { ...generateRandom() },
+				},
+			},
+			improve: { ...generateRandom() },
+		},
+		magnebot: {
+			define: { ...generateRandom() },
+			imagine: { ...generateRandom() },
+			create: {
+				"sub-1": {
+					name: "Subsystem 1",
+					research: { ...generateRandom() },
+					plan: { ...generateRandom() },
+					code: { ...generateRandom() },
+				},
+			},
+			improve: { ...generateRandom() },
+		},
+		"send-it": {
+			define: { ...generateRandom() },
+			imagine: { ...generateRandom() },
+			create: {
+				"sub-1": {
+					name: "Subsystem 1",
+					research: { ...generateRandom() },
+					plan: { ...generateRandom() },
+					code: { ...generateRandom() },
+				},
+				"sub-2": {
+					name: "Subsystem 2",
+					research: { ...generateRandom() },
+					plan: { ...generateRandom() },
+					code: { ...generateRandom() },
+				},
+				"sub-3": {
+					name: "Subsystem 3",
+					research: { ...generateRandom() },
+					plan: { ...generateRandom() },
+					code: { ...generateRandom() },
+				},
+			},
+			improve: { ...generateRandom() },
+		},
+	};
+};
+
 const generateRandom = () => {
 	const strings = ["completed", "visited", ""];
 	const randomIndex = Math.floor(Math.random() * strings.length);
@@ -38,1086 +100,215 @@ const generateRandom = () => {
 
 const DUMMY_STUDENTS = [
 	{
-		id: "asldkjfhasasdfd",
-		name: "Fruit Burst",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "sophieroper",
+		name: "Sophie Roper",
+		projects: randomProjects(),
 	},
 	{
-		id: "sadfsdfsdfsddas",
-		name: "Pineapple Lumps",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "mandybrocklehurst",
+		name: "Mandy Brocklehurst",
+		projects: randomProjects(),
 	},
 	{
-		id: "asdf3sdfs454rte",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "isobelmacdougal",
+		name: "Isabel MacDougal",
+		projects: randomProjects(),
 	},
 	{
-		id: "asdfasdfv",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "anthonygoldstein",
+		name: "Anthony Goldstein",
+		projects: randomProjects(),
 	},
 	{
-		id: "awert34dgg",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "parvatipatil",
+		name: "Parvati Patil",
+		projects: randomProjects(),
 	},
 	{
-		id: "2345dfgd",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "runcorn",
+		name: "Runcorn",
+		projects: randomProjects(),
 	},
 	{
-		id: "dfg4545sdfg",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "sallysmith",
+		name: "Sally Smith",
+		projects: randomProjects(),
 	},
 	{
-		id: "345tert",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "ronaldweasley",
+		name: "Ronald Weasley",
+		projects: randomProjects(),
 	},
 	{
-		id: "wertewrt34",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "michaelcorner",
+		name: "Michael Corner",
+		projects: randomProjects(),
 	},
 	{
-		id: "3452etfrsg",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "lilymoon",
+		name: "Lily Moon",
+		projects: randomProjects(),
 	},
 	{
-		id: "56u56gertg",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "traceydavis",
+		name: "Tracey Davis",
+		projects: randomProjects(),
 	},
 	{
-		id: "wertmnfghj",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "nevillelongbottom",
+		name: "Neville Longbottom",
+		projects: randomProjects(),
 	},
 	{
-		id: "se45g5tydfg3",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "harrypotter",
+		name: "Harry Potter",
+		projects: randomProjects(),
 	},
 	{
-		id: "345sdfg345",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "susanbones",
+		name: "Susan Bones",
+		projects: randomProjects(),
 	},
 	{
-		id: "erwt546gh",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
-	},
-	{
-		id: "4356gdfghsd",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
-	},
-	{
-		id: "23234fgsad",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
-	},
-	{
-		id: "ertybfsdfaasdfsfwer",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
-	},
-	{
-		id: "asdfasdfr3r45",
-		name: "Chocolate Fish",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "gregorygoyle",
+		name: "Gregory Goyle",
+		projects: randomProjects(),
 	},
 ];
 const DUMMY_STUDENTS_1 = [
 	{
-		id: "asldkjfhasasdfd",
-		name: "Jet Planes",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "oliverrivers",
+		name: "Oliver Rivers",
+		projects: randomProjects(),
+	},
+	{
+		id: "theodorenott",
+		name: "Theodore Nott",
+		projects: randomProjects(),
+	},
+	{
+		id: "lisaturpin",
+		name: "Lisa Turpin",
+		projects: randomProjects(),
+	},
+	{
+		id: "waynehopkins",
+		name: "Wayne Hipkins",
+		projects: randomProjects(),
+	},
+	{
+		id: "deanthomas",
+		name: "Dean Thomas",
+		projects: randomProjects(),
+	},
+	{
+		id: "meganjones",
+		name: "Megan Jones",
+		projects: randomProjects(),
+	},
+	{
+		id: "sueli",
+		name: "Sue Li",
+		projects: randomProjects(),
+	},
+	{
+		id: "terryboot",
+		name: "Terry Boot",
+		projects: randomProjects(),
+	},
+	{
+		id: "stephencornfoot",
+		name: "Stephen Cornfoot",
+		projects: randomProjects(),
+	},
+	{
+		id: "hermionegranger",
+		name: "Hermione Granger",
+		projects: randomProjects(),
+	},
+	{
+		id: "millicentbulstrode",
+		name: "Millicent Bulstrode",
+		projects: randomProjects(),
+	},
+	{
+		id: "vincentcrabbe",
+		name: "Vincent Crabbe",
+		projects: randomProjects(),
+	},
+	{
+		id: "lavenderbrown",
+		name: "Lavender Brown",
+		projects: randomProjects(),
+	},
+	{
+		id: "rogermalone",
+		name: "Roger Malone",
+		projects: randomProjects(),
 	},
 ];
 const DUMMY_STUDENTS_2 = [
 	{
-		id: "asdf6ughd",
-		name: "Hokey Pokey",
-		projects: {
-			"heat-seeker": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-					"sub-2": {
-						name: "Subsystem 2",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			magnebot: {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-			"send-it": {
-				define: { ...generateRandom() },
-				imagine: { ...generateRandom() },
-				create: {
-					"sub-1": {
-						name: "Subsystem 1",
-						research: { ...generateRandom() },
-						plan: { ...generateRandom() },
-						code: { ...generateRandom() },
-					},
-				},
-				improve: { ...generateRandom() },
-			},
-		},
+		id: "seamusfinnigan",
+		name: "Seamus Finnigan",
+		projects: randomProjects(),
+	},
+	{
+		id: "pansyparkinson",
+		name: "Pansy Parkinson",
+		projects: randomProjects(),
+	},
+	{
+		id: "kevinentwhistle",
+		name: "Kevin Entwhistle",
+		projects: randomProjects(),
+	},
+	{
+		id: "hannahabbot",
+		name: "Hannah Abbot",
+		projects: randomProjects(),
+	},
+	{
+		id: "padmapatil",
+		name: "Padma Patil",
+		projects: randomProjects(),
+	},
+	{
+		id: "justinfinchfletchley",
+		name: "Justin Finch-Fletchley",
+		projects: randomProjects(),
+	},
+	{
+		id: "draco malfoy",
+		name: "Draco Malfoy",
+		projects: randomProjects(),
+	},
+	{
+		id: "sally-anneperks",
+		name: "Sally-Anne Perks",
+		projects: randomProjects(),
+	},
+	{
+		id: "blaisezabini",
+		name: "Blaise Zabini",
+		projects: randomProjects(),
+	},
+	{
+		id: "erniemacmillan",
+		name: "Ernie Macmillan",
+		projects: randomProjects(),
+	},
+	{
+		id: "daphnegreengrass",
+		name: "Daphne Greengrass",
+		projects: randomProjects(),
 	},
 ];
 
 const DUMMY_CLASSES = [
-	{ id: "jelly101abc123", name: "Jelly 101", students: DUMMY_STUDENTS },
-	{ id: "honey302abc123", name: "Honey 302", students: DUMMY_STUDENTS_1 },
-	{ id: "gummy401abc123", name: "Gummy 401", students: DUMMY_STUDENTS_2 },
+	{ id: "darkarts", name: "Dark Arts", students: DUMMY_STUDENTS },
+	{ id: "potions", name: "Potions", students: DUMMY_STUDENTS_1 },
+	{ id: "alchemy", name: "Alchemy", students: DUMMY_STUDENTS_2 },
 ];
 
 const PROJECT_OPTIONS = allData.map((project) => ({ id: project.query, name: project.name }));
@@ -1134,25 +325,18 @@ const ClassesProgress = () => {
 	const [tooltip, setTooltip] = useState();
 
 	useEffect(() => {
-		setStudentSelect({ isOpen: false, selected: classSelect.selected.students[0] });
-	}, [classSelect.selected]);
-
-	useEffect(() => {
 		if (viewSelect.selected.id === "student") {
-			setData(Object.keys(studentSelect.selected.projects).map((key) => ({ ...studentSelect.selected.projects[key], id: key, name: PROJECT_MAP[key] })));
+			console.log(studentSelect);
+			const student = classSelect.selected.students.find((student) => student.id === studentSelect.selected.id);
+			if (student) {
+				setData(Object.keys(student.projects).map((key) => ({ ...student.projects[key], id: key, name: PROJECT_MAP[key] })));
+			} else {
+				setStudentSelect((state) => ({ ...state, selected: classSelect.selected.students[0] }));
+			}
 		} else {
 			setData(classSelect.selected.students.map((student) => ({ ...student.projects[projectSelect.selected.id], id: student.id, name: student.name })));
 		}
-	}, [viewSelect.selected]);
-
-	useEffect(() => {
-		console.log(studentSelect);
-		setData(Object.keys(studentSelect.selected.projects).map((key) => ({ ...studentSelect.selected.projects[key], id: key, name: PROJECT_MAP[key] })));
-	}, [studentSelect.selected]);
-
-	useEffect(() => {
-		setData(classSelect.selected.students.map((student) => ({ ...student.projects[projectSelect.selected.id], id: student.id, name: student.name })));
-	}, [projectSelect.selected]);
+	}, [classSelect.selected, viewSelect.selected, studentSelect.selected, projectSelect.selected]);
 
 	if (!classLoaded) return null;
 

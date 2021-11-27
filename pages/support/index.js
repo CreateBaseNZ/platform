@@ -28,8 +28,6 @@ const FUSE_DATA = Object.keys(SUPPORT_DATA)
 	)
 	.flat(2);
 
-console.log(FUSE_DATA);
-
 const Support = () => {
 	const router = useRouter();
 	const inputRef = useRef();
@@ -45,7 +43,6 @@ const Support = () => {
 		if (router.isReady) {
 			if (router.query.search) {
 				const res = fuse.search(router.query.search);
-				console.log(res);
 				setResults(res);
 			} else {
 				setResults(null);
