@@ -21,19 +21,19 @@ import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
 
 export default {
-	name: "AimBot",
+	name: "AimBot (Early Access)",
 	query: "aimbot",
 	caption: "Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
 	stacked: true,
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
 	durPerLesson: "45 mins",
-	numOfLessons: 7,
+	numOfLessons: 9,
 	difficulty: "Proficient",
 	subjects: [COMPUTER_SCIENCE, SCRIPTING, TRIGONOMETRY, ENGINEERING],
-	learningOutcome: "TBD",
-	curriculumAlignment: "TBD",
-	lessonPlan: "TBD",
+	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	curriculumAlignment: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Use and track multiple variables throughout a program.",
 		"Use while loops to continually perform micro-actions.",
@@ -46,7 +46,7 @@ export default {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
-		title: "TBD",
+		title: "AimBot",
 		docs: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
 		word: "/aimbot/files/210505AC AimBot Learning Journal.docx",
 	},
@@ -75,12 +75,12 @@ export default {
 					{
 						type: "pdf",
 						title: "Axis, Pitch and Yaw",
-						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
+						url: "/aimbot/pdf/2105050301AA_research_PitchYawAxis.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Trigonometry",
-						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
+						url: "/aimbot/pdf/2105050301AB_research_Trigonometry.pdf",
 					},
 					{
 						type: "pdf",
