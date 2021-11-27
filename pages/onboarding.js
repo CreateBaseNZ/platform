@@ -31,11 +31,11 @@ const GETTING_STARTED_SECTION = {
 };
 
 const FLOW_SECTION = {
-	caption: "Get started with the basics of flow coding",
-	tasks: [{ id: "flow-0", type: "link", title: "Your Flow Coding journey starts here", linkUrl: "/browse/magnebot" }],
+	caption: "Get started with Flow coding",
+	tasks: [{ id: "flow-0", type: "link", title: "Complete the first subsystem in MagneBot", linkUrl: "/browse/magnebot" }],
 };
 
-const NOT_GROUP_SECTION = {
+const GROUP_DEFAULT_SECTION = {
 	caption: "To access group features, let’s get you into a group",
 	hasOr: true,
 	orId: "not-group",
@@ -52,7 +52,7 @@ const NOT_GROUP_SECTION = {
 		{
 			id: "not-group-1",
 			type: "video",
-			title: "Join your school group",
+			title: "Join your school",
 			subtitle: "For students",
 			videoUrl: "https://www.youtube.com/embed/SlRLHPSm17Y", // TODO
 			linkUrl: "/my-groups/join-school",
@@ -163,7 +163,7 @@ const Onboarding = () => {
 						setVideoModal={setVideoModal}
 					/>
 				) : null}
-				<OnboardingSection section={NOT_GROUP_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
+				<OnboardingSection section={GROUP_DEFAULT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
 				<OnboardingSection section={SUPPORT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
 			</div>
 			{videoModal.show && <OnboardingVideo state={videoModal} setState={setVideoModal} />}
