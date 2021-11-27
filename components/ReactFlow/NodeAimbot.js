@@ -34,15 +34,15 @@ export const NodeAimBotGetPitchAngle = memo(({ data, isConnectable }) => {
 });
 
 export const NodeAimBotGetMosquitoXPos = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Mosquito X-Pos" style={{ width: "10rem", height: "2rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Mosquito X-Pos" style={{ width: "12rem", height: "2rem" }} />;
 });
 
 export const NodeAimBotGetMosquitoYPos = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Mosquito Y-Pos" style={{ width: "10rem", height: "2rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Mosquito Y-Pos" style={{ width: "12rem", height: "2rem" }} />;
 });
 
 export const NodeAimBotGetMosquitoZPos = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Mosquito Z-Pos" style={{ width: "10rem", height: "2rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Mosquito Z-Pos" style={{ width: "12rem", height: "2rem" }} />;
 });
 
 export const NodeAimBotSetYawSpeed = memo(({ id, data, isConnectable }) => {
@@ -54,19 +54,19 @@ export const NodeAimBotSetPitchSpeed = memo(({ id, data, isConnectable }) => {
 });
 
 export const NodeAimBotGetCurrentYawSpeed = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Current Yaw Speed" style={{ width: "10rem", height: "2rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Current Yaw Speed" style={{ width: "10rem", height: "3rem", border: "outset #5fdaff" }} />;
 });
 
 export const NodeAimBotGetCurrentPitchSpeed = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Current Pitch Speed" style={{ width: "10rem", height: "2rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Current Pitch Speed" style={{ width: "10rem", height: "3rem", border: "outset #5fdaff" }} />;
 });
 
 export const NodeAimBotSetCurrentYawSpeed = memo(({ id, data, isConnectable }) => {
-	return <NodeAimBotAction data={data} id={id} label="Set Current Yaw Speed" isConnectable={isConnectable} />;
+	return <NodeAimBotAction data={data} id={id} label="Set Current Yaw Speed" isConnectable={isConnectable} style={{ border: "outset #00ffee" }} />;
 });
 
 export const NodeAimBotSetCurrentPitchSpeed = memo(({ id, data, isConnectable }) => {
-	return <NodeAimBotAction data={data} id={id} label="Set Current Pitch Speed" isConnectable={isConnectable} />;
+	return <NodeAimBotAction data={data} id={id} label="Set Current Pitch Speed" isConnectable={isConnectable} style={{ border: "outset #00ffee" }} />;
 });
 
 export const NodeAimBotShoot = memo(({data, isConnectable }) => {
@@ -105,7 +105,7 @@ export const NodeAimBotSetPitchSpeedMini = memo(() => {
 
 export const NodeAimBotSetCurrentYawSpeedMini = memo(() => {
 	return (
-		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentYawSpeed" node={<NodeAimBotSetCurrentYawSpeed />}>
+		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentYawSpeed" node={<NodeAimBotSetCurrentYawSpeed />} style={{ border: "outset #00ffee" }} >
 			<h4>Set Current Yaw Speed</h4>
 		</NodeMini>
 	);
@@ -113,7 +113,7 @@ export const NodeAimBotSetCurrentYawSpeedMini = memo(() => {
 
 export const NodeAimBotSetCurrentPitchSpeedMini = memo(() => {
 	return (
-		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentPitchSpeed" node={<NodeAimBotSetCurrentPitchSpeed />}>
+		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentPitchSpeed" node={<NodeAimBotSetCurrentPitchSpeed />} style={{ border: "outset #00ffee" }} >
 			<h4>Set Current Pitch Speed</h4>
 		</NodeMini>
 	);
@@ -145,7 +145,7 @@ export const NodeAimBotGetPitchAngleMini = memo(() => {
 
 export const NodeAimBotGetCurrentYawSpeedMini = memo(() => {
 	return (
-		<NodeMini className={classes.sensing} nodeType="NodeAimBotGetCurrentYawSpeed" node={<NodeAimBotGetCurrentYawSpeed />}>
+		<NodeMini className={classes.sensing} nodeType="NodeAimBotGetCurrentYawSpeed" node={<NodeAimBotGetCurrentYawSpeed />} style={{ border: "outset #5fdaff" }}>
 			<h4>Get Current Yaw Speed</h4>
 		</NodeMini>
 	);
@@ -153,7 +153,7 @@ export const NodeAimBotGetCurrentYawSpeedMini = memo(() => {
 
 export const NodeAimBotGetCurrentPitchSpeedMini = memo(() => {
 	return (
-		<NodeMini className={classes.sensing} nodeType="NodeAimBotGetCurrentPitchSpeed" node={<NodeAimBotGetCurrentPitchSpeed />}>
+		<NodeMini className={classes.sensing} nodeType="NodeAimBotGetCurrentPitchSpeed" node={<NodeAimBotGetCurrentPitchSpeed />} style={{ border: "outset #5fdaff" }}>
 			<h4>Get Current Pitch Speed</h4>
 		</NodeMini>
 	);
