@@ -287,6 +287,14 @@
 			"NodeHyperloopGetPersonNumber": {
 				"name": "personNumber",
 				"simpleName": "personNumber"
+			},
+			"NodeHyperloopGetPersonBase": {
+				"name": "personBase",
+				"simpleName": "personBase"
+			},
+			"NodeHyperloopGetHyperloopBase": {
+				"name": "hyperloopBase",
+				"simpleName": "hyperloopBase"
 			}
 		},
 		"actions": {

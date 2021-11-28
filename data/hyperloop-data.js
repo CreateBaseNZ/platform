@@ -1,17 +1,3 @@
-import {
-	NodeAimBotGetYawAngleMini,
-	NodeAimBotGetPitchAngleMini,
-	NodeAimBotGetMosquitoXPosMini,
-	NodeAimBotGetMosquitoYPosMini,
-	NodeAimBotGetMosquitoZPosMini,
-	NodeAimBotSetYawSpeedMini,
-	NodeAimBotSetPitchSpeedMini,
-	NodeAimBotShootMini,
-	NodeAimBotSetCurrentYawSpeedMini,
-	NodeAimBotSetCurrentPitchSpeedMini,
-	NodeAimBotGetCurrentYawSpeedMini,
-	NodeAimBotGetCurrentPitchSpeedMini,
-} from "../components/ReactFlow/NodeAimbot";
 import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
 import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
 import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
@@ -21,7 +7,6 @@ import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY } from "../constants/projectSubjects";
 
 export default {
-	wip: true,
 	name: "Hyperloop",
 	query: "hyperloop",
 	caption:
@@ -116,13 +101,13 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
-				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Variables", blocks: [] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		},
@@ -170,13 +155,13 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
-				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Variables", blocks: [] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		},
@@ -224,13 +209,13 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
-				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Variables", blocks: [] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		},
@@ -278,15 +263,41 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
-				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Variables", blocks: [] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		}
-	]
+	],
+	improve: {
+		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+		alert: "Congratulations! You now have a solution that will destroy any mosquitos that cross the path of your robot! Mosquitos everywhere will be trembling in fear! We have now added a timer to the simulation that will measure how long it takes your robot to find and destroy all of the mosquitos.",
+		tasks: [
+			"Mosquitos will be appearing across your screen in both the x and y directions.",
+			"You will need to find the position of each mosquito, aim your robot, and then fire to destroy all of the mosquitos, just like in the Create step.",
+			"You will need to move your arm as fast as possible to get the fastest possible time.",
+			"Compete with your peers to get the fastest time."
+		],
+		hints: [
+			"If you set the speed of your arm too high, you may overshoot your targets.",
+			"The best way to decrease your time will be to optimise your controller.",
+			"Don't forget to take a screenshot of your best time and paste it into your learning journal for proof!"
+		],
+		code: true,
+		blockList: [
+			{ name: "Variables", blocks: [] },
+			{ name: "Sensing", blocks: [] },
+			{ name: "Actions", blocks: [] },
+			{ name: "Operators", blocks: [] },
+			{ name: "Comparisons", blocks: [] },
+			{ name: "Logicals", blocks: [] },
+			{ name: "Conditionals", blocks: [] },
+			{ name: "Utilities", blocks: [<NodePrintMini />] },
+		],
+	},
 };
