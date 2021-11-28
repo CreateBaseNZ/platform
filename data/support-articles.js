@@ -29,7 +29,7 @@ export const JOIN_A_SCHOOL = {
 			<ol>
 				<li>
 					From the My Groups page teachers click "Join a school"
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school.jpg" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school.JPG" style={{ maxWidth: 800 }} />
 				</li>
 				<li>Teachers search for their school</li>
 				<li>
@@ -39,14 +39,14 @@ export const JOIN_A_SCHOOL = {
 				<li>The Admin of the school will be notified and can accept or reject the request</li>
 			</ol>
 			<p>Join request messages can be viewed from the inbox tab.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school admin inbox.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school admin inbox.JPG" style={{ maxWidth: 800 }} />
 			<p>Once accepted, the teacher will gain access to teaching content, will be able to create classes and will be able to manage the students in your school group.</p>
 		</>
 	),
 	teacher: (
 		<>
 			<p>Joining a school starts on the My Groups page.</p>
-			<img srcr="/support/join a school.jpg" style={{ maxWidth: 800 }} />
+			<img srcr="/support/join a school.JPG" style={{ maxWidth: 800 }} />
 			<p>As a teacher, search for the name of your school.</p>
 			<p>Then complete and send a message.</p>
 			<img srcr="/support/teach joins school gif.gif" style={{ maxWidth: 800 }} />
@@ -56,7 +56,7 @@ export const JOIN_A_SCHOOL = {
 	student: (
 		<>
 			<p>To join your school, click "Join a school" and then enter the code given to you by your teacher.</p>
-			<img srcr="/support/join a school student.jpg" style={{ maxWidth: 800 }} />
+			<img srcr="/support/join a school student.JPG" style={{ maxWidth: 800 }} />
 			<p>If you have not received a student code, ask your teacher to click "Add" on their Manage Group page and share this code with you.</p>
 		</>
 	),
@@ -297,13 +297,13 @@ export const THE_5_STEP_CREATION_PROCESS = {
 			</p>
 			<p>Our Creation Process has been developed by some of the best engineering graduates from the University of Auckland alongside leading STEAM and Digital Technologies teachers.</p>
 			<p>The 5 Step Creation Process is a fundamental structure that's built into all the Project content on the Platform.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation steps.jpg" style={{ width: 400 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation steps.JPG" style={{ width: 400 }} />
 			<p>The Creation Process is reflected in the Project view</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation project view.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation project view.JPG" style={{ maxWidth: 800 }} />
 			<p>learning journals ...</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation learning journal.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation learning journal.JPG" style={{ maxWidth: 800 }} />
 			<p>and lesson plans ...</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation lesson plan.jpg" style={{ width: 400 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation lesson plan.JPG" style={{ width: 400 }} />
 		</>
 	),
 };
@@ -312,7 +312,7 @@ export const REGISTER_A_SCHOOL = {
 	staff: (
 		<>
 			<p>Registering your school starts on the My Groups page.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register a school.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register a school.JPG" style={{ maxWidth: 800 }} />
 			<p>Simply complete the Registration form and our team will verify your school within 24 hours.</p>
 			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register a school gif.gif" style={{ maxWidth: 800 }} />
 		</>
@@ -323,7 +323,7 @@ export const CREATE_A_CLASS = {
 	staff: (
 		<>
 			<p>To create a class head to the Classes page and click “Create class”.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/create a class.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/create a class.JPG" style={{ maxWidth: 800 }} />
 			<p>Enter a class name and you are good to go.</p>
 			<p>To add Students, visit the "Manage Members" tab, click "Add" and then select all the users from your group that you want to add to your class. Click "Add" to confirm the users.</p>
 			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/create class + add students gif.gif" style={{ maxWidth: 800 }} />
@@ -553,7 +553,7 @@ export const REGISTER_OR_JOIN_YOUR_SCHOOL = {
 			<p>If your school has already been registered, you simply join the school instead!</p>
 			<p>From the My Groups page click "Join" and then send a message to the admin (the user who registered the school).</p>
 			<p>The admin can then accept your request.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school.jpg" style={{ maxWidth: 600 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school.JPG" style={{ maxWidth: 600 }} />
 			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/teach joins school gif.gif" style={{ maxWidth: 600 }} />
 			<p>For students to join a school, they must use a student code.</p>
 			<p>
@@ -570,7 +570,7 @@ export const ADDING_STUDENTS = {
 			<ol>
 				<li>
 					Create their own account
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school student.jpg" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school student.JPG" style={{ maxWidth: 800 }} />
 				</li>
 				<li>
 					Open the My Groups tab and select join a group
@@ -579,7 +579,7 @@ export const ADDING_STUDENTS = {
 				<li>Enter the student code</li>
 			</ol>
 			<p>You can find the student code for your group by clicking "Add" on the Manage Group page.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student code.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student code.JPG" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -647,7 +647,7 @@ export const STUDENT_TRACKING = {
 				</li>
 			</ul>
 			<p>You can also hover over entries in the table to get more information.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student tracking data.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student tracking data.JPG" style={{ maxWidth: 800 }} />
 			<h2>Engagement (coming soon)</h2>
 			<h2>Performance (coming soon)</h2>
 		</>
@@ -696,7 +696,7 @@ export const STUDENT_TRACKING = {
 // 				allowFullScreen
 // 			/>
 // 			<h2>What about images?</h2>
-// 			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-6.jpg" />
+// 			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/support-6.JPG" />
 // 		</>
 // 	),
 // },
