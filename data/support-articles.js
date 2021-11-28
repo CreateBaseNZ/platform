@@ -27,26 +27,36 @@ export const JOIN_A_SCHOOL = {
 			<p>As the admin of a school, you will need to accept join requests from teachers looking to join your school on our platform.</p>
 			<p>For reference, this is the process teachers go through to join a school:</p>
 			<ol>
-				<li>From the My Groups page teachers click "Join a school"</li>
+				<li>
+					From the My Groups page teachers click "Join a school"
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school.jpg" style={{ maxWidth: 800 }} />
+				</li>
 				<li>Teachers search for their school</li>
-				<li>Then complete and send a message</li>
+				<li>
+					Then complete and send a message
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/teach joins school gif.gif" style={{ maxWidth: 800 }} />
+				</li>
 				<li>The Admin of the school will be notified and can accept or reject the request</li>
 			</ol>
 			<p>Join request messages can be viewed from the inbox tab.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school admin inbox.jpg" style={{ maxWidth: 800 }} />
 			<p>Once accepted, the teacher will gain access to teaching content, will be able to create classes and will be able to manage the students in your school group.</p>
 		</>
 	),
 	teacher: (
 		<>
-			<p>Joining a school starts in the My Groups page.</p>
+			<p>Joining a school starts on the My Groups page.</p>
+			<img srcr="/support/join a school.jpg" style={{ maxWidth: 800 }} />
 			<p>As a teacher, search for the name of your school.</p>
 			<p>Then complete and send a message.</p>
+			<img srcr="/support/teach joins school gif.gif" style={{ maxWidth: 800 }} />
 			<p>The admin of the school will be notified and you will need to wait for them to accept or reject your request.</p>
 		</>
 	),
 	student: (
 		<>
 			<p>To join your school, click "Join a school" and then enter the code given to you by your teacher.</p>
+			<img srcr="/support/join a school student.jpg" style={{ maxWidth: 800 }} />
 			<p>If you have not received a student code, ask your teacher to click "Add" on their Manage Group page and share this code with you.</p>
 		</>
 	),
@@ -287,10 +297,13 @@ export const THE_5_STEP_CREATION_PROCESS = {
 			</p>
 			<p>Our Creation Process has been developed by some of the best engineering graduates from the University of Auckland alongside leading STEAM and Digital Technologies teachers.</p>
 			<p>The 5 Step Creation Process is a fundamental structure that's built into all the Project content on the Platform.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation steps.jpg" style={{ width: 400 }} />
 			<p>The Creation Process is reflected in the Project view</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation project view.jpg" style={{ maxWidth: 800 }} />
 			<p>learning journals ...</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation learning journal.jpg" style={{ maxWidth: 800 }} />
 			<p>and lesson plans ...</p>
-			<p>To learn more check out the 5 Step Creation Process section below.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5 step creation lesson plan.jpg" style={{ width: 400 }} />
 		</>
 	),
 };
@@ -299,8 +312,9 @@ export const REGISTER_A_SCHOOL = {
 	staff: (
 		<>
 			<p>Registering your school starts on the My Groups page.</p>
-			<p>Simply complete the Registration form</p>
-			<p>And our team will verify your school within 24 hours.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register a school.jpg" style={{ maxWidth: 800 }} />
+			<p>Simply complete the Registration form and our team will verify your school within 24 hours.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register a school gif.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -309,8 +323,10 @@ export const CREATE_A_CLASS = {
 	staff: (
 		<>
 			<p>To create a class head to the Classes page and click “Create class”.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/create a class.jpg" style={{ maxWidth: 800 }} />
 			<p>Enter a class name and you are good to go.</p>
 			<p>To add Students, visit the "Manage Members" tab, click "Add" and then select all the users from your group that you want to add to your class. Click "Add" to confirm the users.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/create class + add students gif.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -409,6 +425,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				<li>Selecting their desired robotic system (coming soon)</li>
 				<li>Selecting specific components (coming soon)</li>
 			</ul>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/plan gif.gif" style={{ maxWidth: 800 }} />
 			<p>
 				After completing their Plan, students will not necessarily have a complete answer to the Code step, but will at least have enough information to start testing and iterating as well as a
 				concrete understanding of the logical process(es) that their solution will need to follow.
@@ -477,6 +494,7 @@ export const STEP_5_REVIEW = {
 				Reflecting on the learning journey is a key method to emphasise learning from our mistakes and our successes. Reflection is not always easy, so we provide questions to engage students in the
 				process of reflection. This is a solo activity, so it is perfect for distance learning!
 			</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/review gif.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -531,6 +549,16 @@ export const REGISTER_OR_JOIN_YOUR_SCHOOL = {
 				In these 24 hours, please feel free to learn more about our platform from the Support tab or complete our <Link href="/onboarding">Platform Onboarding</Link>. You can also experience the
 				non-teaching aspects of Projects from the Browse tab.
 			</p>
+			<h2>Join</h2>
+			<p>If your school has already been registered, you simply join the school instead!</p>
+			<p>From the My Groups page click "Join" and then send a message to the admin (the user who registered the school).</p>
+			<p>The admin can then accept your request.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school.jpg" style={{ maxWidth: 600 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/teach joins school gif.gif" style={{ maxWidth: 600 }} />
+			<p>For students to join a school, they must use a student code.</p>
+			<p>
+				Learn how to add students to your school <Link href="/support/admins/adding-students">here</Link>.
+			</p>
 		</>
 	),
 };
@@ -540,11 +568,18 @@ export const ADDING_STUDENTS = {
 		<>
 			<p>Adding students to your group is a requirement to teach on the platform. To do this students must:</p>
 			<ol>
-				<li>Create their own account</li>
-				<li>Open the My Groups tab and select join a group</li>
+				<li>
+					Create their own account
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school student.jpg" style={{ maxWidth: 800 }} />
+				</li>
+				<li>
+					Open the My Groups tab and select join a group
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/adding students student process gif.gif" style={{ maxWidth: 800 }} />
+				</li>
 				<li>Enter the student code</li>
 			</ol>
 			<p>You can find the student code for your group by clicking "Add" on the Manage Group page.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student code.jpg" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -557,7 +592,8 @@ export const MANAGE_USERS_IN_YOUR_SCHOOL = {
 				<Link href="/support/admins/what-are-groups">group</Link>.
 			</p>
 			<p>In the Manage Users tab, you can view all the accounts that have joined your group.</p>
-			<p>Users are grouped based on their role within the group: admin, teacher or student</p>
+			<p>Users are grouped based on their role within the group: admin, teacher or student.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/manage users gif.gif" style={{ maxWidth: 800 }} />
 			<p>For all users, you can view their first name, last name, email and who invited them.</p>
 			<p>On this page admins can:</p>
 			<ul>
@@ -577,11 +613,6 @@ export const RECOVER_STUDENT_PASSWORDS = {
 	staff: (
 		<>
 			<p>All passwords can be reset with the "Forgot password" button on the login page.</p>
-			<p>Alternatively, teachers can change student passwords by:</p>
-			<ol>
-				<li>Selecting the desired account from the Manage Groups page</li>
-				<li>Entering the new password</li>
-			</ol>
 			<p>Students can then change their own passwords from their Account tab.</p>
 		</>
 	),
@@ -616,6 +647,7 @@ export const STUDENT_TRACKING = {
 				</li>
 			</ul>
 			<p>You can also hover over entries in the table to get more information.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student tracking data.jpg" style={{ maxWidth: 800 }} />
 			<h2>Engagement (coming soon)</h2>
 			<h2>Performance (coming soon)</h2>
 		</>
