@@ -444,6 +444,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				are writing much more tangible as there are clear (and sometimes catastrophic) results for every change that they make. With a digital solution, there are no consequences for breaking the
 				robot so students are free to experiment and push boundaries with their testing, providing a rich opportunity for guided discovery learning.
 			</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/code gif.gif" style={{ maxWidth: 800 }} />{" "}
 		</>
 	),
 };

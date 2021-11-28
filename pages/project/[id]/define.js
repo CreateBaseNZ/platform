@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import router from "next/router";
 import Head from "next/head";
 import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
@@ -7,9 +7,30 @@ import VideoViewer from "../../../components/UI/VideoViewer";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "/styles/define.module.scss";
+import useMixpanel from "../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../store/global-session-context";
 
 const Define = () => {
+	const { globalSession } = useContext(GlobalSessionContext);
 	const [data, setData] = useState();
+	const mp = useMixpanel();
+
+	useEffect(() => {
+		mp.init();
+		const loadTime = Date.now();
+		return () => {
+			const unloadTime = Date.now();
+			console.log(unloadTime - loadTime);
+			mp.track("project_define", {
+				licenses: globalSession.groups.map((group) => group.licenseId),
+				schools: globalSession.groups.map((group) => group.id),
+				project: router.query.id,
+				duration: Math.round((unloadTime - loadTime) / 1000),
+				load: loadTime,
+				unload: unloadTime,
+			});
+		};
+	}, []);
 
 	useEffect(() => {
 		if (router.query.id) {

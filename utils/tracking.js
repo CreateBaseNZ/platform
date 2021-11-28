@@ -46,7 +46,11 @@ const retrieve = (PROJECT_SECRET, filters = [], fromDate = "2021-01-01", toDate 
 						const el = filter.properties[j];
 						let valid = true;
 						for (const key in el) {
-							if (rawData[i].properties[key] !== el[key]) valid = false;
+							if (Array.isArray(rawData[i].properties[key])) {
+								if (!rawData[i].properties[key].includes(el[key])) valid = false;
+							} else {
+								if (rawData[i].properties[key] !== el[key]) valid = false;
+							}
 						}
 						if (valid) {
 							add = true;

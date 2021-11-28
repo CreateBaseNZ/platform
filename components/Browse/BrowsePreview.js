@@ -11,6 +11,7 @@ import classes from "./BrowsePreview.module.scss";
 
 import mixpanel from "mixpanel-browser";
 import tracking from "../../utils/tracking";
+import useMixpanel from "../../hooks/useMixpanel";
 
 const getTabs = (role) => {
 	switch (role) {
@@ -31,16 +32,9 @@ const BrowsePreview = ({ project, role }) => {
 	const [tab, setTab] = useState(getTabs(role)[0]);
 	const [videoLoaded, setVideoLoaded] = useState(false);
 	const { globalSession } = useContext(GlobalSessionContext);
+	const mp = useMixpanel();
 
-	// mixpanel config
 	useEffect(async () => {
-		// initialise mixpanel channel
-		// first param - API Key
-		mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
-		// set the distinct_id of the events that will be created
-		mixpanel.identify(globalSession.profileId);
-		// establish the associated user details for the specified id (business data)
-		mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
 		// EXAMPLE: Fetching data
 		// Array of filters
 		// Each filter has two properties:
@@ -52,16 +46,11 @@ const BrowsePreview = ({ project, role }) => {
 				properties: [{ distinct_id: globalSession.profileId }],
 			},
 		];
-		let data;
-		try {
-			data = await tracking.retrieve(process.env.NEXT_PUBLIC_PROJECT_A_SECRET, filters);
-		} catch (error) {
-			// TODO: Error handling
-		}
-		console.log(data);
-	}, []);
-
-	useEffect(() => {
+		const cb = (data) => {
+			console.log(data);
+		};
+		mp.init();
+		await mp.read(filters, cb);
 		return () => (ref.current = false);
 	}, []);
 
@@ -76,10 +65,7 @@ const BrowsePreview = ({ project, role }) => {
 					property1: "value1",
 					property2: 2,
 				};
-				// create an event
-				// first parameter is the event name
-				// optional second parameter containining additional data to store
-				mixpanel.track(`${project.name} ${tab}`, data);
+				mp.track(`${project.name} ${tab}`, data);
 			}
 		}
 	}, [router.query.tab]);
@@ -94,10 +80,7 @@ const BrowsePreview = ({ project, role }) => {
 			number: 42069,
 			array: [1, 2, 3, 4, 5],
 		};
-		// create an event
-		// first parameter is the event name
-		// optional second parameter containining additional data to store
-		mixpanel.track(`${project.name} Card`, data);
+		mp.track(`${project.name} Card`, data);
 	}, [project]);
 
 	const canPlayHandler = () => {

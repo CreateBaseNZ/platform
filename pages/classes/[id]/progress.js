@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useClass from "../../../hooks/useClass";
 import ProgressTable from "../../../components/Classes/Progress/ProgressTable";
 import Select from "../../../components/Classes/Progress/Select";
@@ -10,15 +10,17 @@ import { allData } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
 
 import classes from "../../../styles/classesProgress.module.scss";
+import useMixpanel from "../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../store/global-session-context";
 
 const printStatus = (status) => {
 	switch (status) {
 		case "completed":
 			return "Completed";
 		case "visited":
-			return "Visited for ≥ 60 seconds";
+			return "Visited for ≥60 seconds";
 		default:
-			return "Visited for < 60 seconds";
+			return "Visited for <60 seconds";
 	}
 };
 
@@ -174,8 +176,6 @@ const DUMMY_STUDENTS = [
 		name: "Gregory Goyle",
 		projects: randomProjects(),
 	},
-];
-const DUMMY_STUDENTS_1 = [
 	{
 		id: "oliverrivers",
 		name: "Oliver Rivers",
@@ -246,8 +246,6 @@ const DUMMY_STUDENTS_1 = [
 		name: "Roger Malone",
 		projects: randomProjects(),
 	},
-];
-const DUMMY_STUDENTS_2 = [
 	{
 		id: "seamusfinnigan",
 		name: "Seamus Finnigan",
@@ -305,40 +303,116 @@ const DUMMY_STUDENTS_2 = [
 	},
 ];
 
-const DUMMY_CLASSES = [
-	{ id: "darkarts", name: "Dark Arts", students: DUMMY_STUDENTS },
-	{ id: "potions", name: "Potions", students: DUMMY_STUDENTS_1 },
-	{ id: "alchemy", name: "Alchemy", students: DUMMY_STUDENTS_2 },
-];
-
 const PROJECT_OPTIONS = allData.map((project) => ({ id: project.query, name: project.name }));
 
 const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cur.name }), {});
 
 const ClassesProgress = () => {
+	const { globalSession } = useContext(GlobalSessionContext);
 	const { classObject, classLoaded } = useClass();
-	const [classSelect, setClassSelect] = useState({ isOpen: false, selected: DUMMY_CLASSES[0] });
-	const [viewSelect, setViewSelect] = useState({ isOpen: false, selected: PROGRESS_VIEW_OPTIONS[0] });
-	const [studentSelect, setStudentSelect] = useState({ isOpen: false, selected: classSelect.selected.students[0] });
-	const [projectSelect, setProjectSelect] = useState({ isOpen: false, selected: PROJECT_OPTIONS[0] });
-	const [data, setData] = useState(classSelect.selected.students);
+	const [preData, setPreData] = useState([]);
+	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
+	const [studentSelect, setStudentSelect] = useState();
+	const [projectSelect, setProjectSelect] = useState(PROJECT_OPTIONS[0]);
+	const [postData, setPostData] = useState([]);
 	const [tooltip, setTooltip] = useState();
+	const mp = useMixpanel();
+
+	useEffect(async () => {
+		if (!classLoaded) return;
+
+		const filters = [
+			{
+				event: "project_define",
+				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+			},
+		];
+		const callback = (rawData) => {
+			console.log(rawData);
+
+			const processData = (step, project, licenseId, threshold = 60, subsystem) => {
+				let duration = 0;
+				for (let k = 0; k < rawData.length; k++) {
+					if (
+						rawData[k].event === `project_${step}` &&
+						rawData[k].properties.project === project &&
+						rawData[k].properties.licenses.includes(licenseId) &&
+						(subsystem ? rawData[k].properties.subsystem === subsystem : true)
+					) {
+						duration += rawData[k].properties.duration;
+					}
+				}
+				let status = "";
+				let label = "Not visited";
+				if (duration > threshold) {
+					status = "completed";
+					label = "Visited for ≥60 seconds";
+				} else if (duration > 0) {
+					status = "visited";
+					label = "Visited for <60 seconds";
+				}
+				return { duration, status, label };
+			};
+
+			const processCreateData = (project, subsystems, licenseId) => {
+				const createData = {};
+				for (let j = 0; j < subsystems.length; j++) {
+					createData[subsystems[j].title] = {
+						name: subsystems[j].title,
+						// TODO uncomment
+						// research: processData("create_research", project, licenseId, createData[subsystems[j].research.threshold]),
+						// plan: processData("create_plan", project, licenseId, createData[subsystems[j].plan.threshold]),
+						// code: processData("create_code", project, licenseId, createData[subsystems[j].code.threshold]),
+						research: processData("create_research", project, licenseId, 60, subsystems[j].title),
+						plan: processData("create_plan", project, licenseId, 60, subsystems[j].title),
+						code: processData("create_code", project, licenseId, 60, subsystems[j].title),
+					};
+				}
+				return createData;
+			};
+
+			const _preData = classObject.students.map((student) => {
+				const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
+				for (let i = 0; i < allData.length; i++) {
+					studentData.projects[allData[i].query] = {
+						define: processData("define", allData[i].query, student.licenseId, allData[i].define.threshold),
+						imagine: processData("imagine", allData[i].query, student.licenseId, allData[i].imagine.threshold),
+						create: processCreateData(allData[i].query, allData[i].subsystems, student.licenseId),
+						// TODO uncomment
+						// improve: processData("improve", allData[i].query, student.licenseId, allData[i].improve.threshold),
+						improve: processData("improve", allData[i].query, student.licenseId),
+					};
+				}
+				return studentData;
+			});
+
+			setPreData(_preData);
+			setStudentSelect(_preData[0]);
+		};
+		await mp.read(filters, callback);
+	}, [classLoaded]);
 
 	useEffect(() => {
-		if (viewSelect.selected.id === "student") {
-			console.log(studentSelect);
-			const student = classSelect.selected.students.find((student) => student.id === studentSelect.selected.id);
+		if (!preData) return;
+
+		if (viewSelect.id === "student") {
+			const student = preData.find((student) => student.id === studentSelect.id);
 			if (student) {
-				setData(Object.keys(student.projects).map((key) => ({ ...student.projects[key], id: key, name: PROJECT_MAP[key] })));
+				setPostData(Object.keys(student.projects).map((key) => ({ ...student.projects[key], id: key, name: PROJECT_MAP[key] })));
 			} else {
-				setStudentSelect((state) => ({ ...state, selected: classSelect.selected.students[0] }));
+				setStudentSelect(preData[0]);
 			}
 		} else {
-			setData(classSelect.selected.students.map((student) => ({ ...student.projects[projectSelect.selected.id], id: student.id, name: student.name })));
+			setPostData(preData.map((student) => ({ ...student.projects[projectSelect.id], id: student.id, name: student.name })));
 		}
-	}, [classSelect.selected, viewSelect.selected, studentSelect.selected, projectSelect.selected]);
+	}, [preData, viewSelect, studentSelect, projectSelect]);
 
-	if (!classLoaded) return null;
+	console.log("pre data");
+	console.log(preData);
+
+	console.log("post data");
+	console.log(postData);
+	if (!postData) return null;
 
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
@@ -348,21 +422,20 @@ const ClassesProgress = () => {
 			</Head>
 			<div className={classes.header}>
 				<h1>Progress</h1>
-				<Select state={classSelect} setState={setClassSelect} label="Class" options={DUMMY_CLASSES} />
 				<Select state={viewSelect} setState={setViewSelect} label="View" options={PROGRESS_VIEW_OPTIONS} width={100} />
-				{viewSelect.selected.id === "student" ? (
-					<Select state={studentSelect} setState={setStudentSelect} label="Student" options={classSelect.selected.students} width={150} />
+				{viewSelect.id === "student" ? (
+					<Select state={studentSelect} setState={setStudentSelect} label="Student" options={preData} width={150} />
 				) : (
 					<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
 				)}
 				<HeaderToggle />
 			</div>
-			<ProgressTable data={data} view={viewSelect.selected} setTooltip={setTooltip} />
+			<ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} />
 			{tooltip && (
 				<div className={classes.tooltip} style={{ ...tooltip.position, ...tooltip.style }}>
 					<div className={classes.tooltipTitle}>{tooltip.title}</div>
 					<div className={classes.tooltipStep}>{tooltip.step}</div>
-					<div className={classes[tooltip.status]}>{printStatus(tooltip.status)}</div>
+					<div className={classes[tooltip.status]}>{tooltip.label}</div>
 					<div className={classes.tooltipDuration}>
 						{Math.floor(tooltip.duration / 3600) ? `${Math.floor(tooltip.duration / 3600)}hr` : ""}{" "}
 						{Math.floor((tooltip.duration % 3600) / 60) ? `${Math.floor((tooltip.duration % 3600) / 60)}min` : ""} {Math.floor(tooltip.duration % 60)}s
