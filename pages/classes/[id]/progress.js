@@ -324,7 +324,15 @@ const ClassesProgress = () => {
 		const filters = [
 			{
 				event: "project_define",
-				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+				// properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+			},
+			{
+				event: "project_imagine",
+				// properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+			},
+			{
+				event: "project_improve",
+				// properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
 			},
 		];
 		const callback = (rawData) => {
@@ -334,7 +342,7 @@ const ClassesProgress = () => {
 				let duration = 0;
 				for (let k = 0; k < rawData.length; k++) {
 					if (
-						rawData[k].event === `project_${step}` &&
+						rawData[k].event === step &&
 						rawData[k].properties.project === project &&
 						rawData[k].properties.licenses.includes(licenseId) &&
 						(subsystem ? rawData[k].properties.subsystem === subsystem : true)
@@ -363,9 +371,9 @@ const ClassesProgress = () => {
 						// research: processData("create_research", project, licenseId, createData[subsystems[j].research.threshold]),
 						// plan: processData("create_plan", project, licenseId, createData[subsystems[j].plan.threshold]),
 						// code: processData("create_code", project, licenseId, createData[subsystems[j].code.threshold]),
-						research: processData("create_research", project, licenseId, 60, subsystems[j].title),
-						plan: processData("create_plan", project, licenseId, 60, subsystems[j].title),
-						code: processData("create_code", project, licenseId, 60, subsystems[j].title),
+						research: processData("project_create_research", project, licenseId, 60, subsystems[j].title),
+						plan: processData("project_create_plan", project, licenseId, 60, subsystems[j].title),
+						code: processData("project_create_code", project, licenseId, 60, subsystems[j].title),
 					};
 				}
 				return createData;
@@ -375,12 +383,10 @@ const ClassesProgress = () => {
 				const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
 				for (let i = 0; i < allData.length; i++) {
 					studentData.projects[allData[i].query] = {
-						define: processData("define", allData[i].query, student.licenseId, allData[i].define.threshold),
-						imagine: processData("imagine", allData[i].query, student.licenseId, allData[i].imagine.threshold),
+						define: processData("project_define", allData[i].query, student.licenseId, allData[i].define.threshold),
+						imagine: processData("project_imagine", allData[i].query, student.licenseId, allData[i].imagine.threshold),
 						create: processCreateData(allData[i].query, allData[i].subsystems, student.licenseId),
-						// TODO uncomment
-						// improve: processData("improve", allData[i].query, student.licenseId, allData[i].improve.threshold),
-						improve: processData("improve", allData[i].query, student.licenseId),
+						improve: processData("project_improve", allData[i].query, student.licenseId),
 					};
 				}
 				return studentData;

@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import router from "next/router";
 import Head from "next/head";
+import useMixpanel from "../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../store/global-session-context";
 import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
 import Img from "../../../components/UI/Img";
 import VideoViewer from "../../../components/UI/VideoViewer";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "/styles/define.module.scss";
-import useMixpanel from "../../../hooks/useMixpanel";
-import GlobalSessionContext from "../../../store/global-session-context";
 
 const Define = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -20,7 +20,11 @@ const Define = () => {
 		const loadTime = Date.now();
 		return () => {
 			const unloadTime = Date.now();
-			console.log(unloadTime - loadTime);
+			console.log(globalSession.groups.map((group) => group.licenseId));
+			console.log(globalSession.groups.map((group) => group.id));
+			console.log(router.query.id);
+			console.log(loadTime);
+			console.log(unloadTime);
 			mp.track("project_define", {
 				licenses: globalSession.groups.map((group) => group.licenseId),
 				schools: globalSession.groups.map((group) => group.id),

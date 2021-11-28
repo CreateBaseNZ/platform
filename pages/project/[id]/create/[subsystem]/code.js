@@ -1,15 +1,36 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import router from "next/router";
+import Link from "next/link";
+import useMixpanel from "../../../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../../../store/global-session-context";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import SubsystemLayout from "../../../../../components/Layouts/SubsystemLayout/SubsystemLayout";
-import getProjectData from "../../../../../utils/getProjectData";
-import Link from "next/link";
 import Img from "../../../../../components/UI/Img";
+import getProjectData from "../../../../../utils/getProjectData";
 import classes from "/styles/code.module.scss";
 
 const Code = () => {
 	const [subsystemData, setSubsystemData] = useState();
+	const { globalSession } = useContext(GlobalSessionContext);
+	const mp = useMixpanel();
+
+	useEffect(() => {
+		mp.init();
+		const loadTime = Date.now();
+		return () => {
+			const unloadTime = Date.now();
+			mp.track("project_create_code", {
+				licenses: globalSession.groups.map((group) => group.licenseId),
+				schools: globalSession.groups.map((group) => group.id),
+				project: router.query.id,
+				subsystem: router.query.subsystem,
+				duration: Math.round((unloadTime - loadTime) / 1000),
+				load: loadTime,
+				unload: unloadTime,
+			});
+		};
+	}, []);
 
 	useEffect(() => {
 		const projectData = getProjectData(router.query?.id);
