@@ -1,5 +1,7 @@
-import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import router from "next/router";
 import useClass from "../../../hooks/useClass";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
@@ -13,6 +15,7 @@ import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesC
 import DUMMY_STUDENTS from "../../../constants/progress";
 
 import classes from "../../../styles/classesProgress.module.scss";
+import { SecondaryButton, TertiaryButton } from "../../../components/UI/Buttons";
 
 const EVENTS = ["project_define", "project_imagine", "project_improve", "project_create_research", "project_create_plan", "game_create", "game_improve"];
 
@@ -23,11 +26,11 @@ const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cu
 const ClassesProgress = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { classObject, classLoaded } = useClass();
-	const [preData, setPreData] = useState([]);
 	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
 	const [studentSelect, setStudentSelect] = useState();
 	const [projectSelect, setProjectSelect] = useState(PROJECT_OPTIONS[0]);
-	const [postData, setPostData] = useState([]);
+	const [preData, setPreData] = useState();
+	const [postData, setPostData] = useState();
 	const [tooltip, setTooltip] = useState();
 	const [isDummy, setIsDummy] = useState(false);
 	const mp = useMixpanel();
@@ -114,7 +117,7 @@ const ClassesProgress = () => {
 		}
 	}, [preData, viewSelect, studentSelect, projectSelect]);
 
-	if (!postData) return null;
+	console.log(postData);
 
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
@@ -124,8 +127,16 @@ const ClassesProgress = () => {
 			</Head>
 			{isDummy && (
 				<div className={classes.banner}>
-					<div className={classes.bannerHeading}>Welcome! You're viewing a class Progress demo</div>
-					<div className={classes.bannerBody}>The class data you're seeing is a sample set so you can start exploring some of the features!</div>
+					<i className="material-icons-outlined">tips_and_updates</i>
+					<div className={classes.bannerText}>
+						<div className={classes.bannerHeading}>Welcome! You're viewing a class Progress demo</div>
+						<div className={classes.bannerBody}>The class data you are seeing is a sample set so you can start exploring some of the features!</div>
+					</div>
+					<Link href={{ pathname: "/classes/[id]/manage-members", query: { id: router.query.id } }}>
+						<div>
+							<SecondaryButton className={classes.bannerBtn} mainLabel="Add students" iconLeft={<i className="material-icons-outlined">person_add</i>} />
+						</div>
+					</Link>
 				</div>
 			)}
 			<div className={classes.header}>
@@ -140,7 +151,16 @@ const ClassesProgress = () => {
 					<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
 				)}
 			</div>
-			<ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} />
+			{postData ? (
+				<ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} />
+			) : (
+				<div className={classes.skeletonLoading}>
+					<span />
+					<span />
+					<span />
+					<span />
+				</div>
+			)}
 			{tooltip && (
 				<div className={classes.tooltip} style={{ ...tooltip.position, ...tooltip.style }}>
 					<div className={classes.tooltipTitle}>{tooltip.title}</div>
