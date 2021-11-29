@@ -10,11 +10,9 @@ import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import { allData } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
-
-import classes from "../../../styles/classesProgress.module.scss";
 import DUMMY_STUDENTS from "../../../constants/progress";
 
-console.log(DUMMY_STUDENTS);
+import classes from "../../../styles/classesProgress.module.scss";
 
 const EVENTS = ["project_define", "project_imagine", "project_improve", "project_create_research", "project_create_plan", "game_create", "game_improve"];
 
@@ -31,6 +29,7 @@ const ClassesProgress = () => {
 	const [projectSelect, setProjectSelect] = useState(PROJECT_OPTIONS[0]);
 	const [postData, setPostData] = useState([]);
 	const [tooltip, setTooltip] = useState();
+	const [isDummy, setIsDummy] = useState(false);
 	const mp = useMixpanel();
 
 	useEffect(async () => {
@@ -89,10 +88,9 @@ const ClassesProgress = () => {
 				return studentData;
 			});
 
-			console.log(_preData);
-
 			if (!_preData.length) {
 				_preData = DUMMY_STUDENTS;
+				setIsDummy(true);
 			}
 
 			setPreData(_preData);
@@ -116,11 +114,6 @@ const ClassesProgress = () => {
 		}
 	}, [preData, viewSelect, studentSelect, projectSelect]);
 
-	console.log("pre data");
-	console.log(preData);
-
-	console.log("post data");
-	console.log(postData);
 	if (!postData) return null;
 
 	return (
@@ -129,15 +122,23 @@ const ClassesProgress = () => {
 				<title>Progress • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
+			{isDummy && (
+				<div className={classes.banner}>
+					<div className={classes.bannerHeading}>Welcome! You're viewing a class Progress demo</div>
+					<div className={classes.bannerBody}>The class data you're seeing is a sample set so you can start exploring some of the features!</div>
+				</div>
+			)}
 			<div className={classes.header}>
 				<h1>Progress</h1>
+				<HeaderToggle />
+			</div>
+			<div className={classes.controls}>
 				<Select state={viewSelect} setState={setViewSelect} label="View" options={PROGRESS_VIEW_OPTIONS} width={100} />
 				{viewSelect.id === "student" ? (
 					<Select state={studentSelect} setState={setStudentSelect} label="Student" options={preData} width={150} />
 				) : (
 					<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
 				)}
-				<HeaderToggle />
 			</div>
 			<ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} />
 			{tooltip && (

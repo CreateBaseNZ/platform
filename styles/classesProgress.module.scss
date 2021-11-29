@@ -15,12 +15,37 @@
 	}
 }
 
+.banner {
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem 1.5rem;
+	margin-bottom: 1rem;
+	border-radius: 16px;
+	box-shadow: 0 4px 16px 0 rgba($logo-mid, 0.15);
+	.bannerHeading {
+		font-size: 14px;
+		font-weight: 600;
+		margin: 0.25rem 0;
+		color: $logo-mid;
+	}
+	.bannerBody {
+		font-size: 12px;
+	}
+}
+
 .header {
 	flex: 0 0 auto;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	margin-bottom: 1rem;
+}
+
+.controls {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 1rem 0;
 }
 
 .tooltip {
