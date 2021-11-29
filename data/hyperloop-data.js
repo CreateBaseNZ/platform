@@ -25,7 +25,7 @@ export default {
 		"Convert a decimal number to a binary number",
 		"Convert any base number system to any other base number system by using base 10 as an intermediary conversion.",],
 	define: {
-		url: "https://youtu.be/a7ahjbh_lUg",
+		url: "https://youtu.be/UvZtYfMDLDI",
 		src: "/hyperloop/vid/situation.mp4",
 		h1: "",
 		h2: "",
