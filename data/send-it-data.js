@@ -36,6 +36,7 @@ export default {
 		"Read and act on sensor data using the Flow editor.",
 	],
 	define: {
+		threshold: 60,
 		url: "https://youtu.be/wB53GoLXzME",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
@@ -45,6 +46,7 @@ export default {
 		word: "/send-it/files/learning-journal.docx",
 	},
 	imagine: {
+		threshold: 600,
 		caption: [
 			"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
 			"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
@@ -84,6 +86,7 @@ export default {
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
+				threshold: 600,
 				caption: ["Work through the five modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
@@ -146,11 +149,15 @@ export default {
 					},
 				],
 			},
-			plan: [
+			plan: {
+				threshold: 30,
+				list: [
 				"Open up your learning journal and answer all of the questions in the Plan section.",
 				"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			],
+				],
+			},
 			code: {
+				threshold: 1200,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
 				hints: ["Make sure that you hit the compile button to upload your code to the robot"],
@@ -172,6 +179,7 @@ export default {
 		},
 	],
 	improve: {
+		threshold: 1200,
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert: "Did you beat the game? Uh oh, looks like there’s now some flying drones! And is that acceleration? Different sized obstacles too? Time to rethink your code...",
 		tasks: [

@@ -44,6 +44,7 @@ export default {
 		"Explore ways a solution can be optimised.",
 	],
 	define: {
+		threshold: 60,
 		url: "https://youtu.be/a7ahjbh_lUg",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/vid/situation.mp4",
 		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
@@ -53,6 +54,7 @@ export default {
 		word: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
 	},
 	imagine: {
+		threshold: 120,
 		caption: [
 			"As a class, dive into group discussions around the Project theme to fully define our problem.",
 			"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
@@ -82,6 +84,7 @@ export default {
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
+				threshold: 300,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
@@ -117,12 +120,16 @@ export default {
 					},
 				],
 			},
-			plan: [
+			plan: {
+				threshold: 60,
+				list:[
 				"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
 				"In the first step, our aim is to understand how we could move the robot through different paths by adjusting the speed of the wheels.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			],
+				],
+			},
 			code: {
+				threshold: 120,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, following a straight line accross the map."],
 				hints: [
@@ -138,6 +145,7 @@ export default {
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
+				threshold: 120,
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
@@ -162,12 +170,16 @@ export default {
 					},
 				],
 			},
-			plan: [
+			plan: {
+				threshold: 300,
+				list: [
 				"Think back to when you were manually controlling the robot... What information were you using to decide which action to perform?",
 				"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
 				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			],
+				],
+			},
 			code: {
+				threshold: 300,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line using the sensors."],
 				hints: [
@@ -190,15 +202,20 @@ export default {
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
+				threshold: 1,
 				caption: ["There is no research step. Move onto Plan."],
 				modules: [],
 			},
-			plan: [
-				"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
-				"In this step, our aim is to create a plan for how our robot could navigate around multiple turns.",
-				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 300,
+				list: [
+					"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
+					"In this step, our aim is to create a plan for how our robot could navigate around multiple turns.",
+					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 300,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line achieve turns properly."],
 				hints: [
@@ -221,6 +238,7 @@ export default {
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
+				threshold: 300,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
@@ -250,12 +268,16 @@ export default {
 					},
 				],
 			},
-			plan: [
-				"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
-				"In this step, our aim is to create a plan for how our robot could put out fires using the water hose",
-				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 120,
+				list: [
+					"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
+					"In this step, our aim is to create a plan for how our robot could put out fires using the water hose",
+					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 120,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, putting out fires along the way."],
 				hints: [
@@ -277,15 +299,20 @@ export default {
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
+				threshold: 1,
 				caption: ["There is no research step. Move onto Plan."],
 				modules: [],
 			},
-			plan: [
-				"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
-				"In this step, we will combine all of the logic and solutions that we have built so far to solve the full problem: navigating around the entire warehouse and putting out any fires in our way.",
-				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 30,
+				list: [
+					"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
+					"In this step, we will combine all of the logic and solutions that we have built so far to solve the full problem: navigating around the entire warehouse and putting out any fires in our way.",
+					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 120,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can follow the line, putting out fires along the way."],
 				hints: [
@@ -322,6 +349,7 @@ export default {
 		},
 	],
 	improve: {
+		threshold: 600,
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert:
 			"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
