@@ -29,7 +29,7 @@
 			},
 			"NodeMagnebotSwitch": {
 				"inputs": [{ "variable": "a", "type": "boolean", "value": true }],
-				"logic": "MagneticSwitchAlgorithm();",
+				"logic": "MagneticSwitchAlgorithm(a);",
 				"simpleLogic": "MagneticSwitch",
 				"await": true
 			}

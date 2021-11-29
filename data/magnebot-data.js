@@ -26,7 +26,7 @@ export default {
 		"Explain why it is important to only put the correct items in recycling bins.",
 	],
 	define: {
-		threshold: 60,
+		threshold: 30,
 		url: "https://youtu.be/iiWiwxxkq2Q",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/situation.mp4",
 		h1: "Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!",
@@ -36,7 +36,7 @@ export default {
 		word: "/magnebot/files/learning-journal.docx",
 	},
 	imagine: {
-		threshold: 60,
+		threshold: 300,
 		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
 		modules: [
 			{
@@ -58,7 +58,7 @@ export default {
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
 			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
 			research: {
-				threshold: 60,
+				threshold: 300,
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
@@ -103,7 +103,7 @@ export default {
 				],
 			},
 			plan: {
-				threshold: 60,
+				threshold: 30,
 				list: [
 					"Think back to when you were manually controlling the arm... What path did you take to reach the recycling bins? How did you avoid breaking the arm?",
 					"As a human, you had to decide which actions to perform in which order to move and control the magnetic sphere. Writing a program is the exact same thing! A program is simply a set of pre-written instructions that tell a robot or other device which action to perform in which order!",
@@ -111,7 +111,7 @@ export default {
 				],
 			},
 			code: {
-				threshold: 60,
+				threshold: 600,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that MagneBot can clean up the recycling facility for you", "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!"],
 				hints: [
@@ -128,7 +128,7 @@ export default {
 		},
 	],
 	improve: {
-		threshold: 60,
+		threshold: 300,
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert:
 			"Did you manage to clean up the facility? Uh oh, looks like there's now even more items scattered across the floor! Lucky for us, this time it is after hours! Have fun playing around with MagneBot with no rules to follow or objectives to complete. However, if you want a challenge, try attempting one of the following tasks and see if you can best your classmates.",

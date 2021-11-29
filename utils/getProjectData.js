@@ -17,7 +17,7 @@ const getProjectData = (query) => {
 		case "magnebot": return magnebotData;
 		case "heat-seeker": return heatSeekerData;
 		case "aimbot": return aimbotData;
-		case "hyperloop": return hyperloopData;
+		//case "hyperloop": return hyperloopData;
 		default:
 			return null;
 	}
@@ -25,4 +25,5 @@ const getProjectData = (query) => {
 
 export default getProjectData;
 
-export const allData = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData];
+//export const allData = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData];
+export const allData = [magnebotData, sendItData, heatSeekerData, aimbotData];
