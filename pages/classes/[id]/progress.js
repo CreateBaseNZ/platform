@@ -12,6 +12,9 @@ import { allData } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
 
 import classes from "../../../styles/classesProgress.module.scss";
+import DUMMY_STUDENTS from "../../../constants/progress";
+
+console.log(DUMMY_STUDENTS);
 
 const EVENTS = ["project_define", "project_imagine", "project_improve", "project_create_research", "project_create_plan", "game_create", "game_improve"];
 
@@ -73,7 +76,7 @@ const ClassesProgress = () => {
 				return createData;
 			};
 
-			const _preData = classObject.students.map((student) => {
+			let _preData = classObject.students.map((student) => {
 				const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
 				for (let i = 0; i < allData.length; i++) {
 					studentData.projects[allData[i].query] = {
@@ -87,6 +90,11 @@ const ClassesProgress = () => {
 			});
 
 			console.log(_preData);
+
+			if (!_preData.length) {
+				_preData = DUMMY_STUDENTS;
+			}
+
 			setPreData(_preData);
 			setStudentSelect(_preData[0]);
 		};
