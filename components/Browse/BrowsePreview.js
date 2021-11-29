@@ -35,22 +35,22 @@ const BrowsePreview = ({ project, role }) => {
 	const mp = useMixpanel();
 
 	useEffect(async () => {
-		// EXAMPLE: Fetching data
-		// Array of filters
-		// Each filter has two properties:
-		//			event - the event name that we want to retrieve
-		//			properties - further filter the datasets to only containing the properties specified
-		const filters = [
-			{
-				event: "MagneBot Card",
-				properties: [{ distinct_id: globalSession.profileId }],
-			},
-		];
-		const cb = (data) => {
-			console.log(data);
-		};
-		mp.init();
-		await mp.read(filters, cb);
+		// // EXAMPLE: Fetching data
+		// // Array of filters
+		// // Each filter has two properties:
+		// //			event - the event name that we want to retrieve
+		// //			properties - further filter the datasets to only containing the properties specified
+		// const filters = [
+		// 	{
+		// 		event: "MagneBot Card",
+		// 		properties: [{ distinct_id: globalSession.profileId }],
+		// 	},
+		// ];
+		// const cb = (data) => {
+		// 	console.log(data);
+		// };
+		// mp.init();
+		// await mp.read(filters, cb);
 		return () => (ref.current = false);
 	}, []);
 
@@ -60,12 +60,12 @@ const BrowsePreview = ({ project, role }) => {
 			const queriedStep = getTabs(role).find((t) => t === tab);
 			if (queriedStep) {
 				setTab(queriedStep);
-				// mixpanel tracking
-				const data = {
-					property1: "value1",
-					property2: 2,
-				};
-				mp.track(`${project.name} ${tab}`, data);
+				// // mixpanel tracking
+				// const data = {
+				// 	property1: "value1",
+				// 	property2: 2,
+				// };
+				// mp.track(`${project.name} ${tab}`, data);
 			}
 		}
 	}, [router.query.tab]);
@@ -74,13 +74,13 @@ const BrowsePreview = ({ project, role }) => {
 		if (ref.current) {
 			setVideoLoaded(false);
 		}
-		// mixpanel tracking
-		const data = {
-			string: "Hello World!",
-			number: 42069,
-			array: [1, 2, 3, 4, 5],
-		};
-		mp.track(`${project.name} Card`, data);
+		// // mixpanel tracking
+		// const data = {
+		// 	string: "Hello World!",
+		// 	number: 42069,
+		// 	array: [1, 2, 3, 4, 5],
+		// };
+		// mp.track(`${project.name} Card`, data);
 	}, [project]);
 
 	const canPlayHandler = () => {

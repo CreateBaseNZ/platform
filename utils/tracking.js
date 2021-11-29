@@ -1,8 +1,7 @@
 import axios from "axios";
-import moment from "moment";
-// import moment from "moment";
+import moment from "moment-timezone";
 
-const retrieve = (PROJECT_SECRET, filters = [], fromDate = "2021-01-01", toDate = moment.utc().format("YYYY-MM-DD")) => {
+const retrieve = (PROJECT_SECRET, filters = [], fromDate = "2021-01-01", toDate = moment().tz("Pacific/Auckland").format("YYYY-MM-DD")) => {
 	return new Promise(async (resolve, reject) => {
 		let rawData;
 		if (process.env.NEXT_PUBLIC_DEPLOYMENT === "development") {

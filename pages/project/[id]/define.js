@@ -17,23 +17,12 @@ const Define = () => {
 
 	useEffect(() => {
 		mp.init();
-		const loadTime = Date.now();
-		return () => {
-			const unloadTime = Date.now();
-			console.log(globalSession.groups.map((group) => group.licenseId));
-			console.log(globalSession.groups.map((group) => group.id));
-			console.log(router.query.id);
-			console.log(loadTime);
-			console.log(unloadTime);
-			mp.track("project_define", {
-				licenses: globalSession.groups.map((group) => group.licenseId),
-				schools: globalSession.groups.map((group) => group.id),
-				project: router.query.id,
-				duration: Math.round((unloadTime - loadTime) / 1000),
-				load: loadTime,
-				unload: unloadTime,
-			});
-		};
+		const clearSession = mp.trackActiveSession("project_define", {
+			licenses: globalSession.groups.map((group) => group.licenseId),
+			schools: globalSession.groups.map((group) => group.id),
+			project: router.query.id,
+		});
+		return () => clearSession();
 	}, []);
 
 	useEffect(() => {

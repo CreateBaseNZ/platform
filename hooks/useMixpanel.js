@@ -34,7 +34,69 @@ const useMixpanel = () => {
 		mixpanel.track(event, data);
 	};
 
-	return { init, read, track };
+	const trackActiveSession = (event, data) => {
+		console.log("tracking started");
+		const inactivityTimer = 30000; // in ms
+		const throttleInterval = 1000; // ms
+		let throttleTimer = null;
+		let sessionTimer = null;
+		let startTime = Date.now();
+		console.log("session started");
+
+		const endSession = () => {
+			const endTime = Date.now();
+			console.log("session ended");
+			const duration = endTime - startTime;
+			// session not force ended (i.e. via clearSession())
+			if (duration > inactivityTimer) {
+				duration -= inactivityTimer;
+			}
+			console.log(duration);
+			track(event, { ...data, start: startTime, end: endTime, duration: Math.round(duration / 1000) });
+			startTime = null;
+		};
+
+		const continueSession = () => {
+			if (throttleTimer === null) {
+				throttleTimer = setTimeout(() => {
+					if (startTime === null) {
+						startTime = Date.now();
+						console.log("session started");
+					} else {
+						console.log("session continued");
+					}
+					clearTimeout(sessionTimer);
+					sessionTimer = setTimeout(endSession, inactivityTimer); // inactive margin in ms
+					throttleTimer = null;
+				}, throttleInterval); // throttle interval in ms
+			}
+		};
+
+		window.onmousemove = continueSession;
+		window.onmousedown = continueSession;
+		window.ontouchstart = continueSession;
+		window.onclick = continueSession;
+		window.onkeydown = continueSession;
+		window.addEventListener("scroll", continueSession, true);
+		console.log(window);
+
+		// cleanup
+		const clearSession = () => {
+			endSession();
+			window.onmousemove = null;
+			window.onmousedown = null;
+			window.ontouchstart = null;
+			window.onclick = null;
+			window.onkeydown = null;
+			window.removeEventListener("scroll", continueSession);
+			clearTimeout(sessionTimer);
+			clearTimeout(throttleTimer);
+		};
+
+		return clearSession;
+	};
+
+	return { init, read, track, trackActiveSession };
 };
 
 export default useMixpanel;

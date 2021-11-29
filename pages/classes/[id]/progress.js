@@ -324,20 +324,26 @@ const ClassesProgress = () => {
 		const filters = [
 			{
 				event: "project_define",
-				// properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
 			},
 			{
 				event: "project_imagine",
-				// properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
 			},
 			{
 				event: "project_improve",
-				// properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+			},
+			{
+				event: "project_create_research",
+				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+			},
+			{
+				event: "project_create_plan",
+				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
 			},
 		];
 		const callback = (rawData) => {
-			console.log(rawData);
-
 			const processData = (step, project, licenseId, threshold = 60, subsystem) => {
 				let duration = 0;
 				for (let k = 0; k < rawData.length; k++) {
