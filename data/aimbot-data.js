@@ -42,6 +42,7 @@ export default {
 		"Apply control systems theory to a control plant.",
 	],
 	define: {
+		threshold: 30,
 		url: "https://www.youtube.com/watch?v=znMZhBSDW_I",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
@@ -51,6 +52,7 @@ export default {
 		word: "/aimbot/files/210505AC AimBot Learning Journal.docx",
 	},
 	imagine: {
+		threshold: 60,
 		caption: [
 			"As a class, dive into group discussions around the Project theme to fully define our problem.",
 			"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
@@ -65,11 +67,12 @@ export default {
 	},
 	subsystems: [
 		{
-			title: "Subsystem 1",
+			title: "Subsystem 1: Yaw",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_1.jpg",
 			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
+				threshold: 600,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
@@ -89,11 +92,15 @@ export default {
 					},
 				],
 			},
-			plan: [
-				"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
-				"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 600,
+				list: [
+					"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
+					"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 600,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
 					"Mosquitos will be appearing across your screen in a horizontal line.",
@@ -117,11 +124,12 @@ export default {
 			],
 		},
 		{
-			title: "Subsystem 2",
+			title: "Subsystem 2: Pitch & Yaw",
 			requirements: ["Subsystem 1"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_2.jpg",
 			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
 			research: {
+				threshold: 30,
 				caption: ["There is no new research for this sub-problem. Move onto Plan."],
 				modules: [
 					{
@@ -131,11 +139,15 @@ export default {
 					},
 				],
 			},
-			plan: [
-				"In this second subsystem, our aim is to expand our code from subsystem 1 to also aim in the vertical direction by controlling the pitch rotation of the robot's arm.",
-				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 30,
+				list: [
+					"In this second subsystem, our aim is to expand our code from subsystem 1 to also aim in the vertical direction by controlling the pitch rotation of the robot's arm.",
+					"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 300,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
 					"Mosquitos will now start appearing to the left, to the right, up and down.",
@@ -160,11 +172,12 @@ export default {
 			],
 		},
 		{
-			title: "Subsystem 3",
+			title: "Subsystem 3: Velocity Controller",
 			requirements: ["Subsystem 1"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_3.jpg",
 			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
 			research: {
+				threshold: 600,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
@@ -184,12 +197,16 @@ export default {
 					},
 				],
 			},
-			plan: [
-				"In the third subsystem, we are trying to implement a controller for our motors to avoid changing our velocity too quickly and breaking the arm.",
-				"To keep things simple, we will start by just considering mosquitos appearing along one direction (the x-axis).",
-				"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 3. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 600,
+				list: [
+					"In the third subsystem, we are trying to implement a controller for our motors to avoid changing our velocity too quickly and breaking the arm.",
+					"To keep things simple, we will start by just considering mosquitos appearing along one direction (the x-axis).",
+					"We will start by making a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 3. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 600,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
 					"Mosquitos will be appearing across your screen in a horizontal line.",
@@ -214,18 +231,23 @@ export default {
 			],
 		},
 		{
-			title: "Subsystem 4",
+			title: "Subsystem 4: All Together",
 			requirements: ["Subsystem 2", "Subsystem 3"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_4.jpg",
 			description: "Lets put together everything that we have learnt to program a solution to the full problem!",
 			research: {
+				threshold: 1,
 				caption: ["There is no new research for this sub-problem. Move directly to Plan. Do not pass Go. Do not collect $100."],
 				modules: [],
 			},
-			plan: [
-				"We will now plan how we will put everything that we have learnt so far together to solve the full problem. Open up your learning journal and answer all of the questions in the Plan section for subsystem 4. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 30,
+				list: [
+					"We will now plan how we will put everything that we have learnt so far together to solve the full problem. Open up your learning journal and answer all of the questions in the Plan section for subsystem 4. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 600,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
 					"Just like in subsystem 2, mosquitos will appear to the left, to the right, up and down.",
@@ -253,6 +275,7 @@ export default {
 		},
 	],
 	improve: {
+		threshold: 600,
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert: "Congratulations! You now have a solution that will destroy any mosquitos that cross the path of your robot! Mosquitos everywhere will be trembling in fear! We have now added a timer to the simulation that will measure how long it takes your robot to find and destroy all of the mosquitos.",
 		tasks: [
