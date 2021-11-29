@@ -12,6 +12,7 @@ import CLASSES_TABS from "../../../constants/classesConstants";
 import { MANAGE_MEMBERS_COLUMNS, MANAGE_MEMBERS_SIZES } from "../../../constants/classesConstants";
 
 import classes from "../../../styles/classManageMembers.module.scss";
+import SkeletonTable from "../../../components/UI/SkeletonTable";
 
 const ClassesManage = () => {
 	const ref = useRef();
@@ -43,8 +44,6 @@ const ClassesManage = () => {
 		),
 	];
 
-	if (!classLoaded) return null;
-
 	return (
 		<div className={classes.view} ref={ref}>
 			<Head>
@@ -55,7 +54,7 @@ const ClassesManage = () => {
 				Manage Members
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} /> <HeaderToggle />
 			</h1>
-			<Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} />
+			{classObject.students ? <Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} /> : <SkeletonTable />}
 			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} setClassObject={setClassObject} />}
 		</div>
 	);

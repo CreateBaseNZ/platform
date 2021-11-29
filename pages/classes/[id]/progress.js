@@ -10,12 +10,13 @@ import Select from "../../../components/Classes/Progress/Select";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
+import { SecondaryButton } from "../../../components/UI/Buttons";
 import { ALL_PROJECT_DATA } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
 import DUMMY_STUDENTS from "../../../constants/progress";
 
 import classes from "../../../styles/classesProgress.module.scss";
-import { SecondaryButton } from "../../../components/UI/Buttons";
+import SkeletonTable from "../../../components/UI/SkeletonTable";
 
 const EVENTS = ["project_define", "project_imagine", "project_improve", "project_create_research", "project_create_plan", "game_create", "game_improve"];
 
@@ -151,16 +152,7 @@ const ClassesProgress = () => {
 					<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
 				)}
 			</div>
-			{postData ? (
-				<ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} />
-			) : (
-				<div className={classes.skeletonLoading}>
-					<span />
-					<span />
-					<span />
-					<span />
-				</div>
-			)}
+			{postData ? <ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} /> : <SkeletonTable />}
 			{tooltip && (
 				<div className={classes.tooltip} style={{ ...tooltip.position, ...tooltip.style }}>
 					<div className={classes.tooltipTitle}>{tooltip.title}</div>

@@ -10,7 +10,7 @@ const useClass = () => {
 	const [classLoaded, setClassLoaded] = useState(false);
 
 	useEffect(async () => {
-		if (router?.query?.id) {
+		if (router.isReady) {
 			await post({
 				route: "/api/classes/fetch-one",
 				input: { profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id, classId: router.query.id },
@@ -25,7 +25,7 @@ const useClass = () => {
 				},
 			});
 		}
-	}, [router]);
+	}, [router.isReady, router.query.id]);
 
 	return { classObject, setClassObject, classLoaded };
 };
