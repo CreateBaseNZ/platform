@@ -48,7 +48,7 @@ const Plan = () => {
 				</div>
 				<div className={classes.contentContainer}>
 					<h2>Let's plan!</h2>
-					{subsystemData.plan.map((p, i) => (
+					{subsystemData.plan.list.map((p, i) => (
 						<p key={i} className={classes.content}>
 							{p}
 						</p>

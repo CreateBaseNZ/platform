@@ -35,9 +35,11 @@ export default {
 	learningOutcome: "/hyperloop/files/project-overview.pdf",
 	curriculumAlignment: "/hyperloop/files/curriculum-alignment.pdf",
 	lessonPlan: "/hyperloop/files/lesson-plan-hyperloop.pdf",
-	learnings: ["Convert a binary number to a decimal number.",
+	learnings: [
+		"Convert a binary number to a decimal number.",
 		"Convert a decimal number to a binary number",
-		"Convert any base number system to any other base number system by using base 10 as an intermediary conversion.",],
+		"Convert any base number system to any other base number system by using base 10 as an intermediary conversion.",
+	],
 	define: {
 		url: "https://youtu.be/a7ahjbh_lUg",
 		src: "/hyperloop/vid/situation.mp4",
@@ -75,7 +77,8 @@ export default {
 			title: "Subsystem 1",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
-			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+			description:
+				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
@@ -105,13 +108,13 @@ export default {
 				tasks: [
 					"Mosquitos will be appearing across your screen in a horizontal line.",
 					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
-					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly."
+					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly.",
 				],
 				hints: [
 					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
 					"You can aim by controlling the velocity of the motors in the robot's arm.",
 					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps."
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps.",
 				],
 			},
 			blockList: [
@@ -124,6 +127,6 @@ export default {
 				{ name: "Conditionals", blocks: [<NodeIfMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
-		}
-	]
+		},
+	],
 };

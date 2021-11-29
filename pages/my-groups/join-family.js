@@ -1,3 +1,5 @@
+// BACKLOG - this page
+
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -17,7 +19,6 @@ const JoinFamily = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	//TODO
 	const onSubmit = () => {};
 
 	return (
