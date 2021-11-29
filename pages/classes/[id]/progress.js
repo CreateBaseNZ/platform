@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import useClass from "../../../hooks/useClass";
+import useMixpanel from "../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../store/global-session-context";
 import ProgressTable from "../../../components/Classes/Progress/ProgressTable";
 import Select from "../../../components/Classes/Progress/Select";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
@@ -10,298 +12,8 @@ import { allData } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
 
 import classes from "../../../styles/classesProgress.module.scss";
-import useMixpanel from "../../../hooks/useMixpanel";
-import GlobalSessionContext from "../../../store/global-session-context";
 
-const printStatus = (status) => {
-	switch (status) {
-		case "completed":
-			return "Completed";
-		case "visited":
-			return "Visited for ≥60 seconds";
-		default:
-			return "Visited for <60 seconds";
-	}
-};
-
-const randomProjects = () => {
-	return {
-		"heat-seeker": {
-			define: { ...generateRandom() },
-			imagine: { ...generateRandom() },
-			create: {
-				"sub-1": {
-					name: "Subsystem 1",
-					research: { ...generateRandom() },
-					plan: { ...generateRandom() },
-					code: { ...generateRandom() },
-				},
-				"sub-2": {
-					name: "Subsystem 2",
-					research: { ...generateRandom() },
-					plan: { ...generateRandom() },
-					code: { ...generateRandom() },
-				},
-			},
-			improve: { ...generateRandom() },
-		},
-		magnebot: {
-			define: { ...generateRandom() },
-			imagine: { ...generateRandom() },
-			create: {
-				"sub-1": {
-					name: "Subsystem 1",
-					research: { ...generateRandom() },
-					plan: { ...generateRandom() },
-					code: { ...generateRandom() },
-				},
-			},
-			improve: { ...generateRandom() },
-		},
-		"send-it": {
-			define: { ...generateRandom() },
-			imagine: { ...generateRandom() },
-			create: {
-				"sub-1": {
-					name: "Subsystem 1",
-					research: { ...generateRandom() },
-					plan: { ...generateRandom() },
-					code: { ...generateRandom() },
-				},
-				"sub-2": {
-					name: "Subsystem 2",
-					research: { ...generateRandom() },
-					plan: { ...generateRandom() },
-					code: { ...generateRandom() },
-				},
-				"sub-3": {
-					name: "Subsystem 3",
-					research: { ...generateRandom() },
-					plan: { ...generateRandom() },
-					code: { ...generateRandom() },
-				},
-			},
-			improve: { ...generateRandom() },
-		},
-	};
-};
-
-const generateRandom = () => {
-	const strings = ["completed", "visited", ""];
-	const randomIndex = Math.floor(Math.random() * strings.length);
-	let duration;
-	if (randomIndex === 0) {
-		duration = Math.random() * 600 + 60;
-	} else if (randomIndex === 1) {
-		duration = Math.random() * 600 + 60;
-	} else {
-		duration = Math.random() * 60;
-	}
-	return { duration: duration, status: strings[randomIndex] };
-};
-
-const DUMMY_STUDENTS = [
-	{
-		id: "sophieroper",
-		name: "Sophie Roper",
-		projects: randomProjects(),
-	},
-	{
-		id: "mandybrocklehurst",
-		name: "Mandy Brocklehurst",
-		projects: randomProjects(),
-	},
-	{
-		id: "isobelmacdougal",
-		name: "Isabel MacDougal",
-		projects: randomProjects(),
-	},
-	{
-		id: "anthonygoldstein",
-		name: "Anthony Goldstein",
-		projects: randomProjects(),
-	},
-	{
-		id: "parvatipatil",
-		name: "Parvati Patil",
-		projects: randomProjects(),
-	},
-	{
-		id: "runcorn",
-		name: "Runcorn",
-		projects: randomProjects(),
-	},
-	{
-		id: "sallysmith",
-		name: "Sally Smith",
-		projects: randomProjects(),
-	},
-	{
-		id: "ronaldweasley",
-		name: "Ronald Weasley",
-		projects: randomProjects(),
-	},
-	{
-		id: "michaelcorner",
-		name: "Michael Corner",
-		projects: randomProjects(),
-	},
-	{
-		id: "lilymoon",
-		name: "Lily Moon",
-		projects: randomProjects(),
-	},
-	{
-		id: "traceydavis",
-		name: "Tracey Davis",
-		projects: randomProjects(),
-	},
-	{
-		id: "nevillelongbottom",
-		name: "Neville Longbottom",
-		projects: randomProjects(),
-	},
-	{
-		id: "harrypotter",
-		name: "Harry Potter",
-		projects: randomProjects(),
-	},
-	{
-		id: "susanbones",
-		name: "Susan Bones",
-		projects: randomProjects(),
-	},
-	{
-		id: "gregorygoyle",
-		name: "Gregory Goyle",
-		projects: randomProjects(),
-	},
-	{
-		id: "oliverrivers",
-		name: "Oliver Rivers",
-		projects: randomProjects(),
-	},
-	{
-		id: "theodorenott",
-		name: "Theodore Nott",
-		projects: randomProjects(),
-	},
-	{
-		id: "lisaturpin",
-		name: "Lisa Turpin",
-		projects: randomProjects(),
-	},
-	{
-		id: "waynehopkins",
-		name: "Wayne Hipkins",
-		projects: randomProjects(),
-	},
-	{
-		id: "deanthomas",
-		name: "Dean Thomas",
-		projects: randomProjects(),
-	},
-	{
-		id: "meganjones",
-		name: "Megan Jones",
-		projects: randomProjects(),
-	},
-	{
-		id: "sueli",
-		name: "Sue Li",
-		projects: randomProjects(),
-	},
-	{
-		id: "terryboot",
-		name: "Terry Boot",
-		projects: randomProjects(),
-	},
-	{
-		id: "stephencornfoot",
-		name: "Stephen Cornfoot",
-		projects: randomProjects(),
-	},
-	{
-		id: "hermionegranger",
-		name: "Hermione Granger",
-		projects: randomProjects(),
-	},
-	{
-		id: "millicentbulstrode",
-		name: "Millicent Bulstrode",
-		projects: randomProjects(),
-	},
-	{
-		id: "vincentcrabbe",
-		name: "Vincent Crabbe",
-		projects: randomProjects(),
-	},
-	{
-		id: "lavenderbrown",
-		name: "Lavender Brown",
-		projects: randomProjects(),
-	},
-	{
-		id: "rogermalone",
-		name: "Roger Malone",
-		projects: randomProjects(),
-	},
-	{
-		id: "seamusfinnigan",
-		name: "Seamus Finnigan",
-		projects: randomProjects(),
-	},
-	{
-		id: "pansyparkinson",
-		name: "Pansy Parkinson",
-		projects: randomProjects(),
-	},
-	{
-		id: "kevinentwhistle",
-		name: "Kevin Entwhistle",
-		projects: randomProjects(),
-	},
-	{
-		id: "hannahabbot",
-		name: "Hannah Abbot",
-		projects: randomProjects(),
-	},
-	{
-		id: "padmapatil",
-		name: "Padma Patil",
-		projects: randomProjects(),
-	},
-	{
-		id: "justinfinchfletchley",
-		name: "Justin Finch-Fletchley",
-		projects: randomProjects(),
-	},
-	{
-		id: "draco malfoy",
-		name: "Draco Malfoy",
-		projects: randomProjects(),
-	},
-	{
-		id: "sally-anneperks",
-		name: "Sally-Anne Perks",
-		projects: randomProjects(),
-	},
-	{
-		id: "blaisezabini",
-		name: "Blaise Zabini",
-		projects: randomProjects(),
-	},
-	{
-		id: "erniemacmillan",
-		name: "Ernie Macmillan",
-		projects: randomProjects(),
-	},
-	{
-		id: "daphnegreengrass",
-		name: "Daphne Greengrass",
-		projects: randomProjects(),
-	},
-];
+const EVENTS = ["project_define", "project_imagine", "project_improve", "project_create_research", "project_create_plan", "game_create", "game_improve"];
 
 const PROJECT_OPTIONS = allData.map((project) => ({ id: project.query, name: project.name }));
 
@@ -321,38 +33,10 @@ const ClassesProgress = () => {
 	useEffect(async () => {
 		if (!classLoaded) return;
 
-		const filters = [
-			{
-				event: "project_define",
-				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
-			},
-			{
-				event: "project_imagine",
-				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
-			},
-			{
-				event: "project_improve",
-				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
-			},
-			{
-				event: "project_create_research",
-				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
-			},
-			{
-				event: "project_create_plan",
-				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
-			},
-			{
-				event: "game_create",
-				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
-			},
-			{
-				event: "game_improve",
-				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
-			},
-		];
+		const filters = EVENTS.map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
+
 		const callback = (rawData) => {
-			const processData = (step, project, licenseId, threshold = 60, subsystem) => {
+			const processData = (step, project, licenseId, threshold, subsystem) => {
 				let duration = 0;
 				for (let k = 0; k < rawData.length; k++) {
 					if (
@@ -381,13 +65,9 @@ const ClassesProgress = () => {
 				for (let j = 0; j < subsystems.length; j++) {
 					createData[subsystems[j].title] = {
 						name: subsystems[j].title,
-						// TODO uncomment
-						// research: processData("create_research", project, licenseId, createData[subsystems[j].research.threshold]),
-						// plan: processData("create_plan", project, licenseId, createData[subsystems[j].plan.threshold]),
-						// code: processData("create_code", project, licenseId, createData[subsystems[j].code.threshold]),
-						research: processData("project_create_research", project, licenseId, 60, subsystems[j].title),
-						plan: processData("project_create_plan", project, licenseId, 60, subsystems[j].title),
-						code: processData("game_create", project, licenseId, 60, subsystems[j].title),
+						research: processData("create_research", project, licenseId, createData[subsystems[j].research.threshold]),
+						plan: processData("create_plan", project, licenseId, createData[subsystems[j].plan.threshold]),
+						code: processData("create_code", project, licenseId, createData[subsystems[j].code.threshold]),
 					};
 				}
 				return createData;
@@ -400,7 +80,7 @@ const ClassesProgress = () => {
 						define: processData("project_define", allData[i].query, student.licenseId, allData[i].define.threshold),
 						imagine: processData("project_imagine", allData[i].query, student.licenseId, allData[i].imagine.threshold),
 						create: processCreateData(allData[i].query, allData[i].subsystems, student.licenseId),
-						improve: processData("game_improve", allData[i].query, student.licenseId),
+						improve: processData("game_improve", allData[i].query, student.licenseId, allData[i].improve.threshold),
 					};
 				}
 				return studentData;

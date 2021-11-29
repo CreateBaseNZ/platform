@@ -44,7 +44,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 					<ClassesContextProvider>
 						<MainLayoutContextProvider>
 							<div id="modal-root" />
-							<NextNProgress color={styles.logoMid} height={3} />
+							<NextNProgress color={styles.logoMid} height={3} options={{ showSpinner: false }} />
 							{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
 							<MobileView />
 							<VisualBell />
