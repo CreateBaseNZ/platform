@@ -86,6 +86,7 @@ const ClassesProgress = () => {
 				return studentData;
 			});
 
+			console.log(_preData);
 			setPreData(_preData);
 			setStudentSelect(_preData[0]);
 		};
