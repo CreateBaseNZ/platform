@@ -17,6 +17,14 @@ export const GETTING_STARTED_ON_CREATEBASE = {
 		<>
 			<p>This Getting Started video explains the basics to start you on your journey on the CreateBase platform.</p>
 			<p>This is the same as your onboarding video, so if you can remember that then there is no need to rewatch it.</p>
+			<iframe
+				src="https://www.youtube.com/embed/Fd9pVmFwVd8"
+				title="YouTube video player"
+				className="embedded-video-16-9"
+				frameBorder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowFullScreen
+			/>
 		</>
 	),
 };
@@ -58,6 +66,14 @@ export const JOIN_A_SCHOOL = {
 			<p>To join your school, click "Join a school" and then enter the code given to you by your teacher.</p>
 			<img srcr="/support/join a school student.JPG" style={{ maxWidth: 800 }} />
 			<p>If you have not received a student code, ask your teacher to click "Add" on their Manage Group page and share this code with you.</p>
+			<iframe
+				src="https://www.youtube.com/embed/Fd9pVmFwVd8"
+				title="YouTube video player"
+				className="embedded-video-16-9"
+				frameBorder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowFullScreen
+			/>
 		</>
 	),
 };
@@ -193,7 +209,10 @@ export const LEARNING_JOURNALS = {
 			<ol>
 				<li>Open a Project</li>
 				<li>Head to the Define tab</li>
-				<li>Open the learning journal in either Google Docs or Word and save a local copy</li>
+				<li>
+					Open the learning journal in either Google Docs or Word and save a local copy
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/learning journal final.gif" style={{ maxWidth: 800 }} />
+				</li>
 			</ol>
 			<h2>How do I use learning journals?</h2>
 			<p>
@@ -372,6 +391,7 @@ export const STEP_2_IMAGINE = {
 				simulated environment and discuss how the robotic system is a viable solution. After starting with a broad solution defined by the students, this second half reframes and narrows their focus
 				for the tasks at hand.
 			</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/imagine gif.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -444,7 +464,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				are writing much more tangible as there are clear (and sometimes catastrophic) results for every change that they make. With a digital solution, there are no consequences for breaking the
 				robot so students are free to experiment and push boundaries with their testing, providing a rich opportunity for guided discovery learning.
 			</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/code gif.gif" style={{ maxWidth: 800 }} />{" "}
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/code gif.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -466,6 +486,7 @@ export const STEP_4_IMPROVE = {
 				<li>Problem extensions</li>
 				<li>Text-based coding</li>
 			</ul>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/improve gif.gif" style={{ maxWidth: 800 }} />
 			<p>
 				Although every student should be able to complete the Create step, the Improve step is often more open-ended, with room for students to create increasingly better-performing solutions. This
 				makes the Improve step an ideal place to cultivate the abilities of excelling students as an extension activity.
@@ -516,6 +537,7 @@ export const LESSON_PLANS = {
 				<li>Open the teaching tab</li>
 				<li>Open or download the lesson plan pdf</li>
 			</ul>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson plan gif.gif" style={{ maxWidth: 800 }} />
 			<p>And presto, it's that easy.</p>
 			<h2>Learning about the concepts you're teaching</h2>
 			<p>

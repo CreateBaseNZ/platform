@@ -7,8 +7,9 @@ import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/Proje
 import SubsystemLayout from "../../../../../components/Layouts/SubsystemLayout/SubsystemLayout";
 import ModuleContainer from "../../../../../components/UI/ModuleContainer";
 import VideoViewer from "../../../../../components/UI/VideoViewer";
-import getProjectData from "../../../../../utils/getProjectData";
 import Img from "../../../../../components/UI/Img";
+import getProjectData from "../../../../../utils/getProjectData";
+
 import classes from "../../../../../styles/research.module.scss";
 
 const Research = () => {

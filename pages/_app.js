@@ -1,5 +1,6 @@
 import { SessionProvider } from "next-auth/react";
 import { io } from "socket.io-client";
+import NextNProgress from "nextjs-progressbar";
 import { GlobalSessionContextProvider } from "../store/global-session-context";
 import { VisualBellContextProvider } from "../store/visual-bell-context";
 import { ClassesContextProvider } from "../store/classes-context";
@@ -10,6 +11,7 @@ import MobileView from "../components/MobileView/MobileView";
 import AuthGuard from "../components/Auth/AuthGuard";
 
 import "../styles/globals.scss";
+import styles from "../styles/_exports.module.scss";
 
 // function MyApp({ Component, pageProps }) {
 // 	const [loaded, setLoaded] = useState(false);
@@ -63,6 +65,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 					<ClassesContextProvider>
 						<MainLayoutContextProvider>
 							<div id="modal-root"></div>
+							<NextNProgress color={styles.logoMid} height={3} />
 							{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
 							<MobileView />
 							<VisualBell />
