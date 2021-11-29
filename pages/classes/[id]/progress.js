@@ -10,16 +10,16 @@ import Select from "../../../components/Classes/Progress/Select";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
-import { allData } from "../../../utils/getProjectData";
+import { ALL_PROJECT_DATA } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
 import DUMMY_STUDENTS from "../../../constants/progress";
 
 import classes from "../../../styles/classesProgress.module.scss";
-import { SecondaryButton, TertiaryButton } from "../../../components/UI/Buttons";
+import { SecondaryButton } from "../../../components/UI/Buttons";
 
 const EVENTS = ["project_define", "project_imagine", "project_improve", "project_create_research", "project_create_plan", "game_create", "game_improve"];
 
-const PROJECT_OPTIONS = allData.map((project) => ({ id: project.query, name: project.name }));
+const PROJECT_OPTIONS = ALL_PROJECT_DATA.map((project) => ({ id: project.query, name: project.name }));
 
 const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cur.name }), {});
 
@@ -80,12 +80,12 @@ const ClassesProgress = () => {
 
 			let _preData = classObject.students.map((student) => {
 				const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
-				for (let i = 0; i < allData.length; i++) {
-					studentData.projects[allData[i].query] = {
-						define: processData("project_define", allData[i].query, student.licenseId, allData[i].define.threshold),
-						imagine: processData("project_imagine", allData[i].query, student.licenseId, allData[i].imagine.threshold),
-						create: processCreateData(allData[i].query, allData[i].subsystems, student.licenseId),
-						improve: processData("game_improve", allData[i].query, student.licenseId, allData[i].improve.threshold),
+				for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
+					studentData.projects[ALL_PROJECT_DATA[i].query] = {
+						define: processData("project_define", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].define.threshold),
+						imagine: processData("project_imagine", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].imagine.threshold),
+						create: processCreateData(ALL_PROJECT_DATA[i].query, ALL_PROJECT_DATA[i].subsystems, student.licenseId),
+						improve: processData("game_improve", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].improve.threshold),
 					};
 				}
 				return studentData;

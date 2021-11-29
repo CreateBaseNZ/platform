@@ -1,4 +1,4 @@
-import { allData } from "../utils/getProjectData";
+import { ALL_PROJECT_DATA } from "../utils/getProjectData";
 
 const generateRandom = () => {
 	const strings = ["completed", "visited", "not visited"];
@@ -28,11 +28,11 @@ const generateSubsystem = (subsystems) => {
 const randomProjects = () => {
 	let ret = {};
 
-	for (let i = 0; i < allData.length; i++) {
-		ret[allData[i].query] = {
+	for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
+		ret[ALL_PROJECT_DATA[i].query] = {
 			define: generateRandom(),
 			imagine: generateRandom(),
-			create: generateSubsystem(allData[i].subsystems),
+			create: generateSubsystem(ALL_PROJECT_DATA[i].subsystems),
 			improve: generateRandom(),
 		};
 	}
