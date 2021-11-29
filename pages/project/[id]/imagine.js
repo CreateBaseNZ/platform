@@ -18,19 +18,12 @@ const Imagine = () => {
 
 	useEffect(() => {
 		mp.init();
-		const loadTime = Date.now();
-		return () => {
-			const unloadTime = Date.now();
-			console.log(unloadTime - loadTime);
-			mp.track("project_imagine", {
-				licenses: globalSession.groups.map((group) => group.licenseId),
-				schools: globalSession.groups.map((group) => group.id),
-				project: router.query.id,
-				duration: Math.round((unloadTime - loadTime) / 1000),
-				load: loadTime,
-				unload: unloadTime,
-			});
-		};
+		const clearSession = mp.trackActiveSession("project_imagine", {
+			licenses: globalSession.groups.map((group) => group.licenseId),
+			schools: globalSession.groups.map((group) => group.id),
+			project: router.query.id,
+		});
+		return () => clearSession();
 	}, []);
 
 	useEffect(() => {

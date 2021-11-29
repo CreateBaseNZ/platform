@@ -17,19 +17,13 @@ const Code = () => {
 
 	useEffect(() => {
 		mp.init();
-		const loadTime = Date.now();
-		return () => {
-			const unloadTime = Date.now();
-			mp.track("project_create_code", {
-				licenses: globalSession.groups.map((group) => group.licenseId),
-				schools: globalSession.groups.map((group) => group.id),
-				project: router.query.id,
-				subsystem: router.query.subsystem,
-				duration: Math.round((unloadTime - loadTime) / 1000),
-				load: loadTime,
-				unload: unloadTime,
-			});
-		};
+		const clearSession = mp.trackActiveSession("project_create_code", {
+			licenses: globalSession.groups.map((group) => group.licenseId),
+			schools: globalSession.groups.map((group) => group.id),
+			project: router.query.id,
+			subsystem: router.query.subsystem,
+		});
+		return () => clearSession();
 	}, []);
 
 	useEffect(() => {

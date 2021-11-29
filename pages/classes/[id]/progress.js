@@ -342,6 +342,14 @@ const ClassesProgress = () => {
 				event: "project_create_plan",
 				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
 			},
+			{
+				event: "game_create",
+				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+			},
+			{
+				event: "game_improve",
+				properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }],
+			},
 		];
 		const callback = (rawData) => {
 			const processData = (step, project, licenseId, threshold = 60, subsystem) => {
@@ -379,7 +387,7 @@ const ClassesProgress = () => {
 						// code: processData("create_code", project, licenseId, createData[subsystems[j].code.threshold]),
 						research: processData("project_create_research", project, licenseId, 60, subsystems[j].title),
 						plan: processData("project_create_plan", project, licenseId, 60, subsystems[j].title),
-						code: processData("project_create_code", project, licenseId, 60, subsystems[j].title),
+						code: processData("game_create", project, licenseId, 60, subsystems[j].title),
 					};
 				}
 				return createData;
@@ -392,7 +400,7 @@ const ClassesProgress = () => {
 						define: processData("project_define", allData[i].query, student.licenseId, allData[i].define.threshold),
 						imagine: processData("project_imagine", allData[i].query, student.licenseId, allData[i].imagine.threshold),
 						create: processCreateData(allData[i].query, allData[i].subsystems, student.licenseId),
-						improve: processData("project_improve", allData[i].query, student.licenseId),
+						improve: processData("game_improve", allData[i].query, student.licenseId),
 					};
 				}
 				return studentData;

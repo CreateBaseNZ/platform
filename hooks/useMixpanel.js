@@ -46,7 +46,7 @@ const useMixpanel = () => {
 		const endSession = () => {
 			const endTime = Date.now();
 			console.log("session ended");
-			const duration = endTime - startTime;
+			let duration = endTime - startTime;
 			// session not force ended (i.e. via clearSession())
 			if (duration > inactivityTimer) {
 				duration -= inactivityTimer;

@@ -1,6 +1,8 @@
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import useMixpanel from "../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../store/global-session-context";
 import Game from "../../../components/Game/Game";
 import getProjectData from "../../../utils/getProjectData";
 
@@ -11,9 +13,21 @@ const SubsystemGame = () => {
 	const router = useRouter();
 	const [data, setData] = useState();
 	const [subsystemIndex, setSubsystemIndex] = useState();
+	const mp = useMixpanel();
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		return () => setLoaded(false);
+		mp.init();
+		const clearSession = mp.trackActiveSession("game_create", {
+			licenses: globalSession.groups.map((group) => group.licenseId),
+			schools: globalSession.groups.map((group) => group.id),
+			project: router.query.id,
+			subsystem: router.query.subsystem,
+		});
+		return () => {
+			clearSession();
+			setLoaded(false);
+		};
 	}, []);
 
 	useEffect(() => {
