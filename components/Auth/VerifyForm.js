@@ -1,20 +1,18 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { signIn } from "next-auth/react";
+import useApi from "../../hooks/useApi";
 import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
 import Input from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
 
 import classes from "./AuthForms.module.scss";
-import useHandleResponse from "../../hooks/useHandleResponse";
 
 const CODE_LENGTH = 6;
 
 const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	const router = useRouter();
-	const { handleResponse } = useHandleResponse();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +20,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	const [error, setError] = useState();
 	const [email, setEmail] = useState(globalSession.email || routerEmail);
 	const [code, setCode] = useState(Array.from(Array(CODE_LENGTH).keys()).map((i) => routerCode[i] || "") || [...Array(CODE_LENGTH)].map(() => ""));
+	const post = useApi();
 	const refs = useRef([]);
 
 	useEffect(async () => {
@@ -34,51 +33,39 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	// i.e. if the session is an unverified user and the url is a ocl, then the session email is used as the API input
 	const submitCode = async (code) => {
 		setIsLoading(true);
-		const details = { email: email, code: code, date: new Date().toString() };
-		let data = {};
-		try {
-			data = (await axios.post("/api/auth/verify", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "incorrect") {
-						setError("The code you entered is invalid");
-					} else if (data.content === "expired") {
-						setError("The code you entered has expired");
-					}
-					setIsLoading(false);
-				},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, verified: true }));
-					router.push(router.query.callbackUrl || "/");
-					setVisualBell({ type: "success", message: "Your account is now verified" });
-				},
-			});
-		}
+		await post({
+			route: "/api/auth/verify",
+			input: {
+				email: email,
+				code: code,
+				date: new Date().toString(),
+			},
+			failHandler: (data) => {
+				if (data.content === "incorrect") {
+					setError("The code you entered is invalid");
+				} else if (data.content === "expired") {
+					setError("The code you entered has expired");
+				}
+				setIsLoading(false);
+			},
+			successHandler: () => {
+				setGlobalSession((state) => ({ ...state, verified: true }));
+				router.push(router.query.callbackUrl || "/");
+				setVisualBell({ type: "success", message: "Your account is now verified" });
+			},
+		});
 	};
 
 	const resendCodeHandler = async () => {
 		setIsResending(true);
-		const details = { accountId: globalSession.accountId, date: new Date().toString() };
-		const DUMMY_STATUS = "success";
-		let data = {};
-		try {
-			data = (await axios.post("/api/auth/resend-verify-code", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					setVisualBell({ type: "neutral", message: "A new verification code has been sent" });
-					setIsResending(false);
-				},
-			});
-		}
+		await post({
+			route: "/api/auth/resend-verify-code",
+			input: { accountId: globalSession.accountId, date: new Date().toString() },
+			successHandler: () => {
+				setVisualBell({ type: "neutral", message: "A new verification code has been sent" });
+				setIsResending(false);
+			},
+		});
 	};
 
 	const changeHandler = (e, idx) => {

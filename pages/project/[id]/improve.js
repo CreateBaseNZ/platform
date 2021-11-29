@@ -1,15 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import router from "next/router";
-import Head from "next/head";
-import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
-import getProjectData from "../../../utils/getProjectData";
-import Img from "../../../components/UI/Img";
 import Link from "next/link";
+import Head from "next/head";
+import useMixpanel from "../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../store/global-session-context";
+import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
+import Img from "../../../components/UI/Img";
+import getProjectData from "../../../utils/getProjectData";
 
 import classes from "/styles/improve.module.scss";
 
 const Improve = () => {
 	const [data, setData] = useState();
+	const mp = useMixpanel();
+	const { globalSession } = useContext(GlobalSessionContext);
+
+	useEffect(() => {
+		mp.init();
+		const clearSession = mp.trackActiveSession("project_improve", {
+			licenses: globalSession.groups.map((group) => group.licenseId),
+			schools: globalSession.groups.map((group) => group.id),
+			project: router.query.id,
+		});
+		return () => clearSession();
+	}, []);
 
 	useEffect(() => {
 		if (router.query.id) {

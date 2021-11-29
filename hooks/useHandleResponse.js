@@ -8,9 +8,9 @@ const useHandleResponse = () => {
 			case "error":
 				return router.push("/404");
 			case "failed":
-				return failHandler();
+				return failHandler(data);
 			default:
-				return successHandler();
+				return successHandler(data);
 		}
 	};
 

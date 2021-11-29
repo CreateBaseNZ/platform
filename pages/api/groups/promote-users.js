@@ -14,15 +14,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: {}, // no return
-	// 	};
-	// } // no failure mode
-	// console.log(data);
 	// Integration Logic
 	for (let i = 0; i < input.licenseIds.length; i++) {
 		const licenseId = input.licenseIds[i];

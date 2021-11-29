@@ -1,8 +1,7 @@
 import { useState, useContext } from "react";
 import Head from "next/head";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import useHandleResponse from "../../hooks/useHandleResponse";
+import useApi from "../../hooks/useApi";
 import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
@@ -16,7 +15,7 @@ import classes from "../../styles/myAccount.module.scss";
 
 const MyProfile = () => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const { handleResponse } = useHandleResponse();
+	const post = useApi();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -54,28 +53,19 @@ const MyProfile = () => {
 		if (frontendError) {
 			return setIsLoading(false);
 		}
-		inputs.date = new Date().toString();
-		inputs.profileId = globalSession.profileId;
-		let data = {};
-		try {
-			data = (await axios.post("/api/profile/update-profile", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, ...inputs }));
-					setVisualBell({
-						type: "success",
-						message: "Your profile has been updated",
-					});
-					setIsLoading(false);
-					reset(inputs);
-				},
-			});
-		}
+		await post({
+			route: "/api/profile/update-profile",
+			input: { ...inputs, date: new Date().toString(), profileId: globalSession.profileId },
+			successHandler: () => {
+				setGlobalSession((state) => ({ ...state, ...inputs }));
+				setVisualBell({
+					type: "success",
+					message: "Your profile has been updated",
+				});
+				setIsLoading(false);
+				reset(inputs);
+			},
+		});
 	};
 
 	return (

@@ -1,12 +1,11 @@
 import { useCallback, useContext, useState } from "react";
-import axios from "axios";
 import _debounce from "lodash/debounce";
 import { useForm } from "react-hook-form";
-import useHandleResponse from "../../hooks/useHandleResponse";
-import { SearchBar, TextArea } from "../../components/UI/Input";
-import { PrimaryButton, SecondaryButton } from "../../components/UI/Buttons";
+import useApi from "../../hooks/useApi";
 import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
+import { SearchBar, TextArea } from "../../components/UI/Input";
+import { PrimaryButton, SecondaryButton } from "../../components/UI/Buttons";
 
 import classes from "../../styles/myGroups.module.scss";
 
@@ -16,7 +15,7 @@ const JoinSchoolTeacher = () => {
 	const [hasRequested, setHasRequested] = useState(false);
 	const [queryDropdown, setQueryDropdown] = useState({ show: false, groups: null, selectedId: "" });
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { handleResponse } = useHandleResponse();
+	const post = useApi();
 	const {
 		register,
 		handleSubmit,
@@ -30,21 +29,11 @@ const JoinSchoolTeacher = () => {
 	const debounceFn = useCallback(_debounce(handleDebounceFn, 200), []);
 
 	async function handleDebounceFn(value) {
-		const input = { query: value };
-		let data;
-		try {
-			data = (await axios.post("/api/groups/query", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					setQueryDropdown((state) => ({ ...state, show: true, groups: data.content, selectedId: "" }));
-				},
-			});
-		}
+		await post({
+			route: "/api/groups/query",
+			input: { query: value },
+			successHandler: (data) => setQueryDropdown((state) => ({ ...state, show: true, groups: data.content, selectedId: "" })),
+		});
 	}
 
 	const onSearch = (e) => {
@@ -67,48 +56,41 @@ const JoinSchoolTeacher = () => {
 
 	const onTeacherSubmit = async (inputs) => {
 		setIsLoading(true);
-		const details = {
-			profileId: globalSession.profileId,
-			schoolId: queryDropdown.selectedId,
-			alias: `${globalSession.firstName} ${globalSession.lastName}`,
-			message: inputs.message,
-			date: new Date().toString(),
-		};
-		let data = {};
-		try {
-			data = (await axios.post("/api/groups/join-school-teacher", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "already joined") {
-						setError("name", {
-							type: "manual",
-							message: "You are already in this school",
-						});
-						setQueryDropdown({ show: false, groups: null, selectedId: "" });
-						setIsLoading(false);
-					} else if (data.content === "already requested") {
-						setError("name", {
-							type: "manual",
-							message: "You have already sent a request to join this school",
-						});
-						setQueryDropdown({ show: false, groups: null, selectedId: "" });
-						setIsLoading(false);
-					}
-				},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-					setVisualBell({ type: "success", message: "Your request has been sent" });
-					setHasRequested(true);
-					reset();
+		await post({
+			route: "/api/groups/join-school-teacher",
+			input: {
+				profileId: globalSession.profileId,
+				schoolId: queryDropdown.selectedId,
+				alias: `${globalSession.firstName} ${globalSession.lastName}`,
+				message: inputs.message,
+				date: new Date().toString(),
+			},
+			failHandler: (data) => {
+				if (data.content === "already joined") {
+					setError("name", {
+						type: "manual",
+						message: "You are already in this school",
+					});
 					setQueryDropdown({ show: false, groups: null, selectedId: "" });
 					setIsLoading(false);
-				},
-			});
-		}
+				} else if (data.content === "already requested") {
+					setError("name", {
+						type: "manual",
+						message: "You have already sent a request to join this school",
+					});
+					setQueryDropdown({ show: false, groups: null, selectedId: "" });
+					setIsLoading(false);
+				}
+			},
+			successHandler: (data) => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+				setVisualBell({ type: "success", message: "Your request has been sent" });
+				setHasRequested(true);
+				reset();
+				setQueryDropdown({ show: false, groups: null, selectedId: "" });
+				setIsLoading(false);
+			},
+		});
 	};
 
 	return hasRequested ? (

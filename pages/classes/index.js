@@ -1,8 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import axios from "axios";
-import useHandleResponse from "../../hooks/useHandleResponse";
+import useApi from "../../hooks/useApi";
 import ClassesContext from "../../store/classes-context";
 import GlobalSessionContext from "../../store/global-session-context";
 import { PrimaryButton } from "../../components/UI/Buttons";
@@ -12,29 +11,19 @@ import classes from "../../styles/classes.module.scss";
 
 const ClassesTabRoot = () => {
 	const router = useRouter();
-	const { handleResponse } = useHandleResponse();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { classObjects, setClassObjects } = useContext(ClassesContext);
+	const post = useApi();
 
 	useEffect(async () => {
-		let data;
-		const inputs = {
-			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
-		};
-		try {
-			data = (await axios.post("/api/classes/fetch-joined", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					setClassObjects(data.content);
-				},
-			});
-		}
+		await post({
+			route: "/api/classes/fetch-joined",
+			input: {
+				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+				schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+			},
+			successHandler: (data) => setClassObjects(data.content),
+		});
 		// TODO refetch when alias changes (to be upgraded with websocket)
 	}, [globalSession.groups[globalSession.recentGroups[0]].alias]);
 

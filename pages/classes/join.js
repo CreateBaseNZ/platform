@@ -1,45 +1,35 @@
 import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import router from "next/router";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import useApi from "../../hooks/useApi";
+import GlobalSessionContext from "../../store/global-session-context";
+import VisualBellContext from "../../store/visual-bell-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { SearchBar } from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "../../styles/classes.module.scss";
-import GlobalSessionContext from "../../store/global-session-context";
-import useHandleResponse from "../../hooks/useHandleResponse";
-import router from "next/router";
-import VisualBellContext from "../../store/visual-bell-context";
 
 const ClassJoin = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [queriedClasses, setQueriedClasses] = useState([]);
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { handleResponse } = useHandleResponse();
+	const post = useApi();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { register, handleSubmit, watch } = useForm({ mode: "onTouched" });
 	const queryValue = watch("searchQuery");
 
 	useEffect(async () => {
-		let data = {};
-		const details = {
-			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-			schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
-		};
-		const DUMMY_STATUS = "succeeded";
-		try {
-			data = (await axios.post("/api/classes/fetch-all", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => setQueriedClasses(data.content.filter((_class) => _class.status !== "joined" && _class.status !== "requested")),
-			});
-		}
+		await post({
+			route: "/api/classes/fetch-all",
+			input: {
+				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+				schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+			},
+			successHandler: (data) => setQueriedClasses(data.content.filter((_class) => _class.status !== "joined" && _class.status !== "requested")),
+		});
 	}, []);
 
 	const onSubmit = async (inputs) => {
@@ -47,27 +37,19 @@ const ClassJoin = () => {
 		if (!inputs.classId) {
 			return setIsLoading(false);
 		}
-		const details = {
-			classId: inputs.classId,
-			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-			role: globalSession.groups[globalSession.recentGroups[0]].role,
-			date: new Date().toString(),
-		};
-		let data = {};
-		try {
-			data = (await axios.post("/api/classes/join", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					setVisualBell({ type: "success", message: "Request sent" });
-					router.push("/classes");
-				},
-			});
-		}
+		await post({
+			route: "/api/classes/join",
+			input: {
+				classId: inputs.classId,
+				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+				role: globalSession.groups[globalSession.recentGroups[0]].role,
+				date: new Date().toString(),
+			},
+			successHandler: () => {
+				setVisualBell({ type: "success", message: "Request sent" });
+				router.push("/classes");
+			},
+		});
 	};
 
 	return (

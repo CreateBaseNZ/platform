@@ -1,21 +1,20 @@
 import { useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import axios from "axios";
+import router from "next/router";
 import { useForm } from "react-hook-form";
+import useApi from "../../hooks/useApi";
+import VisualBellContext from "../../store/visual-bell-context";
+import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/classes.module.scss";
-import useHandleResponse from "../../hooks/useHandleResponse";
-import VisualBellContext from "../../store/visual-bell-context";
-import router from "next/router";
-import GlobalSessionContext from "../../store/global-session-context";
 
 const ClassesNew = () => {
+	const post = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { handleResponse } = useHandleResponse();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -26,40 +25,33 @@ const ClassesNew = () => {
 	} = useForm({ mode: "onTouched" });
 
 	const onSubmit = async (input) => {
-		let data;
-		const details = {
-			alias: globalSession.groups[globalSession.recentGroups[0]].alias,
-			date: new Date().toString(),
-			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-			name: input.name,
-		};
-		try {
-			data = (await axios.post("/api/classes/new", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "taken") {
-						setError(
-							"name",
-							{
-								type: "manual",
-								message: "There is already another class with this name in your school",
-							},
-							{ shouldFocus: true }
-						);
-						setIsLoading(false);
-					}
-				},
-				successHandler: () => {
-					setVisualBell({ type: "success", message: `Welcome to ${data.content.name}!` });
-					router.push(`/classes/${data.content.id}`);
-				},
-			});
-		}
+		await post({
+			route: "/api/classes/new",
+			input: {
+				alias: globalSession.groups[globalSession.recentGroups[0]].alias,
+				date: new Date().toString(),
+				groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+				name: input.name,
+			},
+			failHandler: (data) => {
+				if (data.content === "taken") {
+					setError(
+						"name",
+						{
+							type: "manual",
+							message: "There is already another class with this name in your school",
+						},
+						{ shouldFocus: true }
+					);
+					setIsLoading(false);
+				}
+			},
+			successHandler: (data) => {
+				setVisualBell({ type: "success", message: `Welcome to ${data.content.name}!` });
+				router.push(`/classes/${data.content.id}`);
+			},
+		});
 	};
 
 	return (

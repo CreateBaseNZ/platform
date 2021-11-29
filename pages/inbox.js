@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
-import axios from "axios";
+import useApi from "../hooks/useApi";
+import GlobalSessionContext from "../store/global-session-context";
 import ClassRequestNotification from "../components/Inbox/ClassRequestNotification";
 import GroupRequestNotification from "../components/Inbox/GroupRequestNotification";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
-import useHandleResponse from "../hooks/useHandleResponse";
-import GlobalSessionContext from "../store/global-session-context";
 
 import classes from "../styles/inbox.module.scss";
 
@@ -22,30 +21,19 @@ const renderNotification = (notificationObject, setNotifications) => {
 
 const Inbox = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { handleResponse } = useHandleResponse();
 	const [notifications, setNotifications] = useState([]);
+	const post = useApi();
 
 	useEffect(async () => {
-		const DUMMY_STATUS = "succeeded";
-		// to accelerate fetching, pass all the groups where the user is either an admin or a teacher
-		const inputs = {
-			profileId: globalSession.profileId,
-			groups: globalSession.groups.filter((group) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated"),
-		};
-		let data = {};
-		try {
-			data = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {},
-				successHandler: () => {
-					setNotifications(data.content);
-				},
-			});
-		}
+		await post({
+			route: "/api/notifications/fetch",
+			input: {
+				profileId: globalSession.profileId,
+				// to accelerate fetching, pass all the groups where the user is either an admin or a teacher
+				groups: globalSession.groups.filter((group) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated"),
+			},
+			successHandler: (data) => setNotifications(data.content),
+		});
 	}, []);
 
 	return (

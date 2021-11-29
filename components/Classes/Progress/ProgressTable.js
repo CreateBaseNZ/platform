@@ -2,7 +2,7 @@ import { Fragment, memo, useState, useEffect } from "react";
 import classes from "./ProgressTable.module.scss";
 
 const ProgressTable = ({ data, view, setTooltip }) => {
-	console.log("rerendered");
+	console.log("*** rerendered ***");
 	const [width, setWidth] = useState(window.innerWidth);
 	const [height, setHeight] = useState(window.innerHeight);
 	const updateDimensions = () => {
@@ -16,7 +16,7 @@ const ProgressTable = ({ data, view, setTooltip }) => {
 
 	const clearTooltip = () => setTooltip();
 
-	const hoverHandler = (title, step, status, duration, e) => {
+	const hoverHandler = (title, step, status, duration, label, e) => {
 		let position = {};
 		let styleProp = "border";
 		if (height - e.target.getBoundingClientRect().bottom < 200) {
@@ -40,6 +40,7 @@ const ProgressTable = ({ data, view, setTooltip }) => {
 			status: status,
 			duration: duration,
 			position: position,
+			label: label,
 			style: { [styleProp]: 0 },
 		});
 	};
@@ -64,27 +65,43 @@ const ProgressTable = ({ data, view, setTooltip }) => {
 			{data.map((item) => (
 				<Fragment key={item.id}>
 					<div onMouseOver={clearTooltip}>{item.name}</div>
-					<div className={`${classes.hoverable} ${classes[item.define.status]}`} onMouseOver={hoverHandler.bind(this, item.name, "Define", item.define.status, item.define.duration)} />
-					<div className={`${classes.hoverable} ${classes[item.imagine.status]}`} onMouseOver={hoverHandler.bind(this, item.name, "Imagine", item.imagine.status, item.imagine.duration)} />
+					<div
+						className={`${classes.hoverable} ${classes[item.define.status]}`}
+						onMouseOver={hoverHandler.bind(this, item.name, "Define", item.define.status, item.define.duration, item.define.label)}
+					/>
+					<div
+						className={`${classes.hoverable} ${classes[item.imagine.status]}`}
+						onMouseOver={hoverHandler.bind(this, item.name, "Imagine", item.imagine.status, item.imagine.duration, item.imagine.label)}
+					/>
 					<div className={classes.createStep}>
 						{Object.keys(item.create).map((key) => (
 							<div key={`${item.id}${key}`} className={classes.subsystem}>
 								<div
 									className={`${classes.hoverable} ${classes[item.create[key].research.status]}`}
-									onMouseOver={hoverHandler.bind(this, item.name, `${item.create[key].name} [Research]`, item.create[key].research.status, item.create[key].research.duration)}
+									onMouseOver={hoverHandler.bind(
+										this,
+										item.name,
+										`${item.create[key].name} [Research]`,
+										item.create[key].research.status,
+										item.create[key].research.duration,
+										item.create[key].research.label
+									)}
 								/>
 								<div
 									className={`${classes.hoverable} ${classes[item.create[key].plan.status]}`}
-									onMouseOver={hoverHandler.bind(this, item.name, `${item.create[key].name} [Plan]`, item.create[key].plan.status, item.create[key].plan.duration)}
+									onMouseOver={hoverHandler.bind(this, item.name, `${item.create[key].name} [Plan]`, item.create[key].plan.status, item.create[key].plan.duration, item.create[key].plan.label)}
 								/>
 								<div
 									className={`${classes.hoverable} ${classes[item.create[key].code.status]}`}
-									onMouseOver={hoverHandler.bind(this, item.name, `${item.create[key].name} [Code]`, item.create[key].code.status, item.create[key].code.duration)}
+									onMouseOver={hoverHandler.bind(this, item.name, `${item.create[key].name} [Code]`, item.create[key].code.status, item.create[key].code.duration, item.create[key].code.label)}
 								/>
 							</div>
 						))}
 					</div>
-					<div className={`${classes.hoverable} ${classes[item.improve.status]}`} onMouseOver={hoverHandler.bind(this, item.name, "Improve", item.improve.status, item.improve.duration)} />
+					<div
+						className={`${classes.hoverable} ${classes[item.improve.status]}`}
+						onMouseOver={hoverHandler.bind(this, item.name, "Improve", item.improve.status, item.improve.duration, item.improve.label)}
+					/>
 				</Fragment>
 			))}
 		</div>

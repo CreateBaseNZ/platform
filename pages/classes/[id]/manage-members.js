@@ -1,8 +1,7 @@
 import Head from "next/head";
 import { useRef, useState } from "react";
-import axios from "axios";
+import useApi from "../../../hooks/useApi";
 import useClass from "../../../hooks/useClass";
-import useHandleResponse from "../../../hooks/useHandleResponse";
 import AddModal from "../../../components/Classes/ManageMembers/AddModal";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
@@ -16,8 +15,8 @@ import classes from "../../../styles/classManageMembers.module.scss";
 
 const ClassesManage = () => {
 	const ref = useRef();
+	const post = useApi();
 	const { classObject, setClassObject, classLoaded } = useClass();
-	const { handleResponse } = useHandleResponse();
 	const [showAddModal, setShowAddModal] = useState(false);
 
 	const renderBtns = [
@@ -25,28 +24,17 @@ const ClassesManage = () => {
 			<TertiaryButton
 				key={key}
 				onClick={async () => {
-					const details = {
-						classId: classObject.id,
-						licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
-						date: new Date().toString(),
-					};
-					console.log(details);
-					let _data;
-					const DUMMY_STATUS = "succeeded";
-					try {
-						_data = (await axios.post("/api/classes/remove-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-					} catch (error) {
-						_data.status = "error";
-					} finally {
-						console.log(_data);
-						handleResponse({
-							data: _data,
-							failHandler: () => {},
-							successHandler: () => {
-								setClassObject((state) => ({ ...state, students: state.students.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())) }));
-							},
-						});
-					}
+					await post({
+						route: "/api/classes/remove-users",
+						input: {
+							classId: classObject.id,
+							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
+							date: new Date().toString(),
+						},
+						successHandler: () => {
+							setClassObject((state) => ({ ...state, students: state.students.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())) }));
+						},
+					});
 				}}
 				mainLabel="Remove"
 				className={classes.removeBtn}

@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
 import router from "next/router";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import useHandleResponse from "../../hooks/useHandleResponse";
+import useApi from "../../hooks/useApi";
 import GlobalSessionContext from "../../store/global-session-context";
 import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
@@ -12,7 +11,7 @@ import classes from "/styles/myGroups.module.scss";
 const JoinSchoolStudent = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const { handleResponse } = useHandleResponse();
+	const post = useApi();
 	const {
 		register,
 		handleSubmit,
@@ -22,45 +21,33 @@ const JoinSchoolStudent = () => {
 
 	const onStudentSubmit = async (inputs) => {
 		setIsLoading(true);
-		// TODO: Integration - Review
-		const details = {
-			profileId: globalSession.profileId,
-			code: inputs.code,
-			date: new Date().toString(),
-		};
-		let data = {};
-		try {
-			data = (await axios.post("/api/groups/join-school-student", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: () => {
-					if (data.content === "incorrect") {
-						setError("code", {
-							type: "manual",
-							message: "No schools found with this school",
-						});
-					} else if (data.content === "expired") {
-						setError("code", {
-							type: "manual",
-							message: "This code has expired",
-						});
-					} else if (data.content === "already joined") {
-						setError("code", {
-							type: "manual",
-							message: "You are already in this school",
-						});
-					}
-					setIsLoading(false);
-				},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
-					router.push("/my-groups");
-				},
-			});
-		}
+		await post({
+			route: "/api/groups/join-school-student",
+			input: { profileId: globalSession.profileId, code: inputs.code, date: new Date().toString() },
+			failHandler: (data) => {
+				if (data.content === "incorrect") {
+					setError("code", {
+						type: "manual",
+						message: "No schools found with this school",
+					});
+				} else if (data.content === "expired") {
+					setError("code", {
+						type: "manual",
+						message: "This code has expired",
+					});
+				} else if (data.content === "already joined") {
+					setError("code", {
+						type: "manual",
+						message: "You are already in this school",
+					});
+				}
+				setIsLoading(false);
+			},
+			successHandler: (data) => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
+				router.push("/my-groups");
+			},
+		});
 	};
 
 	return (

@@ -61,7 +61,7 @@ function sendEmail(account) {
 		// Construct the input object
 		const input = {
 			accountId: account._id,
-			option: { email: account.email, receive: "welcome", notification: "onboarding", tone: "friendly" },
+			option: { recipient: account.email, receive: "welcome", notification: "onboarding", tone: "friendly" },
 		};
 		// Send the processing request
 		let data;

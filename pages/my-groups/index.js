@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import GlobalSessionContext from "../../store/global-session-context";
@@ -44,7 +44,7 @@ const MyGroups = () => {
 							const disabled = !group.verified || group.status !== "activated";
 							const isActive = globalSession.groups[globalSession.recentGroups[0]]?.id === group.id;
 							return (
-								<div key={group.name} className={`${classes.card} ${disabled ? classes.disabled : ""} ${isActive ? classes.activeCard : ""}`} onClick={() => cardClickHandler(i)}>
+								<div key={group.id} className={`${classes.card} ${disabled ? classes.disabled : ""} ${isActive ? classes.activeCard : ""}`} onClick={() => cardClickHandler(i)}>
 									{!disabled && (
 										<div className={classes.groupRole}>
 											{group.role} {globalSession.groups[globalSession.recentGroups[0]]?.id === group.id ? " (viewing)" : ""}

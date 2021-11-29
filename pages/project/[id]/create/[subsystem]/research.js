@@ -1,24 +1,42 @@
 import Head from "next/head";
 import router from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import useMixpanel from "../../../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../../../store/global-session-context";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import SubsystemLayout from "../../../../../components/Layouts/SubsystemLayout/SubsystemLayout";
-import getProjectData from "../../../../../utils/getProjectData";
 import ModuleContainer from "../../../../../components/UI/ModuleContainer";
 import VideoViewer from "../../../../../components/UI/VideoViewer";
 import Img from "../../../../../components/UI/Img";
-import classes from "/styles/research.module.scss";
+import getProjectData from "../../../../../utils/getProjectData";
+
+import classes from "../../../../../styles/research.module.scss";
 
 const Research = () => {
+	const mp = useMixpanel();
+	const { globalSession } = useContext(GlobalSessionContext);
 	const [subsystemData, setSubsystemData] = useState();
 	const [activeModule, setActiveModule] = useState(0);
 
 	useEffect(() => {
-		const projectData = getProjectData(router.query?.id);
-		if (projectData && router.query.subsystem) {
-			setSubsystemData(projectData.subsystems.find((subsystem) => subsystem.title === router.query.subsystem));
+		mp.init();
+		const clearSession = mp.trackActiveSession("project_create_research", {
+			licenses: globalSession.groups.map((group) => group.licenseId),
+			schools: globalSession.groups.map((group) => group.id),
+			project: router.query.id,
+			subsystem: router.query.subsystem,
+		});
+		return () => clearSession();
+	}, []);
+
+	useEffect(() => {
+		if (router.isReady) {
+			const projectData = getProjectData(router.query.id);
+			if (projectData && router.query.subsystem) {
+				setSubsystemData(projectData.subsystems.find((subsystem) => subsystem.title === router.query.subsystem));
+			}
 		}
-	}, [router.query.id, router.query.subystem]);
+	}, [router.isReady, router.query.id, router.query.subystem]);
 
 	if (!subsystemData) return null;
 

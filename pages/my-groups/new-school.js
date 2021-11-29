@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import axios from "axios";
+import router from "next/router";
 import { useForm } from "react-hook-form";
-import useHandleResponse from "../../hooks/useHandleResponse";
+import useApi from "../../hooks/useApi";
 import GlobalSessionContext from "../../store/global-session-context";
+import VisualBellContext from "../../store/visual-bell-context";
 import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
@@ -14,16 +15,16 @@ import DuplicateWarning from "../../components/MyGroups/DuplicateWarning";
 import classes from "/styles/myGroups.module.scss";
 
 const NewSchool = () => {
+	const post = useApi();
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasSubmitted, setHasSubmitted] = useState(false);
 	const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
 	const [duplicateParams, setDuplicateParams] = useState();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const { handleResponse } = useHandleResponse();
+	const { setVisualBell } = useContext(VisualBellContext);
 	const {
 		register,
 		handleSubmit,
-		setError,
 		reset,
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
@@ -40,43 +41,27 @@ const NewSchool = () => {
 			country: inputs.country,
 			date: new Date().toString(),
 		};
-		const DUMMY_STATUS = "duplicate";
-		let data;
-		try {
-			data = (await axios.post("/api/groups/register-school", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			data.status = "error";
-		} finally {
-			handleResponse({
-				data,
-				failHandler: async () => {
-					if (data.content === "duplicate") {
-						let _data;
-						try {
-							_data = (await axios.post("/api/groups/query", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { query: details.name }, status: DUMMY_STATUS }))["data"];
-						} catch (error) {
-							_data.status = "error";
-						} finally {
-							handleResponse({
-								_data,
-								failHandler: () => {},
-								successHandler: () => {
-									setDuplicateParams({ details: details, otherGroups: _data.content.filter((group) => group.country === details.country) });
-									setShowDuplicateWarning(true);
-								},
-							});
-						}
-					}
-					setIsLoading(false);
-				},
-				successHandler: () => {
-					setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-					setHasSubmitted(true);
-					setIsLoading(false);
-					reset();
-				},
-			});
-		}
+		await post({
+			route: "/api/groups/query",
+			input: { query: details.name },
+			successHandler: async (data) => {
+				const otherGroups = data.content.filter((group) => group.location.country.toLowerCase() === details.country.toLowerCase());
+				setDuplicateParams({ details, otherGroups });
+				if (otherGroups.length) {
+					setShowDuplicateWarning(true);
+					return setIsLoading(false);
+				}
+				await post({
+					route: "/api/groups/register-school",
+					input: details,
+					successHandler: (data) => {
+						setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+						setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
+						router.push("/my-groups");
+					},
+				});
+			},
+		});
 	};
 
 	return (

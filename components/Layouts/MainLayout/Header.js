@@ -72,17 +72,17 @@ const Header = ({ setShowAliasModal }) => {
 										<i className="material-icons-outlined">holiday_village</i>
 										<span>Register a school</span>
 									</button>
-									<button onMouseDown={() => router.push("/my-groups/join-family")} title="Join a family">
+									{/* <button onMouseDown={() => router.push("/my-groups/join-family")} title="Join a family">
 										<i className="material-icons-outlined">add</i>
 										<span>Join a family</span>
 									</button>
 									<button onMouseDown={() => router.push("/my-groups/new-family")} title="Create a family">
 										<i className="material-icons-outlined">cottage</i>
 										<span>Create a family</span>
-									</button>
+									</button> */}
 								</>
 							)}
-							{globalSession.groups.length > 3 && <div className={classes.moreGroups}>and {globalSession.groups.length - 3} more ...</div>}
+							{globalSession.groups.filter((group) => group.verified).length > 3 && <div className={classes.moreGroups}>and {globalSession.groups.length - 3} more ...</div>}
 							<div className={classes.divider} />
 							{DEFAULT_TABS.map((tab, i) => (
 								<button key={i} onMouseDown={() => router.push(tab.urlObject)} title={tab.label}>

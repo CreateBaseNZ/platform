@@ -1,21 +1,38 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import router from "next/router";
+import useMixpanel from "../../../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../../../store/global-session-context";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import SubsystemLayout from "../../../../../components/Layouts/SubsystemLayout/SubsystemLayout";
-import getProjectData from "../../../../../utils/getProjectData";
 import Img from "../../../../../components/UI/Img";
+import getProjectData from "../../../../../utils/getProjectData";
 import classes from "/styles/plan.module.scss";
 
 const Plan = () => {
+	const mp = useMixpanel();
+	const { globalSession } = useContext(GlobalSessionContext);
 	const [subsystemData, setSubsystemData] = useState();
 
 	useEffect(() => {
-		const projectData = getProjectData(router.query?.id);
-		if (projectData && router.query.subsystem) {
-			setSubsystemData(projectData.subsystems.find((subsystem) => subsystem.title === router.query.subsystem));
+		mp.init();
+		const clearSession = mp.trackActiveSession("project_create_plan", {
+			licenses: globalSession.groups.map((group) => group.licenseId),
+			schools: globalSession.groups.map((group) => group.id),
+			project: router.query.id,
+			subsystem: router.query.subsystem,
+		});
+		return () => clearSession();
+	}, []);
+
+	useEffect(() => {
+		if (router.isReady) {
+			const projectData = getProjectData(router.query.id);
+			if (projectData && router.query.subsystem) {
+				setSubsystemData(projectData.subsystems.find((subsystem) => subsystem.title === router.query.subsystem));
+			}
 		}
-	}, [router.query.id, router.query.subystem]);
+	}, [router.isReady, router.query.id, router.query.subystem]);
 
 	if (!subsystemData) return null;
 
@@ -31,7 +48,7 @@ const Plan = () => {
 				</div>
 				<div className={classes.contentContainer}>
 					<h2>Let's plan!</h2>
-					{subsystemData.plan.map((p, i) => (
+					{subsystemData.plan.list.map((p, i) => (
 						<p key={i} className={classes.content}>
 							{p}
 						</p>

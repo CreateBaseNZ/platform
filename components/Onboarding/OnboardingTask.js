@@ -29,7 +29,7 @@ const OnboardingTask = ({ task, isCompleted, checkHandler, setVideoModal }) => {
 				<div className={classes.checkbox}>{isCompleted && <i className="material-icons-outlined">check</i>}</div>
 			</button>
 			{task.type === "video" && (
-				<i className={`material-icons-outlined ${classes.icon}`} style={{ color: styles.red }}>
+				<i className={`material-icons-outlined ${classes.icon}`} style={{ color: "red" }}>
 					play_circle_outline
 				</i>
 			)}

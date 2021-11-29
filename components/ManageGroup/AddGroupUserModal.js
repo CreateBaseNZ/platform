@@ -31,6 +31,7 @@ const AddGroupUserModal = ({ setShow, role }) => {
 	const { fields, append, remove } = useFieldArray({ control, name: "invitations" });
 
 	const onSubmit = async (inputs) => {
+		// TODO use post from useApi
 		console.log(inputs);
 		setIsLoading(true);
 		if (!inputs.invitations.length) return setIsLoading(false);

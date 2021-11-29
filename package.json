@@ -1,6 +1,6 @@
 {
 	"name": "platform",
-	"version": "0.7.5",
+	"version": "0.7.12",
 	"private": true,
 	"engines": {
 		"node": "14.16.0"
@@ -18,9 +18,11 @@
 		"lodash": "^4.17.21",
 		"mixpanel-browser": "^2.42.0",
 		"moment": "^2.29.1",
+		"moment-timezone": "^0.5.34",
 		"monaco-editor": "^0.29.1",
 		"next": "^11.1.2",
 		"next-auth": "4.0.0-beta.4",
+		"nextjs-progressbar": "^0.0.13",
 		"overlayscrollbars": "^1.13.1",
 		"overlayscrollbars-react": "^0.2.3",
 		"randomatic": "^3.1.1",
