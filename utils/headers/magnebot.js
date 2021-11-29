@@ -57,7 +57,7 @@ function MoveArmAlgorithm(x, y, z) {
 	}, rate);
 }
 
-function MagneticSwitchAlgorithm() {
+function MagneticSwitchAlgorithm(a) {
 	if (a) {
 		props.unityContext.send("GravitySphere", "EnableGravitySphere");
 	} else {
