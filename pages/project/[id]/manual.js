@@ -4,21 +4,19 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import useUnity from "../../../hooks/useUnity";
 import Unity from "../../../components/Game/Unity";
+import LoadingScreen from "../../../components/UI/LoadingScreen";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "../../../styles/manual.module.scss";
 
-// TODO re integrate loading screen
-const setLoaded = () => {};
-
-const UnityWrapper = ({ data }) => {
+const UnityWrapper = ({ data, setLoaded }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: data.query,
 		scenePrefix: data.scenePrefix,
 		mode: "manual",
 		index: data.subsystems.length - 1,
-		setLoaded: setLoaded,
 		wip: data.wip,
+		setLoaded: setLoaded,
 	});
 
 	return <Unity unityContext={unityContext} />;
@@ -27,10 +25,7 @@ const UnityWrapper = ({ data }) => {
 const Play = () => {
 	const router = useRouter();
 	const [data, setData] = useState();
-
-	useEffect(() => {
-		return () => setLoaded(false);
-	}, []);
+	const [gameLoaded, setGameLoaded] = useState(false);
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -38,7 +33,10 @@ const Play = () => {
 		}
 	}, [router.query.id]);
 
-	if (!data) return null;
+	console.log(data);
+	console.log(gameLoaded);
+
+	if (!data) return <LoadingScreen />;
 
 	return (
 		<div className={classes.manual}>
@@ -51,7 +49,8 @@ const Play = () => {
 					<span className="material-icons-outlined">exit_to_app</span>
 				</a>
 			</Link>
-			<UnityWrapper data={data} />
+			<UnityWrapper data={data} setLoaded={setGameLoaded} />
+			{!gameLoaded && <LoadingScreen />}
 		</div>
 	);
 };

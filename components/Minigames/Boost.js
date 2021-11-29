@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import useSound from "use-sound";
 import html2canvas from "html2canvas";
-import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import { ReactFlowProvider } from "react-flow-renderer";
+import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import HistoryItem from "./HistoryItem";
 import {
 	comparisonBoostLvl1Item,
@@ -19,9 +19,8 @@ import {
 	whileBoostLvl3Item,
 	whileBoostLvl4Item,
 } from "../../utils/boostQs";
-
-import classes from "./Boost.module.scss";
 import LevelModal from "./LevelModal";
+import classes from "./Boost.module.scss";
 
 const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
@@ -40,7 +39,7 @@ const getColour = (mode) => {
 	}
 };
 
-const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
+const Boost = ({ mode, loadLevel = 0 }) => {
 	const router = useRouter();
 	const histWrapperRef = useRef();
 	const histEndRef = useRef();
@@ -72,8 +71,6 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 	const [playInCorrect] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/incorrect.mp3", {
 		volume: volume.curr,
 	});
-
-	// useEffect(() => setLoaded(true), []);
 
 	useEffect(() => {
 		if (flowVisualBell.message) {

@@ -6,18 +6,19 @@ import Workspace from "./Workspace";
 import { ConsoleContextProvider } from "../../store/console-context";
 
 import classes from "./Game.module.scss";
+import LoadingScreen from "../UI/LoadingScreen";
+import { useState } from "react";
 
-const Game = ({ setLoaded, mode = "", project, index, query, blockList }) => {
+const Game = ({ mode = "", project, index, query, blockList }) => {
+	const [gameLoaded, setGameLoaded] = useState(false);
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
 		mode: mode,
 		index: index,
-		setLoaded: setLoaded,
 		wip: project.wip,
+		setLoaded: setGameLoaded,
 	});
-
-	console.log("rendered game");
 
 	return (
 		<div className={classes.code}>
@@ -36,6 +37,7 @@ const Game = ({ setLoaded, mode = "", project, index, query, blockList }) => {
 					<Workspace query={query} blockList={blockList} stacked={project.stacked} unityContext={unityContext} sensorData={sensorData} gameState={gameState} />
 				</div>
 			</ConsoleContextProvider>
+			{!gameLoaded && <LoadingScreen />}
 		</div>
 	);
 };

@@ -5,9 +5,7 @@ import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import Game from "../../../components/Game/Game";
 import getProjectData from "../../../utils/getProjectData";
-
-// TODO re integrate loading screen
-const setLoaded = () => {};
+import LoadingScreen from "../../../components/UI/LoadingScreen";
 
 const ImproveGame = () => {
 	const router = useRouter();
@@ -24,7 +22,6 @@ const ImproveGame = () => {
 		});
 		return () => {
 			clearSession();
-			setLoaded(false);
 		};
 	}, []);
 
@@ -36,7 +33,7 @@ const ImproveGame = () => {
 		}
 	}, [router.isReady, router.query.id]);
 
-	if (!data) return null;
+	if (!data) return <LoadingScreen />;
 
 	return (
 		<>
@@ -44,7 +41,7 @@ const ImproveGame = () => {
 				<title>Improve • {data.name} | CreateBase</title>
 				<meta name="description" content="CreateBase" />
 			</Head>
-			<Game setLoaded={setLoaded} mode="improve" project={data} index={data.subsystems.length - 1} query={data.query} blockList={data.improve.blockList} />
+			<Game mode="improve" project={data} index={data.subsystems.length - 1} query={data.query} blockList={data.improve.blockList} />
 		</>
 	);
 };

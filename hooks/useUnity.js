@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 
-const useUnity = ({ scenePrefix, mode, index, project, setLoaded, wip }) => {
+const useUnity = ({ scenePrefix, mode, index, project, wip, setLoaded }) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
 			loaderUrl: wip ? `/${project}/unity-build/Build.loader.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.loader.js`,
@@ -31,10 +31,12 @@ const useUnity = ({ scenePrefix, mode, index, project, setLoaded, wip }) => {
 	const sceneName = mode ? `${scenePrefix}_${index},${mode}` : `${scenePrefix}_${index}`;
 
 	useEffect(() => {
+		console.log("loading");
 		unityContext.on("loaded", () => {
 			setTimeout(() => {
 				unityContext.send("SceneController", "LoadScene", sceneName);
 				setTimeout(() => {
+					console.log("true state");
 					setLoaded(true);
 				}, 50);
 			}, 100);
@@ -44,7 +46,6 @@ const useUnity = ({ scenePrefix, mode, index, project, setLoaded, wip }) => {
 	useEffect(() => {
 		return () => {
 			unityContext.removeAllEventListeners();
-			setLoaded(true);
 		};
 	}, []);
 

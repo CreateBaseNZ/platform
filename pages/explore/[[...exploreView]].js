@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import classes from "/styles/exploreView.module.scss";
 import Boost from "../../components/Minigames/Boost";
 
-const ExploreView = ({ setLoaded }) => {
+const ExploreView = () => {
 	const router = useRouter();
 	const [view, setView] = useState();
 
@@ -20,9 +20,9 @@ const ExploreView = ({ setLoaded }) => {
 
 	return (
 		<div className={classes.exploreView}>
-			{view === "comparison-boost" && <Boost mode="Comparison" setLoaded={setLoaded} />}
-			{view === "if-boost" && <Boost mode="If" setLoaded={setLoaded} />}
-			{view === "while-boost" && <Boost mode="While" setLoaded={setLoaded} />}
+			{view === "comparison-boost" && <Boost mode="Comparison" />}
+			{view === "if-boost" && <Boost mode="If" />}
+			{view === "while-boost" && <Boost mode="While" />}
 			{view === "explore" && <div></div>}
 		</div>
 	);

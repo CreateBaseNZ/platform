@@ -5,9 +5,7 @@ import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import Game from "../../../components/Game/Game";
 import getProjectData from "../../../utils/getProjectData";
-
-// TODO re integrate loading screen
-const setLoaded = () => {};
+import LoadingScreen from "../../../components/UI/LoadingScreen";
 
 const SubsystemGame = () => {
 	const router = useRouter();
@@ -26,7 +24,6 @@ const SubsystemGame = () => {
 		});
 		return () => {
 			clearSession();
-			setLoaded(false);
 		};
 	}, []);
 
@@ -40,7 +37,7 @@ const SubsystemGame = () => {
 		}
 	}, [router.isReady, router.query.id]);
 
-	if (!data || subsystemIndex === null) return null;
+	if (!data || subsystemIndex === null) return <LoadingScreen />;
 
 	return (
 		<>
@@ -50,7 +47,7 @@ const SubsystemGame = () => {
 				</title>
 				<meta name="description" content="CreateBase" />
 			</Head>
-			<Game setLoaded={setLoaded} project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
+			<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
 		</>
 	);
 };
