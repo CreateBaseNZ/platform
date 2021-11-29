@@ -12,7 +12,6 @@ import { CodeGenerator } from "../../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
 import { flow2Text, isOnceCode, defineObject, findStartingCode } from "../../utils/blockExtractionHelpers";
 import { convertCode } from "../../utils/textConvertor";
-import header from "../../utils/header";
 let codeChanged = false;
 
 let codesDone = 0;
@@ -108,9 +107,8 @@ const Workspace = (props) => {
 					resolve(true);
 				}
 			};
-			const headerFunctions = header("general") + header(props.query);
 			try {
-				eval(headerFunctions + "(async ()=>{" + text + "})()");
+				eval("(async ()=>{" + text + "})()");
 			} catch (error) {
 				dispError(error);
 			}
