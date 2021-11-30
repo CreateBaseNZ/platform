@@ -73,9 +73,9 @@ const ClassesProgress = () => {
 				for (let j = 0; j < subsystems.length; j++) {
 					createData[subsystems[j].title] = {
 						name: subsystems[j].title,
-						research: processData("create_research", project, licenseId, createData[subsystems[j].research.threshold]),
-						plan: processData("create_plan", project, licenseId, createData[subsystems[j].plan.threshold]),
-						code: processData("create_code", project, licenseId, createData[subsystems[j].code.threshold]),
+						research: processData("project_create_research", project, licenseId, createData[subsystems[j].research.threshold]),
+						plan: processData("project_create_plan", project, licenseId, createData[subsystems[j].plan.threshold]),
+						code: processData("game_create", project, licenseId, createData[subsystems[j].code.threshold]),
 					};
 				}
 				return createData;
