@@ -45,7 +45,7 @@ const AliasModal = ({ setShow }) => {
 			<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 				<Input
 					className={classes.inputContainer}
-					inputProps={{ className: classes.input, placeholder: "Alias in this group", ...register("alias", { required: "Please enter an alias" }) }}
+					inputProps={{ className: classes.input, placeholder: "Alias in this group", maxLength: 50, ...register("alias", { required: "Please enter an alias", maxLength: 50 }) }}
 					error={errors.alias}
 				/>
 				<PrimaryButton className={classes.submitBtn} isLoading={isLoading} type="submit" mainLabel="Save" iconLeft={<i className="material-icons-outlined">check</i>} />

@@ -23,6 +23,8 @@ const SignupForm = () => {
 		defaultValues: {}, // TODO prefill if in URL query params
 	});
 
+	console.log(errors);
+
 	const onSubmit = async (input) => {
 		setIsLoading(true);
 		let frontEndError = false;
@@ -93,10 +95,11 @@ const SignupForm = () => {
 					inputProps={{
 						placeholder: "First name*",
 						type: "text",
-						maxLength: 254,
+						maxLength: 50,
 						...register("firstName", {
 							required: "Please enter your first name",
 							pattern: namePattern,
+							maxLength: 50,
 						}),
 					}}
 					error={errors.firstName}
@@ -106,10 +109,11 @@ const SignupForm = () => {
 					inputProps={{
 						placeholder: "Last name*",
 						type: "text",
-						maxLength: 254,
+						maxLength: 50,
 						...register("lastName", {
 							required: "Please enter your last name",
 							pattern: namePattern,
+							maxLength: 50,
 						}),
 					}}
 					error={errors.lastName}

@@ -97,10 +97,11 @@ const MyProfile = () => {
 								label="First name*"
 								inputProps={{
 									type: "text",
-									maxLength: 254,
+									maxLength: 50,
 									...register("firstName", {
 										required: "Please enter your first name",
 										pattern: namePattern,
+										maxLength: 50,
 									}),
 								}}
 								error={errors.firstName}
@@ -110,10 +111,11 @@ const MyProfile = () => {
 								label="Last name*"
 								inputProps={{
 									type: "text",
-									maxLength: 254,
+									maxLength: 50,
 									...register("lastName", {
 										required: "Please enter your last name",
 										pattern: namePattern,
+										maxLength: 50,
 									}),
 								}}
 								error={errors.lastName}
