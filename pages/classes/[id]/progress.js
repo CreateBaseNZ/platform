@@ -54,16 +54,22 @@ const ClassesProgress = () => {
 						duration += rawData[k].properties.duration;
 					}
 				}
+				const printThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""} ${Math.floor((threshold % 3600) / 60) ? `${Math.floor((threshold % 3600) / 60)}min` : ""} ${
+					Math.floor(threshold % 60) ? `${Math.floor(threshold % 60)}s` : ""
+				}`;
+				const printDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""} ${Math.floor((duration % 3600) / 60) ? `${Math.floor((duration % 3600) / 60)}min` : ""} ${
+					Math.floor(duration % 60) ? `${Math.floor(duration % 60)}s` : ""
+				}`;
 				let status = "";
 				let label = "Not visited";
 				if (duration > threshold) {
 					status = "completed";
-					label = `Visited for ≥${threshold} seconds`;
+					label = `Visited for ≥${printThreshold}`;
 				} else if (duration > 0) {
 					status = "visited";
-					label = `Visited for <${threshold} seconds`;
+					label = `Visited for <${printThreshold}`;
 				}
-				return { duration, status, label };
+				return { duration, status, label, printDuration };
 			};
 
 			const processCreateData = (project, subsystems, licenseId) => {
@@ -71,9 +77,9 @@ const ClassesProgress = () => {
 				for (let j = 0; j < subsystems.length; j++) {
 					createData[subsystems[j].title] = {
 						name: subsystems[j].title,
-						research: processData("project_create_research", project, licenseId, createData[subsystems[j].research.threshold]),
-						plan: processData("project_create_plan", project, licenseId, createData[subsystems[j].plan.threshold]),
-						code: processData("game_create", project, licenseId, createData[subsystems[j].code.threshold]),
+						research: processData("project_create_research", project, licenseId, subsystems[j].research.threshold),
+						plan: processData("project_create_plan", project, licenseId, subsystems[j].plan.threshold),
+						code: processData("game_create", project, licenseId, subsystems[j].code.threshold),
 					};
 				}
 				return createData;
@@ -158,10 +164,7 @@ const ClassesProgress = () => {
 					<div className={classes.tooltipTitle}>{tooltip.title}</div>
 					<div className={classes.tooltipStep}>{tooltip.step}</div>
 					<div className={classes[tooltip.status]}>{tooltip.label}</div>
-					<div className={classes.tooltipDuration}>
-						{Math.floor(tooltip.duration / 3600) ? `${Math.floor(tooltip.duration / 3600)}hr` : ""}{" "}
-						{Math.floor((tooltip.duration % 3600) / 60) ? `${Math.floor((tooltip.duration % 3600) / 60)}min` : ""} {Math.floor(tooltip.duration % 60)}s
-					</div>
+					<div className={classes.tooltipDuration}>{tooltip.duration}</div>
 				</div>
 			)}
 		</div>
