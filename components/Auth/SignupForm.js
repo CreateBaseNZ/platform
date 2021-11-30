@@ -77,8 +77,8 @@ const SignupForm = () => {
 			<form className={`${classes.form} ${classes.signupForm}`} onSubmit={handleSubmit(onSubmit)}>
 				<h1>Register an account</h1>
 				<Input
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						maxLength: 254,
 						placeholder: "Email*",
 						...register("email", {
@@ -89,8 +89,8 @@ const SignupForm = () => {
 					error={errors.email}
 				/>
 				<Input
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						placeholder: "First name*",
 						type: "text",
 						maxLength: 254,
@@ -102,8 +102,8 @@ const SignupForm = () => {
 					error={errors.firstName}
 				/>
 				<Input
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						placeholder: "Last name*",
 						type: "text",
 						maxLength: 254,
@@ -115,8 +115,8 @@ const SignupForm = () => {
 					error={errors.lastName}
 				/>
 				<PasswordInput
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						placeholder: "Password*",
 						...register("password", {
 							required: "Please enter a password",

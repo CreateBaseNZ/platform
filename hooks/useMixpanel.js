@@ -37,7 +37,7 @@ const useMixpanel = () => {
 	// note: MUST run clearSession in the return of useEffect
 	const trackActiveSession = (event, data) => {
 		console.log("tracking initialised");
-		const inactivityTimer = 15000; // in ms
+		const inactivityTimer = 600000; // in ms
 		const throttleInterval = 1000; // ms
 		let throttleTimer = null;
 		let sessionTimer = null;

@@ -2,16 +2,15 @@ import { useContext, useState, useRef, useEffect } from "react";
 import router from "next/router";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import useApi from "../../hooks/useApi";
 import Input, { PasswordInput } from "../UI/Input";
-import { PrimaryButton } from "../UI/Buttons";
 import VisualBellContext from "../../store/visual-bell-context";
+import { PrimaryButton } from "../UI/Buttons";
 import { emailPattern } from "../../utils/formValidation";
 import { passwordMinLength, passwordValidate } from "../../utils/formValidation";
+import classes from "./AuthForms.module.scss";
 
 const codeLength = 6;
-
-import classes from "./AuthForms.module.scss";
-import useApi from "../../hooks/useApi";
 
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -56,8 +55,8 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 			<h1>Forgot your password?</h1>
 			<div className={classes.instructions}>Enter your email and we will send you instructions to reset your password</div>
 			<Input
+				className={classes.input}
 				inputProps={{
-					className: classes.input,
 					placeholder: "Email*",
 					type: "text",
 					maxLength: 254,
@@ -161,9 +160,8 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 				{code.map((char, idx) => (
 					<Input
 						key={idx}
-						className={classes.verifCodeInput}
+						className={`${classes.input} ${classes.verifCodeInput}`}
 						inputProps={{
-							className: classes.input,
 							type: "text",
 							maxLength: 1,
 							value: char,
@@ -234,8 +232,8 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 		<form className={`${classes.form} ${classes.forgotForm}`} onSubmit={handleSubmit(onSubmit)}>
 			<h1>Set a new password</h1>
 			<PasswordInput
+				className={classes.input}
 				inputProps={{
-					className: classes.input,
 					placeholder: "New password*",
 					...register("newPassword", {
 						required: "Please enter a new password",
@@ -246,8 +244,8 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 				error={errors.newPassword}
 			/>
 			<PasswordInput
+				className={classes.input}
 				inputProps={{
-					className: classes.input,
 					placeholder: "Confirm password*",
 					...register("confirmPassword", {
 						required: "Please confirm your password",

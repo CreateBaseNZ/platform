@@ -123,9 +123,8 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 					{code.map((char, idx) => (
 						<Input
 							key={idx}
-							className={classes.verifCodeInput}
+							className={`${classes.input} ${classes.verifCodeInput}`}
 							inputProps={{
-								className: classes.input,
 								type: "text",
 								maxLength: 1,
 								value: char,

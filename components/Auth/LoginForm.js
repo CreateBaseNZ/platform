@@ -79,8 +79,8 @@ export const LoginForm = () => {
 			<form className={`${classes.form} ${classes.loginForm}`} onSubmit={handleSubmit(onSubmit)}>
 				<h1>Log in to your account</h1>
 				<Input
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						placeholder: "Email*",
 						type: "text",
 						maxLength: 254,
@@ -91,8 +91,8 @@ export const LoginForm = () => {
 					error={errors.email}
 				/>
 				<PasswordInput
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						placeholder: "Password*",
 						...register("password", {
 							required: "Please enter your password",

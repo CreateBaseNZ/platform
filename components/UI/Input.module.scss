@@ -6,6 +6,11 @@
 	flex-direction: column-reverse;
 }
 
+.inputWrapper {
+	width: 100%;
+	position: relative;
+}
+
 .input {
 	width: 100%;
 	height: 3.5rem;
@@ -79,13 +84,14 @@
 }
 
 .password {
-	position: relative;
 	i {
 		font-size: 1.25rem;
 		position: absolute;
-		right: 0.75rem;
+		top: 50%;
+		right: 1rem;
 		color: $light;
 		cursor: pointer;
+		transform: translateY(-50%);
 	}
 }
 
@@ -99,7 +105,6 @@
 }
 
 .searchBar {
-	position: relative;
 	.input {
 		padding-left: 2.75rem;
 		&:focus {
@@ -111,8 +116,10 @@
 	i {
 		font-size: 20px;
 		position: absolute;
+		top: 50%;
 		left: 1rem;
 		color: $light;
 		transition: color 0.1s ease-out;
+		transform: translateY(-50%);
 	}
 }
