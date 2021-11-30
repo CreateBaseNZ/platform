@@ -42,8 +42,6 @@ const ClassesProgress = () => {
 		const filters = EVENTS.map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
 		const callback = (rawData) => {
-			console.log(rawData.filter((d) => d.properties.licenses.includes("61a47d7ee5379cab121f83f7") && d.event === "project_imagine"));
-
 			const processData = (step, project, licenseId, threshold, subsystem) => {
 				let duration = 0;
 				for (let k = 0; k < rawData.length; k++) {
@@ -60,10 +58,10 @@ const ClassesProgress = () => {
 				let label = "Not visited";
 				if (duration > threshold) {
 					status = "completed";
-					label = "Visited for ≥60 seconds";
+					label = `Visited for ≥${threshold} seconds`;
 				} else if (duration > 0) {
 					status = "visited";
-					label = "Visited for <60 seconds";
+					label = `Visited for <${threshold} seconds`;
 				}
 				return { duration, status, label };
 			};
