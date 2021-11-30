@@ -9,7 +9,7 @@ const OnboardingSection = ({ section, checkHandler, statuses, setVideoModal }) =
 			<div className={classes.sectionHeading}>
 				<h3>{section.caption}</h3>
 				<h4>
-					{section.hasOr ? Number(statuses[section.orId]) : section.tasks.filter((task) => statuses[task.id]).length} of {section.hasOr ? 1 : section.tasks.length} completed
+					{section.hasOr ? Number(statuses[section.orId] || 0) : section.tasks.filter((task) => statuses[task.id]).length} of {section.hasOr ? 1 : section.tasks.length} completed
 				</h4>
 			</div>
 			<div className={classes.taskContainer}>
