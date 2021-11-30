@@ -39,7 +39,7 @@ const ModuleContainer = ({ active, modules = [], clickHandler = () => {}, captio
 			{showManualBtn && (
 				<Link href={{ pathname: "/project/[id]/manual", query: router.query }}>
 					<button className={classes.play}>
-						<span className="material-icons-outlined">sports_esports</span>Try the Game
+						<span className="material-icons-outlined">sports_esports</span>Give it a go
 					</button>
 				</Link>
 			)}

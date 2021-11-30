@@ -27,13 +27,13 @@ export default {
 	],
 	define: {
 		threshold: 30,
-		url: "https://youtu.be/iiWiwxxkq2Q",
+		url: "https://youtu.be/3YOLGBQLGjY",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/situation.mp4",
 		h1: "Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!",
 		h2: "Unfortunately, a self-driving cart has driven through our recycling facility and spilt bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...",
 		title: "MagneBot",
 		docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
-		word: "/magnebot/files/learning-journal.docx",
+		word: "/magnebot/files/learning-journal-magnebot.docx",
 	},
 	imagine: {
 		threshold: 300,
@@ -53,10 +53,10 @@ export default {
 	},
 	subsystems: [
 		{
-			title: "TODO",
-			requirements: ["TODO"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			title: "Sequential programming",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/sequential.jpg",
+			description: "In a single subsystem, your task is to write a sequential program to control MagneBot in order to pick up each rubbish bag and deposit them in one of the two recycling bins.",
 			research: {
 				threshold: 300,
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
