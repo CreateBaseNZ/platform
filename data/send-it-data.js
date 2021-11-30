@@ -81,10 +81,10 @@ export default {
 	},
 	subsystems: [
 		{
-			title: "TODO",
-			requirements: ["TODO"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			title: "Obstacle avoidance",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
+			description: "In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
 			research: {
 				threshold: 600,
 				caption: ["Work through the five modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
