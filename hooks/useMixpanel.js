@@ -37,21 +37,16 @@ const useMixpanel = () => {
 	// note: MUST run clearSession in the return of useEffect
 	const trackActiveSession = (event, data) => {
 		console.log("tracking initialised");
-		const inactivityTimer = 10000; // in ms
+		const inactivityTimer = 15000; // in ms
 		const throttleInterval = 1000; // ms
 		let throttleTimer = null;
 		let sessionTimer = null;
 		let startTime = null;
 
-		const endSession = () => {
-			const endTime = Date.now();
+		const endSession = (endTime = Date.now() - inactivityTimer) => {
 			console.log("session ended");
 			if (!startTime) return;
 			let duration = endTime - startTime;
-			// session not force ended (i.e. via clearSession())
-			if (duration > inactivityTimer) {
-				duration -= inactivityTimer;
-			}
 			console.log(startTime);
 			console.log(endTime);
 			console.log(Math.round(duration / 1000));
@@ -77,7 +72,7 @@ const useMixpanel = () => {
 
 		// cleanup
 		const clearSession = () => {
-			endSession();
+			endSession(Date.now());
 			window.onmousemove = null;
 			window.onmousedown = null;
 			window.ontouchstart = null;
