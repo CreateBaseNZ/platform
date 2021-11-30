@@ -47,7 +47,7 @@ const GROUP_DEFAULT_SECTION = {
 			title: "Register your school",
 			subtitle: "For admins and teachers",
 			videoUrl: "https://www.youtube.com/embed/K9BLb9clLRk",
-			linkUrl: "/my-groups/register-school",
+			linkUrl: "/my-groups/new-school",
 			linkLabel: "Go to school registration",
 		},
 		{
