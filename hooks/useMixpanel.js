@@ -34,24 +34,27 @@ const useMixpanel = () => {
 		mixpanel.track(event, data);
 	};
 
+	// note: MUST run clearSession in the return of useEffect
 	const trackActiveSession = (event, data) => {
-		console.log("tracking started");
-		const inactivityTimer = 30000; // in ms
+		console.log("tracking initialised");
+		const inactivityTimer = 10000; // in ms
 		const throttleInterval = 1000; // ms
 		let throttleTimer = null;
 		let sessionTimer = null;
-		let startTime = Date.now();
-		console.log("session started");
+		let startTime = null;
 
 		const endSession = () => {
 			const endTime = Date.now();
 			console.log("session ended");
+			if (!startTime) return;
 			let duration = endTime - startTime;
 			// session not force ended (i.e. via clearSession())
 			if (duration > inactivityTimer) {
 				duration -= inactivityTimer;
 			}
-			console.log(duration);
+			console.log(startTime);
+			console.log(endTime);
+			console.log(Math.round(duration / 1000));
 			track(event, { ...data, start: startTime, end: endTime, duration: Math.round(duration / 1000) });
 			startTime = null;
 		};
@@ -72,14 +75,6 @@ const useMixpanel = () => {
 			}
 		};
 
-		window.onmousemove = continueSession;
-		window.onmousedown = continueSession;
-		window.ontouchstart = continueSession;
-		window.onclick = continueSession;
-		window.onkeydown = continueSession;
-		window.addEventListener("scroll", continueSession, true);
-		console.log(window);
-
 		// cleanup
 		const clearSession = () => {
 			endSession();
@@ -92,6 +87,14 @@ const useMixpanel = () => {
 			clearTimeout(sessionTimer);
 			clearTimeout(throttleTimer);
 		};
+
+		window.onmousemove = continueSession;
+		window.onmousedown = continueSession;
+		window.ontouchstart = continueSession;
+		window.onclick = continueSession;
+		window.onkeydown = continueSession;
+		window.addEventListener("scroll", continueSession, true);
+		continueSession();
 
 		return clearSession;
 	};
