@@ -40,10 +40,28 @@ export default async function (req, res) {
 	if (data.status === "failed" && data.content.account === "does not exist") {
 		return res.send({ status: "failed", content: "invalid account id" });
 	}
+	data.content.recentGroups = recentGroupsCheck(data.content.recentGroups, data.content.groups);
 	if (data.status !== "succeeded") return res.send({ status: "error" });
 	return res.send({ status: "succeeded", content: data.content });
 }
 
 // HELPERS ==================================================
+
+function recentGroupsCheck(recentGroups, groups) {
+	let sortedRecentGroups = JSON.parse(JSON.stringify(recentGroups));
+	sortedRecentGroups.sort(function (a, b) {
+		return a - b;
+	});
+	let valid = true;
+	if (sortedRecentGroups.length > groups.length) valid = false;
+	for (let i = 0; i < sortedRecentGroups.length; i++) {
+		if (sortedRecentGroups[i] !== i) valid = false;
+	}
+	if (!valid) {
+		return [];
+	} else {
+		return recentGroups;
+	}
+}
 
 // END ======================================================
