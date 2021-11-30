@@ -7,6 +7,7 @@ import OnboardingSection from "../components/Onboarding/OnboardingSection";
 import OnboardingVideo from "../components/Onboarding/OnboardingVideo";
 
 import classes from "../styles/onboarding.module.scss";
+import OnboardingText from "../components/Onboarding/OnboardingText";
 
 const GETTING_STARTED_SECTION = {
 	caption: "Let's get you started! Here's a couple videos we've put together for you",
@@ -18,14 +19,14 @@ const GETTING_STARTED_SECTION = {
 			type: "video",
 			title: "Watch Teaching on CreateBase",
 			subtitle: "For admins and teachers",
-			videoUrl: "https://www.youtube.com/embed/SlRLHPSm17Y", // TODO
+			videoUrl: "https://www.youtube.com/embed/2fOdfDHPyGc",
 		},
 		{
 			id: "getting-started-1",
 			type: "video",
 			title: "Watch Learning on CreateBase",
 			subtitle: "For students",
-			videoUrl: "https://www.youtube.com/embed/SlRLHPSm17Y", // TODO
+			videoUrl: "https://www.youtube.com/embed/Fd9pVmFwVd8",
 		},
 	],
 };
@@ -45,7 +46,7 @@ const GROUP_DEFAULT_SECTION = {
 			type: "video",
 			title: "Register your school",
 			subtitle: "For admins and teachers",
-			videoUrl: "https://www.youtube.com/embed/SlRLHPSm17Y", // TODO
+			videoUrl: "https://www.youtube.com/embed/K9BLb9clLRk",
 			linkUrl: "/my-groups/register-school",
 			linkLabel: "Go to school registration",
 		},
@@ -54,7 +55,7 @@ const GROUP_DEFAULT_SECTION = {
 			type: "video",
 			title: "Join your school",
 			subtitle: "For students",
-			videoUrl: "https://www.youtube.com/embed/SlRLHPSm17Y", // TODO
+			videoUrl: "https://www.youtube.com/embed/VZ4wRCb_Up8",
 			linkUrl: "/my-groups/join-school",
 			linkLabel: "Join a school",
 		},
@@ -63,7 +64,27 @@ const GROUP_DEFAULT_SECTION = {
 
 const STAFF_SECTION = {
 	tasks: [
-		{ id: "group-0", type: "text", title: "A quick guide to Lesson Plans", content: null },
+		{
+			id: "group-0",
+			type: "text",
+			title: "A quick guide to Lesson Plans",
+			content: (
+				<>
+					<p>Every Project on the CreateBase Platform comes with a pre-written set of lesson plans co-written by leading STEAM and Digital technology teachers.</p>
+					<p>
+						Using lesson plans reduces the time it takes to prepare for each lesson significantly. In saying this, lesson plans are entirely optional. They serve as an example of how the content could
+						be delivered as part of a classroom setting, but you are free to integrate our Projects into your lessons in any way that you please.
+					</p>
+					<p>To access lesson plans:</p>
+					<ul>
+						<li>Choose a Project from the Project Library</li>
+						<li>Open the teaching tab</li>
+						<li>Open or download the lesson plan pdf</li>
+					</ul>
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson plan gif.gif" />
+				</>
+			),
+		},
 		{
 			id: "group-1",
 			type: "video",
@@ -97,7 +118,7 @@ const STAFF_SECTION = {
 			type: "video",
 			title: "Add members to your class",
 			subtitle: "Classes (3/3)",
-			videoUrl: "https://www.youtube.com/embed/SlRLHPSm17Y", // TODO
+			videoUrl: "https://www.youtube.com/embed/so383OzZ-rk",
 			linkUrl: "/classes",
 			linkLabel: "Go to Classes",
 		},
@@ -114,6 +135,7 @@ const Onboarding = () => {
 	const post = useApi();
 	const [statuses, setStatuses] = useState();
 	const [videoModal, setVideoModal] = useState({ show: false, videoUrl: "" });
+	const [textModal, setTextModal] = useState({ show: false, content: null });
 
 	useEffect(async () => {
 		await post({
@@ -146,8 +168,8 @@ const Onboarding = () => {
 				<h1>
 					Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {globalSession.firstName} 👋
 				</h1>
-				<OnboardingSection section={GETTING_STARTED_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
-				<OnboardingSection section={FLOW_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
+				<OnboardingSection section={GETTING_STARTED_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
+				<OnboardingSection section={FLOW_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
 				{staffOfVerifiedGroups.length ? (
 					<OnboardingSection
 						section={{
@@ -161,12 +183,14 @@ const Onboarding = () => {
 						setStatuses={setStatuses}
 						checkHandler={checkHandler}
 						setVideoModal={setVideoModal}
+						setTextModal={setTextModal}
 					/>
 				) : null}
-				<OnboardingSection section={GROUP_DEFAULT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
-				<OnboardingSection section={SUPPORT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} />
+				<OnboardingSection section={GROUP_DEFAULT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
+				<OnboardingSection section={SUPPORT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
 			</div>
 			{videoModal.show && <OnboardingVideo state={videoModal} setState={setVideoModal} />}
+			{textModal.show && <OnboardingText state={textModal} setState={setTextModal} />}
 		</div>
 	);
 };

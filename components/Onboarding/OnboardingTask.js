@@ -4,7 +4,7 @@ import styles from "../../styles/_exports.module.scss";
 
 import classes from "./OnboardingTask.module.scss";
 
-const OnboardingTask = ({ task, isCompleted, checkHandler, setVideoModal }) => {
+const OnboardingTask = ({ task, isCompleted, checkHandler, setVideoModal, setTextModal }) => {
 	const router = useRouter();
 
 	const clickHandler = () => {
@@ -13,6 +13,7 @@ const OnboardingTask = ({ task, isCompleted, checkHandler, setVideoModal }) => {
 		} else if (task.type === "link") {
 			router.push(task.linkUrl);
 		} else if (task.type === "text") {
+			setTextModal({ content: task.content, show: true });
 		}
 	};
 

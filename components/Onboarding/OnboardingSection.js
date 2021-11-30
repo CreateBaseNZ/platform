@@ -3,7 +3,7 @@ import OnboardingTask from "./OnboardingTask";
 
 import classes from "./OnboardingSection.module.scss";
 
-const OnboardingSection = ({ section, checkHandler, statuses, setVideoModal }) => {
+const OnboardingSection = ({ section, checkHandler, statuses, setVideoModal, setTextModal }) => {
 	return (
 		<section className={classes.section}>
 			<div className={classes.sectionHeading}>
@@ -20,6 +20,7 @@ const OnboardingSection = ({ section, checkHandler, statuses, setVideoModal }) =
 							isCompleted={section.hasOr ? statuses[section.orId] : statuses[task.id]}
 							checkHandler={() => checkHandler(section.hasOr ? section.orId : task.id)}
 							setVideoModal={setVideoModal}
+							setTextModal={setTextModal}
 						/>
 						{section.hasOr && i < section.tasks.length - 1 && <div className={classes.or}>OR</div>}
 					</Fragment>

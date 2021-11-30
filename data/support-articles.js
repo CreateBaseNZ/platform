@@ -5,12 +5,28 @@ export const GETTING_STARTED_ON_CREATEBASE = {
 		<>
 			<p>This Getting Started video explains the basics to start you on your journey on the CreateBase platform.</p>
 			<p>This is the same as your onboarding video, so if you can remember that then there is no need to rewatch it.</p>
+			<iframe
+				src="https://www.youtube.com/embed/2fOdfDHPyGc"
+				title="How-To: Get started as a teacher"
+				className="embedded-video-16-9"
+				frameBorder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowFullScreen
+			/>
 		</>
 	),
 	teacher: (
 		<>
 			<p>This Getting Started video explains the basics to start you on your journey on the CreateBase platform.</p>
 			<p>This is the same as your onboarding video, so if you can remember that then there is no need to rewatch it.</p>
+			<iframe
+				src="https://www.youtube.com/embed/2fOdfDHPyGc"
+				title="How-To: Get started as a teacher"
+				className="embedded-video-16-9"
+				frameBorder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowFullScreen
+			/>
 		</>
 	),
 	student: (
@@ -19,7 +35,7 @@ export const GETTING_STARTED_ON_CREATEBASE = {
 			<p>This is the same as your onboarding video, so if you can remember that then there is no need to rewatch it.</p>
 			<iframe
 				src="https://www.youtube.com/embed/Fd9pVmFwVd8"
-				title="YouTube video player"
+				title="How-To: Get started as a student"
 				className="embedded-video-16-9"
 				frameBorder="0"
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -430,6 +446,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				<li>Researching the Flow editor and how to use it to write code.</li>
 				<li>Learning to use the Flow blocks for the current sub-system.</li>
 			</ul>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/research gif.gif" style={{ maxWidth: 800 }} />
 			<h2>Plan</h2>
 			<p>
 				Code solutions can be incredibly long and complicated, especially if you don't have any structure before you start coding. During our Create process, we make students stop and think about
@@ -636,7 +653,9 @@ export const RECOVER_STUDENT_PASSWORDS = {
 	staff: (
 		<>
 			<p>All passwords can be reset with the "Forgot password" button on the login page.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/login screen.JPG" style={{ maxWidth: 800 }} />
 			<p>Students can then change their own passwords from their Account tab.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/account reset password.JPG" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
