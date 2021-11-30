@@ -1,6 +1,6 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import useApi from "../../hooks/useApi";
 import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
@@ -143,15 +143,27 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 					{error}
 				</div>
 				<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
-				<div className={`${classes.smallFont} ${classes.switch}`}>
-					{isResending ? (
-						"Resending ..."
-					) : (
-						<button type="button" className={classes.linkBtn} onClick={resendCodeHandler}>
-							Resend code
+				{!isLoading && (
+					<div className={classes.verifOptions}>
+						<button
+							className={`${classes.smallFont} ${classes.switch}`}
+							onClick={() => {
+								signOut({ redirect: false });
+								router.push("/");
+							}}>
+							Cancel
 						</button>
-					)}
-				</div>
+						<div className={`${classes.smallFont} ${classes.switch}`}>
+							{isResending ? (
+								"Resending ..."
+							) : (
+								<button type="button" className={classes.linkBtn} onClick={resendCodeHandler}>
+									Resend code
+								</button>
+							)}
+						</div>
+					</div>
+				)}
 			</form>
 		</div>
 	);
