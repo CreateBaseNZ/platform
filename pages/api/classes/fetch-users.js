@@ -73,6 +73,7 @@ const constructUsers = (group, instance) => {
 			role: license.role,
 			status,
 			email: license.profile.account.email,
+			alias: license.metadata.alias,
 		});
 	}
 	return licenses;
