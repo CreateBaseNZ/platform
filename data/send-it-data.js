@@ -43,7 +43,7 @@ export default {
 		h2: "What do you think is happening here? Discuss with your peers!",
 		title: "Send It",
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
-		word: "/send-it/files/learning-journal.docx",
+		word: "/send-it/files/learning-journal-send-it.docx",
 	},
 	imagine: {
 		threshold: 600,
