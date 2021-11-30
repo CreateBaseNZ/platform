@@ -25,7 +25,7 @@ const TableControls = ({ data, selectedRowIds, globalFilter, setGlobalFilter, re
 			<div className={classes.btnContainer} style={{ opacity: numOfSelected ? 1 : 0.25, pointerEvents: numOfSelected ? "auto" : "none" }}>
 				{renderBtns.map((fn, i) => fn(i, data, selectedRowIds))}
 			</div>
-			<SearchBar className={claases.input} inputProps={{ placeholder: "Search", value: value || "", onChange: changeHandler }} className={classes.search} />
+			<SearchBar className={classes.input} inputProps={{ placeholder: "Search", value: value || "", onChange: changeHandler }} className={classes.search} />
 		</div>
 	);
 };
