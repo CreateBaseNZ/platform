@@ -9,10 +9,10 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import { PrimaryButton, TertiaryButton } from "../../../components/UI/Buttons";
 import Table from "../../../components/UI/Table/Table";
 import CLASSES_TABS from "../../../constants/classesConstants";
+import SkeletonTable from "../../../components/UI/SkeletonTable";
 import { MANAGE_MEMBERS_COLUMNS, MANAGE_MEMBERS_SIZES } from "../../../constants/classesConstants";
 
 import classes from "../../../styles/classManageMembers.module.scss";
-import SkeletonTable from "../../../components/UI/SkeletonTable";
 
 const ClassesManage = () => {
 	const ref = useRef();
@@ -54,7 +54,7 @@ const ClassesManage = () => {
 				Manage Members
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} /> <HeaderToggle />
 			</h1>
-			{classObject.students ? <Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} /> : <SkeletonTable />}
+			{classLoaded ? <Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} /> : <SkeletonTable />}
 			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} setClassObject={setClassObject} />}
 		</div>
 	);

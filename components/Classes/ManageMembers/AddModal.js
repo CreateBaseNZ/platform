@@ -20,6 +20,9 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const searchValue = watch("searchValue");
 	const post = useApi();
 
+	console.log(classObject);
+	console.log(userList);
+
 	useEffect(async () => {
 		await post({
 			route: "/api/classes/fetch-users",
@@ -40,10 +43,13 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		const { searchValue, ...licenseIds } = inputs;
+		const { searchValue, ...rest } = inputs;
+		const selectedUsers = Object.keys(rest)
+			.filter((key) => rest[key])
+			.map((key) => userList[key.split("_")[0]]);
 		const details = {
 			classId: classObject.id,
-			licenseIds: Object.keys(licenseIds).filter((key) => licenseIds[key]),
+			licenseIds: selectedUsers.map((user) => user.licenseId),
 			date: new Date().toString(),
 		};
 		if (!details.licenseIds.length) return setIsLoading(false);
@@ -51,14 +57,20 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 			route: "/api/classes/add-users",
 			input: details,
 			successHandler: () => {
+				let students = [];
+				let teachers = [];
+				for (let i = 0; i < selectedUsers.length; i++) {
+					const user = selectedUsers[i];
+					if (user.role === "student") {
+						students.push({ email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId, role: user.role });
+					} else if (user.role === "teacher" || user.role === "admin") {
+						teachers.push(user.alias);
+					}
+				}
 				setClassObject((state) => ({
 					...state,
-					students: [
-						...state.students,
-						...userList
-							.filter((user) => details.licenseIds.some((id) => id === user.licenseId))
-							.map((user) => ({ email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId })),
-					],
+					teachers: [...state.teachers, ...teachers],
+					students: [...state.students, ...students],
 				}));
 				setShow(false);
 				setVisualBell({ type: "success", message: `${details.licenseIds.length} new user${details.licenseIds.length === 1 ? "" : "s"} added` });
@@ -77,10 +89,10 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 				/>
 				<div ref={ref} className={`${classes.container} roundScrollbar`}>
 					{userList.map(
-						(user) =>
+						(user, i) =>
 							user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
 								<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`}>
-									<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(user.licenseId)} />
+									<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(`${i}_user`)} />
 									<label>
 										<div>
 											<p>{user.name}</p>
