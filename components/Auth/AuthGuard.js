@@ -21,7 +21,7 @@ const AuthGuard = ({ children, auth }) => {
 
 	useEffect(() => {
 		const runtimeError = (e) => {
-			reportError({ route: router, type: "runtime error", metadata: e });
+			reportError({ route: router.router, type: "runtime error", metadata: e });
 		};
 		window.addEventListener("error", runtimeError);
 		return () => window.removeEventListener("error", runtimeError);
