@@ -6,19 +6,21 @@ import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
 import GlobalSessionContext from "../../store/global-session-context";
 import VisualBellContext from "../../store/visual-bell-context";
-import Input from "../../components/UI/Input";
+import Input, { SearchBar } from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { SecondaryButton } from "../../components/UI/Buttons";
 import DuplicateWarning from "../../components/MyGroups/DuplicateWarning";
+import COUNTRIES from "../../constants/countries";
 
-import classes from "/styles/myGroups.module.scss";
+import classes from "../../styles/myGroups.module.scss";
 
 const NewSchool = () => {
 	const post = useApi();
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasSubmitted, setHasSubmitted] = useState(false);
 	const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
+	const [showCountries, setShowCountries] = useState(false);
 	const [duplicateParams, setDuplicateParams] = useState();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
@@ -26,11 +28,48 @@ const NewSchool = () => {
 		register,
 		handleSubmit,
 		reset,
+		watch,
+		setValue,
+		clearErrors,
+		setError,
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
+	const countrySearchValue = watch("country");
+
+	const renderDropdown = (value) => {
+		const results = COUNTRIES.filter((country) => country.name.toLowerCase().includes(value.toLowerCase()));
+
+		return (
+			<div className={`${classes.countryDropdown} roundScrollbar`}>
+				{results.length ? (
+					results.map((country) => (
+						<div className={classes.countryItem} key={country.code} onMouseDown={() => selectHandler(country.name)}>
+							<span>{country.code.toUpperCase().replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt()))}</span> {country.name}
+						</div>
+					))
+				) : (
+					<div className={`${classes.countryItem} ${classes.noResult}`}>No results found</div>
+				)}
+			</div>
+		);
+	};
+
+	const selectHandler = (value) => {
+		setValue("country", value);
+		clearErrors("country");
+		setShowCountries(false);
+	};
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
+		const country = COUNTRIES.find((_country) => _country.name.toLowerCase() === inputs.country.toLowerCase())?.name;
+		if (!country) {
+			setError("country", {
+				type: "manual",
+				message: "Please select a country",
+			});
+			return setIsLoading(false);
+		}
 		const details = {
 			profileId: globalSession.profileId,
 			alias: `${globalSession.firstName} ${globalSession.lastName}`,
@@ -38,34 +77,34 @@ const NewSchool = () => {
 			name: inputs.name,
 			address: inputs.address,
 			city: inputs.city,
-			country: inputs.country,
+			country: country,
 			date: new Date().toString(),
 		};
-		await post({
-			route: "/api/groups/query",
-			input: { query: details.name },
-			successHandler: async (data) => {
-				const otherGroups = data.content.filter((group) => group.location.country.toLowerCase() === details.country.toLowerCase());
-				setDuplicateParams({ details, otherGroups });
-				if (otherGroups.length) {
-					setShowDuplicateWarning(true);
-					return setIsLoading(false);
-				}
-				await post({
-					route: "/api/groups/register-school",
-					input: details,
-					successHandler: (data) => {
-						setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-						setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
-						router.push("/my-groups");
-					},
-				});
-			},
-		});
+		// await post({
+		// 	route: "/api/groups/query",
+		// 	input: { query: details.name },
+		// 	successHandler: async (data) => {
+		// 		const otherGroups = data.content.filter((group) => group.location.country.toLowerCase() === details.country.toLowerCase());
+		// 		setDuplicateParams({ details, otherGroups });
+		// 		if (otherGroups.length) {
+		// 			setShowDuplicateWarning(true);
+		// 			return setIsLoading(false);
+		// 		}
+		// 		await post({
+		// 			route: "/api/groups/register-school",
+		// 			input: details,
+		// 			successHandler: (data) => {
+		// 				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+		// 				setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
+		// 				router.push("/my-groups");
+		// 			},
+		// 		});
+		// 	},
+		// });
 	};
 
 	return (
-		<div className={classes.view}>
+		<div className={`${classes.view} ${classes.newSchool}`}>
 			<Head>
 				<title>Register a School | CreateBase</title>
 				<meta name="description" content="Register your school as a group on CreateBase" />
@@ -96,32 +135,43 @@ const NewSchool = () => {
 								className={classes.input}
 								label="School name*"
 								labelProps={{ className: classes.inputLabel }}
-								inputProps={{ placeholder: "School name", type: "text", maxLength: 254, ...register("name", { required: "Please enter your school's name" }) }}
+								inputProps={{ placeholder: "School name", type: "text", maxLength: 254, ...register("name", { required: "Please enter your school's name", maxLength: 254 }) }}
 								error={errors.name}
 							/>
 							<Input
 								className={classes.input}
 								label="Address*"
 								labelProps={{ className: classes.inputLabel }}
-								inputProps={{ placeholder: "Address", type: "text", maxLength: 254, ...register("address", { required: "Please enter your school's address" }) }}
+								inputProps={{ placeholder: "Address", type: "text", maxLength: 254, ...register("address", { required: "Please enter your school's address", maxLength: 254 }) }}
 								error={errors.address}
 							/>
 							<Input
 								className={classes.input}
 								label="City/State*"
 								labelProps={{ className: classes.inputLabel }}
-								inputProps={{ placeholder: "City/State", type: "text", maxLength: 254, ...register("city", { required: "Please enter your school's city/state" }) }}
+								inputProps={{ placeholder: "City/State", type: "text", maxLength: 254, ...register("city", { required: "Please enter your school's city/state", maxLength: 254 }) }}
 								error={errors.city}
 							/>
-							<Input
-								className={classes.input}
-								label="Country*"
-								labelProps={{ className: classes.inputLabel }}
-								inputProps={{ placeholder: "Country", type: "text", maxLength: 254, ...register("country", { required: "Please enter your school's country" }) }}
-								error={errors.country}
-							/>
-							<div className={classes.caption}>The email registered with your account will be the primary point of contact. Please allow up to 24 hours for us to be verify your registration.</div>
+							<div tabIndex={-1} className={classes.countryDropdownContainer} onFocus={() => setShowCountries(true)} onBlur={() => setShowCountries(false)}>
+								<SearchBar
+									className={classes.input}
+									label="Country*"
+									labelProps={{ className: classes.inputLabel }}
+									inputProps={{
+										placeholder: "Please select a country",
+										type: "text",
+										maxLength: 254,
+										...register("country", { required: "Please select a country" }),
+										autoComplete: "off",
+									}}
+									error={errors.country}
+								/>
+								{showCountries && renderDropdown(countrySearchValue)}
+							</div>
 							<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Registering ..." mainLabel="Register" />
+							<div className={classes.newSchoolCaption}>
+								The email registered with your account will be the primary point of contact. Please allow up to 24 hours for us to be verify your registration.
+							</div>
 						</form>
 					)}
 				</div>

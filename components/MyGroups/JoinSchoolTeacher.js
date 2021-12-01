@@ -107,7 +107,14 @@ const JoinSchoolTeacher = () => {
 					className={`${classes.input} ${queryDropdown.selectedId ? classes.validInput : ""}`}
 					label="School name*"
 					labelProps={{ className: classes.inputLabel }}
-					inputProps={{ placeholder: "Search for your school", type: "text", maxLength: 254, ...register("name", { required: "Please select a school" }), onChange: onSearch, autoComplete: "off" }}
+					inputProps={{
+						placeholder: "Search for your school",
+						type: "text",
+						maxLength: 254,
+						...register("name", { required: "Please select a school" }),
+						onChange: onSearch,
+						autoComplete: "off",
+					}}
 					error={errors.name}
 				/>
 				{queryDropdown.selectedId && <i className={`material-icons-outlined ${classes.validTick}`}>check_circle</i>}

@@ -54,11 +54,11 @@ const ClassesProgress = () => {
 						duration += rawData[k].properties.duration;
 					}
 				}
-				const printThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""} ${Math.floor((threshold % 3600) / 60) ? `${Math.floor((threshold % 3600) / 60)}min` : ""} ${
-					Math.floor(threshold % 60) ? `${Math.floor(threshold % 60)}s` : ""
+				const printThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""}${Math.floor((threshold % 3600) / 60) ? ` ${Math.floor((threshold % 3600) / 60)}min` : ""}${
+					Math.floor(threshold % 60) ? ` ${Math.floor(threshold % 60)}s` : ""
 				}`;
-				const printDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""} ${Math.floor((duration % 3600) / 60) ? `${Math.floor((duration % 3600) / 60)}min` : ""} ${
-					Math.floor(duration % 60) ? `${Math.floor(duration % 60)}s` : ""
+				const printDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""}${Math.floor((duration % 3600) / 60) ? ` ${Math.floor((duration % 3600) / 60)}min` : ""}${
+					Math.floor(duration % 60) ? ` ${Math.floor(duration % 60)}s` : ""
 				}`;
 				let status = "";
 				let label = "Not visited";
