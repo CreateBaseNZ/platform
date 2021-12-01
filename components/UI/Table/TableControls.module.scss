@@ -23,13 +23,17 @@
 
 .search {
 	width: 16rem;
-	.input {
-		height: 3rem;
-		padding-left: 2.25rem;
+	input {
 		font-size: 14px;
+		height: 2.75rem;
+		padding-left: 2.25rem !important;
+		border-radius: 12px;
+	}
+	label {
+		margin: 0;
 	}
 	i {
-		left: 0.8rem !important;
+		left: 0.75rem !important;
 	}
 	p {
 		height: 0;

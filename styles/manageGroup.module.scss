@@ -32,11 +32,16 @@
 	}
 }
 
-.promoteBtn {
+.btn {
 	background: $lighter;
 	color: $dark;
 	font-size: 12px;
 	margin-right: 1rem;
+	height: 2.75rem;
+	border-radius: 12px;
+}
+
+.promoteBtn {
 	i {
 		font-size: 1rem;
 		margin-right: 0.5em;
@@ -48,10 +53,6 @@
 }
 
 .removeBtn {
-	background: $lighter;
-	color: $dark;
-	font-size: 12px;
-	margin-right: 1rem;
 	i {
 		font-size: 1rem;
 		margin-right: 0.5em;
