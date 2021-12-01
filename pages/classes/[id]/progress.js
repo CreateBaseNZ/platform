@@ -18,7 +18,47 @@ import DUMMY_STUDENTS from "../../../constants/progress";
 
 import classes from "../../../styles/classesProgress.module.scss";
 
-const EVENTS = ["project_define", "project_imagine", "project_improve", "project_create_research", "project_create_plan", "game_create", "game_improve"];
+const EVENTS = [
+	"project_define",
+	"project_imagine",
+	"project_improve",
+	"project_create_research",
+	"project_create_plan",
+	"code_create_time",
+	"code_improve_time",
+	"game_manual_progress",
+	"game_create_progress",
+	"game_improve_progress",
+];
+
+const getStatus = (duration, threshold, printThreshold, gameProgressEvent, isWin) => {
+	let status = "";
+	let label = "Not visited";
+
+	if (duration > threshold) {
+		status = "completed";
+		label = `Visited for ≥${printThreshold}`;
+		if (gameProgressEvent) {
+			if (isWin) {
+				label += ". Task completed";
+			} else {
+				label += ". Task in progress";
+			}
+		}
+	} else if (duration > 0) {
+		status = "visited";
+		label = `Visited for <${printThreshold}`;
+		if (gameProgressEvent) {
+			if (isWin) {
+				label += ". Task completed";
+			} else {
+				label += ". Task in progress";
+			}
+		}
+	}
+
+	return { status, label };
+};
 
 const PROJECT_OPTIONS = ALL_PROJECT_DATA.map((project) => ({ id: project.query, name: project.name }));
 
@@ -49,8 +89,10 @@ const ClassesProgress = () => {
 		const callback = (rawData) => {
 			if (!ref.current) return;
 
-			const processData = (step, project, licenseId, threshold, subsystem) => {
+			const processData = (step, project, licenseId, threshold, subsystem, gameProgressEvent) => {
 				let duration = 0;
+				let isWin = false;
+
 				for (let k = 0; k < rawData.length; k++) {
 					if (
 						rawData[k].event === step &&
@@ -60,6 +102,15 @@ const ClassesProgress = () => {
 					) {
 						duration += rawData[k].properties.duration;
 					}
+					if (
+						gameProgressEvent &&
+						rawData[k].event === gameProgressEvent &&
+						rawData[k].properties.project === project &&
+						rawData[k].properties.licenses.includes(licenseId) &&
+						(subsystem ? rawData[k].properties.subsystem === subsystem : true)
+					) {
+						isWin = rawData[k].properties.state === "win";
+					}
 				}
 				const printThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""}${Math.floor((threshold % 3600) / 60) ? ` ${Math.floor((threshold % 3600) / 60)}min` : ""}${
 					Math.floor(threshold % 60) ? ` ${Math.floor(threshold % 60)}s` : ""
@@ -67,15 +118,9 @@ const ClassesProgress = () => {
 				const printDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""}${Math.floor((duration % 3600) / 60) ? ` ${Math.floor((duration % 3600) / 60)}min` : ""}${
 					Math.floor(duration % 60) ? ` ${Math.floor(duration % 60)}s` : ""
 				}`;
-				let status = "";
-				let label = "Not visited";
-				if (duration > threshold) {
-					status = "completed";
-					label = `Visited for ≥${printThreshold}`;
-				} else if (duration > 0) {
-					status = "visited";
-					label = `Visited for <${printThreshold}`;
-				}
+
+				const { status, label } = getStatus(duration, threshold, printThreshold, gameProgressEvent, isWin);
+
 				return { duration, status, label, printDuration };
 			};
 
@@ -84,9 +129,9 @@ const ClassesProgress = () => {
 				for (let j = 0; j < subsystems.length; j++) {
 					createData[subsystems[j].title] = {
 						name: subsystems[j].title,
-						research: processData("project_create_research", project, licenseId, subsystems[j].research.threshold),
-						plan: processData("project_create_plan", project, licenseId, subsystems[j].plan.threshold),
-						code: processData("game_create", project, licenseId, subsystems[j].code.threshold),
+						research: processData("project_create_research", project, licenseId, subsystems[j].research.threshold, subsystems[j].title),
+						plan: processData("project_create_plan", project, licenseId, subsystems[j].plan.threshold, subsystems[j].title),
+						code: processData("code_create_time", project, licenseId, subsystems[j].code.threshold, subsystems[j].title, "game_create_progress"),
 					};
 				}
 				return createData;
@@ -99,7 +144,7 @@ const ClassesProgress = () => {
 						define: processData("project_define", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].define.threshold),
 						imagine: processData("project_imagine", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].imagine.threshold),
 						create: processCreateData(ALL_PROJECT_DATA[i].query, ALL_PROJECT_DATA[i].subsystems, student.licenseId),
-						improve: processData("game_improve", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].improve.threshold),
+						improve: processData("code_improve_time", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].improve.threshold, undefined, "game_improve_progress"),
 					};
 				}
 				return studentData;
@@ -157,15 +202,22 @@ const ClassesProgress = () => {
 				<h1>Progress</h1>
 				<HeaderToggle />
 			</div>
-			<div className={classes.controls}>
-				<Select state={viewSelect} setState={setViewSelect} label="View" options={PROGRESS_VIEW_OPTIONS} width={100} />
-				{viewSelect.id === "student" ? (
-					<Select state={studentSelect} setState={setStudentSelect} label="Student" options={preData} width={150} />
-				) : (
-					<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
-				)}
-			</div>
-			{postData ? <ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} /> : <SkeletonTable />}
+			{postData ? (
+				<div className={classes.controls}>
+					<Select state={viewSelect} setState={setViewSelect} label="View" options={PROGRESS_VIEW_OPTIONS} width={100} />
+					{viewSelect.id === "student" ? (
+						<Select state={studentSelect} setState={setStudentSelect} label="Student" options={preData} width={150} />
+					) : (
+						<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
+					)}
+				</div>
+			) : (
+				<div className={classes.controls}>
+					<div className={classes.skeletonSelect} />
+					<div className={classes.skeletonSelect} />
+				</div>
+			)}
+			{postData ? <ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} /> : <SkeletonTable rows={4} />}
 			{tooltip && (
 				<div className={classes.tooltip} style={{ ...tooltip.position, ...tooltip.style }}>
 					<div className={classes.tooltipTitle}>{tooltip.title}</div>

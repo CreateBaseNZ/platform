@@ -1,13 +1,15 @@
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import router from "next/router";
 import useUnity from "../../hooks/useUnity";
+import useMixPanel from "../../hooks/useMixpanel";
 import Unity from "./Unity";
 import Workspace from "./Workspace";
 import { ConsoleContextProvider } from "../../store/console-context";
+import LoadingScreen from "../UI/LoadingScreen";
 
 import classes from "./Game.module.scss";
-import LoadingScreen from "../UI/LoadingScreen";
-import { useState } from "react";
+import GlobalSessionContext from "../../store/global-session-context";
 
 const Game = ({ mode = "", project, index, query, blockList }) => {
 	const [gameLoaded, setGameLoaded] = useState(false);
@@ -19,6 +21,26 @@ const Game = ({ mode = "", project, index, query, blockList }) => {
 		wip: project.wip,
 		setLoaded: setGameLoaded,
 	});
+	const mp = useMixPanel();
+	const { globalSession } = useContext(GlobalSessionContext);
+
+	useEffect(() => {
+		mp.init();
+	}, []);
+
+	useEffect(() => {
+		if (gameState === "Win") {
+			mp.track(`game_${mode || "create"}_progress`, {
+				state: "win",
+				licenses: globalSession.groups.map((group) => group.licenseId),
+				schools: globalSession.groups.map((group) => group.id),
+				project: router.query.id,
+				subsystem: router.query.subsystem,
+			});
+		}
+	}, [gameState]);
+
+	console.log(gameState);
 
 	return (
 		<div className={classes.code}>

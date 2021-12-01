@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import useUnity from "../../../hooks/useUnity";
 import Unity from "../../../components/Game/Unity";
 import LoadingScreen from "../../../components/UI/LoadingScreen";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "../../../styles/manual.module.scss";
+import useMixpanel from "../../../hooks/useMixpanel";
+import GlobalSessionContext from "../../../store/global-session-context";
 
 const UnityWrapper = ({ data, setLoaded }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
@@ -18,6 +20,24 @@ const UnityWrapper = ({ data, setLoaded }) => {
 		wip: data.wip,
 		setLoaded: setLoaded,
 	});
+	const { globalSession } = useContext(GlobalSessionContext);
+	const mp = useMixpanel();
+
+	useEffect(() => {
+		mp.init();
+	}, []);
+
+	useEffect(() => {
+		if (gameState === "Win") {
+			mp.track("game_manual_progress", {
+				state: "win",
+				licenses: globalSession.groups.map((group) => group.licenseId),
+				schools: globalSession.groups.map((group) => group.id),
+				project: router.query.id,
+				subsystem: router.query.subsystem,
+			});
+		}
+	}, [gameState]);
 
 	return <Unity unityContext={unityContext} />;
 };

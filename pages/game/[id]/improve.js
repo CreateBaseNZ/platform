@@ -15,7 +15,7 @@ const ImproveGame = () => {
 
 	useEffect(() => {
 		mp.init();
-		const clearSession = mp.trackActiveSession("game_improve", {
+		const clearSession = mp.trackActiveSession("code_improve_time", {
 			licenses: globalSession.groups.map((group) => group.licenseId),
 			schools: globalSession.groups.map((group) => group.id),
 			project: router.query.id,

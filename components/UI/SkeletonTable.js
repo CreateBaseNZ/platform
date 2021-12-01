@@ -1,12 +1,11 @@
 import classes from "./SkeletonTable.module.scss";
 
-const SkeletonTable = () => {
+const SkeletonTable = ({ rows, containerClass = "" }) => {
 	return (
-		<div className={classes.skeletonLoading}>
-			<span />
-			<span />
-			<span />
-			<span />
+		<div className={`${classes.skeletonLoading} ${containerClass}`}>
+			{Array.from(Array(rows).keys()).map((key) => (
+				<span key={key} />
+			))}
 		</div>
 	);
 };

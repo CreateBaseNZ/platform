@@ -69,6 +69,13 @@
 	align-items: center;
 	width: 100%;
 	margin: 1rem 0;
+	.skeletonSelect {
+		width: 10rem;
+		height: 2.5rem;
+		margin-right: 1rem;
+		border-radius: 12px;
+		background: $lighter;
+	}
 }
 
 .tooltip {

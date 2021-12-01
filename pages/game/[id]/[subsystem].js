@@ -16,12 +16,13 @@ const SubsystemGame = () => {
 
 	useEffect(() => {
 		mp.init();
-		const clearSession = mp.trackActiveSession("game_create", {
+		const clearSession = mp.trackActiveSession("code_create_time", {
 			licenses: globalSession.groups.map((group) => group.licenseId),
 			schools: globalSession.groups.map((group) => group.id),
 			project: router.query.id,
 			subsystem: router.query.subsystem,
 		});
+		mp.track("");
 		return () => {
 			clearSession();
 		};
