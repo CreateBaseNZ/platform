@@ -5,9 +5,9 @@ import GlobalSessionContext from "../store/global-session-context";
 import MainLayout from "../components/Layouts/MainLayout/MainLayout";
 import OnboardingSection from "../components/Onboarding/OnboardingSection";
 import OnboardingVideo from "../components/Onboarding/OnboardingVideo";
+import OnboardingText from "../components/Onboarding/OnboardingText";
 
 import classes from "../styles/onboarding.module.scss";
-import OnboardingText from "../components/Onboarding/OnboardingText";
 
 const GETTING_STARTED_SECTION = {
 	caption: "Let's get you started! Here's a couple videos we've put together for you",
@@ -87,11 +87,21 @@ const STAFF_SECTION = {
 		},
 		{
 			id: "group-1",
-			type: "video",
+			type: "text",
 			title: "Add students to your group",
-			videoUrl: "https://www.youtube.com/embed/SlRLHPSm17Y", // TODO
-			linkUrl: "/manage-group/students",
-			linkLabel: "Add students in Manage Group",
+			content: (
+				<>
+					<p>To add students to your Group walk them through this process:</p>
+					<ol>
+						<li>Create their own account</li>
+						<li>Open the My Groups tab and select join a group</li>
+						<li>Enter the student code</li>
+					</ol>
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/adding students student process gif.gif" />
+					<p>You can find the student code for your group by clicking “Add” on the Manage Group page.</p>
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student code.jpg" />
+				</>
+			),
 		},
 		{
 			id: "group-2",

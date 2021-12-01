@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import router from "next/router";
@@ -11,12 +11,12 @@ import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import { SecondaryButton } from "../../../components/UI/Buttons";
+import SkeletonTable from "../../../components/UI/SkeletonTable";
 import { ALL_PROJECT_DATA } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
 import DUMMY_STUDENTS from "../../../constants/progress";
 
 import classes from "../../../styles/classesProgress.module.scss";
-import SkeletonTable from "../../../components/UI/SkeletonTable";
 
 const EVENTS = ["project_define", "project_imagine", "project_improve", "project_create_research", "project_create_plan", "game_create", "game_improve"];
 
@@ -25,6 +25,7 @@ const PROJECT_OPTIONS = ALL_PROJECT_DATA.map((project) => ({ id: project.query, 
 const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cur.name }), {});
 
 const ClassesProgress = () => {
+	const ref = useRef();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { classObject, classLoaded } = useClass();
 	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
@@ -36,12 +37,18 @@ const ClassesProgress = () => {
 	const [isDummy, setIsDummy] = useState(false);
 	const mp = useMixpanel();
 
+	useEffect(() => {
+		return () => (ref.current = null);
+	}, []);
+
 	useEffect(async () => {
 		if (!classLoaded) return;
 
 		const filters = EVENTS.map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
 		const callback = (rawData) => {
+			if (!ref.current) return;
+
 			const processData = (step, project, licenseId, threshold, subsystem) => {
 				let duration = 0;
 				for (let k = 0; k < rawData.length; k++) {
@@ -98,6 +105,8 @@ const ClassesProgress = () => {
 				return studentData;
 			});
 
+			if (!ref.current) return;
+
 			if (!_preData.length) {
 				_preData = DUMMY_STUDENTS;
 				setIsDummy(true);
@@ -124,10 +133,8 @@ const ClassesProgress = () => {
 		}
 	}, [preData, viewSelect, studentSelect, projectSelect]);
 
-	console.log(preData);
-
 	return (
-		<div className={`${classes.view} roundScrollbar`}>
+		<div ref={ref} className={`${classes.view} roundScrollbar`}>
 			<Head>
 				<title>Progress • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
