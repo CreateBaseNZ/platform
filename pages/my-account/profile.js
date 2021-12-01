@@ -9,7 +9,7 @@ import MyAccountLayout from "../../components/Layouts/MyAccountLayout/MyAccountL
 import Input from "../../components/UI/Input";
 import UserAvatar from "../../components/UI/UserAvatar";
 import { PrimaryButton } from "../../components/UI/Buttons";
-import { namePattern, isBlacklisted, emailPattern } from "../../utils/formValidation";
+import { namePattern, isBlacklisted, emailPattern, nameValidation, nameMaxLength, nameMinLength } from "../../utils/formValidation";
 
 import classes from "../../styles/myAccount.module.scss";
 
@@ -101,7 +101,9 @@ const MyProfile = () => {
 									...register("firstName", {
 										required: "Please enter your first name",
 										pattern: namePattern,
-										maxLength: 50,
+										validate: nameValidation,
+										maxLength: nameMaxLength,
+										minLength: nameMinLength,
 									}),
 								}}
 								error={errors.firstName}
@@ -115,7 +117,9 @@ const MyProfile = () => {
 									...register("lastName", {
 										required: "Please enter your last name",
 										pattern: namePattern,
-										maxLength: 50,
+										validate: nameValidation,
+										maxLength: nameMaxLength,
+										minLength: nameMinLength,
 									}),
 								}}
 								error={errors.lastName}

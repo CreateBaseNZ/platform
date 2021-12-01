@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
+import { nameMaxLength, nameMinLength, namePattern, nameValidation } from "../../../utils/formValidation";
 import { PrimaryButton } from "../../UI/Buttons";
 import Input from "../../UI/Input";
 import Modal from "../../UI/Modal";
@@ -45,7 +46,18 @@ const AliasModal = ({ setShow }) => {
 			<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 				<Input
 					className={classes.inputContainer}
-					inputProps={{ className: classes.input, placeholder: "Alias in this group", maxLength: 50, ...register("alias", { required: "Please enter an alias", maxLength: 50 }) }}
+					inputProps={{
+						className: classes.input,
+						placeholder: "Alias in this group",
+						maxLength: 50,
+						...register("alias", {
+							required: "Please enter an alias",
+							pattern: namePattern,
+							validate: nameValidation,
+							maxLength: nameMaxLength,
+							minLength: nameMinLength,
+						}),
+					}}
 					error={errors.alias}
 				/>
 				<PrimaryButton className={classes.submitBtn} isLoading={isLoading} type="submit" mainLabel="Save" iconLeft={<i className="material-icons-outlined">check</i>} />

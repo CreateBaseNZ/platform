@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
 import { PrimaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
-import { isBlacklisted, namePattern } from "../../utils/formValidation";
+import { isBlacklisted, nameMaxLength, nameMinLength, namePattern, nameValidation } from "../../utils/formValidation";
 import { emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
 import classes from "./AuthForms.module.scss";
 
@@ -99,7 +99,9 @@ const SignupForm = () => {
 						...register("firstName", {
 							required: "Please enter your first name",
 							pattern: namePattern,
-							maxLength: 50,
+							validate: nameValidation,
+							maxLength: nameMaxLength,
+							minLength: nameMinLength,
 						}),
 					}}
 					error={errors.firstName}
@@ -113,7 +115,9 @@ const SignupForm = () => {
 						...register("lastName", {
 							required: "Please enter your last name",
 							pattern: namePattern,
-							maxLength: 50,
+							validate: nameValidation,
+							maxLength: nameMaxLength,
+							minLength: nameMinLength,
 						}),
 					}}
 					error={errors.lastName}
