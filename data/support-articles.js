@@ -181,6 +181,7 @@ export const FLOW_CODING = {
 				</li>
 			</ul>
 			<p>As you can see, blocks can only be connected if they have a matching information type to prevent unintended errors.</p>
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/flow code.gif" style={{ maxWidth: 800 }} />
 			<h2>Looking to learn Flow coding?</h2>
 			<ul>
 				<li>
