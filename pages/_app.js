@@ -37,6 +37,25 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	// 	}
 	// }, []);
 
+	// useEffect(async () => {
+	// 	console.log("Testing Error");
+	// 	const input = {
+	// 		email: "carlvelasco96@gmail.com",
+	// 		profile: profileId,
+	// 		route: "/test",
+	// 		type: "frontend",
+	// 		date: new Date().toString(),
+	// 		metadata: { message: "Hello" },
+	// 	};
+	// 	let data;
+	// 	try {
+	// 		data = (await axios.post("/api/error", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+	// 	} catch (error) {
+	// 		data = { status: "error", content: error };
+	// 	}
+	// 	console.log(data);
+	// }, []);
+
 	return (
 		<SessionProvider session={session}>
 			<VisualBellContextProvider>
