@@ -51,7 +51,7 @@ export default {
 		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
 		title: "Heat Seeker",
 		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
-		word: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
+		word: "/heat-seeker/files/learning-journal-heat-seeker.docx",
 	},
 	imagine: {
 		threshold: 120,
@@ -61,18 +61,18 @@ export default {
 		],
 		modules: [
 			{
-				title: "Imagine a solution",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
+				title: "Our problem",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/imagine_1.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
 			},
 			{
-				title: "We will build...",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
+				title: "Our solution",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png",
 				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
 			},
 			{
-				title: "Our approach",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/define.jpg",
+				title: "Your approach",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/imagine_3.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
 			},
 		],
@@ -81,17 +81,12 @@ export default {
 		{
 			title: "Speed control",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			imgSrc:  "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/1.png",
+			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
 			research: {
 				threshold: 300,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
-					{
-						type: "task",
-						title: "Task: Line following",
-						url: "/heat-seeker/files/Research-02-heat-seeker.pdf",
-					},
 					{
 						type: "video",
 						title: "Flow tutorial",
@@ -112,11 +107,6 @@ export default {
 						type: "pdf",
 						title: "Action blocks",
 						url: "/heat-seeker/pdf/Iter_0.pdf",
-					},
-					{
-						type: "task",
-						title: "Task: Actions",
-						url: "/heat-seeker/files/Research-heat-seeker-1.pdf",
 					},
 				],
 			},
@@ -142,8 +132,8 @@ export default {
 		{
 			title: "Navigating curves",
 			requirements: ["Speed control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/2.PNG",
+			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
 			research: {
 				threshold: 120,
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -157,11 +147,6 @@ export default {
 						type: "pdf",
 						title: "Sensing blocks",
 						url: "/heat-seeker/pdf/Iter_1.pdf",
-					},
-					{
-						type: "task",
-						title: "Task: Sensing",
-						url: "/heat-seeker/files/Research-heat-seeker-2.pdf",
 					},
 					{
 						type: "explore",
@@ -199,11 +184,11 @@ export default {
 		{
 			title: "Navigating turns",
 			requirements: ["Speed control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/3.png",
+			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {
 				threshold: 1,
-				caption: ["There is no research step. Move onto Plan."],
+				caption: ["There is nothing new to research step. Move onto Plan."],
 				modules: [],
 			},
 			plan: {
@@ -235,17 +220,12 @@ export default {
 		{
 			title: "Extinguishing fires",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/4.PNG",
+			description: "In this fourth subsystem, we will learn how to use a sensor to detect the presence of a fire and then perform the correct sequence of actions to automatically put it out.",
 			research: {
 				threshold: 300,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
-					{
-						type: "task",
-						title: "Task: Fire fighting",
-						url: "/heat-seeker/files/Research-01-heat-seeker.pdf",
-					},
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
@@ -296,8 +276,8 @@ export default {
 		{
 			title: "Putting it all together",
 			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png",
+			description: "We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
 			research: {
 				threshold: 1,
 				caption: ["There is no research step. Move onto Plan."],
