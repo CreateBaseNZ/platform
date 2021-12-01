@@ -20,7 +20,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	const [error, setError] = useState();
 	const [email, setEmail] = useState(globalSession.email || routerEmail);
 	const [code, setCode] = useState(Array.from(Array(CODE_LENGTH).keys()).map((i) => routerCode[i] || "") || [...Array(CODE_LENGTH)].map(() => ""));
-	const post = useApi();
+	const { post } = useApi();
 	const refs = useRef([]);
 
 	useEffect(async () => {

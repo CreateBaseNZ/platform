@@ -14,7 +14,7 @@ import classes from "/styles/classes.module.scss";
 import { classNameMaxLength, classNameMinLength } from "../../utils/formValidation";
 
 const ClassesNew = () => {
-	const post = useApi();
+	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);

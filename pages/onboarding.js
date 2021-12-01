@@ -142,7 +142,7 @@ const SUPPORT_SECTION = {
 
 const Onboarding = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const [statuses, setStatuses] = useState();
 	const [videoModal, setVideoModal] = useState({ show: false, videoUrl: "" });
 	const [textModal, setTextModal] = useState({ show: false, content: null });

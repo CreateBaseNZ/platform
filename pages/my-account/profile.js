@@ -15,7 +15,7 @@ import classes from "../../styles/myAccount.module.scss";
 
 const MyProfile = () => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const {

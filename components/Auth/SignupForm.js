@@ -12,7 +12,7 @@ import classes from "./AuthForms.module.scss";
 
 const SignupForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const post = useApi();
+	const { post } = useApi();
 	const {
 		register,
 		handleSubmit,

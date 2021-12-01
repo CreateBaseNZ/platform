@@ -13,7 +13,7 @@ import { passwordMinLength, passwordValidate } from "../../utils/formValidation"
 import classes from "../../styles/myAccount.module.scss";
 
 const MySecurity = () => {
-	const post = useApi();
+	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);

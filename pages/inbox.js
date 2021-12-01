@@ -22,7 +22,7 @@ const renderNotification = (notificationObject, setNotifications) => {
 const Inbox = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [notifications, setNotifications] = useState([]);
-	const post = useApi();
+	const { post } = useApi();
 
 	useEffect(async () => {
 		await post({

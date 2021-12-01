@@ -1,18 +1,18 @@
 import { useContext, useState } from "react";
+import router from "next/router";
+import useApi from "../../hooks/useApi";
 import GlobalSessionContext from "../../store/global-session-context";
 import VisualBellContext from "../../store/visual-bell-context";
+import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 import Modal from "../UI/Modal";
 
 import classes from "./DuplicateWarning.module.scss";
-import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
-import router from "next/router";
-import useApi from "../../hooks/useApi";
 
 const DuplicateWarning = ({ setShow, duplicateParams, reset }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [selected, setSelected] = useState({});
 	const [error, setError] = useState("");
-	const post = useApi();
+	const { post } = useApi();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
 

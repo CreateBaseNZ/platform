@@ -14,7 +14,7 @@ const AliasModal = ({ setShow }) => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const { setVisualBell } = useContext(VisualBellContext);
-	const post = useApi();
+	const { post } = useApi();
 	const {
 		register,
 		handleSubmit,

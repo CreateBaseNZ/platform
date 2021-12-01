@@ -15,7 +15,7 @@ const JoinSchoolTeacher = () => {
 	const [hasRequested, setHasRequested] = useState(false);
 	const [queryDropdown, setQueryDropdown] = useState({ show: false, groups: null, selectedId: "" });
 	const { setVisualBell } = useContext(VisualBellContext);
-	const post = useApi();
+	const { post } = useApi();
 	const {
 		register,
 		handleSubmit,

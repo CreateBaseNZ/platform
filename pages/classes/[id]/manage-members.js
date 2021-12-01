@@ -16,7 +16,7 @@ import classes from "../../../styles/classManageMembers.module.scss";
 
 const ClassesManage = () => {
 	const ref = useRef();
-	const post = useApi();
+	const { post } = useApi();
 	const { classObject, setClassObject, classLoaded } = useClass();
 	const [showAddModal, setShowAddModal] = useState(false);
 

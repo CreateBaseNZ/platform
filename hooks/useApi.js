@@ -1,8 +1,27 @@
+import { useContext, useEffect } from "react";
+import router from "next/router";
 import axios from "axios";
-import useHandleResponse from "./useHandleResponse";
+import GlobalSessionContext from "../store/global-session-context";
 
 const useApi = () => {
-	const { handleResponse } = useHandleResponse();
+	const { globalSession } = useContext(GlobalSessionContext);
+
+	const reportError = (input) => {
+		let data = {};
+		try {
+			data = axios.post("/api/error", {
+				PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+				input: {
+					...input,
+					email: globalSession.email,
+					date: new Date.toString(),
+					profile: globalSession.profileId,
+				},
+			})["data"];
+		} catch (error) {
+			data.status = "error";
+		}
+	};
 
 	const post = async ({ route = "", input = {}, failHandler = () => {}, successHandler = () => {} }) => {
 		let data = {};
@@ -16,16 +35,23 @@ const useApi = () => {
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			console.log(data);
-			handleResponse({
-				data,
-				failHandler,
-				successHandler,
-			});
+			switch (data.status) {
+				case "critical error":
+					reportError({ route: route, type: "critical error", metadata: data });
+					return router.push("/404");
+				case "error":
+					reportError({ route: route, type: "error", metadata: data });
+					return router.push("/404");
+				case "failed":
+					reportError({ route: route, type: "failed", metadata: data });
+					return failHandler(data);
+				default:
+					return successHandler(data);
+			}
 		}
 	};
 
-	return post;
+	return { post, reportError };
 };
 
 export default useApi;

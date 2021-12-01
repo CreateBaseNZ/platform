@@ -11,7 +11,7 @@ import classes from "/styles/myGroups.module.scss";
 const JoinSchoolStudent = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const {
 		register,
 		handleSubmit,

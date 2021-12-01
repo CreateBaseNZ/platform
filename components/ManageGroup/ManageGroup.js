@@ -14,7 +14,7 @@ import classes from "../../styles/manageGroup.module.scss";
 const ManageGroup = ({ role }) => {
 	const ref = useRef();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const [data, setData] = useState([]);
 	const [showAddModal, setShowAddModal] = useState(false);
 

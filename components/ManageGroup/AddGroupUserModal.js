@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { useFieldArray, useForm } from "react-hook-form";
 import { emailPattern } from "../../utils/formValidation";
-import useHandleResponse from "../../hooks/useHandleResponse";
 import GlobalSessionContext from "../../store/global-session-context";
 import VisualBellContext from "../../store/visual-bell-context";
 import Input from "../UI/Input";
@@ -15,7 +14,6 @@ const ROLES = ["student", "teacher", "admin"];
 const AddGroupUserModal = ({ setShow, role }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { handleResponse } = useHandleResponse();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const {
 		register,
@@ -30,32 +28,32 @@ const AddGroupUserModal = ({ setShow, role }) => {
 	});
 	const { fields, append, remove } = useFieldArray({ control, name: "invitations" });
 
-	const onSubmit = async (inputs) => {
-		// TODO use post from useApi
-		console.log(inputs);
-		setIsLoading(true);
-		if (!inputs.invitations.length) return setIsLoading(false);
-		const details = {
-			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-			invitations: inputs.invitations,
-		};
-		let _data;
-		const DUMMY_STATUS = "succeeded";
-		try {
-			_data = (await axios.post("/api/groups/invite-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
-		} catch (error) {
-			_data.status = "error";
-		} finally {
-			handleResponse({
-				data: _data,
-				failHandler: () => {},
-				successHandler: () => {
-					setShow(false);
-					setVisualBell({ type: "success", message: "Invitations have been sent out!" });
-				},
-			});
-		}
-	};
+	// const onSubmit = async (inputs) => {
+	// 	// TODO use post from useApi
+	// 	console.log(inputs);
+	// 	setIsLoading(true);
+	// 	if (!inputs.invitations.length) return setIsLoading(false);
+	// 	const details = {
+	// 		groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+	// 		invitations: inputs.invitations,
+	// 	};
+	// 	let _data;
+	// 	const DUMMY_STATUS = "succeeded";
+	// 	try {
+	// 		_data = (await axios.post("/api/groups/invite-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+	// 	} catch (error) {
+	// 		_data.status = "error";
+	// 	} finally {
+	// 		handleResponse({
+	// 			data: _data,
+	// 			failHandler: () => {},
+	// 			successHandler: () => {
+	// 				setShow(false);
+	// 				setVisualBell({ type: "success", message: "Invitations have been sent out!" });
+	// 			},
+	// 		});
+	// 	}
+	// };
 
 	const copyHandler = () => {
 		navigator.clipboard.writeText(globalSession.groups[globalSession.recentGroups[0]].studentCode);

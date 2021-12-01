@@ -6,7 +6,7 @@ import classes from "./Notification.module.scss";
 
 const GroupRequestNotification = ({ notification, setNotifications }) => {
 	const { setGlobalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 
 	const approveHandler = async () => {
 		await post({

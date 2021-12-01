@@ -16,7 +16,7 @@ import COUNTRIES from "../../constants/countries";
 import classes from "../../styles/myGroups.module.scss";
 
 const NewSchool = () => {
-	const post = useApi();
+	const { post } = useApi();
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasSubmitted, setHasSubmitted] = useState(false);
 	const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);

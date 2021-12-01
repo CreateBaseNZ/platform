@@ -4,7 +4,7 @@ import GlobalSessionContext from "../store/global-session-context";
 import useApi from "./useApi";
 
 const useClass = () => {
-	const post = useApi();
+	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [classObject, setClassObject] = useState({});
 	const [classLoaded, setClassLoaded] = useState(false);

@@ -18,7 +18,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { register, handleSubmit, watch } = useForm();
 	const searchValue = watch("searchValue");
-	const post = useApi();
+	const { post } = useApi();
 
 	console.log(classObject);
 	console.log(userList);

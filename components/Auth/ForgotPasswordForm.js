@@ -14,7 +14,7 @@ const codeLength = 6;
 
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const post = useApi();
+	const { post } = useApi();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const {
 		register,
@@ -81,7 +81,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isResending, setIsResending] = useState(false);
-	const post = useApi();
+	const { post } = useApi();
 	const [error, setError] = useState();
 	const [code, setCode] = useState([...Array(codeLength)].map(() => ""));
 	const refs = useRef([]);
@@ -199,7 +199,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 const ForgotPasswordStepThree = ({ inputValues }) => {
 	const { setVisualBell } = useContext(VisualBellContext);
 	const newPassword = useRef({});
-	const post = useApi();
+	const { post } = useApi();
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,

@@ -16,7 +16,7 @@ const ClassJoin = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [queriedClasses, setQueriedClasses] = useState([]);
 	const { globalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { register, handleSubmit, watch } = useForm({ mode: "onTouched" });
 	const queryValue = watch("searchQuery");

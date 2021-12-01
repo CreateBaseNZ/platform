@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
-import { classNameMaxLength, classNameMinLength, nameMaxLength, nameMinLength } from "../../../utils/formValidation";
+import { classNameMaxLength, classNameMinLength } from "../../../utils/formValidation";
 import { TertiaryButton } from "../../UI/Buttons";
 import Input from "../../UI/Input";
 import classes from "./ClassNameForm.module.scss";
@@ -12,7 +12,7 @@ const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { globalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const {
 		register,
 		handleSubmit,

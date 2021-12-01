@@ -13,7 +13,7 @@ const GlobalSessionContext = createContext({
 export default GlobalSessionContext;
 
 export const GlobalSessionContextProvider = (props) => {
-	const post = useApi();
+	const { post } = useApi();
 	const [globalSession, setGlobalSession] = useState({ loaded: false });
 	const { data: session, status } = useSession();
 
