@@ -135,21 +135,48 @@ const NewSchool = () => {
 								className={classes.input}
 								label="School name*"
 								labelProps={{ className: classes.inputLabel }}
-								inputProps={{ placeholder: "School name", type: "text", maxLength: 254, ...register("name", { required: "Please enter your school's name", maxLength: 254 }) }}
+								inputProps={{
+									placeholder: "School name",
+									type: "text",
+									maxLength: 254,
+									...register("name", {
+										required: "Please enter your school's name",
+										minLength: 10,
+										maxLength: 254,
+									}),
+								}}
 								error={errors.name}
 							/>
 							<Input
 								className={classes.input}
 								label="Address*"
 								labelProps={{ className: classes.inputLabel }}
-								inputProps={{ placeholder: "Address", type: "text", maxLength: 254, ...register("address", { required: "Please enter your school's address", maxLength: 254 }) }}
+								inputProps={{
+									placeholder: "Address",
+									type: "text",
+									maxLength: 254,
+									...register("address", {
+										required: "Please enter your school's address",
+										minLength: 10,
+										maxLength: 254,
+									}),
+								}}
 								error={errors.address}
 							/>
 							<Input
 								className={classes.input}
 								label="City/State*"
 								labelProps={{ className: classes.inputLabel }}
-								inputProps={{ placeholder: "City/State", type: "text", maxLength: 254, ...register("city", { required: "Please enter your school's city/state", maxLength: 254 }) }}
+								inputProps={{
+									placeholder: "City/State",
+									type: "text",
+									maxLength: 254,
+									...register("city", {
+										required: "Please enter your school's city/state",
+										minLength: 1,
+										maxLength: 254,
+									}),
+								}}
 								error={errors.city}
 							/>
 							<div tabIndex={-1} className={classes.countryDropdownContainer} onFocus={() => setShowCountries(true)} onBlur={() => setShowCountries(false)}>

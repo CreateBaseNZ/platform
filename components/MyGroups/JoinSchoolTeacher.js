@@ -142,7 +142,12 @@ const JoinSchoolTeacher = () => {
 					className={classes.input}
 					label="Message"
 					labelProps={{ className: classes.inputLabel }}
-					inputProps={{ placeholder: "Send a message with your join request", type: "text", maxLength: 500, ...register("message") }}
+					inputProps={{
+						placeholder: "Send a message with your join request",
+						type: "text",
+						maxLength: 500,
+						...register("message", { maxLength: { value: 500, message: "Exceeded 500 character limit" } }),
+					}}
 					error={errors.message}
 				/>
 			)}

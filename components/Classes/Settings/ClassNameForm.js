@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
+import { classNameMaxLength, classNameMinLength, nameMaxLength, nameMinLength } from "../../../utils/formValidation";
 import { TertiaryButton } from "../../UI/Buttons";
 import Input from "../../UI/Input";
 import classes from "./ClassNameForm.module.scss";
@@ -48,7 +49,17 @@ const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 			<Input
 				label="Class name"
 				className={classes.inputContainer}
-				inputProps={{ className: classes.input, placeholder: "Give your class a name", type: "text", maxLength: 254, ...register("name", { required: "Please enter a name for your class" }) }}
+				inputProps={{
+					className: classes.input,
+					placeholder: "Give your class a name",
+					type: "text",
+					maxLength: 254,
+					...register("name", {
+						required: "Please enter a name for your class",
+						minLength: classNameMinLength,
+						maxLength: classNameMaxLength,
+					}),
+				}}
 				error={errors.name}
 			/>
 			<TertiaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Updating" mainLabel="Update" />

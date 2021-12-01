@@ -67,3 +67,13 @@ export const passwordValidate = (v) => {
 
 	return errors.length && "Requires at least one: " + errors.join(", ");
 };
+
+export const classNameMinLength = {
+	value: 3,
+	message: "Class names must be at least 3 characters long",
+};
+
+export const classNameMaxLength = {
+	value: 50,
+	message: "Class names cannot exceed 50 characters in length",
+};

@@ -11,6 +11,7 @@ import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/classes.module.scss";
+import { classNameMaxLength, classNameMinLength } from "../../utils/formValidation";
 
 const ClassesNew = () => {
 	const post = useApi();
@@ -75,7 +76,16 @@ const ClassesNew = () => {
 							className={classes.input}
 							label="Class name*"
 							labelProps={{ className: classes.inputLabel }}
-							inputProps={{ placeholder: "Class name", type: "text", maxLength: 254, ...register("name", { required: "Please enter a name for your class" }) }}
+							inputProps={{
+								placeholder: "Class name",
+								type: "text",
+								maxLength: 254,
+								...register("name", {
+									required: "Please enter a name for your class",
+									minLength: classNameMinLength,
+									maxLength: classNameMaxLength,
+								}),
+							}}
 							error={errors.name}
 						/>
 						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Creating ..." mainLabel="Create" />
