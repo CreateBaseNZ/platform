@@ -6,10 +6,11 @@ import GlobalSessionContext from "../store/global-session-context";
 const useApi = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
-	const reportError = (input) => {
+	const reportError = async (input) => {
+		console.log(input);
 		let data = {};
 		try {
-			data = axios.post("/api/error", {
+			data = await axios.post("/api/error", {
 				PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
 				input: {
 					...input,
@@ -20,6 +21,8 @@ const useApi = () => {
 			})["data"];
 		} catch (error) {
 			data.status = "error";
+		} finally {
+			console.log(data);
 		}
 	};
 
