@@ -6,7 +6,7 @@ const useApi = () => {
 		console.log(input);
 		axios.post("/api/error", {
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-			input: { type: input.type, route: input.route.route, date: new Date().toString(), metadata: input.metadata },
+			input: { type: input.type, route: input.route.route, date: new Date().toString(), message: input.message, metadata: input.metadata },
 		});
 	};
 

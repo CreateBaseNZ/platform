@@ -20,10 +20,10 @@ export default async function (req, res) {
 		return res.send(error);
 	}
 	const input = req.body.input;
-	console.log(input);
 	const url = process.env.ROUTE_URL + "/error/new";
 	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
-	const backendInput = { email, profile, route: input.route, type: input.type, date: input.date, metadata: input.metadata };
+	const backendInput = { email, profile, route: input.route, type: input.type, date: input.date, metadata: input.metadata, metadata: input.metadata };
+	console.log(backendInput);
 	let data;
 	try {
 		data = (await axios.post(url, { ...keys, input: backendInput }))["data"];
