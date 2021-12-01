@@ -3,6 +3,7 @@ import axios from "axios";
 
 const useApi = () => {
 	const reportError = async (input) => {
+		console.log(input);
 		axios.post("/api/error", {
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
 			input: { type: input.type, route: input.route.route, date: new Date().toString(), metadata: input.metadata },

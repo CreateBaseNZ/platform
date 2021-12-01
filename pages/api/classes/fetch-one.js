@@ -67,7 +67,13 @@ export default async function (req, res) {
 const constructClass = (instance) => {
 	let teachers = instance.licenses.active.filter((license) => license.role === "teacher" || license.role === "admin");
 	teachers = teachers.map((license) => {
-		return license.metadata.alias;
+		return {
+			alias: license.metadata.alias,
+			email: license.profile.account.email,
+			firstName: license.profile.name.first,
+			lastName: license.profile.name.last,
+			licenseId: license._id,
+		};
 	});
 	let students = instance.licenses.active.filter((license) => license.role === "student");
 	students = students.map((license) => {
