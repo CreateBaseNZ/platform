@@ -22,8 +22,8 @@ export default async function (req, res) {
 	const input = req.body.input;
 	const url = process.env.ROUTE_URL + "/error/new";
 	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
-	const backendInput = { email, profile, route: input.route, type: input.type, date: input.date, metadata: input.metadata, metadata: input.metadata };
-	console.log(backendInput);
+	const backendInput = { email, profile, route: input.route, type: input.type, date: input.date, message: input.message, metadata: input.metadata };
+	if (process.env.DEPLOYMENT !== "production") return;
 	let data;
 	try {
 		data = (await axios.post(url, { ...keys, input: backendInput }))["data"];
