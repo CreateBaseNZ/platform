@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Head from "next/head";
+import useClass from "../../../hooks/useClass";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesConstants";
-import useClass from "../../../hooks/useClass";
 import ClassNameForm from "../../../components/Classes/Settings/ClassNameForm";
 import { TertiaryButton } from "../../../components/UI/Buttons";
-
-import classes from "../../../styles/classesSettings.module.scss";
 import LeaveModal from "../../../components/Classes/Settings/LeaveModal";
 import DeleteModal from "../../../components/Classes/Settings/DeleteModal";
+
+import classes from "../../../styles/classesSettings.module.scss";
 
 const ClassesSettings = () => {
 	const { classObject, classLoaded, setClassObject } = useClass();
@@ -33,6 +33,28 @@ const ClassesSettings = () => {
 			<div className={classes.container}>
 				<div className={classes.wrapper}>
 					<ClassNameForm defaultValue={classObject.name} classId={classObject.id} setClassObject={setClassObject} />
+					<div className={classes.divider} />
+					<div className={classes.teachers}>
+						<h2>Teachers</h2>
+						<div className={classes.teachersHead}>
+							{["Name", "Alias", "Email"].map((label) => (
+								<span key={label}>{label}</span>
+							))}
+						</div>
+						<div className={`${classes.teachersTable} roundScrollbar`}>
+							{classObject.teachers.map((teacher) => (
+								<Fragment key={teacher.licenseId}>
+									<span>
+										{teacher.firstName} {teacher.lastName}
+									</span>
+									<span>{teacher.alias}</span>
+									<a href={`mailto:${teacher.email}`} title={`Send an email to ${teacher.email}`}>
+										{teacher.email}
+									</a>
+								</Fragment>
+							))}
+						</div>
+					</div>
 					{classObject.teachers.length > 1 && (
 						<>
 							<div className={classes.divider} />
