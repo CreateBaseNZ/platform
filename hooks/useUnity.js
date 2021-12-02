@@ -1,6 +1,7 @@
 import router from "next/router";
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
+import { install } from "resize-observer";
 
 const useUnity = ({ scenePrefix, mode, index, project, wip, setLoaded }) => {
 	const [unityContext, setUnityContext] = useState(
@@ -27,6 +28,7 @@ const useUnity = ({ scenePrefix, mode, index, project, wip, setLoaded }) => {
 		if (!gl || !(gl instanceof WebGLRenderingContext)) {
 			return router.push("/unsupported");
 		}
+		install();
 		unityContext.on("GetSensorData", (sensorData) => {
 			setSensorData(sensorData);
 		});
