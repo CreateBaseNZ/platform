@@ -1,3 +1,4 @@
+import router from "next/router";
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 
@@ -20,6 +21,12 @@ const useUnity = ({ scenePrefix, mode, index, project, wip, setLoaded }) => {
 	const [gameState, setGameState] = useState();
 
 	useEffect(() => {
+		const canvas = document.createElement("canvas");
+		// Get WebGLRenderingContext from canvas element.
+		const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+		if (!gl || !(gl instanceof WebGLRenderingContext)) {
+			return router.push("/404");
+		}
 		unityContext.on("GetSensorData", (sensorData) => {
 			setSensorData(sensorData);
 		});
