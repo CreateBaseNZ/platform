@@ -24,7 +24,7 @@ export default {
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 9,
-	difficulty: "Advanced",
+	difficulty: "advanced",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
 	learningOutcome: "/heat-seeker/files/project-overview.pdf",
 	curriculumAlignment: "/heat-seeker/files/curriculum-alignment.pdf",

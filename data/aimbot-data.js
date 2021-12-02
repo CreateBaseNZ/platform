@@ -29,7 +29,7 @@ export default {
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 9,
-	difficulty: "Proficient",
+	difficulty: "advanced",
 	subjects: [COMPUTER_SCIENCE, SCRIPTING, TRIGONOMETRY, ENGINEERING],
 	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	curriculumAlignment: "/aimbot/files/210505AD_EarlyAccess.pdf",
@@ -125,7 +125,7 @@ export default {
 		},
 		{
 			title: "Pitch control",
-			requirements: ["Subsystem 1"],
+			requirements: ["Yaw control"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_2.jpg",
 			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
 			research: {
@@ -173,7 +173,7 @@ export default {
 		},
 		{
 			title: "Velocity controller",
-			requirements: ["Subsystem 1"],
+			requirements: ["Yaw control"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_3.jpg",
 			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
 			research: {
@@ -232,7 +232,7 @@ export default {
 		},
 		{
 			title: "Putting it all together",
-			requirements: ["Subsystem 2", "Subsystem 3"],
+			requirements: ["Pitch control", "Velocity controller"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_4.jpg",
 			description: "Lets put together everything that we have learnt to program a solution to the full problem!",
 			research: {
