@@ -31,33 +31,31 @@ const EVENTS = [
 	"game_improve_progress",
 ];
 
-const getStatus = (duration, threshold, printThreshold, gameProgressEvent, isWin) => {
+const getStatus = (duration, threshold, formattedThreshold, gameProgressEvent, isWin) => {
 	let status = "";
-	let label = "Not visited";
+	let primaryLabel = "Not visited";
+	let secondaryLabel = "";
 
 	if (duration > threshold) {
 		status = "completed";
-		label = `Visited for ≥${printThreshold}`;
-		if (gameProgressEvent) {
-			if (isWin) {
-				label += ". Task completed";
-			} else {
-				label += ". Task in progress";
-			}
-		}
+		primaryLabel = `Time spent ≥${formattedThreshold}`;
 	} else if (duration > 0) {
 		status = "visited";
-		label = `Visited for <${printThreshold}`;
-		if (gameProgressEvent) {
-			if (isWin) {
-				label += ". Task completed";
-			} else {
-				label += ". Task in progress";
-			}
+		primaryLabel = `Time spent <${formattedThreshold}`;
+	}
+
+	if (duration > 0 && gameProgressEvent) {
+		secondaryLabel = ""; // can use primaryLabel
+		if (isWin) {
+			status = "completed";
+			primaryLabel = "Task completed";
+		} else {
+			status = "visited";
+			primaryLabel = "Task in progress";
 		}
 	}
 
-	return { status, label };
+	return { status, primaryLabel, secondaryLabel };
 };
 
 const PROJECT_OPTIONS = ALL_PROJECT_DATA.map((project) => ({ id: project.query, name: project.name }));
@@ -89,15 +87,15 @@ const ClassesProgress = () => {
 		const callback = (rawData) => {
 			if (!ref.current) return;
 
-			const processData = (step, project, licenseId, threshold, subsystem, gameProgressEvent) => {
+			const processData = (event, project, license, threshold, subsystem, gameProgressEvent) => {
 				let duration = 0;
 				let isWin = false;
 
 				for (let k = 0; k < rawData.length; k++) {
 					if (
-						rawData[k].event === step &&
+						rawData[k].event === event &&
 						rawData[k].properties.project === project &&
-						rawData[k].properties.licenses.includes(licenseId) &&
+						rawData[k].properties.licenses.includes(license) &&
 						(subsystem ? rawData[k].properties.subsystem === subsystem : true)
 					) {
 						duration += rawData[k].properties.duration;
@@ -106,32 +104,32 @@ const ClassesProgress = () => {
 						gameProgressEvent &&
 						rawData[k].event === gameProgressEvent &&
 						rawData[k].properties.project === project &&
-						rawData[k].properties.licenses.includes(licenseId) &&
+						rawData[k].properties.licenses.includes(license) &&
 						(subsystem ? rawData[k].properties.subsystem === subsystem : true)
 					) {
 						isWin = rawData[k].properties.state === "win";
 					}
 				}
-				const printThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""}${Math.floor((threshold % 3600) / 60) ? ` ${Math.floor((threshold % 3600) / 60)}min` : ""}${
-					Math.floor(threshold % 60) ? ` ${Math.floor(threshold % 60)}s` : ""
-				}`;
-				const printDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""}${Math.floor((duration % 3600) / 60) ? ` ${Math.floor((duration % 3600) / 60)}min` : ""}${
+				const formattedThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""}${
+					Math.floor((threshold % 3600) / 60) ? ` ${Math.floor((threshold % 3600) / 60)}min` : ""
+				}${Math.floor(threshold % 60) ? ` ${Math.floor(threshold % 60)}s` : ""}`;
+				const formattedDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""}${Math.floor((duration % 3600) / 60) ? ` ${Math.floor((duration % 3600) / 60)}min` : ""}${
 					Math.floor(duration % 60) ? ` ${Math.floor(duration % 60)}s` : ""
 				}`;
 
-				const { status, label } = getStatus(duration, threshold, printThreshold, gameProgressEvent, isWin);
+				const params = getStatus(duration, threshold, formattedThreshold, gameProgressEvent, isWin);
 
-				return { duration, status, label, printDuration };
+				return { ...params, formattedDuration };
 			};
 
-			const processCreateData = (project, subsystems, licenseId) => {
+			const processCreateData = (project, subsystems, license) => {
 				const createData = {};
 				for (let j = 0; j < subsystems.length; j++) {
 					createData[subsystems[j].title] = {
 						name: subsystems[j].title,
-						research: processData("project_create_research", project, licenseId, subsystems[j].research.threshold, subsystems[j].title),
-						plan: processData("project_create_plan", project, licenseId, subsystems[j].plan.threshold, subsystems[j].title),
-						code: processData("code_create_time", project, licenseId, subsystems[j].code.threshold, subsystems[j].title, "game_create_progress"),
+						research: processData("project_create_research", project, license, subsystems[j].research.threshold, subsystems[j].title),
+						plan: processData("project_create_plan", project, license, subsystems[j].plan.threshold, subsystems[j].title),
+						code: processData("code_create_time", project, license, subsystems[j].code.threshold, subsystems[j].title, "game_create_progress"),
 					};
 				}
 				return createData;
@@ -210,6 +208,20 @@ const ClassesProgress = () => {
 					) : (
 						<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
 					)}
+					<div className={classes.helpContainer}>
+						<button>
+							<i className="material-icons-outlined">help_outline</i>
+							How does this work?
+						</button>
+						<div className={classes.help}>
+							<p>
+								The Imagine, Define, Research, and Plan progresses are measured by the cumulative time spent on each step. We have calculated a benchmark for the average minimum time required as a
+								flexible guideline.
+							</p>
+							<p>The Code and Improve steps are tracked by whether the simulation task was completed successfully.</p>
+							<b>We recommend interpreting the information presented here with your own discretion.</b>
+						</div>
+					</div>
 				</div>
 			) : (
 				<div className={classes.controls}>
@@ -222,8 +234,9 @@ const ClassesProgress = () => {
 				<div className={classes.tooltip} style={{ ...tooltip.position, ...tooltip.style }}>
 					<div className={classes.tooltipTitle}>{tooltip.title}</div>
 					<div className={classes.tooltipStep}>{tooltip.step}</div>
-					<div className={classes[tooltip.status]}>{tooltip.label}</div>
-					<div className={classes.tooltipDuration}>{tooltip.duration}</div>
+					<div className={classes[tooltip.status]}>{tooltip.primaryLabel}</div>
+					{tooltip.secondaryLabel ? <div className={classes.tooltipDuration}>{tooltip.secondaryLabel}</div> : null}
+					{tooltip.status ? <div className={classes.tooltipDuration}>{tooltip.formattedDuration}</div> : null}
 				</div>
 			)}
 		</div>

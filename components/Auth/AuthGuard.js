@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
 import router from "next/router";
+import LoadingScreen from "../UI/LoadingScreen";
 
 const hasAccess = (role, auth) => {
 	switch (auth) {
@@ -27,11 +28,11 @@ const AuthGuard = ({ children, auth }) => {
 		}
 	}, [globalSession.loaded, globalSession.accountId, globalSession.verified]);
 
-	if (!globalSession.loaded) return <div>App loading</div>;
+	if (!globalSession.loaded) return <LoadingScreen />;
 
 	if (globalSession.accountId) {
 		if (!globalSession.verified) {
-			return null;
+			return <LoadingScreen />;
 		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]]?.role, auth)) {
 			return children;
 		} else {
@@ -39,7 +40,7 @@ const AuthGuard = ({ children, auth }) => {
 		}
 	}
 
-	return <div>App loading</div>;
+	return <LoadingScreen />;
 };
 
 export default AuthGuard;
