@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { PrimaryButton } from "../components/UI/Buttons";
 import Link from "next/link";
+import { PrimaryButton } from "../components/UI/Buttons";
 import Img from "../components/UI/Img";
 
 import classes from "../styles/404.module.scss";
@@ -9,7 +9,7 @@ const Error404 = () => {
 	return (
 		<div className={classes.view}>
 			<Head>
-				<title>Error 404 | CreateBase</title>
+				<title>Error 404</title>
 				<meta name="description" content="Oops!" />
 			</Head>
 			<div className={classes.container}>

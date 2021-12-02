@@ -10,7 +10,7 @@ import LoadingScreen from "../../../components/UI/LoadingScreen";
 const SubsystemGame = () => {
 	const router = useRouter();
 	const [data, setData] = useState();
-	const [subsystemIndex, setSubsystemIndex] = useState();
+	const [subsystemIndex, setSubsystemIndex] = useState(null);
 	const mp = useMixpanel();
 	const { globalSession } = useContext(GlobalSessionContext);
 
@@ -22,11 +22,10 @@ const SubsystemGame = () => {
 			project: router.query.id,
 			subsystem: router.query.subsystem,
 		});
-		mp.track("");
 		return () => {
 			clearSession();
 		};
-	}, []);
+	}, [globalSession.loaded]);
 
 	useEffect(() => {
 		if (router.isReady) {
@@ -34,6 +33,8 @@ const SubsystemGame = () => {
 				const _data = getProjectData(router.query.id);
 				setData(_data);
 				setSubsystemIndex(_data.subsystems.findIndex((subsystem) => subsystem.title === router.query.subsystem));
+			} else {
+				router.replace("/404");
 			}
 		}
 	}, [router.isReady, router.query.id]);
@@ -54,3 +55,5 @@ const SubsystemGame = () => {
 };
 
 export default SubsystemGame;
+
+SubsystemGame.auth = "user";

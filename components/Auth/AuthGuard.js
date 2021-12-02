@@ -1,8 +1,7 @@
 import { useContext, useEffect } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
 import router from "next/router";
-import useApi from "../../hooks/useApi";
 
 const hasAccess = (role, auth) => {
 	switch (auth) {
@@ -17,15 +16,6 @@ const hasAccess = (role, auth) => {
 
 const AuthGuard = ({ children, auth }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
-
-	// const { reportError } = useApi();
-	// useEffect(() => {
-	// 	const runtimeError = (e) => {
-	// 		reportError({ route: router.router, type: "runtime", metadata: e });
-	// 	};
-	// 	window.addEventListener("error", runtimeError);
-	// 	return () => window.removeEventListener("error", runtimeError);
-	// }, []);
 
 	useEffect(() => {
 		if (globalSession.loaded) {

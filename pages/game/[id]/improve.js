@@ -47,3 +47,5 @@ const ImproveGame = () => {
 };
 
 export default ImproveGame;
+
+ImproveGame.auth = "user";
