@@ -25,7 +25,7 @@ const useUnity = ({ scenePrefix, mode, index, project, wip, setLoaded }) => {
 		// Get WebGLRenderingContext from canvas element.
 		const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 		if (!gl || !(gl instanceof WebGLRenderingContext)) {
-			return router.push("/404");
+			return router.push("/unsupported");
 		}
 		unityContext.on("GetSensorData", (sensorData) => {
 			setSensorData(sensorData);
