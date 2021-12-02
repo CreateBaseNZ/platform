@@ -22,11 +22,11 @@ const AliasModal = ({ setShow }) => {
 		formState: { errors },
 	} = useForm({ defaultValues: { alias: globalSession.groups[globalSession.recentGroups[0]].alias }, mode: "onTouched" });
 
-	const onSubmit = async (inputs) => {
+	const onSubmit = async (inputValues) => {
 		setIsLoading(true);
 		await post({
 			route: "/api/license/update-saves",
-			input: { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, update: { alias: inputs.alias }, date: new Date().toString() },
+			input: { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, update: { alias: inputValues.alias }, date: new Date().toString() },
 			failHandler: (data) => {
 				if (data.content === "taken") {
 					setError("alias", { type: "manual", message: "This alias is already taken in your group" });
@@ -34,7 +34,7 @@ const AliasModal = ({ setShow }) => {
 				setIsLoading(false);
 			},
 			successHandler: () => {
-				setGlobalSession((state) => ({ ...state, groups: [...state.groups].map((_group, i) => (i === state.recentGroups[0] ? { ..._group, alias: inputs.alias } : _group)) }));
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups].map((_group, i) => (i === state.recentGroups[0] ? { ..._group, alias: inputValues.alias } : _group)) }));
 				setVisualBell({ type: "success", message: "Your alias has been updated" });
 				setShow(false);
 			},

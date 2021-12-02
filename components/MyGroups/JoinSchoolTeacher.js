@@ -54,7 +54,7 @@ const JoinSchoolTeacher = () => {
 		setQueryDropdown((state) => ({ ...state, show: false, selectedId: group.id }));
 	};
 
-	const onTeacherSubmit = async (inputs) => {
+	const onTeacherSubmit = async (inputValues) => {
 		setIsLoading(true);
 		await post({
 			route: "/api/groups/join-school-teacher",
@@ -62,7 +62,7 @@ const JoinSchoolTeacher = () => {
 				profileId: globalSession.profileId,
 				schoolId: queryDropdown.selectedId,
 				alias: `${globalSession.firstName} ${globalSession.lastName}`,
-				message: inputs.message,
+				message: inputValues.message,
 				date: new Date().toString(),
 			},
 			failHandler: (data) => {

@@ -33,17 +33,17 @@ const MyProfile = () => {
 		mode: "onTouched",
 	});
 
-	const onSubmit = async (inputs) => {
+	const onSubmit = async (inputValues) => {
 		setIsLoading(true);
 		let frontendError = false;
-		if (isBlacklisted(inputs.firstName)) {
+		if (isBlacklisted(inputValues.firstName)) {
 			setError("firstName", {
 				type: "manual",
 				message: "First name contains disallowed words",
 			});
 			frontendError = true;
 		}
-		if (isBlacklisted(inputs.lastName)) {
+		if (isBlacklisted(inputValues.lastName)) {
 			setError("lastName", {
 				type: "manual",
 				message: "Last name contains disallowed words",
@@ -55,15 +55,15 @@ const MyProfile = () => {
 		}
 		await post({
 			route: "/api/profile/update-profile",
-			input: { ...inputs, date: new Date().toString(), profileId: globalSession.profileId },
+			input: { ...inputValues, date: new Date().toString(), profileId: globalSession.profileId },
 			successHandler: () => {
-				setGlobalSession((state) => ({ ...state, ...inputs }));
+				setGlobalSession((state) => ({ ...state, ...inputValues }));
 				setVisualBell({
 					type: "success",
 					message: "Your profile has been updated",
 				});
 				setIsLoading(false);
-				reset(inputs);
+				reset(inputValues);
 			},
 		});
 	};

@@ -56,22 +56,19 @@ const ManageGroup = ({ role }) => {
 					className={`${classes.btn} ${classes.promoteBtn}`}
 					iconLeft={<i className="material-icons-outlined">add_moderator</i>}
 					onClick={async () => {
+						const input = { groupId: globalSession.groups[globalSession.recentGroups[0]].id, licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId), date: new Date().toString() };
 						await post({
 							route: "/api/groups/promote-users",
-							input: {
-								groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-								licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
-								date: new Date().toString(),
-							},
+							input: input,
 							successHandler: () => {
 								setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
 								setGlobalSession((state) => ({
 									...state,
 									groups: state.groups.map((group) =>
-										group.id === details.groupId
+										group.id === input.groupId
 											? {
 													...group,
-													numOfUsers: { ...group.numOfUsers, teachers: group.numOfUsers.teachers - details.licenseIds.length, admins: group.numOfUsers.admins + details.licenseIds.length },
+													numOfUsers: { ...group.numOfUsers, teachers: group.numOfUsers.teachers - input.licenseIds.length, admins: group.numOfUsers.admins + input.licenseIds.length },
 											  }
 											: group
 									),
@@ -92,7 +89,7 @@ const ManageGroup = ({ role }) => {
 						const input = { groupId: globalSession.groups[globalSession.recentGroups[0]].id, licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId), date: new Date().toString() };
 						await post({
 							route: "/api/groups/remove-users",
-							input,
+							input: input,
 							successHandler: () => {
 								setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
 								setGlobalSession((state) => ({

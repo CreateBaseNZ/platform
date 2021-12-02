@@ -19,11 +19,11 @@ const JoinSchoolStudent = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	const onStudentSubmit = async (inputs) => {
+	const onStudentSubmit = async (inputValues) => {
 		setIsLoading(true);
 		await post({
 			route: "/api/groups/join-school-student",
-			input: { profileId: globalSession.profileId, code: inputs.code, date: new Date().toString() },
+			input: { profileId: globalSession.profileId, code: inputValues.code, date: new Date().toString() },
 			failHandler: (data) => {
 				if (data.content === "incorrect") {
 					setError("code", {

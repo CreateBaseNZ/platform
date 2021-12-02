@@ -25,7 +25,7 @@ const ClassesNew = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	const onSubmit = async (input) => {
+	const onSubmit = async (inputValues) => {
 		await post({
 			route: "/api/classes/new",
 			input: {
@@ -33,7 +33,7 @@ const ClassesNew = () => {
 				date: new Date().toString(),
 				groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-				name: input.name,
+				name: inputValues.name,
 			},
 			failHandler: (data) => {
 				if (data.content === "taken") {

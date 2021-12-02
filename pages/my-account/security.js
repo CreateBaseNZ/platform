@@ -29,15 +29,15 @@ const MySecurity = () => {
 	} = useForm({ mode: "onTouched" });
 	password.current = watch("newPassword", "");
 
-	const onSubmit = async (inputs) => {
+	const onSubmit = async (inputValues) => {
 		setIsLoading(true);
 		await post({
 			route: "/api/auth/update-password",
 			input: {
 				date: new Date().toString(),
 				email: globalSession.email,
-				password: inputs.newPassword,
-				oldPassword: inputs.currentPassword,
+				password: inputValues.newPassword,
+				oldPassword: inputValues.currentPassword,
 			},
 			failHandler: (data) => {
 				if (data.content === "incorrect") {
