@@ -325,7 +325,10 @@ export const CONTACTING_CREATEBASE = {
 		<>
 			<p>
 				You can contact us for any reason via email at <a href="mailto: admin@createbase.co.nz">admin@createbase.co.nz</a> or send a message from the contact form on our{" "}
-				<Link href="createbase.co.nz">website</Link>.
+				<a href="createbase.co.nz" title="createbase.co.nz">
+					website
+				</a>
+				.
 			</p>
 			<p>We aim to respond to any questions, comments or enquiries within one working day.</p>
 		</>
@@ -628,7 +631,7 @@ export const ADDING_STUDENTS = {
 				<li>Enter the student code</li>
 			</ol>
 			<p>You can find the student code for your group by clicking "Add" on the Manage Group page.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student code.JPG" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student code.jpg" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
