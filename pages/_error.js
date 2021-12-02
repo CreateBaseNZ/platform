@@ -35,7 +35,7 @@ const Error = ({ statusCode }) => {
 
 Error.getInitialProps = ({ res, err }) => {
 	const { reportError } = useApi();
-	reportError({ route: router.router, type: "runtime", message: err.toString() });
+	reportError({ route: router.asPath, type: "runtime", message: err.toString() });
 
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
 	return { statusCode };

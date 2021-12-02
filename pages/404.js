@@ -1,11 +1,20 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect } from "react";
 import { PrimaryButton } from "../components/UI/Buttons";
 import Img from "../components/UI/Img";
+import router from "next/router";
+import useApi from "../hooks/useApi";
 
 import classes from "../styles/404.module.scss";
 
 const Error404 = () => {
+	const { reportError } = useApi();
+
+	useEffect(() => {
+		reportError({ route: router.asPath, type: "404", message: `User is trying to access ${router.asPath} route` });
+	}, []);
+
 	return (
 		<div className={classes.view}>
 			<Head>
