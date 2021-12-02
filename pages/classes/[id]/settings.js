@@ -44,10 +44,10 @@ const ClassesSettings = () => {
 						<div className={`${classes.teachersTable} roundScrollbar`}>
 							{classObject.teachers.map((teacher) => (
 								<Fragment key={teacher.licenseId}>
-									<span>
+									<span title={`${teacher.firstName} ${teacher.lastName}`}>
 										{teacher.firstName} {teacher.lastName}
 									</span>
-									<span>{teacher.alias}</span>
+									<span title={teacher.alias}>{teacher.alias}</span>
 									<a href={`mailto:${teacher.email}`} title={`Send an email to ${teacher.email}`}>
 										{teacher.email}
 									</a>

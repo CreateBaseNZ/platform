@@ -30,7 +30,7 @@
 
 .wrapper {
 	width: 50vw;
-	max-width: 500px;
+	max-width: 750px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -52,10 +52,12 @@
 		background: $lightest;
 		grid-template-columns: 1fr 1fr 2fr;
 		padding-right: 8px;
-		box-shadow: 0 6px 10px -8px rgba(black, 0.1);
+		border-bottom: thin solid #fafafa;
 		span {
 			font-weight: 600;
-			color: $dark;
+			color: black;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
 		}
 	}
 	.teachersTable {
@@ -63,6 +65,7 @@
 		max-height: 25vh;
 		display: grid;
 		grid-template-columns: 1fr 1fr 2fr;
+		overflow-y: scroll;
 		&::-webkit-scrollbar {
 			width: 8px;
 		}
@@ -78,6 +81,9 @@
 		font-size: 12px;
 		font-weight: 500;
 		padding: 0.5rem 1rem;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		border-top: 1px solid $lighter;
 	}
 }
