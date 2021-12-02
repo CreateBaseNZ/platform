@@ -21,7 +21,7 @@ const useApi = () => {
 					reportError({
 						route: router.asPath,
 						type: "critical error",
-						message: `User in ${router.asPath} route encountered a critical error while making a request to ${route}`,
+						message: `A user in ${router.asPath} route encountered a critical error while making a request to ${route}`,
 						metadata: { backendRoute: route, data },
 					});
 					return router.push("/404");
@@ -29,7 +29,7 @@ const useApi = () => {
 					reportError({
 						route: router.asPath,
 						type: "error",
-						message: `User in ${router.asPath} route encountered an error while making a request to ${route}`,
+						message: `A user in ${router.asPath} route encountered an error while making a request to ${route}`,
 						metadata: { backendRoute: route, data },
 					});
 					return router.push("/404");
@@ -37,7 +37,7 @@ const useApi = () => {
 					reportError({
 						route: router.asPath,
 						type: "failed",
-						message: `User in ${router.asPath} route encountered a failed response while making a request to ${route}`,
+						message: `A user in ${router.asPath} route encountered a failed response while making a request to ${route}`,
 						metadata: { backendRoute: route, data },
 					});
 					return failHandler(data);
