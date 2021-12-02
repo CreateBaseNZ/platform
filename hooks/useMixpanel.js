@@ -89,6 +89,14 @@ const useMixpanel = () => {
 		window.onclick = continueSession;
 		window.onkeydown = continueSession;
 		window.addEventListener("scroll", continueSession, true);
+		window.addEventListener("blur", () => {
+			console.log("blurred");
+			endSession(Date.now());
+		});
+		window.addEventListener("beforeunload", () => {
+			console.log("unloaded");
+			endSession(Date.now());
+		});
 		continueSession();
 
 		return clearSession;
