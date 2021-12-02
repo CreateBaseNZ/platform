@@ -40,8 +40,6 @@ const Game = ({ mode = "", project, index, query, blockList }) => {
 		}
 	}, [gameState]);
 
-	console.log(gameState);
-
 	return (
 		<div className={classes.code}>
 			<ConsoleContextProvider>
