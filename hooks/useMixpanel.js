@@ -42,6 +42,7 @@ const useMixpanel = () => {
 		let throttleTimer = null;
 		let sessionTimer = null;
 		let startTime = null;
+		let hasFocus = true;
 
 		const endSession = (endTime = Date.now() - inactivityTimer) => {
 			console.log("session ended");
@@ -57,6 +58,7 @@ const useMixpanel = () => {
 		const continueSession = () => {
 			if (throttleTimer === null) {
 				throttleTimer = setTimeout(() => {
+					if (!hasFocus) return (throttleTimer = null);
 					if (startTime === null) {
 						startTime = Date.now();
 						console.log("session started");
@@ -90,13 +92,11 @@ const useMixpanel = () => {
 		window.onkeydown = continueSession;
 		window.addEventListener("scroll", continueSession, true);
 		window.addEventListener("blur", () => {
-			console.log("blurred");
+			hasFocus = false;
 			endSession(Date.now());
 		});
-		window.addEventListener("beforeunload", () => {
-			console.log("unloaded");
-			endSession(Date.now());
-		});
+		window.addEventListener("focus", () => (hasFocus = true));
+		window.addEventListener("beforeunload", () => endSession(Date.now()));
 		continueSession();
 
 		return clearSession;
