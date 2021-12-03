@@ -34,12 +34,6 @@ const useApi = () => {
 					});
 					return router.push("/404");
 				case "failed":
-					reportError({
-						route: router.asPath,
-						type: "failed",
-						message: `A user in ${router.asPath} route encountered a failed response while making a request to ${route}`,
-						metadata: { backendRoute: route, data },
-					});
 					return failHandler(data);
 				default:
 					return successHandler(data);
