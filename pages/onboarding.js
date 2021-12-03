@@ -33,7 +33,7 @@ const GETTING_STARTED_SECTION = {
 
 const FLOW_SECTION = {
 	caption: "Get started with Flow coding",
-	tasks: [{ id: "flow-0", type: "link", title: "Complete the first subsystem in MagneBot", linkUrl: "/browse/magnebot" }],
+	tasks: [{ id: "flow-0", type: "link", title: "Complete the first subsystem in MagneBot", linkUrl: "/project/magnebot/create/Sequential%20programming/code" }],
 };
 
 const GROUP_DEFAULT_SECTION = {
