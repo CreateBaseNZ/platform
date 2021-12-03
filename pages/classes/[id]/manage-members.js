@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import GlobalSessionContext from "../../../store/global-session-context";
 import useApi from "../../../hooks/useApi";
 import useClass from "../../../hooks/useClass";
 import AddModal from "../../../components/Classes/ManageMembers/AddModal";
@@ -19,6 +20,7 @@ const ClassesManage = () => {
 	const { post } = useApi();
 	const { classObject, setClassObject, classLoaded } = useClass();
 	const [showAddModal, setShowAddModal] = useState(false);
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	const renderBtns = [
 		(key, data, selectedRowIds) => (
@@ -29,6 +31,7 @@ const ClassesManage = () => {
 						route: "/api/classes/remove-users",
 						input: {
 							classId: classObject.id,
+							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
 							date: new Date().toString(),
 						},
