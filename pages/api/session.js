@@ -41,7 +41,9 @@ export default async function (req, res) {
 		return res.send({ status: "failed", content: "invalid account id" });
 	}
 	if (data.content.recentGroups) {
-		data.content.recentGroups = recentGroupsCheck(data.content.recentGroups, data.content.groups);
+		if (data.content.recentGroups.length) {
+			data.content.recentGroups = recentGroupsCheck(data.content.recentGroups, data.content.groups);
+		}
 	}
 	if (data.status !== "succeeded") return res.send({ status: "error" });
 	return res.send({ status: "succeeded", content: data.content });
@@ -50,14 +52,13 @@ export default async function (req, res) {
 // HELPERS ==================================================
 
 function recentGroupsCheck(recentGroups, groups) {
-	let sortedRecentGroups = JSON.parse(JSON.stringify(recentGroups));
-	sortedRecentGroups.sort(function (a, b) {
-		return a - b;
-	});
 	let valid = true;
-	if (sortedRecentGroups.length > groups.length) valid = false;
-	for (let i = 0; i < sortedRecentGroups.length; i++) {
-		if (sortedRecentGroups[i] !== i) valid = false;
+	for (let i = 0; i < recentGroups.length; i++) {
+		if (!groups[recentGroups[i]]) {
+			valid = false;
+		} else {
+			if (!groups[recentGroups[i]].verified) valid = false;
+		}
 	}
 	if (!valid) {
 		return [];
