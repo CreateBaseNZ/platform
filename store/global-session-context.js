@@ -68,7 +68,12 @@ export const GlobalSessionContextProvider = (props) => {
 			},
 		});
 		router.push("/browse");
-		setVisualBell({ type: "success", message: `Now viewing as ${globalSession.groups[globalSession.recentGroups[0]].role} in ${globalSession.groups[globalSession.recentGroups[0]].name}` });
+		setVisualBell({
+			type: "success",
+			message: `Now viewing as a${globalSession.groups[globalSession.recentGroups[0]].role === "admin" ? "n" : ""} ${globalSession.groups[globalSession.recentGroups[0]].role} of ${
+				globalSession.groups[globalSession.recentGroups[0]].name
+			}`,
+		});
 	}, [globalSession.recentGroups]);
 
 	const value = useMemo(
