@@ -54,7 +54,7 @@ export default async function (req, res) {
 
 async function fetchClass(classId) {
 	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
-	const url = process.env.ROUTE_URL + "/group/check-privileges";
+	const url = process.env.ROUTE_URL + "/class/retrieve";
 	const input = { query: { _id: classId }, option: {} };
 	// Send request to the backend
 	let data;
@@ -102,10 +102,10 @@ async function checkGroupPrivileges(licenseIds, groupId) {
 	}
 	if (data.status !== "succeeded") throw data;
 	// Check if all the license of interest are part of the group
-	for (let i = 0; i < data.content.length; i++) {
-		const check = data.content[i];
-		if (!check.privilege.member.active) return false;
-	}
+	const check = data.content[0];
+	if (!check.privilege.member.active) return false;
+	if (check.privilege.member.queue) return false;
+	if (check.privilege.member.inactive) return false;
 	// Success handler
 	return true;
 }

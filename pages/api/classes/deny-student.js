@@ -52,7 +52,7 @@ export default async function (req, res) {
 
 async function fetchClass(classId) {
 	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
-	const url = process.env.ROUTE_URL + "/group/check-privileges";
+	const url = process.env.ROUTE_URL + "/class/retrieve";
 	const input = { query: { _id: classId }, option: {} };
 	// Send request to the backend
 	let data;

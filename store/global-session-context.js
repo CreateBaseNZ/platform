@@ -68,12 +68,14 @@ export const GlobalSessionContextProvider = (props) => {
 			},
 		});
 		router.push("/browse");
-		setVisualBell({
-			type: "success",
-			message: `Now viewing as a${globalSession.groups[globalSession.recentGroups[0]].role === "admin" ? "n" : ""} ${globalSession.groups[globalSession.recentGroups[0]].role} of ${
-				globalSession.groups[globalSession.recentGroups[0]].name
-			}`,
-		});
+		if (globalSession.groups[globalSession.recentGroups[0]]) {
+			setVisualBell({
+				type: "success",
+				message: `Now viewing as a${globalSession.groups[globalSession.recentGroups[0]].role === "admin" ? "n" : ""} ${globalSession.groups[globalSession.recentGroups[0]].role} of ${
+					globalSession.groups[globalSession.recentGroups[0]].name
+				}`,
+			});
+		}
 	}, [globalSession.recentGroups]);
 
 	const value = useMemo(
