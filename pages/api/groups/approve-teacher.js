@@ -16,15 +16,15 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: {},
-	// 	};
-	// }
 	// Integration Logic
+	// Check privileges
+	let check;
+	try {
+		check = await checkPrivileges([input.licenseId], input.groupId);
+	} catch (error) {
+		return res.send(error);
+	}
+	if (!check.access) return res.send({ status: "error", content: "invalid privileges" });
 	let data;
 	try {
 		data = (
@@ -41,5 +41,40 @@ export default async function (req, res) {
 }
 
 // HELPERS ==================================================
+
+async function checkPrivileges(licenseIds, groupId) {
+	let valid;
+	// Check group privileges
+	try {
+		valid = await checkGroupPrivileges(licenseIds, groupId);
+	} catch (error) {
+		throw error;
+	}
+	if (!valid) return { access: false, reason: "invalid group privileges" };
+	// Success handler
+	return { access: true };
+}
+
+async function checkGroupPrivileges(licenseIds, groupId) {
+	// Check if all the licenses are active members of the group
+	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
+	const url = process.env.ROUTE_URL + "/group/check-privileges";
+	const input = { query: { group: { _id: groupId }, license: { _id: licenseIds } }, licenseIds };
+	// Send request to the backend
+	let data;
+	try {
+		data = (await axios.post(url, { ...keys, input }))["data"];
+	} catch (error) {
+		data = { status: "error", content: error };
+	}
+	if (data.status !== "succeeded") throw data;
+	// Check if all the license of interest are part of the group
+	const check = data.content[0];
+	if (check.privilege.member.active) return false;
+	if (!check.privilege.member.queue) return false;
+	if (check.privilege.member.inactive) return false;
+	// Success handler
+	return true;
+}
 
 // END ======================================================

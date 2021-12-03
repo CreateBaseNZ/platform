@@ -15,6 +15,14 @@ export default async function (req, res) {
 	}
 	const input = req.body.input;
 	// Integration Logic
+	// Check privileges
+	let check;
+	try {
+		check = await checkPrivileges([input.licenseId, ...input.licenseIds], input.groupId);
+	} catch (error) {
+		return res.send(error);
+	}
+	if (!check.access) return res.send({ status: "error", content: "invalid privileges" });
 	for (let i = 0; i < input.licenseIds.length; i++) {
 		const licenseId = input.licenseIds[i];
 		let data;
@@ -38,5 +46,46 @@ export default async function (req, res) {
 }
 
 // HELPERS ==================================================
+
+async function checkPrivileges(licenseIds, groupId) {
+	let valid;
+	// Check group privileges
+	try {
+		valid = await checkGroupPrivileges(licenseIds, groupId);
+	} catch (error) {
+		throw error;
+	}
+	if (!valid) return { access: false, reason: "invalid group privileges" };
+	// Success handler
+	return { access: true };
+}
+
+async function checkGroupPrivileges(licenseIds, groupId) {
+	// Check if all the licenses are active members of the group
+	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
+	const url = process.env.ROUTE_URL + "/group/check-privileges";
+	const input = { query: { group: { _id: groupId }, license: { _id: licenseIds } }, licenseIds };
+	// Send request to the backend
+	let data;
+	try {
+		data = (await axios.post(url, { ...keys, input }))["data"];
+	} catch (error) {
+		data = { status: "error", content: error };
+	}
+	if (data.status !== "succeeded") throw data;
+	// Check if all the license of interest are part of the group
+	const requestorCheck = data.content.shift();
+	if (!requestorCheck.privilege.member.active || !requestorCheck.privilege.admin) return false;
+	for (let i = 0; i < data.content.length; i++) {
+		const check = data.content[i];
+		if (!check.privilege.member.active) return false;
+		if (check.privilege.member.queue) return false;
+		if (check.privilege.member.inactive) return false;
+		if (check.privilege.student) return false;
+		if (!check.privilege.teacher) return false;
+	}
+	// Success handler
+	return true;
+}
 
 // END ======================================================

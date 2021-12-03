@@ -56,7 +56,12 @@ const ManageGroup = ({ role }) => {
 					className={`${classes.btn} ${classes.promoteBtn}`}
 					iconLeft={<i className="material-icons-outlined">add_moderator</i>}
 					onClick={async () => {
-						const input = { groupId: globalSession.groups[globalSession.recentGroups[0]].id, licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId), date: new Date().toString() };
+						const input = {
+							groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
+							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+							date: new Date().toString(),
+						};
 						await post({
 							route: "/api/groups/promote-users",
 							input: input,
