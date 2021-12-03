@@ -40,7 +40,9 @@ export default async function (req, res) {
 	if (data.status === "failed" && data.content.account === "does not exist") {
 		return res.send({ status: "failed", content: "invalid account id" });
 	}
-	data.content.recentGroups = recentGroupsCheck(data.content.recentGroups, data.content.groups);
+	if (data.content.recentGroups) {
+		data.content.recentGroups = recentGroupsCheck(data.content.recentGroups, data.content.groups);
+	}
 	if (data.status !== "succeeded") return res.send({ status: "error" });
 	return res.send({ status: "succeeded", content: data.content });
 }

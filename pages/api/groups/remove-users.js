@@ -120,6 +120,8 @@ async function checkGroupPrivileges(licenseIds, groupId, role) {
 	for (let i = 0; i < data.content.length; i++) {
 		const check = data.content[i];
 		if (!check.privilege.member.active) return false;
+		if (check.privilege.member.queue) return false;
+		if (check.privilege.member.inactive) return false;
 		if (role === "student") {
 			if (!check.privilege.student) return false;
 		} else if (role === "teacher") {

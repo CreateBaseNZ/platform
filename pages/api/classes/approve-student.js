@@ -123,12 +123,10 @@ async function checkClassPrivileges(licenseIds, classId) {
 	}
 	if (data.status !== "succeeded") throw data;
 	// Check if the users who are being added are currently not a member and has requested to join
-	for (let i = 0; i < data.content.length; i++) {
-		const check = data.content[i];
-		if (check.privilege.member.active) return false;
-		if (!check.privilege.member.requested) return false;
-		if (check.privilege.member.invited) return false;
-	}
+	const check = data.content[0];
+	if (check.privilege.member.active) return false;
+	if (!check.privilege.member.requested) return false;
+	if (check.privilege.member.invited) return false;
 	// Success handler
 	return true;
 }
