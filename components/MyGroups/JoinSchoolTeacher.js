@@ -55,6 +55,14 @@ const JoinSchoolTeacher = () => {
 	};
 
 	const onTeacherSubmit = async (inputValues) => {
+		if (!queryDropdown.selectedId) {
+			setError("name", {
+				type: "manual",
+				message: "Please select a school",
+			});
+			setQueryDropdown((state) => ({ ...state, show: false }));
+			return;
+		}
 		setIsLoading(true);
 		await post({
 			route: "/api/groups/join-school-teacher",
