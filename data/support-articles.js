@@ -325,7 +325,7 @@ export const CONTACTING_CREATEBASE = {
 		<>
 			<p>
 				You can contact us for any reason via email at <a href="mailto: admin@createbase.co.nz">admin@createbase.co.nz</a> or send a message from the contact form on our{" "}
-				<a href="createbase.co.nz" title="createbase.co.nz">
+				<a href="https://createbase.co.nz" title="https://createbase.co.nz">
 					website
 				</a>
 				.

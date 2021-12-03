@@ -14,6 +14,7 @@ import DuplicateWarning from "../../components/MyGroups/DuplicateWarning";
 import COUNTRIES from "../../constants/countries";
 
 import classes from "../../styles/myGroups.module.scss";
+import { schoolNameMaxLength, schoolNameMinLength } from "../../utils/formValidation";
 
 const NewSchool = () => {
 	const { post } = useApi();
@@ -141,8 +142,8 @@ const NewSchool = () => {
 									maxLength: 254,
 									...register("name", {
 										required: "Please enter your school's name",
-										minLength: 10,
-										maxLength: 254,
+										minLength: schoolNameMinLength,
+										maxLength: schoolNameMaxLength,
 									}),
 								}}
 								error={errors.name}
@@ -188,7 +189,7 @@ const NewSchool = () => {
 										placeholder: "Please select a country",
 										type: "text",
 										maxLength: 254,
-										...register("country", { required: "Please select a country" }),
+										...register("country", { required: "Please select a country", maxLength: 254 }),
 										autoComplete: "off",
 									}}
 									error={errors.country}
