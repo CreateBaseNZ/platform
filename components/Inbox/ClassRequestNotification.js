@@ -24,7 +24,6 @@ const ClassRequestNotification = ({ notification, setNotifications }) => {
 			input: { licenseId: notification.params.user.licenseId, classId: notification.params.class.id, date: new Date().toString() },
 			successHandler: () => {
 				setNotifications((state) => state.filter((notif) => notif.id !== notification.id));
-				setGlobalSession((state) => ({ ...state, numOfNotifications: state.numOfNotifications - 1 }));
 			},
 		});
 	};
