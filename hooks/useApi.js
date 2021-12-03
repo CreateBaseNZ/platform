@@ -3,7 +3,6 @@ import axios from "axios";
 
 const useApi = () => {
 	const reportError = async (input) => {
-		if (router.asPath === "/404") return;
 		axios.post("/api/error", {
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
 			input: { type: input.type, route: input.route, date: new Date().toString(), message: input.message, metadata: input.metadata },
