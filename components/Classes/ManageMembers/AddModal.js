@@ -49,6 +49,8 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 			.map((key) => userList[key.split("_")[0]]);
 		const details = {
 			classId: classObject.id,
+			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			licenseIds: selectedUsers.map((user) => user.licenseId),
 			date: new Date().toString(),
 		};

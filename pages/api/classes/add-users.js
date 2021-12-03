@@ -23,15 +23,15 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_UPDATED_USERS_LIST, // includes both existing users and new users successfully added
-	// 	};
-	// } // no failure mode
 	// Integration Logic
+	// Check privileges
+	let check;
+	try {
+		check = await checkPrivileges([input.licenseId, ...input.licenseIds], input.groupId, input.classId);
+	} catch (error) {
+		return res.send(error);
+	}
+	if (!check.access) return res.send({ status: "error", content: "invalid privileges" });
 	// Add each user
 	for (let i = 0; i < input.licenseIds.length; i++) {
 		const licenseId = input.licenseIds[i];
@@ -54,5 +54,74 @@ export default async function (req, res) {
 }
 
 // HELPERS ==================================================
+
+async function checkPrivileges(licenseIds, groupId, classId) {
+	let valid;
+	// Check group privileges
+	try {
+		valid = await checkGroupPrivileges(licenseIds, groupId);
+	} catch (error) {
+		throw error;
+	}
+	if (!valid) return { access: false, reason: "invalid group privileges" };
+	// Check class privileges
+	try {
+		valid = await checkClassPrivileges(licenseIds, classId);
+	} catch (error) {
+		throw error;
+	}
+	if (!valid) return { access: false, reason: "invalid class privileges" };
+	// Success handler
+	return { access: true };
+}
+
+async function checkGroupPrivileges(licenseIds, groupId) {
+	// Check if all the licenses are active members of the group
+	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
+	const url = process.env.ROUTE_URL + "/group/check-privileges";
+	const input = { query: { group: { _id: groupId }, license: { _id: licenseIds } }, licenseIds };
+	// Send request to the backend
+	let data;
+	try {
+		data = (await axios.post(url, { ...keys, input }))["data"];
+	} catch (error) {
+		data = { status: "error", content: error };
+	}
+	if (data.status !== "succeeded") throw data;
+	// Check if all the license of interest are part of the group
+	for (let i = 0; i < data.content.length; i++) {
+		const check = data.content[i];
+		if (!check.privilege.member.active) return false;
+	}
+	// Success handler
+	return true;
+}
+
+async function checkClassPrivileges(licenseIds, classId) {
+	// Check if all the licenses are active members of the group
+	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
+	const url = process.env.ROUTE_URL + "/class/check-privileges";
+	const input = { query: { class: { _id: classId }, license: { _id: licenseIds } }, licenseIds };
+	// Send request to the backend
+	let data;
+	try {
+		data = (await axios.post(url, { ...keys, input }))["data"];
+	} catch (error) {
+		data = { status: "error", content: error };
+	}
+	if (data.status !== "succeeded") throw data;
+	// Check if the requestor has a teacher access
+	const requestorCheck = data.content.shift();
+	if (!requestorCheck.privilege.member.active || !requestorCheck.privilege.teacher) return false;
+	// Check if the users who are being added are currently not a member
+	for (let i = 0; i < data.content.length; i++) {
+		const check = data.content[i];
+		if (check.privilege.member.active) return false;
+		if (check.privilege.member.requested) return false;
+		if (check.privilege.member.invited) return false;
+	}
+	// Success handler
+	return true;
+}
 
 // END ======================================================

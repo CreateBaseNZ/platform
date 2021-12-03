@@ -86,7 +86,13 @@ const ManageGroup = ({ role }) => {
 					className={`${classes.btn} ${classes.removeBtn}`}
 					iconLeft={<i className="material-icons-outlined">person_remove</i>}
 					onClick={async () => {
-						const input = { groupId: globalSession.groups[globalSession.recentGroups[0]].id, licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId), date: new Date().toString() };
+						const input = {
+							groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
+							date: new Date().toString(),
+							role,
+						};
 						await post({
 							route: "/api/groups/remove-users",
 							input: input,
