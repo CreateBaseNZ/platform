@@ -74,7 +74,7 @@ export const schoolNameMinLength = {
 };
 
 export const schoolNameMaxLength = {
-	value: 100,
+	value: 254,
 	message: "Class names cannot exceed 100 characters in length",
 };
 
