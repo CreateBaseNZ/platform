@@ -12,7 +12,6 @@ const Error404 = () => {
 	const { reportError } = useApi();
 
 	useEffect(() => {
-		if (router.asPath === "/404") return;
 		reportError({ route: router.asPath, type: "404", message: `A user is trying to access ${router.asPath} route` });
 	}, []);
 
