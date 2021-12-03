@@ -19,7 +19,7 @@ const GETTING_STARTED_SECTION = {
 			type: "video",
 			title: "Watch Teaching on CreateBase",
 			subtitle: "For admins and teachers",
-			videoUrl: "https://www.youtube.com/embed/2fOdfDHPyGc",
+			videoUrl: "https://www.youtube.com/embed/kcFNkXVr_dE",
 		},
 		{
 			id: "getting-started-1",
@@ -44,7 +44,7 @@ const GROUP_DEFAULT_SECTION = {
 		{
 			id: "not-group-0",
 			type: "video",
-			title: "Register your school",
+			title: "Register or join your school",
 			subtitle: "For admins and teachers",
 			videoUrl: "https://www.youtube.com/embed/K9BLb9clLRk",
 			linkUrl: "/my-groups/new-school",
