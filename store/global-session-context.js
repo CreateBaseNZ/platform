@@ -1,9 +1,10 @@
-import { useState, createContext, useMemo, useEffect } from "react";
+import { useState, createContext, useMemo, useEffect, useContext } from "react";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import axios from "axios";
 import useApi from "../hooks/useApi";
 import { signOut } from "next-auth/react";
+import VisualBellContext from "./visual-bell-context";
 
 const GlobalSessionContext = createContext({
 	globalSession: { loaded: false },
@@ -15,6 +16,7 @@ export default GlobalSessionContext;
 export const GlobalSessionContextProvider = (props) => {
 	const { post } = useApi();
 	const [globalSession, setGlobalSession] = useState({ loaded: false });
+	const { setVisualBell } = useContext(VisualBellContext);
 	const { data: session, status } = useSession();
 
 	useEffect(async () => {
@@ -56,6 +58,7 @@ export const GlobalSessionContextProvider = (props) => {
 	}, [status, session]);
 
 	useEffect(async () => {
+		if (!globalSession.loaded) return;
 		await post({
 			route: "/api/profile/update-saves",
 			input: {
@@ -64,6 +67,8 @@ export const GlobalSessionContextProvider = (props) => {
 				date: new Date().toString(),
 			},
 		});
+		router.push("/browse");
+		setVisualBell({ type: "success", message: `Now viewing as ${globalSession.groups[globalSession.recentGroups[0]].role} in ${globalSession.groups[globalSession.recentGroups[0]].name}` });
 	}, [globalSession.recentGroups]);
 
 	const value = useMemo(

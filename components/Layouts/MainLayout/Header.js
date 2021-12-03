@@ -15,9 +15,7 @@ const Header = ({ setShowAliasModal }) => {
 	const { navIsCollapsed, setNavIsCollapsed } = useContext(MainLayoutContext);
 	const [showDropdown, setShowDropdown] = useState(false);
 
-	const changeGroup = (groupIndex) => {
-		setGlobalSession((state) => ({ ...state, recentGroups: [groupIndex, ...state.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3) }));
-	};
+	const changeGroup = (groupIndex) => setGlobalSession((state) => ({ ...state, recentGroups: [groupIndex, ...state.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3) }));
 
 	return (
 		<>
