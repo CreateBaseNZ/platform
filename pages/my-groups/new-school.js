@@ -158,7 +158,6 @@ const NewSchool = () => {
 									maxLength: 254,
 									...register("address", {
 										required: "Please enter your school's address",
-										minLength: 10,
 										maxLength: 254,
 									}),
 								}}
