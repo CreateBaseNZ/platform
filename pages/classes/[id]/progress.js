@@ -17,6 +17,7 @@ import DUMMY_STUDENTS from "../../../constants/progress";
 
 import classes from "../../../styles/classesProgress.module.scss";
 import tracking from "../../../utils/tracking";
+import VisualBellContext from "../../../store/visual-bell-context";
 
 const EVENTS = [
 	"project_define",
@@ -66,6 +67,7 @@ const ClassesProgress = () => {
 	const ref = useRef();
 	const { globalSession, trackingData } = useContext(GlobalSessionContext);
 	const { classObject, classLoaded } = useClass();
+	const { setVisualBell } = useContext(VisualBellContext);
 	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
 	const [studentSelect, setStudentSelect] = useState();
 	const [projectSelect, setProjectSelect] = useState(PROJECT_OPTIONS[0]);
@@ -81,7 +83,11 @@ const ClassesProgress = () => {
 	useEffect(() => {
 		if (!classLoaded || !trackingData.loaded) return;
 
+		if (!trackingData.data) return setVisualBell({ type: "warning", message: "Sorry, we couldn't retrieve the data you were after. Please try again in a few minutes." });
+
 		const filters = EVENTS.map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
+
+		console.log(trackingData);
 
 		const rawData = tracking.postprocess(trackingData.data, filters);
 

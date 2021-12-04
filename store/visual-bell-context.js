@@ -11,9 +11,11 @@ export const VisualBellContextProvider = (props) => {
 	const timer = useRef();
 	const [visualBell, setVisualBell] = useState({ type: null, message: null, key: null });
 
+	console.log(visualBell);
+
 	useEffect(() => {
 		if (visualBell.message) {
-			if (timer.current && visualBell.type !== "catastrophe" && visualBell.type !== "warning") {
+			if (timer.current && (visualBell.type === "catastrophe" || visualBell.type === "warning")) {
 				clearTimeout(timer.current);
 			}
 			if (visualBell.type !== "catastrophe" && visualBell.type !== "warning") {
