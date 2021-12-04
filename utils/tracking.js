@@ -3,8 +3,6 @@ import moment from "moment-timezone";
 
 const retrieve = (PROJECT_SECRET, fromDate = "2021-01-01", toDate = moment().tz("Pacific/Auckland").format("YYYY-MM-DD")) => {
 	return new Promise(async (resolve, reject) => {
-		// Process 1
-		let rawData;
 		// Run this code if in development
 		let data;
 		try {
