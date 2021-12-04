@@ -1,22 +1,20 @@
 import axios from "axios";
 import moment from "moment-timezone";
 
-const retrieve = (PROJECT_SECRET, fromDate = "2021-01-01", toDate = moment().tz("Pacific/Auckland").format("YYYY-MM-DD")) => {
+const preprocess = (PROJECT_SECRET, fromDate = "2021-01-01", toDate = moment().tz("Pacific/Auckland").format("YYYY-MM-DD")) => {
 	return new Promise(async (resolve, reject) => {
-		// Run this code if in development
 		let data;
 		try {
-			data = (await axios.post("https://dev.createbase.co.nz/tracking", { input: { PROJECT_SECRET, fromDate, toDate } }))["data"];
+			data = (await axios.post("/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { PROJECT_SECRET, fromDate, toDate } }))["data"];
 		} catch (error) {
-			data = { status: "error", content: error };
+			return reject(error);
 		}
-		if (data.status !== "succeeded") return reject({ status: "error" });
-
+		if (data.status !== "succeeded") return reject(data);
 		return resolve(data.content);
 	});
 };
 
-const process = (rawData, filters = []) => {
+const postprocess = (rawData, filters = []) => {
 	// Process 2
 	rawData = rawData.split("\n");
 	rawData.pop();
@@ -58,6 +56,6 @@ const process = (rawData, filters = []) => {
 };
 
 export default {
-	retrieve,
-	process,
+	preprocess,
+	postprocess,
 };
