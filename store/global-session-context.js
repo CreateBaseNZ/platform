@@ -89,7 +89,6 @@ export const GlobalSessionContextProvider = (props) => {
 		} catch (error) {
 			// TODO: Error handling
 		} finally {
-			console.log(data);
 			setTrackingData({ data: data, loaded: true });
 		}
 	}, []);

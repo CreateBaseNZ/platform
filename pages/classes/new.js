@@ -33,7 +33,7 @@ const ClassesNew = () => {
 				date: new Date().toString(),
 				groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-				name: inputValues.name,
+				name: inputValues.name.trim(),
 			},
 			failHandler: (data) => {
 				if (data.content === "taken") {
