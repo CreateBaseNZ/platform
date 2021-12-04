@@ -1,15 +1,25 @@
 @import "/styles/variables";
 
-.primary {
+.btn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: $lightest;
 	font-size: 14px;
 	font-weight: 500;
 	border-radius: 16px;
 	height: 3rem;
 	padding: 0 2em;
+	white-space: nowrap;
+	&.disabled {
+		pointer-events: none;
+		opacity: 0.25;
+		filter: grayscale(1);
+		box-shadow: none;
+	}
+}
+
+.primary {
+	color: $lightest;
 	background: $green-mid;
 	box-shadow: 0 4px 16px 0 rgba($green-mid, 0.25);
 	transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
@@ -21,24 +31,10 @@
 		transform: translateY(-2px);
 		box-shadow: 0 8px 24px 0 rgba($green-mid, 0.25);
 	}
-	&.disabled {
-		pointer-events: none;
-		opacity: 0.25;
-		filter: grayscale(1);
-		box-shadow: none;
-	}
 }
 
 .secondary {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	color: grey;
-	font-weight: 500;
-	font-size: 14px;
-	border-radius: 16px;
-	height: 3rem;
-	padding: 0 2em;
 	border: 2px solid grey;
 	transition: border-color 0.1s ease-out, color 0.1s ease-out;
 	& * {
@@ -48,23 +44,10 @@
 		color: black;
 		border-color: black;
 	}
-	&.disabled {
-		pointer-events: none;
-		opacity: 0.25;
-		filter: grayscale(1);
-	}
 }
 
 .tertiary {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight: 500;
-	font-size: 14px;
 	color: $light;
-	height: 3rem;
-	border-radius: 16px;
-	padding: 0 1.5em;
 	transition: color 0.1s ease-out, background-color 0.1s ease-out;
 	& * {
 		color: inherit;
@@ -72,11 +55,6 @@
 	&:hover {
 		color: $darker;
 		background: rgba(black, 0.05);
-	}
-	&.disabled {
-		pointer-events: none;
-		opacity: 0.25;
-		filter: grayscale(1);
 	}
 }
 

@@ -54,6 +54,10 @@
 			font-size: 14px;
 			margin-right: 0.25rem;
 		}
+		&:hover {
+			border-color: $blue-dark;
+			color: $blue-dark;
+		}
 	}
 }
 
