@@ -635,7 +635,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 
 	const touchHandler = () => {
 		setFlowVisualBell((state) => ({
-			message: "Sorry, touch interaction is not supported",
+			message: "WARNING: Sorry, touch interaction is not supported",
 			switch: !state.switch,
 			show: true,
 		}));
