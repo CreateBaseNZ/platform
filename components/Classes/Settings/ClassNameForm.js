@@ -20,16 +20,17 @@ const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 		formState: { errors },
 	} = useForm({ defaultValues: { name: defaultValue }, mode: "onTouched" });
 
-	const onSubmit = async (inputs) => {
+	const onSubmit = async (inputValues) => {
 		setIsLoading(true);
+		const input = {
+			classId: classId,
+			date: new Date().toString(),
+			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+			name: inputValues.name.trim(),
+		};
 		await post({
 			route: "/api/classes/update",
-			input: {
-				classId: classId,
-				date: new Date().toString(),
-				groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-				name: inputs.name,
-			},
+			input: input,
 			failHandler: (data) => {
 				if (data.content === "name taken") {
 					setError("name", { type: "manual", message: "This name is already taken in your school" });
@@ -37,7 +38,7 @@ const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 				setIsLoading(false);
 			},
 			successHandler: () => {
-				setClassObject((state) => ({ ...state, name: inputs.name }));
+				setClassObject((state) => ({ ...state, name: input.name }));
 				setVisualBell({ type: "success", message: "Class details updated" });
 				setIsLoading(false);
 			},
