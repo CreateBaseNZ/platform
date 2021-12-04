@@ -22,6 +22,7 @@ export const GlobalSessionContextProvider = (props) => {
 	useEffect(async () => {
 		if (status !== "loading") {
 			if (session) {
+				console.log("use effect ran");
 				const inputs = {
 					accountId: session.user,
 					date: new Date().toString(),
@@ -55,7 +56,7 @@ export const GlobalSessionContextProvider = (props) => {
 				setGlobalSession((state) => ({ ...state, loaded: true }));
 			}
 		}
-	}, [status, session]);
+	}, [status, session?.user]);
 
 	useEffect(async () => {
 		if (!globalSession.loaded) return;
@@ -67,7 +68,6 @@ export const GlobalSessionContextProvider = (props) => {
 				date: new Date().toString(),
 			},
 		});
-		router.push("/browse");
 		if (globalSession.groups[globalSession.recentGroups[0]]) {
 			setVisualBell({
 				type: "success",

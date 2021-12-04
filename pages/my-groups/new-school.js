@@ -160,6 +160,7 @@ const NewSchool = () => {
 										required: "Please enter your school's address",
 										maxLength: 254,
 									}),
+									autoComplete: "off",
 								}}
 								error={errors.address}
 							/>
@@ -176,6 +177,7 @@ const NewSchool = () => {
 										minLength: 1,
 										maxLength: 254,
 									}),
+									autoComplete: "off",
 								}}
 								error={errors.city}
 							/>
