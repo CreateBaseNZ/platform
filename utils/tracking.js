@@ -7,7 +7,7 @@ const preprocess = (PROJECT_SECRET, fromDate = "2021-01-01", toDate = moment().t
 		try {
 			data = (await axios.post("/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { PROJECT_SECRET, fromDate, toDate } }))["data"];
 		} catch (error) {
-			return reject(error);
+			return reject({ status: "error", content: error });
 		}
 		if (data.status !== "succeeded") return reject(data);
 		return resolve(data.content);
