@@ -3,7 +3,6 @@ import Head from "next/head";
 import Link from "next/link";
 import router from "next/router";
 import useClass from "../../../hooks/useClass";
-import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import ProgressTable from "../../../components/Classes/Progress/ProgressTable";
 import Select from "../../../components/Classes/Progress/Select";
@@ -17,6 +16,7 @@ import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesC
 import DUMMY_STUDENTS from "../../../constants/progress";
 
 import classes from "../../../styles/classesProgress.module.scss";
+import tracking from "../../../utils/tracking";
 
 const EVENTS = [
 	"project_define",
@@ -64,7 +64,7 @@ const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cu
 
 const ClassesProgress = () => {
 	const ref = useRef();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { globalSession, trackingData } = useContext(GlobalSessionContext);
 	const { classObject, classLoaded } = useClass();
 	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
 	const [studentSelect, setStudentSelect] = useState();
@@ -73,93 +73,89 @@ const ClassesProgress = () => {
 	const [postData, setPostData] = useState();
 	const [tooltip, setTooltip] = useState();
 	const [isDummy, setIsDummy] = useState(false);
-	const mp = useMixpanel();
 
 	useEffect(() => {
 		return () => (ref.current = null);
 	}, []);
 
-	useEffect(async () => {
-		if (!classLoaded) return;
+	useEffect(() => {
+		if (!classLoaded || !trackingData.loaded) return;
 
 		const filters = EVENTS.map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
-		const callback = (rawData) => {
-			if (!ref.current) return;
+		const rawData = tracking.postprocess(trackingData.data, filters);
 
-			const processData = (event, project, license, threshold, subsystem, gameProgressEvent) => {
-				let duration = 0;
-				let isWin = false;
+		const processData = (event, project, license, threshold, subsystem, gameProgressEvent) => {
+			let duration = 0;
+			let isWin = false;
 
-				for (let k = 0; k < rawData.length; k++) {
-					if (
-						rawData[k].event === event &&
-						rawData[k].properties.project === project &&
-						rawData[k].properties.licenses.includes(license) &&
-						(subsystem ? rawData[k].properties.subsystem === subsystem : true)
-					) {
-						duration += rawData[k].properties.duration;
-					}
-					if (
-						gameProgressEvent &&
-						rawData[k].event === gameProgressEvent &&
-						rawData[k].properties.project === project &&
-						rawData[k].properties.licenses.includes(license) &&
-						(subsystem ? rawData[k].properties.subsystem === subsystem : true)
-					) {
-						isWin = rawData[k].properties.state === "win";
-					}
+			for (let k = 0; k < rawData.length; k++) {
+				if (
+					rawData[k].event === event &&
+					rawData[k].properties.project === project &&
+					rawData[k].properties.licenses.includes(license) &&
+					(subsystem ? rawData[k].properties.subsystem === subsystem : true)
+				) {
+					duration += rawData[k].properties.duration;
 				}
-				const formattedThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""}${
-					Math.floor((threshold % 3600) / 60) ? ` ${Math.floor((threshold % 3600) / 60)}min` : ""
-				}${Math.floor(threshold % 60) ? ` ${Math.floor(threshold % 60)}s` : ""}`;
-				const formattedDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""}${Math.floor((duration % 3600) / 60) ? ` ${Math.floor((duration % 3600) / 60)}min` : ""}${
-					Math.floor(duration % 60) ? ` ${Math.floor(duration % 60)}s` : ""
-				}`;
-
-				const params = getStatus(duration, threshold, formattedThreshold, gameProgressEvent, isWin);
-
-				return { ...params, formattedDuration };
-			};
-
-			const processCreateData = (project, subsystems, license) => {
-				const createData = {};
-				for (let j = 0; j < subsystems.length; j++) {
-					createData[subsystems[j].title] = {
-						name: subsystems[j].title,
-						research: processData("project_create_research", project, license, subsystems[j].research.threshold, subsystems[j].title),
-						plan: processData("project_create_plan", project, license, subsystems[j].plan.threshold, subsystems[j].title),
-						code: processData("code_create_time", project, license, subsystems[j].code.threshold, subsystems[j].title, "game_create_progress"),
-					};
+				if (
+					gameProgressEvent &&
+					rawData[k].event === gameProgressEvent &&
+					rawData[k].properties.project === project &&
+					rawData[k].properties.licenses.includes(license) &&
+					(subsystem ? rawData[k].properties.subsystem === subsystem : true)
+				) {
+					isWin = rawData[k].properties.state === "win";
 				}
-				return createData;
-			};
-
-			let _preData = classObject.students.map((student) => {
-				const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
-				for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
-					studentData.projects[ALL_PROJECT_DATA[i].query] = {
-						define: processData("project_define", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].define.threshold),
-						imagine: processData("project_imagine", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].imagine.threshold),
-						create: processCreateData(ALL_PROJECT_DATA[i].query, ALL_PROJECT_DATA[i].subsystems, student.licenseId),
-						improve: processData("code_improve_time", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].improve.threshold, undefined, "game_improve_progress"),
-					};
-				}
-				return studentData;
-			});
-
-			if (!ref.current) return;
-
-			if (!_preData.length) {
-				_preData = DUMMY_STUDENTS;
-				setIsDummy(true);
 			}
+			const formattedThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""}${Math.floor((threshold % 3600) / 60) ? ` ${Math.floor((threshold % 3600) / 60)}min` : ""}${
+				Math.floor(threshold % 60) ? ` ${Math.floor(threshold % 60)}s` : ""
+			}`;
+			const formattedDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""}${Math.floor((duration % 3600) / 60) ? ` ${Math.floor((duration % 3600) / 60)}min` : ""}${
+				Math.floor(duration % 60) ? ` ${Math.floor(duration % 60)}s` : ""
+			}`;
 
-			setPreData(_preData);
-			setStudentSelect(_preData[0]);
+			const params = getStatus(duration, threshold, formattedThreshold, gameProgressEvent, isWin);
+
+			return { ...params, formattedDuration };
 		};
-		await mp.read(filters, callback);
-	}, [classLoaded]);
+
+		const processCreateData = (project, subsystems, license) => {
+			const createData = {};
+			for (let j = 0; j < subsystems.length; j++) {
+				createData[subsystems[j].title] = {
+					name: subsystems[j].title,
+					research: processData("project_create_research", project, license, subsystems[j].research.threshold, subsystems[j].title),
+					plan: processData("project_create_plan", project, license, subsystems[j].plan.threshold, subsystems[j].title),
+					code: processData("code_create_time", project, license, subsystems[j].code.threshold, subsystems[j].title, "game_create_progress"),
+				};
+			}
+			return createData;
+		};
+
+		let _preData = classObject.students.map((student) => {
+			const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
+			for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
+				studentData.projects[ALL_PROJECT_DATA[i].query] = {
+					define: processData("project_define", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].define.threshold),
+					imagine: processData("project_imagine", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].imagine.threshold),
+					create: processCreateData(ALL_PROJECT_DATA[i].query, ALL_PROJECT_DATA[i].subsystems, student.licenseId),
+					improve: processData("code_improve_time", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].improve.threshold, undefined, "game_improve_progress"),
+				};
+			}
+			return studentData;
+		});
+
+		if (!ref.current) return;
+
+		if (!_preData.length) {
+			_preData = DUMMY_STUDENTS;
+			setIsDummy(true);
+		}
+
+		setPreData(_preData);
+		setStudentSelect(_preData[0]);
+	}, [classLoaded, trackingData.loaded]);
 
 	useEffect(() => {
 		if (!preData) return;

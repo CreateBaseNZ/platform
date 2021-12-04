@@ -5,19 +5,23 @@ import axios from "axios";
 import useApi from "../hooks/useApi";
 import { signOut } from "next-auth/react";
 import VisualBellContext from "./visual-bell-context";
+import tracking from "../utils/tracking";
 
 const GlobalSessionContext = createContext({
 	globalSession: { loaded: false },
 	setGlobalSession: () => {},
+	trackingData: { loaded: false },
+	setTrackingData: () => {},
 });
 
 export default GlobalSessionContext;
 
 export const GlobalSessionContextProvider = (props) => {
+	const { data: session, status } = useSession();
+	const { setVisualBell } = useContext(VisualBellContext);
 	const { post } = useApi();
 	const [globalSession, setGlobalSession] = useState({ loaded: false });
-	const { setVisualBell } = useContext(VisualBellContext);
-	const { data: session, status } = useSession();
+	const [trackingData, setTrackingData] = useState({ loaded: false });
 
 	useEffect(async () => {
 		if (status !== "loading") {
@@ -78,12 +82,26 @@ export const GlobalSessionContextProvider = (props) => {
 		}
 	}, [globalSession.recentGroups]);
 
+	useEffect(async () => {
+		let data;
+		try {
+			data = await tracking.preprocess(process.env.NEXT_PUBLIC_PROJECT_A_SECRET);
+		} catch (error) {
+			// TODO: Error handling
+		} finally {
+			console.log(data);
+			setTrackingData({ data: data, loaded: true });
+		}
+	}, []);
+
 	const value = useMemo(
 		() => ({
 			globalSession: globalSession,
 			setGlobalSession: setGlobalSession,
+			trackingData: trackingData,
+			setTrackingData: setTrackingData,
 		}),
-		[globalSession, setGlobalSession]
+		[globalSession, setGlobalSession, trackingData, setTrackingData]
 	);
 
 	return <GlobalSessionContext.Provider value={value}>{props.children}</GlobalSessionContext.Provider>;
