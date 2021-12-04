@@ -178,7 +178,8 @@ const NewSchool = () => {
 										minLength: 1,
 										maxLength: 254,
 									}),
-									autoComplete: "off",
+									name: "random-city",
+									autoComplete: "random-city",
 								}}
 								error={errors.city}
 							/>
@@ -192,7 +193,8 @@ const NewSchool = () => {
 										type: "text",
 										maxLength: 254,
 										...register("country", { required: "Please select a country", maxLength: 254 }),
-										autoComplete: "off",
+										name: "random-country",
+										autoComplete: "random-country",
 									}}
 									error={errors.country}
 								/>
