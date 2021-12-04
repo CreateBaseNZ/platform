@@ -160,7 +160,8 @@ const NewSchool = () => {
 										required: "Please enter your school's address",
 										maxLength: 254,
 									}),
-									autoComplete: "off",
+									name: "random-address",
+									autoComplete: "random-address",
 								}}
 								error={errors.address}
 							/>
