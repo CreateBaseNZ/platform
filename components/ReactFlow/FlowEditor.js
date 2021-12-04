@@ -633,8 +633,16 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 		setPaneCtxMenu((state) => ({ ...state, show: false }));
 	};
 
+	const touchHandler = () => {
+		setFlowVisualBell((state) => ({
+			message: "Sorry, touch interaction is not supported",
+			switch: !state.switch,
+			show: true,
+		}));
+	};
+
 	return (
-		<div className={`${classes.editorContainer} ${show ? "" : "hide"}`} onKeyDown={keyDownHandler} tabIndex={-1}>
+		<div className={`${classes.editorContainer} ${show ? "" : "hide"}`} onKeyDown={keyDownHandler} tabIndex={-1} onTouchStart={touchHandler}>
 			{!frozen && <DndBar blockList={blockList} />}
 			<div className={classes.editorWrapper} ref={wrapperRef}>
 				<ReactFlow
