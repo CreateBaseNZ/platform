@@ -134,7 +134,6 @@ const SignupForm = () => {
 					}}
 					error={errors.password}
 				/>
-				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Signing you up ..." mainLabel="Sign Up" />
 				<div className={classes.options}>
 					<div className={`${classes.smallFont} ${classes.smallCheckbox} ${errors.terms ? classes.termsError : ""}`}>
 						<input type="checkbox" {...register("terms", { required: true })} />
@@ -149,6 +148,7 @@ const SignupForm = () => {
 						</label>
 					</div>
 				</div>
+				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Signing you up ..." mainLabel="Sign Up" />
 			</form>
 			<div className={`${classes.smallFont} ${classes.switch}`}>
 				Have an account?{" "}
