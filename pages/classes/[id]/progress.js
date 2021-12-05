@@ -42,7 +42,7 @@ const ClassesProgress = () => {
 
 	useEffect(async () => {
 		if (classLoaded) {
-			const _preData = await fetchData();
+			let _preData = await fetchData();
 
 			if (!_preData.length) {
 				_preData = DUMMY_STUDENTS;
@@ -71,7 +71,7 @@ const ClassesProgress = () => {
 
 	const syncHandler = async () => {
 		setPreData(null);
-		const _preData = await fetchData();
+		let _preData = await fetchData();
 		if (!_preData.length) {
 			_preData = DUMMY_STUDENTS;
 			setIsDummy(true);
