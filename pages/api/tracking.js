@@ -12,7 +12,7 @@ export default async function (req, res) {
 	const input = req.body.input;
 	const url = process.env.ROUTE_URL + "/tracking";
 	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
-	const backendInput = { PROJECT_SECRET: input.PROJECT_SECRET, fromDate: input.fromDate, toDate: input.toDate };
+	const backendInput = { PROJECT_SECRET: process.env.PROJECT_A_SECRET, fromDate: input.fromDate, toDate: input.toDate };
 	// Integration Logic
 	let data;
 	try {

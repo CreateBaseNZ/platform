@@ -16,17 +16,6 @@ const useMixpanel = () => {
 		mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
 	};
 
-	const read = async (filters, callback) => {
-		let data;
-		try {
-			data = await tracking.retrieve(process.env.NEXT_PUBLIC_PROJECT_A_SECRET, filters);
-		} catch (error) {
-			// TODO: Error handling
-		} finally {
-			callback(data);
-		}
-	};
-
 	// mixpanel event tracking
 	// first parameter is the event name
 	// optional second parameter containining additional data to store
@@ -102,7 +91,7 @@ const useMixpanel = () => {
 		return clearSession;
 	};
 
-	return { init, read, track, trackActiveSession };
+	return { init, track, trackActiveSession };
 };
 
 export default useMixpanel;

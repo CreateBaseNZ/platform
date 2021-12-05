@@ -85,7 +85,7 @@ export const GlobalSessionContextProvider = (props) => {
 	useEffect(async () => {
 		let data;
 		try {
-			data = await tracking.preprocess(process.env.NEXT_PUBLIC_PROJECT_A_SECRET);
+			data = await tracking.preprocess();
 		} catch (error) {
 			// TODO: Error handling
 		} finally {

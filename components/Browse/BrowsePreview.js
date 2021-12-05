@@ -50,7 +50,6 @@ const BrowsePreview = ({ project, role }) => {
 		// 	console.log(data);
 		// };
 		// mp.init();
-		// await mp.read(filters, cb);
 		return () => (ref.current = false);
 	}, []);
 
