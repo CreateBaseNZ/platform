@@ -50,12 +50,12 @@ const Research = () => {
 			</Head>
 			<ModuleContainer active={activeModule} clickHandler={(i) => setActiveModule(i)} modules={subsystemData.research.modules} caption={subsystemData.research.caption} showManualBtn={false} />
 			<div className={classes.mainContainer}>
-				{(subsystemData.research.modules[activeModule].type === "pdf" || subsystemData.research.modules[activeModule].type === "task") && (
+				{(subsystemData.research.modules[activeModule]?.type === "pdf" || subsystemData.research.modules[activeModule]?.type === "task") && (
 					<PdfModule module={subsystemData.research.modules[activeModule]} />
 				)}
-				{subsystemData.research.modules[activeModule].type === "video" && <VideoModule module={subsystemData.research.modules[activeModule]} />}
-				{subsystemData.research.modules[activeModule].type === "tut" && <TutorialModule module={subsystemData.research.modules[activeModule]} />}
-				{subsystemData.research.modules[activeModule].type === "explore" && (
+				{subsystemData.research.modules[activeModule]?.type === "video" && <VideoModule module={subsystemData.research.modules[activeModule]} />}
+				{subsystemData.research.modules[activeModule]?.type === "tut" && <TutorialModule module={subsystemData.research.modules[activeModule]} />}
+				{subsystemData.research.modules[activeModule]?.type === "explore" && (
 					<div className={classes.exploreWrapper}>
 						{subsystemData.research.modules[activeModule] &&
 							subsystemData.research.modules[activeModule].items.map((item, i) => (

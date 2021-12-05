@@ -84,7 +84,7 @@ export default {
 		{
 			title: "Speed control",
 			requirements: [],
-			imgSrc:  "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/1.png",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/1.png",
 			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
 			research: {
 				threshold: 300,
@@ -115,10 +115,10 @@ export default {
 			},
 			plan: {
 				threshold: 60,
-				list:[
-				"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
-				"In the first step, our aim is to understand how we could move the robot through different paths by adjusting the speed of the wheels.",
-				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem2 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				list: [
+					"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
+					"In the first step, our aim is to understand how we could move the robot through different paths by adjusting the speed of the wheels.",
+					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem2 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
@@ -161,9 +161,9 @@ export default {
 			plan: {
 				threshold: 300,
 				list: [
-				"Think back to when you were manually controlling the robot... What information were you using to decide which action to perform?",
-				"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
-				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Think back to when you were manually controlling the robot... What information were you using to decide which action to perform?",
+					"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
+					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
@@ -281,15 +281,18 @@ export default {
 			title: "Putting it all together",
 			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png",
-			description: "We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
+			description:
+				"We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research. Move to Plan."],
-				modules: [					{
-					type: "pdf",
-					title: "Proceed to Plan",
-					url: "/2105AD-No-Research.pdf",
-				},],
+				modules: [
+					// {
+					// 	type: "pdf",
+					// 	title: "Proceed to Plan",
+					// 	url: "/2105AD-No-Research.pdf",
+					// },
+				],
 			},
 			plan: {
 				threshold: 30,
