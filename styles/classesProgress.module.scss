@@ -11,7 +11,6 @@
 	h1 {
 		font-size: 2rem;
 		font-weight: 600;
-		margin-right: auto;
 	}
 }
 
@@ -66,6 +65,49 @@
 	width: 100%;
 	display: flex;
 	align-items: center;
+}
+
+.sync {
+	margin-left: 2rem;
+	display: flex;
+	align-items: center;
+	margin-right: auto;
+	padding: 0.4rem 0.7rem;
+	border-radius: 8px;
+	transition: background-color 0.1s ease-out;
+	&,
+	* {
+		font-size: 11px;
+		color: $light;
+		font-weight: 400;
+		transition: color 0.1s ease-out;
+	}
+	i {
+		font-size: 14px;
+		margin-right: 0.4em;
+	}
+	&:hover {
+		background: $lighter;
+		&,
+		* {
+			color: $blue-dark;
+		}
+	}
+	&.syncing {
+		pointer-events: none;
+		i {
+			animation: rotate 1s linear infinite;
+		}
+	}
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(-360deg);
+	}
 }
 
 .controls {

@@ -14,10 +14,15 @@ import SkeletonTable from "../../../components/UI/SkeletonTable";
 import { ALL_PROJECT_DATA } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
 import DUMMY_STUDENTS from "../../../constants/progress";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
 
 import classes from "../../../styles/classesProgress.module.scss";
 import tracking from "../../../utils/tracking";
 import VisualBellContext from "../../../store/visual-bell-context";
+import ReactTimeAgo from "react-time-ago";
+
+TimeAgo.addLocale(en);
 
 const EVENTS = [
 	"project_define",
@@ -65,7 +70,7 @@ const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cu
 
 const ClassesProgress = () => {
 	const ref = useRef();
-	const { globalSession, trackingData } = useContext(GlobalSessionContext);
+	const { globalSession, trackingData, setTrackingData } = useContext(GlobalSessionContext);
 	const { classObject, classLoaded } = useClass();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
@@ -75,6 +80,7 @@ const ClassesProgress = () => {
 	const [postData, setPostData] = useState();
 	const [tooltip, setTooltip] = useState();
 	const [isDummy, setIsDummy] = useState(false);
+	const [lastSynced, setLastSynced] = useState();
 
 	useEffect(() => {
 		return () => (ref.current = null);
@@ -83,11 +89,11 @@ const ClassesProgress = () => {
 	useEffect(() => {
 		if (!classLoaded || !trackingData.loaded) return;
 
+		console.log(trackingData);
+
 		if (!trackingData.data) return setVisualBell({ type: "warning", message: "Sorry, we couldn't retrieve the data you were after. Please try again in a few minutes." });
 
 		const filters = EVENTS.map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
-
-		console.log(trackingData);
 
 		const rawData = tracking.postprocess(trackingData.data, filters);
 
@@ -176,7 +182,21 @@ const ClassesProgress = () => {
 		} else {
 			setPostData(preData.map((student) => ({ ...student.projects[projectSelect.id], id: student.id, name: student.name })));
 		}
+		setLastSynced(new Date());
 	}, [preData, viewSelect, studentSelect, projectSelect]);
+
+	const syncHandler = async () => {
+		setLastSynced(null);
+		setTrackingData({ loaded: false });
+		let data;
+		try {
+			data = await tracking.preprocess();
+		} catch (error) {
+			// TODO: Error handling
+		} finally {
+			setTrackingData({ data: data, loaded: true });
+		}
+	};
 
 	return (
 		<div ref={ref} className={`${classes.view} roundScrollbar`}>
@@ -200,9 +220,19 @@ const ClassesProgress = () => {
 			)}
 			<div className={classes.header}>
 				<h1>Progress</h1>
+				<button className={`${classes.sync} ${lastSynced instanceof Date ? "" : classes.syncing}`} onClick={syncHandler} title="Click to resync">
+					<i className="material-icons-outlined">sync</i>
+					{lastSynced instanceof Date ? (
+						<>
+							Last updated <ReactTimeAgo date={new Date()} locale={navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language} style={{ marginLeft: "0.25em" }} />
+						</>
+					) : (
+						`Syncing, this may take a few minutes ...`
+					)}
+				</button>
 				<HeaderToggle />
 			</div>
-			{postData ? (
+			{lastSynced instanceof Date ? (
 				<div className={classes.controls}>
 					<Select state={viewSelect} setState={setViewSelect} label="View" options={PROGRESS_VIEW_OPTIONS} width={100} />
 					{viewSelect.id === "student" ? (
@@ -231,7 +261,7 @@ const ClassesProgress = () => {
 					<div className={classes.skeletonSelect} />
 				</div>
 			)}
-			{postData ? <ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} /> : <SkeletonTable rows={4} />}
+			{lastSynced instanceof Date ? <ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} /> : <SkeletonTable rows={4} />}
 			{tooltip && (
 				<div className={classes.tooltip} style={{ ...tooltip.position, ...tooltip.style }}>
 					<div className={classes.tooltipTitle}>{tooltip.title}</div>
