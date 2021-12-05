@@ -118,7 +118,7 @@ export default {
 				list:[
 				"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
 				"In the first step, our aim is to understand how we could move the robot through different paths by adjusting the speed of the wheels.",
-				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem2 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
@@ -163,7 +163,7 @@ export default {
 				list: [
 				"Think back to when you were manually controlling the robot... What information were you using to decide which action to perform?",
 				"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
-				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for step 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
@@ -191,8 +191,14 @@ export default {
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {
 				threshold: 1,
-				caption: ["There is nothing new to research step. Move onto Plan."],
-				modules: [],
+				caption: ["There is nothing new to research. Move to Plan."],
+				modules: [
+					{
+						type: "pdf",
+						title: "Proceed to Plan",
+						url: "/2105AD-No-Research.pdf",
+					},
+				],
 			},
 			plan: {
 				threshold: 300,
@@ -240,11 +246,6 @@ export default {
 						url: "/heat-seeker/pdf/Iter_3.pdf",
 					},
 					{
-						type: "task",
-						title: "Task: Fire",
-						url: "/heat-seeker/files/Research-heat-seeker-4.pdf",
-					},
-					{
 						type: "explore",
 						title: "Explore more",
 						items: [whileBoostData],
@@ -283,8 +284,12 @@ export default {
 			description: "We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
 			research: {
 				threshold: 1,
-				caption: ["There is no research step. Move onto Plan."],
-				modules: [],
+				caption: ["There is nothing new to research. Move to Plan."],
+				modules: [					{
+					type: "pdf",
+					title: "Proceed to Plan",
+					url: "/2105AD-No-Research.pdf",
+				},],
 			},
 			plan: {
 				threshold: 30,
@@ -300,7 +305,7 @@ export default {
 				tasks: ["Write some code so that your robot can follow the line, putting out fires along the way."],
 				hints: [
 					"You will need to use the fire sensor to detect the fire. Move through the map to find all the fires",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in the Improve step.",
 				],
 			},
 			blockList: [
