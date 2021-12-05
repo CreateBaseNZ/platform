@@ -61,16 +61,19 @@ export default {
 		],
 		modules: [
 			{
+				type: "pdf",
 				title: "Our problem",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/imagine_1.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Our solution",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png",
 				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Your approach",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/imagine_3.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",

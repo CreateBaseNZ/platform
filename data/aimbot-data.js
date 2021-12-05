@@ -59,6 +59,7 @@ export default {
 		],
 		modules: [
 			{
+				type: "pdf",
 				title: "In this Project...",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.jpg",
 				url: "/aimbot/files/21050502AA_imagine.pdf",

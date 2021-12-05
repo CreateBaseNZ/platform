@@ -48,34 +48,71 @@ export default {
 	imagine: {
 		threshold: 600,
 		caption: [
-			"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
+			"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of the first five modules below with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second module as well!",
 			"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
 		],
 		modules: [
 			{
+				type: "pdf",
 				title: "Vehicular Delivery",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/types-0.png",
 				url: "/send-it/pdf/delivery.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Your Robot has Mail",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/mail-2.png",
 				url: "/send-it/pdf/mail.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Controlling a Robot",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-1.png",
 				url: "/send-it/pdf/controlling.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Sensing Sensors",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-0.png",
 				url: "/send-it/pdf/sensors.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Automation & Ethics",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
 				url: "/send-it/pdf/ethics.pdf",
+			},
+			{
+				type: "tut",
+				title: "How to Send It",
+				items: [
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-1.mp4",
+						subtitle: <p>Run 1000m to deliver the Pizza</p>,
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-2.mp4",
+						subtitle: (
+							<p>
+								Jump over obstacles to avoid crashing into them
+								<span className="material-icons-outlined">arrow_upward</span>
+							</p>
+						),
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-3.mp4",
+						subtitle: (
+							<p>
+								Crouch under flying obstacles to avoid crashing into them
+								<span className="material-icons-outlined">arrow_downward</span>
+							</p>
+						),
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-4.mp4",
+						subtitle: <p>Change the simulation speed to allow more time for your code to react</p>,
+					},
+				],
 			},
 		],
 	},
@@ -87,7 +124,7 @@ export default {
 			description: "In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
 			research: {
 				threshold: 600,
-				caption: ["Work through the five modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "video",
@@ -109,38 +146,6 @@ export default {
 						type: "pdf",
 						title: "Tips & tricks: sensing blocks",
 						url: "/sensing-blocks.pdf",
-					},
-					{
-						type: "tut",
-						title: "How to Send It",
-						items: [
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-1.mp4",
-								subtitle: <p>Run 1000m to deliver the Pizza</p>,
-							},
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-2.mp4",
-								subtitle: (
-									<p>
-										Jump over obstacles to avoid crashing into them
-										<span className="material-icons-outlined">arrow_upward</span>
-									</p>
-								),
-							},
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-3.mp4",
-								subtitle: (
-									<p>
-										Crouch under flying obstacles to avoid crashing into them
-										<span className="material-icons-outlined">arrow_downward</span>
-									</p>
-								),
-							},
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-4.mp4",
-								subtitle: <p>Change the simulation speed to allow more time for your code to react</p>,
-							},
-						],
 					},
 					{
 						type: "explore",

@@ -37,7 +37,7 @@ export default {
 	},
 	imagine: {
 		threshold: 300,
-		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
+		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem. Your learning journal and/or teacher will tell you what to do.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
 		modules: [
 			{
 				type: "pdf",
@@ -79,7 +79,7 @@ export default {
 			description: "In a single subsystem, your task is to write a sequential program to control MagneBot in order to pick up each rubbish bag and deposit them in one of the two recycling bins.",
 			research: {
 				threshold: 300,
-				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "video",
