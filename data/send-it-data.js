@@ -165,7 +165,7 @@ export default {
 				threshold: 1200,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
-				hints: ["Make sure that you hit the compile button to upload your code to the robot"],
+				hints: ["Make sure that you hit the compile button to upload your code to the robot each time that you make a change. If you don't compile your latest code, you won't see any changes!"],
 			},
 			blockList: [
 				{
