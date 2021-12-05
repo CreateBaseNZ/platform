@@ -1,11 +1,11 @@
 import axios from "axios";
 import moment from "moment-timezone";
 
-const preprocess = (PROJECT_SECRET, fromDate = "2021-01-01", toDate = moment().tz("Pacific/Auckland").format("YYYY-MM-DD")) => {
+const preprocess = (fromDate = "2021-01-01", toDate = moment().tz("Pacific/Auckland").format("YYYY-MM-DD")) => {
 	return new Promise(async (resolve, reject) => {
 		let data;
 		try {
-			data = (await axios.post("/api/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { PROJECT_SECRET, fromDate, toDate } }))["data"];
+			data = (await axios.post("/api/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { fromDate, toDate } }))["data"];
 		} catch (error) {
 			return reject({ status: "error", content: error });
 		}
