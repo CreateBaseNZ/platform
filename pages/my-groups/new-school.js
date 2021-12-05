@@ -63,7 +63,7 @@ const NewSchool = () => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		const country = COUNTRIES.find((_country) => _country.name.toLowerCase() === inputs.country.toLowerCase())?.name;
+		const country = COUNTRIES.find((_country) => _country.name.toLowerCase() === inputs.['school-ctry'].toLowerCase())?.name;
 		if (!country) {
 			setError("school-ctry", {
 				type: "manual",
