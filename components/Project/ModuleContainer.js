@@ -1,6 +1,6 @@
 import Link from "next/link";
 import router from "next/router";
-import Img from "./Img";
+import Img from "../UI/Img";
 import classes from "./ModuleContainer.module.scss";
 
 const getIcon = (type) => {

@@ -4,16 +4,18 @@ import Head from "next/head";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
-import ModuleContainer from "../../../components/UI/ModuleContainer";
+import ModuleContainer from "../../../components/Project/ModuleContainer";
+import PdfModule from "../../../components/Project/PdfModule";
+import VideoModule from "../../../components/Project/VideoModule";
+import TutorialModule from "../../../components/Project/TutorialModule";
 import getProjectData from "../../../utils/getProjectData";
 
-import classes from "/styles/imagine.module.scss";
+import classes from "../../../styles/imagine.module.scss";
 
 const Imagine = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [data, setData] = useState();
 	const [active, setActive] = useState(0);
-	const [loaded, setLoaded] = useState(false);
 	const mp = useMixpanel();
 
 	useEffect(() => {
@@ -34,12 +36,9 @@ const Imagine = () => {
 
 	const cardClickHandler = (i) => {
 		if (i !== active) {
-			setLoaded(false);
 			setActive(i);
 		}
 	};
-
-	const loadHandler = () => setLoaded(true);
 
 	if (!data) return null;
 
@@ -51,8 +50,9 @@ const Imagine = () => {
 			</Head>
 			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.imagine.modules} caption={data.imagine.caption} />
 			<div className={classes.mainContainer}>
-				<embed src={data.imagine.modules[active].url} width="100%" height="100%" onLoad={loadHandler} />
-				<div className={`${classes.loadScreen} ${loaded ? classes.loaded : ""}`} />
+				{(data.imagine.modules[active].type === "pdf" || data.imagine.modules[active].type === "task") && <PdfModule module={data.imagine.modules[active]} />}
+				{data.imagine.modules[active].type === "video" && <VideoModule module={data.imagine.modules[active]} />}
+				{data.imagine.modules[active].type === "tut" && <TutorialModule module={data.imagine.modules[active]} />}
 			</div>
 		</div>
 	);

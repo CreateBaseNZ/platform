@@ -40,14 +40,34 @@ export default {
 		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
 		modules: [
 			{
+				type: "pdf",
 				title: "Intro to recycling",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/recycling.jpg",
 				url: "/magnebot/pdf/recycling.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Intro to robotics",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/robot.png",
 				url: "/magnebot/pdf/robotics.pdf",
+			},
+			{
+				type: "tut",
+				title: "How to MagneBot",
+				items: [
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-1.mp4",
+						subtitle: <p>Use the controls to move the arm and pick up rubbish bags</p>,
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-2.mp4",
+						subtitle: <p>Get all three rubbish bags into the bins</p>,
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-3.mp4",
+						subtitle: <p>Hold down and drag with right click to orbit the camera around the arm</p>,
+					},
+				],
 			},
 		],
 	},
@@ -76,24 +96,6 @@ export default {
 						type: "pdf",
 						title: "Introduction to Flow blocks",
 						url: "/intro-to-flow.pdf",
-					},
-					{
-						type: "tut",
-						title: "How to MagneBot",
-						items: [
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-1.mp4",
-								subtitle: <p>Use the controls to move the arm and pick up rubbish bags</p>,
-							},
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-2.mp4",
-								subtitle: <p>Get all three rubbish bags into the bins</p>,
-							},
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-3.mp4",
-								subtitle: <p>Hold down and drag with right click to orbit the camera around the arm</p>,
-							},
-						],
 					},
 					{
 						type: "explore",

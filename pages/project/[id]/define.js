@@ -5,7 +5,7 @@ import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
 import Img from "../../../components/UI/Img";
-import VideoViewer from "../../../components/UI/VideoViewer";
+import VideoViewer from "../../../components/Project/VideoViewer";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "/styles/define.module.scss";
