@@ -1,9 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import router from "next/router";
 import useClass from "../../../hooks/useClass";
-import GlobalSessionContext from "../../../store/global-session-context";
 import ProgressTable from "../../../components/Classes/Progress/ProgressTable";
 import Select from "../../../components/Classes/Progress/Select";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
@@ -18,51 +17,9 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 
 import classes from "../../../styles/classesProgress.module.scss";
-import tracking from "../../../utils/tracking";
-import VisualBellContext from "../../../store/visual-bell-context";
 import ReactTimeAgo from "react-time-ago";
 
 TimeAgo.addLocale(en);
-
-const EVENTS = [
-	"project_define",
-	"project_imagine",
-	"project_improve",
-	"project_create_research",
-	"project_create_plan",
-	"code_create_time",
-	"code_improve_time",
-	"game_manual_progress",
-	"game_create_progress",
-	"game_improve_progress",
-];
-
-const getStatus = (duration, threshold, formattedThreshold, gameProgressEvent, isWin) => {
-	let status = "";
-	let primaryLabel = "Not visited";
-	let secondaryLabel = "";
-
-	if (duration > threshold) {
-		status = "completed";
-		primaryLabel = `Time spent ≥${formattedThreshold}`;
-	} else if (duration > 0) {
-		status = "visited";
-		primaryLabel = `Time spent <${formattedThreshold}`;
-	}
-
-	if (duration > 0 && gameProgressEvent) {
-		secondaryLabel = ""; // can use primaryLabel
-		if (isWin) {
-			status = "completed";
-			primaryLabel = "Task completed";
-		} else {
-			status = "visited";
-			primaryLabel = "Task in progress";
-		}
-	}
-
-	return { status, primaryLabel, secondaryLabel };
-};
 
 const PROJECT_OPTIONS = ALL_PROJECT_DATA.map((project) => ({ id: project.query, name: project.name }));
 
@@ -70,9 +27,7 @@ const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cu
 
 const ClassesProgress = () => {
 	const ref = useRef();
-	const { globalSession, trackingData, setTrackingData } = useContext(GlobalSessionContext);
-	const { classObject, classLoaded } = useClass();
-	const { setVisualBell } = useContext(VisualBellContext);
+	const { classObject, classLoaded, fetchData, lastSynced } = useClass();
 	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
 	const [studentSelect, setStudentSelect] = useState();
 	const [projectSelect, setProjectSelect] = useState(PROJECT_OPTIONS[0]);
@@ -85,88 +40,19 @@ const ClassesProgress = () => {
 		return () => (ref.current = null);
 	}, []);
 
-	useEffect(() => {
-		if (!classLoaded || !trackingData.loaded) return;
+	useEffect(async () => {
+		if (classLoaded) {
+			const _preData = await fetchData();
 
-		console.log(trackingData);
-
-		if (!trackingData.data) return setVisualBell({ type: "warning", message: "Sorry, we couldn't retrieve the data you were after. Please try again in a few minutes." });
-
-		const filters = EVENTS.map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
-
-		const rawData = tracking.postprocess(trackingData.data, filters);
-
-		const processData = (event, project, license, threshold, subsystem, gameProgressEvent) => {
-			let duration = 0;
-			let isWin = false;
-
-			for (let k = 0; k < rawData.length; k++) {
-				if (
-					rawData[k].event === event &&
-					rawData[k].properties.project === project &&
-					rawData[k].properties.licenses.includes(license) &&
-					(subsystem ? rawData[k].properties.subsystem === subsystem : true)
-				) {
-					duration += rawData[k].properties.duration;
-				}
-				if (
-					gameProgressEvent &&
-					rawData[k].event === gameProgressEvent &&
-					rawData[k].properties.project === project &&
-					rawData[k].properties.licenses.includes(license) &&
-					(subsystem ? rawData[k].properties.subsystem === subsystem : true)
-				) {
-					isWin = rawData[k].properties.state === "win";
-				}
+			if (!_preData.length) {
+				_preData = DUMMY_STUDENTS;
+				setIsDummy(true);
 			}
-			const formattedThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""}${Math.floor((threshold % 3600) / 60) ? ` ${Math.floor((threshold % 3600) / 60)}min` : ""}${
-				Math.floor(threshold % 60) ? ` ${Math.floor(threshold % 60)}s` : ""
-			}`;
-			const formattedDuration = `${Math.floor(duration / 3600) ? `${Math.floor(duration / 3600)}hr` : ""}${Math.floor((duration % 3600) / 60) ? ` ${Math.floor((duration % 3600) / 60)}min` : ""}${
-				Math.floor(duration % 60) ? ` ${Math.floor(duration % 60)}s` : ""
-			}`;
 
-			const params = getStatus(duration, threshold, formattedThreshold, gameProgressEvent, isWin);
-
-			return { ...params, formattedDuration };
-		};
-
-		const processCreateData = (project, subsystems, license) => {
-			const createData = {};
-			for (let j = 0; j < subsystems.length; j++) {
-				createData[subsystems[j].title] = {
-					name: subsystems[j].title,
-					research: processData("project_create_research", project, license, subsystems[j].research.threshold, subsystems[j].title),
-					plan: processData("project_create_plan", project, license, subsystems[j].plan.threshold, subsystems[j].title),
-					code: processData("code_create_time", project, license, subsystems[j].code.threshold, subsystems[j].title, "game_create_progress"),
-				};
-			}
-			return createData;
-		};
-
-		let _preData = classObject.students.map((student) => {
-			const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
-			for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
-				studentData.projects[ALL_PROJECT_DATA[i].query] = {
-					define: processData("project_define", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].define.threshold),
-					imagine: processData("project_imagine", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].imagine.threshold),
-					create: processCreateData(ALL_PROJECT_DATA[i].query, ALL_PROJECT_DATA[i].subsystems, student.licenseId),
-					improve: processData("code_improve_time", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].improve.threshold, undefined, "game_improve_progress"),
-				};
-			}
-			return studentData;
-		});
-
-		if (!ref.current) return;
-
-		if (!_preData.length) {
-			_preData = DUMMY_STUDENTS;
-			setIsDummy(true);
+			setPreData(_preData);
+			setStudentSelect(_preData[0]);
 		}
-
-		setPreData(_preData);
-		setStudentSelect(_preData[0]);
-	}, [classLoaded, trackingData.loaded]);
+	}, [classLoaded]);
 
 	useEffect(() => {
 		if (!preData) return;
@@ -184,16 +70,14 @@ const ClassesProgress = () => {
 	}, [preData, viewSelect, studentSelect, projectSelect]);
 
 	const syncHandler = async () => {
-		setPostData(null);
-		setTrackingData({ loaded: false });
-		let data;
-		try {
-			data = await tracking.preprocess();
-		} catch (error) {
-			// TODO: Error handling
-		} finally {
-			setTrackingData({ data: data, lastSynced: new Date(), loaded: true });
+		setPreData(null);
+		const _preData = await fetchData();
+		if (!_preData.length) {
+			_preData = DUMMY_STUDENTS;
+			setIsDummy(true);
 		}
+		setPreData(_preData);
+		setStudentSelect(_preData[0]);
 	};
 
 	return (
@@ -220,13 +104,12 @@ const ClassesProgress = () => {
 				<h1>Progress</h1>
 				<button className={`${classes.sync} ${preData ? "" : classes.syncing}`} onClick={syncHandler} title="Click to resync">
 					<i className="material-icons-outlined">sync</i>
-					{postData ? (
+					{preData ? (
 						<>
-							Last synced{" "}
-							<ReactTimeAgo date={trackingData.lastSynced} locale={navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language} style={{ marginLeft: "0.25em" }} />
+							Last synced <ReactTimeAgo date={lastSynced} locale={navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language} style={{ marginLeft: "0.25em" }} />
 						</>
 					) : (
-						`Syncing, this may take a few minutes ...`
+						`Syncing, please wait ...`
 					)}
 				</button>
 				<HeaderToggle />

@@ -87,7 +87,7 @@
 		margin-right: 0.4em;
 	}
 	&:hover {
-		background: $lighter;
+		background: rgba($blue-dark, 0.1);
 		&,
 		* {
 			color: $blue-dark;
