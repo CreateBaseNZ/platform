@@ -191,13 +191,13 @@ export default {
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {
 				threshold: 1,
-				caption: ["There is nothing new to research. Move to Plan."],
+				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
 				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
+					// {
+					// 	type: "pdf",
+					// 	title: "Proceed to Plan",
+					// 	url: "/2105AD-No-Research.pdf",
+					// },
 				],
 			},
 			plan: {
@@ -285,7 +285,7 @@ export default {
 				"We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
 			research: {
 				threshold: 1,
-				caption: ["There is nothing new to research. Move to Plan."],
+				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
 				modules: [
 					{
 						type: "pdf",
