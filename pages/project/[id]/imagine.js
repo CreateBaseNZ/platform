@@ -11,6 +11,7 @@ import TutorialModule from "../../../components/Project/TutorialModule";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "../../../styles/imagine.module.scss";
+import ModuleBody from "../../../components/Project/ModuleBody";
 
 const Imagine = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -50,9 +51,7 @@ const Imagine = () => {
 			</Head>
 			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.imagine.modules} caption={data.imagine.caption} />
 			<div className={classes.mainContainer}>
-				{(data.imagine.modules[active]?.type === "pdf" || data.imagine.modules[active]?.type === "task") && <PdfModule module={data.imagine.modules[active]} />}
-				{data.imagine.modules[active]?.type === "video" && <VideoModule module={data.imagine.modules[active]} />}
-				{data.imagine.modules[active]?.type === "tut" && <TutorialModule module={data.imagine.modules[active]} />}
+				<ModuleBody module={data.imagine.modules[active]} length={data.imagine.modules.length} />
 			</div>
 		</div>
 	);

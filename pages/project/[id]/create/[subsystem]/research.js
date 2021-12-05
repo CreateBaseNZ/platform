@@ -13,6 +13,7 @@ import PdfModule from "../../../../../components/Project/PdfModule";
 import getProjectData from "../../../../../utils/getProjectData";
 
 import classes from "../../../../../styles/research.module.scss";
+import ModuleBody from "../../../../../components/Project/ModuleBody";
 
 const Research = () => {
 	const mp = useMixpanel();
@@ -50,32 +51,7 @@ const Research = () => {
 			</Head>
 			<ModuleContainer active={activeModule} clickHandler={(i) => setActiveModule(i)} modules={subsystemData.research.modules} caption={subsystemData.research.caption} showManualBtn={false} />
 			<div className={classes.mainContainer}>
-				{(subsystemData.research.modules[activeModule]?.type === "pdf" || subsystemData.research.modules[activeModule]?.type === "task") && (
-					<PdfModule module={subsystemData.research.modules[activeModule]} />
-				)}
-				{subsystemData.research.modules[activeModule]?.type === "video" && <VideoModule module={subsystemData.research.modules[activeModule]} />}
-				{subsystemData.research.modules[activeModule]?.type === "tut" && <TutorialModule module={subsystemData.research.modules[activeModule]} />}
-				{subsystemData.research.modules[activeModule]?.type === "explore" && (
-					<div className={classes.exploreWrapper}>
-						{subsystemData.research.modules[activeModule] &&
-							subsystemData.research.modules[activeModule].items.map((item, i) => (
-								<a key={i} href={item.url} className={classes.exploreItem} title={`Launch ${item.title}`}>
-									<div
-										className={classes.imgContainer}
-										style={{
-											background: `linear-gradient(to bottom right, ${item.col1}, ${item.col2})`,
-										}}>
-										<div className={classes.imgWrapper}>
-											<Img src={item.img} layout="fill" objectFit="cover" />
-										</div>
-										<span className="material-icons-outlined">launch</span>
-										<h3>{item.title}</h3>
-									</div>
-									<div className={classes.caption}>{item.caption}</div>
-								</a>
-							))}
-					</div>
-				)}
+				<ModuleBody module={subsystemData.research.modules[activeModule]} length={subsystemData.research.modules.length} />
 			</div>
 		</div>
 	);
