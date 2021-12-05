@@ -80,7 +80,6 @@ const ClassesProgress = () => {
 	const [postData, setPostData] = useState();
 	const [tooltip, setTooltip] = useState();
 	const [isDummy, setIsDummy] = useState(false);
-	const [lastSynced, setLastSynced] = useState();
 
 	useEffect(() => {
 		return () => (ref.current = null);
@@ -182,11 +181,10 @@ const ClassesProgress = () => {
 		} else {
 			setPostData(preData.map((student) => ({ ...student.projects[projectSelect.id], id: student.id, name: student.name })));
 		}
-		setLastSynced(new Date());
 	}, [preData, viewSelect, studentSelect, projectSelect]);
 
 	const syncHandler = async () => {
-		setLastSynced(null);
+		setPostData(null);
 		setTrackingData({ loaded: false });
 		let data;
 		try {
@@ -194,7 +192,7 @@ const ClassesProgress = () => {
 		} catch (error) {
 			// TODO: Error handling
 		} finally {
-			setTrackingData({ data: data, loaded: true });
+			setTrackingData({ data: data, lastSynced: new Date(), loaded: true });
 		}
 	};
 
@@ -220,11 +218,12 @@ const ClassesProgress = () => {
 			)}
 			<div className={classes.header}>
 				<h1>Progress</h1>
-				<button className={`${classes.sync} ${lastSynced instanceof Date ? "" : classes.syncing}`} onClick={syncHandler} title="Click to resync">
+				<button className={`${classes.sync} ${preData ? "" : classes.syncing}`} onClick={syncHandler} title="Click to resync">
 					<i className="material-icons-outlined">sync</i>
-					{lastSynced instanceof Date ? (
+					{postData ? (
 						<>
-							Last updated <ReactTimeAgo date={new Date()} locale={navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language} style={{ marginLeft: "0.25em" }} />
+							Last synced{" "}
+							<ReactTimeAgo date={trackingData.lastSynced} locale={navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language} style={{ marginLeft: "0.25em" }} />
 						</>
 					) : (
 						`Syncing, this may take a few minutes ...`
@@ -232,7 +231,7 @@ const ClassesProgress = () => {
 				</button>
 				<HeaderToggle />
 			</div>
-			{lastSynced instanceof Date ? (
+			{postData ? (
 				<div className={classes.controls}>
 					<Select state={viewSelect} setState={setViewSelect} label="View" options={PROGRESS_VIEW_OPTIONS} width={100} />
 					{viewSelect.id === "student" ? (
@@ -261,7 +260,7 @@ const ClassesProgress = () => {
 					<div className={classes.skeletonSelect} />
 				</div>
 			)}
-			{lastSynced instanceof Date ? <ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} /> : <SkeletonTable rows={4} />}
+			{postData ? <ProgressTable data={postData} view={viewSelect} setTooltip={setTooltip} /> : <SkeletonTable rows={4} />}
 			{tooltip && (
 				<div className={classes.tooltip} style={{ ...tooltip.position, ...tooltip.style }}>
 					<div className={classes.tooltipTitle}>{tooltip.title}</div>
