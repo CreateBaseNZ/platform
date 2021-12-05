@@ -1,9 +1,8 @@
 import PROJECT_DIFFICULTIES from "../../constants/projectDifficulties";
-import PROJECT_SUBJECTS from "../../constants/projectSubjects";
 
 import classes from "./BrowseTeaching.module.scss";
 
-const BrowseTeaching = ({ project, role }) => {
+const BrowseTeaching = ({ project, role = "yeap" }) => {
 	return role ? (
 		<>
 			<div className={classes.teachingCaption}>
@@ -36,6 +35,7 @@ const BrowseTeaching = ({ project, role }) => {
 					</div>
 				))}
 			</div>
+			<div className={classes.disclaimer}>Note: this curriculum alignment is written in line with the NZ curriculum. More options coming soon!</div>
 		</>
 	) : (
 		<p className={classes.createAccount}>To view lesson plans and teaching content, you must be viewing as an admin or teacher of a group.</p>
