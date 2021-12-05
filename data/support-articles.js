@@ -6,7 +6,7 @@ export const GETTING_STARTED_ON_CREATEBASE = {
 			<p>This Getting Started video explains the basics to start you on your journey on the CreateBase platform.</p>
 			<p>This is the same as your onboarding video, so if you can remember that then there is no need to rewatch it.</p>
 			<iframe
-				src="https://www.youtube.com/embed/2fOdfDHPyGc"
+				src="https://www.youtube.com/embed/kcFNkXVr_dE"
 				title="How-To: Get started as a teacher"
 				className="embedded-video-16-9"
 				frameBorder="0"
@@ -20,7 +20,7 @@ export const GETTING_STARTED_ON_CREATEBASE = {
 			<p>This Getting Started video explains the basics to start you on your journey on the CreateBase platform.</p>
 			<p>This is the same as your onboarding video, so if you can remember that then there is no need to rewatch it.</p>
 			<iframe
-				src="https://www.youtube.com/embed/2fOdfDHPyGc"
+				src="https://www.youtube.com/embed/kcFNkXVr_dE"
 				title="How-To: Get started as a teacher"
 				className="embedded-video-16-9"
 				frameBorder="0"
