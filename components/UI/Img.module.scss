@@ -1,46 +1,68 @@
 .wrapper {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    top: -100%;
-    left: 0;
-    height: 200%;
-    width: 75%;
-    background: #ececec;
-    filter: blur(20px);
-    transform: skew(20deg);
-    z-index: 1;
-    animation: loading 1.2s linear infinite;
-  }
-  &.loaded {
-    &::before,
-    &::after {
-      content: none;
-    }
-  }
+	position: relative;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 1;
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		top: -100%;
+		left: 0;
+		height: 200%;
+		width: 75%;
+		background: #ececec;
+		filter: blur(20px);
+		transform: skew(20deg);
+		z-index: 1;
+		animation: loading 1.2s linear infinite;
+	}
+	label {
+		pointer-events: none;
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		background: rgba(black, 0.75);
+		padding: 2px 6px;
+		opacity: 0;
+		color: white;
+		font-size: 10px;
+		border-radius: 4px 4px 0 0;
+		white-space: nowrap;
+		transform: translateX(-50%) translateY(100%);
+		transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+	}
+	&:hover {
+		label {
+			opacity: 0.75;
+			transform: translateX(-50%) translateY(0);
+			transition: opacity 0.4s ease-out 0.4s, transform 0.2s ease-out 0.4s;
+		}
+	}
+	&.loaded {
+		&::before,
+		&::after {
+			content: none;
+		}
+	}
 }
 
 @keyframes loading {
-  0% {
-    left: -200%;
-  }
-  50% {
-    left: 175%;
-  }
-  100% {
-    left: 175%;
-  }
+	0% {
+		left: -200%;
+	}
+	50% {
+		left: 175%;
+	}
+	100% {
+		left: 175%;
+	}
 }

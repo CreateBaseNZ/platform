@@ -8,7 +8,7 @@ const UserCard = ({ imgSrc, title, route }) => {
 		<Link href={route}>
 			<button className={classes.card} title={title}>
 				<div className={classes.imgContainer}>
-					<Img src={imgSrc} height={180} width={180} />
+					<Img src={imgSrc} height={180} width={180} label="Illustration by Storyset" />
 				</div>
 				<div className={classes.title}>{title}</div>
 			</button>

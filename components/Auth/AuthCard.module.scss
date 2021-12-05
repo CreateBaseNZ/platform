@@ -40,3 +40,15 @@
 	justify-content: flex-start;
 	padding: 2vh 4vw;
 }
+
+.signupImg {
+	img {
+		transform: rotate(-45deg) scaleX(-1) translate(-2%, -8%);
+	}
+}
+
+.loginImg {
+	img {
+		transform: scaleX(-1);
+	}
+}
