@@ -7,7 +7,7 @@ import getProjectData from "../../../../utils/getProjectData";
 import Img from "../../../../components/UI/Img";
 import { PrimaryButton } from "../../../../components/UI/Buttons";
 
-import classes from "/styles/create.module.scss";
+import classes from "../../../../styles/create.module.scss";
 
 const Create = () => {
 	const [data, setData] = useState();

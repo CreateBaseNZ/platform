@@ -8,7 +8,7 @@ const SubsystemLayout = ({ children, activeTab }) => {
 	return (
 		<div className={classes.layout}>
 			<header className={classes.head}>
-				<Link href={{ pathname: "/project/[id]/create", query: { id: router.query.id } }}>
+				<Link href={{ pathname: "/project/[id]/create", query: { id: router.query.id, subsystem: router.query.subsystem } }}>
 					<a className={classes.backBtn}>
 						<i className="material-icons-outlined">navigate_before</i>
 						Subsystems
