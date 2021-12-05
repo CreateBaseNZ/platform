@@ -35,7 +35,7 @@ const NewSchool = () => {
 		setError,
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
-	const countrySearchValue = watch("country");
+	const countrySearchValue = watch("school-ctry");
 
 	const renderDropdown = (value) => {
 		const results = COUNTRIES.filter((country) => country.name.toLowerCase().includes(value.toLowerCase()));
@@ -56,8 +56,8 @@ const NewSchool = () => {
 	};
 
 	const selectHandler = (value) => {
-		setValue("country", value);
-		clearErrors("country");
+		setValue("school-ctry", value);
+		clearErrors("school-ctry");
 		setShowCountries(false);
 	};
 
@@ -65,7 +65,7 @@ const NewSchool = () => {
 		setIsLoading(true);
 		const country = COUNTRIES.find((_country) => _country.name.toLowerCase() === inputs.country.toLowerCase())?.name;
 		if (!country) {
-			setError("country", {
+			setError("school-ctry", {
 				type: "manual",
 				message: "Please select a country",
 			});
@@ -76,8 +76,8 @@ const NewSchool = () => {
 			alias: `${globalSession.firstName} ${globalSession.lastName}`,
 			bypassDuplicate: false,
 			name: inputs.name,
-			address: inputs.address,
-			city: inputs.city,
+			address: inputs["school-addy"],
+			city: inputs["school-city-state"],
 			country: country,
 			date: new Date().toString(),
 		};
@@ -156,14 +156,14 @@ const NewSchool = () => {
 									placeholder: "Address",
 									type: "text",
 									maxLength: 254,
-									...register("address", {
+									...register("school-addy", {
 										required: "Please enter your school's address",
 										maxLength: 254,
 									}),
-									name: "random-address",
-									autoComplete: "random-address",
+									name: "school-addy",
+									autoComplete: "school-addy",
 								}}
-								error={errors.address}
+								error={errors["school-addy"]}
 							/>
 							<Input
 								className={classes.input}
@@ -173,15 +173,15 @@ const NewSchool = () => {
 									placeholder: "City/State",
 									type: "text",
 									maxLength: 254,
-									...register("city", {
+									...register("school-city-state", {
 										required: "Please enter your school's city/state",
 										minLength: 1,
 										maxLength: 254,
 									}),
-									name: "random-city",
-									autoComplete: "random-city",
+									name: "school-city-state",
+									autoComplete: "school-city-state",
 								}}
-								error={errors.city}
+								error={errors["school-city-state"]}
 							/>
 							<div tabIndex={-1} className={classes.countryDropdownContainer} onFocus={() => setShowCountries(true)} onBlur={() => setShowCountries(false)}>
 								<SearchBar
@@ -192,11 +192,11 @@ const NewSchool = () => {
 										placeholder: "Please select a country",
 										type: "text",
 										maxLength: 254,
-										...register("country", { required: "Please select a country", maxLength: 254 }),
-										name: "random-country",
-										autoComplete: "random-country",
+										...register("school-ctry", { required: "Please select a country", maxLength: 254 }),
+										name: "school-ctry",
+										autoComplete: "school-ctry",
 									}}
-									error={errors.country}
+									error={errors["school-ctry"]}
 								/>
 								{showCountries && renderDropdown(countrySearchValue)}
 							</div>
