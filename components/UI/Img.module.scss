@@ -38,13 +38,13 @@
 		border-radius: 4px 4px 0 0;
 		white-space: nowrap;
 		transform: translateX(-50%) translateY(100%);
-		transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+		transition: opacity 0.2s ease-out, transform 0.8s ease-out;
 	}
 	&:hover {
 		label {
 			opacity: 0.75;
 			transform: translateX(-50%) translateY(0);
-			transition: opacity 0.4s ease-out 0.4s, transform 0.2s ease-out 0.4s;
+			transition: opacity 0.2s ease-out 0.6s, transform 0.4s ease-out 0.4s;
 		}
 	}
 	&.loaded {

@@ -4,10 +4,12 @@ import STEPS from "../../../constants/projectSteps";
 import classes from "./ProjectLayout.module.scss";
 
 const ProjectLayout = ({ children, activeStep }) => {
+	console.log(router);
+
 	return (
 		<div className={classes.projectView}>
 			<div className={classes.tabContainer}>
-				<Link onClick={() => router.push("/browse")} href={{ pathname: "/browse/[project]", query: { project: router.query.id } }}>
+				<Link href={{ pathname: "/browse/[project]", query: { project: router.query.id } }}>
 					<a className={classes.backBtn} title="Back to Browse">
 						<i className="material-icons-outlined">arrow_back_ios</i>
 						Browse

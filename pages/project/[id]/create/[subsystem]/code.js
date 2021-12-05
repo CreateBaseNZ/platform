@@ -61,7 +61,7 @@ const Code = () => {
 			</div>
 			<div className={classes.rightContainer}>
 				<div className={classes.imgContainer}>
-					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/create.svg" layout="responsive" width={1000} height={1000} objectFit="contain" />
+					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/create.svg" layout="responsive" width={1000} height={1000} objectFit="contain" label="Illustration by Storyset" />
 				</div>
 				<div className={classes.caption}>{subsystemData.code.caption}</div>
 				<Link href={{ pathname: "/game/[id]/[subsystem]", query: router.query }}>
