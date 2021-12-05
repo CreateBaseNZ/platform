@@ -5,13 +5,10 @@ import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
 import ModuleContainer from "../../../components/Project/ModuleContainer";
-import PdfModule from "../../../components/Project/PdfModule";
-import VideoModule from "../../../components/Project/VideoModule";
-import TutorialModule from "../../../components/Project/TutorialModule";
+import ModuleBody from "../../../components/Project/ModuleBody";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "../../../styles/imagine.module.scss";
-import ModuleBody from "../../../components/Project/ModuleBody";
 
 const Imagine = () => {
 	const { globalSession } = useContext(GlobalSessionContext);

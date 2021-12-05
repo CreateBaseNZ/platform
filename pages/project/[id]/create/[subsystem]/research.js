@@ -6,14 +6,10 @@ import GlobalSessionContext from "../../../../../store/global-session-context";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import SubsystemLayout from "../../../../../components/Layouts/SubsystemLayout/SubsystemLayout";
 import ModuleContainer from "../../../../../components/Project/ModuleContainer";
-import Img from "../../../../../components/UI/Img";
-import TutorialModule from "../../../../../components/Project/TutorialModule";
-import VideoModule from "../../../../../components/Project/VideoModule";
-import PdfModule from "../../../../../components/Project/PdfModule";
+import ModuleBody from "../../../../../components/Project/ModuleBody";
 import getProjectData from "../../../../../utils/getProjectData";
 
 import classes from "../../../../../styles/research.module.scss";
-import ModuleBody from "../../../../../components/Project/ModuleBody";
 
 const Research = () => {
 	const mp = useMixpanel();
