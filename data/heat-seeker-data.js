@@ -287,11 +287,11 @@ export default {
 				threshold: 1,
 				caption: ["There is nothing new to research. Move to Plan."],
 				modules: [
-					// {
-					// 	type: "pdf",
-					// 	title: "Proceed to Plan",
-					// 	url: "/2105AD-No-Research.pdf",
-					// },
+					{
+						type: "pdf",
+						title: "Proceed to Plan",
+						url: "/2105AD-No-Research.pdf",
+					},
 				],
 			},
 			plan: {
