@@ -240,11 +240,11 @@ export default {
 				threshold: 1,
 				caption: ["There is no new research for this subsystem. Move directly to Plan. Do not pass Go. Do not collect $100."],
 				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
+					// {
+					// 	type: "pdf",
+					// 	title: "Proceed to Plan",
+					// 	url: "/2105AD-No-Research.pdf",
+					// },
 				],
 			},
 			plan: {
