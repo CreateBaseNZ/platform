@@ -188,7 +188,7 @@ export default {
 			"Modify your code to jump over obstacles of different sizes",
 			"Deliver that package with the highest score possible",
 		],
-		hints: ["Rather than trying to do solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all"],
+		hints: ["Rather than trying to solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all"],
 		code: true,
 		blockList: [
 			{
