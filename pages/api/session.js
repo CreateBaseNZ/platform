@@ -2,6 +2,7 @@
 // IMPORT ===================================================
 
 import axios from "axios";
+import { getSession } from "next-auth/react";
 
 // TEST OUTPUT ==============================================
 
@@ -12,7 +13,10 @@ export default async function (req, res) {
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error" });
 	}
-	const input = req.body.input;
+	const session = await getSession({ req });
+	console.log(session);
+	const input = { ...req.body.input, email: session.user.email };
+	console.log(input);
 	// // Test Logic
 	// let data;
 	// if (req.body.status === "succeeded") {
@@ -28,7 +32,7 @@ export default async function (req, res) {
 			await axios.post(process.env.ROUTE_URL + "/session", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
-					account: input.accountId,
+					email: input.email,
 					date: input.date,
 					properties: input.properties,
 				},

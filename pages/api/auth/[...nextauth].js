@@ -1,7 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import axios from "axios";
-import router from "next/router";
+import { signIn } from "next-auth/react";
 
 export default NextAuth({
 	session: {
@@ -16,6 +17,13 @@ export default NextAuth({
 			if (!token) return session;
 			session.user = token.user;
 			return session;
+		},
+		async signIn({ account, profile }) {
+			if (account.provider === "google") {
+				if (!profile.email_verified) return false;
+			} else if (account.provider === "credentials") {
+				return true;
+			}
 		},
 	},
 	providers: [
@@ -38,8 +46,13 @@ export default NextAuth({
 					throw new Error(JSON.stringify(data));
 				}
 				// Success handler
+				console.log(data.content);
 				return data.content;
 			},
+		}),
+		GoogleProvider({
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 		}),
 	],
 	pages: {
