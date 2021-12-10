@@ -72,6 +72,48 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 		setFlowVisualBell({ message, key: Date.now() });
 	};
 
+	const loadFlow = async (callback = () => {}) => {
+		let savedEls;
+		await post({
+			route: "/api/profile/read-saves",
+			input: { profileId: globalSession.profileId, properties: [saveName] },
+			successHandler: (data) => data.content[saveName] && (savedEls = JSON.parse(data.content[saveName])),
+		});
+		if (savedEls) {
+			const restoredEls = savedEls.map((savedEl) => {
+				if (isNode(savedEl)) {
+					const idNum = parseInt(savedEl.id.split("_")[1]);
+					if (!isNaN(idNum) && idNum >= id) {
+						id = idNum + 1;
+					}
+					return {
+						...savedEl,
+						data: {
+							...savedEl.data,
+							callBack: (newValues, thisId) => {
+								setElements((els) =>
+									els.map((thisEl) => {
+										if (thisEl.id === thisId) {
+											thisEl.data = {
+												...thisEl.data,
+												values: newValues,
+											};
+										}
+										return thisEl;
+									})
+								);
+							},
+						},
+					};
+				} else {
+					return savedEl;
+				}
+			});
+			setElements(restoredEls);
+			callback();
+		}
+	};
+
 	useEffect(() => {
 		if (flowVisualBell.message) {
 			clearTimeout(flowVisualBellTimer.current);
@@ -123,11 +165,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 		console.log("flow loaded:", _reactFlowInstance);
 		window.requestAnimationFrame(_reactFlowInstance.fitView);
 		setReactFlowInstance(_reactFlowInstance);
-		await post({
-			route: "/api/profile/read-saves",
-			input: { profileId: globalSession.profileId, properties: [saveName] },
-			successHandler: (data) => data.content[saveName] && setElements(JSON.parse(data.content[saveName])),
-		});
+		await loadFlow();
 		const controls = document.querySelector(".react-flow__controls").children;
 		for (let i = 0; i < controls.length; i++) {
 			controls[i].title = controlTitles[i];
@@ -377,8 +415,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 			flashLockIcon();
 			_setFlowVisualBell("Flow is locked");
 			return;
-		}
-		if (allowUndo) {
+		} else if (allowUndo) {
 			setSystemAction(true);
 			setElements(actionStack.stack[actionStack.currentIndex - 1]);
 			setActionStack((state) => {
@@ -391,9 +428,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 		if (flowLocked) {
 			flashLockIcon();
 			_setFlowVisualBell("Flow is locked");
-			return;
-		}
-		if (allowRedo) {
+		} else if (allowRedo) {
 			setSystemAction(true);
 			setElements(actionStack.stack[actionStack.currentIndex + 1]);
 			setActionStack((state) => {
@@ -403,7 +438,6 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 	};
 
 	const saveFlow = async () => {
-		console.log(elements);
 		if (elements.length > 1) {
 			await post({
 				route: "/api/profile/update-saves",
@@ -416,66 +450,21 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 	const restoreFlow = async () => {
 		if (flowLocked) {
 			flashLockIcon();
-			_setFlowVisualBell("Flow is locked");
-			return;
+			return _setFlowVisualBell("Flow is locked");
 		}
-		let savedEls;
-		await post({
-			route: "/api/profile/read-saves",
-			input: { profileId: globalSession.profileId, properties: [saveName] },
-			successHandler: (data) => data.content[saveName] && (savedEls = JSON.parse(data.content[saveName])),
-		});
-		if (savedEls) {
-			const restoredEls = savedEls.map((savedEl) => {
-				if (isNode(savedEl)) {
-					const idNum = parseInt(savedEl.id.split("_")[1]);
-					if (!isNaN(idNum) && idNum >= id) {
-						id = idNum + 1;
-					}
-					return {
-						...savedEl,
-						data: {
-							...savedEl.data,
-							callBack: (newValues, thisId) => {
-								setElements((els) =>
-									els.map((thisEl) => {
-										if (thisEl.id === thisId) {
-											thisEl.data = {
-												...thisEl.data,
-												values: newValues,
-											};
-										}
-										return thisEl;
-									})
-								);
-							},
-						},
-					};
-				} else {
-					return savedEl;
-				}
-			});
-			setElements(restoredEls);
+		await loadFlow(() => {
 			setCenter(0, 0, 1.25);
 			_setFlowVisualBell("Restored from last save");
-		}
+		});
 	};
 
-	const lockHandler = () => {
-		setFlowLocked((state) => !state);
-	};
+	const lockHandler = () => setFlowLocked((state) => !state);
 
-	const fitView = () => {
-		reactFlowInstance.fitView();
-	};
+	const fitView = () => reactFlowInstance.fitView();
 
-	const clearAll = () => {
-		setElements(initialElements);
-	};
+	const clearAll = () => setElements(initialElements);
 
-	const selectAll = () => {
-		setSelectedElements(elements);
-	};
+	const selectAll = () => setSelectedElements(elements);
 
 	const capture = () => {
 		html2canvas(document.querySelector(".react-flow__renderer")).then((canvas) => {
@@ -484,9 +473,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 	};
 
 	const keyDownHandler = (event) => {
-		if (isReadOnly) {
-			return;
-		}
+		if (isReadOnly) return;
 		if (event.ctrlKey || event.metaKey) {
 			if (event.key === "c") {
 				event.preventDefault();
