@@ -425,7 +425,8 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 	};
 
 	const saveFlow = async () => {
-		if (elements) {
+		console.log(elements);
+		if (elements.length > 1) {
 			await post({
 				route: "/api/profile/update-saves",
 				input: { profileId: globalSession.profileId, update: { [saveName]: JSON.stringify(elements) }, date: new Date().toString() },
