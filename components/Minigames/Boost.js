@@ -43,10 +43,8 @@ const Boost = ({ mode, loadLevel = 0 }) => {
 	const router = useRouter();
 	const histWrapperRef = useRef();
 	const histEndRef = useRef();
-	const flowVisualBellTimer = useRef(null);
 	const [elements, setElements] = useState([]);
 	const [activeQ, setActiveQ] = useState({ q: "", o: [], a: "" });
-	const [flowVisualBell, setFlowVisualBell] = useState({ message: "", switch: false });
 	const [flash, setFlash] = useState("");
 	const [level, setLevel] = useState(loadLevel);
 	const [history, setHistory] = useState({
@@ -71,13 +69,6 @@ const Boost = ({ mode, loadLevel = 0 }) => {
 	const [playInCorrect] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/incorrect.mp3", {
 		volume: volume.curr,
 	});
-
-	useEffect(() => {
-		if (flowVisualBell.message) {
-			clearTimeout(flowVisualBellTimer.current);
-			flowVisualBellTimer.current = setTimeout(() => setFlowVisualBell((state) => ({ message: "", switch: state.switch })), [5000]);
-		}
-	}, [flowVisualBell.switch]);
 
 	useEffect(() => {
 		generateItem(mode, level);
@@ -278,7 +269,7 @@ const Boost = ({ mode, loadLevel = 0 }) => {
 				<div className={classes.flowWrapper}>
 					<MiniHoverContextProvider>
 						<ReactFlowProvider>
-							<FlowEditor show={true} frozen={true} elements={elements} setElements={setElements} flowVisualBell={flowVisualBell} setFlowVisualBell={setFlowVisualBell} />
+							<FlowEditor show={true} isReadOnly={true} elements={elements} setElements={setElements} />
 						</ReactFlowProvider>
 					</MiniHoverContextProvider>
 				</div>

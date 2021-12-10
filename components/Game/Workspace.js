@@ -32,15 +32,12 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
  */
 const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked }) => {
 	const editorRef = useRef();
+	const sensorDataRef = useRef();
 	const [activeTab, setActiveTab] = useState("flow");
 	const [elements, setElements] = useState(initialElements);
 	const [text, setText] = useState("// Let's code! 💡");
 	const [theme, setTheme] = useState(null);
-	const [flowVisualBell, setFlowVisualBell] = useState({ message: "", switch: false, show: false });
-
 	const ctx = useContext(ConsoleContext);
-	const sensorDataRef = useRef();
-	const flowVisualBellTimer = useRef(null);
 
 	sensorDataRef.current = sensorData;
 
@@ -63,13 +60,6 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			}
 		}
 	}, [activeTab]);
-
-	useEffect(() => {
-		if (flowVisualBell.show) {
-			clearTimeout(flowVisualBellTimer.current);
-			flowVisualBellTimer.current = setTimeout(() => setFlowVisualBell((state) => ({ ...state, show: false })), [3000]);
-		}
-	}, [flowVisualBell.switch, flowVisualBell.show]);
 
 	const compileCode = (onceCode) => {
 		// Convert the flow arrangement to a configuration of blocks
@@ -193,15 +183,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			{activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />}
 			<MiniHoverContextProvider>
 				<ReactFlowProvider>
-					<FlowEditor
-						saveName={saveName}
-						blockList={blockList}
-						show={activeTab === "flow"}
-						elements={elements}
-						setElements={setElements}
-						flowVisualBell={flowVisualBell}
-						setFlowVisualBell={setFlowVisualBell}
-					/>
+					<FlowEditor saveName={saveName} blockList={blockList} show={activeTab === "flow"} elements={elements} setElements={setElements} />
 				</ReactFlowProvider>
 			</MiniHoverContextProvider>
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}

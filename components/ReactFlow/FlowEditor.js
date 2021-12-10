@@ -31,10 +31,13 @@ import GlobalSessionContext from "../../store/global-session-context";
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setElements, flowVisualBell, setFlowVisualBell }) => {
+const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, setElements }) => {
 	const wrapperRef = useRef(null);
+	const flowVisualBellTimer = useRef(null);
+	const { globalSession } = useContext(GlobalSessionContext);
 	const consoleCtx = useContext(ConsoleContext);
 	const miniHoverCtx = useContext(MiniHoverContext);
+	const [flowVisualBell, setFlowVisualBell] = useState({});
 	const [reactFlowInstance, setReactFlowInstance] = useState({});
 	const [actionStack, setActionStack] = useState({
 		stack: [],
@@ -42,7 +45,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 	});
 	const [systemAction, setSystemAction] = useState(false);
 	const [clipBoard, setClipBoard] = useState();
-	const [flowLocked, setFlowLocked] = useState(frozen);
+	const [flowLocked, setFlowLocked] = useState(isReadOnly);
 	const [nodeCtxMenu, setNodeCtxMenu] = useState({
 		show: false,
 		x: 0,
@@ -60,10 +63,21 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 	const selectedElements = useStoreState((store) => store.selectedElements);
 	const [x, y, zoom] = useStoreState((state) => state.transform);
 	const { post } = useApi();
-	const { globalSession } = useContext(GlobalSessionContext);
 
 	const allowUndo = actionStack.currentIndex !== 0;
 	const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
+
+	const _setFlowVisualBell = (message) => {
+		console.log(Date.now());
+		setFlowVisualBell({ message, key: Date.now() });
+	};
+
+	useEffect(() => {
+		if (flowVisualBell.message) {
+			clearTimeout(flowVisualBellTimer.current);
+			flowVisualBellTimer.current = setTimeout(() => setFlowVisualBell({}), [3000]);
+		}
+	}, [flowVisualBell.key]);
 
 	useEffect(() => {
 		if (!systemAction) {
@@ -80,11 +94,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 
 	useEffect(() => {
 		if (clipBoard && clipBoard.length) {
-			setFlowVisualBell((state) => ({
-				message: "Copied to clipboard",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Copied to clipboard");
 		}
 	}, [clipBoard]);
 
@@ -128,7 +138,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 		arrow.parentNode.appendChild(clone);
 		document.querySelector(".react-flow").focus();
 		// window.onbeforeunload = (e) => {
-		//   if (!frozen) {
+		//   if (!isReadOnly) {
 		//     e.preventDefault();
 		//     return (e.returnValue =
 		//       "You have unsaved changes, are you sure you want to exit?");
@@ -145,11 +155,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 				edges.push(el);
 			}
 			if (el.id === "start") {
-				setFlowVisualBell((state) => ({
-					message: "Cannot delete Start block",
-					switch: !state.switch,
-					show: true,
-				}));
+				_setFlowVisualBell("Cannot delete Start block");
 				return false;
 			}
 			return true;
@@ -192,11 +198,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 		event.preventDefault();
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Flow is locked");
 			return;
 		}
 		// place the node in correct position
@@ -288,11 +290,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 						)
 				);
 
-				return setFlowVisualBell((state) => ({
-					message: "Blocks autoconnected",
-					switch: !state.switch,
-					show: true,
-				}));
+				return _setFlowVisualBell("Blocks autoconnected");
 			}
 		}
 	};
@@ -308,11 +306,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 	const pasteSelection = (x, y) => {
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Flow is locked");
 			return;
 		}
 		if (clipBoard && clipBoard.length) {
@@ -372,28 +366,16 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 			const newEls = newNodes.concat(newEdges);
 			setElements((els) => els.concat(newEls));
 			setSelectedElements(newEls);
-			setFlowVisualBell((state) => ({
-				message: "Code pasted",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Code pasted");
 		} else {
-			setFlowVisualBell((state) => ({
-				message: "Nothing on clipboard",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Nothing on clipboard");
 		}
 	};
 
 	const undoAction = () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Flow is locked");
 			return;
 		}
 		if (allowUndo) {
@@ -408,11 +390,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 	const redoAction = () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Flow is locked");
 			return;
 		}
 		if (allowRedo) {
@@ -430,13 +408,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 			await post({
 				route: "/api/profile/update-saves",
 				input: { profileId: globalSession.profileId, update: { [saveName]: JSON.stringify(elements) }, date: new Date().toString() },
-				successHandler: () => {
-					setFlowVisualBell((state) => ({
-						message: "Code saved",
-						switch: !state.switch,
-						show: true,
-					}));
-				},
+				successHandler: () => _setFlowVisualBell("Code saved"),
 			});
 		}
 	};
@@ -444,11 +416,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 	const restoreFlow = async () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Flow is locked");
 			return;
 		}
 		let savedEls;
@@ -489,11 +457,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 			});
 			setElements(restoredEls);
 			setCenter(0, 0, 1.25);
-			setFlowVisualBell((state) => ({
-				message: "Restored from last save",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Restored from last save");
 		}
 	};
 
@@ -520,7 +484,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 	};
 
 	const keyDownHandler = (event) => {
-		if (frozen) {
+		if (isReadOnly) {
 			return;
 		}
 		if (event.ctrlKey || event.metaKey) {
@@ -633,9 +597,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 		});
 	};
 
-	const infoHandler = () => {
-		infoLogs.map((t) => consoleCtx.addLog(t));
-	};
+	const infoHandler = () => infoLogs.map((t) => consoleCtx.addLog(t));
 
 	const nodeCtxMenuHandler = (e, node) => {
 		e.preventDefault();
@@ -643,30 +605,20 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 		setNodeCtxMenu({ show: true, x: e.clientX, y: e.clientY, node: node });
 	};
 
-	const nodeCtxBlurHandler = () => {
-		setNodeCtxMenu((state) => ({ ...state, show: false }));
-	};
+	const nodeCtxBlurHandler = () => setNodeCtxMenu((state) => ({ ...state, show: false }));
 
 	const paneCtxMenuHandler = (e, node) => {
 		e.preventDefault();
 		setPaneCtxMenu({ show: true, x: e.clientX, y: e.clientY });
 	};
 
-	const paneCtxBlurHandler = () => {
-		setPaneCtxMenu((state) => ({ ...state, show: false }));
-	};
+	const paneCtxBlurHandler = () => setPaneCtxMenu((state) => ({ ...state, show: false }));
 
-	const touchHandler = () => {
-		setFlowVisualBell((state) => ({
-			message: "WARNING: Sorry, touch interaction is not yet supported",
-			switch: !state.switch,
-			show: true,
-		}));
-	};
+	const touchHandler = () => _setFlowVisualBell("⚠️ WARNING: Sorry, touch interaction is not yet supported");
 
 	return (
 		<div className={`${classes.editorContainer} ${show ? "" : "hide"}`} onKeyDown={keyDownHandler} tabIndex={-1} onTouchStart={touchHandler}>
-			{!frozen && <DndBar blockList={blockList} />}
+			{!isReadOnly && <DndBar blockList={blockList} />}
 			<div className={classes.editorWrapper} ref={wrapperRef}>
 				<ReactFlow
 					onLoad={onLoad}
@@ -696,7 +648,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 					onNodeContextMenu={nodeCtxMenuHandler}
 					onPaneContextMenu={paneCtxMenuHandler}>
 					<ControlsBar
-						frozen={frozen}
+						isReadOnly={isReadOnly}
 						undoHandler={undoAction}
 						redoHandler={redoAction}
 						saveHandler={saveFlow}
@@ -728,7 +680,7 @@ const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setEl
 						</aside>
 					</div>
 				)}
-				<FlowVisualBell show={flowVisualBell.show} message={flowVisualBell.message} />
+				<FlowVisualBell message={flowVisualBell.message} _key={flowVisualBell.key} />
 			</div>
 			<ClientOnlyPortal selector="#modal-root">
 				<NodeContextMenu

@@ -97,10 +97,22 @@
 	z-index: 5;
 	pointer-events: none;
 	user-select: none;
+	opacity: 0;
 	box-shadow: 0 2px 8px 0 rgba(black, 0.25);
-	transition: opacity 2s ease-out;
 	&.show {
-		transition: none;
+		animation: fade-out 3s ease-out forwards;
+	}
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+	66% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
 
