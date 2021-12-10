@@ -25,11 +25,13 @@ import ConsoleContext from "../../store/console-context";
 
 import ClientOnlyPortal from "../UI/ClientOnlyPortal";
 import FlowVisualBell from "./FlowVisualBell";
+import useApi from "../../hooks/useApi";
+import GlobalSessionContext from "../../store/global-session-context";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, flowVisualBell, setFlowVisualBell }) => {
+const FlowEditor = ({ saveName, blockList, show, frozen = false, elements, setElements, flowVisualBell, setFlowVisualBell }) => {
 	const wrapperRef = useRef(null);
 	const consoleCtx = useContext(ConsoleContext);
 	const miniHoverCtx = useContext(MiniHoverContext);
@@ -57,11 +59,11 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 	const setSelectedElements = useStoreActions((actions) => actions.setSelectedElements);
 	const selectedElements = useStoreState((store) => store.selectedElements);
 	const [x, y, zoom] = useStoreState((state) => state.transform);
+	const { post } = useApi();
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	const allowUndo = actionStack.currentIndex !== 0;
 	const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
-
-	console.log(elements);
 
 	useEffect(() => {
 		if (!systemAction) {
@@ -107,10 +109,15 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 	}, [edgeMove, reactFlowInstance.setTransform, x, y]);
 
 	// initialising flow editor
-	const onLoad = useCallback((_reactFlowInstance) => {
+	const onLoad = useCallback(async (_reactFlowInstance) => {
 		console.log("flow loaded:", _reactFlowInstance);
 		window.requestAnimationFrame(_reactFlowInstance.fitView);
 		setReactFlowInstance(_reactFlowInstance);
+		await post({
+			route: "/api/profile/read-saves",
+			input: { profileId: globalSession.profileId, properties: [saveName] },
+			successHandler: (data) => data.content[saveName] && setElements(JSON.parse(data.content[saveName])),
+		});
 		const controls = document.querySelector(".react-flow__controls").children;
 		for (let i = 0; i < controls.length; i++) {
 			controls[i].title = controlTitles[i];
@@ -417,18 +424,23 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 		}
 	};
 
-	const saveFlow = () => {
+	const saveFlow = async () => {
 		if (elements) {
-			window.localStorage.setItem("createbase__flow_save", JSON.stringify(elements));
+			await post({
+				route: "/api/profile/update-saves",
+				input: { profileId: globalSession.profileId, update: { [saveName]: JSON.stringify(elements) }, date: new Date().toString() },
+				successHandler: () => {
+					setFlowVisualBell((state) => ({
+						message: "Code saved",
+						switch: !state.switch,
+						show: true,
+					}));
+				},
+			});
 		}
-		setFlowVisualBell((state) => ({
-			message: "Code saved",
-			switch: !state.switch,
-			show: true,
-		}));
 	};
 
-	const restoreFlow = () => {
+	const restoreFlow = async () => {
 		if (flowLocked) {
 			flashLockIcon();
 			setFlowVisualBell((state) => ({
@@ -438,7 +450,12 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 			}));
 			return;
 		}
-		const savedEls = JSON.parse(window.localStorage.getItem("createbase__flow_save"));
+		let savedEls;
+		await post({
+			route: "/api/profile/read-saves",
+			input: { profileId: globalSession.profileId, properties: [saveName] },
+			successHandler: (data) => data.content[saveName] && (savedEls = JSON.parse(data.content[saveName])),
+		});
 		if (savedEls) {
 			const restoredEls = savedEls.map((savedEl) => {
 				if (isNode(savedEl)) {
@@ -471,6 +488,11 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 			});
 			setElements(restoredEls);
 			setCenter(0, 0, 1.25);
+			setFlowVisualBell((state) => ({
+				message: "Restored from last save",
+				switch: !state.switch,
+				show: true,
+			}));
 		}
 	};
 

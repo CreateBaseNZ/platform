@@ -41,7 +41,7 @@ const ImproveGame = () => {
 				<title>Improve • {data.name} | CreateBase</title>
 				<meta name="description" content="CreateBase" />
 			</Head>
-			<Game mode="improve" project={data} index={data.subsystems.length - 1} query={data.query} blockList={data.improve.blockList} />
+			<Game isImprove={true} project={data} index={data.subsystems.length - 1} query={data.query} blockList={data.improve.blockList} />
 		</>
 	);
 };

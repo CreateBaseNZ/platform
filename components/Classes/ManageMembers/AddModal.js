@@ -20,9 +20,6 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const searchValue = watch("searchValue");
 	const { post } = useApi();
 
-	console.log(classObject);
-	console.log(userList);
-
 	useEffect(async () => {
 		await post({
 			route: "/api/classes/fetch-users",

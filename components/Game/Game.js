@@ -11,12 +11,12 @@ import LoadingScreen from "../UI/LoadingScreen";
 import classes from "./Game.module.scss";
 import GlobalSessionContext from "../../store/global-session-context";
 
-const Game = ({ mode = "", project, index, query, blockList }) => {
+const Game = ({ isImprove, project, index, query, blockList }) => {
 	const [gameLoaded, setGameLoaded] = useState(false);
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
-		mode: mode,
+		isImprove: isImprove,
 		index: index,
 		wip: project.wip,
 		setLoaded: setGameLoaded,
@@ -30,7 +30,7 @@ const Game = ({ mode = "", project, index, query, blockList }) => {
 
 	useEffect(() => {
 		if (gameState === "Win") {
-			mp.track(`game_${mode || "create"}_progress`, {
+			mp.track(`game_${isImprove ? "improve" : "create"}_progress`, {
 				state: "win",
 				licenses: globalSession.groups.map((group) => group.licenseId),
 				schools: globalSession.groups.map((group) => group.id),
@@ -46,7 +46,7 @@ const Game = ({ mode = "", project, index, query, blockList }) => {
 				<div className={`${classes.mainWindow} ${project.stacked ? classes.stackedView : classes.shelvedView}`}>
 					<Link
 						href={{
-							pathname: mode ? `/project/[id]/${mode}` : "/project/[id]/create/[subsystem]/code",
+							pathname: isImprove ? `/project/[id]/improve` : "/project/[id]/create/[subsystem]/code",
 							query: router.query,
 						}}>
 						<button className={classes.backButton} title="Back to project">
@@ -54,7 +54,15 @@ const Game = ({ mode = "", project, index, query, blockList }) => {
 						</button>
 					</Link>
 					<Unity unityContext={unityContext} />
-					<Workspace query={query} blockList={blockList} stacked={project.stacked} unityContext={unityContext} sensorData={sensorData} gameState={gameState} />
+					<Workspace
+						saveName={isImprove ? `react-flow_${project.query}_improve` : `react-flow_${project.query}_${index}`}
+						query={query}
+						blockList={blockList}
+						stacked={project.stacked}
+						_unityContext={unityContext}
+						sensorData={sensorData}
+						gameState={gameState}
+					/>
 				</div>
 			</ConsoleContextProvider>
 			{!gameLoaded && <LoadingScreen />}

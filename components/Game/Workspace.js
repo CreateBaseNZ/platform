@@ -27,10 +27,10 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 
 /**
  *
- * @param {*} props.query is the project's name
+ * @param {*} query is the project's name
  * @returns
  */
-const Workspace = (props) => {
+const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked }) => {
 	const editorRef = useRef();
 	const [activeTab, setActiveTab] = useState("flow");
 	const [elements, setElements] = useState(initialElements);
@@ -42,7 +42,7 @@ const Workspace = (props) => {
 	const sensorDataRef = useRef();
 	const flowVisualBellTimer = useRef(null);
 
-	sensorDataRef.current = props.sensorData;
+	sensorDataRef.current = sensorData;
 
 	useEffect(() => {
 		const theme = localStorage.getItem("createbase__monaco-theme");
@@ -56,7 +56,7 @@ const Workspace = (props) => {
 
 	useEffect(() => {
 		if (activeTab === "text") {
-			const onceCode = isOnceCode(props.query);
+			const onceCode = isOnceCode(query);
 			const [newText, dispCode] = compileCode(onceCode);
 			if (newText) {
 				setText(dispCode);
@@ -73,7 +73,7 @@ const Workspace = (props) => {
 
 	const compileCode = (onceCode) => {
 		// Convert the flow arrangement to a configuration of blocks
-		const [blocks, type, message] = flow2Text(elements, props.query);
+		const [blocks, type, message] = flow2Text(elements, query);
 		if (type && type === "warning" && activeTab == "flow") {
 			ctx.addWarning(message);
 		}
@@ -98,7 +98,7 @@ const Workspace = (props) => {
 	const executeCode = (text, printing = 0) => {
 		return new Promise((resolve, reject) => {
 			const sensorData = sensorDataRef.current;
-			const unityContext = props.unityContext;
+			const unityContext = _unityContext;
 			const dispError = (error) => {
 				if (error.name) {
 					ctx.addError(error.message);
@@ -126,9 +126,9 @@ const Workspace = (props) => {
 	};
 
 	const compileHandlerTxt = async () => {
-		const onceCode = isOnceCode(props.query);
+		const onceCode = isOnceCode(query);
 		let t = editorRef.current.getValue();
-		const systemName = defineObject(props.query);
+		const systemName = defineObject(query);
 		let code = convertCode(t, systemName, onceCode);
 		runCode(code, onceCode);
 		setFlowVisualBell((state) => ({
@@ -168,7 +168,7 @@ const Workspace = (props) => {
 		}
 		let printing = 10;
 		const startingCode = async () => {
-			const startCode = findStartingCode(props.query);
+			const startCode = findStartingCode(query);
 			const isRun = await executeCode(startCode);
 		};
 		await startingCode();
@@ -177,7 +177,7 @@ const Workspace = (props) => {
 	};
 
 	const compileHandler = () => {
-		const onceCode = isOnceCode(props.query);
+		const onceCode = isOnceCode(query);
 		let [code, dispCode] = compileCode(onceCode);
 		runCode(code, onceCode);
 		setFlowVisualBell((state) => ({
@@ -193,13 +193,21 @@ const Workspace = (props) => {
 			{activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />}
 			<MiniHoverContextProvider>
 				<ReactFlowProvider>
-					<FlowEditor blockList={props.blockList} show={activeTab === "flow"} elements={elements} setElements={setElements} flowVisualBell={flowVisualBell} setFlowVisualBell={setFlowVisualBell} />
+					<FlowEditor
+						saveName={saveName}
+						blockList={blockList}
+						show={activeTab === "flow"}
+						elements={elements}
+						setElements={setElements}
+						flowVisualBell={flowVisualBell}
+						setFlowVisualBell={setFlowVisualBell}
+					/>
 				</ReactFlowProvider>
 			</MiniHoverContextProvider>
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}
 			<Console show={activeTab === "console"} />
 			<Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
-			<TabBar stacked={props.stacked} active={activeTab} onChange={changeTabHandler} />
+			<TabBar stacked={stacked} active={activeTab} onChange={changeTabHandler} />
 		</div>
 	);
 };
