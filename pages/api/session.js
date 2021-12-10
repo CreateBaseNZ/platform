@@ -14,9 +14,7 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const session = await getSession({ req });
-	console.log(session);
-	const input = { ...req.body.input, email: session.user.email };
-	console.log(input);
+	const input = { ...req.body.input, ...session.user };
 	// // Test Logic
 	// let data;
 	// if (req.body.status === "succeeded") {

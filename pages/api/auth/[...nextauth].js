@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import axios from "axios";
-import { signIn } from "next-auth/react";
 
 export default NextAuth({
 	session: {
@@ -10,18 +9,64 @@ export default NextAuth({
 	},
 	callbacks: {
 		async jwt({ token, user, account, profile, isNewUser }) {
+			console.log("=============== JWT ===============");
+			console.log("-------------- TOKEN --------------");
+			console.log(token);
+			console.log("--------------- USER --------------");
+			console.log(user);
+			console.log("------------- ACCOUNT -------------");
+			console.log(account);
+			console.log("------------- PROFILE -------------");
+			console.log(profile);
+			console.log("----------- IS NEW USER -----------");
+			console.log(isNewUser);
+			console.log("-----------------------------------");
 			if (user) return { user };
 			return token;
 		},
-		async session({ session, token, user }) {
+		async session({ session, user, token }) {
+			console.log("============= SESSION =============");
+			console.log("------------- SESSION -------------");
+			console.log(session);
+			console.log("-------------- TOKEN --------------");
+			console.log(token);
+			console.log("--------------- USER --------------");
+			console.log(user);
+			console.log("-----------------------------------");
 			if (!token) return session;
 			session.user = token.user;
 			return session;
 		},
-		async signIn({ account, profile }) {
+		async signIn({ user, account, profile, email, credentials }) {
+			console.log("============= SIGN IN =============");
+			console.log("--------------- USER --------------");
+			console.log(user);
+			console.log("------------- ACCOUNT -------------");
+			console.log(account);
+			console.log("------------- PROFILE -------------");
+			console.log(profile);
+			console.log("-------------- EMAIL --------------");
+			console.log(email);
+			console.log("----------- CREDENTIALS -----------");
+			console.log(credentials);
+			console.log("-----------------------------------");
 			if (account.provider === "google") {
 				if (!profile.email_verified) return false;
+				// Construct the input object
+				const url = process.env.ROUTE_URL + "/login/google-auth";
+				const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
+				const input = { id: user.id, email: user.email, name: { first: profile.given_name, last: profile.family_name } };
+				let result;
+				try {
+					result = (await axios.post(url, { ...keys, input }))["data"];
+				} catch (error) {
+					result = { status: "error", content: error };
+				}
+				if (result.status !== "succeeded") return false;
+				user = { accountId: user.id, provider: "google" };
+				return true;
 			} else if (account.provider === "credentials") {
+				user = { accountId: user.id, provider: "credentials" };
 				return true;
 			}
 		},

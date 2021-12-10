@@ -4,43 +4,6 @@
 
 import axios from "axios";
 
-// TEST OUTPUT ==============================================
-
-const DUMMY_USERS = [
-	{
-		accountId: "accountId123",
-		profileId: "profileId123",
-		email: "asd@asdf.com",
-		firstName: "Cash",
-		lastName: "Buttercup",
-		role: "student",
-	},
-	{
-		accountId: "accountId123",
-		profileId: "profileId123",
-		email: "asd@asdf.com",
-		firstName: "Cash",
-		lastName: "Buttercup",
-		role: "student",
-	},
-	{
-		accountId: "accountId123",
-		profileId: "profileId123",
-		email: "asd@asdf.com",
-		firstName: "Cash",
-		lastName: "Buttercup",
-		role: "teacher",
-	},
-	{
-		accountId: "accountId123",
-		profileId: "profileId123",
-		email: "asd@asdf.com",
-		firstName: "Cash",
-		lastName: "Buttercup",
-		role: "admin",
-	},
-];
-
 // MAIN =====================================================
 
 export default async function (req, res) {
@@ -49,21 +12,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_USERS,
-	// 	};
-	// } else if (req.body.status === "failed 1") {
-	// 	// this fail mode is only required if we double check access
-	// 	// do we want to allow teachers to be able to access Manage Group but only the Students tab?
-	// 	data = {
-	// 		status: "failed",
-	// 		content: "unauthorised",
-	// 	};
-	// }
 	// Integration Logic
 	// Fetch the group
 	let data;
