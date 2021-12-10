@@ -18,17 +18,11 @@ export const NodeMini = memo(({ nodeType, className, node, children, style }) =>
 	const dragStartHandler = (event) => {
 		event.dataTransfer.setData("application/reactflow", nodeType);
 		event.dataTransfer.effectAllowed = "move";
-		miniHoverCtx.clearNow();
+		miniHoverCtx.mouseLeaveHandler();
 	};
 
 	return (
-		<div
-			className={`${classes.nodeMini} ${className}`}
-			onDragStart={dragStartHandler}
-			onMouseEnter={miniHoverCtx.mouseEnterHandler.bind(this, nodeType, node)}
-			onMouseLeave={miniHoverCtx.mouseLeaveHandler}
-			style={style}
-			draggable>
+		<div className={`${classes.nodeMini} ${className}`} onDragStart={dragStartHandler} onMouseEnter={miniHoverCtx.mouseEnterHandler.bind(this, nodeType, node)} style={style} draggable>
 			{children}
 		</div>
 	);
