@@ -65,7 +65,6 @@ const constructUsers = (group, instance) => {
 			status = "";
 		}
 		licenses.push({
-			accountId: license.profile.account._id,
 			profileId: license.profile._id,
 			licenseId: license._id,
 			firstName: license.profile.name.first,

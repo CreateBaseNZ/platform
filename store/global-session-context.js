@@ -23,7 +23,6 @@ export const GlobalSessionContextProvider = (props) => {
 		if (status !== "loading") {
 			if (session) {
 				const inputs = {
-					accountId: session.user,
 					date: new Date().toString(),
 					properties: { profile: ["recentGroups"], license: ["alias"] },
 				};

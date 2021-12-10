@@ -17,14 +17,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_SENT, // could also return nothing as succeeded will automatically indicate successful verification
-	// 	};
-	// }
 	// Integration Logic
 	let data;
 	try {

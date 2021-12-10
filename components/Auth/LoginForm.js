@@ -114,6 +114,7 @@ export const LoginForm = () => {
 					</Link>
 				</div>
 			</form>
+			<button onClick={() => signIn("google")}>Google Authentication</button>
 			<TertiaryButton
 				className={classes.secondaryBtn}
 				isDisabled={isLoading}

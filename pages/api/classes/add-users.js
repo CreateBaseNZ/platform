@@ -4,17 +4,6 @@
 
 import axios from "axios";
 
-// TEST OUTPUT ==============================================
-
-const DUMMY_UPDATED_USERS_LIST = {
-	teachers: ["asdfsdf", "asdfsdf"],
-	students: [
-		{ accountId: "abc123", firstName: "asd", lastName: "asfsdf" },
-		{ accountId: "gh", firstName: "asdf", lastName: "df" },
-		{ accountId: "asdf", firstName: "ssa", lastName: "sdf" },
-	],
-};
-
 // MAIN =====================================================
 
 export default async function (req, res) {

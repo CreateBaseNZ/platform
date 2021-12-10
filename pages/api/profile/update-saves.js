@@ -22,8 +22,17 @@ export default async function (req, res) {
 		return res.send({ status: "error", content: error });
 	}
 	// Execute additional functions
+	let accountId;
+	let provider;
+	if (data.content.account.local) {
+		accountId = data.content.account.local;
+		provider = "credentials";
+	} else if (data.content.account.google) {
+		accountId = data.content.account.google;
+		provider = "google";
+	}
 	try {
-		await processors(input.update, data.content.account.local);
+		await processors(input.update, accountId, provider);
 	} catch (error) {
 		return res.send(error);
 	}
@@ -33,13 +42,13 @@ export default async function (req, res) {
 
 // HELPER ===================================================
 
-function processors(update, accountId) {
+function processors(update, accountId, provider) {
 	return new Promise(async (resolve, reject) => {
 		for (const key in update) {
 			switch (key) {
 				case "onboardingStatuses":
 					try {
-						await onboardingProcessor(update[key], accountId);
+						await onboardingProcessor(update[key], accountId, provider);
 					} catch (error) {
 						return reject(error);
 					}
@@ -53,11 +62,11 @@ function processors(update, accountId) {
 	});
 }
 
-function onboardingProcessor(statuses, accountId) {
+function onboardingProcessor(statuses, accountId, provider) {
 	return new Promise(async (resolve, reject) => {
 		if (statuses["getting-started"] && statuses["flow-0"] && statuses["not-group"]) {
 			try {
-				await sendEmailBaseTasksCompleted(accountId);
+				await sendEmailBaseTasksCompleted(accountId, provider);
 			} catch (error) {
 				return reject(error);
 			}
@@ -75,7 +84,7 @@ function onboardingProcessor(statuses, accountId) {
 			statuses["support-0"]
 		) {
 			try {
-				await sendEmailAllTasksCompleted(accountId);
+				await sendEmailAllTasksCompleted(accountId, provider);
 			} catch (error) {
 				return reject(error);
 			}
@@ -85,11 +94,11 @@ function onboardingProcessor(statuses, accountId) {
 	});
 }
 
-function sendEmailBaseTasksCompleted(accountId) {
+function sendEmailBaseTasksCompleted(accountId, provider) {
 	return new Promise(async (resolve, reject) => {
 		// Construct the input object
 		const input = {
-			accountId,
+			user: { accountId, provider },
 			option: { receive: "base-tasks-completed", notification: "onboarding", tone: "friendly" },
 		};
 		// Send the processing request
@@ -106,11 +115,11 @@ function sendEmailBaseTasksCompleted(accountId) {
 	});
 }
 
-function sendEmailAllTasksCompleted(accountId) {
+function sendEmailAllTasksCompleted(accountId, provider) {
 	return new Promise(async (resolve, reject) => {
 		// Construct the input object
 		const input = {
-			accountId,
+			user: { accountId, provider },
 			option: { receive: "all-tasks-completed", notification: "onboarding", tone: "friendly" },
 		};
 		// Send the processing request

@@ -2,8 +2,7 @@
 // IMPORT ===================================================
 
 import axios from "axios";
-
-// TEST OUTPUT ==============================================
+import { getSession } from "next-auth/react";
 
 // MAIN =====================================================
 
@@ -12,15 +11,8 @@ export default async function (req, res) {
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error" });
 	}
-	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_SESSION,
-	// 	};
-	// }
+	const session = await getSession({ req });
+	const input = { ...req.body.input, ...session.user };
 	// Integration Logic
 	let data;
 	try {
@@ -28,7 +20,8 @@ export default async function (req, res) {
 			await axios.post(process.env.ROUTE_URL + "/session", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
-					account: input.accountId,
+					accountId: input.accountId,
+					provider: input.provider,
 					date: input.date,
 					properties: input.properties,
 				},
