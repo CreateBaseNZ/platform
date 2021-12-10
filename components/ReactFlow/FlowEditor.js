@@ -1,6 +1,15 @@
 import React, { useRef, useState, useCallback, useEffect, memo, useContext } from "react";
+import html2canvas from "html2canvas";
 import ReactFlow, { removeElements, addEdge, updateEdge, Background, isEdge, isNode, useZoomPanHelper, useStoreState, useStoreActions } from "react-flow-renderer";
-import { nodeTypes, edgeTypes, tooltips, controlTitles, initialElements } from "../../utils/flowConfig";
+import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
+import useApi from "../../hooks/useApi";
+import GlobalSessionContext from "../../store/global-session-context";
+import ConsoleContext from "../../store/console-context";
+import FlowVisualBell from "./FlowVisualBell";
+import MiniHover from "./MiniHover";
+import ClientOnlyPortal from "../UI/ClientOnlyPortal";
+import DndBar from "./DndBar";
+import ControlsBar from "./ControlsBar";
 import {
 	flashLockIcon,
 	getDefaultValues,
@@ -13,20 +22,9 @@ import {
 	saveAs,
 	updateConnections,
 } from "../../utils/flowHelpers";
-import html2canvas from "html2canvas";
-
-import DndBar from "./DndBar";
-import ControlsBar from "./ControlsBar";
+import { nodeTypes, edgeTypes, controlTitles, initialElements } from "../../utils/flowConfig";
 
 import classes from "./FlowEditor.module.scss";
-import MiniHoverContext from "../../store/mini-hover-context";
-import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
-import ConsoleContext from "../../store/console-context";
-
-import ClientOnlyPortal from "../UI/ClientOnlyPortal";
-import FlowVisualBell from "./FlowVisualBell";
-import useApi from "../../hooks/useApi";
-import GlobalSessionContext from "../../store/global-session-context";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -36,7 +34,6 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 	const flowVisualBellTimer = useRef(null);
 	const { globalSession } = useContext(GlobalSessionContext);
 	const consoleCtx = useContext(ConsoleContext);
-	const miniHoverCtx = useContext(MiniHoverContext);
 	const [flowVisualBell, setFlowVisualBell] = useState({});
 	const [reactFlowInstance, setReactFlowInstance] = useState({});
 	const [actionStack, setActionStack] = useState({
@@ -651,22 +648,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 					/>
 					<Background color="#aaa" gap={16} />
 				</ReactFlow>
-				{miniHoverCtx.activeNode && (
-					<div className={classes.hoverBg}>
-						{miniHoverCtx.activeNode.block}
-						<aside>
-							<p>
-								<span className={classes.label}>Inputs:</span>
-								{tooltips[miniHoverCtx.activeNode.nodeType][0]}
-							</p>
-							<p>
-								<span className={classes.label}>Outputs:</span>
-								{tooltips[miniHoverCtx.activeNode.nodeType][1]}
-							</p>
-							<p style={{ marginTop: 12 }}>{tooltips[miniHoverCtx.activeNode.nodeType][2]}</p>
-						</aside>
-					</div>
-				)}
+				<MiniHover />
 				<FlowVisualBell message={flowVisualBell.message} _key={flowVisualBell.key} />
 			</div>
 			<ClientOnlyPortal selector="#modal-root">

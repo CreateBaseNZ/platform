@@ -1,0 +1,59 @@
+@import "/styles/variables";
+
+.hoverBg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 5;
+	background-color: rgba(black, 0.85);
+	animation: appear 0.2s ease-out forwards;
+	display: flex;
+	flex-direction: row;
+	padding: 5vh 5vw;
+	& > div {
+		position: relative;
+		overflow: visible;
+		flex: 0 0 auto;
+	}
+	aside {
+		flex: 1 1 0;
+		margin-left: calc(2vw + 4rem);
+		display: flex;
+		flex-direction: column;
+		p {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			color: white;
+			font-size: 14px;
+			margin: 0.5vh 0;
+			font-family: $jetbrains;
+			line-height: 1.75em;
+			span {
+				margin-left: 0.5rem;
+				font-weight: 500;
+				letter-spacing: 0.1em;
+				font-family: inherit;
+				color: inherit;
+				font-size: inherit;
+			}
+			.label {
+				margin-left: 0;
+				font-weight: 300;
+				letter-spacing: 0;
+				width: 5rem;
+			}
+		}
+	}
+}
+
+@keyframes appear {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
