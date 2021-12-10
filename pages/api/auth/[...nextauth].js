@@ -21,7 +21,9 @@ export default NextAuth({
 			console.log("----------- IS NEW USER -----------");
 			console.log(isNewUser);
 			console.log("-----------------------------------");
-			if (user) return { user };
+			if (account && user) {
+				return { user: { provider: account.provider, accountId: user.id } };
+			}
 			return token;
 		},
 		async session({ session, user, token }) {
@@ -62,6 +64,7 @@ export default NextAuth({
 				} catch (error) {
 					result = { status: "error", content: error };
 				}
+				console.log(result);
 				if (result.status !== "succeeded") return false;
 				user = { accountId: user.id, provider: "google" };
 				return true;
