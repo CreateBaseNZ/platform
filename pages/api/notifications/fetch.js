@@ -92,7 +92,6 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 						params: {
 							group: { id: group._id, name: group.name },
 							user: {
-								accountId: license.profile.account._id,
 								profileId: license.profile._id,
 								licenseId: license._id,
 								firstName: license.profile.name.first,
@@ -120,7 +119,6 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 				params: {
 					group: { id: group._id, name: group.name },
 					user: {
-						accountId: license.profile.account._id,
 						profileId: license.profile._id,
 						licenseId: license._id,
 						firstName: license.profile.name.first,
@@ -155,7 +153,6 @@ function classRequestNotifications(group, licenses, inputGroups) {
 						class: { id: instance._id, name: instance.name },
 						group: { id: group._id, name: group.name },
 						user: {
-							accountId: license.profile.account._id,
 							profileId: license.profile._id,
 							licenseId: license._id,
 							firstName: license.profile.name.first,

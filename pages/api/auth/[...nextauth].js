@@ -9,49 +9,17 @@ export default NextAuth({
 	},
 	callbacks: {
 		async jwt({ token, user, account, profile, isNewUser }) {
-			console.log("=============== JWT ===============");
-			console.log("-------------- TOKEN --------------");
-			console.log(token);
-			console.log("--------------- USER --------------");
-			console.log(user);
-			console.log("------------- ACCOUNT -------------");
-			console.log(account);
-			console.log("------------- PROFILE -------------");
-			console.log(profile);
-			console.log("----------- IS NEW USER -----------");
-			console.log(isNewUser);
-			console.log("-----------------------------------");
 			if (account && user) {
 				return { user: { provider: account.provider, accountId: user.id } };
 			}
 			return token;
 		},
 		async session({ session, user, token }) {
-			console.log("============= SESSION =============");
-			console.log("------------- SESSION -------------");
-			console.log(session);
-			console.log("-------------- TOKEN --------------");
-			console.log(token);
-			console.log("--------------- USER --------------");
-			console.log(user);
-			console.log("-----------------------------------");
 			if (!token) return session;
 			session.user = token.user;
 			return session;
 		},
 		async signIn({ user, account, profile, email, credentials }) {
-			console.log("============= SIGN IN =============");
-			console.log("--------------- USER --------------");
-			console.log(user);
-			console.log("------------- ACCOUNT -------------");
-			console.log(account);
-			console.log("------------- PROFILE -------------");
-			console.log(profile);
-			console.log("-------------- EMAIL --------------");
-			console.log(email);
-			console.log("----------- CREDENTIALS -----------");
-			console.log(credentials);
-			console.log("-----------------------------------");
 			if (account.provider === "google") {
 				if (!profile.email_verified) return false;
 				// Construct the input object
@@ -64,8 +32,14 @@ export default NextAuth({
 				} catch (error) {
 					result = { status: "error", content: error };
 				}
-				console.log(result);
 				if (result.status !== "succeeded") return false;
+				if (result.content === "new") {
+					try {
+						await sendEmail({ accountId: user.id, email: user.email });
+					} catch (error) {
+						return false;
+					}
+				}
 				user = { accountId: user.id, provider: "google" };
 				return true;
 			} else if (account.provider === "credentials") {
@@ -94,7 +68,6 @@ export default NextAuth({
 					throw new Error(JSON.stringify(data));
 				}
 				// Success handler
-				console.log(data.content);
 				return data.content;
 			},
 		}),
@@ -108,4 +81,30 @@ export default NextAuth({
 		error: "/auth/login",
 		verifyRequest: "/auth/verify",
 	},
+	secret: process.env.NEXTAUTH_SECRET,
 });
+
+// HELPERS ==================================================
+
+function sendEmail({ accountId, email }) {
+	return new Promise(async (resolve, reject) => {
+		// Construct the input object
+		const input = {
+			user: { accountId, provider: "google" },
+			option: { recipient: email, receive: "welcome", notification: "onboarding", tone: "friendly" },
+		};
+		// Send the processing request
+		let data;
+		try {
+			data = (await axios.post(process.env.ROUTE_URL + "/mail/send-email", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+		} catch (error) {
+			data = { status: "error", content: error };
+		}
+		// Error handler
+		if (data.status !== "succeeded") return reject({ status: "error" });
+		// Success handler
+		return resolve();
+	});
+}
+
+// END ======================================================

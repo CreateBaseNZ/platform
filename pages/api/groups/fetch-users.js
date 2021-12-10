@@ -42,7 +42,6 @@ export default async function (req, res) {
 const constructUsers = (licenses) => {
 	return licenses.map((license) => {
 		return {
-			accountId: license.profile.account._id,
 			profileId: license.profile._id,
 			licenseId: license._id,
 			firstName: license.profile.name.first,

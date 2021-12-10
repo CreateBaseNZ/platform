@@ -24,7 +24,7 @@ export default async function (req, res) {
 	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
 	const backendInput = { email, profile, route: input.route, type: input.type, date: input.date, message: input.message, metadata: input.metadata };
 	console.log(backendInput);
-	if (process.env.DEPLOYMENT !== "production") return;
+	if (process.env.DEPLOYMENT !== "production") return res.send({ status: "succeeded", content: "development" });
 	let data;
 	try {
 		data = (await axios.post(url, { ...keys, input: backendInput }))["data"];
@@ -37,11 +37,16 @@ export default async function (req, res) {
 
 // HELPERS ==================================================
 
-function fetchAccount(accountId) {
+function fetchAccount({ accountId, provider }) {
 	return new Promise(async (resolve, reject) => {
 		const url = process.env.ROUTE_URL + "/account/retrieve";
 		const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
-		const input = { query: { _id: accountId } };
+		let input = { provider };
+		if (provider === "credentials") {
+			input.query = { _id: accountId };
+		} else if (provider === "google") {
+			input.query = { googleId: accountId };
+		}
 		let data;
 		try {
 			data = (await axios.post(url, { ...keys, input }))["data"];
