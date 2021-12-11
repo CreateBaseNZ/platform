@@ -121,11 +121,6 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		const systemName = defineObject(query);
 		let code = convertCode(t, systemName, onceCode);
 		runCode(code, onceCode);
-		setFlowVisualBell((state) => ({
-			message: "Code is now running",
-			switch: !state.switch,
-			show: true,
-		}));
 	};
 
 	const runCode = async (code, onceCode) => {
@@ -170,11 +165,6 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		const onceCode = isOnceCode(query);
 		let [code, dispCode] = compileCode(onceCode);
 		runCode(code, onceCode);
-		setFlowVisualBell((state) => ({
-			message: "Code is now running",
-			switch: !state.switch,
-			show: true,
-		}));
 	};
 
 	return (

@@ -115,7 +115,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	}
 
 	return (
-		<div className={classes.authCard} style={{ width: 600, height: "auto" }}>
+		<div className={classes.verifyCard} style={{ width: 600, height: "auto" }}>
 			<form className={`${classes.form} ${classes.codeForm}`}>
 				<h1>Verification code</h1>
 				<div className={classes.instructions}>Enter the verification code sent to your email</div>

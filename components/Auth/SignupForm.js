@@ -4,7 +4,7 @@ import router from "next/router";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
-import { PrimaryButton } from "../UI/Buttons";
+import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import { isBlacklisted, nameMaxLength, nameMinLength, namePattern, nameValidation } from "../../utils/formValidation";
 import { emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
@@ -90,38 +90,42 @@ const SignupForm = () => {
 					}}
 					error={errors.email}
 				/>
-				<Input
-					className={classes.input}
-					inputProps={{
-						placeholder: "First name*",
-						type: "text",
-						maxLength: 50,
-						...register("firstName", {
-							required: "Please enter your first name",
-							pattern: namePattern,
-							validate: nameValidation,
-							maxLength: nameMaxLength,
-							minLength: nameMinLength,
-						}),
-					}}
-					error={errors.firstName}
-				/>
-				<Input
-					className={classes.input}
-					inputProps={{
-						placeholder: "Last name*",
-						type: "text",
-						maxLength: 50,
-						...register("lastName", {
-							required: "Please enter your last name",
-							pattern: namePattern,
-							validate: nameValidation,
-							maxLength: nameMaxLength,
-							minLength: nameMinLength,
-						}),
-					}}
-					error={errors.lastName}
-				/>
+				<div style={{ display: "flex" }}>
+					<Input
+						className={classes.input}
+						style={{ marginRight: "0.5rem" }}
+						inputProps={{
+							placeholder: "First name*",
+							type: "text",
+							maxLength: 50,
+							...register("firstName", {
+								required: "Please enter your first name",
+								pattern: namePattern,
+								validate: nameValidation,
+								maxLength: nameMaxLength,
+								minLength: nameMinLength,
+							}),
+						}}
+						error={errors.firstName}
+					/>
+					<Input
+						className={classes.input}
+						style={{ marginLeft: "0.5rem" }}
+						inputProps={{
+							placeholder: "Last name*",
+							type: "text",
+							maxLength: 50,
+							...register("lastName", {
+								required: "Please enter your last name",
+								pattern: namePattern,
+								validate: nameValidation,
+								maxLength: nameMaxLength,
+								minLength: nameMinLength,
+							}),
+						}}
+						error={errors.lastName}
+					/>
+				</div>
 				<PasswordInput
 					className={classes.input}
 					inputProps={{
@@ -149,6 +153,17 @@ const SignupForm = () => {
 					</div>
 				</div>
 				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Signing you up ..." mainLabel="Sign Up" />
+				<div className={classes.smallFont} style={{ margin: "2vh 0", alignSelf: "center" }}>
+					Or
+				</div>
+				<SecondaryButton
+					className={classes.googleAuth}
+					type="button"
+					loadingLabel="Loading Google auth"
+					mainLabel="Sign up with Google"
+					onClick={() => signIn("google")}
+					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/google.svg" />}
+				/>
 			</form>
 			<div className={`${classes.smallFont} ${classes.switch}`}>
 				Have an account?{" "}

@@ -64,10 +64,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 	const allowUndo = actionStack.currentIndex !== 0;
 	const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
-	const _setFlowVisualBell = (message) => {
-		console.log(Date.now());
-		setFlowVisualBell({ message, key: Date.now() });
-	};
+	const _setFlowVisualBell = (message) => setFlowVisualBell({ message, key: Date.now() });
 
 	const loadFlow = async (callback = () => {}) => {
 		let savedEls;
