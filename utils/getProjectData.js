@@ -3,6 +3,7 @@ import magnebotData from "../data/magnebot-data";
 import heatSeekerData from "../data/heat-seeker-data";
 import aimbotData from "../data/aimbot-data";
 import hyperloopData from "../data/hyperloop-data";
+import flowTrainingCampData from "../data/flow-training-camp-data";
 
 // ----- How to Add Projects -----
 //
@@ -22,6 +23,8 @@ const getProjectData = (query) => {
 		case "aimbot":
 			return aimbotData;
 		//case "hyperloop": return hyperloopData;
+		case "flow-training-camp": 
+			return flowTrainingCampData;
 		default:
 			return null;
 	}
@@ -30,4 +33,4 @@ const getProjectData = (query) => {
 export default getProjectData;
 
 //export const ALL_PROJECT_DATA = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData];
-export const ALL_PROJECT_DATA = [magnebotData, sendItData, heatSeekerData, aimbotData];
+export const ALL_PROJECT_DATA = [magnebotData, sendItData, heatSeekerData, aimbotData, flowTrainingCampData];
