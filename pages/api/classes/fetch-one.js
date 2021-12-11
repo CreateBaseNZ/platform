@@ -81,7 +81,7 @@ const constructClass = (instance) => {
 			licenseId: license._id,
 			firstName: license.profile.name.first,
 			lastName: license.profile.name.last,
-			email: license.profile.account.email,
+			email: license.profile.account.local ? license.profile.account.local.email : license.profile.account.google.email,
 		};
 	});
 	return {

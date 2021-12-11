@@ -48,7 +48,7 @@ const constructUsers = (licenses) => {
 			lastName: license.profile.name.last,
 			role: license.role,
 			status: license.status,
-			email: license.profile.account.email,
+			email: license.profile.account.local ? license.profile.account.local.email : license.profile.account.google.email,
 			message: license.status === "requested" ? license.metadata.requestMessage : "",
 		};
 	});

@@ -71,7 +71,7 @@ const constructUsers = (group, instance) => {
 			lastName: license.profile.name.last,
 			role: license.role,
 			status,
-			email: license.profile.account.email,
+			email: license.profile.account.local ? license.profile.account.local.email : license.profile.account.google.email,
 			alias: license.metadata.alias,
 		});
 	}
