@@ -145,12 +145,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 				<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
 				{!isLoading && (
 					<div className={classes.verifOptions}>
-						<button
-							className={`${classes.smallFont} ${classes.switch}`}
-							onClick={() => {
-								signOut({ redirect: false });
-								router.push("/");
-							}}>
+						<button className={`${classes.smallFont} ${classes.switch}`} onClick={() => signOut({ redirect: false })}>
 							Cancel
 						</button>
 						<div className={`${classes.smallFont} ${classes.switch}`}>
