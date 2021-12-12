@@ -27,7 +27,7 @@ export default {
 	difficulty: "proficient",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
 	learningOutcome: "/send-it/project_overview.pdf",
-	curriculumAlignment: "/send-it/curriculum_standards.pdf",
+	curriculumAlignment: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	learnings: [
 		"Formalise the logic occurring in their head into logical code to allow them to automate a task they would normally do manually.",

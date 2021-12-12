@@ -15,7 +15,7 @@ export default {
 	difficulty: "introductory",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, MATH, SOCIAL_SCIENCE],
 	learningOutcome: "/magnebot/project_overview.pdf",
-	curriculumAlignment: "/magnebot/curriculum_standards.pdf",
+	curriculumAlignment: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
 	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
 	learnings: [
 		"Understand the basics of programming a robotic system.",

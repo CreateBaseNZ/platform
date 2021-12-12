@@ -32,7 +32,7 @@ export default {
 	difficulty: "advanced",
 	subjects: [COMPUTER_SCIENCE, SCRIPTING, TRIGONOMETRY, ENGINEERING],
 	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
-	curriculumAlignment: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	curriculumAlignment: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
 	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Use and track multiple variables throughout a program.",
