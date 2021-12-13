@@ -16,10 +16,10 @@ export default {
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, MATH, SOCIAL_SCIENCE],
 	learningOutcome: "/magnebot/project_overview.pdf",
 	cads: {
-		nz: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
-		aus: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
-		cali: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
-		uk: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
+		nz: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - NZ.pdf",
+		aus: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - ACARA.pdf",
+		cali: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - California.pdf",
+		uk: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - England.pdf",
 	},
 	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
 	learnings: [

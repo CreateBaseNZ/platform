@@ -28,10 +28,10 @@ export default {
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
 	learningOutcome: "/send-it/project_overview.pdf",
 	cads: {
-		nz: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
-		aus: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
-		cali: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
-		uk: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
+		nz: "/send-it/cads/020802AC Curriculum Alignment - Send It - NZ.pdf",
+		aus: "/send-it/cads/020802AC Curriculum Alignment - Send It - ACARA.pdf",
+		cali: "/send-it/cads/020802AC Curriculum Alignment - Send It - California.pdf",
+		uk: "/send-it/cads/020802AC Curriculum Alignment - Send It - England.pdf",
 	},
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	learnings: [
