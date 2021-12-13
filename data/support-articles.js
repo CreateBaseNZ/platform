@@ -58,7 +58,7 @@ export const JOIN_A_SCHOOL = {
 				<li>Teachers search for their school</li>
 				<li>
 					Then complete and send a message
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/teach joins school gif.gif" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-school-teach.gif" style={{ maxWidth: 800 }} />
 				</li>
 				<li>The Admin of the school will be notified and can accept or reject the request</li>
 			</ol>
@@ -81,7 +81,7 @@ export const JOIN_A_SCHOOL = {
 			<img srcr="/support/join a school.JPG" style={{ maxWidth: 800 }} />
 			<p>As a teacher, search for the name of your school.</p>
 			<p>Then complete and send a message.</p>
-			<img srcr="/support/teach joins school gif.gif" style={{ maxWidth: 800 }} />
+			<img srcr="/support/join-school-teach.gif" style={{ maxWidth: 800 }} />
 			<p>The admin of the school will be notified and you will need to wait for them to accept or reject your request.</p>
 		</>
 	),
@@ -181,7 +181,7 @@ export const FLOW_CODING = {
 				</li>
 			</ul>
 			<p>As you can see, blocks can only be connected if they have a matching information type to prevent unintended errors.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/flow code.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/flow-code.gif" style={{ maxWidth: 800 }} />
 			<h2>Looking to learn Flow coding?</h2>
 			<ul>
 				<li>
@@ -361,7 +361,7 @@ export const REGISTER_A_SCHOOL = {
 			<p>Registering your school starts on the My Groups page.</p>
 			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register a school.JPG" style={{ maxWidth: 800 }} />
 			<p>Simply complete the Registration form and our team will verify your school within 24 hours.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register a school gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register-school.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -373,7 +373,7 @@ export const CREATE_A_CLASS = {
 			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/create a class.JPG" style={{ maxWidth: 800 }} />
 			<p>Enter a class name and you are good to go.</p>
 			<p>To add Students, visit the "Manage Members" tab, click "Add" and then select all the users from your group that you want to add to your class. Click "Add" to confirm the users.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/create class + add students gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/new-class.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -419,7 +419,7 @@ export const STEP_2_IMAGINE = {
 				simulated environment and discuss how the robotic system is a viable solution. After starting with a broad solution defined by the students, this second half reframes and narrows their focus
 				for the tasks at hand.
 			</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/imagine gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/imagine.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -458,7 +458,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				<li>Researching the Flow editor and how to use it to write code.</li>
 				<li>Learning to use the Flow blocks for the current sub-system.</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/research gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/research.gif" style={{ maxWidth: 800 }} />
 			<h2>Plan</h2>
 			<p>
 				Code solutions can be incredibly long and complicated, especially if you don't have any structure before you start coding. During our Create process, we make students stop and think about
@@ -474,7 +474,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				<li>Selecting their desired robotic system (coming soon)</li>
 				<li>Selecting specific components (coming soon)</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/plan gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/plan.gif" style={{ maxWidth: 800 }} />
 			<p>
 				After completing their Plan, students will not necessarily have a complete answer to the Code step, but will at least have enough information to start testing and iterating as well as a
 				concrete understanding of the logical process(es) that their solution will need to follow.
@@ -493,7 +493,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				are writing much more tangible as there are clear (and sometimes catastrophic) results for every change that they make. With a digital solution, there are no consequences for breaking the
 				robot so students are free to experiment and push boundaries with their testing, providing a rich opportunity for guided discovery learning.
 			</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/code gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/code.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -515,7 +515,7 @@ export const STEP_4_IMPROVE = {
 				<li>Problem extensions</li>
 				<li>Text-based coding</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/improve gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/improve.gif" style={{ maxWidth: 800 }} />
 			<p>
 				Although every student should be able to complete the Create step, the Improve step is often more open-ended, with room for students to create increasingly better-performing solutions. This
 				makes the Improve step an ideal place to cultivate the abilities of excelling students as an extension activity.
@@ -545,7 +545,7 @@ export const STEP_5_REVIEW = {
 				Reflecting on the learning journey is a key method to emphasise learning from our mistakes and our successes. Reflection is not always easy, so we provide questions to engage students in the
 				process of reflection. This is a solo activity, so it is perfect for distance learning!
 			</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/review gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/review.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -566,7 +566,7 @@ export const LESSON_PLANS = {
 				<li>Open the teaching tab</li>
 				<li>Open or download the lesson plan pdf</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson plan gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson plan.gif" style={{ maxWidth: 800 }} />
 			<p>And presto, it's that easy.</p>
 			<h2>Learning about the concepts you're teaching</h2>
 			<p>
@@ -606,7 +606,7 @@ export const REGISTER_OR_JOIN_YOUR_SCHOOL = {
 			<p>From the My Groups page click "Join" and then send a message to the admin (the user who registered the school).</p>
 			<p>The admin can then accept your request.</p>
 			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join a school.JPG" style={{ maxWidth: 600 }} />
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/teach joins school gif.gif" style={{ maxWidth: 600 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-school-teach.gif" style={{ maxWidth: 600 }} />
 			<p>For students to join a school, they must use a student code.</p>
 			<p>
 				Learn how to add students to your school <Link href="/support/admins/adding-students">here</Link>.
@@ -626,7 +626,7 @@ export const ADDING_STUDENTS = {
 				</li>
 				<li>
 					Open the My Groups tab and select join a group
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/adding students student process gif.gif" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-group-students.gif" style={{ maxWidth: 800 }} />
 				</li>
 				<li>Enter the student code</li>
 			</ol>
@@ -645,7 +645,7 @@ export const MANAGE_USERS_IN_YOUR_SCHOOL = {
 			</p>
 			<p>In the Manage Users tab, you can view all the accounts that have joined your group.</p>
 			<p>Users are grouped based on their role within the group: admin, teacher or student.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/manage users gif.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/manage users.gif" style={{ maxWidth: 800 }} />
 			<p>For all users, you can view their first name, last name, email and who invited them.</p>
 			<p>On this page admins can:</p>
 			<ul>
