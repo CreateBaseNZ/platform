@@ -81,7 +81,7 @@ const STAFF_SECTION = {
 						<li>Open the teaching tab</li>
 						<li>Open or download the lesson plan pdf</li>
 					</ul>
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson plan.gif" />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson-plan.gif" />
 				</>
 			),
 		},

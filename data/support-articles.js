@@ -236,7 +236,7 @@ export const LEARNING_JOURNALS = {
 				<li>Head to the Define tab</li>
 				<li>
 					Open the learning journal in either Google Docs or Word and save a local copy
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/learning journal final.gif" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/learning-journal.gif" style={{ maxWidth: 800 }} />
 				</li>
 			</ol>
 			<h2>How do I use learning journals?</h2>
@@ -566,7 +566,7 @@ export const LESSON_PLANS = {
 				<li>Open the teaching tab</li>
 				<li>Open or download the lesson plan pdf</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson plan.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson-plan.gif" style={{ maxWidth: 800 }} />
 			<p>And presto, it's that easy.</p>
 			<h2>Learning about the concepts you're teaching</h2>
 			<p>
@@ -645,7 +645,7 @@ export const MANAGE_USERS_IN_YOUR_SCHOOL = {
 			</p>
 			<p>In the Manage Users tab, you can view all the accounts that have joined your group.</p>
 			<p>Users are grouped based on their role within the group: admin, teacher or student.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/manage users.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/manage-users.gif" style={{ maxWidth: 800 }} />
 			<p>For all users, you can view their first name, last name, email and who invited them.</p>
 			<p>On this page admins can:</p>
 			<ul>
