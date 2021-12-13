@@ -34,10 +34,10 @@ export default {
 	subjects: [COMPUTER_SCIENCE, SCRIPTING, TRIGONOMETRY, ENGINEERING],
 	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	cads: {
-		nz: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
-		aus: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
-		cali: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
-		uk: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
+		nz: "/aimbot/cads/020802AE Curriculum Alignment - AimBot - NZ.pdf",
+		aus: "/aimbot/cads/020802AE Curriculum Alignment - AimBot - ACARA.pdf",
+		cali: "/aimbot/cads/020802AE Curriculum Alignment - AimBot - California.pdf",
+		uk: "/aimbot/cads/020802AE Curriculum Alignment - AimBot - England.pdf",
 	},
 	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [

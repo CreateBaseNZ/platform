@@ -28,10 +28,10 @@ export default {
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
 	learningOutcome: "/heat-seeker/files/project-overview.pdf",
 	cads: {
-		nz: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
-		aus: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
-		cali: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
-		uk: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
+		nz: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - NZ.pdf",
+		aus: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - ACARA.pdf",
+		cali: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - California.pdf",
+		uk: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - England.pdf",
 	},
 	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
 	learnings: [
