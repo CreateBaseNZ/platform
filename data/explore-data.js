@@ -19,7 +19,7 @@ export const ifBoostData = {
 export const whileBoostData = {
 	title: "While Boost",
 	caption: "Upgrade your skills and become an expert with while blocks",
-	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/explore/while-boost.JPG",
+	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/explore/while-boost.jpg",
 	url: "/explore/while-boost",
 	col1: "rgba(253, 105, 203, 1)",
 	col2: "rgba(253, 105, 203, 0.5)",

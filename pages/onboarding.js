@@ -97,9 +97,9 @@ const STAFF_SECTION = {
 						<li>Open the My Groups tab and select join a group</li>
 						<li>Enter the student code</li>
 					</ol>
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/add-students-group.gif" />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/add-students-school.gif" />
 					<p>You can find the student code for your group by clicking “Add” on the Manage Group page.</p>
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/student code.jpg" />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/add-students-school.jpg" />
 				</>
 			),
 		},
