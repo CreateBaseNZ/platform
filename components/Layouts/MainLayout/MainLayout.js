@@ -1,12 +1,11 @@
 import { useContext, useState } from "react";
+import MainLayoutContext from "../../../store/main-layout-context";
+import GlobalSessionContext from "../../../store/global-session-context";
 import Header from "./Header";
 import Nav from "./Nav";
+import AliasModal from "./AliasModal";
 
 import classes from "./MainLayout.module.scss";
-import MainLayoutContext from "../../../store/main-layout-context";
-import AliasModal from "./AliasModal";
-import GlobalSessionContext from "../../../store/global-session-context";
-import { globals } from "overlayscrollbars";
 
 const MainLayout = ({ children, page }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
