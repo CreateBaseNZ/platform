@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import router from "next/router";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+import ReactTimeAgo from "react-time-ago";
 import useClass from "../../../hooks/useClass";
 import ProgressTable from "../../../components/Classes/Progress/ProgressTable";
 import Select from "../../../components/Classes/Progress/Select";
@@ -13,11 +16,8 @@ import SkeletonTable from "../../../components/UI/SkeletonTable";
 import { ALL_PROJECT_DATA } from "../../../utils/getProjectData";
 import CLASSES_TABS, { PROGRESS_VIEW_OPTIONS } from "../../../constants/classesConstants";
 import DUMMY_STUDENTS from "../../../constants/progress";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en.json";
 
 import classes from "../../../styles/classesProgress.module.scss";
-import ReactTimeAgo from "react-time-ago";
 
 TimeAgo.addLocale(en);
 

@@ -15,7 +15,12 @@ export default {
 	difficulty: "introductory",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, MATH, SOCIAL_SCIENCE],
 	learningOutcome: "/magnebot/project_overview.pdf",
-	curriculumAlignment: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
+	cads: {
+		nz: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
+		aus: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
+		cali: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
+		uk: "/magnebot/020802AB Curriculum Alignment - MagneBot.pdf",
+	},
 	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
 	learnings: [
 		"Understand the basics of programming a robotic system.",
@@ -37,7 +42,10 @@ export default {
 	},
 	imagine: {
 		threshold: 300,
-		caption: ["As a class, dive into group discussions around the Project theme to fully define our problem. Your learning journal and/or teacher will tell you what to do.", "Don't have a teacher to guide you through? Check back soon for individual content!"],
+		caption: [
+			"As a class, dive into group discussions around the Project theme to fully define our problem. Your learning journal and/or teacher will tell you what to do.",
+			"Don't have a teacher to guide you through? Check back soon for individual content!",
+		],
 		modules: [
 			{
 				type: "pdf",

@@ -33,7 +33,12 @@ export default {
 	difficulty: "Advanced",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE],
 	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
-	curriculumAlignment: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	cads: {
+		nz: "/aimbot/files/210505AD_EarlyAccess.pdf",
+		aus: "/aimbot/files/210505AD_EarlyAccess.pdf",
+		cali: "/aimbot/files/210505AD_EarlyAccess.pdf",
+		uk: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	},
 	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Convert a binary number to a decimal number.",

@@ -70,7 +70,6 @@
 .btn {
 	height: 2rem;
 	padding: 0 0.75rem;
-	border-radius: 4px;
 	margin-left: 0.5rem;
 	display: flex;
 	align-items: center;
@@ -91,6 +90,62 @@
 	}
 	&:hover {
 		background: rgba(white, 0.35);
+	}
+	&.iconOnly {
+		padding: 0;
+		width: 2rem;
+		i {
+			margin: 0;
+		}
+	}
+}
+
+.dropdownContainer {
+	display: flex;
+	flex-direction: column;
+	height: 2rem;
+	margin-left: auto;
+	width: 9rem;
+	label {
+		flex: 0 0 2rem;
+		color: white;
+		font-size: 12px;
+		font-weight: 400;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.25rem 0.5rem;
+		background: rgba(white, 0.2);
+		cursor: pointer;
+		i {
+			color: inherit;
+			font-size: 1rem;
+			margin-left: 0.5rem;
+		}
+		&:hover {
+			background: rgba(white, 0.35);
+		}
+	}
+}
+
+.dropdown {
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	background: rgba(black, 0.75);
+	backdrop-filter: blur(2px);
+	.item {
+		padding: 0 0.5rem;
+		height: 2rem;
+		display: flex;
+		align-items: center;
+		text-align: left;
+		position: relative;
+		color: white;
+		font-size: 12px;
+		&:hover {
+			background: rgba(white, 0.2);
+		}
 	}
 }
 

@@ -27,7 +27,12 @@ export default {
 	difficulty: "advanced",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
 	learningOutcome: "/heat-seeker/files/project-overview.pdf",
-	curriculumAlignment: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
+	cads: {
+		nz: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
+		aus: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
+		cali: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
+		uk: "/heat-seeker/020802AC Curriculum Alignment - Heat Seeker.pdf",
+	},
 	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
 	learnings: [
 		"Explain how and why line-following is used for navigation.",

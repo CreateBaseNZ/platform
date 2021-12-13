@@ -27,7 +27,12 @@ export default {
 	difficulty: "proficient",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
 	learningOutcome: "/send-it/project_overview.pdf",
-	curriculumAlignment: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
+	cads: {
+		nz: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
+		aus: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
+		cali: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
+		uk: "/send-it/020802AB Curriculum Alignment - Send It.pdf",
+	},
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	learnings: [
 		"Formalise the logic occurring in their head into logical code to allow them to automate a task they would normally do manually.",
@@ -121,7 +126,8 @@ export default {
 			title: "Obstacle avoidance",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
-			description: "In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
+			description:
+				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
 			research: {
 				threshold: 600,
 				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -157,8 +163,8 @@ export default {
 			plan: {
 				threshold: 30,
 				list: [
-				"Open up your learning journal and answer all of the questions in the Plan section.",
-				"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Open up your learning journal and answer all of the questions in the Plan section.",
+					"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {

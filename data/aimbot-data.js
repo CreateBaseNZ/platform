@@ -23,7 +23,8 @@ import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../const
 export default {
 	name: "AimBot",
 	query: "aimbot",
-	caption: "Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
+	caption:
+		"Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
 	stacked: true,
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
@@ -32,7 +33,12 @@ export default {
 	difficulty: "advanced",
 	subjects: [COMPUTER_SCIENCE, SCRIPTING, TRIGONOMETRY, ENGINEERING],
 	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
-	curriculumAlignment: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
+	cads: {
+		nz: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
+		aus: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
+		cali: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
+		uk: "/aimbot/020802AD Curriculum Alignment - AimBot.pdf",
+	},
 	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Use and track multiple variables throughout a program.",
@@ -71,7 +77,8 @@ export default {
 			title: "Yaw control",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_1.jpg",
-			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+			description:
+				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
 				threshold: 600,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
@@ -106,13 +113,13 @@ export default {
 				tasks: [
 					"Mosquitos will be appearing across your screen in a horizontal line.",
 					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
-					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly."
+					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly.",
 				],
 				hints: [
 					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
 					"You can aim by controlling the velocity of the motors in the robot's arm.",
 					"To avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps."
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps.",
 				],
 			},
 			blockList: [
@@ -209,15 +216,12 @@ export default {
 			code: {
 				threshold: 600,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
-				tasks: [
-					"Mosquitos will be appearing across your screen in a horizontal line.",
-					"Just like in subsystem 1, your task is to destroy all of the mosquitos quickly before they disappear.",
-					],
+				tasks: ["Mosquitos will be appearing across your screen in a horizontal line.", "Just like in subsystem 1, your task is to destroy all of the mosquitos quickly before they disappear."],
 				hints: [
 					"If you try and change the speed of your robot's arm by more than 180 degrees per second, then your arm will break.",
 					"If you saved your solution to subsystem 1, you can use it as a starting point for this subsystem by pressing the restore button in the dropzone.",
 					"You need to upgrade your solution to subsystem 1 by changing the way that you calculate the velocity to assign to each motor.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps."
+					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps.",
 				],
 			},
 			blockList: [
@@ -259,7 +263,7 @@ export default {
 				tasks: [
 					"Just like in subsystem 2, mosquitos will appear to the left, to the right, up and down.",
 					"Your task is to destroy all of the mosquitos quickly before they disappear but without breaking the robot's arm by applying too much force.",
-					],
+				],
 				hints: [
 					"If you try and change the speed of your robot's arm by more than 180 degrees per second, then your arm will break.",
 					"If you saved your solution to subsystem 2 or 3, you can use either as a starting point for this subsystem by pressing the restore button in the dropzone.",
@@ -284,17 +288,18 @@ export default {
 	improve: {
 		threshold: 600,
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-		alert: "Congratulations! You now have a solution that will destroy any mosquitos that cross the path of your robot! Mosquitos everywhere will be trembling in fear! We have now added a timer to the simulation that will measure how long it takes your robot to find and destroy all of the mosquitos.",
+		alert:
+			"Congratulations! You now have a solution that will destroy any mosquitos that cross the path of your robot! Mosquitos everywhere will be trembling in fear! We have now added a timer to the simulation that will measure how long it takes your robot to find and destroy all of the mosquitos.",
 		tasks: [
 			"Mosquitos will be appearing across your screen in both the x and y directions.",
 			"You will need to find the position of each mosquito, aim your robot, and then fire to destroy all of the mosquitos, just like in the Create step.",
 			"You will need to move your arm as fast as possible to get the fastest possible time.",
-			"Compete with your peers to get the fastest time."
+			"Compete with your peers to get the fastest time.",
 		],
 		hints: [
 			"If you set the speed of your arm too high, you may overshoot your targets.",
 			"The best way to decrease your time will be to optimise your controller.",
-			"Don't forget to take a screenshot of your best time and paste it into your learning journal for proof!"
+			"Don't forget to take a screenshot of your best time and paste it into your learning journal for proof!",
 		],
 		code: true,
 		blockList: [
