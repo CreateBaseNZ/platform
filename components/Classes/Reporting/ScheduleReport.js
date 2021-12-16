@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import classes from "./ScheduleReport.module.scss";
 import ScheduleRow from "./ScheduleRow";
+import { Y_LABEL_WIDTH, HOUR_WIDTH, INTERVAL_WIDTH } from "../../../constants/classesConstants";
 
 const LEGEND = [
 	{ label: "Research", color: "#E8368B" },
@@ -10,10 +11,6 @@ const LEGEND = [
 ];
 
 const X_LABELS = ["12AM", "3AM", "6AM", "9AM", "12PM", "3PM", "6PM", "9PM", "12AM"];
-
-export const Y_LABEL_WIDTH = 200;
-export const HOUR_WIDTH = 60;
-export const INTERVAL_WIDTH = 3 * HOUR_WIDTH;
 
 const ScheduleReport = ({ data, date }) => {
 	console.log(data);

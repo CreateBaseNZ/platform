@@ -1,4 +1,4 @@
-import { HOUR_WIDTH, Y_LABEL_WIDTH } from "./ScheduleReport";
+import { HOUR_WIDTH, Y_LABEL_WIDTH } from "../../../constants/classesConstants";
 import classes from "./ScheduleRow.module.scss";
 
 const MS_PER_DAY = 86400000;

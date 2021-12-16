@@ -125,3 +125,7 @@ const generateRandomReporting = () => {
 };
 
 export const DUMMY_REPORTING_DATA = DUMMY_STUDENTS.map((student) => ({ ...student, projects: randomStudentData(generateRandomReporting) }));
+
+export const Y_LABEL_WIDTH = 200;
+export const HOUR_WIDTH = 60;
+export const INTERVAL_WIDTH = 3 * HOUR_WIDTH;
