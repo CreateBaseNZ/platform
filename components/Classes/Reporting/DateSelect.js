@@ -7,7 +7,7 @@ const DateSelect = ({ dateSelect, setDateSelect }) => {
 	const [show, setShow] = useState(false);
 
 	return (
-		<div className={classes.container}>
+		<div className={classes.container} onBlur={() => setShow(false)}>
 			<button className={classes.btn} onClick={() => setShow((state) => !state)} title="Select a date">
 				<i className="material-icons-outlined">today</i>
 			</button>

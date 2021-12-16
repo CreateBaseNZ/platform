@@ -7,8 +7,17 @@
 }
 
 .legendContainer {
+	width: 100%;
 	align-self: flex-end;
 	display: flex;
+	.viewing {
+		margin-right: auto;
+		font-size: 11px;
+		font-weight: 600;
+		color: $blue-dark;
+		margin-left: 0.5rem;
+		border-radius: 4px;
+	}
 	.legend {
 		margin-left: 1rem;
 		display: flex;
@@ -25,15 +34,28 @@
 	}
 }
 
-.scheduleContainer {
+.scheduleWrapper {
 	margin: 1rem 0;
+	width: 100%;
 	max-width: 100%;
 	display: flex;
+	flex-direction: row;
+}
+
+.yLabels {
+	margin-top: 1.5rem;
+	display: flex;
 	flex-direction: column;
-	position: relative;
-	overflow-y: auto;
-	&::-webkit-scrollbar {
-		height: 8px;
+	.yLabel {
+		font-size: 11px;
+		font-weight: 600;
+		padding-left: 0.75rem;
+		height: 2rem;
+		display: flex;
+		align-items: center;
+		&.alt {
+			background: $lightest;
+		}
 	}
 }
 
@@ -57,9 +79,14 @@
 	}
 }
 
-.scheduleWrapper {
+.schedule {
+	flex: 1;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	position: relative;
-	overflow: hidden;
+	overflow: scroll;
+	&::-webkit-scrollbar {
+		height: 8px;
+	}
 }

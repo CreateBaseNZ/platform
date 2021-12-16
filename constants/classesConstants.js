@@ -129,3 +129,4 @@ export const DUMMY_REPORTING_DATA = DUMMY_STUDENTS.map((student) => ({ ...studen
 export const Y_LABEL_WIDTH = 200;
 export const HOUR_WIDTH = 60;
 export const INTERVAL_WIDTH = 3 * HOUR_WIDTH;
+export const SAFE_MARGIN = 16;

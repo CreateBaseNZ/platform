@@ -38,7 +38,9 @@
 	border-radius: 20px;
 	box-shadow: 0 4px 16px 0 rgba(black, 0.1);
 	&.hide {
-		display: none;
+		opacity: 0;
+		z-index: -2;
+		transition: z-index 0.1s ease-out 0.1s;
 	}
 }
 

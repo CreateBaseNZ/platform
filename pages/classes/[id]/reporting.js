@@ -10,6 +10,7 @@ import Select from "../../../components/Classes/Select";
 import InfoTooltip from "../../../components/Classes/InfoTooltip";
 import DateSelect from "../../../components/Classes/Reporting/DateSelect";
 import ScheduleReport from "../../../components/Classes/Reporting/ScheduleReport";
+import SkeletonTable from "../../../components/UI/SkeletonTable";
 import CLASSES_TABS, { DUMMY_REPORTING_DATA, PROJECT_OPTIONS } from "../../../constants/classesConstants";
 
 import classes from "../../../components/Classes/Reporting.module.scss";
@@ -23,6 +24,7 @@ const ClassesReporting = () => {
 	const [isDummy, setIsDummy] = useState(false);
 	const [preData, setPreData] = useState();
 	const [postData, setPostData] = useState();
+	const [lastSaved, setLastSaved] = useState();
 
 	useEffect(() => {
 		return () => (ref.current = null);
@@ -71,15 +73,16 @@ const ClassesReporting = () => {
 				<HeaderToggle />
 			</div>
 			<div className={classes.controls}>
-				<DateSelect dateSelect={dateSelect} setDateSelect={setDateSelect} />
 				{postData ? (
 					<>
+						<DateSelect dateSelect={dateSelect} setDateSelect={setDateSelect} />
 						<Select state={studentSelect} setState={setStudentSelect} label="Student" options={preData} width={150} />
 						<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
 						<InfoTooltip
 							content={
 								<>
-									<p>Hello</p>
+									<p>Use the controls on the left to view activity by date, student, and project.</p>
+									<p>Click on a subsystem or the Improve step to see the last saved Flow code.</p>
 								</>
 							}
 						/>
@@ -92,7 +95,8 @@ const ClassesReporting = () => {
 					</>
 				)}
 			</div>
-			{postData && <ScheduleReport data={postData} date={dateSelect} />}
+			{postData ? <ScheduleReport data={postData} date={dateSelect} /> : <SkeletonTable rows={3} />}
+			<div className={classes.snapshot}></div>
 		</div>
 	);
 };
