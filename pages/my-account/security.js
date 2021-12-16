@@ -51,6 +51,17 @@ const MySecurity = () => {
 					);
 					setIsLoading(false);
 				}
+				if (data.content === "no account") {
+					setError(
+						"currentPassword",
+						{
+							type: "manual",
+							message: "You have no 'local' account",
+						},
+						{ shouldFocus: true }
+					);
+					setIsLoading(false);
+				}
 			},
 			successHandler: () => {
 				setVisualBell({
