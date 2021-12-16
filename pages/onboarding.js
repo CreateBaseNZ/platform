@@ -81,7 +81,7 @@ const STAFF_SECTION = {
 						<li>Open the teaching tab</li>
 						<li>Open or download the lesson plan pdf</li>
 					</ul>
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson-plan.gif" />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/lesson-plan.gif" />
 				</>
 			),
 		},
@@ -97,9 +97,9 @@ const STAFF_SECTION = {
 						<li>Open the My Groups tab and select join a group</li>
 						<li>Enter the student code</li>
 					</ol>
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/add-students-school.gif" />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/add-students-school.gif" />
 					<p>You can find the student code for your group by clicking “Add” on the Manage Group page.</p>
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/add-students-school.jpg" />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/add-students-school.jpg" />
 				</>
 			),
 		},

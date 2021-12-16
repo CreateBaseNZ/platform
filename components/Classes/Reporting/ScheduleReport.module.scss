@@ -1,0 +1,65 @@
+@import "/styles/variables";
+
+.container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.legendContainer {
+	align-self: flex-end;
+	display: flex;
+	.legend {
+		margin-left: 1rem;
+		display: flex;
+		align-items: center;
+		span {
+			height: 0.5rem;
+			width: 0.5rem;
+			border-radius: 0.5rem;
+			margin-right: 0.25rem;
+		}
+		label {
+			font-size: 12px;
+		}
+	}
+}
+
+.scheduleContainer {
+	margin: 1rem 0;
+	max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow-y: auto;
+	&::-webkit-scrollbar {
+		height: 8px;
+	}
+}
+
+.xLabels {
+	width: 100%;
+	height: 1.5rem;
+	.xLabel {
+		position: absolute;
+		top: 0;
+		transform: translateX(-50%);
+		color: $light;
+		font-size: 12px;
+	}
+	.verticalLine {
+		position: absolute;
+		top: 1.5rem;
+		height: calc(100% - 1.5rem);
+		width: 1px;
+		background: #e7e7e7;
+		z-index: 1;
+	}
+}
+
+.scheduleWrapper {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow: hidden;
+}

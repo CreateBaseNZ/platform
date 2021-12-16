@@ -51,7 +51,7 @@ export default {
 	define: {
 		threshold: 60,
 		url: "https://youtu.be/a7ahjbh_lUg",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/vid/situation.mp4",
 		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
 		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
 		title: "Heat Seeker",
@@ -68,19 +68,19 @@ export default {
 			{
 				type: "pdf",
 				title: "Our problem",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/imagine_1.jpg",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/imagine_1.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Our solution",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/thumbnail.png",
 				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Your approach",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/imagine_3.jpg",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/imagine_3.jpg",
 				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
 			},
 		],
@@ -89,7 +89,7 @@ export default {
 		{
 			title: "Speed control",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/1.png",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/1.png",
 			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
 			research: {
 				threshold: 300,
@@ -100,7 +100,7 @@ export default {
 						title: "Flow tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 							title: "Flow Tutorial",
@@ -140,7 +140,7 @@ export default {
 		{
 			title: "Navigating curves",
 			requirements: ["Speed control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/2.PNG",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/2.PNG",
 			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
 			research: {
 				threshold: 120,
@@ -192,7 +192,7 @@ export default {
 		{
 			title: "Navigating turns",
 			requirements: ["Speed control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/3.png",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/3.png",
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {
 				threshold: 1,
@@ -234,7 +234,7 @@ export default {
 		{
 			title: "Extinguishing fires",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/4.PNG",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/4.PNG",
 			description: "In this fourth subsystem, we will learn how to use a sensor to detect the presence of a fire and then perform the correct sequence of actions to automatically put it out.",
 			research: {
 				threshold: 300,
@@ -285,7 +285,7 @@ export default {
 		{
 			title: "Putting it all together",
 			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/thumbnail.png",
 			description:
 				"We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
 			research: {

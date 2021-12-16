@@ -1,0 +1,48 @@
+@import "/styles/variables";
+
+.helpContainer {
+	margin-left: auto;
+	position: relative;
+	button {
+		color: $blue-dark;
+		padding: 0.5rem 0.75rem;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		font-size: 12px;
+		font-weight: 500;
+		i {
+			color: inherit;
+			font-size: 1rem;
+			margin-right: 0.25rem;
+		}
+		&:hover {
+			background: $lighter;
+			~ .help {
+				opacity: 1;
+			}
+		}
+	}
+	.help {
+		pointer-events: none;
+		opacity: 0;
+		display: flex;
+		position: absolute;
+		width: 20vw;
+		top: calc(100% + 0.5rem);
+		right: 0;
+		flex-direction: column;
+		background: rgba(black, 0.75);
+		border-radius: 8px;
+		padding: 0.5rem 1rem;
+		transition: opacity 0.1s ease-out;
+		* {
+			margin: 0.25rem 0;
+			font-size: 12px;
+			color: white;
+		}
+		b {
+			font-weight: 500;
+		}
+	}
+}

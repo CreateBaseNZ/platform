@@ -8,7 +8,7 @@ const MobileView = () => {
 			<h2>
 				Check out our <a href="https://createbase.co.nz/">website</a> which <b>is</b> supported on all devices 📱
 			</h2>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/mobile.png" />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/mobile.png" />
 		</div>
 	);
 };

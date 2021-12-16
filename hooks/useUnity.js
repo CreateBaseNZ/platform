@@ -7,9 +7,9 @@ const useUnity = ({ scenePrefix, isImprove, index, project, wip, setLoaded }) =>
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
 			loaderUrl: wip ? `/${project}/unity-build/Build.loader.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.loader.js`,
-			dataUrl: wip ? `/${project}/unity-build/Build.data` : `https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project}/unity-build/Build.data`,
+			dataUrl: wip ? `/${project}/unity-build/Build.data` : `https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${project}/unity-build/Build.data`,
 			frameworkUrl: wip ? `/${project}/unity-build/Build.framework.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.framework.js`,
-			codeUrl: wip ? `/${project}/unity-build/Build.wasm` : `https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project}/unity-build/Build.wasm`,
+			codeUrl: wip ? `/${project}/unity-build/Build.wasm` : `https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${project}/unity-build/Build.wasm`,
 			productName: "Simulation",
 			productVersion: "0.1",
 			companyName: "CreateBase",

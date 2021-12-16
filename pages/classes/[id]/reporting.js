@@ -1,24 +1,98 @@
+import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import useClass from "../../../hooks/useClass";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
-import CLASSES_TABS from "../../../constants/classesConstants";
+import DummyBanner from "../../../components/Classes/DummyBanner";
+import ResyncButton from "../../../components/Classes/ResyncButton";
+import HeaderToggle from "../../../components/Layouts/MainLayout/HeaderToggle";
+import Select from "../../../components/Classes/Select";
+import InfoTooltip from "../../../components/Classes/InfoTooltip";
+import DateSelect from "../../../components/Classes/Reporting/DateSelect";
+import ScheduleReport from "../../../components/Classes/Reporting/ScheduleReport";
+import CLASSES_TABS, { DUMMY_REPORTING_DATA, PROJECT_OPTIONS } from "../../../constants/classesConstants";
 
 import classes from "../../../components/Classes/Reporting.module.scss";
 
 const ClassesReporting = () => {
-	const { classObject, classLoaded } = useClass();
+	const ref = useRef();
+	const { classObject, classLoaded, fetchReportingData, lastSynced } = useClass();
+	const [dateSelect, setDateSelect] = useState(new Date());
+	const [studentSelect, setStudentSelect] = useState();
+	const [projectSelect, setProjectSelect] = useState(PROJECT_OPTIONS[0]);
+	const [isDummy, setIsDummy] = useState(false);
+	const [preData, setPreData] = useState();
+	const [postData, setPostData] = useState();
 
-	if (!classLoaded) return null;
+	useEffect(() => {
+		return () => (ref.current = null);
+	}, []);
+
+	useEffect(async () => {
+		if (classLoaded) {
+			let _preData = await fetchReportingData();
+			if (!ref.current) return;
+			if (!_preData.length) {
+				_preData = DUMMY_REPORTING_DATA;
+				setIsDummy(true);
+			}
+			console.log(_preData);
+			setStudentSelect(_preData[0]);
+			setPreData(_preData);
+		}
+	}, [classLoaded]);
+
+	useEffect(() => {
+		if (!preData) return;
+		setPostData(preData.find((student) => student.id === studentSelect.id).projects[projectSelect.id]);
+	}, [preData, studentSelect, projectSelect]);
+
+	const syncHandler = async () => {
+		setPreData(null);
+		let _preData = await fetchReportingData();
+		if (!ref.current) return;
+		if (!_preData.length) {
+			_preData = DUMMY_REPORTING_DATA;
+			setIsDummy(true);
+		}
+		setPreData(_preData);
+	};
 
 	return (
-		<div className={classes.view}>
+		<div ref={ref} className={classes.view}>
 			<Head>
 				<title>Reporting • {classObject.name} | CreateBase</title>
 				<meta name="description" content="View reports of your students' activity on the platform" />
 			</Head>
-			<h1>Reporting</h1>
-			Coming soon!
+			{isDummy && <DummyBanner />}
+			<div className={classes.header}>
+				<h1>Reporting</h1>
+				<ResyncButton data={preData} syncHandler={syncHandler} lastSynced={lastSynced} />
+				<HeaderToggle />
+			</div>
+			<div className={classes.controls}>
+				<DateSelect dateSelect={dateSelect} setDateSelect={setDateSelect} />
+				{postData ? (
+					<>
+						<Select state={studentSelect} setState={setStudentSelect} label="Student" options={preData} width={150} />
+						<Select state={projectSelect} setState={setProjectSelect} label="Project" options={PROJECT_OPTIONS} width={150} />
+						<InfoTooltip
+							content={
+								<>
+									<p>Hello</p>
+								</>
+							}
+						/>
+					</>
+				) : (
+					<>
+						<div className={classes.skeletonSelect} style={{ width: "2.5rem" }} />
+						<div className={classes.skeletonSelect} />
+						<div className={classes.skeletonSelect} />
+					</>
+				)}
+			</div>
+			{postData && <ScheduleReport data={postData} date={dateSelect} />}
 		</div>
 	);
 };

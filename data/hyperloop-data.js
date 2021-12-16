@@ -83,7 +83,7 @@ export default {
 		{
 			title: "Subsystem 1",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/thumbnail.png", // TODO
 			description:
 				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {

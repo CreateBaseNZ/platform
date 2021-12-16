@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CAD_REGIONS from "../../constants/cadRegions";
 import PROJECT_DIFFICULTIES from "../../constants/projectDifficulties";
+import GlobalSessionContext from "../../store/global-session-context";
 
 import classes from "./BrowseTeaching.module.scss";
 
 const BrowseTeaching = ({ project, role = "" }) => {
 	const [selected, setSelected] = useState(0);
 	const [showDropdown, setShowDropdown] = useState(false);
+	const { globalSession } = useContext(GlobalSessionContext);
+
+	console.log(globalSession.groups[globalSession.recentGroups[0]]);
 
 	const toggleDropdown = () => setShowDropdown((state) => !state);
 
@@ -47,8 +51,8 @@ const BrowseTeaching = ({ project, role = "" }) => {
 				))}
 				<div className={classes.wrapper}>
 					Curriculum alignment
-					<div className={classes.dropdownContainer}>
-						<label onClick={toggleDropdown} onBlur={() => setShowDropdown(false)}>
+					<div tabIndex={-1} className={classes.dropdownContainer} onBlur={() => setShowDropdown(false)}>
+						<label onClick={toggleDropdown}>
 							{CAD_REGIONS[selected].name} <i className="material-icons-outlined">arrow_drop_down</i>
 						</label>
 						{showDropdown && (
