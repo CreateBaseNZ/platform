@@ -59,17 +59,15 @@ const useClass = () => {
 
 	const fetchData = async (filters) => {
 		if (!classLoaded) return;
-		let data;
-		await post({
-			route: "/api/retrieve",
-			input: { filters: filters },
-			successHandler: (_data) => {
-				setLastSynced(new Date());
-				console.log(_data);
-				data = _data;
-			},
-		});
-		return data;
+		let preprocessData;
+		try {
+			preprocessData = await tracking.retrieve(filters);
+		} catch (error) {
+			// TODO: Error handling
+		} finally {
+			setLastSynced(new Date());
+		}
+		return preprocessData;
 	};
 
 	const fetchReportingData = async () => {
