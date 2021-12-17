@@ -57,22 +57,22 @@ const useClass = () => {
 		}
 	}, [router.isReady, router.query.id]);
 
-	const fetchData = async () => {
+	const fetchData = async (filters) => {
 		if (!classLoaded) return;
-		let preprocessData;
-		try {
-			preprocessData = await tracking.preprocess();
-		} catch (error) {
-			// TODO: Error handling
-		} finally {
-			setLastSynced(new Date());
-		}
-		return preprocessData;
+		let data;
+		await post({
+			route: "/api/retrieve",
+			input: { filters: filters },
+			successHandler: (_data) => {
+				setLastSynced(new Date());
+				console.log(_data);
+				data = _data;
+			},
+		});
+		return data;
 	};
 
 	const fetchReportingData = async () => {
-		const preprocessData = await fetchData();
-
 		const filters = [
 			"project_define",
 			"project_imagine",
@@ -86,7 +86,7 @@ const useClass = () => {
 			"game_improve_progress",
 		].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
-		const postprocessData = tracking.postprocess(preprocessData, filters);
+		const postprocessData = await fetchData(filters);
 
 		const processData = (event, project, license, subsystem, type = "default") => {
 			return postprocessData
@@ -121,8 +121,6 @@ const useClass = () => {
 	};
 
 	const fetchProgressData = async () => {
-		const preprocessData = await fetchData();
-
 		const filters = [
 			"project_define",
 			"project_imagine",
@@ -136,7 +134,7 @@ const useClass = () => {
 			"game_improve_progress",
 		].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
-		const postprocessData = tracking.postprocess(preprocessData, filters);
+		const postprocessData = await fetchData(filters);
 
 		const processData = (event, project, license, threshold, subsystem, gameProgressEvent) => {
 			let duration = 0;
