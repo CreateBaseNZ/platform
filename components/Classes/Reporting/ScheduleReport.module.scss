@@ -53,8 +53,18 @@
 		height: 2rem;
 		display: flex;
 		align-items: center;
+		transition: padding 0.1s ease-out, background-color 0.1s ease-out;
 		&.alt {
 			background: $lightest;
+		}
+		&:hover {
+			background: $lighter;
+			padding-left: 1rem;
+		}
+		&.active {
+			padding-left: 1rem;
+			color: $blue-dark;
+			background: rgba($blue-dark, 0.05);
 		}
 	}
 }

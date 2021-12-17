@@ -24,7 +24,7 @@ const ClassesReporting = () => {
 	const [isDummy, setIsDummy] = useState(false);
 	const [preData, setPreData] = useState();
 	const [postData, setPostData] = useState();
-	const [lastSaved, setLastSaved] = useState();
+	const [lastSaved, setLastSaved] = useState({});
 
 	useEffect(() => {
 		return () => (ref.current = null);
@@ -82,6 +82,7 @@ const ClassesReporting = () => {
 							content={
 								<>
 									<p>Use the controls on the left to view activity by date, student, and project.</p>
+									<p>Down the far-left column is the Define, Imagine, and Improve steps, as well as each subsystem.</p>
 									<p>Click on a subsystem or the Improve step to see the last saved Flow code.</p>
 								</>
 							}
@@ -95,8 +96,19 @@ const ClassesReporting = () => {
 					</>
 				)}
 			</div>
-			{postData ? <ScheduleReport data={postData} date={dateSelect} /> : <SkeletonTable rows={3} />}
-			<div className={classes.snapshot}></div>
+			{postData ? <ScheduleReport data={postData} date={dateSelect} lastSaved={lastSaved} setLastSaved={setLastSaved} /> : <SkeletonTable rows={3} />}
+			{postData && (
+				<div className={classes.snapshot}>
+					<div className={classes.snapshotDetails}>
+						<div>{studentSelect?.name}</div>
+						<div>Subsystem name</div>
+						<div>{lastSaved.label}</div>
+						<div>Last saved</div>
+						<div>{lastSaved.date}</div>
+					</div>
+					<div className={classes.snapshotCode}></div>
+				</div>
+			)}
 		</div>
 	);
 };

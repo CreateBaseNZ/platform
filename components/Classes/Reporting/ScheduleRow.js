@@ -8,7 +8,7 @@ const WIDTH = HOUR_WIDTH * 24;
 
 const ScheduleRow = ({ alt, data, date }) => {
 	return (
-		<div className={`${classes.row} ${alt ? classes.alt : ""}`} style={{ width: WIDTH }}>
+		<div className={`${classes.row} ${alt ? classes.alt : ""}`} style={{ width: WIDTH + SAFE_MARGIN }}>
 			{data.bars
 				.filter((bar) => bar.start.getDate() === date.getDate())
 				.map((bar, i) => (

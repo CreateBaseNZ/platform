@@ -12,7 +12,7 @@ const LEGEND = [
 
 const X_LABELS = ["12AM", "3AM", "6AM", "9AM", "12PM", "3PM", "6PM", "9PM", "12AM"];
 
-const ScheduleReport = ({ data, date }) => {
+const ScheduleReport = ({ data, date, lastSaved, setLastSaved }) => {
 	console.log(data);
 
 	return (
@@ -29,9 +29,13 @@ const ScheduleReport = ({ data, date }) => {
 			<div className={classes.scheduleWrapper} style={{ width: Y_LABEL_WIDTH + HOUR_WIDTH * 24 + HOUR_WIDTH }}>
 				<div className={classes.yLabels}>
 					{data.map((row, i) => (
-						<div key={row.label} className={`${classes.yLabel} ${Boolean(i % 2) ? classes.alt : ""}`} style={{ width: Y_LABEL_WIDTH }}>
+						<button
+							key={row.label}
+							className={`${classes.yLabel} ${Boolean(i % 2) ? classes.alt : ""} ${lastSaved.name === row.name ? classes.active : ""}`}
+							style={{ width: Y_LABEL_WIDTH }}
+							onClick={() => setLastSaved(row)}>
 							{row.label}
-						</div>
+						</button>
 					))}
 				</div>
 				<div className={`${classes.schedule} roundScrollbar`}>
