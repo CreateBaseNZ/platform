@@ -1,8 +1,4 @@
-import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
-import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
-import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
-import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini, NodePIMini, NodeSqrtMini, NodeClampMini } from "../components/ReactFlow/NodeOperations";
-import { comparisonBoostData, ifBoostData } from "./explore-data";
+
 import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY } from "../constants/projectSubjects";
 
@@ -108,14 +104,6 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [] },
-				{ name: "Sensing", blocks: [] },
-				{ name: "Actions", blocks: [] },
-				{ name: "Operators", blocks: [] },
-				{ name: "Comparisons", blocks: [] },
-				{ name: "Logicals", blocks: [] },
-				{ name: "Conditionals", blocks: [] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		},
 		{
@@ -162,14 +150,6 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [] },
-				{ name: "Sensing", blocks: [] },
-				{ name: "Actions", blocks: [] },
-				{ name: "Operators", blocks: [] },
-				{ name: "Comparisons", blocks: [] },
-				{ name: "Logicals", blocks: [] },
-				{ name: "Conditionals", blocks: [] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		},
 		{
@@ -216,14 +196,6 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [] },
-				{ name: "Sensing", blocks: [] },
-				{ name: "Actions", blocks: [] },
-				{ name: "Operators", blocks: [] },
-				{ name: "Comparisons", blocks: [] },
-				{ name: "Logicals", blocks: [] },
-				{ name: "Conditionals", blocks: [] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		},
 		{
@@ -270,14 +242,6 @@ export default {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [] },
-				{ name: "Sensing", blocks: [] },
-				{ name: "Actions", blocks: [] },
-				{ name: "Operators", blocks: [] },
-				{ name: "Comparisons", blocks: [] },
-				{ name: "Logicals", blocks: [] },
-				{ name: "Conditionals", blocks: [] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		}
 	],
@@ -297,14 +261,6 @@ export default {
 		],
 		code: true,
 		blockList: [
-			{ name: "Variables", blocks: [] },
-			{ name: "Sensing", blocks: [] },
-			{ name: "Actions", blocks: [] },
-			{ name: "Operators", blocks: [] },
-			{ name: "Comparisons", blocks: [] },
-			{ name: "Logicals", blocks: [] },
-			{ name: "Conditionals", blocks: [] },
-			{ name: "Utilities", blocks: [<NodePrintMini />] },
 		],
 	},
 };
