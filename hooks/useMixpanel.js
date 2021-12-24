@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import mixpanel from "mixpanel-browser";
+import axios from "axios";
 import GlobalSessionContext from "../store/global-session-context";
-import tracking from "../utils/tracking";
 
 const useMixpanel = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -16,15 +16,29 @@ const useMixpanel = () => {
 		mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
 	};
 
+	// retrieving mixpanel data (via createbase backend)
+	const retrieve = (filters = []) => {
+		return new Promise(async (resolve, reject) => {
+			let data;
+			try {
+				data = (await axios.post("/api/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { filters } }))["data"];
+			} catch (error) {
+				return reject({ status: "error", content: error });
+			}
+			if (data.status !== "succeeded") return reject(data);
+			return resolve(data.content);
+		});
+	};
+
 	// mixpanel event tracking
 	// first parameter is the event name
 	// optional second parameter containining additional data to store
-	const track = (event, data) => {
-		mixpanel.track(event, data);
+	const track = (event, payload) => {
+		mixpanel.track(event, { payload });
 	};
 
 	// note: MUST run clearSession in the return of useEffect
-	const trackActiveSession = (event, data) => {
+	const trackActiveSession = (event, payload) => {
 		console.log("tracking initialised");
 		const inactivityTimer = 600000; // in ms
 		const throttleInterval = 1000; // ms
@@ -40,7 +54,7 @@ const useMixpanel = () => {
 			console.log(startTime);
 			console.log(endTime);
 			console.log(Math.round(duration / 1000));
-			track(event, { ...data, start: startTime, end: endTime, duration: Math.round(duration / 1000) });
+			track(event, { ...payload, start: startTime, end: endTime, duration: Math.round(duration / 1000) });
 			startTime = null;
 		};
 
@@ -91,7 +105,7 @@ const useMixpanel = () => {
 		return clearSession;
 	};
 
-	return { init, track, trackActiveSession };
+	return { init, retrieve, track, trackActiveSession };
 };
 
 export default useMixpanel;

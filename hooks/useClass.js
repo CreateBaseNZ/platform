@@ -1,9 +1,9 @@
 import router from "next/router";
 import { useContext, useEffect, useState } from "react";
 import GlobalSessionContext from "../store/global-session-context";
-import tracking from "../utils/tracking";
 import useApi from "./useApi";
 import { ALL_PROJECT_DATA } from "../utils/getProjectData";
+import useMixpanel from "./useMixpanel";
 
 const getStatus = (duration, threshold, formattedThreshold, gameProgressEvent, isWin) => {
 	let status = "";
@@ -38,6 +38,7 @@ const useClass = () => {
 	const [classObject, setClassObject] = useState({});
 	const [classLoaded, setClassLoaded] = useState(false);
 	const [lastSynced, setLastSynced] = useState();
+	const mp = useMixpanel();
 
 	useEffect(async () => {
 		if (router.isReady) {
@@ -61,7 +62,7 @@ const useClass = () => {
 		if (!classLoaded) return;
 		let preprocessData;
 		try {
-			preprocessData = await tracking.retrieve(filters);
+			preprocessData = await mp.retrieve(filters);
 		} catch (error) {
 			// TODO: Error handling
 		} finally {
