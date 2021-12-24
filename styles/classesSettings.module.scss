@@ -15,6 +15,11 @@
 		font-size: 1.5rem;
 		font-weight: 600;
 	}
+	h2 {
+		font-size: 1rem;
+		font-weight: 600;
+		margin-bottom: 0.75rem;
+	}
 }
 
 .container {
@@ -24,9 +29,12 @@
 }
 
 .wrapper {
-	width: 400px;
+	width: 50vw;
+	min-width: 500px;
+	max-width: 750px;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 }
 
 .divider {
@@ -36,8 +44,53 @@
 	margin: 2rem 0;
 }
 
-.leaveBtn {
+.teachers {
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	.teachersHead {
+		display: grid;
+		background: $lightest;
+		grid-template-columns: 1fr 1fr 2fr;
+		padding-right: 8px;
+		border-bottom: thin solid #fafafa;
+		span {
+			font-weight: 600;
+			color: black;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+		}
+	}
+	.teachersTable {
+		width: 100%;
+		max-height: 25vh;
+		display: grid;
+		grid-template-columns: 1fr 1fr 2fr;
+		overflow-y: scroll;
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+		a {
+			color: $blue-dark;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	span,
+	a {
+		font-size: 12px;
+		font-weight: 500;
+		padding: 0.5rem 1rem;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		border-top: 1px solid $lighter;
+	}
+}
+
+.leaveBtn {
+	width: 10rem;
 	background: rgba($amber, 0.1);
 	color: $amber;
 	&:hover {
@@ -47,7 +100,7 @@
 }
 
 .deleteBtn {
-	width: 100%;
+	width: 10rem;
 	&:hover {
 		background: rgba($red, 0.1);
 		color: $red;

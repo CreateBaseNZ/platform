@@ -11,9 +11,10 @@ import Input from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 
 import classes from "/styles/classes.module.scss";
+import { classNameMaxLength, classNameMinLength } from "../../utils/formValidation";
 
 const ClassesNew = () => {
-	const post = useApi();
+	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +25,7 @@ const ClassesNew = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	const onSubmit = async (input) => {
+	const onSubmit = async (inputValues) => {
 		await post({
 			route: "/api/classes/new",
 			input: {
@@ -32,7 +33,7 @@ const ClassesNew = () => {
 				date: new Date().toString(),
 				groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-				name: input.name,
+				name: inputValues.name.trim(),
 			},
 			failHandler: (data) => {
 				if (data.content === "taken") {
@@ -75,7 +76,16 @@ const ClassesNew = () => {
 							className={classes.input}
 							label="Class name*"
 							labelProps={{ className: classes.inputLabel }}
-							inputProps={{ placeholder: "Class name", type: "text", maxLength: 254, ...register("name", { required: "Please enter a name for your class" }) }}
+							inputProps={{
+								placeholder: "Class name",
+								type: "text",
+								maxLength: 254,
+								...register("name", {
+									required: "Please enter a name for your class",
+									minLength: classNameMinLength,
+									maxLength: classNameMaxLength,
+								}),
+							}}
 							error={errors.name}
 						/>
 						<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Creating ..." mainLabel="Create" />

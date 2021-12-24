@@ -15,20 +15,7 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_CONTENT, // content not required; returning just the succeeded status is sufficient
-	// 	};
-	// } else if (req.body.status === "failed 1") {
-	// 	data = {
-	// 		status: "failed",
-	// 		content: "incorrect",
-	// 	};
-	// }
-	// Integration Logic
+	// Check the provider
 	// Check if the password match
 	let data1;
 	try {
@@ -44,7 +31,14 @@ export default async function (req, res) {
 	} catch (error) {
 		data1 = { status: "error", content: error };
 	}
-	if (data1.status !== "succeeded") return res.send({ status: "error" });
+
+	if (data1.status !== "succeeded") {
+		if (data1.status === "failed" && data1.content.account) {
+			if (data1.content.account === "does not exist") return res.send({ status: "failed", content: "no account" });
+		} else {
+			return res.send({ status: "error" });
+		}
+	}
 	if (!data1.content) return res.send({ status: "failed", content: "incorrect" });
 	// Change the password
 	let data2;

@@ -13,7 +13,7 @@ const ClassesTabRoot = () => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { classObjects, setClassObjects } = useContext(ClassesContext);
-	const post = useApi();
+	const { post } = useApi();
 
 	useEffect(async () => {
 		await post({
@@ -22,7 +22,10 @@ const ClassesTabRoot = () => {
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
 			},
-			successHandler: (data) => setClassObjects(data.content),
+			successHandler: (data) => {
+				console.log(data);
+				setClassObjects(data.content);
+			},
 		});
 		// TODO refetch when alias changes (to be upgraded with websocket)
 	}, [globalSession.groups[globalSession.recentGroups[0]].alias]);

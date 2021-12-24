@@ -1,9 +1,12 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
+import MiniHoverContext from "../../store/mini-hover-context";
 import classes from "./DndBar.module.scss";
 
 const DndBar = memo(({ blockList }) => {
+	const { mouseLeaveHandler } = useContext(MiniHoverContext);
+
 	return (
-		<aside className={classes.dndbar}>
+		<aside className={classes.dndbar} onMouseLeave={mouseLeaveHandler}>
 			<div className={classes.wrapper}>
 				{blockList.map((type) => (
 					<React.Fragment key={type.name}>

@@ -1,0 +1,73 @@
+@import "/styles/variables";
+
+.wrapper {
+	width: 100%;
+	position: relative;
+}
+
+.video {
+	width: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.caption {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1rem;
+	margin: 2vh 0;
+	* {
+		color: $dark;
+		font-size: 14px;
+		font-weight: 500;
+	}
+	b {
+		font-weight: 600;
+	}
+	.yt {
+		align-self: flex-start;
+		margin-left: 2rem;
+		border-radius: 8px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 2.5rem;
+		flex: 0 0 2.5rem;
+		opacity: 0.5;
+		background: $dark;
+		transition: background-color 0.1s ease-out, opacity 0.1s ease-out;
+		path {
+			fill: white;
+			transition: fill 0.1s ease-out;
+		}
+		&:hover {
+			opacity: 1;
+			background: $logo-mid;
+		}
+	}
+}
+
+.subtitle {
+	position: absolute;
+	background: rgba(black, 0.5);
+	bottom: 2vh;
+	left: 50%;
+	transform: translateX(-50%);
+	max-width: 75%;
+	padding: 0.25em 1em;
+	border-radius: 8px;
+	p {
+		color: white;
+		text-align: center;
+	}
+	span {
+		color: white;
+		font-size: 14px;
+		padding: 4px;
+		border: thin solid white;
+		border-radius: 4px;
+		margin-left: 0.5em;
+	}
+}

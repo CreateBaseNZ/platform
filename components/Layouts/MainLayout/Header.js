@@ -17,6 +17,7 @@ const Header = ({ setShowAliasModal }) => {
 
 	const changeGroup = (groupIndex) => {
 		setGlobalSession((state) => ({ ...state, recentGroups: [groupIndex, ...state.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3) }));
+		router.push("/browse");
 	};
 
 	return (

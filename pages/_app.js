@@ -5,33 +5,12 @@ import { GlobalSessionContextProvider } from "../store/global-session-context";
 import { VisualBellContextProvider } from "../store/visual-bell-context";
 import { ClassesContextProvider } from "../store/classes-context";
 import { MainLayoutContextProvider } from "../store/main-layout-context";
-import LoadingScreen from "../components/UI/Loading";
 import VisualBell from "../components/VisualBell";
 import MobileView from "../components/MobileView/MobileView";
 import AuthGuard from "../components/Auth/AuthGuard";
 
 import "../styles/globals.scss";
 import styles from "../styles/_exports.module.scss";
-
-// function MyApp({ Component, pageProps }) {
-// 	const [loaded, setLoaded] = useState(false);
-
-// 	return (
-// 		<Provider session={pageProps.session}>
-// 			<VisualBellContextProvider>
-// 				<InviteOrgContextProvider>
-// 					<div id="modal-root"></div>
-// 					<div id="ctx-menu-root"></div>
-// 					{!loaded && <LoadingScreen />}
-// 					{!blockView && <Component {...pageProps} setLoaded={setLoaded} />}
-// 				</InviteOrgContextProvider>
-// 				<VisualBell />
-// 			</VisualBellContextProvider>
-// 		</Provider>
-// 	);
-// }
-
-// export default MyApp;
 
 function browseSocket(...data) {
 	console.log(data);
@@ -58,14 +37,33 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
 	// 	}
 	// }, []);
 
+	// useEffect(async () => {
+	// 	console.log("Testing Error");
+	// 	const input = {
+	// 		email: "carlvelasco96@gmail.com",
+	// 		profile: profileId,
+	// 		route: "/test",
+	// 		type: "frontend",
+	// 		date: new Date().toString(),
+	// 		metadata: { message: "Hello" },
+	// 	};
+	// 	let data;
+	// 	try {
+	// 		data = (await axios.post("/api/error", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input }))["data"];
+	// 	} catch (error) {
+	// 		data = { status: "error", content: error };
+	// 	}
+	// 	console.log(data);
+	// }, []);
+
 	return (
 		<SessionProvider session={session}>
 			<VisualBellContextProvider>
 				<GlobalSessionContextProvider>
 					<ClassesContextProvider>
 						<MainLayoutContextProvider>
-							<div id="modal-root"></div>
-							<NextNProgress color={styles.logoMid} height={3} />
+							<div id="modal-root" />
+							<NextNProgress color="#772eff" options={{ showSpinner: false }} />
 							{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
 							<MobileView />
 							<VisualBell />

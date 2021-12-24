@@ -11,7 +11,7 @@ import classes from "/styles/myGroups.module.scss";
 const JoinSchoolStudent = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const {
 		register,
 		handleSubmit,
@@ -19,11 +19,11 @@ const JoinSchoolStudent = () => {
 		formState: { errors },
 	} = useForm({ mode: "onTouched" });
 
-	const onStudentSubmit = async (inputs) => {
+	const onStudentSubmit = async (inputValues) => {
 		setIsLoading(true);
 		await post({
 			route: "/api/groups/join-school-student",
-			input: { profileId: globalSession.profileId, code: inputs.code, date: new Date().toString() },
+			input: { profileId: globalSession.profileId, code: inputValues.code, date: new Date().toString() },
 			failHandler: (data) => {
 				if (data.content === "incorrect") {
 					setError("code", {
@@ -44,6 +44,8 @@ const JoinSchoolStudent = () => {
 				setIsLoading(false);
 			},
 			successHandler: (data) => {
+				console.log(data);
+
 				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
 				router.push("/my-groups");
 			},

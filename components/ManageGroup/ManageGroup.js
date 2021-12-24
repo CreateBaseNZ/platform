@@ -14,7 +14,7 @@ import classes from "../../styles/manageGroup.module.scss";
 const ManageGroup = ({ role }) => {
 	const ref = useRef();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const [data, setData] = useState([]);
 	const [showAddModal, setShowAddModal] = useState(false);
 
@@ -53,25 +53,27 @@ const ManageGroup = ({ role }) => {
 				<TertiaryButton
 					key={key}
 					mainLabel="Promote"
-					className={classes.promoteBtn}
+					className={`${classes.btn} ${classes.promoteBtn}`}
 					iconLeft={<i className="material-icons-outlined">add_moderator</i>}
 					onClick={async () => {
+						const input = {
+							groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
+							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+							date: new Date().toString(),
+						};
 						await post({
 							route: "/api/groups/promote-users",
-							input: {
-								groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-								licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
-								date: new Date().toString(),
-							},
+							input: input,
 							successHandler: () => {
 								setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
 								setGlobalSession((state) => ({
 									...state,
 									groups: state.groups.map((group) =>
-										group.id === details.groupId
+										group.id === input.groupId
 											? {
 													...group,
-													numOfUsers: { ...group.numOfUsers, teachers: group.numOfUsers.teachers - details.licenseIds.length, admins: group.numOfUsers.admins + details.licenseIds.length },
+													numOfUsers: { ...group.numOfUsers, teachers: group.numOfUsers.teachers - input.licenseIds.length, admins: group.numOfUsers.admins + input.licenseIds.length },
 											  }
 											: group
 									),
@@ -81,45 +83,50 @@ const ManageGroup = ({ role }) => {
 					}}
 				/>
 			),
-		(key, data, selectedRowIds) => (
-			<TertiaryButton
-				key={key}
-				mainLabel="Remove"
-				className={classes.removeBtn}
-				iconLeft={<i className="material-icons-outlined">person_remove</i>}
-				onClick={async () => {
-					await post({
-						route: "/api/groups/remove-users",
-						input: {
+		(key, data, selectedRowIds) =>
+			(globalSession.groups[globalSession.recentGroups[0]].role === "admin" || (globalSession.groups[globalSession.recentGroups[0]].role === "teacher" && role === "student")) && (
+				<TertiaryButton
+					key={key}
+					mainLabel="Remove"
+					className={`${classes.btn} ${classes.removeBtn}`}
+					iconLeft={<i className="material-icons-outlined">person_remove</i>}
+					onClick={async () => {
+						const input = {
 							groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
 							date: new Date().toString(),
-						},
-						successHandler: () => {
-							setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
-							setGlobalSession((state) => ({
-								...state,
-								groups: state.groups.map((group) =>
-									group.id === details.groupId ? { ...group, numOfUsers: { ...group.numOfUsers, [role]: group.numOfUsers[role] - details.licenseIds.length } } : group
-								),
-							}));
-						},
-					});
-				}}
-			/>
-		),
+							role,
+						};
+						await post({
+							route: "/api/groups/remove-users",
+							input: input,
+							successHandler: () => {
+								setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
+								setGlobalSession((state) => ({
+									...state,
+									groups: state.groups.map((group) =>
+										group.id === input.groupId ? { ...group, numOfUsers: { ...group.numOfUsers, [role]: group.numOfUsers[role] - input.licenseIds.length } } : group
+									),
+								}));
+							},
+						});
+					}}
+				/>
+			),
 	];
 
 	return (
 		<div className={classes.manageGroup}>
 			<Head>
 				<title>
-					Manage {role}s • {globalSession.groups[globalSession.recentGroups[0]].name} | CreateBase
+					{role.charAt(0).toUpperCase()}
+					{role.slice(1)}s • {globalSession.groups[globalSession.recentGroups[0]].name} | CreateBase
 				</title>
 				<meta name="description" content="Log into your CreateBase account" />
 			</Head>
 			<h2 ref={ref} className={classes.header}>
-				Manage {role}s
+				{role}s
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} />
 				<HeaderToggle />
 			</h2>

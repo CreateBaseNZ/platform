@@ -16,7 +16,7 @@ const PageNav = ({ pageIndex, gotoPage, previousPage, canPreviousPage, nextPage,
 				last_page
 			</i>
 			<div className={classes.results}>
-				Page {pageIndex + 1} of {length}
+				Page {pageIndex + 1} of {length || 1}
 			</div>
 		</div>
 	);

@@ -1,7 +1,9 @@
+import router from "next/router";
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
+import { install } from "resize-observer";
 
-const useUnity = ({ scenePrefix, mode, index, project, setLoaded, wip }) => {
+const useUnity = ({ scenePrefix, isImprove, index, project, wip, setLoaded }) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
 			loaderUrl: wip ? `/${project}/unity-build/Build.loader.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.loader.js`,
@@ -20,6 +22,13 @@ const useUnity = ({ scenePrefix, mode, index, project, setLoaded, wip }) => {
 	const [gameState, setGameState] = useState();
 
 	useEffect(() => {
+		const canvas = document.createElement("canvas");
+		// Get WebGLRenderingContext from canvas element.
+		const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+		if (!gl || !(gl instanceof WebGLRenderingContext)) {
+			return router.push("/unsupported");
+		}
+		install();
 		unityContext.on("GetSensorData", (sensorData) => {
 			setSensorData(sensorData);
 		});
@@ -28,13 +37,15 @@ const useUnity = ({ scenePrefix, mode, index, project, setLoaded, wip }) => {
 		});
 	}, []);
 
-	const sceneName = mode ? `${scenePrefix}_${index},${mode}` : `${scenePrefix}_${index}`;
+	const sceneName = isImprove ? `${scenePrefix}_${index},improve` : `${scenePrefix}_${index}`;
 
 	useEffect(() => {
+		console.log("loading");
 		unityContext.on("loaded", () => {
 			setTimeout(() => {
 				unityContext.send("SceneController", "LoadScene", sceneName);
 				setTimeout(() => {
+					console.log("true state");
 					setLoaded(true);
 				}, 50);
 			}, 100);
@@ -44,7 +55,6 @@ const useUnity = ({ scenePrefix, mode, index, project, setLoaded, wip }) => {
 	useEffect(() => {
 		return () => {
 			unityContext.removeAllEventListeners();
-			setLoaded(true);
 		};
 	}, []);
 

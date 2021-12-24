@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 import classes from "./Img.module.scss";
 
-const Img = ({ style, ...rest }) => {
+const Img = ({ style, label, ...rest }) => {
 	const ref = useRef();
 	const [loaded, setLoaded] = useState(false);
 
@@ -20,6 +20,7 @@ const Img = ({ style, ...rest }) => {
 	return (
 		<div ref={ref} className={`${classes.wrapper} ${loaded ? classes.loaded : ""}`} style={{ ...style, position: "relative" }}>
 			<Image onLoadingComplete={loadingCompleteHandler} {...rest} />
+			{label && <label>{label}</label>}
 		</div>
 	);
 };

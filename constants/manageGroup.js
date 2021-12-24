@@ -19,7 +19,10 @@ export const SCHOOL_TABS = {
 		{ title: "Teachers", name: "teachers", icon: "school", pathname: "/manage-group/teachers" },
 		{ title: "Admins", name: "admin", icon: "verified_user", pathname: "/manage-group/admins" },
 	],
-	teacher: [{ title: "Students", name: "students", icon: "backpack", pathname: "/manage-group/students" }],
+	teacher: [
+		{ title: "Students", name: "students", icon: "backpack", pathname: "/manage-group/students" },
+		{ title: "Teachers", name: "teachers", icon: "school", pathname: "/manage-group/teachers" },
+	],
 };
 
 export const COLUMNS = [

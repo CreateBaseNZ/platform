@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import GlobalSessionContext from "../../../store/global-session-context";
 import useApi from "../../../hooks/useApi";
 import useClass from "../../../hooks/useClass";
 import AddModal from "../../../components/Classes/ManageMembers/AddModal";
@@ -9,15 +10,17 @@ import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import { PrimaryButton, TertiaryButton } from "../../../components/UI/Buttons";
 import Table from "../../../components/UI/Table/Table";
 import CLASSES_TABS from "../../../constants/classesConstants";
+import SkeletonTable from "../../../components/UI/SkeletonTable";
 import { MANAGE_MEMBERS_COLUMNS, MANAGE_MEMBERS_SIZES } from "../../../constants/classesConstants";
 
 import classes from "../../../styles/classManageMembers.module.scss";
 
 const ClassesManage = () => {
 	const ref = useRef();
-	const post = useApi();
+	const { post } = useApi();
 	const { classObject, setClassObject, classLoaded } = useClass();
 	const [showAddModal, setShowAddModal] = useState(false);
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	const renderBtns = [
 		(key, data, selectedRowIds) => (
@@ -28,6 +31,7 @@ const ClassesManage = () => {
 						route: "/api/classes/remove-users",
 						input: {
 							classId: classObject.id,
+							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
 							date: new Date().toString(),
 						},
@@ -43,8 +47,6 @@ const ClassesManage = () => {
 		),
 	];
 
-	if (!classLoaded) return null;
-
 	return (
 		<div className={classes.view} ref={ref}>
 			<Head>
@@ -55,7 +57,7 @@ const ClassesManage = () => {
 				Manage Members
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} /> <HeaderToggle />
 			</h1>
-			<Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} />
+			{classLoaded ? <Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} /> : <SkeletonTable />}
 			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} setClassObject={setClassObject} />}
 		</div>
 	);

@@ -16,7 +16,7 @@ const ClassJoin = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [queriedClasses, setQueriedClasses] = useState([]);
 	const { globalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { register, handleSubmit, watch } = useForm({ mode: "onTouched" });
 	const queryValue = watch("searchQuery");
@@ -32,15 +32,15 @@ const ClassJoin = () => {
 		});
 	}, []);
 
-	const onSubmit = async (inputs) => {
+	const onSubmit = async (inputValues) => {
 		setIsLoading(true);
-		if (!inputs.classId) {
+		if (!inputValues.classId) {
 			return setIsLoading(false);
 		}
 		await post({
 			route: "/api/classes/join",
 			input: {
-				classId: inputs.classId,
+				classId: inputValues.classId,
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				role: globalSession.groups[globalSession.recentGroups[0]].role,
 				date: new Date().toString(),

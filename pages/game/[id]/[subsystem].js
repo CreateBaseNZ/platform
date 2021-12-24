@@ -5,20 +5,18 @@ import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import Game from "../../../components/Game/Game";
 import getProjectData from "../../../utils/getProjectData";
-
-// TODO re integrate loading screen
-const setLoaded = () => {};
+import LoadingScreen from "../../../components/UI/LoadingScreen";
 
 const SubsystemGame = () => {
 	const router = useRouter();
 	const [data, setData] = useState();
-	const [subsystemIndex, setSubsystemIndex] = useState();
+	const [subsystemIndex, setSubsystemIndex] = useState(null);
 	const mp = useMixpanel();
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
 		mp.init();
-		const clearSession = mp.trackActiveSession("game_create", {
+		const clearSession = mp.trackActiveSession("code_create_time", {
 			licenses: globalSession.groups.map((group) => group.licenseId),
 			schools: globalSession.groups.map((group) => group.id),
 			project: router.query.id,
@@ -26,9 +24,8 @@ const SubsystemGame = () => {
 		});
 		return () => {
 			clearSession();
-			setLoaded(false);
 		};
-	}, []);
+	}, [globalSession.loaded]);
 
 	useEffect(() => {
 		if (router.isReady) {
@@ -36,11 +33,13 @@ const SubsystemGame = () => {
 				const _data = getProjectData(router.query.id);
 				setData(_data);
 				setSubsystemIndex(_data.subsystems.findIndex((subsystem) => subsystem.title === router.query.subsystem));
+			} else {
+				router.replace("/404");
 			}
 		}
 	}, [router.isReady, router.query.id]);
 
-	if (!data || subsystemIndex === null) return null;
+	if (!data || subsystemIndex === null) return <LoadingScreen />;
 
 	return (
 		<>
@@ -50,9 +49,11 @@ const SubsystemGame = () => {
 				</title>
 				<meta name="description" content="CreateBase" />
 			</Head>
-			<Game setLoaded={setLoaded} project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
+			<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
 		</>
 	);
 };
 
 export default SubsystemGame;
+
+SubsystemGame.auth = "user";

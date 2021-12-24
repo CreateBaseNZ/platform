@@ -15,7 +15,7 @@ const JoinSchoolTeacher = () => {
 	const [hasRequested, setHasRequested] = useState(false);
 	const [queryDropdown, setQueryDropdown] = useState({ show: false, groups: null, selectedId: "" });
 	const { setVisualBell } = useContext(VisualBellContext);
-	const post = useApi();
+	const { post } = useApi();
 	const {
 		register,
 		handleSubmit,
@@ -54,7 +54,15 @@ const JoinSchoolTeacher = () => {
 		setQueryDropdown((state) => ({ ...state, show: false, selectedId: group.id }));
 	};
 
-	const onTeacherSubmit = async (inputs) => {
+	const onTeacherSubmit = async (inputValues) => {
+		if (!queryDropdown.selectedId) {
+			setError("name", {
+				type: "manual",
+				message: "Please select a school",
+			});
+			setQueryDropdown((state) => ({ ...state, show: false }));
+			return;
+		}
 		setIsLoading(true);
 		await post({
 			route: "/api/groups/join-school-teacher",
@@ -62,7 +70,7 @@ const JoinSchoolTeacher = () => {
 				profileId: globalSession.profileId,
 				schoolId: queryDropdown.selectedId,
 				alias: `${globalSession.firstName} ${globalSession.lastName}`,
-				message: inputs.message,
+				message: inputValues.message,
 				date: new Date().toString(),
 			},
 			failHandler: (data) => {
@@ -107,7 +115,14 @@ const JoinSchoolTeacher = () => {
 					className={`${classes.input} ${queryDropdown.selectedId ? classes.validInput : ""}`}
 					label="School name*"
 					labelProps={{ className: classes.inputLabel }}
-					inputProps={{ placeholder: "Search for your school", type: "text", maxLength: 254, ...register("name", { required: "Please select a school" }), onChange: onSearch, autoComplete: "off" }}
+					inputProps={{
+						placeholder: "Search for your school",
+						type: "text",
+						maxLength: 254,
+						...register("name", { required: "Please select a school" }),
+						onChange: onSearch,
+						autoComplete: "off",
+					}}
 					error={errors.name}
 				/>
 				{queryDropdown.selectedId && <i className={`material-icons-outlined ${classes.validTick}`}>check_circle</i>}
@@ -135,7 +150,12 @@ const JoinSchoolTeacher = () => {
 					className={classes.input}
 					label="Message"
 					labelProps={{ className: classes.inputLabel }}
-					inputProps={{ placeholder: "Send a message with your join request", type: "text", maxLength: 500, ...register("message") }}
+					inputProps={{
+						placeholder: "Send a message with your join request",
+						type: "text",
+						maxLength: 500,
+						...register("message", { maxLength: { value: 500, message: "Exceeded 500 character limit" } }),
+					}}
 					error={errors.message}
 				/>
 			)}

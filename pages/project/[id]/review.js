@@ -26,7 +26,7 @@ const Review = () => {
 			</Head>
 			<div className={classes.imgContainer}>
 				<div className={classes.imgWrapper}>
-					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/review.svg" layout="fill" objectFit="contain" />
+					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/project-pages/review.svg" layout="fill" objectFit="contain" label="Illustration by Storyset" />
 				</div>
 				<div className={classes.caption}>
 					Share your thoughts and ideas with your friends and teacher. How did everything go? Were you able to complete all the challenges? How did you overcome any problems?

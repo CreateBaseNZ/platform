@@ -1,15 +1,20 @@
+import Link from "next/link";
 import router from "next/router";
 import STEPS from "../../../constants/projectSteps";
 import classes from "./ProjectLayout.module.scss";
 
 const ProjectLayout = ({ children, activeStep }) => {
+	console.log(router);
+
 	return (
 		<div className={classes.projectView}>
 			<div className={classes.tabContainer}>
-				<button className={classes.backBtn} onClick={() => router.push("/browse")} title="Back to Browse">
-					<i className="material-icons-outlined">arrow_back_ios</i>
-					Browse
-				</button>
+				<Link href={{ pathname: "/browse/[project]", query: { project: router.query.id } }}>
+					<a className={classes.backBtn} title="Back to Browse">
+						<i className="material-icons-outlined">arrow_back_ios</i>
+						Browse
+					</a>
+				</Link>
 				{STEPS.map((step) => (
 					<button
 						key={step.name}

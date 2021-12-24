@@ -27,7 +27,12 @@ export default {
 	difficulty: "proficient",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
 	learningOutcome: "/send-it/project_overview.pdf",
-	curriculumAlignment: "/send-it/curriculum_standards.pdf",
+	cads: {
+		nz: "/send-it/cads/020802AC Curriculum Alignment - Send It - NZ.pdf",
+		aus: "/send-it/cads/020802AC Curriculum Alignment - Send It - ACARA.pdf",
+		cali: "/send-it/cads/020802AC Curriculum Alignment - Send It - California.pdf",
+		uk: "/send-it/cads/020802AC Curriculum Alignment - Send It - England.pdf",
+	},
 	lessonPlan: "/send-it/files/lesson-plan-send-it.pdf",
 	learnings: [
 		"Formalise the logic occurring in their head into logical code to allow them to automate a task they would normally do manually.",
@@ -36,55 +41,96 @@ export default {
 		"Read and act on sensor data using the Flow editor.",
 	],
 	define: {
+		threshold: 60,
 		url: "https://youtu.be/wB53GoLXzME",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
 		title: "Send It",
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
-		word: "/send-it/files/learning-journal.docx",
+		word: "/send-it/files/learning-journal-send-it.docx",
 	},
 	imagine: {
+		threshold: 600,
 		caption: [
-			"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of these cards with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second card as well!",
+			"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of the first five modules below with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second module as well!",
 			"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
 		],
 		modules: [
 			{
+				type: "pdf",
 				title: "Vehicular Delivery",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/types-0.png",
 				url: "/send-it/pdf/delivery.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Your Robot has Mail",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/mail-2.png",
 				url: "/send-it/pdf/mail.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Controlling a Robot",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-1.png",
 				url: "/send-it/pdf/controlling.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Sensing Sensors",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-0.png",
 				url: "/send-it/pdf/sensors.pdf",
 			},
 			{
+				type: "pdf",
 				title: "Automation & Ethics",
 				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
 				url: "/send-it/pdf/ethics.pdf",
+			},
+			{
+				type: "tut",
+				title: "How to Send It",
+				items: [
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-1.mp4",
+						subtitle: <p>Run 1000m to deliver the Pizza</p>,
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-2.mp4",
+						subtitle: (
+							<p>
+								Jump over obstacles to avoid crashing into them
+								<span className="material-icons-outlined">arrow_upward</span>
+							</p>
+						),
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-3.mp4",
+						subtitle: (
+							<p>
+								Crouch under flying obstacles to avoid crashing into them
+								<span className="material-icons-outlined">arrow_downward</span>
+							</p>
+						),
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-4.mp4",
+						subtitle: <p>Change the simulation speed to allow more time for your code to react</p>,
+					},
+				],
 			},
 		],
 	},
 	subsystems: [
 		{
-			title: "TODO",
-			requirements: ["TODO"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png", // TODO
-			description: "Lorem ipsum dolor sit amet. Et sint illo vel nulla eligendi et repudiandae quia est architecto error et quia asperiores sed natus molestiae est enim rerum", // TODO
+			title: "Obstacle avoidance",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
+			description:
+				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
 			research: {
-				caption: ["Work through the five modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				threshold: 600,
+				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "video",
@@ -108,52 +154,24 @@ export default {
 						url: "/sensing-blocks.pdf",
 					},
 					{
-						type: "tut",
-						title: "How to Send It",
-						items: [
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-1.mp4",
-								subtitle: <p>Run 1000m to deliver the Pizza</p>,
-							},
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-2.mp4",
-								subtitle: (
-									<p>
-										Jump over obstacles to avoid crashing into them
-										<span className="material-icons-outlined">arrow_upward</span>
-									</p>
-								),
-							},
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-3.mp4",
-								subtitle: (
-									<p>
-										Crouch under flying obstacles to avoid crashing into them
-										<span className="material-icons-outlined">arrow_downward</span>
-									</p>
-								),
-							},
-							{
-								src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-4.mp4",
-								subtitle: <p>Change the simulation speed to allow more time for your code to react</p>,
-							},
-						],
-					},
-					{
 						type: "explore",
 						title: "Explore more",
 						items: [comparisonBoostData, ifBoostData],
 					},
 				],
 			},
-			plan: [
-				"Open up your learning journal and answer all of the questions in the Plan section.",
-				"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 30,
+				list: [
+					"Open up your learning journal and answer all of the questions in the Plan section.",
+					"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 1200,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
-				hints: ["Make sure that you hit the compile button to upload your code to the robot"],
+				hints: ["Make sure that you hit the compile button to upload your code to the robot each time that you make a change. If you don't compile your latest code, you won't see any changes!"],
 			},
 			blockList: [
 				{
@@ -172,6 +190,7 @@ export default {
 		},
 	],
 	improve: {
+		threshold: 1200,
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert: "Did you beat the game? Uh oh, looks like there’s now some flying drones! And is that acceleration? Different sized obstacles too? Time to rethink your code...",
 		tasks: [
@@ -180,7 +199,7 @@ export default {
 			"Modify your code to jump over obstacles of different sizes",
 			"Deliver that package with the highest score possible",
 		],
-		hints: ["Rather than trying to do solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all"],
+		hints: ["Rather than trying to solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all"],
 		code: true,
 		blockList: [
 			{

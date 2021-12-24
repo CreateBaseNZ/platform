@@ -9,7 +9,7 @@ import Modal from "../../UI/Modal";
 import classes from "./DeleteModal.module.scss";
 
 const DeleteModal = ({ setShow, classObject }) => {
-	const post = useApi();
+	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
 

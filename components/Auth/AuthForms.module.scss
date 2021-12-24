@@ -1,19 +1,5 @@
 @import "/styles/variables";
 
-.authCard {
-	background: white;
-	border-radius: 32px;
-	box-shadow: 0 8px 24px 0 rgba(black, 0.1);
-	display: flex;
-	overflow: hidden;
-	width: 70vw;
-	max-width: 1000px;
-	z-index: 1;
-	&.verifyMain {
-		width: 500px;
-	}
-}
-
 .form {
 	min-height: 500px;
 	z-index: 2;
@@ -109,6 +95,22 @@
 	}
 }
 
+.googleAuth {
+	height: 3.5rem;
+	font-size: 16px;
+	flex-shrink: 0;
+	color: $blue-mid;
+	border-color: $blue-mid;
+	img {
+		margin-right: 0.5rem;
+		height: 1rem;
+	}
+	&:hover {
+		color: $blue-dark;
+		border-color: $blue-dark;
+	}
+}
+
 .backToLogin {
 	margin-bottom: 4vh;
 }
@@ -177,6 +179,16 @@
 	margin-top: 2vh;
 }
 
+.switch {
+	margin-top: auto;
+	align-self: center;
+	font-size: 14px;
+	button {
+		font-size: inherit;
+		margin-left: 0.5rem;
+	}
+}
+
 .loginContainer {
 	height: 100%;
 	width: 100%;
@@ -216,11 +228,15 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	h1 {
+		margin-bottom: 2vh;
+	}
 	.input:focus {
 		border-color: $green-mid;
 		background: rgba($green-mid, 0.05);
 	}
 	.submit {
+		margin-top: 2vh;
 		background: $green-mid;
 		box-shadow: 0 4px 16px rgba($green-mid, 0.25);
 		&:hover {
@@ -235,14 +251,19 @@
 			border-color: $red;
 		}
 	}
-	.switch {
-		margin-top: auto;
-		align-self: center;
-		font-size: 14px;
-		button {
-			font-size: inherit;
-			margin-left: 0.5rem;
-		}
+}
+
+.verifyCard {
+	background: white;
+	border-radius: 32px;
+	box-shadow: 0 8px 24px 0 rgba(black, 0.1);
+	display: flex;
+	overflow: hidden;
+	width: 70vw;
+	max-width: 1000px;
+	z-index: 1;
+	&.verifyMain {
+		width: 500px;
 	}
 }
 
@@ -320,5 +341,12 @@
 			border-color: $light;
 			border-top-color: transparent;
 		}
+	}
+	.verifOptions {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		justify-content: space-between;
+		padding: 0 5vw;
 	}
 }

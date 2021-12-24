@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useMixpanel from "../../hooks/useMixpanel";
 import GlobalSessionContext from "../../store/global-session-context";
 import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
@@ -8,10 +9,6 @@ import BrowseLearning from "./BrowseLearning";
 import { SecondaryButton } from "../UI/Buttons";
 
 import classes from "./BrowsePreview.module.scss";
-
-import mixpanel from "mixpanel-browser";
-import tracking from "../../utils/tracking";
-import useMixpanel from "../../hooks/useMixpanel";
 
 const getTabs = (role) => {
 	switch (role) {
@@ -50,7 +47,6 @@ const BrowsePreview = ({ project, role }) => {
 		// 	console.log(data);
 		// };
 		// mp.init();
-		// await mp.read(filters, cb);
 		return () => (ref.current = false);
 	}, []);
 

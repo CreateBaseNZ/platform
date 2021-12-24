@@ -71,7 +71,14 @@ const Improve = () => {
 			</div>
 			<div className={classes.rightContainer}>
 				<div className={classes.imgContainer}>
-					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/improve.svg" layout="responsive" width={1000} height={1000} objectFit="cover" />
+					<Img
+						src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/project-pages/improve.svg"
+						layout="responsive"
+						width={1000}
+						height={1000}
+						objectFit="cover"
+						label="Illustration by Storyset"
+					/>
 				</div>
 				<div className={classes.caption}>{data.improve.caption}</div>
 				<Link href={{ pathname: "/game/[id]/improve", query: { id: router.query.id } }}>

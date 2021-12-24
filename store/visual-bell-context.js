@@ -13,7 +13,7 @@ export const VisualBellContextProvider = (props) => {
 
 	useEffect(() => {
 		if (visualBell.message) {
-			if (timer.current && visualBell.type !== "catastrophe" && visualBell.type !== "warning") {
+			if (timer.current && (visualBell.type === "catastrophe" || visualBell.type === "warning")) {
 				clearTimeout(timer.current);
 			}
 			if (visualBell.type !== "catastrophe" && visualBell.type !== "warning") {

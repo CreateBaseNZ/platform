@@ -5,28 +5,6 @@
 import axios from "axios";
 import randomize from "randomatic";
 
-// TEST OUTPUT ==============================================
-
-const DUMMY_NOTIFICATIONS = [
-	{
-		id: "notificationIdabc123",
-		type: "class-request",
-		params: {
-			class: { id: "classIdabc123", name: "Gummy 101" },
-			group: { id: "groupIdabc123", name: "CreateBase Academy" },
-			user: { accountId: "useraccountIdabc123", profileId: "profileIdabc123", licenseId: "licenseIdabc123", firstName: "Felix", lastName: "Lengyel", email: "fl@gmail.com" },
-		},
-	},
-	{
-		id: "notificationIdabc987",
-		type: "group-request",
-		params: {
-			group: { id: "groupIdabc987", name: "CreateBase University" },
-			user: { accountId: "useraccountIdabc123", profileId: "profileIdabc123", licenseId: "licenseIdabc123", firstName: "Felix", lastName: "Lengyel", email: "fl@gmail.com" },
-		},
-	},
-];
-
 // MAIN =====================================================
 
 export default async function (req, res) {
@@ -35,14 +13,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_NOTIFICATIONS,
-	// 	};
-	// }
 	// Integration Logic
 	let notifications = [];
 	// Fetch the groups associated with this user
@@ -122,12 +92,11 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 						params: {
 							group: { id: group._id, name: group.name },
 							user: {
-								accountId: license.profile.account._id,
 								profileId: license.profile._id,
 								licenseId: license._id,
 								firstName: license.profile.name.first,
 								lastName: license.profile.name.last,
-								email: license.profile.account.email,
+								email: license.profile.account.local ? license.profile.account.local.email : license.profile.account.google.email,
 							},
 							message: license.metadata.requestMessage,
 						},
@@ -150,12 +119,11 @@ function groupRequestNotifications(groups, licenses, inputGroups) {
 				params: {
 					group: { id: group._id, name: group.name },
 					user: {
-						accountId: license.profile.account._id,
 						profileId: license.profile._id,
 						licenseId: license._id,
 						firstName: license.profile.name.first,
 						lastName: license.profile.name.last,
-						email: license.profile.account.email,
+						email: license.profile.account.local ? license.profile.account.local.email : license.profile.account.google.email,
 					},
 					message: license.metadata.inviteMessage,
 				},
@@ -185,12 +153,11 @@ function classRequestNotifications(group, licenses, inputGroups) {
 						class: { id: instance._id, name: instance.name },
 						group: { id: group._id, name: group.name },
 						user: {
-							accountId: license.profile.account._id,
 							profileId: license.profile._id,
 							licenseId: license._id,
 							firstName: license.profile.name.first,
 							lastName: license.profile.name.last,
-							email: license.profile.account.email,
+							email: license.profile.account.local ? license.profile.account.local.email : license.profile.account.google.email,
 						},
 						message: "",
 					},

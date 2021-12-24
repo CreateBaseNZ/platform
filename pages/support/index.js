@@ -1,6 +1,7 @@
-import Head from "next/head";
 import { Fragment, useContext, useEffect, useRef, useState } from "react";
+import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import Fuse from "fuse.js";
 import GlobalSessionContext from "../../store/global-session-context";
@@ -11,7 +12,6 @@ import UserCard from "../../components/Support/UserCard";
 
 import SUPPORT_DATA from "../../data/support-data";
 import classes from "../../styles/support.module.scss";
-import { useRouter } from "next/router";
 
 const FUSE_DATA = Object.keys(SUPPORT_DATA)
 	.map((key) =>

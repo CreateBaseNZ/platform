@@ -9,13 +9,13 @@ import MyAccountLayout from "../../components/Layouts/MyAccountLayout/MyAccountL
 import Input from "../../components/UI/Input";
 import UserAvatar from "../../components/UI/UserAvatar";
 import { PrimaryButton } from "../../components/UI/Buttons";
-import { namePattern, isBlacklisted, emailPattern } from "../../utils/formValidation";
+import { namePattern, isBlacklisted, emailPattern, nameValidation, nameMaxLength, nameMinLength } from "../../utils/formValidation";
 
 import classes from "../../styles/myAccount.module.scss";
 
 const MyProfile = () => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const {
@@ -33,17 +33,17 @@ const MyProfile = () => {
 		mode: "onTouched",
 	});
 
-	const onSubmit = async (inputs) => {
+	const onSubmit = async (inputValues) => {
 		setIsLoading(true);
 		let frontendError = false;
-		if (isBlacklisted(inputs.firstName)) {
+		if (isBlacklisted(inputValues.firstName)) {
 			setError("firstName", {
 				type: "manual",
 				message: "First name contains disallowed words",
 			});
 			frontendError = true;
 		}
-		if (isBlacklisted(inputs.lastName)) {
+		if (isBlacklisted(inputValues.lastName)) {
 			setError("lastName", {
 				type: "manual",
 				message: "Last name contains disallowed words",
@@ -55,15 +55,15 @@ const MyProfile = () => {
 		}
 		await post({
 			route: "/api/profile/update-profile",
-			input: { ...inputs, date: new Date().toString(), profileId: globalSession.profileId },
+			input: { ...inputValues, date: new Date().toString(), profileId: globalSession.profileId },
 			successHandler: () => {
-				setGlobalSession((state) => ({ ...state, ...inputs }));
+				setGlobalSession((state) => ({ ...state, ...inputValues }));
 				setVisualBell({
 					type: "success",
 					message: "Your profile has been updated",
 				});
 				setIsLoading(false);
-				reset(inputs);
+				reset(inputValues);
 			},
 		});
 	};
@@ -97,10 +97,13 @@ const MyProfile = () => {
 								label="First name*"
 								inputProps={{
 									type: "text",
-									maxLength: 254,
+									maxLength: 50,
 									...register("firstName", {
 										required: "Please enter your first name",
 										pattern: namePattern,
+										validate: nameValidation,
+										maxLength: nameMaxLength,
+										minLength: nameMinLength,
 									}),
 								}}
 								error={errors.firstName}
@@ -110,10 +113,13 @@ const MyProfile = () => {
 								label="Last name*"
 								inputProps={{
 									type: "text",
-									maxLength: 254,
+									maxLength: 50,
 									...register("lastName", {
 										required: "Please enter your last name",
 										pattern: namePattern,
+										validate: nameValidation,
+										maxLength: nameMaxLength,
+										minLength: nameMinLength,
 									}),
 								}}
 								error={errors.lastName}

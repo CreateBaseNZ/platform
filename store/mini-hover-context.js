@@ -1,76 +1,28 @@
-import { useState, useRef, createContext, useMemo } from "react";
+import { useState, createContext, useMemo } from "react";
 
 const MiniHoverContext = createContext({
-  activeNode: null,
-  mouseEnterHandler: () => {},
-  mouseLeaveHandler: () => {},
-  clearNow: () => {},
+	activeNode: null,
+	mouseEnterHandler: () => {},
+	mouseLeaveHandler: () => {},
 });
 
 export default MiniHoverContext;
 
 export const MiniHoverContextProvider = (props) => {
-  const [activeNode, setActiveNode] = useState();
-  const [sticky, setSticky] = useState(false);
-  const activeNodeTimer = useRef(null);
-  const clearTimer = useRef(null);
+	const [activeNode, setActiveNode] = useState();
 
-  const setAfterDelay = (nodeType, block) => {
-    activeNodeTimer.current = setTimeout(() => {
-      setActiveNode({ nodeType: nodeType, block: block });
-      setSticky(true);
-      activeNodeTimer.current = null;
-    }, 500);
-  };
+	const mouseEnterHandler = (nodeType, block) => setActiveNode({ nodeType, block });
 
-  const setNow = (nodeType, block) => {
-    setActiveNode({ nodeType: nodeType, block: block });
-    setSticky(true);
-    clearTimeout(clearTimer.current);
-  };
+	const mouseLeaveHandler = () => setActiveNode(null);
 
-  const clearAfterDelay = () => {
-    clearTimer.current = setTimeout(() => {
-      setActiveNode(null);
-      setSticky(false);
-    }, 200);
-  };
+	const value = useMemo(
+		() => ({
+			activeNode: activeNode,
+			mouseEnterHandler: mouseEnterHandler,
+			mouseLeaveHandler: mouseLeaveHandler,
+		}),
+		[activeNode]
+	);
 
-  const clearNow = () => {
-    clearTimeout(activeNodeTimer.current);
-    setActiveNode(null);
-    setSticky(false);
-  };
-
-  const mouseEnterHandler = (nodeType, block) => {
-    if (sticky) {
-      setNow(nodeType, block);
-    } else {
-      setAfterDelay(nodeType, block);
-    }
-  };
-
-  const mouseLeaveHandler = () => {
-    if (activeNodeTimer.current) {
-      clearNow();
-    } else {
-      clearAfterDelay();
-    }
-  };
-
-  const value = useMemo(
-    () => ({
-      activeNode: activeNode,
-      mouseEnterHandler: mouseEnterHandler,
-      mouseLeaveHandler: mouseLeaveHandler,
-      clearNow: clearNow,
-    }),
-    [activeNode]
-  );
-
-  return (
-    <MiniHoverContext.Provider value={value}>
-      {props.children}
-    </MiniHoverContext.Provider>
-  );
+	return <MiniHoverContext.Provider value={value}>{props.children}</MiniHoverContext.Provider>;
 };

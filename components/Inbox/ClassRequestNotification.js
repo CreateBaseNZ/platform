@@ -1,21 +1,15 @@
-import { useContext } from "react";
 import useApi from "../../hooks/useApi";
-import GlobalSessionContext from "../../store/global-session-context";
 import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
 import classes from "./Notification.module.scss";
 
 const ClassRequestNotification = ({ notification, setNotifications }) => {
-	const { setGlobalSession } = useContext(GlobalSessionContext);
-	const post = useApi();
+	const { post } = useApi();
 
 	const approveHandler = async () => {
 		await post({
 			route: "/api/classes/approve-student",
 			input: { licenseId: notification.params.user.licenseId, classId: notification.params.class.id },
-			successHandler: () => {
-				setNotifications((state) => state.filter((notif) => notif.id !== notification.id));
-				setGlobalSession((state) => ({ ...state, numOfNotifications: state.numOfNotifications - 1 }));
-			},
+			successHandler: () => setNotifications((state) => state.filter((notif) => notif.id !== notification.id)),
 		});
 	};
 
@@ -23,10 +17,7 @@ const ClassRequestNotification = ({ notification, setNotifications }) => {
 		await post({
 			route: "/api/classes/deny-student",
 			input: { licenseId: notification.params.user.licenseId, classId: notification.params.class.id, date: new Date().toString() },
-			successHandler: () => {
-				setNotifications((state) => state.filter((notif) => notif.id !== notification.id));
-				setGlobalSession((state) => ({ ...state, numOfNotifications: state.numOfNotifications - 1 }));
-			},
+			successHandler: () => setNotifications((state) => state.filter((notif) => notif.id !== notification.id)),
 		});
 	};
 

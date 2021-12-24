@@ -3,7 +3,7 @@ import Link from "next/link";
 import router from "next/router";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
-import { PrimaryButton, SecondaryButton, TertiaryButton } from "../UI/Buttons";
+import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import classes from "./AuthForms.module.scss";
 
@@ -46,32 +46,12 @@ export const LoginForm = () => {
 	const onSubmit = async (input) => {
 		setIsLoading(true);
 		window.localStorage.setItem("createbase__remember-me", input.email);
-		const result = await signIn("credentials", {
-			// redirect: false,
+		await signIn("credentials", {
 			user: input.email,
 			password: input.password,
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
 			callbackUrl: router.query.callbackUrl,
 		});
-		// if (result.error) {
-		// 	const error = JSON.parse(result.error);
-		// 	if (error.status === "failed") {
-		// 		if (error.content.account === "does not exist") {
-		// 			setError("email", {
-		// 				type: "manual",
-		// 				message: "No accounts registered with this email",
-		// 			});
-		// 		} else if (error.content.password === "incorrect") {
-		// 			setError("password", {
-		// 				type: "manual",
-		// 				message: "Incorrect password",
-		// 			});
-		// 		}
-		// 		setIsLoading(false);
-		// 	} else {
-		// 		return router.push("/404");
-		// 	}
-		// }
 	};
 
 	return (
@@ -79,8 +59,8 @@ export const LoginForm = () => {
 			<form className={`${classes.form} ${classes.loginForm}`} onSubmit={handleSubmit(onSubmit)}>
 				<h1>Log in to your account</h1>
 				<Input
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						placeholder: "Email*",
 						type: "text",
 						maxLength: 254,
@@ -91,8 +71,8 @@ export const LoginForm = () => {
 					error={errors.email}
 				/>
 				<PasswordInput
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						placeholder: "Password*",
 						...register("password", {
 							required: "Please enter your password",
@@ -100,7 +80,6 @@ export const LoginForm = () => {
 					}}
 					error={errors.password}
 				/>
-				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Logging you in ..." mainLabel="Log In" />
 				<div className={classes.options}>
 					<div className={classes.smallCheckbox}>
 						<input type="checkbox" {...register("remember")} />
@@ -113,14 +92,25 @@ export const LoginForm = () => {
 						<a className={`${classes.smallFont} ${classes.linkBtn}`}>Forgot your password?</a>
 					</Link>
 				</div>
+				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Logging you in" mainLabel="Log In" />
+				<div className={classes.smallFont} style={{ margin: "2vh 0", alignSelf: "center" }}>
+					Or
+				</div>
+				<SecondaryButton
+					className={classes.googleAuth}
+					type="button"
+					loadingLabel="Loading Google auth"
+					mainLabel="Log in with Google"
+					onClick={() => signIn("google")}
+					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/google.svg" />}
+				/>
 			</form>
-			<TertiaryButton
-				className={classes.secondaryBtn}
-				isDisabled={isLoading}
-				type="button"
-				mainLabel="Create an Account"
-				onClick={() => router.replace({ pathname: "/auth/signup", query: router.query })}
-			/>
+			<div className={`${classes.smallFont} ${classes.switch}`}>
+				Don't have an account?{" "}
+				<Link href="/auth/signup">
+					<a className={classes.linkBtn}>Sign up for free</a>
+				</Link>
+			</div>
 		</div>
 	);
 };

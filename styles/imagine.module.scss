@@ -16,18 +16,3 @@
 	justify-content: center;
 	position: relative;
 }
-
-.loadScreen {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	background: white;
-	transition: none;
-	&.loaded {
-		pointer-events: none;
-		transition: opacity 0.2s ease-out;
-		opacity: 0;
-	}
-}

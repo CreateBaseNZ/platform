@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import useSound from "use-sound";
 import html2canvas from "html2canvas";
-import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import { ReactFlowProvider } from "react-flow-renderer";
+import { MiniHoverContextProvider } from "../../store/mini-hover-context";
 import HistoryItem from "./HistoryItem";
 import {
 	comparisonBoostLvl1Item,
@@ -19,9 +19,8 @@ import {
 	whileBoostLvl3Item,
 	whileBoostLvl4Item,
 } from "../../utils/boostQs";
-
-import classes from "./Boost.module.scss";
 import LevelModal from "./LevelModal";
+import classes from "./Boost.module.scss";
 
 const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
@@ -40,14 +39,12 @@ const getColour = (mode) => {
 	}
 };
 
-const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
+const Boost = ({ mode, loadLevel = 0 }) => {
 	const router = useRouter();
 	const histWrapperRef = useRef();
 	const histEndRef = useRef();
-	const flowVisualBellTimer = useRef(null);
 	const [elements, setElements] = useState([]);
 	const [activeQ, setActiveQ] = useState({ q: "", o: [], a: "" });
-	const [flowVisualBell, setFlowVisualBell] = useState({ message: "", switch: false });
 	const [flash, setFlash] = useState("");
 	const [level, setLevel] = useState(loadLevel);
 	const [history, setHistory] = useState({
@@ -72,15 +69,6 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 	const [playInCorrect] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/incorrect.mp3", {
 		volume: volume.curr,
 	});
-
-	// useEffect(() => setLoaded(true), []);
-
-	useEffect(() => {
-		if (flowVisualBell.message) {
-			clearTimeout(flowVisualBellTimer.current);
-			flowVisualBellTimer.current = setTimeout(() => setFlowVisualBell((state) => ({ message: "", switch: state.switch })), [5000]);
-		}
-	}, [flowVisualBell.switch]);
 
 	useEffect(() => {
 		generateItem(mode, level);
@@ -281,7 +269,7 @@ const Boost = ({ mode, setLoaded, loadLevel = 0 }) => {
 				<div className={classes.flowWrapper}>
 					<MiniHoverContextProvider>
 						<ReactFlowProvider>
-							<FlowEditor show={true} frozen={true} elements={elements} setElements={setElements} flowVisualBell={flowVisualBell} setFlowVisualBell={setFlowVisualBell} />
+							<FlowEditor show={true} isReadOnly={true} elements={elements} setElements={setElements} />
 						</ReactFlowProvider>
 					</MiniHoverContextProvider>
 				</div>

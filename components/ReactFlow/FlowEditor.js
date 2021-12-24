@@ -1,6 +1,15 @@
 import React, { useRef, useState, useCallback, useEffect, memo, useContext } from "react";
+import html2canvas from "html2canvas";
 import ReactFlow, { removeElements, addEdge, updateEdge, Background, isEdge, isNode, useZoomPanHelper, useStoreState, useStoreActions } from "react-flow-renderer";
-import { nodeTypes, edgeTypes, tooltips, controlTitles, initialElements } from "../../utils/flowConfig";
+import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
+import useApi from "../../hooks/useApi";
+import GlobalSessionContext from "../../store/global-session-context";
+import ConsoleContext from "../../store/console-context";
+import FlowVisualBell from "./FlowVisualBell";
+import MiniHover from "./MiniHover";
+import ClientOnlyPortal from "../UI/ClientOnlyPortal";
+import DndBar from "./DndBar";
+import ControlsBar from "./ControlsBar";
 import {
 	flashLockIcon,
 	getDefaultValues,
@@ -13,26 +22,19 @@ import {
 	saveAs,
 	updateConnections,
 } from "../../utils/flowHelpers";
-import html2canvas from "html2canvas";
-
-import DndBar from "./DndBar";
-import ControlsBar from "./ControlsBar";
+import { nodeTypes, edgeTypes, controlTitles, initialElements } from "../../utils/flowConfig";
 
 import classes from "./FlowEditor.module.scss";
-import MiniHoverContext from "../../store/mini-hover-context";
-import { NodeContextMenu, PaneContextMenu } from "./FlowContextMenu";
-import ConsoleContext from "../../store/console-context";
-
-import ClientOnlyPortal from "../UI/ClientOnlyPortal";
-import FlowVisualBell from "./FlowVisualBell";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, flowVisualBell, setFlowVisualBell }) => {
+const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, setElements }) => {
 	const wrapperRef = useRef(null);
+	const flowVisualBellTimer = useRef(null);
+	const { globalSession } = useContext(GlobalSessionContext);
 	const consoleCtx = useContext(ConsoleContext);
-	const miniHoverCtx = useContext(MiniHoverContext);
+	const [flowVisualBell, setFlowVisualBell] = useState({});
 	const [reactFlowInstance, setReactFlowInstance] = useState({});
 	const [actionStack, setActionStack] = useState({
 		stack: [],
@@ -40,7 +42,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 	});
 	const [systemAction, setSystemAction] = useState(false);
 	const [clipBoard, setClipBoard] = useState();
-	const [flowLocked, setFlowLocked] = useState(frozen);
+	const [flowLocked, setFlowLocked] = useState(isReadOnly);
 	const [nodeCtxMenu, setNodeCtxMenu] = useState({
 		show: false,
 		x: 0,
@@ -57,11 +59,61 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 	const setSelectedElements = useStoreActions((actions) => actions.setSelectedElements);
 	const selectedElements = useStoreState((store) => store.selectedElements);
 	const [x, y, zoom] = useStoreState((state) => state.transform);
+	const { post } = useApi();
 
 	const allowUndo = actionStack.currentIndex !== 0;
 	const allowRedo = actionStack.currentIndex + 1 !== actionStack.stack.length;
 
-	console.log(elements);
+	const _setFlowVisualBell = (message) => setFlowVisualBell({ message, key: Date.now() });
+
+	const loadFlow = async (callback = () => {}) => {
+		let savedEls;
+		await post({
+			route: "/api/profile/read-saves",
+			input: { profileId: globalSession.profileId, properties: [saveName] },
+			successHandler: (data) => data.content[saveName] && (savedEls = JSON.parse(data.content[saveName])),
+		});
+		if (savedEls) {
+			const restoredEls = savedEls.map((savedEl) => {
+				if (isNode(savedEl)) {
+					const idNum = parseInt(savedEl.id.split("_")[1]);
+					if (!isNaN(idNum) && idNum >= id) {
+						id = idNum + 1;
+					}
+					return {
+						...savedEl,
+						data: {
+							...savedEl.data,
+							callBack: (newValues, thisId) => {
+								setElements((els) =>
+									els.map((thisEl) => {
+										if (thisEl.id === thisId) {
+											thisEl.data = {
+												...thisEl.data,
+												values: newValues,
+											};
+										}
+										return thisEl;
+									})
+								);
+							},
+						},
+					};
+				} else {
+					return savedEl;
+				}
+			});
+			setElements(restoredEls);
+			callback();
+		}
+	};
+
+	useEffect(() => {
+		if (flowVisualBell.message) {
+			clearTimeout(flowVisualBellTimer.current);
+			flowVisualBellTimer.current = setTimeout(() => setFlowVisualBell({}), [3000]);
+		}
+	}, [flowVisualBell.key]);
 
 	useEffect(() => {
 		if (!systemAction) {
@@ -78,11 +130,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 
 	useEffect(() => {
 		if (clipBoard && clipBoard.length) {
-			setFlowVisualBell((state) => ({
-				message: "Copied to clipboard",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Copied to clipboard");
 		}
 	}, [clipBoard]);
 
@@ -107,10 +155,11 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 	}, [edgeMove, reactFlowInstance.setTransform, x, y]);
 
 	// initialising flow editor
-	const onLoad = useCallback((_reactFlowInstance) => {
+	const onLoad = useCallback(async (_reactFlowInstance) => {
 		console.log("flow loaded:", _reactFlowInstance);
 		window.requestAnimationFrame(_reactFlowInstance.fitView);
 		setReactFlowInstance(_reactFlowInstance);
+		await loadFlow();
 		const controls = document.querySelector(".react-flow__controls").children;
 		for (let i = 0; i < controls.length; i++) {
 			controls[i].title = controlTitles[i];
@@ -121,7 +170,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 		arrow.parentNode.appendChild(clone);
 		document.querySelector(".react-flow").focus();
 		// window.onbeforeunload = (e) => {
-		//   if (!frozen) {
+		//   if (!isReadOnly) {
 		//     e.preventDefault();
 		//     return (e.returnValue =
 		//       "You have unsaved changes, are you sure you want to exit?");
@@ -138,11 +187,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 				edges.push(el);
 			}
 			if (el.id === "start") {
-				setFlowVisualBell((state) => ({
-					message: "Cannot delete Start block",
-					switch: !state.switch,
-					show: true,
-				}));
+				_setFlowVisualBell("Cannot delete Start block");
 				return false;
 			}
 			return true;
@@ -185,11 +230,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 		event.preventDefault();
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Flow is locked");
 			return;
 		}
 		// place the node in correct position
@@ -281,11 +322,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 						)
 				);
 
-				return setFlowVisualBell((state) => ({
-					message: "Blocks autoconnected",
-					switch: !state.switch,
-					show: true,
-				}));
+				return _setFlowVisualBell("Blocks autoconnected");
 			}
 		}
 	};
@@ -301,11 +338,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 	const pasteSelection = (x, y) => {
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Flow is locked");
 			return;
 		}
 		if (clipBoard && clipBoard.length) {
@@ -365,31 +398,18 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 			const newEls = newNodes.concat(newEdges);
 			setElements((els) => els.concat(newEls));
 			setSelectedElements(newEls);
-			setFlowVisualBell((state) => ({
-				message: "Code pasted",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Code pasted");
 		} else {
-			setFlowVisualBell((state) => ({
-				message: "Nothing on clipboard",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Nothing on clipboard");
 		}
 	};
 
 	const undoAction = () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
+			_setFlowVisualBell("Flow is locked");
 			return;
-		}
-		if (allowUndo) {
+		} else if (allowUndo) {
 			setSystemAction(true);
 			setElements(actionStack.stack[actionStack.currentIndex - 1]);
 			setActionStack((state) => {
@@ -401,14 +421,8 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 	const redoAction = () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
-			return;
-		}
-		if (allowRedo) {
+			_setFlowVisualBell("Flow is locked");
+		} else if (allowRedo) {
 			setSystemAction(true);
 			setElements(actionStack.stack[actionStack.currentIndex + 1]);
 			setActionStack((state) => {
@@ -417,78 +431,34 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 		}
 	};
 
-	const saveFlow = () => {
-		if (elements) {
-			window.localStorage.setItem("createbase__flow_save", JSON.stringify(elements));
+	const saveFlow = async () => {
+		if (elements.length > 1) {
+			await post({
+				route: "/api/profile/update-saves",
+				input: { profileId: globalSession.profileId, update: { [saveName]: JSON.stringify(elements) }, date: new Date().toString() },
+				successHandler: () => _setFlowVisualBell("Code saved"),
+			});
 		}
-		setFlowVisualBell((state) => ({
-			message: "Code saved",
-			switch: !state.switch,
-			show: true,
-		}));
 	};
 
-	const restoreFlow = () => {
+	const restoreFlow = async () => {
 		if (flowLocked) {
 			flashLockIcon();
-			setFlowVisualBell((state) => ({
-				message: "Flow is locked",
-				switch: !state.switch,
-				show: true,
-			}));
-			return;
+			return _setFlowVisualBell("Flow is locked");
 		}
-		const savedEls = JSON.parse(window.localStorage.getItem("createbase__flow_save"));
-		if (savedEls) {
-			const restoredEls = savedEls.map((savedEl) => {
-				if (isNode(savedEl)) {
-					const idNum = parseInt(savedEl.id.split("_")[1]);
-					if (!isNaN(idNum) && idNum >= id) {
-						id = idNum + 1;
-					}
-					return {
-						...savedEl,
-						data: {
-							...savedEl.data,
-							callBack: (newValues, thisId) => {
-								setElements((els) =>
-									els.map((thisEl) => {
-										if (thisEl.id === thisId) {
-											thisEl.data = {
-												...thisEl.data,
-												values: newValues,
-											};
-										}
-										return thisEl;
-									})
-								);
-							},
-						},
-					};
-				} else {
-					return savedEl;
-				}
-			});
-			setElements(restoredEls);
+		await loadFlow(() => {
 			setCenter(0, 0, 1.25);
-		}
+			_setFlowVisualBell("Restored from last save");
+		});
 	};
 
-	const lockHandler = () => {
-		setFlowLocked((state) => !state);
-	};
+	const lockHandler = () => setFlowLocked((state) => !state);
 
-	const fitView = () => {
-		reactFlowInstance.fitView();
-	};
+	const fitView = () => reactFlowInstance.fitView();
 
-	const clearAll = () => {
-		setElements(initialElements);
-	};
+	const clearAll = () => setElements(initialElements);
 
-	const selectAll = () => {
-		setSelectedElements(elements);
-	};
+	const selectAll = () => setSelectedElements(elements);
 
 	const capture = () => {
 		html2canvas(document.querySelector(".react-flow__renderer")).then((canvas) => {
@@ -497,9 +467,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 	};
 
 	const keyDownHandler = (event) => {
-		if (frozen) {
-			return;
-		}
+		if (isReadOnly) return;
 		if (event.ctrlKey || event.metaKey) {
 			if (event.key === "c") {
 				event.preventDefault();
@@ -610,9 +578,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 		});
 	};
 
-	const infoHandler = () => {
-		infoLogs.map((t) => consoleCtx.addLog(t));
-	};
+	const infoHandler = () => infoLogs.map((t) => consoleCtx.addLog(t));
 
 	const nodeCtxMenuHandler = (e, node) => {
 		e.preventDefault();
@@ -620,22 +586,20 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 		setNodeCtxMenu({ show: true, x: e.clientX, y: e.clientY, node: node });
 	};
 
-	const nodeCtxBlurHandler = () => {
-		setNodeCtxMenu((state) => ({ ...state, show: false }));
-	};
+	const nodeCtxBlurHandler = () => setNodeCtxMenu((state) => ({ ...state, show: false }));
 
 	const paneCtxMenuHandler = (e, node) => {
 		e.preventDefault();
 		setPaneCtxMenu({ show: true, x: e.clientX, y: e.clientY });
 	};
 
-	const paneCtxBlurHandler = () => {
-		setPaneCtxMenu((state) => ({ ...state, show: false }));
-	};
+	const paneCtxBlurHandler = () => setPaneCtxMenu((state) => ({ ...state, show: false }));
+
+	const touchHandler = () => _setFlowVisualBell("⚠️ WARNING: Sorry, touch interaction is not yet supported");
 
 	return (
-		<div className={`${classes.editorContainer} ${show ? "" : "hide"}`} onKeyDown={keyDownHandler} tabIndex={-1}>
-			{!frozen && <DndBar blockList={blockList} />}
+		<div className={`${classes.editorContainer} ${show ? "" : "hide"}`} onKeyDown={keyDownHandler} tabIndex={-1} onTouchStart={touchHandler}>
+			{!isReadOnly && <DndBar blockList={blockList} />}
 			<div className={classes.editorWrapper} ref={wrapperRef}>
 				<ReactFlow
 					onLoad={onLoad}
@@ -665,7 +629,7 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 					onNodeContextMenu={nodeCtxMenuHandler}
 					onPaneContextMenu={paneCtxMenuHandler}>
 					<ControlsBar
-						frozen={frozen}
+						isReadOnly={isReadOnly}
 						undoHandler={undoAction}
 						redoHandler={redoAction}
 						saveHandler={saveFlow}
@@ -681,23 +645,8 @@ const FlowEditor = ({ blockList, show, frozen = false, elements, setElements, fl
 					/>
 					<Background color="#aaa" gap={16} />
 				</ReactFlow>
-				{miniHoverCtx.activeNode && (
-					<div className={classes.hoverBg}>
-						{miniHoverCtx.activeNode.block}
-						<aside>
-							<p>
-								<span className={classes.label}>Inputs:</span>
-								{tooltips[miniHoverCtx.activeNode.nodeType][0]}
-							</p>
-							<p>
-								<span className={classes.label}>Outputs:</span>
-								{tooltips[miniHoverCtx.activeNode.nodeType][1]}
-							</p>
-							<p style={{ marginTop: 12 }}>{tooltips[miniHoverCtx.activeNode.nodeType][2]}</p>
-						</aside>
-					</div>
-				)}
-				<FlowVisualBell show={flowVisualBell.show} message={flowVisualBell.message} />
+				<MiniHover />
+				<FlowVisualBell message={flowVisualBell.message} _key={flowVisualBell.key} />
 			</div>
 			<ClientOnlyPortal selector="#modal-root">
 				<NodeContextMenu

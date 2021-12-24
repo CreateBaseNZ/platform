@@ -16,17 +16,6 @@ const useMixpanel = () => {
 		mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
 	};
 
-	const read = async (filters, callback) => {
-		let data;
-		try {
-			data = await tracking.retrieve(process.env.NEXT_PUBLIC_PROJECT_A_SECRET, filters);
-		} catch (error) {
-			// TODO: Error handling
-		} finally {
-			callback(data);
-		}
-	};
-
 	// mixpanel event tracking
 	// first parameter is the event name
 	// optional second parameter containining additional data to store
@@ -34,24 +23,23 @@ const useMixpanel = () => {
 		mixpanel.track(event, data);
 	};
 
+	// note: MUST run clearSession in the return of useEffect
 	const trackActiveSession = (event, data) => {
-		console.log("tracking started");
-		const inactivityTimer = 30000; // in ms
+		console.log("tracking initialised");
+		const inactivityTimer = 600000; // in ms
 		const throttleInterval = 1000; // ms
 		let throttleTimer = null;
 		let sessionTimer = null;
-		let startTime = Date.now();
-		console.log("session started");
+		let startTime = null;
+		let hasFocus = true;
 
-		const endSession = () => {
-			const endTime = Date.now();
+		const endSession = (endTime = Date.now() - inactivityTimer) => {
 			console.log("session ended");
+			if (!startTime) return;
 			let duration = endTime - startTime;
-			// session not force ended (i.e. via clearSession())
-			if (duration > inactivityTimer) {
-				duration -= inactivityTimer;
-			}
-			console.log(duration);
+			console.log(startTime);
+			console.log(endTime);
+			console.log(Math.round(duration / 1000));
 			track(event, { ...data, start: startTime, end: endTime, duration: Math.round(duration / 1000) });
 			startTime = null;
 		};
@@ -59,6 +47,7 @@ const useMixpanel = () => {
 		const continueSession = () => {
 			if (throttleTimer === null) {
 				throttleTimer = setTimeout(() => {
+					if (!hasFocus) return (throttleTimer = null);
 					if (startTime === null) {
 						startTime = Date.now();
 						console.log("session started");
@@ -72,17 +61,9 @@ const useMixpanel = () => {
 			}
 		};
 
-		window.onmousemove = continueSession;
-		window.onmousedown = continueSession;
-		window.ontouchstart = continueSession;
-		window.onclick = continueSession;
-		window.onkeydown = continueSession;
-		window.addEventListener("scroll", continueSession, true);
-		console.log(window);
-
 		// cleanup
 		const clearSession = () => {
-			endSession();
+			endSession(Date.now());
 			window.onmousemove = null;
 			window.onmousedown = null;
 			window.ontouchstart = null;
@@ -93,10 +74,24 @@ const useMixpanel = () => {
 			clearTimeout(throttleTimer);
 		};
 
+		window.onmousemove = continueSession;
+		window.onmousedown = continueSession;
+		window.ontouchstart = continueSession;
+		window.onclick = continueSession;
+		window.onkeydown = continueSession;
+		window.addEventListener("scroll", continueSession, true);
+		window.addEventListener("blur", () => {
+			hasFocus = false;
+			endSession(Date.now());
+		});
+		window.addEventListener("focus", () => (hasFocus = true));
+		window.addEventListener("beforeunload", () => endSession(Date.now()));
+		continueSession();
+
 		return clearSession;
 	};
 
-	return { init, read, track, trackActiveSession };
+	return { init, track, trackActiveSession };
 };
 
 export default useMixpanel;

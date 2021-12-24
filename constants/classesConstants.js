@@ -1,9 +1,9 @@
 const tabs = [
-	{ title: "Announcements", name: "announcements", icon: "campaign", pathname: "/classes/[id]/announcements" },
-	{ title: "Assignments", name: "assignments", icon: "assignment", pathname: "/classes/[id]/assignments" },
+	{ title: "Announcements (Coming Soon!)", name: "announcements", icon: "campaign", pathname: "/classes/[id]/announcements", todo: true },
+	{ title: "Assignments Announcements (Coming Soon!)", name: "assignments", icon: "assignment", pathname: "/classes/[id]/assignments", todo: true },
 	{ title: "Progress", name: "progress", icon: "table_chart", pathname: "/classes/[id]/progress" },
-	{ title: "Reporting", name: "reporting", icon: "pending_actions", pathname: "/classes/[id]/reporting" },
-	{ title: "Engagement", name: "engagement", icon: "stacked_bar_chart", pathname: "/classes/[id]/engagement" },
+	{ title: "Reporting Announcements (Coming Soon!)", name: "reporting", icon: "pending_actions", pathname: "/classes/[id]/reporting", todo: true },
+	{ title: "Engagement Announcements (Coming Soon!)", name: "engagement", icon: "stacked_bar_chart", pathname: "/classes/[id]/engagement", todo: true },
 	{ title: "Manage Members", name: "manage", icon: "manage_accounts", pathname: "/classes/[id]/manage-members" },
 	{ title: "Settings", name: "settings", icon: "tune", pathname: "/classes/[id]/settings" },
 ];

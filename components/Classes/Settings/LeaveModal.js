@@ -10,7 +10,7 @@ import classes from "./LeaveModal.module.scss";
 const LeaveModal = ({ setShow, classObject }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { setVisualBell } = useContext(VisualBellContext);
-	const post = useApi();
+	const { post } = useApi();
 
 	const leaveHandler = async () => {
 		await post({

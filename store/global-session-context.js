@@ -1,9 +1,10 @@
-import { useState, createContext, useMemo, useEffect } from "react";
+import { useState, createContext, useMemo, useEffect, useContext } from "react";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import axios from "axios";
 import useApi from "../hooks/useApi";
 import { signOut } from "next-auth/react";
+import VisualBellContext from "./visual-bell-context";
 
 const GlobalSessionContext = createContext({
 	globalSession: { loaded: false },
@@ -13,15 +14,15 @@ const GlobalSessionContext = createContext({
 export default GlobalSessionContext;
 
 export const GlobalSessionContextProvider = (props) => {
-	const post = useApi();
-	const [globalSession, setGlobalSession] = useState({ loaded: false });
 	const { data: session, status } = useSession();
+	const { setVisualBell } = useContext(VisualBellContext);
+	const { post } = useApi();
+	const [globalSession, setGlobalSession] = useState({ loaded: false });
 
 	useEffect(async () => {
 		if (status !== "loading") {
 			if (session) {
 				const inputs = {
-					accountId: session.user,
 					date: new Date().toString(),
 					properties: { profile: ["recentGroups"], license: ["alias"] },
 				};
@@ -53,9 +54,10 @@ export const GlobalSessionContextProvider = (props) => {
 				setGlobalSession((state) => ({ ...state, loaded: true }));
 			}
 		}
-	}, [status, session]);
+	}, [status, session?.user]);
 
 	useEffect(async () => {
+		if (!globalSession.loaded) return;
 		await post({
 			route: "/api/profile/update-saves",
 			input: {
@@ -64,6 +66,14 @@ export const GlobalSessionContextProvider = (props) => {
 				date: new Date().toString(),
 			},
 		});
+		if (globalSession.groups[globalSession.recentGroups[0]]) {
+			setVisualBell({
+				type: "success",
+				message: `Now viewing as a${globalSession.groups[globalSession.recentGroups[0]].role === "admin" ? "n" : ""} ${globalSession.groups[globalSession.recentGroups[0]].role} of ${
+					globalSession.groups[globalSession.recentGroups[0]].name
+				}`,
+			});
+		}
 	}, [globalSession.recentGroups]);
 
 	const value = useMemo(

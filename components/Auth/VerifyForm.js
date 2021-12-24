@@ -1,6 +1,6 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import useApi from "../../hooks/useApi";
 import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
@@ -20,7 +20,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	const [error, setError] = useState();
 	const [email, setEmail] = useState(globalSession.email || routerEmail);
 	const [code, setCode] = useState(Array.from(Array(CODE_LENGTH).keys()).map((i) => routerCode[i] || "") || [...Array(CODE_LENGTH)].map(() => ""));
-	const post = useApi();
+	const { post } = useApi();
 	const refs = useRef([]);
 
 	useEffect(async () => {
@@ -115,7 +115,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	}
 
 	return (
-		<div className={classes.authCard} style={{ width: 600, height: "auto" }}>
+		<div className={classes.verifyCard} style={{ width: 600, height: "auto" }}>
 			<form className={`${classes.form} ${classes.codeForm}`}>
 				<h1>Verification code</h1>
 				<div className={classes.instructions}>Enter the verification code sent to your email</div>
@@ -123,9 +123,8 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 					{code.map((char, idx) => (
 						<Input
 							key={idx}
-							className={classes.verifCodeInput}
+							className={`${classes.input} ${classes.verifCodeInput}`}
 							inputProps={{
-								className: classes.input,
 								type: "text",
 								maxLength: 1,
 								value: char,
@@ -144,15 +143,22 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 					{error}
 				</div>
 				<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
-				<div className={`${classes.smallFont} ${classes.switch}`}>
-					{isResending ? (
-						"Resending ..."
-					) : (
-						<button type="button" className={classes.linkBtn} onClick={resendCodeHandler}>
-							Resend code
+				{!isLoading && (
+					<div className={classes.verifOptions}>
+						<button className={`${classes.smallFont} ${classes.switch}`} onClick={() => signOut({ redirect: false })}>
+							Cancel
 						</button>
-					)}
-				</div>
+						<div className={`${classes.smallFont} ${classes.switch}`}>
+							{isResending ? (
+								"Resending ..."
+							) : (
+								<button type="button" className={classes.linkBtn} onClick={resendCodeHandler}>
+									Resend code
+								</button>
+							)}
+						</div>
+					</div>
+				)}
 			</form>
 		</div>
 	);

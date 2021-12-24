@@ -60,7 +60,7 @@ function sendEmail(account) {
 	return new Promise(async (resolve, reject) => {
 		// Construct the input object
 		const input = {
-			accountId: account._id,
+			user: { accountId: account._id, provider: "credentials" },
 			option: { recipient: account.email, receive: "welcome", notification: "onboarding", tone: "friendly" },
 		};
 		// Send the processing request

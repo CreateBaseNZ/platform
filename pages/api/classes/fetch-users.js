@@ -65,14 +65,14 @@ const constructUsers = (group, instance) => {
 			status = "";
 		}
 		licenses.push({
-			accountId: license.profile.account._id,
 			profileId: license.profile._id,
 			licenseId: license._id,
 			firstName: license.profile.name.first,
 			lastName: license.profile.name.last,
 			role: license.role,
 			status,
-			email: license.profile.account.email,
+			email: license.profile.account.local ? license.profile.account.local.email : license.profile.account.google.email,
+			alias: license.metadata.alias,
 		});
 	}
 	return licenses;

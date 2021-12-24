@@ -5,7 +5,7 @@ import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
 import Img from "../../../components/UI/Img";
-import VideoViewer from "../../../components/UI/VideoViewer";
+import VideoViewer from "../../../components/Project/VideoViewer";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "/styles/define.module.scss";
@@ -44,7 +44,7 @@ const Define = () => {
 				{data && data.define.word && data.define.docs && (
 					<div className={classes.instructions}>
 						<div className={classes.imgContainer}>
-							<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/define.svg" alt="Define" layout="fill" objectFit="contain" />
+							<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/project-pages/define.svg" alt="Define" layout="fill" objectFit="contain" label="Illustration by Storyset" />
 						</div>
 						<div className={classes.content}>
 							<p>Open one of the learning journals and save it somewhere that you can access. Your teacher will tell you which file to open and where to save your copy.</p>

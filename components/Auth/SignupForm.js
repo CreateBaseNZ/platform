@@ -4,15 +4,15 @@ import router from "next/router";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
-import { PrimaryButton } from "../UI/Buttons";
+import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
-import { isBlacklisted, namePattern } from "../../utils/formValidation";
+import { isBlacklisted, nameMaxLength, nameMinLength, namePattern, nameValidation } from "../../utils/formValidation";
 import { emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
 import classes from "./AuthForms.module.scss";
 
 const SignupForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const post = useApi();
+	const { post } = useApi();
 	const {
 		register,
 		handleSubmit,
@@ -22,6 +22,8 @@ const SignupForm = () => {
 		mode: "onTouched",
 		defaultValues: {}, // TODO prefill if in URL query params
 	});
+
+	console.log(errors);
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
@@ -77,8 +79,8 @@ const SignupForm = () => {
 			<form className={`${classes.form} ${classes.signupForm}`} onSubmit={handleSubmit(onSubmit)}>
 				<h1>Register an account</h1>
 				<Input
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						maxLength: 254,
 						placeholder: "Email*",
 						...register("email", {
@@ -88,35 +90,45 @@ const SignupForm = () => {
 					}}
 					error={errors.email}
 				/>
-				<Input
-					inputProps={{
-						className: classes.input,
-						placeholder: "First name*",
-						type: "text",
-						maxLength: 254,
-						...register("firstName", {
-							required: "Please enter your first name",
-							pattern: namePattern,
-						}),
-					}}
-					error={errors.firstName}
-				/>
-				<Input
-					inputProps={{
-						className: classes.input,
-						placeholder: "Last name*",
-						type: "text",
-						maxLength: 254,
-						...register("lastName", {
-							required: "Please enter your last name",
-							pattern: namePattern,
-						}),
-					}}
-					error={errors.lastName}
-				/>
+				<div style={{ display: "flex" }}>
+					<Input
+						className={classes.input}
+						style={{ marginRight: "0.5rem" }}
+						inputProps={{
+							placeholder: "First name*",
+							type: "text",
+							maxLength: 50,
+							...register("firstName", {
+								required: "Please enter your first name",
+								pattern: namePattern,
+								validate: nameValidation,
+								maxLength: nameMaxLength,
+								minLength: nameMinLength,
+							}),
+						}}
+						error={errors.firstName}
+					/>
+					<Input
+						className={classes.input}
+						style={{ marginLeft: "0.5rem" }}
+						inputProps={{
+							placeholder: "Last name*",
+							type: "text",
+							maxLength: 50,
+							...register("lastName", {
+								required: "Please enter your last name",
+								pattern: namePattern,
+								validate: nameValidation,
+								maxLength: nameMaxLength,
+								minLength: nameMinLength,
+							}),
+						}}
+						error={errors.lastName}
+					/>
+				</div>
 				<PasswordInput
+					className={classes.input}
 					inputProps={{
-						className: classes.input,
 						placeholder: "Password*",
 						...register("password", {
 							required: "Please enter a password",
@@ -126,7 +138,6 @@ const SignupForm = () => {
 					}}
 					error={errors.password}
 				/>
-				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Signing you up ..." mainLabel="Sign Up" />
 				<div className={classes.options}>
 					<div className={`${classes.smallFont} ${classes.smallCheckbox} ${errors.terms ? classes.termsError : ""}`}>
 						<input type="checkbox" {...register("terms", { required: true })} />
@@ -141,6 +152,18 @@ const SignupForm = () => {
 						</label>
 					</div>
 				</div>
+				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Signing you up ..." mainLabel="Sign Up" />
+				<div className={classes.smallFont} style={{ margin: "2vh 0", alignSelf: "center" }}>
+					Or
+				</div>
+				<SecondaryButton
+					className={classes.googleAuth}
+					type="button"
+					loadingLabel="Loading Google auth"
+					mainLabel="Sign up with Google"
+					onClick={() => signIn("google")}
+					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/google.svg" />}
+				/>
 			</form>
 			<div className={`${classes.smallFont} ${classes.switch}`}>
 				Have an account?{" "}

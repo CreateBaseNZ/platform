@@ -2,8 +2,7 @@
 // IMPORT ===================================================
 
 import axios from "axios";
-
-// TEST OUTPUT ==============================================
+import { getSession } from "next-auth/react";
 
 // MAIN =====================================================
 
@@ -12,15 +11,8 @@ export default async function (req, res) {
 	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
 		return res.send({ status: "critical error" });
 	}
-	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_SESSION,
-	// 	};
-	// }
+	const session = await getSession({ req });
+	const input = { ...req.body.input, ...session.user };
 	// Integration Logic
 	let data;
 	try {
@@ -28,7 +20,8 @@ export default async function (req, res) {
 			await axios.post(process.env.ROUTE_URL + "/session", {
 				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
 				input: {
-					account: input.accountId,
+					accountId: input.accountId,
+					provider: input.provider,
 					date: input.date,
 					properties: input.properties,
 				},
@@ -40,10 +33,31 @@ export default async function (req, res) {
 	if (data.status === "failed" && data.content.account === "does not exist") {
 		return res.send({ status: "failed", content: "invalid account id" });
 	}
+	if (data.content.recentGroups) {
+		if (data.content.recentGroups.length) {
+			data.content.recentGroups = recentGroupsCheck(data.content.recentGroups, data.content.groups);
+		}
+	}
 	if (data.status !== "succeeded") return res.send({ status: "error" });
 	return res.send({ status: "succeeded", content: data.content });
 }
 
 // HELPERS ==================================================
+
+function recentGroupsCheck(recentGroups, groups) {
+	let valid = true;
+	for (let i = 0; i < recentGroups.length; i++) {
+		if (!groups[recentGroups[i]]) {
+			valid = false;
+		} else {
+			if (!groups[recentGroups[i]].verified) valid = false;
+		}
+	}
+	if (!valid) {
+		return [];
+	} else {
+		return recentGroups;
+	}
+}
 
 // END ======================================================

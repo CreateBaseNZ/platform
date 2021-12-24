@@ -15,7 +15,7 @@ export default {
 	scenePrefix: "Project_Hyperloop",
 	runType: "loop",
 	durPerLesson: "45 mins",
-	numOfLessons: 9,
+	numOfLessons: 8,
 	difficulty: "Advanced",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE],
 	learningOutcome: "/hyperloop/files/project-overview.pdf",
@@ -25,6 +25,7 @@ export default {
 		"Convert a decimal number to a binary number",
 		"Convert any base number system to any other base number system by using base 10 as an intermediary conversion.",],
 	define: {
+		threshold: 30,
 		url: "https://youtu.be/UvZtYfMDLDI",
 		src: "/hyperloop/vid/situation.mp4",
 		h1: "",
@@ -34,6 +35,7 @@ export default {
 		word: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
 	},
 	imagine: {
+		threshold: 30,
 		caption: [
 			"As a class, dive into group discussions around the Project theme to fully define our problem.",
 			"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
@@ -63,6 +65,7 @@ export default {
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description: "In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
+				threshold: 30,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
@@ -82,11 +85,15 @@ export default {
 					},
 				],
 			},
-			plan: [
-				"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
-				"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
-			],
+			plan: {
+				threshold: 30,
+				list: [
+					"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
+					"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+				],
+			},
 			code: {
+				threshold: 30,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
 					"Mosquitos will be appearing across your screen in a horizontal line.",

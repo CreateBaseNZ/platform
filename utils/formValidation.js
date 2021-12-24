@@ -9,7 +9,25 @@ export const emailPattern = {
 
 export const namePattern = {
 	value: /^[a-zA-Z\-\. ]+$/,
-	message: "Display names can only contain A—Z, a—z, -, and .",
+	message: "Names can only contain A—Z, a—z, -, and .",
+};
+
+export const nameValidation = (v) => {
+	if (v.trim().length > 1) {
+		return true;
+	} else {
+		return "Names must contain at least two valid character";
+	}
+};
+
+export const nameMinLength = {
+	value: 2,
+	message: "Names must be at least two character long",
+};
+
+export const nameMaxLength = {
+	value: 50,
+	message: "Names cannot exceed 50 characters",
 };
 
 export const isBlacklisted = (str) => {
@@ -48,4 +66,24 @@ export const passwordValidate = (v) => {
 	}
 
 	return errors.length && "Requires at least one: " + errors.join(", ");
+};
+
+export const schoolNameMinLength = {
+	value: 3,
+	message: "Class names must be at least 3 characters long",
+};
+
+export const schoolNameMaxLength = {
+	value: 254,
+	message: "Class names cannot exceed 100 characters in length",
+};
+
+export const classNameMinLength = {
+	value: 3,
+	message: "Class names must be at least 3 characters long",
+};
+
+export const classNameMaxLength = {
+	value: 50,
+	message: "Class names cannot exceed 50 characters in length",
 };

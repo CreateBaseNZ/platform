@@ -1,10 +1,10 @@
 import Head from "next/head";
+import useClass from "../../../hooks/useClass";
 import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import MainLayout from "../../../components/Layouts/MainLayout/MainLayout";
 import CLASSES_TABS from "../../../constants/classesConstants";
 
 import classes from "../../../components/Classes/Reporting.module.scss";
-import useClass from "../../../hooks/useClass";
 
 const ClassesReporting = () => {
 	const { classObject, classLoaded } = useClass();
@@ -15,7 +15,7 @@ const ClassesReporting = () => {
 		<div className={classes.view}>
 			<Head>
 				<title>Reporting • {classObject.name} | CreateBase</title>
-				<meta name="description" content="View your class announcements" />
+				<meta name="description" content="View reports of your students' activity on the platform" />
 			</Head>
 			<h1>Reporting</h1>
 			Coming soon!

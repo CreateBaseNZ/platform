@@ -6,17 +6,15 @@ import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
 import BrowseThumb from "./BrowseThumb";
 import BrowsePreview from "./BrowsePreview";
-import { allData } from "../../utils/getProjectData";
+import { ALL_PROJECT_DATA } from "../../utils/getProjectData";
 
 import "overlayscrollbars/css/OverlayScrollbars.css";
 import classes from "../../styles/browse.module.scss";
 
-import { io } from "socket.io-client";
-
 const Browse = () => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const [activeProject, setActiveProject] = useState(allData[0]);
+	const [activeProject, setActiveProject] = useState(ALL_PROJECT_DATA[0]);
 
 	// EXAMPLE: Socket - Trigger Socket on Event
 	// const socket = io();
@@ -26,7 +24,7 @@ const Browse = () => {
 
 	useEffect(() => {
 		const query = router?.query?.project;
-		const queriedProject = allData.find((data) => data.query === query);
+		const queriedProject = ALL_PROJECT_DATA.find((data) => data.query === query);
 		if (queriedProject) {
 			setActiveProject(queriedProject);
 		}
@@ -45,10 +43,10 @@ const Browse = () => {
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>
-					{allData.map((project, index) => (
+					{ALL_PROJECT_DATA.map((project, index) => (
 						<BrowseThumb key={index} isActive={activeProject.query === project.query} project={project} query={project.query} name={project.name} />
 					))}
-					{[...Array(allData.length % 4).keys()].map((i) => (
+					{[...Array(ALL_PROJECT_DATA.length % 4).keys()].map((i) => (
 						<div key={i} className={classes.empty} />
 					))}
 				</div>

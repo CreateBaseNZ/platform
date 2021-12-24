@@ -20,9 +20,9 @@ const renderNotification = (notificationObject, setNotifications) => {
 };
 
 const Inbox = () => {
-	const { globalSession } = useContext(GlobalSessionContext);
-	const [notifications, setNotifications] = useState([]);
-	const post = useApi();
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const [notifications, setNotifications] = useState();
+	const { post } = useApi();
 
 	useEffect(async () => {
 		await post({
@@ -35,6 +35,14 @@ const Inbox = () => {
 			successHandler: (data) => setNotifications(data.content),
 		});
 	}, []);
+
+	useEffect(() => {
+		if (notifications) {
+			setGlobalSession((state) => ({ ...state, numOfNotifications: notifications.length }));
+		}
+	}, [notifications]);
+
+	if (!notifications) return null;
 
 	return (
 		<div className={`${classes.inbox} roundScrollbar`}>
