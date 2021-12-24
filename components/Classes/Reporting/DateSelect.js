@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Calendar from "react-calendar";
 
 import classes from "./DateSelect.module.scss";
 
 const DateSelect = ({ dateSelect, setDateSelect }) => {
 	const [show, setShow] = useState(false);
+	const timer = useRef();
+
+	console.log(show);
+
+	const blurHandler = () => {
+		timer.current = setTimeout(() => setShow(false));
+	};
+
+	const focusHandler = () => {
+		clearTimeout(timer.current);
+	};
 
 	return (
-		<div className={classes.container} onBlur={() => setShow(false)}>
+		<div tabIndex={-1} className={classes.container} onFocus={focusHandler} onBlur={blurHandler}>
 			<button className={classes.btn} onClick={() => setShow((state) => !state)} title="Select a date">
 				<i className="material-icons-outlined">today</i>
 			</button>
