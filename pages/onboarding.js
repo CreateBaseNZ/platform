@@ -128,7 +128,7 @@ const STAFF_SECTION = {
 			type: "video",
 			title: "Add members to your class",
 			subtitle: "Classes (3/3)",
-			videoUrl: "https://www.youtube.com/embed/so383OzZ-rk",
+			videoUrl: "https://www.youtube.com/embed/so383OzZ-rk?start=10",
 			linkUrl: "/classes",
 			linkLabel: "Go to Classes",
 		},
