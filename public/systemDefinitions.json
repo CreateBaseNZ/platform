@@ -6,7 +6,7 @@
 		"actions": {},
 		"functions": {
 			"NodeStart": {
-				"simpleLogic": "IntialiseRobot();",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 2500);\n})\n};\nawait reset()\n",
 				"await": false
@@ -14,7 +14,7 @@
 			"NodeEnd": {
 				"simpleLogic": "",
 				"inputs": [],
-				"logic": "",
+				"logic": "}",
 				"await": false
 			},
 			"NodeMagnebotMoveArm": {
@@ -74,13 +74,13 @@
 		},
 		"functions": {
 			"NodeStart": {
-				"simpleLogic": "while(gameIsON){",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "if(sensorData){\n",
 				"await": false
 			},
 			"NodeEnd": {
-				"simpleLogic": "}",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "}",
 				"await": false
@@ -111,7 +111,7 @@
 		"actions": {},
 		"functions": {
 			"NodeStart": {
-				"simpleLogic": "while(gameIsON){",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "if(sensorData){\n",
 				"await": false
@@ -188,7 +188,7 @@
 				"await": false
 			},
 			"NodeEnd": {
-				"simpleLogic": "}",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "}",
 				"await": false
@@ -197,7 +197,7 @@
 	},
 	{
 		"robot": "aimbot",
-		"startingCode": "",
+		"startingCode": "unityContext.send(\"SceneController\",\"ResetScene\")",
 		"sensors": {
 			"NodeAimBotGetYawAngle": {
 				"name": "yawSensor",
@@ -231,7 +231,7 @@
 			"NodeStart": {
 				"simpleLogic": "",
 				"inputs": [],
-				"logic": "",
+				"logic": "if(sensorData){\n",
 				"await": false
 			},
 			"NodeAimBotSetYawSpeed": {
@@ -275,7 +275,7 @@
 			"NodeEnd": {
 				"simpleLogic": "",
 				"inputs": [],
-				"logic": "",
+				"logic": "}",
 				"await": false
 			}
 		}
