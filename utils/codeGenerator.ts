@@ -414,7 +414,7 @@ export class CodeGenerator {
 	private end(correctSystem: any) {
 		// Add to execute
 		this.executes.push(correctSystem.functions.NodeEnd.logic);
-		this.simpleExecutes.push(correctSystem.functions.NodeEnd.logic);
+		this.simpleExecutes.push(correctSystem.functions.NodeEnd.simpleLogic);
 		return true;
 	}
 
