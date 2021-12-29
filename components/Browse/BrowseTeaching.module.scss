@@ -132,9 +132,9 @@
 	z-index: 1;
 	display: flex;
 	flex-direction: column;
-	background: rgba(black, 0.75);
-	backdrop-filter: blur(2px);
+	background: rgba(black, 0.5);
 	.item {
+		backdrop-filter: blur(8px);
 		padding: 0 0.5rem;
 		height: 2rem;
 		display: flex;

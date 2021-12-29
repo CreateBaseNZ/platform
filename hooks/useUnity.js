@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 import { install } from "resize-observer";
 
-const useUnity = ({ scenePrefix, isImprove, index, project, wip, setLoaded }) => {
+const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
 			loaderUrl: wip ? `/${project}/unity-build/Build.loader.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.loader.js`,
-			dataUrl: wip ? `/${project}/unity-build/Build.data` : `https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project}/unity-build/Build.data`,
+			dataUrl: wip ? `/${project}/unity-build/Build.data` : `https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${project}/unity-build/Build.data`,
 			frameworkUrl: wip ? `/${project}/unity-build/Build.framework.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.framework.js`,
-			codeUrl: wip ? `/${project}/unity-build/Build.wasm` : `https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project}/unity-build/Build.wasm`,
+			codeUrl: wip ? `/${project}/unity-build/Build.wasm` : `https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${project}/unity-build/Build.wasm`,
 			productName: "Simulation",
 			productVersion: "0.1",
 			companyName: "CreateBase",
@@ -37,7 +37,7 @@ const useUnity = ({ scenePrefix, isImprove, index, project, wip, setLoaded }) =>
 		});
 	}, []);
 
-	const sceneName = isImprove ? `${scenePrefix}_${index},improve` : `${scenePrefix}_${index}`;
+	const sceneName = suffix ? `${scenePrefix}_${index},${suffix}` : `${scenePrefix}_${index}`;
 
 	useEffect(() => {
 		console.log("loading");

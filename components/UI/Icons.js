@@ -5,7 +5,7 @@ const WhiteLogo = (props) => {
 	return (
 		<a target="_blank" href="https://createbase.co.nz/" className={props.className} title="createbase.co.nz" onClick={props.handler} style={{ position: "relative", height: "100%", width: "100%" }}>
 			<Image
-				src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/icons/white-logo.png"
+				src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/white-logo.png"
 				alt="CreateBase"
 				layout={props.layout}
 				objectFit={props.objectFit}

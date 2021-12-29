@@ -14,100 +14,11 @@
 	}
 }
 
-.banner {
-	align-self: center;
-	display: flex;
-	align-items: center;
-	padding: 1rem 1.5rem;
-	margin-bottom: 1rem;
-	border-radius: 16px;
-	box-shadow: 0 4px 16px 0 rgba($logo-mid, 0.15);
-	i {
-		margin-right: 1rem;
-		color: $logo-mid;
-	}
-	.bannerText {
-		display: flex;
-		flex-direction: column;
-		.bannerHeading {
-			font-size: 14px;
-			font-weight: 600;
-			margin: 0.25rem 0;
-		}
-		.bannerBody {
-			font-size: 11px;
-			font-weight: 500;
-			color: $dark;
-		}
-	}
-	.bannerBtn {
-		font-size: 11px;
-		color: $blue-mid;
-		padding: 0.5rem 0.75rem;
-		margin-left: 2rem;
-		border-radius: 8px;
-		border: thin solid $blue-mid;
-		height: auto;
-		i {
-			color: inherit;
-			font-size: 14px;
-			margin-right: 0.25rem;
-		}
-		&:hover {
-			border-color: $blue-dark;
-			color: $blue-dark;
-		}
-	}
-}
-
 .header {
 	flex: 0 0 auto;
 	width: 100%;
 	display: flex;
 	align-items: center;
-}
-
-.sync {
-	margin-left: 2rem;
-	display: flex;
-	align-items: center;
-	margin-right: auto;
-	padding: 0.4rem 0.7rem;
-	border-radius: 8px;
-	transition: background-color 0.1s ease-out;
-	&,
-	* {
-		font-size: 11px;
-		color: $light;
-		font-weight: 400;
-		transition: color 0.1s ease-out;
-	}
-	i {
-		font-size: 14px;
-		margin-right: 0.4em;
-	}
-	&:hover {
-		background: rgba($blue-dark, 0.1);
-		&,
-		* {
-			color: $blue-dark;
-		}
-	}
-	&.syncing {
-		pointer-events: none;
-		i {
-			animation: rotate 1s linear infinite;
-		}
-	}
-}
-
-@keyframes rotate {
-	from {
-		transform: rotate(0);
-	}
-	to {
-		transform: rotate(-360deg);
-	}
 }
 
 .controls {
@@ -121,53 +32,6 @@
 		margin-right: 1rem;
 		border-radius: 12px;
 		background: $lighter;
-	}
-}
-
-.helpContainer {
-	margin-left: auto;
-	position: relative;
-	button {
-		color: $blue-dark;
-		padding: 0.5rem 0.75rem;
-		border-radius: 8px;
-		display: flex;
-		align-items: center;
-		font-size: 12px;
-		font-weight: 500;
-		i {
-			color: inherit;
-			font-size: 1rem;
-			margin-right: 0.25rem;
-		}
-		&:hover {
-			background: $lighter;
-			~ .help {
-				opacity: 1;
-			}
-		}
-	}
-	.help {
-		pointer-events: none;
-		opacity: 0;
-		display: flex;
-		position: absolute;
-		width: 20vw;
-		top: calc(100% + 0.5rem);
-		right: 0;
-		flex-direction: column;
-		background: rgba(black, 0.75);
-		border-radius: 8px;
-		padding: 0.5rem 1rem;
-		transition: opacity 0.1s ease-out;
-		* {
-			margin: 0.25rem 0;
-			font-size: 12px;
-			color: white;
-		}
-		b {
-			font-weight: 500;
-		}
 	}
 }
 

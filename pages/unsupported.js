@@ -21,7 +21,7 @@ const Unsupported = () => {
 				<meta name="description" content="Oops!" />
 			</Head>
 			<div className={classes.img}>
-				<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/404.png" layout="fill" objectFit="contain" />
+				<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" />
 			</div>
 			<h1>Unsupported browser</h1>
 			<h2>You are using a browser that does not support WebGL which is required to run our simulations.</h2>

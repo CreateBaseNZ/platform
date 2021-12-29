@@ -102,7 +102,7 @@ export const LoginForm = () => {
 					loadingLabel="Loading Google auth"
 					mainLabel="Log in with Google"
 					onClick={() => signIn("google")}
-					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/google.svg" />}
+					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/auth/google.svg" />}
 				/>
 			</form>
 			<div className={`${classes.smallFont} ${classes.switch}`}>

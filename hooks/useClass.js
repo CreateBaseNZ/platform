@@ -1,22 +1,9 @@
 import router from "next/router";
 import { useContext, useEffect, useState } from "react";
 import GlobalSessionContext from "../store/global-session-context";
-import tracking from "../utils/tracking";
 import useApi from "./useApi";
 import { ALL_PROJECT_DATA } from "../utils/getProjectData";
-
-const EVENTS = [
-	"project_define",
-	"project_imagine",
-	"project_improve",
-	"project_create_research",
-	"project_create_plan",
-	"code_create_time",
-	"code_improve_time",
-	"game_manual_progress",
-	"game_create_progress",
-	"game_improve_progress",
-];
+import useMixpanel from "./useMixpanel";
 
 const getStatus = (duration, threshold, formattedThreshold, gameProgressEvent, isWin) => {
 	let status = "";
@@ -51,6 +38,7 @@ const useClass = () => {
 	const [classObject, setClassObject] = useState({});
 	const [classLoaded, setClassLoaded] = useState(false);
 	const [lastSynced, setLastSynced] = useState();
+	const mp = useMixpanel();
 
 	useEffect(async () => {
 		if (router.isReady) {
@@ -70,26 +58,86 @@ const useClass = () => {
 		}
 	}, [router.isReady, router.query.id]);
 
-	const fetchData = async () => {
+	const fetchData = async (filters) => {
 		if (!classLoaded) return;
-
 		let preprocessData;
 		try {
-			preprocessData = await tracking.preprocess();
+			preprocessData = await mp.retrieve(filters);
 		} catch (error) {
 			// TODO: Error handling
 		} finally {
 			setLastSynced(new Date());
 		}
+		return preprocessData;
+	};
 
-		const filters = EVENTS.map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
+	const fetchReportingData = async () => {
+		const filters = [
+			"project_define",
+			"project_imagine",
+			"project_improve",
+			"project_create_research",
+			"project_create_plan",
+			"code_create_time",
+			"code_improve_time",
+			"game_manual_progress",
+			"game_create_progress",
+			"game_improve_progress",
+		].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
-		const postprocessData = tracking.postprocess(preprocessData, filters);
+		const postprocessData = await fetchData(filters);
+
+		const processData = (event, project, license, subsystem, type = "default") => {
+			return postprocessData
+				.filter((item) => item.event === event && item.properties.project === project && item.properties.licenses.includes(license) && (subsystem ? item.properties.subsystem === subsystem : true))
+				.map((item) => ({ start: new Date(item.properties.start), duration: item.properties.duration, type: type }));
+		};
+
+		const processCreateData = (project, subsystems, license) => {
+			return subsystems.map((subsystem) => ({
+				name: subsystem.title,
+				label: subsystem.title,
+				bars: [
+					...processData("project_create_research", project, license, subsystem.title, "research"),
+					...processData("project_create_plan", project, license, subsystem.title, "plan"),
+					...processData("code_create_time", project, license, subsystem.title, "create"),
+				],
+			}));
+		};
+
+		return classObject.students.map((student) => {
+			let projectData = {};
+			for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
+				projectData[ALL_PROJECT_DATA[i].query] = [
+					{ label: "Define", name: "define", bars: processData("project_define", ALL_PROJECT_DATA[i].query, student.licenseId) },
+					{ label: "Imagine", name: "imagine", bars: processData("project_imagine", ALL_PROJECT_DATA[i].query, student.licenseId) },
+					...processCreateData(ALL_PROJECT_DATA[i].query, ALL_PROJECT_DATA[i].subsystems, student.licenseId),
+					{ label: "Improve", name: "improve", bars: processData("code_improve_time", ALL_PROJECT_DATA[i].query, student.licenseId) },
+				];
+			}
+			return { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: projectData };
+		});
+	};
+
+	const fetchProgressData = async () => {
+		const filters = [
+			"project_define",
+			"project_imagine",
+			"project_improve",
+			"project_create_research",
+			"project_create_plan",
+			"code_create_time",
+			"code_improve_time",
+			"game_manual_progress",
+			"game_create_progress",
+			"game_improve_progress",
+		].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
+
+		const postprocessData = await fetchData(filters);
 
 		const processData = (event, project, license, threshold, subsystem, gameProgressEvent) => {
 			let duration = 0;
 			let isWin = false;
-
 			for (let k = 0; k < postprocessData.length; k++) {
 				if (
 					postprocessData[k].event === event &&
@@ -150,7 +198,7 @@ const useClass = () => {
 		return data;
 	};
 
-	return { classObject, setClassObject, classLoaded, fetchData, lastSynced };
+	return { classObject, setClassObject, classLoaded, fetchProgressData, fetchReportingData, lastSynced };
 };
 
 export default useClass;

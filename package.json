@@ -28,6 +28,7 @@
 		"overlayscrollbars-react": "^0.2.3",
 		"randomatic": "^3.1.1",
 		"react": "^17.0.2",
+		"react-calendar": "^3.5.0",
 		"react-dom": "^17.0.2",
 		"react-flow-renderer": "^9.7.0",
 		"react-hook-form": "^7.20.5",

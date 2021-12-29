@@ -60,8 +60,8 @@
 		transition: color 0.1s ease-out, background-color 0.1s ease-out;
 	}
 	.label {
+		display: none;
 		pointer-events: none;
-		display: flex;
 		justify-content: center;
 		align-items: center;
 		height: 2rem;
@@ -82,6 +82,7 @@
 		background: rgba($logo-mid, 0.1);
 		& ~ .label {
 			opacity: 1;
+			display: flex;
 		}
 	}
 	&.active i {
@@ -93,4 +94,5 @@
 .viewport {
 	flex: 1;
 	height: 100%;
+	min-width: 0;
 }
