@@ -15,7 +15,7 @@ const UnityWrapper = ({ data, setLoaded }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: data.query,
 		scenePrefix: data.scenePrefix,
-		mode: "manual",
+		suffix: "manual",
 		index: data.subsystems.length - 1,
 		wip: data.wip,
 		setLoaded: setLoaded,
