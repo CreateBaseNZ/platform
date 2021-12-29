@@ -22,7 +22,7 @@ const getProjectData = (query) => {
 		case "aimbot":
 			return aimbotData;
 		case "hyperloop": 
-		return hyperloopData;
+			return hyperloopData;
 		default:
 			return null;
 	}
