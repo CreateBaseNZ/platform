@@ -16,11 +16,10 @@ import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/N
 import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
 import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini, NodePIMini, NodeSqrtMini, NodeClampMini } from "../components/ReactFlow/NodeOperations";
-import { comparisonBoostData, ifBoostData } from "./explore-data";
 import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
 
-export default {
+const AIMBOT_DATA: import("../types/types").ProjectInterfaceReadOnly = {
 	name: "AimBot",
 	query: "aimbot",
 	caption:
@@ -86,16 +85,19 @@ export default {
 					{
 						type: "pdf",
 						title: "Axis, Pitch and Yaw",
+						img: "",
 						url: "/aimbot/pdf/2105050301AA_research_PitchYawAxis.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Trigonometry",
+						img: "",
 						url: "/aimbot/pdf/2105050301AB_research_Trigonometry.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Introduction to Flow Part I",
+						img: "",
 						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
 					},
 				],
@@ -287,7 +289,7 @@ export default {
 	],
 	improve: {
 		threshold: 600,
-		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+		caption: "Test what you've learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert:
 			"Congratulations! You now have a solution that will destroy any mosquitos that cross the path of your robot! Mosquitos everywhere will be trembling in fear! We have now added a timer to the simulation that will measure how long it takes your robot to find and destroy all of the mosquitos.",
 		tasks: [
@@ -317,3 +319,5 @@ export default {
 		],
 	},
 };
+
+export default AIMBOT_DATA;

@@ -1,4 +1,4 @@
-interface ExploreInterface {
+export interface ExploreInterface {
 	readonly title: string;
 	readonly caption: string;
 	readonly img: string;

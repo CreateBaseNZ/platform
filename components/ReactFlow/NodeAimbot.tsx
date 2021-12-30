@@ -1,12 +1,22 @@
-import { memo } from "react";
+import React, { CSSProperties, FC, memo } from "react";
 import { NodeMini, InputWithHandle } from "./NodeGeneral";
 import CustomHandle from "./Handles";
-import { getDefaultValues } from "../../utils/flowHelpers";
-import NodeSensing, { NodeSensingBool } from "./NodeSensing";
+import NodeSensing from "./NodeSensing";
 
 import classes from "./Nodes.module.scss";
 
-const NodeAimBotAction = ({ data = { values: {a: 1}, connections: [] }, id, label, isConnectable, style }) => {
+interface INodeProps {
+	data: {
+		values: any; // TODO
+		connections: any[]; // TODO
+	};
+	id: string;
+	label: string;
+	isConnectable: boolean;
+	style?: CSSProperties;
+}
+
+const NodeAimBotAction: FC<INodeProps> = ({ data = { values: { a: 1 }, connections: [] }, id, label, isConnectable, style = {} }) => {
 	return (
 		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.heatSeekerAction}`} style={style}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -69,7 +79,7 @@ export const NodeAimBotSetCurrentPitchSpeed = memo(({ id, data, isConnectable })
 	return <NodeAimBotAction data={data} id={id} label="Set Current Pitch Speed" isConnectable={isConnectable} style={{ border: "outset #00ffee" }} />;
 });
 
-export const NodeAimBotShoot = memo(({data, isConnectable }) => {
+export const NodeAimBotShoot = memo(({ data, isConnectable }) => {
 	return (
 		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -105,7 +115,7 @@ export const NodeAimBotSetPitchSpeedMini = memo(() => {
 
 export const NodeAimBotSetCurrentYawSpeedMini = memo(() => {
 	return (
-		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentYawSpeed" node={<NodeAimBotSetCurrentYawSpeed />} style={{ border: "outset #00ffee" }} >
+		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentYawSpeed" node={<NodeAimBotSetCurrentYawSpeed />} style={{ border: "outset #00ffee" }}>
 			<h4>Set Current Yaw Speed</h4>
 		</NodeMini>
 	);
@@ -113,7 +123,7 @@ export const NodeAimBotSetCurrentYawSpeedMini = memo(() => {
 
 export const NodeAimBotSetCurrentPitchSpeedMini = memo(() => {
 	return (
-		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentPitchSpeed" node={<NodeAimBotSetCurrentPitchSpeed />} style={{ border: "outset #00ffee" }} >
+		<NodeMini className={classes.actioning} nodeType="NodeAimBotSetCurrentPitchSpeed" node={<NodeAimBotSetCurrentPitchSpeed />} style={{ border: "outset #00ffee" }}>
 			<h4>Set Current Pitch Speed</h4>
 		</NodeMini>
 	);
