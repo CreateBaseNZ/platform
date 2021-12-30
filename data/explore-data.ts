@@ -1,17 +1,13 @@
-/**
- * @typedef {Object} Boost Flow coding booster activities
- * @property {string} title Boost title
- * @property {string} caption Short description about the boost
- * @property {string} img Thumbnail image source
- * @property {string} url Link to boost
- * @property {import("../types/types").Color} col1 Primary color
- * @property {import("../types/types").Color} col2 Secondary color
- */
+interface ExploreInterface {
+	readonly title: string;
+	readonly caption: string;
+	readonly img: string;
+	readonly url: string;
+	readonly col1: string;
+	readonly col2: string;
+}
 
-/**
- * @type {Boost}
- */
-export const comparisonBoostData = {
+export const comparisonBoostData: ExploreInterface = {
 	title: "Comparison Boost",
 	caption: "Upgrade your skills and become an expert with comparison blocks",
 	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/explore/comparison-boost.jpg",
@@ -20,10 +16,7 @@ export const comparisonBoostData = {
 	col2: "rgba(254, 117, 126, 0.5)",
 };
 
-/**
- * @type {Boost}
- */
-export const ifBoostData = {
+export const ifBoostData: ExploreInterface = {
 	title: "If Boost",
 	caption: "Upgrade your skills and become an expert with if blocks",
 	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/explore/if-boost.jpg",
@@ -32,10 +25,7 @@ export const ifBoostData = {
 	col2: "rgba(253, 105, 203, 0.5)",
 };
 
-/**
- * @type {Boost}
- */
-export const whileBoostData = {
+export const whileBoostData: ExploreInterface = {
 	title: "While Boost",
 	caption: "Upgrade your skills and become an expert with while blocks",
 	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/explore/while-boost.jpg",
@@ -44,10 +34,7 @@ export const whileBoostData = {
 	col2: "rgba(253, 105, 203, 0.5)",
 };
 
-/**
- * @type {Boost}
- */
-export const recycleRightData = {
+export const recycleRightData: ExploreInterface = {
 	title: "Recycle Right",
 	caption: "Are you a recycling legend? Play the game to find out",
 	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/explore/recycle-right.jpg",

@@ -31,7 +31,7 @@ const ClassesTabRoot = () => {
 	}, [globalSession.groups[globalSession.recentGroups[0]].alias]);
 
 	const cardClickHandler = (_class) => {
-		_class.status === "joined" && router.push({ pathname: "/classes/[id]/announcements", query: { id: _class.id } });
+		_class.status === "joined" && router.push({ pathname: "/classes/[id]/progress", query: { id: _class.id } });
 	};
 
 	return (

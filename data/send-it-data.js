@@ -152,11 +152,13 @@ const SendIt = {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
+						img: "",
 						url: "/intro-to-flow.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Tips & tricks: sensing blocks",
+						img: "",
 						url: "/sensing-blocks.pdf",
 					},
 					{
@@ -197,8 +199,8 @@ const SendIt = {
 	],
 	improve: {
 		threshold: 1200,
-		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-		alert: "Did you beat the game? Uh oh, looks like there’s now some flying drones! And is that acceleration? Different sized obstacles too? Time to rethink your code...",
+		caption: "Test what you've learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
+		alert: "Did you beat the game? Uh oh, looks like there's now some flying drones! And is that acceleration? Different sized obstacles too? Time to rethink your code...",
 		tasks: [
 			"Modify your code to duck under flying drones",
 			"Modify your code to take into account an accelerating robot",

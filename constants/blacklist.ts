@@ -1,6 +1,4 @@
-// TODO - migrate to constants
-
-export default [
+const BLACKLIST: string[] = [
 	"4r5e",
 	"5h1t",
 	"5hit",
@@ -453,3 +451,5 @@ export default [
 	"xrated",
 	"xxx",
 ];
+
+export default BLACKLIST;
