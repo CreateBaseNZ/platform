@@ -37,7 +37,7 @@ const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }) => {
 		});
 	}, []);
 
-	const sceneName = suffix ? `${scenePrefix}_${index},${suffix}` : `${scenePrefix}_${index}`;
+	const sceneName = isImprove ? `${scenePrefix}_${index},improve` : `${scenePrefix}_${index},manual`;
 
 	useEffect(() => {
 		console.log("loading");
