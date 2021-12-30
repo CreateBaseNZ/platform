@@ -8,7 +8,8 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start -p $PORT"
+		"start": "next start -p $PORT",
+		"doc": "jsdoc -c jsdoc.json"
 	},
 	"dependencies": {
 		"axios": "^0.22.0",
@@ -16,6 +17,7 @@
 		"fuse.js": "^6.4.6",
 		"html2canvas": "^1.3.2",
 		"javascript-time-ago": "^2.3.10",
+		"jsdoc": "^3.6.7",
 		"lodash": "^4.17.21",
 		"mixpanel-browser": "^2.42.0",
 		"moment": "^2.29.1",

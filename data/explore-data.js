@@ -1,3 +1,16 @@
+/**
+ * @typedef {Object} Boost Flow coding booster activities
+ * @property {string} title Boost title
+ * @property {string} caption Short description about the boost
+ * @property {string} img Thumbnail image source
+ * @property {string} url Link to boost
+ * @property {import("../types/types").Color} col1 Primary color
+ * @property {import("../types/types").Color} col2 Secondary color
+ */
+
+/**
+ * @type {Boost}
+ */
 export const comparisonBoostData = {
 	title: "Comparison Boost",
 	caption: "Upgrade your skills and become an expert with comparison blocks",
@@ -7,6 +20,9 @@ export const comparisonBoostData = {
 	col2: "rgba(254, 117, 126, 0.5)",
 };
 
+/**
+ * @type {Boost}
+ */
 export const ifBoostData = {
 	title: "If Boost",
 	caption: "Upgrade your skills and become an expert with if blocks",
@@ -16,6 +32,9 @@ export const ifBoostData = {
 	col2: "rgba(253, 105, 203, 0.5)",
 };
 
+/**
+ * @type {Boost}
+ */
 export const whileBoostData = {
 	title: "While Boost",
 	caption: "Upgrade your skills and become an expert with while blocks",
@@ -25,6 +44,9 @@ export const whileBoostData = {
 	col2: "rgba(253, 105, 203, 0.5)",
 };
 
+/**
+ * @type {Boost}
+ */
 export const recycleRightData = {
 	title: "Recycle Right",
 	caption: "Are you a recycling legend? Play the game to find out",

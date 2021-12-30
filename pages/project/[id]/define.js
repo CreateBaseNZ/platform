@@ -40,7 +40,7 @@ const Define = () => {
 				<meta name="description" content={data.caption} />
 			</Head>
 			<div className={classes.wrapper}>
-				{data && <VideoViewer data={data.define} />}
+				{data && <VideoViewer data={data.define} title={data.name} />}
 				{data && data.define.word && data.define.docs && (
 					<div className={classes.instructions}>
 						<div className={classes.imgContainer}>
