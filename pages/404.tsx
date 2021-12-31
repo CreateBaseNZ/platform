@@ -13,7 +13,7 @@ const Error404 = () => {
 
 	useEffect(() => {
 		if (router.asPath === "/404") return;
-		reportError({ route: router.asPath, type: "404", message: `A user is trying to access ${router.asPath} route` });
+		reportError(router.asPath, "404", `A user is trying to access ${router.asPath} route`);
 	}, []);
 
 	return (
@@ -29,8 +29,8 @@ const Error404 = () => {
 						<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" />
 					</div>
 				</div>
-				<h2>Oops! You’ve found a magical land with polygon chickens.</h2>
-				<h3>The page you’re looking for doesn’t exist or has been removed. Poof! You didn’t see anything...</h3>
+				<h2>Oops! You've found a magical land with polygon chickens.</h2>
+				<h3>The page you're looking for doesn't exist or has been removed. Poof! You didn't see anything...</h3>
 			</div>
 			<Link href="/" replace={true}>
 				<div>

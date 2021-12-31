@@ -11,7 +11,7 @@ const Unsupported = () => {
 	const { reportError } = useApi();
 
 	useEffect(() => {
-		reportError({ route: "/game", type: "unsupported", message: "A user on an unsupported browser could not access our simulation", metadata: { userAgent: navigator.userAgent } });
+		reportError("/game", "unsupported", "A user on an unsupported browser could not access our simulation", { userAgent: navigator.userAgent });
 	}, []);
 
 	return (

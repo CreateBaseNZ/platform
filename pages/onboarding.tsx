@@ -193,12 +193,14 @@ const Onboarding = () => {
 	const [videoModal, setVideoModal] = useState({ show: false, videoUrl: "" });
 	const [textModal, setTextModal] = useState<TextModal>({ show: false, content: null });
 
-	useEffect(async () => {
-		await post({
-			route: "/api/profile/read-saves",
-			input: { profileId: globalSession.profileId, properties: ["onboardingStatuses"] },
-			successHandler: (data) => setStatuses(data.content.onboardingStatuses || {}),
-		});
+	useEffect(() => {
+		(async () => {
+			await post({
+				route: "/api/profile/read-saves",
+				input: { profileId: globalSession.profileId, properties: ["onboardingStatuses"] },
+				successHandler: (data) => setStatuses(data.content.onboardingStatuses || {}),
+			});
+		})();
 	}, []);
 
 	if (!statuses) return null;
