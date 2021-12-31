@@ -3,8 +3,11 @@ import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
 import router from "next/router";
 import LoadingScreen from "../UI/LoadingScreen";
+import { Role } from "../../types/types";
 
-const hasAccess = (role, auth) => {
+export type AuthLevel = "admin" | "staff" | "user" | "any";
+
+const hasAccess = (role: Role, auth: AuthLevel) => {
 	switch (auth) {
 		case "admin":
 			return role === "admin";
@@ -15,7 +18,12 @@ const hasAccess = (role, auth) => {
 	}
 };
 
-const AuthGuard = ({ children, auth }) => {
+interface IAuthGuardProps {
+	children: JSX.Element;
+	auth: AuthLevel;
+}
+
+const AuthGuard = ({ children, auth }: IAuthGuardProps): JSX.Element => {
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
