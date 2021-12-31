@@ -1,10 +1,6 @@
 import { DeepReadonly } from "ts-essentials";
+import { SubjectInterface } from "../constants/projectSubjects";
 import { ExploreInterface } from "../data/explore-data";
-
-export interface SubjectInterface {
-	color: string;
-	label: string;
-}
 
 type Module =
 	| {

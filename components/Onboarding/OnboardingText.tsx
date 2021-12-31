@@ -1,8 +1,7 @@
-import Link from "next/link";
 import ClientOnlyPortal from "../UI/ClientOnlyPortal";
 import classes from "./OnboardingText.module.scss";
 
-const OnboardingText = ({ state, setState }) => {
+const OnboardingText = ({ state, setState }): JSX.Element => {
 	console.log(state);
 
 	return (

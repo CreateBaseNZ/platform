@@ -5,7 +5,11 @@ import SignupForm from "./SignupForm";
 
 import classes from "./AuthCard.module.scss";
 
-const AuthCard = ({ isSignup }) => {
+interface AuthCardProps {
+	isSignup: boolean;
+}
+
+const AuthCard = ({ isSignup }: AuthCardProps): JSX.Element => {
 	return (
 		<div className={classes.authCard}>
 			<div className={`${classes.imgContainer} ${isSignup ? classes.signup : classes.login}`}>

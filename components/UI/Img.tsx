@@ -1,14 +1,21 @@
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState, CSSProperties } from "react";
+import Image, { ImageProps } from "next/image";
 
 import classes from "./Img.module.scss";
 
-const Img = ({ style, label, ...rest }) => {
-	const ref = useRef();
+interface ImgProps extends ImageProps {
+	label?: string;
+	style?: CSSProperties;
+}
+
+const Img = ({ style, label, ...rest }: ImgProps): JSX.Element => {
+	const ref = useRef<HTMLDivElement | null>(null);
 	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
-		return () => (ref.current = false);
+		return () => {
+			ref.current = null;
+		};
 	}, []);
 
 	const loadingCompleteHandler = () => {
