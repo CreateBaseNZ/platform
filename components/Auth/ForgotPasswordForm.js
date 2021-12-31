@@ -44,7 +44,7 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 			},
 			successHandler: () => {
 				setInputValues((state) => ({ ...state, email: input.email }));
-				setVisualBell({ type: "success", message: "A recovery code has been sent to your email" });
+				setVisualBell("success", "A recovery code has been sent to your email");
 				setStep(1);
 			},
 		});
@@ -92,7 +92,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 			route: "/api/auth/send-recovery-code",
 			input: { email: inputValues.email, date: new Date().toString() },
 			successHandler: () => {
-				setVisualBell({ type: "neutral", message: "A new recovery code has been sent to your email" });
+				setVisualBell("neutral", "A new recovery code has been sent to your email");
 				setIsResending(false);
 			},
 		});
@@ -223,7 +223,7 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 			input: { email: inputValues.email, password: input.newPassword, date: new Date().toString() },
 			successHandler: () => {
 				router.replace("/auth/login");
-				setVisualBell({ type: "success", message: "Successfully reset password, please log in to continue" });
+				setVisualBell("success", "Successfully reset password, please log in to continue");
 			},
 		});
 	};

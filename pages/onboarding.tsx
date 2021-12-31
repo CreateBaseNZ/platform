@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import useApi from "../hooks/useApi";
 import GlobalSessionContext from "../store/global-session-context";
@@ -9,9 +9,40 @@ import OnboardingText from "../components/Onboarding/OnboardingText";
 
 import classes from "../styles/onboarding.module.scss";
 
-const GETTING_STARTED_SECTION = {
+type OnboardingTask =
+	| {
+			type: "video";
+			id: string;
+			title: string;
+			subtitle: string;
+			videoUrl: string;
+			link?: {
+				url: string;
+				label: string;
+			};
+	  }
+	| {
+			type: "link";
+			id: string;
+			title: string;
+			linkUrl: string;
+			subtitle?: string;
+	  }
+	| {
+			type: "text";
+			id: string;
+			title: string;
+			content: JSX.Element;
+	  };
+
+interface OnBoardingSection {
+	caption: string;
+	tasks: OnboardingTask[];
+	orId?: string;
+}
+
+const GETTING_STARTED_SECTION: OnBoardingSection = {
 	caption: "Let's get you started! Here's a couple videos we've put together for you",
-	hasOr: true,
 	orId: "getting-started",
 	tasks: [
 		{
@@ -31,14 +62,20 @@ const GETTING_STARTED_SECTION = {
 	],
 };
 
-const FLOW_SECTION = {
+const FLOW_SECTION: OnBoardingSection = {
 	caption: "Get started with Flow coding",
-	tasks: [{ id: "flow-0", type: "link", title: "Complete the first subsystem in MagneBot", linkUrl: "/project/magnebot/create/Sequential%20programming/code" }],
+	tasks: [
+		{
+			id: "flow-0",
+			type: "link",
+			title: "Complete the first subsystem in MagneBot",
+			linkUrl: "/project/magnebot/create/Sequential%20programming/code",
+		},
+	],
 };
 
-const GROUP_DEFAULT_SECTION = {
-	caption: "To access group features, let’s get you into a group",
-	hasOr: true,
+const GROUP_DEFAULT_SECTION: OnBoardingSection = {
+	caption: "To access group features, let's get you into a group",
 	orId: "not-group",
 	tasks: [
 		{
@@ -47,8 +84,7 @@ const GROUP_DEFAULT_SECTION = {
 			title: "Register or join your school",
 			subtitle: "For admins and teachers",
 			videoUrl: "https://www.youtube.com/embed/K9BLb9clLRk",
-			linkUrl: "/my-groups/new-school",
-			linkLabel: "Go to school registration",
+			link: { url: "/my-groups/new-school", label: "Go to school registration" },
 		},
 		{
 			id: "not-group-1",
@@ -56,13 +92,16 @@ const GROUP_DEFAULT_SECTION = {
 			title: "Join your school",
 			subtitle: "For students",
 			videoUrl: "https://www.youtube.com/embed/VZ4wRCb_Up8",
-			linkUrl: "/my-groups/join-school",
-			linkLabel: "Join a school",
+			link: {
+				url: "/my-groups/join-school",
+				label: "Join a school",
+			},
 		},
 	],
 };
 
-const STAFF_SECTION = {
+const STAFF_SECTION: OnBoardingSection = {
+	caption: "",
 	tasks: [
 		{
 			id: "group-0",
@@ -129,23 +168,30 @@ const STAFF_SECTION = {
 			title: "Add members to your class",
 			subtitle: "Classes (3/3)",
 			videoUrl: "https://www.youtube.com/embed/so383OzZ-rk?start=10",
-			linkUrl: "/classes",
-			linkLabel: "Go to Classes",
+			link: {
+				url: "/classes",
+				label: "Go to Classes",
+			},
 		},
 	],
 };
 
-const SUPPORT_SECTION = {
+const SUPPORT_SECTION: OnBoardingSection = {
 	caption: "Here's some additional help and support",
 	tasks: [{ id: "support-0", type: "link", title: "Visit the Support Center", linkUrl: "/support" }],
 };
+
+export interface TextModal {
+	show: boolean;
+	content: JSX.Element | null;
+}
 
 const Onboarding = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
 	const [statuses, setStatuses] = useState();
 	const [videoModal, setVideoModal] = useState({ show: false, videoUrl: "" });
-	const [textModal, setTextModal] = useState({ show: false, content: null });
+	const [textModal, setTextModal] = useState<TextModal>({ show: false, content: null });
 
 	useEffect(async () => {
 		await post({
@@ -157,7 +203,7 @@ const Onboarding = () => {
 
 	if (!statuses) return null;
 
-	const checkHandler = async (id) => {
+	const checkHandler = async (id: string) => {
 		const newStatuses = { ...statuses, [id]: !statuses[id] };
 		await post({
 			route: "/api/profile/update-saves",
@@ -178,8 +224,8 @@ const Onboarding = () => {
 				<h1>
 					Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {globalSession.firstName} 👋
 				</h1>
-				<OnboardingSection section={GETTING_STARTED_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
-				<OnboardingSection section={FLOW_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
+				<OnboardingSection section={GETTING_STARTED_SECTION} statuses={statuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
+				<OnboardingSection section={FLOW_SECTION} statuses={statuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
 				{staffOfVerifiedGroups.length ? (
 					<OnboardingSection
 						section={{
@@ -190,14 +236,13 @@ const Onboarding = () => {
 							tasks: STAFF_SECTION.tasks.filter((task) => (task.id === "group-5" ? statuses["group-4"] : true)),
 						}}
 						statuses={statuses}
-						setStatuses={setStatuses}
 						checkHandler={checkHandler}
 						setVideoModal={setVideoModal}
 						setTextModal={setTextModal}
 					/>
 				) : null}
-				<OnboardingSection section={GROUP_DEFAULT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
-				<OnboardingSection section={SUPPORT_SECTION} statuses={statuses} setStatuses={setStatuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
+				<OnboardingSection section={GROUP_DEFAULT_SECTION} statuses={statuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
+				<OnboardingSection section={SUPPORT_SECTION} statuses={statuses} checkHandler={checkHandler} setVideoModal={setVideoModal} setTextModal={setTextModal} />
 			</div>
 			{videoModal.show && <OnboardingVideo state={videoModal} setState={setVideoModal} />}
 			{textModal.show && <OnboardingText state={textModal} setState={setTextModal} />}
@@ -205,7 +250,7 @@ const Onboarding = () => {
 	);
 };
 
-Onboarding.getLayout = (page) => {
+Onboarding.getLayout = (page: ReactElement) => {
 	return <MainLayout page="onboarding">{page}</MainLayout>;
 };
 

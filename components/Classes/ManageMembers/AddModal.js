@@ -72,7 +72,7 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 					students: [...state.students, ...students],
 				}));
 				setShow(false);
-				setVisualBell({ type: "success", message: `${details.licenseIds.length} new user${details.licenseIds.length === 1 ? "" : "s"} added` });
+				setVisualBell("success", `${details.licenseIds.length} new user${details.licenseIds.length === 1 ? "" : "s"} added`);
 			},
 		});
 	};

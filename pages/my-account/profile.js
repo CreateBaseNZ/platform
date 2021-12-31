@@ -58,10 +58,7 @@ const MyProfile = () => {
 			input: { ...inputValues, date: new Date().toString(), profileId: globalSession.profileId },
 			successHandler: () => {
 				setGlobalSession((state) => ({ ...state, ...inputValues }));
-				setVisualBell({
-					type: "success",
-					message: "Your profile has been updated",
-				});
+				setVisualBell("success", "Your profile has been updated");
 				setIsLoading(false);
 				reset(inputValues);
 			},

@@ -64,10 +64,7 @@ const MySecurity = () => {
 				}
 			},
 			successHandler: () => {
-				setVisualBell({
-					type: "success",
-					message: "Your password has been updated",
-				});
+				setVisualBell("success", "Your password has been updated");
 				reset();
 				setIsLoading(false);
 			},

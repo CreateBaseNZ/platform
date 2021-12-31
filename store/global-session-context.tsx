@@ -5,15 +5,32 @@ import axios from "axios";
 import useApi from "../hooks/useApi";
 import { signOut } from "next-auth/react";
 import VisualBellContext from "./visual-bell-context";
+import { GroupAndUserObject } from "../types/types";
 
-const GlobalSessionContext = createContext({
-	globalSession: { loaded: false },
+interface IGlobalSessionCtx {
+	globalSession: {
+		accountId: string;
+		email: string;
+		firstName: string;
+		groups: GroupAndUserObject[];
+		lastName: string;
+		loaded: boolean;
+		numOfNotifications: number;
+		profileId: string;
+		recentGroups: number[];
+		verified: boolean;
+	};
+	setGlobalSession: () => void;
+}
+
+const GlobalSessionContext = createContext<IGlobalSessionCtx>({
+	globalSession: { accountId: "", email: "", firstName: "", groups: [], lastName: "", loaded: false, numOfNotifications: 0, profileId: "", recentGroups: [], verified: false },
 	setGlobalSession: () => {},
 });
 
 export default GlobalSessionContext;
 
-export const GlobalSessionContextProvider = (props) => {
+export const GlobalSessionContextProvider = ({ children }: { children: JSX.Element }) => {
 	const { data: session, status } = useSession();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { post } = useApi();
@@ -67,12 +84,12 @@ export const GlobalSessionContextProvider = (props) => {
 			},
 		});
 		if (globalSession.groups[globalSession.recentGroups[0]]) {
-			setVisualBell({
-				type: "success",
-				message: `Now viewing as a${globalSession.groups[globalSession.recentGroups[0]].role === "admin" ? "n" : ""} ${globalSession.groups[globalSession.recentGroups[0]].role} of ${
+			setVisualBell(
+				"success",
+				`Now viewing as a${globalSession.groups[globalSession.recentGroups[0]].role === "admin" ? "n" : ""} ${globalSession.groups[globalSession.recentGroups[0]].role} of ${
 					globalSession.groups[globalSession.recentGroups[0]].name
-				}`,
-			});
+				}`
+			);
 		}
 	}, [globalSession.recentGroups]);
 
@@ -84,5 +101,5 @@ export const GlobalSessionContextProvider = (props) => {
 		[globalSession, setGlobalSession]
 	);
 
-	return <GlobalSessionContext.Provider value={value}>{props.children}</GlobalSessionContext.Provider>;
+	return <GlobalSessionContext.Provider value={value}>{children}</GlobalSessionContext.Provider>;
 };

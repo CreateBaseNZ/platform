@@ -50,7 +50,7 @@ const DuplicateWarning = ({ setShow, duplicateParams, reset }) => {
 			},
 			successHandler: (data) => {
 				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-				setVisualBell({ type: "success", message: "Your request has been sent" });
+				setVisualBell("success", "Your request has been sent");
 				reset();
 				setShow(false);
 			},
@@ -64,7 +64,7 @@ const DuplicateWarning = ({ setShow, duplicateParams, reset }) => {
 			input: { ...duplicateParams.details, bypassDuplicate: true },
 			successHandler: (data) => {
 				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-				setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
+				setVisualBell("success", "Your registration has been submitted for verification");
 				router.push("/my-groups");
 			},
 		});

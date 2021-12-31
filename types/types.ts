@@ -100,3 +100,15 @@ interface ProjectInterface {
 }
 
 export type ProjectInterfaceReadOnly = DeepReadonly<ProjectInterface>;
+
+export interface GroupAndUserObject {
+	alias: string;
+	id: string;
+	licenseId: string;
+	name: string;
+	numOfUsers: { admins: number; students: number; teachers: number };
+	role: "admin" | "teacher" | "student";
+	status: "activated" | "requested" | "invited" | "deactivated";
+	type: "school";
+	verified: boolean;
+}

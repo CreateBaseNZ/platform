@@ -63,7 +63,7 @@ const NewSchool = () => {
 
 	const onSubmit = async (inputs) => {
 		setIsLoading(true);
-		const country = COUNTRIES.find((_country) => _country.name.toLowerCase() === inputs.['school-ctry'].toLowerCase())?.name;
+		const country = COUNTRIES.find((_country) => _country.name.toLowerCase() === inputs["school-ctry"].toLowerCase())?.name;
 		if (!country) {
 			setError("school-ctry", {
 				type: "manual",
@@ -96,7 +96,7 @@ const NewSchool = () => {
 					input: details,
 					successHandler: (data) => {
 						setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-						setVisualBell({ type: "success", message: "Your registration has been submitted for verification" });
+						setVisualBell("success", "Your registration has been submitted for verification");
 						router.push("/my-groups");
 					},
 				});

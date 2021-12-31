@@ -22,13 +22,13 @@ const LeaveModal = ({ setShow, classObject }) => {
 			},
 			failHandler: (data) => {
 				if (data.content === "teacher required") {
-					setVisualBell({ type: "error", message: "Cannot leave as you are the only teacher in this group" });
+					setVisualBell("error", "Cannot leave as you are the only teacher in this group");
 					setShow(false);
 				}
 			},
 			successHandler: () => {
 				router.push("/classes");
-				setVisualBell({ type: "neutral", message: "Class left" });
+				setVisualBell("neutral", "Class left");
 				setShow(false);
 			},
 		});

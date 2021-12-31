@@ -51,7 +51,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 			successHandler: () => {
 				setGlobalSession((state) => ({ ...state, verified: true }));
 				router.push(router.query.callbackUrl || "/");
-				setVisualBell({ type: "success", message: "Your account is now verified" });
+				setVisualBell("success", "Your account is now verified");
 			},
 		});
 	};
@@ -62,7 +62,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 			route: "/api/auth/resend-verify-code",
 			input: { accountId: globalSession.accountId, date: new Date().toString() },
 			successHandler: () => {
-				setVisualBell({ type: "neutral", message: "A new verification code has been sent" });
+				setVisualBell("neutral", "A new verification code has been sent");
 				setIsResending(false);
 			},
 		});

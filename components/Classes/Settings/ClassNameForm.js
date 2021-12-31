@@ -39,7 +39,7 @@ const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 			},
 			successHandler: () => {
 				setClassObject((state) => ({ ...state, name: input.name }));
-				setVisualBell({ type: "success", message: "Class details updated" });
+				setVisualBell("success", "Class details updated");
 				setIsLoading(false);
 			},
 		});

@@ -49,7 +49,7 @@ const ClassesNew = () => {
 				}
 			},
 			successHandler: (data) => {
-				setVisualBell({ type: "success", message: `Welcome to ${data.content.name}!` });
+				setVisualBell("success", `Welcome to ${data.content.name}!`);
 				router.push(`/classes/${data.content.id}`);
 			},
 		});

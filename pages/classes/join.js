@@ -46,7 +46,7 @@ const ClassJoin = () => {
 				date: new Date().toString(),
 			},
 			successHandler: () => {
-				setVisualBell({ type: "success", message: "Request sent" });
+				setVisualBell("success", "Request sent");
 				router.push("/classes");
 			},
 		});

@@ -92,7 +92,7 @@ const JoinSchoolTeacher = () => {
 			},
 			successHandler: (data) => {
 				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-				setVisualBell({ type: "success", message: "Your request has been sent" });
+				setVisualBell("success", "Your request has been sent");
 				setHasRequested(true);
 				reset();
 				setQueryDropdown({ show: false, groups: null, selectedId: "" });

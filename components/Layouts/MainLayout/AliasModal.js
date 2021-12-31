@@ -35,7 +35,7 @@ const AliasModal = ({ setShow }) => {
 			},
 			successHandler: () => {
 				setGlobalSession((state) => ({ ...state, groups: [...state.groups].map((_group, i) => (i === state.recentGroups[0] ? { ..._group, alias: inputValues.alias } : _group)) }));
-				setVisualBell({ type: "success", message: "Your alias has been updated" });
+				setVisualBell("success", "Your alias has been updated");
 				setShow(false);
 			},
 		});

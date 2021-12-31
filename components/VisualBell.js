@@ -9,7 +9,7 @@ const VisualBell = () => {
 		<div className={classes.container} style={{ pointerEvents: !visualBell.message && "none" }}>
 			<div key={Math.random()} className={`${classes.bell} ${classes[visualBell.type]}`}>
 				{visualBell.message}
-				<i className="material-icons-outlined" onClick={() => setVisualBell({})} title="Close">
+				<i className="material-icons-outlined" onClick={() => setVisualBell(null)} title="Close">
 					close
 				</i>
 			</div>

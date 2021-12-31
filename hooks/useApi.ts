@@ -2,15 +2,16 @@ import router from "next/router";
 import axios from "axios";
 
 const useApi = () => {
-	const reportError = async (input) => {
+	const reportError = async ({ type = "", route = "", message = "", metadata = {} }) => {
 		axios.post("/api/error", {
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-			input: { type: input.type, route: input.route, date: new Date().toString(), message: input.message, metadata: input.metadata },
+			input: { type: type, route: route, date: new Date().toString(), message: message, metadata: metadata },
 		});
 	};
 
+	// TODO - typechecking
 	const post = async ({ route = "", input = {}, failHandler = () => {}, successHandler = () => {} }) => {
-		let data = {};
+		let data;
 		try {
 			data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"];
 		} catch (error) {

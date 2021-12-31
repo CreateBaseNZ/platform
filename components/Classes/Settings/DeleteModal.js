@@ -23,13 +23,13 @@ const DeleteModal = ({ setShow, classObject }) => {
 			},
 			failHandler: (data) => {
 				if (data.content === "unauthorised") {
-					setVisualBell({ type: "error", message: "You do not have permission to delete this class" });
+					setVisualBell("error", "You do not have permission to delete this class");
 					setShow(false);
 				}
 			},
 			successHandler: () => {
 				router.push("/classes");
-				setVisualBell({ type: "neutral", message: "Class deleted" });
+				setVisualBell("neutral", "Class deleted");
 			},
 		});
 	};
