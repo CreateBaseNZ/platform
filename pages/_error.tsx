@@ -6,8 +6,13 @@ import Img from "../components/UI/Img";
 import { PrimaryButton } from "../components/UI/Buttons";
 
 import classes from "../styles/404.module.scss";
+import { NextPage, NextPageContext } from "next";
 
-const Error = ({ statusCode }) => {
+interface IErrorProps {
+	statusCode?: string;
+}
+
+const Error = ({ statusCode }: IErrorProps) => {
 	return (
 		<div className={classes.view}>
 			<Head>
@@ -33,9 +38,9 @@ const Error = ({ statusCode }) => {
 	);
 };
 
-Error.getInitialProps = ({ res, err }) => {
+Error.getInitialProps = ({ res, err }: NextPageContext) => {
 	const { reportError } = useApi();
-	reportError(router.asPath, "runtime", err.toString());
+	reportError(router.asPath, "runtime", err?.toString());
 
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
 	return { statusCode };
