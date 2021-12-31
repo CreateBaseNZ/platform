@@ -53,11 +53,11 @@ interface SubsystemInterface {
 		caption: string; // TODO can possibly hard code
 		tasks: string[];
 		hints: string[];
-		blockList: BlockList;
 	};
+	blockList: BlockList;
 }
 
-interface ProjectInterface {
+interface IProject {
 	name: string;
 	query: string;
 	caption: string;
@@ -99,7 +99,7 @@ interface ProjectInterface {
 	};
 }
 
-export type ProjectInterfaceReadOnly = DeepReadonly<ProjectInterface>;
+export type IProjectReadOnly = DeepReadonly<IProject>;
 
 export interface GroupAndUserObject {
 	alias: string;

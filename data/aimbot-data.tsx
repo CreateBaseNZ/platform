@@ -18,8 +18,9 @@ import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini, NodePIMini, NodeSqrtMini, NodeClampMini } from "../components/ReactFlow/NodeOperations";
 import { NodePrintMini } from "../components/ReactFlow/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
+import { IProjectReadOnly } from "../types/types";
 
-const AIMBOT_DATA: import("../types/types").ProjectInterfaceReadOnly = {
+const AIMBOT_DATA: IProjectReadOnly = {
 	name: "AimBot",
 	query: "aimbot",
 	caption:
@@ -145,6 +146,7 @@ const AIMBOT_DATA: import("../types/types").ProjectInterfaceReadOnly = {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks 2",
+						img: "", // TODO
 						url: "/aimbot/pdf/2105050301AD_research_2_blocks.pdf",
 					},
 				],
@@ -193,16 +195,19 @@ const AIMBOT_DATA: import("../types/types").ProjectInterfaceReadOnly = {
 					{
 						type: "pdf",
 						title: "Intro to Forces",
+						img: "", // TODO
 						url: "/aimbot/pdf/2105050301AE_research_IntroToForces.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Intro to Controllers",
+						img: "", // TODO
 						url: "/aimbot/pdf/2105050301AF_research_IntroToControllers.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Finer Velocity Control",
+						img: "", // TODO
 						url: "/aimbot/pdf/2105050301AG_research_FinerVelocityControl.pdf",
 					},
 				],
@@ -249,6 +254,7 @@ const AIMBOT_DATA: import("../types/types").ProjectInterfaceReadOnly = {
 					{
 						type: "pdf",
 						title: "Proceed to Plan",
+						img: "", // TODO
 						url: "/2105AD-No-Research.pdf",
 					},
 				],

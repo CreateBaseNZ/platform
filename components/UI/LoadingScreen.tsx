@@ -20,13 +20,11 @@ const MESSAGES = [
 	"Kia ora!",
 ];
 
-const LoadingScreen = () => {
+const LoadingScreen = (): JSX.Element => {
 	const [i, setI] = useState(0);
 
 	useEffect(() => {
-		const int = setInterval(() => {
-			setI(Math.floor(Math.random() * MESSAGES.length));
-		}, [1500]);
+		const int = setInterval(() => setI(Math.floor(Math.random() * MESSAGES.length)), 1500);
 
 		return () => clearInterval(int);
 	}, []);
