@@ -27,13 +27,18 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		await post({
-			route: "/api/auth/send-recovery-code",
-			input: {
+		await post(
+			"/api/auth/send-recovery-code",
+			{
 				email: input.email,
 				date: new Date().toString(),
 			},
-			failHandler: (data) => {
+			() => {
+				setInputValues((state) => ({ ...state, email: input.email }));
+				setVisualBell("success", "A recovery code has been sent to your email");
+				setStep(1);
+			},
+			(data) => {
 				if (data.content === "does not exist") {
 					setError("email", {
 						type: "manual",
@@ -41,13 +46,8 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 					});
 				}
 				setIsLoading(false);
-			},
-			successHandler: () => {
-				setInputValues((state) => ({ ...state, email: input.email }));
-				setVisualBell("success", "A recovery code has been sent to your email");
-				setStep(1);
-			},
-		});
+			}
+		);
 	};
 
 	return (
@@ -88,34 +88,30 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 
 	const resendCode = async () => {
 		setIsResending(true);
-		await post({
-			route: "/api/auth/send-recovery-code",
-			input: { email: inputValues.email, date: new Date().toString() },
-			successHandler: () => {
-				setVisualBell("neutral", "A new recovery code has been sent to your email");
-				setIsResending(false);
-			},
+		await post("/api/auth/send-recovery-code", { email: inputValues.email, date: new Date().toString() }, () => {
+			setVisualBell("neutral", "A new recovery code has been sent to your email");
+			setIsResending(false);
 		});
 	};
 
 	const submitCode = async (code) => {
 		setIsLoading(true);
-		await post({
-			route: "/api/auth/recover",
-			input: { email: inputValues.email, code: code },
-			failHandler: (data) => {
+		await post(
+			"/api/auth/recover",
+			{ email: inputValues.email, code: code },
+			() => {
+				setInputValues((state) => ({ ...state, code: code }));
+				setStep(2);
+			},
+			(data) => {
 				if (data.content === "incorrect") {
 					setError("The code you entered is incorrect");
 				} else if (data.content === "expired") {
 					setError("The code you entered has expired");
 				}
 				setIsLoading(false);
-			},
-			successHandler: () => {
-				setInputValues((state) => ({ ...state, code: code }));
-				setStep(2);
-			},
-		});
+			}
+		);
 	};
 
 	const changeHandler = (e, idx) => {
@@ -218,13 +214,9 @@ const ForgotPasswordStepThree = ({ inputValues }) => {
 
 	const onSubmit = async (input) => {
 		setIsLoading(true);
-		await post({
-			route: "/api/auth/reset-password",
-			input: { email: inputValues.email, password: input.newPassword, date: new Date().toString() },
-			successHandler: () => {
-				router.replace("/auth/login");
-				setVisualBell("success", "Successfully reset password, please log in to continue");
-			},
+		await post("/api/auth/reset-password", { email: inputValues.email, password: input.newPassword, date: new Date().toString() }, () => {
+			router.replace("/auth/login");
+			setVisualBell("success", "Successfully reset password, please log in to continue");
 		});
 	};
 

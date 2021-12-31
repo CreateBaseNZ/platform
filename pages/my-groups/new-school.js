@@ -81,26 +81,18 @@ const NewSchool = () => {
 			country: country,
 			date: new Date().toString(),
 		};
-		await post({
-			route: "/api/groups/query",
-			input: { query: details.name },
-			successHandler: async (data) => {
-				const otherGroups = data.content.filter((group) => group.location.country.toLowerCase() === details.country.toLowerCase());
-				setDuplicateParams({ details, otherGroups });
-				if (otherGroups.length) {
-					setShowDuplicateWarning(true);
-					return setIsLoading(false);
-				}
-				await post({
-					route: "/api/groups/register-school",
-					input: details,
-					successHandler: (data) => {
-						setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-						setVisualBell("success", "Your registration has been submitted for verification");
-						router.push("/my-groups");
-					},
-				});
-			},
+		await post("/api/groups/query", { query: details.name }, async (data) => {
+			const otherGroups = data.content.filter((group) => group.location.country.toLowerCase() === details.country.toLowerCase());
+			setDuplicateParams({ details, otherGroups });
+			if (otherGroups.length) {
+				setShowDuplicateWarning(true);
+				return setIsLoading(false);
+			}
+			await post("/api/groups/register-school", details, (data) => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+				setVisualBell("success", "Your registration has been submitted for verification");
+				router.push("/my-groups");
+			});
 		});
 	};
 

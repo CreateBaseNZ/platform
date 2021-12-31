@@ -13,25 +13,25 @@ const LeaveModal = ({ setShow, classObject }) => {
 	const { post } = useApi();
 
 	const leaveHandler = async () => {
-		await post({
-			route: "/api/classes/leave",
-			input: {
+		await post(
+			"/api/classes/leave",
+			{
 				classId: classObject.id,
 				date: new Date().toString(),
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			},
-			failHandler: (data) => {
-				if (data.content === "teacher required") {
-					setVisualBell("error", "Cannot leave as you are the only teacher in this group");
-					setShow(false);
-				}
-			},
-			successHandler: () => {
+			() => {
 				router.push("/classes");
 				setVisualBell("neutral", "Class left");
 				setShow(false);
 			},
-		});
+			(data) => {
+				if (data.content === "teacher required") {
+					setVisualBell("error", "Cannot leave as you are the only teacher in this group");
+					setShow(false);
+				}
+			}
+		);
 	};
 
 	return (

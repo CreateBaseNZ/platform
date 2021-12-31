@@ -1,6 +1,11 @@
 import router from "next/router";
 import axios from "axios";
 
+export interface ApiRes {
+	status?: string;
+	content?: any; // TODO
+}
+
 const useApi = () => {
 	const reportError = async (type = "", route = "", message = "", metadata = {}) => {
 		axios.post("/api/error", {
@@ -9,11 +14,10 @@ const useApi = () => {
 		});
 	};
 
-	// TODO - typechecking
-	const post = async ({ route = "", input = {}, failHandler = () => {}, successHandler = () => {} }) => {
-		let data;
+	const post = async (route = "", input = {}, successHandler: (data: any) => void = () => {}, failHandler: (data: any) => void = () => {}) => {
+		let data: ApiRes = {}; // TODO
 		try {
-			data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"];
+			data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"] as ApiRes; // TODO
 		} catch (error) {
 			data.status = "error";
 		} finally {

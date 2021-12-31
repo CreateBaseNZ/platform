@@ -16,17 +16,17 @@ const ClassesTabRoot = () => {
 	const { post } = useApi();
 
 	useEffect(async () => {
-		await post({
-			route: "/api/classes/fetch-joined",
-			input: {
+		await post(
+			"/api/classes/fetch-joined",
+			{
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
 			},
-			successHandler: (data) => {
+			(data) => {
 				console.log(data);
 				setClassObjects(data.content);
-			},
-		});
+			}
+		);
 		// TODO refetch when alias changes (to be upgraded with websocket)
 	}, [globalSession.groups[globalSession.recentGroups[0]].alias]);
 

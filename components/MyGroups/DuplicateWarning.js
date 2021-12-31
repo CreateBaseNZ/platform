@@ -31,42 +31,38 @@ const DuplicateWarning = ({ setShow, duplicateParams, reset }) => {
 			setError("Please select a school to join");
 			return setIsLoading(false);
 		}
-		await post({
-			route: "/api/groups/join-school-teacher",
-			input: {
+		await post(
+			"/api/groups/join-school-teacher",
+			{
 				profileId: globalSession.profileId,
 				schoolId: selected.id,
 				alias: `${globalSession.firstName} ${globalSession.lastName}`,
 				message: "",
 				date: new Date().toString(),
 			},
-			failHandler: (data) => {
+			(data) => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+				setVisualBell("success", "Your request has been sent");
+				reset();
+				setShow(false);
+			},
+			(data) => {
 				if (data.content === "already joined") {
 					setError("You are already in this school");
 				} else if (data.content === "already requested") {
 					setError("You have already sent a request to join this school");
 				}
 				setIsLoading(false);
-			},
-			successHandler: (data) => {
-				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-				setVisualBell("success", "Your request has been sent");
-				reset();
-				setShow(false);
-			},
-		});
+			}
+		);
 	};
 
 	const registerHandler = async () => {
 		setIsLoading(true);
-		await post({
-			route: "/api/groups/register-school",
-			input: { ...duplicateParams.details, bypassDuplicate: true },
-			successHandler: (data) => {
-				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-				setVisualBell("success", "Your registration has been submitted for verification");
-				router.push("/my-groups");
-			},
+		await post("/api/groups/register-school", { ...duplicateParams.details, bypassDuplicate: true }, (data) => {
+			setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+			setVisualBell("success", "Your registration has been submitted for verification");
+			router.push("/my-groups");
 		});
 	};
 

@@ -27,18 +27,18 @@ const ClassesManage = () => {
 			<TertiaryButton
 				key={key}
 				onClick={async () => {
-					await post({
-						route: "/api/classes/remove-users",
-						input: {
+					await post(
+						"/api/classes/remove-users",
+						{
 							classId: classObject.id,
 							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
 							date: new Date().toString(),
 						},
-						successHandler: () => {
+						() => {
 							setClassObject((state) => ({ ...state, students: state.students.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())) }));
-						},
-					});
+						}
+					);
 				}}
 				mainLabel="Remove"
 				className={classes.removeBtn}

@@ -189,17 +189,13 @@ export interface TextModal {
 const Onboarding = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
-	const [statuses, setStatuses] = useState();
+	const [statuses, setStatuses] = useState<Record<string, boolean>>(); // TODO
 	const [videoModal, setVideoModal] = useState({ show: false, videoUrl: "" });
 	const [textModal, setTextModal] = useState<TextModal>({ show: false, content: null });
 
 	useEffect(() => {
 		(async () => {
-			await post({
-				route: "/api/profile/read-saves",
-				input: { profileId: globalSession.profileId, properties: ["onboardingStatuses"] },
-				successHandler: (data) => setStatuses(data.content.onboardingStatuses || {}),
-			});
+			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: ["onboardingStatuses"] }, (data) => setStatuses(data.content.onboardingStatuses || {}));
 		})();
 	}, []);
 
@@ -207,11 +203,7 @@ const Onboarding = () => {
 
 	const checkHandler = async (id: string) => {
 		const newStatuses = { ...statuses, [id]: !statuses[id] };
-		await post({
-			route: "/api/profile/update-saves",
-			input: { profileId: globalSession.profileId, update: { onboardingStatuses: newStatuses } },
-			successHandler: () => setStatuses((state) => ({ ...state, [id]: !state[id] })),
-		});
+		await post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { onboardingStatuses: newStatuses } }, () => setStatuses((state) => ({ ...state, [id]: !state?.[id] })));
 	};
 
 	const staffOfVerifiedGroups = globalSession.groups.filter((group) => group.verified && (group.role === "teacher" || group.role === "admin"));

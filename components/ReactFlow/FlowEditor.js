@@ -68,11 +68,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 
 	const loadFlow = async (callback = () => {}) => {
 		let savedEls;
-		await post({
-			route: "/api/profile/read-saves",
-			input: { profileId: globalSession.profileId, properties: [saveName] },
-			successHandler: (data) => data.content[saveName] && (savedEls = JSON.parse(data.content[saveName])),
-		});
+		await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [saveName] }, (data) => data.content[saveName] && (savedEls = JSON.parse(data.content[saveName])));
 		if (savedEls) {
 			const restoredEls = savedEls.map((savedEl) => {
 				if (isNode(savedEl)) {
@@ -433,11 +429,9 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 
 	const saveFlow = async () => {
 		if (elements.length > 1) {
-			await post({
-				route: "/api/profile/update-saves",
-				input: { profileId: globalSession.profileId, update: { [saveName]: JSON.stringify(elements) }, date: new Date().toString() },
-				successHandler: () => _setFlowVisualBell("Code saved"),
-			});
+			await post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [saveName]: JSON.stringify(elements) }, date: new Date().toString() }, () =>
+				_setFlowVisualBell("Code saved")
+			);
 		}
 	};
 

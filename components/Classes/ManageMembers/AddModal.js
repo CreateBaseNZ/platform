@@ -21,20 +21,20 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const { post } = useApi();
 
 	useEffect(async () => {
-		await post({
-			route: "/api/classes/fetch-users",
-			input: {
+		await post(
+			"/api/classes/fetch-users",
+			{
 				classId: classObject.id,
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			},
-			failHandler: (data) => {
+			(data) => ref.current && setUserList(data.content.filter((user) => !user.status).map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
+			(data) => {
 				if (data.content === "unauthorised") {
 					router.replace("/404");
 				}
-			},
-			successHandler: (data) => ref.current && setUserList(data.content.filter((user) => !user.status).map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
-		});
+			}
+		);
 		return () => (ref.current = null);
 	}, []);
 
@@ -52,28 +52,24 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 			date: new Date().toString(),
 		};
 		if (!details.licenseIds.length) return setIsLoading(false);
-		await post({
-			route: "/api/classes/add-users",
-			input: details,
-			successHandler: () => {
-				let students = [];
-				let teachers = [];
-				for (let i = 0; i < selectedUsers.length; i++) {
-					const user = selectedUsers[i];
-					if (user.role === "student") {
-						students.push({ email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId, role: user.role });
-					} else if (user.role === "teacher" || user.role === "admin") {
-						teachers.push(user.alias);
-					}
+		await post("/api/classes/add-users", details, () => {
+			let students = [];
+			let teachers = [];
+			for (let i = 0; i < selectedUsers.length; i++) {
+				const user = selectedUsers[i];
+				if (user.role === "student") {
+					students.push({ email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId, role: user.role });
+				} else if (user.role === "teacher" || user.role === "admin") {
+					teachers.push(user.alias);
 				}
-				setClassObject((state) => ({
-					...state,
-					teachers: [...state.teachers, ...teachers],
-					students: [...state.students, ...students],
-				}));
-				setShow(false);
-				setVisualBell("success", `${details.licenseIds.length} new user${details.licenseIds.length === 1 ? "" : "s"} added`);
-			},
+			}
+			setClassObject((state) => ({
+				...state,
+				teachers: [...state.teachers, ...teachers],
+				students: [...state.students, ...students],
+			}));
+			setShow(false);
+			setVisualBell("success", `${details.licenseIds.length} new user${details.licenseIds.length === 1 ? "" : "s"} added`);
 		});
 	};
 

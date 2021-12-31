@@ -45,24 +45,16 @@ const SignupForm = () => {
 		if (frontEndError) {
 			return setIsLoading(false);
 		}
-		await post({
-			route: "/api/auth/signup",
-			input: {
+		await post(
+			"/api/auth/signup",
+			{
 				email: input.email,
 				firstName: input.firstName,
 				lastName: input.lastName,
 				password: input.password,
 				date: new Date().toString(),
 			},
-			failHandler: (data) => {
-				if (data.content.email === "taken")
-					setError("email", {
-						type: "manual",
-						message: "This email is already registered",
-					});
-				setIsLoading(false);
-			},
-			successHandler: async () => {
+			async () => {
 				await signIn("credentials", {
 					redirect: false,
 					user: input.email,
@@ -71,7 +63,15 @@ const SignupForm = () => {
 				}),
 					router.push({ pathname: "/auth/verify", query: router.query });
 			},
-		});
+			(data) => {
+				if (data.content.email === "taken")
+					setError("email", {
+						type: "manual",
+						message: "This email is already registered",
+					});
+				setIsLoading(false);
+			}
+		);
 	};
 
 	return (

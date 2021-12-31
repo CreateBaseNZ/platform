@@ -33,38 +33,34 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	// i.e. if the session is an unverified user and the url is a ocl, then the session email is used as the API input
 	const submitCode = async (code) => {
 		setIsLoading(true);
-		await post({
-			route: "/api/auth/verify",
-			input: {
+		await post(
+			"/api/auth/verify",
+			{
 				email: email,
 				code: code,
 				date: new Date().toString(),
 			},
-			failHandler: (data) => {
+			() => {
+				setGlobalSession((state) => ({ ...state, verified: true }));
+				router.push(router.query.callbackUrl || "/");
+				setVisualBell("success", "Your account is now verified");
+			},
+			(data) => {
 				if (data.content === "incorrect") {
 					setError("The code you entered is invalid");
 				} else if (data.content === "expired") {
 					setError("The code you entered has expired");
 				}
 				setIsLoading(false);
-			},
-			successHandler: () => {
-				setGlobalSession((state) => ({ ...state, verified: true }));
-				router.push(router.query.callbackUrl || "/");
-				setVisualBell("success", "Your account is now verified");
-			},
-		});
+			}
+		);
 	};
 
 	const resendCodeHandler = async () => {
 		setIsResending(true);
-		await post({
-			route: "/api/auth/resend-verify-code",
-			input: { accountId: globalSession.accountId, date: new Date().toString() },
-			successHandler: () => {
-				setVisualBell("neutral", "A new verification code has been sent");
-				setIsResending(false);
-			},
+		await post("/api/auth/resend-verify-code", { accountId: globalSession.accountId, date: new Date().toString() }, () => {
+			setVisualBell("neutral", "A new verification code has been sent");
+			setIsResending(false);
 		});
 	};
 

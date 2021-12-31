@@ -42,19 +42,19 @@ const useClass = () => {
 
 	useEffect(async () => {
 		if (router.isReady) {
-			await post({
-				route: "/api/classes/fetch-one",
-				input: { profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id, classId: router.query.id },
-				failHandler: (data) => {
-					if (data.content === "not found") {
-						router.replace("/404");
-					}
-				},
-				successHandler: (data) => {
+			await post(
+				"/api/classes/fetch-one",
+				{ profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id, classId: router.query.id },
+				(data) => {
 					setClassObject(data.content);
 					setClassLoaded(true);
 				},
-			});
+				(data) => {
+					if (data.content === "not found") {
+						router.replace("/404");
+					}
+				}
+			);
 		}
 	}, [router.isReady, router.query.id]);
 

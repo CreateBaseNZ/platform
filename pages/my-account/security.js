@@ -31,15 +31,20 @@ const MySecurity = () => {
 
 	const onSubmit = async (inputValues) => {
 		setIsLoading(true);
-		await post({
-			route: "/api/auth/update-password",
-			input: {
+		await post(
+			"/api/auth/update-password",
+			{
 				date: new Date().toString(),
 				email: globalSession.email,
 				password: inputValues.newPassword,
 				oldPassword: inputValues.currentPassword,
 			},
-			failHandler: (data) => {
+			() => {
+				setVisualBell("success", "Your password has been updated");
+				reset();
+				setIsLoading(false);
+			},
+			(data) => {
 				if (data.content === "incorrect") {
 					setError(
 						"currentPassword",
@@ -62,13 +67,8 @@ const MySecurity = () => {
 					);
 					setIsLoading(false);
 				}
-			},
-			successHandler: () => {
-				setVisualBell("success", "Your password has been updated");
-				reset();
-				setIsLoading(false);
-			},
-		});
+			}
+		);
 	};
 
 	useEffect(() => {

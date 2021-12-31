@@ -6,19 +6,15 @@ const GroupRequestNotification = ({ notification, setNotifications }) => {
 	const { post } = useApi();
 
 	const approveHandler = async () => {
-		await post({
-			route: "/api/groups/approve-teacher",
-			input: { licenseId: notification.params.user.licenseId, groupId: notification.params.group.id, date: new Date().toString() },
-			successHandler: () => setNotifications((state) => state.filter((notif) => notif.id !== notification.id)),
-		});
+		await post("/api/groups/approve-teacher", { licenseId: notification.params.user.licenseId, groupId: notification.params.group.id, date: new Date().toString() }, () =>
+			setNotifications((state) => state.filter((notif) => notif.id !== notification.id))
+		);
 	};
 
 	const denyHandler = async () => {
-		await post({
-			route: "/api/groups/deny-teacher",
-			input: { licenseId: notification.params.user.licenseId, groupId: notification.params.group.id, date: new Date().toString() },
-			successHandler: () => setNotifications((state) => state.filter((notif) => notif.id !== notification.id)),
-		});
+		await post("/api/groups/deny-teacher", { licenseId: notification.params.user.licenseId, groupId: notification.params.group.id, date: new Date().toString() }, () =>
+			setNotifications((state) => state.filter((notif) => notif.id !== notification.id))
+		);
 	};
 
 	return (

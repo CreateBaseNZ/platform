@@ -1,16 +1,11 @@
-import { useState, createContext, useMemo, useEffect, useContext } from "react";
+import { useState, createContext, useMemo, useEffect, useContext, Dispatch, SetStateAction } from "react";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import axios from "axios";
-import useApi from "../hooks/useApi";
+import useApi, { ApiRes } from "../hooks/useApi";
 import { signOut } from "next-auth/react";
 import VisualBellContext from "./visual-bell-context";
 import { GroupAndUserObject } from "../types/types";
-
-interface ApiRes {
-	status?: string;
-	content?: any; // TODO
-}
 
 interface IGlobalSession {
 	accountId: string;
@@ -27,7 +22,7 @@ interface IGlobalSession {
 interface IGlobalSessionCtx {
 	loaded: boolean;
 	globalSession: IGlobalSession;
-	setGlobalSession: any; // TODO
+	setGlobalSession: Dispatch<SetStateAction<IGlobalSession>>; // TODO
 }
 
 const defaultGlobalSession = { accountId: "", email: "", firstName: "", groups: [], lastName: "", numOfNotifications: 0, profileId: "", recentGroups: [], verified: false };
@@ -90,13 +85,10 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 	useEffect(() => {
 		if (!loaded) return;
 		(async () => {
-			await post({
-				route: "/api/profile/update-saves",
-				input: {
-					profileId: globalSession.profileId,
-					update: { recentGroups: globalSession.recentGroups },
-					date: new Date().toString(),
-				},
+			await post("/api/profile/update-saves", {
+				profileId: globalSession.profileId,
+				update: { recentGroups: globalSession.recentGroups },
+				date: new Date().toString(),
 			});
 			if (globalSession.groups[globalSession.recentGroups[0]]) {
 				setVisualBell(
