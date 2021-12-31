@@ -12,7 +12,7 @@ const SubsystemGame = () => {
 	const [data, setData] = useState();
 	const [subsystemIndex, setSubsystemIndex] = useState(null);
 	const mp = useMixpanel();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
 		mp.init();
@@ -25,7 +25,7 @@ const SubsystemGame = () => {
 		return () => {
 			clearSession();
 		};
-	}, [globalSession.loaded]);
+	}, [loaded]);
 
 	useEffect(() => {
 		if (router.isReady) {

@@ -7,13 +7,13 @@ import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 
 const Signup = () => {
 	const router = useRouter();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (globalSession.loaded && globalSession.accountId) router.replace("/");
+		if (loaded && globalSession.accountId) router.replace("/");
 	}, [globalSession]);
 
-	if (!globalSession.loaded || globalSession.accountId) return null;
+	if (!loaded || globalSession.accountId) return null;
 
 	return (
 		<>

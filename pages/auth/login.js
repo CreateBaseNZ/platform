@@ -8,13 +8,13 @@ import GlobalSessionContext from "../../store/global-session-context";
 
 const Login = () => {
 	const router = useRouter();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (globalSession.loaded && globalSession.accountId) router.replace("/");
+		if (loaded && globalSession.accountId) router.replace("/");
 	}, [globalSession]);
 
-	if (!globalSession.loaded || globalSession.accountId) return null;
+	if (!loaded || globalSession.accountId) return null;
 
 	return (
 		<>

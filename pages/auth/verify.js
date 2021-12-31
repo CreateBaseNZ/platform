@@ -7,13 +7,13 @@ import GlobalSessionContext from "../../store/global-session-context";
 
 const Verify = () => {
 	const router = useRouter();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (globalSession.loaded && globalSession.verified) router.replace("/");
+		if (loaded && globalSession.verified) router.replace("/");
 	}, [globalSession]);
 
-	if (!globalSession.loaded || globalSession.verified) return null;
+	if (!loaded || globalSession.verified) return null;
 
 	return (
 		<>
@@ -21,7 +21,7 @@ const Verify = () => {
 				<title>Verify | CreateBase</title>
 				<meta name="description" content="Verify your CreateBase account" />
 			</Head>
-			{router.isReady && globalSession.loaded && <VerifyForm routerCode={router.query.code} routerEmail={router.query.email} />}
+			{router.isReady && loaded && <VerifyForm routerCode={router.query.code} routerEmail={router.query.email} />}
 		</>
 	);
 };

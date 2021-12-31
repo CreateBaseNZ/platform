@@ -16,19 +16,19 @@ const hasAccess = (role, auth) => {
 };
 
 const AuthGuard = ({ children, auth }) => {
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (globalSession.loaded) {
+		if (loaded) {
 			if (!globalSession.accountId) {
 				signIn();
 			} else if (!globalSession.verified) {
 				router.push({ pathname: "/auth/verify", query: router.query });
 			}
 		}
-	}, [globalSession.loaded, globalSession.accountId, globalSession.verified]);
+	}, [loaded, globalSession.accountId, globalSession.verified]);
 
-	if (!globalSession.loaded) return <LoadingScreen />;
+	if (!loaded) return <LoadingScreen />;
 
 	if (globalSession.accountId) {
 		if (!globalSession.verified) {

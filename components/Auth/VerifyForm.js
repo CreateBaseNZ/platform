@@ -14,7 +14,7 @@ const CODE_LENGTH = 6;
 const Verify = ({ routerEmail = "", routerCode = "" }) => {
 	const router = useRouter();
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const { loaded, globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isResending, setIsResending] = useState(false);
 	const [error, setError] = useState();
@@ -98,7 +98,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 		submitCode(newCode.join(""));
 	};
 
-	if (!globalSession.loaded || !router.isReady) return null;
+	if (!loaded || !router.isReady) return null;
 
 	if (globalSession.verified) {
 		router.replace("/");
