@@ -6,10 +6,10 @@ import DEFAULT_TABS from "../constants/mainTabs";
 
 const Index = () => {
 	const router = useRouter();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (globalSession.loaded) {
+		if (loaded) {
 			if (globalSession.accountId) {
 				if (globalSession.recentGroups?.length) {
 					router.replace("/browse");

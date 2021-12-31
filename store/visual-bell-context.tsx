@@ -12,12 +12,12 @@ type VisualBell = {
 	key: number;
 } | null;
 
-interface VisualBellCtx {
+interface IVisualBellCtx {
 	visualBell: VisualBell;
 	setVisualBell: any; // TODO
 }
 
-const VisualBellContext = createContext<VisualBellCtx>({
+const VisualBellContext = createContext<IVisualBellCtx>({
 	visualBell: null,
 	setVisualBell: () => {},
 });
