@@ -17,7 +17,7 @@ const MainLayoutContext = createContext<IMainLayoutCtx>({
 export default MainLayoutContext;
 
 interface IMainLayoutProviderProps {
-	children: JSX.Element;
+	children: JSX.Element | JSX.Element[];
 }
 
 export const MainLayoutContextProvider = ({ children }: IMainLayoutProviderProps) => {

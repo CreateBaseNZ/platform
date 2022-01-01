@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
@@ -6,29 +6,22 @@ import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
 import BrowseThumb from "./BrowseThumb";
 import BrowsePreview from "./BrowsePreview";
-import { ALL_PROJECT_DATA } from "../../utils/getProjectData";
+import { ALL_PROJECTS_ARRAY } from "../../utils/getProjectData";
 
 import "overlayscrollbars/css/OverlayScrollbars.css";
 import classes from "../../styles/browse.module.scss";
 
-const Browse = () => {
+const Browse = (): JSX.Element => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const [activeProject, setActiveProject] = useState(ALL_PROJECT_DATA[0]);
-
-	// EXAMPLE: Socket - Trigger Socket on Event
-	// const socket = io();
-	// useEffect(() => {
-	// 	socket.emit("trigger", "browse", globalSession.firstName);
-	// }, []);
+	const [activeProject, setActiveProject] = useState(ALL_PROJECTS_ARRAY[0]);
 
 	useEffect(() => {
 		const query = router?.query?.project;
-		const queriedProject = ALL_PROJECT_DATA.find((data) => data.query === query);
+		const queriedProject = ALL_PROJECTS_ARRAY.find((data) => data.query === query);
 		if (queriedProject) {
 			setActiveProject(queriedProject);
 		}
-		// socket.emit("trigger", globalSession.groups[globalSession.recentGroups[0]].id);
 	}, [router.query.project]);
 
 	return (
@@ -43,10 +36,10 @@ const Browse = () => {
 				</div>
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>
-					{ALL_PROJECT_DATA.map((project, index) => (
-						<BrowseThumb key={index} isActive={activeProject.query === project.query} project={project} query={project.query} name={project.name} />
+					{ALL_PROJECTS_ARRAY.map((project, index) => (
+						<BrowseThumb key={index} isActive={activeProject.query === project.query} query={project.query} name={project.name} />
 					))}
-					{[...Array(ALL_PROJECT_DATA.length % 4).keys()].map((i) => (
+					{[...Array(ALL_PROJECTS_ARRAY.length % 4)].map((_, i) => (
 						<div key={i} className={classes.empty} />
 					))}
 				</div>
@@ -55,7 +48,7 @@ const Browse = () => {
 	);
 };
 
-Browse.getLayout = (page) => {
+Browse.getLayout = (page: ReactElement) => {
 	return <MainLayout page="browse">{page}</MainLayout>;
 };
 

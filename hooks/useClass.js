@@ -2,7 +2,7 @@ import router from "next/router";
 import { useContext, useEffect, useState } from "react";
 import GlobalSessionContext from "../store/global-session-context";
 import useApi from "./useApi";
-import { ALL_PROJECT_DATA } from "../utils/getProjectData";
+import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
 import useMixpanel from "./useMixpanel";
 
 const getStatus = (duration, threshold, formattedThreshold, gameProgressEvent, isWin) => {
@@ -107,12 +107,12 @@ const useClass = () => {
 
 		return classObject.students.map((student) => {
 			let projectData = {};
-			for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
-				projectData[ALL_PROJECT_DATA[i].query] = [
-					{ label: "Define", name: "define", bars: processData("project_define", ALL_PROJECT_DATA[i].query, student.licenseId) },
-					{ label: "Imagine", name: "imagine", bars: processData("project_imagine", ALL_PROJECT_DATA[i].query, student.licenseId) },
-					...processCreateData(ALL_PROJECT_DATA[i].query, ALL_PROJECT_DATA[i].subsystems, student.licenseId),
-					{ label: "Improve", name: "improve", bars: processData("code_improve_time", ALL_PROJECT_DATA[i].query, student.licenseId) },
+			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
+				projectData[ALL_PROJECTS_ARRAY[i].query] = [
+					{ label: "Define", name: "define", bars: processData("project_define", ALL_PROJECTS_ARRAY[i].query, student.licenseId) },
+					{ label: "Imagine", name: "imagine", bars: processData("project_imagine", ALL_PROJECTS_ARRAY[i].query, student.licenseId) },
+					...processCreateData(ALL_PROJECTS_ARRAY[i].query, ALL_PROJECTS_ARRAY[i].subsystems, student.licenseId),
+					{ label: "Improve", name: "improve", bars: processData("code_improve_time", ALL_PROJECTS_ARRAY[i].query, student.licenseId) },
 				];
 			}
 			return { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: projectData };
@@ -184,12 +184,12 @@ const useClass = () => {
 
 		const data = classObject.students.map((student) => {
 			const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
-			for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
-				studentData.projects[ALL_PROJECT_DATA[i].query] = {
-					define: processData("project_define", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].define.threshold),
-					imagine: processData("project_imagine", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].imagine.threshold),
-					create: processCreateData(ALL_PROJECT_DATA[i].query, ALL_PROJECT_DATA[i].subsystems, student.licenseId),
-					improve: processData("code_improve_time", ALL_PROJECT_DATA[i].query, student.licenseId, ALL_PROJECT_DATA[i].improve.threshold, undefined, "game_improve_progress"),
+			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
+				studentData.projects[ALL_PROJECTS_ARRAY[i].query] = {
+					define: processData("project_define", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].define.threshold),
+					imagine: processData("project_imagine", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].imagine.threshold),
+					create: processCreateData(ALL_PROJECTS_ARRAY[i].query, ALL_PROJECTS_ARRAY[i].subsystems, student.licenseId),
+					improve: processData("code_improve_time", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].improve.threshold, undefined, "game_improve_progress"),
 				};
 			}
 			return studentData;

@@ -2,6 +2,7 @@ import { DeepReadonly } from "ts-essentials";
 import { SubjectInterface } from "../constants/projectSubjects";
 import { ExploreInterface } from "../data/explore-data";
 import { IBasicVidData, IFullVidData } from "../components/Project/VideoViewer";
+import { ProjectDifficulty } from "../constants/projectDifficulties";
 
 type Module =
 	| {
@@ -61,7 +62,7 @@ interface IProject {
 	runType: string;
 	durPerLesson: string;
 	numOfLessons: number;
-	difficulty: "introductory" | "proficient" | "advanced";
+	difficulty: ProjectDifficulty;
 	subjects: SubjectInterface[];
 	learningOutcome: string;
 	cads: Record<"nz" | "aus" | "cali" | "uk", string>;

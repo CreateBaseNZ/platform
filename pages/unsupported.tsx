@@ -7,7 +7,7 @@ import useApi from "../hooks/useApi";
 
 import classes from "../styles/unsupported.module.scss";
 
-const Unsupported = () => {
+const Unsupported = (): JSX.Element => {
 	const { reportError } = useApi();
 
 	useEffect(() => {

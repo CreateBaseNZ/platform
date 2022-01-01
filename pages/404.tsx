@@ -8,7 +8,7 @@ import useApi from "../hooks/useApi";
 
 import classes from "../styles/404.module.scss";
 
-const Error404 = () => {
+const Error404 = (): JSX.Element => {
 	const { reportError } = useApi();
 
 	useEffect(() => {

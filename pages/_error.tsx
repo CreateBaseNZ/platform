@@ -12,7 +12,7 @@ interface IErrorProps {
 	statusCode?: string;
 }
 
-const Error = ({ statusCode }: IErrorProps) => {
+const Error = ({ statusCode }: IErrorProps): JSX.Element => {
 	return (
 		<div className={classes.view}>
 			<Head>

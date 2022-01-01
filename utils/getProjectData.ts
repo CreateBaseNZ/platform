@@ -3,15 +3,16 @@ import magnebotData from "../data/magnebot-data";
 import heatSeekerData from "../data/heat-seeker-data";
 import aimbotData from "../data/aimbot-data";
 import hyperloopData from "../data/hyperloop-data";
+import { IProjectReadOnly } from "../types/types";
 
 // ----- How to Add Projects -----
 //
 // 1. import it above
 // 2. add a case clause
 // 3. assign the route as a string (app.createbase.co.nz/project/...)
-// 4. add it to the ALL_PROJECT_DATA array
+// 4. add it to the ALL_PROJECTS_ARRAY array
 
-const getProjectData = (query) => {
+const getProjectData = (query: string) => {
 	switch (query) {
 		case "send-it":
 			return sendItData;
@@ -21,7 +22,7 @@ const getProjectData = (query) => {
 			return heatSeekerData;
 		case "aimbot":
 			return aimbotData;
-		case "hyperloop": 
+		case "hyperloop":
 			return hyperloopData;
 		default:
 			return null;
@@ -30,4 +31,4 @@ const getProjectData = (query) => {
 
 export default getProjectData;
 
-export const ALL_PROJECT_DATA = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData];

@@ -186,7 +186,7 @@ export interface TextModal {
 	content: JSX.Element | null;
 }
 
-const Onboarding = () => {
+const Onboarding = (): JSX.Element | null => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
 	const [statuses, setStatuses] = useState<Record<string, boolean>>(); // TODO

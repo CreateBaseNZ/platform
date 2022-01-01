@@ -1,4 +1,4 @@
-import { ALL_PROJECT_DATA } from "../utils/getProjectData";
+import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
 
 const tabs = [
 	{ title: "Progress", name: "progress", icon: "table_chart", pathname: "/classes/[id]/progress" },
@@ -25,7 +25,7 @@ export const MANAGE_MEMBERS_COLUMNS = [
 
 export const MANAGE_MEMBERS_SIZES = [10, 20, 50, 100];
 
-export const PROJECT_OPTIONS = ALL_PROJECT_DATA.map((project) => ({ id: project.query, name: project.name }));
+export const PROJECT_OPTIONS = ALL_PROJECTS_ARRAY.map((project) => ({ id: project.query, name: project.name }));
 
 export const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cur.name }), {});
 
@@ -49,11 +49,11 @@ const generateSubsystem = (subsystems, fn) => {
 
 const randomStudentData = (fn) => {
 	let ret = {};
-	for (let i = 0; i < ALL_PROJECT_DATA.length; i++) {
-		ret[ALL_PROJECT_DATA[i].query] = {
+	for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
+		ret[ALL_PROJECTS_ARRAY[i].query] = {
 			define: fn(),
 			imagine: fn(),
-			create: generateSubsystem(ALL_PROJECT_DATA[i].subsystems, fn),
+			create: generateSubsystem(ALL_PROJECTS_ARRAY[i].subsystems, fn),
 			improve: fn(),
 		};
 	}

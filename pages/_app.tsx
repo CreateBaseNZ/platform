@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
@@ -15,7 +15,7 @@ import "../styles/globals.scss";
 import styles from "../styles/_exports.module.scss";
 
 type NextPageWithLayout = NextPage & {
-	getLayout?: (page: ReactElement) => ReactNode;
+	getLayout?: (page: ReactElement) => JSX.Element;
 	auth?: "user" | "staff";
 };
 

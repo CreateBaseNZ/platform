@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../store/global-session-context";
 import DEFAULT_TABS from "../constants/mainTabs";
+import { NextPage } from "next";
 
-const Index = () => {
+const Index = (): NextPage | null => {
 	const router = useRouter();
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
