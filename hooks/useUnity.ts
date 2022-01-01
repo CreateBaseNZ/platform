@@ -2,14 +2,18 @@ import router from "next/router";
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 import { install } from "resize-observer";
+import { IProjectReadOnly } from "../types/types";
 
-/**
- * Unity hook
- * @param {{scenePrefix: string, suffix: string, index: number, project: string, wip: boolean, setLoaded: function}} props unique prefix name assigned to the project
- * @returns {Array} hook functions and states
- */
+interface IUnity {
+	scenePrefix: string;
+	suffix: string;
+	index: number;
+	project: IProjectReadOnly;
+	wip: boolean;
+	setLoaded: any; // TODO
+}
 
-const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }) => {
+const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }: IUnity) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
 			loaderUrl: wip ? `/${project}/unity-build/Build.loader.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.loader.js`,
@@ -32,7 +36,7 @@ const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }) => {
 		// Get WebGLRenderingContext from canvas element.
 		const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 		if (!gl || !(gl instanceof WebGLRenderingContext)) {
-			return router.push("/unsupported");
+			return void router.push("/unsupported");
 		}
 		install();
 		unityContext.on("GetSensorData", (sensorData) => {
@@ -59,9 +63,7 @@ const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }) => {
 	}, []);
 
 	useEffect(() => {
-		return () => {
-			unityContext.removeAllEventListeners();
-		};
+		return () => unityContext.removeAllEventListeners();
 	}, []);
 
 	const resetScene = () => {
