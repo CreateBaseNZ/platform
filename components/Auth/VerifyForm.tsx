@@ -134,7 +134,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }: IVerifyProps): JSX.Elemen
 								onChange: (e: ChangeEvent<HTMLInputElement>) => changeHandler(e, idx),
 								onKeyDown: (e: KeyboardEvent) => keyDownHandler(e, idx),
 								onPaste: (e: ClipboardEvent<HTMLInputElement>) => pasteHandler(e),
-								ref: (ref) => refs.current.push(ref),
+								ref: (ref: HTMLInputElement) => refs.current.push(ref),
 							}}
 							error={error}
 						/>

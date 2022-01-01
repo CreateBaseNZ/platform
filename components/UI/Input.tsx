@@ -1,9 +1,9 @@
-import { HTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, useState } from "react";
+import { HTMLAttributes, InputHTMLAttributes, Ref, TextareaHTMLAttributes, useState } from "react";
 import classes from "./Input.module.scss";
 
-export interface IInputProps extends HTMLAttributes<HTMLElement> {
+export interface IInputProps {
 	className?: string;
-	inputProps?: InputHTMLAttributes<HTMLInputElement>;
+	inputProps?: InputHTMLAttributes<HTMLInputElement> & { ref?: Ref<HTMLInputElement> };
 	label?: string;
 	labelProps?: any; // TODO
 	error?:
@@ -54,7 +54,7 @@ export const PasswordInput = ({ className, inputProps, ...rest }: IInputProps): 
 };
 
 type ITextAreaProps = IInputProps & {
-	inputProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
+	inputProps?: TextareaHTMLAttributes<HTMLTextAreaElement> & { ref?: Ref<HTMLTextAreaElement> };
 };
 
 export const TextArea = ({ className, inputProps, label, labelProps, error, ...rest }: ITextAreaProps): JSX.Element => {
