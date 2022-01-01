@@ -26,19 +26,21 @@ interface IAuthGuardProps {
 const AuthGuard = ({ children, auth }: IAuthGuardProps): JSX.Element => {
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
+	console.log(loaded);
+
 	useEffect(() => {
 		if (loaded) {
-			if (!globalSession.accountId) {
+			if (!globalSession) {
 				signIn();
 			} else if (!globalSession.verified) {
 				router.push({ pathname: "/auth/verify", query: router.query });
 			}
 		}
-	}, [loaded, globalSession.accountId, globalSession.verified]);
+	}, [loaded, globalSession?.accountId, globalSession?.verified]);
 
 	if (!loaded) return <LoadingScreen />;
 
-	if (globalSession.accountId) {
+	if (globalSession) {
 		if (!globalSession.verified) {
 			return <LoadingScreen />;
 		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]]?.role, auth)) {

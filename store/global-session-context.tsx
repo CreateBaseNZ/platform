@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 import VisualBellContext from "./visual-bell-context";
 import { GroupAndUserObject } from "../types/types";
 
-interface IGlobalSession {
+type IGlobalSession = {
 	accountId: string;
 	email: string;
 	firstName: string;
@@ -17,7 +17,7 @@ interface IGlobalSession {
 	profileId: string;
 	recentGroups: number[];
 	verified: boolean;
-}
+} | null;
 
 interface IGlobalSessionCtx {
 	loaded: boolean;
@@ -25,11 +25,9 @@ interface IGlobalSessionCtx {
 	setGlobalSession: Dispatch<SetStateAction<IGlobalSession>>;
 }
 
-const defaultGlobalSession = { accountId: "", email: "", firstName: "", groups: [], lastName: "", numOfNotifications: 0, profileId: "", recentGroups: [], verified: false };
-
 const GlobalSessionContext = createContext<IGlobalSessionCtx>({
 	loaded: false,
-	globalSession: defaultGlobalSession,
+	globalSession: null,
 	setGlobalSession: () => {},
 });
 
@@ -40,7 +38,7 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { post } = useApi();
 	const [loaded, setLoaded] = useState(false);
-	const [globalSession, setGlobalSession] = useState<IGlobalSession>(defaultGlobalSession);
+	const [globalSession, setGlobalSession] = useState<IGlobalSession>(null);
 
 	useEffect(() => {
 		if (status !== "loading") {
@@ -77,13 +75,13 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 					setLoaded(true);
 				})();
 			} else {
-				setLoaded(false);
+				setLoaded(true);
 			}
 		}
 	}, [status, session?.user]);
 
 	useEffect(() => {
-		if (!loaded) return;
+		if (!loaded || !globalSession) return;
 		(async () => {
 			await post("/api/profile/update-saves", {
 				profileId: globalSession.profileId,
@@ -99,7 +97,7 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 				);
 			}
 		})();
-	}, [globalSession.recentGroups]);
+	}, [globalSession?.recentGroups]);
 
 	const value = useMemo(
 		() => ({
@@ -107,7 +105,7 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 			globalSession: globalSession,
 			setGlobalSession: setGlobalSession,
 		}),
-		[globalSession, setGlobalSession]
+		[loaded, globalSession]
 	);
 
 	return <GlobalSessionContext.Provider value={value}>{children}</GlobalSessionContext.Provider>;

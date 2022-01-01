@@ -7,7 +7,12 @@ import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
 import classes from "./AuthForms.module.scss";
 
-export const LoginForm = () => {
+interface ILoginInputs {
+	email: string;
+	password: string;
+}
+
+export const LoginForm = (): JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -27,7 +32,7 @@ export const LoginForm = () => {
 
 	useEffect(() => {
 		if (router.query?.error) {
-			const error = JSON.parse(router.query.error);
+			const error = JSON.parse(router.query.error as string);
 			if (error.content.account === "does not exist") {
 				setError("email", {
 					type: "manual",
@@ -43,14 +48,14 @@ export const LoginForm = () => {
 		}
 	}, [router.query.error]);
 
-	const onSubmit = async (input) => {
+	const onSubmit = async (input: ILoginInputs) => {
 		setIsLoading(true);
 		window.localStorage.setItem("createbase__remember-me", input.email);
 		await signIn("credentials", {
 			user: input.email,
 			password: input.password,
 			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-			callbackUrl: router.query.callbackUrl,
+			callbackUrl: router.query.callbackUrl as string | undefined,
 		});
 	};
 
@@ -92,7 +97,7 @@ export const LoginForm = () => {
 						<a className={`${classes.smallFont} ${classes.linkBtn}`}>Forgot your password?</a>
 					</Link>
 				</div>
-				<PrimaryButton className={classes.submit} isLoading={isLoading} type="submit" loadingLabel="Logging you in" mainLabel="Log In" />
+				<PrimaryButton className={classes.submit} isLoading={isLoading} loadingLabel="Logging you in" mainLabel="Log In" type="submit" />
 				<div className={classes.smallFont} style={{ margin: "2vh 0", alignSelf: "center" }}>
 					Or
 				</div>

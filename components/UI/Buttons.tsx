@@ -1,6 +1,7 @@
+import { ButtonHTMLAttributes } from "react";
 import classes from "./Buttons.module.scss";
 
-interface IButtonProps {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	mainLabel: string;
 	className?: string;
 	iconLeft?: any; // TODO

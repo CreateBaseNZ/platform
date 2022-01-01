@@ -1,20 +1,19 @@
-import { useContext, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { ReactElement, useContext, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import AuthCard from "../../components/Auth/AuthCard";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 import GlobalSessionContext from "../../store/global-session-context";
 
-const Login = () => {
+const Login = (): JSX.Element | null => {
 	const router = useRouter();
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded && globalSession.accountId) router.replace("/");
+		if (loaded && globalSession) router.replace("/");
 	}, [globalSession]);
 
-	if (!loaded || globalSession.accountId) return null;
+	if (!loaded || globalSession) return null;
 
 	return (
 		<>
@@ -27,7 +26,7 @@ const Login = () => {
 	);
 };
 
-Login.getLayout = (page) => {
+Login.getLayout = (page: ReactElement) => {
 	return <AuthLayout>{page}</AuthLayout>;
 };
 
