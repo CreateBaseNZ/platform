@@ -7,8 +7,8 @@ import { signOut } from "next-auth/react";
 import VisualBellContext from "./visual-bell-context";
 import { GroupAndUserObject } from "../types/types";
 
-type IGlobalSession = {
-	accountId: string;
+interface IGlobalSession {
+	accountId: string | null;
 	email: string;
 	firstName: string;
 	groups: GroupAndUserObject[];
@@ -17,7 +17,19 @@ type IGlobalSession = {
 	profileId: string;
 	recentGroups: number[];
 	verified: boolean;
-} | null;
+}
+
+const defaultGlobalSession: IGlobalSession = {
+	accountId: null,
+	email: "",
+	firstName: "",
+	groups: [],
+	lastName: "",
+	numOfNotifications: 0,
+	profileId: "",
+	recentGroups: [],
+	verified: false,
+};
 
 interface IGlobalSessionCtx {
 	loaded: boolean;
@@ -27,7 +39,7 @@ interface IGlobalSessionCtx {
 
 const GlobalSessionContext = createContext<IGlobalSessionCtx>({
 	loaded: false,
-	globalSession: null,
+	globalSession: defaultGlobalSession,
 	setGlobalSession: () => {},
 });
 
@@ -38,7 +50,7 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { post } = useApi();
 	const [loaded, setLoaded] = useState(false);
-	const [globalSession, setGlobalSession] = useState<IGlobalSession>(null);
+	const [globalSession, setGlobalSession] = useState<IGlobalSession>(defaultGlobalSession);
 
 	useEffect(() => {
 		if (status !== "loading") {
@@ -81,23 +93,19 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 	}, [status, session?.user]);
 
 	useEffect(() => {
-		if (!loaded || !globalSession) return;
+		if (!loaded || !globalSession.accountId) return;
 		(async () => {
 			await post("/api/profile/update-saves", {
 				profileId: globalSession.profileId,
 				update: { recentGroups: globalSession.recentGroups },
 				date: new Date().toString(),
 			});
-			if (globalSession.groups[globalSession.recentGroups[0]]) {
-				setVisualBell(
-					"success",
-					`Now viewing as a${globalSession.groups[globalSession.recentGroups[0]].role === "admin" ? "n" : ""} ${globalSession.groups[globalSession.recentGroups[0]].role} of ${
-						globalSession.groups[globalSession.recentGroups[0]].name
-					}`
-				);
+			const group = globalSession.groups[globalSession.recentGroups[0]];
+			if (group) {
+				setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
 			}
 		})();
-	}, [globalSession?.recentGroups]);
+	}, [globalSession.recentGroups]);
 
 	const value = useMemo(
 		() => ({

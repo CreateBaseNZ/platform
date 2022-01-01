@@ -30,20 +30,21 @@ const AuthGuard = ({ children, auth }: IAuthGuardProps): JSX.Element => {
 
 	useEffect(() => {
 		if (loaded) {
-			if (!globalSession) {
-				signIn();
-			} else if (!globalSession.verified) {
-				router.push({ pathname: "/auth/verify", query: router.query });
+			if (!globalSession.accountId) {
+				return void signIn();
+			}
+			if (!globalSession.verified) {
+				return void router.push({ pathname: "/auth/verify", query: router.query });
 			}
 		}
-	}, [loaded, globalSession?.accountId, globalSession?.verified]);
+	}, [loaded, globalSession.accountId, globalSession.verified]);
 
 	if (!loaded) return <LoadingScreen />;
 
-	if (globalSession) {
+	if (globalSession.accountId) {
 		if (!globalSession.verified) {
 			return <LoadingScreen />;
-		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]]?.role, auth)) {
+		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]].role, auth)) {
 			return children;
 		} else {
 			return <div>No access</div>;
