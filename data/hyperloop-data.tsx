@@ -46,21 +46,21 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		modules: [
 			{
 				type: "pdf",
-				title: "Imagine...",
-				img: "/hyperloop/img/define.jpg",
-				url: "/hyperloop/files/12050102AB-imagine_page1.pdf",
+				title: "What is a number system?",
+				img: "/hyperloop/img/thumbnail.jpg",
+				url: "/hyperloop/files/210701AB Imagine - 1.pdf",
 			},
 			{
 				type: "pdf",
-				title: "Define Our Solution",
-				img: "/hyperloop/img/define.jpg",
-				url: "/hyperloop/files/12050102AB-imagine_page2.pdf",
+				title: "Robot capabilities: ticket master",
+				img: "/hyperloop/img/thumbnail.jpg",
+				url: "/hyperloop/files/210701AB Imagine - 2.pdf",
 			},
 		],
 	},
 	subsystems: [
 		{
-			title: "Subsystem 1",
+			title: "Binary to hexadecimal",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
@@ -110,7 +110,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 			blockList: [],
 		},
 		{
-			title: "Subsystem 2",
+			title: "Binary to decimal",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
@@ -160,7 +160,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 			blockList: [],
 		},
 		{
-			title: "Subsystem 3",
+			title: "Decimal to binary",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
@@ -210,7 +210,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 			blockList: [],
 		},
 		{
-			title: "Subsystem 4",
+			title: "Ternary to tridecimal",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
