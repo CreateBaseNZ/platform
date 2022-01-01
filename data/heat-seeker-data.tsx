@@ -12,9 +12,10 @@ import {
 import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
+import { IProjectReadOnly } from "../types/types";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
-export default {
+const HEAT_SEEKER_DATA: IProjectReadOnly = {
 	name: "Heat Seeker",
 	query: "heat-seeker",
 	caption:
@@ -103,7 +104,6 @@ export default {
 							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
-							title: "Flow Tutorial",
 						},
 					},
 					{
@@ -128,7 +128,6 @@ export default {
 			},
 			code: {
 				threshold: 120,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, following a straight line accross the map."],
 				hints: [
 					"You need to use the action blocks to adjust the speed of the wheels to get it done.",
@@ -173,7 +172,6 @@ export default {
 			},
 			code: {
 				threshold: 300,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line using the sensors."],
 				hints: [
 					"You will need to use a sensor to detect the line and adjust the speed of the wheels.",
@@ -215,7 +213,6 @@ export default {
 			},
 			code: {
 				threshold: 300,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Upgrade your code so that your robot can follow the line achieve turns properly."],
 				hints: [
 					"You will need to use a sensor to detect the line and differentiate between curves and turns.",
@@ -267,7 +264,6 @@ export default {
 			},
 			code: {
 				threshold: 120,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can drive forward, putting out fires along the way."],
 				hints: [
 					"You need to use the fire sensor to detect the fire.",
@@ -309,7 +305,6 @@ export default {
 			},
 			code: {
 				threshold: 120,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can follow the line, putting out fires along the way."],
 				hints: [
 					"You will need to use the fire sensor to detect the fire. Move through the map to find all the fires",
@@ -346,7 +341,6 @@ export default {
 	],
 	improve: {
 		threshold: 600,
-		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert:
 			"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
 		tasks: [
@@ -385,3 +379,5 @@ export default {
 		],
 	},
 };
+
+export default HEAT_SEEKER_DATA;

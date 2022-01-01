@@ -112,7 +112,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			},
 			code: {
 				threshold: 600,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
 					"Mosquitos will be appearing across your screen in a horizontal line.",
 					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
@@ -146,7 +145,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks 2",
-						img: "", // TODO
 						url: "/aimbot/pdf/2105050301AD_research_2_blocks.pdf",
 					},
 				],
@@ -160,7 +158,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			},
 			code: {
 				threshold: 300,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
 					"Mosquitos will now start appearing to the left, to the right, up and down.",
 					"You need to find the x position of each mosquito, aim your robot by controlling its yaw angle then ALSO find the y position of each mosquito and aim your robot by controlling its pitch angle.",
@@ -195,19 +192,16 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Intro to Forces",
-						img: "", // TODO
 						url: "/aimbot/pdf/2105050301AE_research_IntroToForces.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Intro to Controllers",
-						img: "", // TODO
 						url: "/aimbot/pdf/2105050301AF_research_IntroToControllers.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Finer Velocity Control",
-						img: "", // TODO
 						url: "/aimbot/pdf/2105050301AG_research_FinerVelocityControl.pdf",
 					},
 				],
@@ -222,7 +216,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			},
 			code: {
 				threshold: 600,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Mosquitos will be appearing across your screen in a horizontal line.", "Just like in subsystem 1, your task is to destroy all of the mosquitos quickly before they disappear."],
 				hints: [
 					"If you try and change the speed of your robot's arm by more than 180 degrees per second, then your arm will break.",
@@ -254,7 +247,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Proceed to Plan",
-						img: "", // TODO
 						url: "/2105AD-No-Research.pdf",
 					},
 				],
@@ -267,7 +259,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			},
 			code: {
 				threshold: 600,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: [
 					"Just like in subsystem 2, mosquitos will appear to the left, to the right, up and down.",
 					"Your task is to destroy all of the mosquitos quickly before they disappear but without breaking the robot's arm by applying too much force.",
@@ -295,7 +286,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 	],
 	improve: {
 		threshold: 600,
-		caption: "Test what you've learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert:
 			"Congratulations! You now have a solution that will destroy any mosquitos that cross the path of your robot! Mosquitos everywhere will be trembling in fear! We have now added a timer to the simulation that will measure how long it takes your robot to find and destroy all of the mosquitos.",
 		tasks: [
@@ -309,7 +299,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			"The best way to decrease your time will be to optimise your controller.",
 			"Don't forget to take a screenshot of your best time and paste it into your learning journal for proof!",
 		],
-		code: true,
 		blockList: [
 			{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
 			{

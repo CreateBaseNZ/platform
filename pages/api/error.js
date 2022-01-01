@@ -1,4 +1,3 @@
-// TODO: Integration - Documentation complete
 // IMPORT ===================================================
 
 import axios from "axios";

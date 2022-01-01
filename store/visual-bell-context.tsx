@@ -1,10 +1,6 @@
-import { useState, createContext, useMemo, useEffect, useRef } from "react";
+import { useState, createContext, useMemo, useEffect, useRef, SetStateAction, Dispatch } from "react";
 
 type BellType = "success" | "neutral" | "alert" | "warning" | "error" | "catastrophe";
-
-interface IVisualBellProviderProps {
-	children: JSX.Element;
-}
 
 type VisualBell = {
 	type: BellType;
@@ -14,7 +10,7 @@ type VisualBell = {
 
 interface IVisualBellCtx {
 	visualBell: VisualBell;
-	setVisualBell: any; // TODO
+	setVisualBell: (type: BellType, message: string) => void;
 }
 
 const VisualBellContext = createContext<IVisualBellCtx>({
@@ -23,6 +19,10 @@ const VisualBellContext = createContext<IVisualBellCtx>({
 });
 
 export default VisualBellContext;
+
+interface IVisualBellProviderProps {
+	children: JSX.Element;
+}
 
 export const VisualBellContextProvider = ({ children }: IVisualBellProviderProps) => {
 	const timer = useRef<NodeJS.Timeout | null>(null);

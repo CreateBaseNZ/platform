@@ -70,7 +70,7 @@ const Code = () => {
 						label="Illustration by Storyset"
 					/>
 				</div>
-				<div className={classes.caption}>{subsystemData.code.caption}</div>
+				<div className={classes.caption}>This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!</div>
 				<Link href={{ pathname: "/game/[id]/[subsystem]", query: router.query }}>
 					<button className={classes.btn}>
 						Start Coding!

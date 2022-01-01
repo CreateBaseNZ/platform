@@ -13,15 +13,9 @@ import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
 import { AI, AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, ETHICS, TECHNOLOGY } from "../constants/projectSubjects";
+import { IProjectReadOnly } from "../types/types";
 
-/**
- * @module ProjectDataFiles
- */
-
-/**
- * @type {import("../types/types").ProjectData}
- */
-const SendIt = {
+const SEND_IT_DATA: IProjectReadOnly = {
 	name: "Send It",
 	query: "send-it",
 	caption:
@@ -51,6 +45,7 @@ const SendIt = {
 		threshold: 60,
 		url: "https://youtu.be/wB53GoLXzME",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/situation.mp4",
+		title: "Send It",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
@@ -146,7 +141,6 @@ const SendIt = {
 							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
-							title: "Flow Tutorial",
 						},
 					},
 					{
@@ -177,7 +171,6 @@ const SendIt = {
 			},
 			code: {
 				threshold: 1200,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
 				hints: ["Make sure that you hit the compile button to upload your code to the robot each time that you make a change. If you don't compile your latest code, you won't see any changes!"],
 			},
@@ -199,7 +192,6 @@ const SendIt = {
 	],
 	improve: {
 		threshold: 1200,
-		caption: "Test what you've learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert: "Did you beat the game? Uh oh, looks like there's now some flying drones! And is that acceleration? Different sized obstacles too? Time to rethink your code...",
 		tasks: [
 			"Modify your code to duck under flying drones",
@@ -208,7 +200,6 @@ const SendIt = {
 			"Deliver that package with the highest score possible",
 		],
 		hints: ["Rather than trying to solve them all at once, try turning on one modifier, updating your code until it works, and only then adding the next modifier until you have solved them all"],
-		code: true,
 		blockList: [
 			{
 				name: "Sensing",
@@ -226,4 +217,4 @@ const SendIt = {
 	},
 };
 
-export default SendIt;
+export default SEND_IT_DATA;

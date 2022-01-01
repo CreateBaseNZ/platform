@@ -1,5 +1,3 @@
-// TODO - migrate to constants folder
-
 import AtomOneDark from "../themes/atom-one-dark.json";
 import AtomOneLight from "../themes/atom-one-light.json";
 import AyuDark from "../themes/ayu-dark.json";

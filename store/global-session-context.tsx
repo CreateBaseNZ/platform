@@ -22,7 +22,7 @@ interface IGlobalSession {
 interface IGlobalSessionCtx {
 	loaded: boolean;
 	globalSession: IGlobalSession;
-	setGlobalSession: Dispatch<SetStateAction<IGlobalSession>>; // TODO
+	setGlobalSession: Dispatch<SetStateAction<IGlobalSession>>;
 }
 
 const defaultGlobalSession = { accountId: "", email: "", firstName: "", groups: [], lastName: "", numOfNotifications: 0, profileId: "", recentGroups: [], verified: false };

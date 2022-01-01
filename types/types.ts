@@ -1,29 +1,24 @@
 import { DeepReadonly } from "ts-essentials";
 import { SubjectInterface } from "../constants/projectSubjects";
 import { ExploreInterface } from "../data/explore-data";
+import { IBasicVidData, IFullVidData } from "../components/Project/VideoViewer";
 
 type Module =
 	| {
 			type: "pdf";
 			title: string;
-			img: string;
 			url: string;
+			img?: string;
 	  }
 	| {
 			type: "tut";
 			title: string;
-			items: Array<{ src: string; subtitle: JSX.Element }>;
+			items: IBasicVidData[];
 	  }
 	| {
 			type: "video";
 			title: string;
-			data: {
-				url: string;
-				src: string;
-				h1: string;
-				h2: string;
-				title: string; // TODO - is this a duplicate of h1??
-			};
+			data: IFullVidData;
 	  }
 	| {
 			type: "explore";
@@ -50,7 +45,6 @@ interface SubsystemInterface {
 	};
 	code: {
 		threshold: number;
-		caption: string; // TODO can possibly hard code
 		tasks: string[];
 		hints: string[];
 	};
@@ -62,6 +56,7 @@ interface IProject {
 	query: string;
 	caption: string;
 	stacked: boolean;
+	noFlow?: boolean;
 	scenePrefix: string;
 	runType: string;
 	durPerLesson: string;
@@ -90,11 +85,9 @@ interface IProject {
 	subsystems: SubsystemInterface[];
 	improve: {
 		threshold: number;
-		caption: string;
 		alert: string;
 		tasks: string[];
 		hints: string[];
-		code: boolean; // TODO - check if this is still being used
 		blockList: BlockList;
 	};
 }

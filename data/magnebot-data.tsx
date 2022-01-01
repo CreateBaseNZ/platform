@@ -1,8 +1,9 @@
 import { NodeMagnebotMoveArmMini, NodeMagnebotSwitchMini } from "../components/ReactFlow/NodeMagneBot";
 import { AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, MATH, SOCIAL_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
+import { IProjectReadOnly } from "../types/types";
 import { recycleRightData } from "./explore-data";
 
-export default {
+const MAGNEBOT_DATA: IProjectReadOnly = {
 	name: "MagneBot",
 	query: "magnebot",
 	caption:
@@ -97,7 +98,6 @@ export default {
 							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
-							title: "Flow Tutorial",
 						},
 					},
 					{
@@ -122,7 +122,6 @@ export default {
 			},
 			code: {
 				threshold: 600,
-				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["Write some code so that MagneBot can clean up the recycling facility for you", "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!"],
 				hints: [
 					"If your arm collides with another object, it will break!",
@@ -139,7 +138,6 @@ export default {
 	],
 	improve: {
 		threshold: 300,
-		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
 		alert:
 			"Did you manage to clean up the facility? Uh oh, looks like there's now even more items scattered across the floor! Lucky for us, this time it is after hours! Have fun playing around with MagneBot with no rules to follow or objectives to complete. However, if you want a challenge, try attempting one of the following tasks and see if you can best your classmates.",
 		tasks: [
@@ -151,7 +149,6 @@ export default {
 			"You might need to create some kind of ramp to place items on top of the conveyor belt",
 			"Challenge your friends to see who can complete one of the above tasks the best and/or fastest. If you are feeling especially spicy, you could even create your own tasks",
 		],
-		code: true,
 		blockList: [
 			{
 				name: "Actions",
@@ -160,3 +157,5 @@ export default {
 		],
 	},
 };
+
+export default MAGNEBOT_DATA;
