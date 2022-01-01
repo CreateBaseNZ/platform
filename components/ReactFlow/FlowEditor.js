@@ -572,7 +572,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 		});
 	};
 
-	const infoHandler = () => infoLogs.map((t) => consoleCtx.addLog(t));
+	const infoHandler = () => infoLogs.map((t) => consoleCtx.addDefault(t));
 
 	const nodeCtxMenuHandler = (e, node) => {
 		e.preventDefault();

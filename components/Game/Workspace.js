@@ -25,11 +25,6 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
 });
 
-/**
- *
- * @param {*} query is the project's name
- * @returns
- */
 const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, noFlow }) => {
 	const editorRef = useRef();
 	const sensorDataRef = useRef();
@@ -37,7 +32,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 	const [elements, setElements] = useState(initialElements);
 	const [text, setText] = useState("// Let's code! 💡");
 	const [theme, setTheme] = useState(null);
-	const ctx = useContext(ConsoleContext);
+	const consoleCtx = useContext(ConsoleContext);
 
 	sensorDataRef.current = sensorData;
 
@@ -65,19 +60,19 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		// Convert the flow arrangement to a configuration of blocks
 		const [blocks, type, message] = flow2Text(elements, query);
 		if (type && type === "warning" && activeTab == "flow") {
-			ctx.addWarning(message);
+			consoleCtx.addWarning(message);
 		}
 		if (Array.isArray(blocks)) {
 			const codeGen = new CodeGenerator();
 			const [newText, type, message, dispCode] = codeGen.build(blocks, onceCode);
 			if (type === "warning") {
-				ctx.addWarning(message);
+				consoleCtx.addWarning(message);
 			} else if (type === "error") {
-				ctx.addError(message);
+				consoleCtx.addError(message);
 			}
 			return [newText, dispCode];
 		} else {
-			ctx.addError(blocks);
+			consoleCtx.addError(blocks);
 			const message = "// Oops! An error occurred, please check the Console for more info";
 			return [message, message];
 		}
@@ -91,7 +86,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			const unityContext = _unityContext;
 			const dispError = (error) => {
 				if (error.name) {
-					ctx.addError(error.message);
+					consoleCtx.addError(error.message);
 					resolve(false);
 				} else {
 					resolve(true);

@@ -188,11 +188,9 @@ export class CodeGenerator {
 	}
 
 	private clamp(blockDetail) {
-		let vals = [String(blockDetail.value["a"]).trim(),
-		String(blockDetail.value["b"]).trim(),
-		String(blockDetail.value["c"]).trim()];
+		let vals = [String(blockDetail.value["a"]).trim(), String(blockDetail.value["b"]).trim(), String(blockDetail.value["c"]).trim()];
 
-		vals.forEach(val => {
+		vals.forEach((val) => {
 			if (!this.isNumber(val)) {
 				if (!this.checkVariable(val)) {
 					return [false, "error", "The inputs to one of the operators is not a number"];
@@ -459,10 +457,10 @@ export class CodeGenerator {
 			str = `if(printing>=10){
                `;
 			if (this.checkVariable(input)) {
-				str += `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
+				str += `ctx.addDefault(\`Print Number ${printNum}= \${${input}} \`)`;
 				simpleStr = `console.log(\`Print Number ${printNum}= \${${input}}\`)`;
 			} else if (this.isNumber(input) || this.isBool(input)) {
-				str += `ctx.addLog(\`Print Number ${printNum}= ${input}\`)`;
+				str += `ctx.addDefault(\`Print Number ${printNum}= ${input}\`)`;
 				simpleStr = `console.log(\`Print Number ${printNum}= ${input}\`)`;
 			} else {
 				printNum--;

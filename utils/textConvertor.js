@@ -74,7 +74,7 @@ export const convertCode = (text, system, onceCode) => {
 					}
 					unity = true;
 				} else if (RHS == "console.log") {
-					RHS = "ctx.addLog";
+					RHS = "ctx.addDefault";
 				} else if (RHS == "if" || RHS == "while" || RHS == "for") {
 					if (element[element.length - 1] != "{") {
 						i++;

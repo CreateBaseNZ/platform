@@ -33,7 +33,7 @@ const TabBar = ({ active, onChange, stacked, noFlow }) => {
 	const consoleRef = useRef(null);
 	const configRef = useRef(null);
 	const [sliderSize, setSliderSize] = useState({ top: 0, size: 1 });
-	const ctx = useContext(ConsoleContext);
+	const consoleCtx = useContext(ConsoleContext);
 
 	useEffect(() => {
 		switch (active) {
@@ -75,7 +75,7 @@ const TabBar = ({ active, onChange, stacked, noFlow }) => {
 	};
 
 	const consoleClickHandler = () => {
-		ctx.clearUnread();
+		consoleCtx.clearUnread();
 	};
 
 	return (
@@ -94,7 +94,7 @@ const TabBar = ({ active, onChange, stacked, noFlow }) => {
 				onClickHandler={consoleClickHandler}
 				active={active}
 				innerRef={consoleRef}
-				status={ctx.unreadStatus}
+				status={consoleCtx.unreadStatus}
 			/>
 			<Divider tabBefore="console" tabAfter="settings" active={active} />
 			<Tab title="Config" id="config-tab" value="config" icon={<i className="material-icons-outlined">tune</i>} onChangeHandler={onChangeHandler} active={active} innerRef={configRef} />
