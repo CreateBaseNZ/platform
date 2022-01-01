@@ -1,36 +1,43 @@
-import { useContext, useEffect } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import useApi from "../../hooks/useApi";
-import ClassesContext from "../../store/classes-context";
 import GlobalSessionContext from "../../store/global-session-context";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 
 import classes from "../../styles/classes.module.scss";
 
+interface IBareClassObject {
+	id: string;
+	name: string;
+	teachers: string[];
+	numOfStudents: number;
+	status: "joined" | "requested";
+}
+
 const ClassesTabRoot = () => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { classObjects, setClassObjects } = useContext(ClassesContext);
+	const [classObjects, setClassObjects] = useState<IBareClassObject[]>([]);
 	const { post } = useApi();
 
-	useEffect(async () => {
-		await post(
-			"/api/classes/fetch-joined",
-			{
-				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-				schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
-			},
-			(data) => {
-				console.log(data);
-				setClassObjects(data.content);
-			}
-		);
-		// TODO refetch when alias changes (to be upgraded with websocket)
+	useEffect(() => {
+		(async () =>
+			await post(
+				"/api/classes/fetch-joined",
+				{
+					licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+					schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
+				},
+				(data) => {
+					console.log(data);
+					setClassObjects(data.content);
+				}
+			))();
 	}, [globalSession.groups[globalSession.recentGroups[0]].alias]);
 
-	const cardClickHandler = (_class) => {
+	const cardClickHandler = (_class: IBareClassObject) => {
 		_class.status === "joined" && router.push({ pathname: "/classes/[id]/progress", query: { id: _class.id } });
 	};
 
@@ -80,7 +87,7 @@ const ClassesTabRoot = () => {
 	);
 };
 
-ClassesTabRoot.getLayout = (page) => {
+ClassesTabRoot.getLayout = (page: ReactElement) => {
 	return <MainLayout page="classes">{page}</MainLayout>;
 };
 

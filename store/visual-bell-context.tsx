@@ -10,7 +10,7 @@ type VisualBell = {
 
 interface IVisualBellCtx {
 	visualBell: VisualBell;
-	setVisualBell: (type: BellType, message: string) => void;
+	setVisualBell: (type?: BellType, message?: string) => void;
 }
 
 const VisualBellContext = createContext<IVisualBellCtx>({
@@ -39,8 +39,8 @@ export const VisualBellContextProvider = ({ children }: IVisualBellProviderProps
 		}
 	}, [visualBell?.key]);
 
-	const setVisualBellWithTrigger = (type: BellType, message: string) => {
-		setVisualBell({ type, message, key: Math.random() });
+	const setVisualBellWithTrigger = (type?: BellType, message?: string) => {
+		if (type && message) setVisualBell({ type, message, key: Math.random() });
 	};
 
 	const value = useMemo(
