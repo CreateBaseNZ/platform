@@ -3,25 +3,25 @@ import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../store/global-session-context";
 import DEFAULT_TABS from "../constants/mainTabs";
-import { NextPage } from "next";
 
-const Index = (): NextPage | null => {
+const Index = (): JSX.Element | null => {
 	const router = useRouter();
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
 		if (loaded) {
 			if (globalSession.accountId) {
-				if (globalSession.recentGroups?.length) {
-					router.replace("/browse");
+				if (globalSession.recentGroups.length) {
+					console.log("hi");
+					return void router.replace("/browse");
 				} else {
-					router.replace(DEFAULT_TABS[0].urlObject);
+					return void router.replace(DEFAULT_TABS[0].urlObject);
 				}
 			} else {
 				signIn();
 			}
 		}
-	}, [globalSession]);
+	}, [loaded, globalSession]);
 
 	return null;
 };

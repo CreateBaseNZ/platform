@@ -1,23 +1,25 @@
-import { useState } from "react";
+import { HTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, useState } from "react";
 import classes from "./Input.module.scss";
 
-interface IInputProps {
+export interface IInputProps extends HTMLAttributes<HTMLElement> {
 	className?: string;
-	inputProps?: any; // TODO
+	inputProps?: InputHTMLAttributes<HTMLInputElement>;
 	label?: string;
 	labelProps?: any; // TODO
-	error?: {
-		message: string;
-	};
+	error?:
+		| {
+				message: string;
+		  }
+		| string;
 	icon?: any; // TODO
 }
 
 const Input = ({ className, inputProps, label, labelProps, error, icon, ...rest }: IInputProps): JSX.Element => {
 	return (
 		<div {...rest} className={`${classes.inputWrapper} ${className} ${error ? classes.hasError : ""}`}>
-			<p className={classes.error}>{error ? error.message : ""}</p>
+			<p className={classes.error}>{typeof error === "object" ? error.message : ""}</p>
 			<div className={classes.inputWrapper}>
-				<input {...inputProps} className={`${classes.input} ${inputProps.className}`} />
+				<input {...inputProps} className={`${classes.input} ${inputProps?.className}`} />
 				{icon}
 			</div>
 			<label {...labelProps} className={classes.label}>
@@ -51,11 +53,15 @@ export const PasswordInput = ({ className, inputProps, ...rest }: IInputProps): 
 	);
 };
 
-export const TextArea = ({ className, inputProps, label, labelProps, error, ...rest }: IInputProps): JSX.Element => {
+type ITextAreaProps = IInputProps & {
+	inputProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
+};
+
+export const TextArea = ({ className, inputProps, label, labelProps, error, ...rest }: ITextAreaProps): JSX.Element => {
 	return (
 		<div {...rest} className={`${classes.inputWrapper} ${className} ${error ? classes.hasError : ""}`}>
-			<p className={classes.error}>{error ? error.message : ""}</p>
-			<textarea rows={4} {...inputProps} className={`${classes.input} ${classes.textarea} ${inputProps.className} roundScrollbar`} />
+			<p className={classes.error}>{typeof error === "object" ? error.message : ""}</p>
+			<textarea rows={4} {...inputProps} className={`${classes.input} ${classes.textarea} ${inputProps?.className} roundScrollbar`} />
 			<label {...labelProps} className={classes.label}>
 				{label}
 			</label>

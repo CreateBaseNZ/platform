@@ -1,15 +1,15 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, ReactElement } from "react";
 import Head from "next/head";
 import GlobalSessionContext from "../../store/global-session-context";
 import ForgotPasswordForm from "../../components/Auth/ForgotPasswordForm";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 import router from "next/router";
 
-const ForgotPassword = () => {
+const ForgotPassword = (): JSX.Element | null => {
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded && globalSession.accountId) router.replace("/");
+		if (loaded && globalSession.accountId) return void router.replace("/");
 	}, [globalSession]);
 
 	if (!loaded || globalSession.accountId) return null;
@@ -25,7 +25,7 @@ const ForgotPassword = () => {
 	);
 };
 
-ForgotPassword.getLayout = (page) => {
+ForgotPassword.getLayout = (page: ReactElement) => {
 	return <AuthLayout>{page}</AuthLayout>;
 };
 

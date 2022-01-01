@@ -1,18 +1,14 @@
 import axios from "axios";
+import { Validate, ValidateResult, ValidationRule } from "react-hook-form";
 
 import BLACKLIST from "../constants/blacklist";
 
-interface ValidationInterface {
-	readonly value: RegExp | number;
-	readonly message: string;
-}
-
-export const emailPattern: ValidationInterface = {
+export const emailPattern: ValidationRule<RegExp> = {
 	value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 	message: "Please enter a valid email address",
 };
 
-export const namePattern: ValidationInterface = {
+export const namePattern: ValidationRule<RegExp> = {
 	value: /^[a-zA-Z\-\. ]+$/,
 	message: "Names can only contain A—Z, a—z, -, and .",
 };
@@ -25,12 +21,12 @@ export const nameValidation = (v: string) => {
 	}
 };
 
-export const nameMinLength: ValidationInterface = {
+export const nameMinLength: ValidationRule<number> = {
 	value: 2,
 	message: "Names must be at least two character long",
 };
 
-export const nameMaxLength: ValidationInterface = {
+export const nameMaxLength: ValidationRule<number> = {
 	value: 50,
 	message: "Names cannot exceed 50 characters",
 };
@@ -49,12 +45,12 @@ export const querySchoolAPI = async (schoolId: string, schoolName: string) => {
 	return data;
 };
 
-export const passwordMinLength: ValidationInterface = {
+export const passwordMinLength: ValidationRule<number> = {
 	value: 8,
 	message: "Passwords must be at least 8 characters long",
 };
 
-export const passwordValidate = (v: string) => {
+export const passwordValidate: Validate<string> = (v): ValidateResult => {
 	const errors = [];
 	if (!v.match(/(?=.*[a-z]){8,}/)) {
 		errors.push("lowercase letter");
@@ -68,25 +64,25 @@ export const passwordValidate = (v: string) => {
 	if (!v.match(/(?=.*?[#?!@$%^&*-]){8,}/)) {
 		errors.push("special character");
 	}
-	return errors.length && "Requires at least one: " + errors.join(", ");
+	return errors.length ? "Requires at least one: " + errors.join(", ") : undefined;
 };
 
-export const schoolNameMinLength: ValidationInterface = {
+export const schoolNameMinLength: ValidationRule<number> = {
 	value: 3,
 	message: "Class names must be at least 3 characters long",
 };
 
-export const schoolNameMaxLength: ValidationInterface = {
+export const schoolNameMaxLength: ValidationRule<number> = {
 	value: 254,
 	message: "Class names cannot exceed 100 characters in length",
 };
 
-export const classNameMinLength: ValidationInterface = {
+export const classNameMinLength: ValidationRule<number> = {
 	value: 3,
 	message: "Class names must be at least 3 characters long",
 };
 
-export const classNameMaxLength: ValidationInterface = {
+export const classNameMaxLength: ValidationRule<number> = {
 	value: 50,
 	message: "Class names cannot exceed 50 characters in length",
 };

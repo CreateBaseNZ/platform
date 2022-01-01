@@ -26,8 +26,6 @@ interface IAuthGuardProps {
 const AuthGuard = ({ children, auth }: IAuthGuardProps): JSX.Element => {
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
-	console.log(loaded);
-
 	useEffect(() => {
 		if (loaded) {
 			if (!globalSession.accountId) {

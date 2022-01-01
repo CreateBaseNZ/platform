@@ -1,16 +1,16 @@
-import { useContext, useEffect } from "react";
+import { ReactElement, useContext, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import GlobalSessionContext from "../../store/global-session-context";
 import AuthCard from "../../components/Auth/AuthCard";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 
-const Signup = () => {
+const Signup = (): JSX.Element | null => {
 	const router = useRouter();
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded && globalSession.accountId) router.replace("/");
+		if (loaded && globalSession.accountId) return void router.replace("/");
 	}, [globalSession]);
 
 	if (!loaded || globalSession.accountId) return null;
@@ -26,7 +26,7 @@ const Signup = () => {
 	);
 };
 
-Signup.getLayout = (page) => {
+Signup.getLayout = (page: ReactElement) => {
 	return <AuthLayout>{page}</AuthLayout>;
 };
 

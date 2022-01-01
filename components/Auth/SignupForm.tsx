@@ -2,7 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import router from "next/router";
 import { signIn } from "next-auth/react";
-import { useForm } from "react-hook-form";
+import { useForm, ValidationRule } from "react-hook-form";
 import useApi from "../../hooks/useApi";
 import { PrimaryButton, SecondaryButton } from "../UI/Buttons";
 import Input, { PasswordInput } from "../UI/Input";
@@ -10,7 +10,14 @@ import { isBlacklisted, nameMaxLength, nameMinLength, namePattern, nameValidatio
 import { emailPattern, passwordMinLength, passwordValidate } from "../../utils/formValidation";
 import classes from "./AuthForms.module.scss";
 
-const SignupForm = () => {
+interface ISignupInputs {
+	email: string;
+	firstName: string;
+	lastName: string;
+	password: string;
+}
+
+const SignupForm = (): JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { post } = useApi();
 	const {
@@ -20,12 +27,10 @@ const SignupForm = () => {
 		formState: { errors },
 	} = useForm({
 		mode: "onTouched",
-		defaultValues: {}, // TODO prefill if in URL query params
+		// defaultValues: {}, // TODO prefill if in URL query params
 	});
 
-	console.log(errors);
-
-	const onSubmit = async (input) => {
+	const onSubmit = async (input: ISignupInputs) => {
 		setIsLoading(true);
 		let frontEndError = false;
 		if (isBlacklisted(input.firstName)) {
@@ -85,7 +90,7 @@ const SignupForm = () => {
 						placeholder: "Email*",
 						...register("email", {
 							required: "An email is required",
-							pattern: emailPattern,
+							pattern: emailPattern as ValidationRule<RegExp>,
 						}),
 					}}
 					error={errors.email}

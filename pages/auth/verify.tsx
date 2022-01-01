@@ -1,16 +1,16 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { ReactElement, useContext, useEffect } from "react";
 import VerifyForm from "../../components/Auth/VerifyForm";
 import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 import GlobalSessionContext from "../../store/global-session-context";
 
-const Verify = () => {
+const Verify = (): JSX.Element | null => {
 	const router = useRouter();
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded && globalSession.verified) router.replace("/");
+		if (loaded && globalSession.verified) return void router.replace("/");
 	}, [globalSession]);
 
 	if (!loaded || globalSession.verified) return null;
@@ -26,7 +26,7 @@ const Verify = () => {
 	);
 };
 
-Verify.getLayout = (page) => {
+Verify.getLayout = (page: ReactElement) => {
 	return <AuthLayout>{page}</AuthLayout>;
 };
 

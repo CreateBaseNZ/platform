@@ -1,37 +1,42 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useContext, useEffect, KeyboardEvent, ChangeEvent, ClipboardEvent } from "react";
 import { useRouter } from "next/router";
 import { signIn, signOut } from "next-auth/react";
 import useApi from "../../hooks/useApi";
 import VisualBellContext from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
-import Input from "../UI/Input";
+import Input, { IInputProps } from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
 
 import classes from "./AuthForms.module.scss";
 
+interface IVerifyProps {
+	routerEmail: string;
+	routerCode: string;
+}
+
 const CODE_LENGTH = 6;
 
-const Verify = ({ routerEmail = "", routerCode = "" }) => {
+const Verify = ({ routerEmail = "", routerCode = "" }: IVerifyProps): JSX.Element | null => {
 	const router = useRouter();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { loaded, globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isResending, setIsResending] = useState(false);
-	const [error, setError] = useState();
+	const [error, setError] = useState<string | undefined>(undefined);
 	const [email, setEmail] = useState(globalSession.email || routerEmail);
 	const [code, setCode] = useState(Array.from(Array(CODE_LENGTH).keys()).map((i) => routerCode[i] || "") || [...Array(CODE_LENGTH)].map(() => ""));
 	const { post } = useApi();
-	const refs = useRef([]);
+	const refs = useRef<HTMLInputElement[]>([]);
 
-	useEffect(async () => {
-		if (code.every((char) => char !== "") && email) {
-			await submitCode(code.join(""));
-		}
+	useEffect(() => {
+		(async () => {
+			if (code.every((char) => char !== "") && email) await submitCode(code.join(""));
+		})();
 	}, []);
 
 	// note that the session email takes precedence over url query
 	// i.e. if the session is an unverified user and the url is a ocl, then the session email is used as the API input
-	const submitCode = async (code) => {
+	const submitCode = async (code: string) => {
 		setIsLoading(true);
 		await post(
 			"/api/auth/verify",
@@ -42,7 +47,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 			},
 			() => {
 				setGlobalSession((state) => ({ ...state, verified: true }));
-				router.push(router.query.callbackUrl || "/");
+				router.push((router.query.callbackUrl as string) || "/");
 				setVisualBell("success", "Your account is now verified");
 			},
 			(data) => {
@@ -64,8 +69,8 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 		});
 	};
 
-	const changeHandler = (e, idx) => {
-		setError();
+	const changeHandler = (e: ChangeEvent<HTMLInputElement>, idx: number) => {
+		setError(undefined);
 		const char = e.target.value;
 		if (/[^a-zA-Z0-9]/.test(char)) return;
 		const newCode = [...code];
@@ -79,9 +84,9 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 		}
 	};
 
-	const keyDownHandler = (e, idx) => {
+	const keyDownHandler = (e: KeyboardEvent, idx: number) => {
 		if (e.key === "Backspace" && !code[idx] && idx !== 0) {
-			setError();
+			setError(undefined);
 			const newCode = [...code];
 			newCode[idx - 1] = "";
 			setCode(newCode);
@@ -89,9 +94,9 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 		}
 	};
 
-	const pasteHandler = (e) => {
-		setError();
-		const paste = (e.clipboardData || window.clipboardData).getData("text").slice(0, CODE_LENGTH);
+	const pasteHandler = (e: ClipboardEvent<HTMLInputElement>) => {
+		setError(undefined);
+		const paste = e.clipboardData.getData("text").slice(0, CODE_LENGTH);
 		if (/[^a-zA-Z0-9]/.test(paste)) return;
 		const newCode = [...paste];
 		setCode(newCode);
@@ -126,9 +131,9 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 								value: char,
 								autoFocus: !code[0].length && idx === 0,
 								readOnly: isLoading,
-								onChange: (e) => changeHandler(e, idx),
-								onKeyDown: (e) => keyDownHandler(e, idx),
-								onPaste: (e) => pasteHandler(e),
+								onChange: (e: ChangeEvent<HTMLInputElement>) => changeHandler(e, idx),
+								onKeyDown: (e: KeyboardEvent) => keyDownHandler(e, idx),
+								onPaste: (e: ClipboardEvent<HTMLInputElement>) => pasteHandler(e),
 								ref: (ref) => refs.current.push(ref),
 							}}
 							error={error}
@@ -138,7 +143,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }) => {
 				<div className={classes.errorMessage} style={{ opacity: error ? 1 : 0 }}>
 					{error}
 				</div>
-				<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} />
+				<PrimaryButton className={`${classes.submit} ${classes.loadingVerifCode}`} isLoading={true} type="button" loadingLabel="Verifying ..." style={{ opacity: isLoading ? 1 : 0 }} mainLabel="" />
 				{!isLoading && (
 					<div className={classes.verifOptions}>
 						<button className={`${classes.smallFont} ${classes.switch}`} onClick={() => signOut({ redirect: false })}>
