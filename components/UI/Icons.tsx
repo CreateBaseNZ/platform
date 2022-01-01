@@ -1,27 +1,31 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
 
-const WhiteLogo = (props) => {
+interface IWhiteLogoProps extends ImageProps {
+	className?: string;
+}
+
+export const WhiteLogo = ({ className = "", ...rest }: IWhiteLogoProps): JSX.Element => {
 	return (
-		<a target="_blank" href="https://createbase.co.nz/" className={props.className} title="createbase.co.nz" onClick={props.handler} style={{ position: "relative", height: "100%", width: "100%" }}>
-			<Image
-				src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/white-logo.png"
-				alt="CreateBase"
-				layout={props.layout}
-				objectFit={props.objectFit}
-				width={props.width}
-				height={props.height}
-				quality={props.quality}
-			/>
+		<a target="_blank" href="https://createbase.co.nz/" className={className} title="createbase.co.nz" style={{ position: "relative", height: "100%", width: "100%" }}>
+			<Image {...rest} src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/white-logo.png" alt="CreateBase" />
 		</a>
 	);
 };
 
-export default WhiteLogo;
+interface IIconProps {
+	className?: string;
+	href?: string;
+	title?: string;
+	fill?: string;
+	width?: string;
+	height?: string;
+	iconWidth?: string;
+	iconHeight?: string;
+}
 
 export const FBIcon = ({
-	className,
-	handler,
+	className = "",
 	href = "https://www.facebook.com/CreateBaseNZ",
 	title = "/CreateBaseNZ",
 	fill = "white",
@@ -29,14 +33,13 @@ export const FBIcon = ({
 	height = "32",
 	iconWidth = "32",
 	iconHeight = "32",
-}) => {
+}: IIconProps): JSX.Element => {
 	return (
 		<a
 			className={className}
 			target="_blank"
 			href={href}
 			title={title}
-			onClick={handler}
 			style={{
 				display: "flex",
 				justifyContent: "center",
@@ -59,8 +62,7 @@ export const FBIcon = ({
 };
 
 export const IGIcon = ({
-	className,
-	handler,
+	className = "",
 	href = "https://www.instagram.com/createbasenz/",
 	title = "@createbasenz",
 	fill = "white",
@@ -68,14 +70,13 @@ export const IGIcon = ({
 	height = "32",
 	iconWidth = "32",
 	iconHeight = "32",
-}) => {
+}: IIconProps): JSX.Element => {
 	return (
 		<a
 			className={className}
 			target="_blank"
 			href={href}
 			title={title}
-			onClick={handler}
 			style={{
 				display: "flex",
 				justifyContent: "center",
@@ -98,8 +99,7 @@ export const IGIcon = ({
 };
 
 export const TwitterIcon = ({
-	className,
-	handler,
+	className = "",
 	href = "https://twitter.com/CreateBaseNZ",
 	title = "@CreateBaseNZ",
 	fill = "white",
@@ -107,14 +107,13 @@ export const TwitterIcon = ({
 	height = "32",
 	iconWidth = "32",
 	iconHeight = "32",
-}) => {
+}: IIconProps): JSX.Element => {
 	return (
 		<a
 			className={className}
 			target="_blank"
 			href={href}
 			title={title}
-			onClick={handler}
 			style={{
 				display: "flex",
 				justifyContent: "center",
@@ -137,8 +136,7 @@ export const TwitterIcon = ({
 };
 
 export const YTIcon = ({
-	className,
-	handler,
+	className = "",
 	href = "https://www.youtube.com/channel/UClLBwFvHpGrRpxyRg1IOB0g",
 	title = "CreateBase Channel",
 	fill = "white",
@@ -146,14 +144,13 @@ export const YTIcon = ({
 	height = "32",
 	iconWidth = "32",
 	iconHeight = "32",
-}) => {
+}: IIconProps): JSX.Element => {
 	return (
 		<a
 			className={className}
 			target="_blank"
 			href={href}
 			title={title}
-			onClick={handler}
 			style={{
 				display: "flex",
 				justifyContent: "center",
@@ -175,13 +172,18 @@ export const YTIcon = ({
 	);
 };
 
-export const ColourLogo = ({ className, handler, width = "175", height = "32" }) => {
+interface ILogoProps {
+	className?: string;
+	width?: string;
+	height?: string;
+}
+
+export const ColourLogo = ({ className = "", width = "175", height = "32" }: ILogoProps): JSX.Element => {
 	return (
 		<Link href="/">
 			<button
 				title="Home"
 				className={className}
-				onClick={handler}
 				style={{
 					display: "flex",
 					justifyContent: "center",
@@ -262,18 +264,16 @@ export const ColourLogo = ({ className, handler, width = "175", height = "32" })
 	);
 };
 
-export const ColourLogoIcon = ({ className, style, handler, width = "32", height = "32" }) => {
+export const ColourLogoIcon = ({ className = "", width = "32", height = "32" }: ILogoProps): JSX.Element => {
 	return (
 		<Link href="/">
 			<button
 				title="Home"
 				className={className}
-				onClick={handler}
 				style={{
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
-					...style,
 				}}>
 				<svg
 					viewBox="0 0 688.02 790.18"
