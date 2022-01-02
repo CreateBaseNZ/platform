@@ -21,7 +21,7 @@ const Index = (): JSX.Element | null => {
 				signIn();
 			}
 		}
-	}, [loaded, globalSession]);
+	}, [loaded, globalSession, router]);
 
 	return null;
 };

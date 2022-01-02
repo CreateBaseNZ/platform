@@ -151,7 +151,7 @@ const SignupForm = (): JSX.Element => {
 						</div>
 						<label>
 							Agree to{" "}
-							<a className={classes.linkBtn} href="https://createbase.co.nz/terms" target="_blank">
+							<a className={classes.linkBtn} href="https://createbase.co.nz/terms" target="_blank" rel="noreferrer">
 								Terms &amp; Conditions
 							</a>
 						</label>

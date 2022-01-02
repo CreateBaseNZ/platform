@@ -1,7 +1,7 @@
 import { HTMLAttributes, InputHTMLAttributes, Ref, TextareaHTMLAttributes, useState } from "react";
 import classes from "./Input.module.scss";
 
-export interface IInputProps {
+export interface IInputProps extends HTMLAttributes<HTMLDivElement> {
 	className?: string;
 	inputProps?: InputHTMLAttributes<HTMLInputElement> & { ref?: Ref<HTMLInputElement> };
 	label?: string;

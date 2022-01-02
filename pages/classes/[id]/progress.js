@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import Head from "next/head";
 
 import useClass from "../../../hooks/useClass";
@@ -16,7 +16,7 @@ import ResyncButton from "../../../components/Classes/ResyncButton";
 import InfoTooltip from "../../../components/Classes/InfoTooltip";
 
 const ClassesProgress = () => {
-	const ref = useRef<HTMLDivElement | null>(null);
+	const ref = useRef(null);
 	const { classObject, classLoaded, fetchProgressData, lastSynced } = useClass();
 	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
 	const [studentSelect, setStudentSelect] = useState();

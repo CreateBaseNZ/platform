@@ -11,7 +11,7 @@ const Verify = (): JSX.Element | null => {
 
 	useEffect(() => {
 		if (loaded && globalSession.verified) return void router.replace("/");
-	}, [globalSession]);
+	}, [globalSession, loaded, router]);
 
 	if (!loaded || globalSession.verified) return null;
 
@@ -21,7 +21,7 @@ const Verify = (): JSX.Element | null => {
 				<title>Verify | CreateBase</title>
 				<meta name="description" content="Verify your CreateBase account" />
 			</Head>
-			{router.isReady && loaded && <VerifyForm routerCode={router.query.code} routerEmail={router.query.email} />}
+			{router.isReady && loaded && <VerifyForm routerCode={router.query.code as string} routerEmail={router.query.email as string} />}
 		</>
 	);
 };
