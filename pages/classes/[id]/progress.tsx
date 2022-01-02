@@ -16,7 +16,7 @@ import ResyncButton from "../../../components/Classes/ResyncButton";
 import InfoTooltip from "../../../components/Classes/InfoTooltip";
 
 const ClassesProgress = () => {
-	const ref = useRef();
+	const ref = useRef<HTMLDivElement | null>(null);
 	const { classObject, classLoaded, fetchProgressData, lastSynced } = useClass();
 	const [viewSelect, setViewSelect] = useState(PROGRESS_VIEW_OPTIONS[0]);
 	const [studentSelect, setStudentSelect] = useState();
@@ -27,7 +27,9 @@ const ClassesProgress = () => {
 	const [isDummy, setIsDummy] = useState(false);
 
 	useEffect(() => {
-		return () => (ref.current = null);
+		return () => {
+			ref.current = null;
+		};
 	}, []);
 
 	useEffect(async () => {
@@ -71,7 +73,7 @@ const ClassesProgress = () => {
 	return (
 		<div ref={ref} className={`${classes.view} roundScrollbar`}>
 			<Head>
-				<title>Progress • {classObject.name} | CreateBase</title>
+				<title>Progress • {classObject?.name} | CreateBase</title>
 				<meta name="description" content="View student project progress by student or  project" />
 			</Head>
 			{isDummy && <DummyBanner />}

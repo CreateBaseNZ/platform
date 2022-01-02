@@ -30,7 +30,7 @@ type Module =
 // TODO - array of possible strings, and update blocks
 type BlockList = Array<{ name: string; blocks: JSX.Element[] }>;
 
-interface SubsystemInterface {
+export interface ISubsystem {
 	title: string;
 	requirements: string[];
 	imgSrc: string;
@@ -83,7 +83,7 @@ interface IProject {
 		caption: string[];
 		modules: Module[];
 	};
-	subsystems: SubsystemInterface[];
+	subsystems: ISubsystem[];
 	improve: {
 		threshold: number;
 		alert: string;

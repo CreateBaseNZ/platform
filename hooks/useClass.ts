@@ -4,11 +4,28 @@ import GlobalSessionContext from "../store/global-session-context";
 import useApi from "./useApi";
 import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
 import useMixpanel from "./useMixpanel";
+import { ISubsystem } from "../types/types";
+import { DeepReadonly } from "ts-essentials";
 
-const getStatus = (duration, threshold, formattedThreshold, gameProgressEvent, isWin) => {
+interface IFilter {
+	event: string;
+	properties: any;
+}
+
+interface IPostProcessDatum {
+	event: string;
+	properties: {
+		project: string;
+		licenses: string[];
+		subsystem: string;
+		start: number;
+		duration: number;
+	};
+}
+
+const getStatus = (duration: number, threshold: number, formattedThreshold: string, gameProgressEvent = "", isWin = false) => {
 	let status = "";
 	let primaryLabel = "Not visited";
-	let secondaryLabel = "";
 
 	if (duration > threshold) {
 		status = "completed";
@@ -19,7 +36,6 @@ const getStatus = (duration, threshold, formattedThreshold, gameProgressEvent, i
 	}
 
 	if (duration > 0 && gameProgressEvent) {
-		secondaryLabel = ""; // can use primaryLabel
 		if (isWin) {
 			status = "completed";
 			primaryLabel = "Task completed";
@@ -29,36 +45,71 @@ const getStatus = (duration, threshold, formattedThreshold, gameProgressEvent, i
 		}
 	}
 
-	return { status, primaryLabel, secondaryLabel };
+	return { status, primaryLabel };
+};
+
+interface IClassUser {
+	email: string;
+	firstName: string;
+	lastName: string;
+	licenseId: string;
+}
+
+interface IClassStudent extends IClassUser {
+	profileId: string;
+	role: "admin" | "teacher" | "student";
+	status: "joined" | "requested";
+}
+
+interface IClassTeacher extends IClassUser {
+	alias: string;
+}
+
+export interface IFullClassObject {
+	announcements: any; // TODO type
+	assignments: any; // TODO type
+	id: string;
+	name: string;
+	students: IClassStudent[];
+	teachers: IClassTeacher[];
+}
+
+const defaultClassObject = {
+	announcements: {},
+	assignments: {},
+	id: "",
+	name: "",
+	students: [],
+	teachers: [],
 };
 
 const useClass = () => {
 	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const [classObject, setClassObject] = useState({});
+	const [classObject, setClassObject] = useState<IFullClassObject>(defaultClassObject);
 	const [classLoaded, setClassLoaded] = useState(false);
-	const [lastSynced, setLastSynced] = useState();
+	const [lastSynced, setLastSynced] = useState<Date>();
 	const mp = useMixpanel();
 
-	useEffect(async () => {
-		if (router.isReady) {
-			await post(
-				"/api/classes/fetch-one",
-				{ profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id, classId: router.query.id },
-				(data) => {
-					setClassObject(data.content);
-					setClassLoaded(true);
-				},
-				(data) => {
-					if (data.content === "not found") {
-						router.replace("/404");
+	useEffect(() => {
+		(async () => {
+			if (router.isReady) {
+				await post(
+					"/api/classes/fetch-one",
+					{ profileId: globalSession.profileId, schoolId: globalSession.groups[globalSession.recentGroups[0]].id, classId: router.query.id },
+					(data) => {
+						setClassObject(data.content);
+						setClassLoaded(true);
+					},
+					(data) => {
+						if (data.content === "not found") router.replace("/404");
 					}
-				}
-			);
-		}
+				);
+			}
+		})();
 	}, [router.isReady, router.query.id]);
 
-	const fetchData = async (filters) => {
+	const fetchData = async (filters: IFilter[]) => {
 		if (!classLoaded) return;
 		let preprocessData;
 		try {
@@ -72,7 +123,7 @@ const useClass = () => {
 	};
 
 	const fetchReportingData = async () => {
-		const filters = [
+		const filters: IFilter[] = [
 			"project_define",
 			"project_imagine",
 			"project_improve",
@@ -85,15 +136,15 @@ const useClass = () => {
 			"game_improve_progress",
 		].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
-		const postprocessData = await fetchData(filters);
+		const postprocessData: IPostProcessDatum[] = await fetchData(filters);
 
-		const processData = (event, project, license, subsystem, type = "default") => {
+		const processData = (event: string, project: string, license: string, subsystem?: string, type = "default") => {
 			return postprocessData
 				.filter((item) => item.event === event && item.properties.project === project && item.properties.licenses.includes(license) && (subsystem ? item.properties.subsystem === subsystem : true))
 				.map((item) => ({ start: new Date(item.properties.start), duration: item.properties.duration, type: type }));
 		};
 
-		const processCreateData = (project, subsystems, license) => {
+		const processCreateData = (project: string, subsystems: DeepReadonly<ISubsystem[]>, license: string) => {
 			return subsystems.map((subsystem) => ({
 				name: subsystem.title,
 				label: subsystem.title,
@@ -105,8 +156,8 @@ const useClass = () => {
 			}));
 		};
 
-		return classObject.students.map((student) => {
-			let projectData = {};
+		return classObject?.students.map((student) => {
+			let projectData: Record<string, any> = {}; // TODO type
 			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
 				projectData[ALL_PROJECTS_ARRAY[i].query] = [
 					{ label: "Define", name: "define", bars: processData("project_define", ALL_PROJECTS_ARRAY[i].query, student.licenseId) },
@@ -135,7 +186,7 @@ const useClass = () => {
 
 		const postprocessData = await fetchData(filters);
 
-		const processData = (event, project, license, threshold, subsystem, gameProgressEvent) => {
+		const processData = (event: string, project: string, license: string, threshold: number, subsystem?: string, gameProgressEvent?: string) => {
 			let duration = 0;
 			let isWin = false;
 			for (let k = 0; k < postprocessData.length; k++) {
@@ -169,8 +220,8 @@ const useClass = () => {
 			return { ...params, formattedDuration };
 		};
 
-		const processCreateData = (project, subsystems, license) => {
-			const createData = {};
+		const processCreateData = (project: string, subsystems: DeepReadonly<ISubsystem[]>, license: string) => {
+			const createData: Record<string, any> = {}; // TODO
 			for (let j = 0; j < subsystems.length; j++) {
 				createData[subsystems[j].title] = {
 					name: subsystems[j].title,
@@ -182,8 +233,8 @@ const useClass = () => {
 			return createData;
 		};
 
-		const data = classObject.students.map((student) => {
-			const studentData = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
+		const data = classObject?.students.map((student) => {
+			const studentData: ProgressDatum = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
 			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
 				studentData.projects[ALL_PROJECTS_ARRAY[i].query] = {
 					define: processData("project_define", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].define.threshold),
@@ -202,3 +253,9 @@ const useClass = () => {
 };
 
 export default useClass;
+
+interface ProgressDatum {
+	id: string;
+	name: string;
+	projects: any; // TODO
+}

@@ -457,10 +457,10 @@ export class CodeGenerator {
 			str = `if(printing>=10){
                `;
 			if (this.checkVariable(input)) {
-				str += `ctx.addDefault(\`Print Number ${printNum}= \${${input}} \`)`;
+				str += `consoleCtx.addDefault(\`Print Number ${printNum}= \${${input}} \`)`;
 				simpleStr = `console.log(\`Print Number ${printNum}= \${${input}}\`)`;
 			} else if (this.isNumber(input) || this.isBool(input)) {
-				str += `ctx.addDefault(\`Print Number ${printNum}= ${input}\`)`;
+				str += `consoleCtx.addDefault(\`Print Number ${printNum}= ${input}\`)`;
 				simpleStr = `console.log(\`Print Number ${printNum}= ${input}\`)`;
 			} else {
 				printNum--;

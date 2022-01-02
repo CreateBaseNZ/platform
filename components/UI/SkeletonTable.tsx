@@ -1,6 +1,11 @@
 import classes from "./SkeletonTable.module.scss";
 
-const SkeletonTable = ({ rows, containerClass = "" }) => {
+interface ISkeletonTableProps {
+	rows?: number;
+	containerClass?: string;
+}
+
+const SkeletonTable = ({ rows = 1, containerClass = "" }: ISkeletonTableProps): JSX.Element => {
 	return (
 		<div className={`${classes.skeletonLoading} ${containerClass}`}>
 			{Array.from(Array(rows).keys()).map((key) => (

@@ -4,7 +4,15 @@ import ClientOnlyPortal from "./ClientOnlyPortal";
 
 import classes from "./Modal.module.scss";
 
-const Modal = ({ setShow, title, backgroundColor, width, children }) => {
+interface IModalProps {
+	setShow: (_: boolean) => void;
+	title: string;
+	children: JSX.Element;
+	backgroundColor?: string;
+	width?: string;
+}
+
+const Modal = ({ setShow, title, backgroundColor, width, children }: IModalProps): JSX.Element => {
 	return (
 		<ClientOnlyPortal selector="#modal-root">
 			<div className={classes.view}>

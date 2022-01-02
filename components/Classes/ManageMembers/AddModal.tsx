@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { Dispatch, RefObject, SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import router from "next/router";
 import useApi from "../../../hooks/useApi";
@@ -9,9 +9,16 @@ import { SearchBar } from "../../UI/Input";
 import Modal from "../../UI/Modal";
 
 import classes from "./AddModal.module.scss";
+import { IFullClassObject } from "../../../hooks/useClass";
 
-const AddModal = ({ setShow, classObject, setClassObject }) => {
-	const ref = useRef();
+interface IAddModalProps {
+	setShow: (_: boolean) => void;
+	classObject: IFullClassObject;
+	setClassObject: Dispatch<SetStateAction<IFullClassObject>>;
+}
+
+const AddModal = ({ setShow, classObject, setClassObject }: IAddModalProps): JSX.Element => {
+	const ref = useRef<HTMLDivElement | null>(null);
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [userList, setUserList] = useState([]);
@@ -20,22 +27,26 @@ const AddModal = ({ setShow, classObject, setClassObject }) => {
 	const searchValue = watch("searchValue");
 	const { post } = useApi();
 
-	useEffect(async () => {
-		await post(
-			"/api/classes/fetch-users",
-			{
-				classId: classObject.id,
-				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-				groupId: globalSession.groups[globalSession.recentGroups[0]].id,
-			},
-			(data) => ref.current && setUserList(data.content.filter((user) => !user.status).map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
-			(data) => {
-				if (data.content === "unauthorised") {
-					router.replace("/404");
+	useEffect(() => {
+		(async () => {
+			await post(
+				"/api/classes/fetch-users",
+				{
+					classId: classObject.id,
+					licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+					groupId: globalSession.groups[globalSession.recentGroups[0]].id,
+				},
+				(data) => ref.current && setUserList(data.content.filter((user) => !user.status).map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
+				(data) => {
+					if (data.content === "unauthorised") {
+						router.replace("/404");
+					}
 				}
-			}
-		);
-		return () => (ref.current = null);
+			);
+		})();
+		return () => {
+			ref.current = null;
+		};
 	}, []);
 
 	const onSubmit = async (inputs) => {

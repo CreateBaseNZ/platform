@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, ReactElement } from "react";
 import GlobalSessionContext from "../../../store/global-session-context";
 import useApi from "../../../hooks/useApi";
 import useClass from "../../../hooks/useClass";
@@ -15,15 +15,16 @@ import { MANAGE_MEMBERS_COLUMNS, MANAGE_MEMBERS_SIZES } from "../../../constants
 
 import classes from "../../../styles/classManageMembers.module.scss";
 
-const ClassesManage = () => {
-	const ref = useRef();
+const ClassesManage = (): JSX.Element => {
+	const ref = useRef<HTMLDivElement | null>(null);
 	const { post } = useApi();
 	const { classObject, setClassObject, classLoaded } = useClass();
 	const [showAddModal, setShowAddModal] = useState(false);
 	const { globalSession } = useContext(GlobalSessionContext);
 
+	// TODO types
 	const renderBtns = [
-		(key, data, selectedRowIds) => (
+		(key: number, data: any[], selectedRowIds: Record<string, any>) => (
 			<TertiaryButton
 				key={key}
 				onClick={async () => {
@@ -50,20 +51,20 @@ const ClassesManage = () => {
 	return (
 		<div className={classes.view} ref={ref}>
 			<Head>
-				<title>Manage Members • {classObject.name} | CreateBase</title>
+				<title>Manage Members • {classObject?.name} | CreateBase</title>
 				<meta name="description" content="View your class announcements" />
 			</Head>
 			<h1>
 				Manage Members
 				<PrimaryButton className={classes.addBtn} onClick={() => setShowAddModal(true)} mainLabel="Add" iconLeft={<i className="material-icons-outlined">person_add</i>} /> <HeaderToggle />
 			</h1>
-			{classLoaded ? <Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} /> : <SkeletonTable />}
+			{classLoaded ? <Table columns={MANAGE_MEMBERS_COLUMNS} data={classObject.students} pageSizes={MANAGE_MEMBERS_SIZES} renderBtns={renderBtns} /> : <SkeletonTable rows={3} />}
 			{showAddModal && <AddModal setShow={setShowAddModal} classObject={classObject} setClassObject={setClassObject} />}
 		</div>
 	);
 };
 
-ClassesManage.getLayout = function getLayout(page) {
+ClassesManage.getLayout = function getLayout(page: ReactElement) {
 	return (
 		<MainLayout page="classes">
 			<InnerLayout tabs={CLASSES_TABS} backHref="/classes">
