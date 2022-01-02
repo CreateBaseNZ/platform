@@ -32,18 +32,20 @@ const ClassesProgress = () => {
 		};
 	}, []);
 
-	useEffect(async () => {
-		if (classLoaded) {
-			let _preData = await fetchProgressData();
-			if (!ref.current) return;
-			if (!_preData.length) {
-				_preData = DUMMY_PROGRESS_DATA;
-				setIsDummy(true);
+	useEffect(() => {
+		(async () => {
+			if (classLoaded) {
+				let _preData = await fetchProgressData();
+				if (!ref.current) return;
+				if (!_preData.length) {
+					_preData = DUMMY_PROGRESS_DATA;
+					setIsDummy(true);
+				}
+				setStudentSelect(_preData[0]);
+				setPreData(_preData);
 			}
-			setStudentSelect(_preData[0]);
-			setPreData(_preData);
-		}
-	}, [classLoaded]);
+		})();
+	}, [classLoaded, fetchProgressData]);
 
 	useEffect(() => {
 		if (!preData || !ref.current) return;
