@@ -33,7 +33,7 @@ const ClassesManage = (): JSX.Element => {
 						{
 							classId: classObject.id,
 							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-							licenseIds: Object.keys(selectedRowIds).map((i) => data[i].licenseId),
+							licenseIds: Object.keys(selectedRowIds).map((i) => data[parseInt(i)].licenseId),
 							date: new Date().toString(),
 						},
 						() => {

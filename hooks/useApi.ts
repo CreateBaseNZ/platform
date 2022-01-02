@@ -1,8 +1,8 @@
 import router from "next/router";
 import axios from "axios";
 
-export interface ApiRes {
-	status?: string;
+export interface APIRes {
+	status?: "succeeded" | "critical error" | "error" | "failed" | undefined;
 	content?: any; // TODO
 }
 
@@ -15,13 +15,13 @@ const useApi = () => {
 	};
 
 	const post = async (route = "", input = {}, successHandler: (data: any) => void = () => {}, failHandler: (data: any) => void = () => {}) => {
-		let data: ApiRes = {}; // TODO
+		let data: APIRes = {};
 		try {
-			data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"] as ApiRes; // TODO
+			data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"] as APIRes; // TODO
 		} catch (error) {
 			data.status = "error";
 		} finally {
-			switch (data.status) {
+			switch (data?.status) {
 				case "critical error":
 					reportError(router.asPath, "critical error", `A user in ${router.asPath} route encountered a critical error while making a request to ${route}`, { backendRoute: route, data });
 					return router.push("/404");

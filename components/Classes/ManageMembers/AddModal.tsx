@@ -1,7 +1,7 @@
 import { Dispatch, RefObject, SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import router from "next/router";
-import useApi from "../../../hooks/useApi";
+import useApi, { APIRes } from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
 import VisualBellContext from "../../../store/visual-bell-context";
 import { PrimaryButton } from "../../UI/Buttons";
@@ -9,7 +9,9 @@ import { SearchBar } from "../../UI/Input";
 import Modal from "../../UI/Modal";
 
 import classes from "./AddModal.module.scss";
-import { IFullClassObject } from "../../../hooks/useClass";
+import { IClassStudent, IClassTeacher, IFullClassObject } from "../../../hooks/useClass";
+
+type IUserList = (IClassStudent | IClassTeacher) & { fullName: string };
 
 interface IAddModalProps {
 	setShow: (_: boolean) => void;
@@ -17,11 +19,16 @@ interface IAddModalProps {
 	setClassObject: Dispatch<SetStateAction<IFullClassObject>>;
 }
 
+interface APIClassesFetchUsersRes extends APIRes {
+	status: "succeeded";
+	content: IClassStudent[];
+}
+
 const AddModal = ({ setShow, classObject, setClassObject }: IAddModalProps): JSX.Element => {
 	const ref = useRef<HTMLDivElement | null>(null);
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
-	const [userList, setUserList] = useState([]);
+	const [userList, setUserList] = useState<IUserList[]>([]);
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { register, handleSubmit, watch } = useForm();
 	const searchValue = watch("searchValue");
@@ -36,11 +43,11 @@ const AddModal = ({ setShow, classObject, setClassObject }: IAddModalProps): JSX
 					licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 					groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 				},
-				(data) => ref.current && setUserList(data.content.filter((user) => !user.status).map((user) => ({ ...user, name: `${user.firstName} ${user.lastName}` }))),
+				(data: APIClassesFetchUsersRes) => {
+					if (ref.current) setUserList(data.content.filter((user: IClassStudent) => !user.status).map((user) => ({ ...user, fullName: `${user.firstName} ${user.lastName}` })));
+				},
 				(data) => {
-					if (data.content === "unauthorised") {
-						router.replace("/404");
-					}
+					if (data.content === "unauthorised") router.replace("/404");
 				}
 			);
 		})();
@@ -49,12 +56,13 @@ const AddModal = ({ setShow, classObject, setClassObject }: IAddModalProps): JSX
 		};
 	}, []);
 
-	const onSubmit = async (inputs) => {
+	// TODO inputs type
+	const onSubmit = async (inputs: any) => {
 		setIsLoading(true);
 		const { searchValue, ...rest } = inputs;
 		const selectedUsers = Object.keys(rest)
 			.filter((key) => rest[key])
-			.map((key) => userList[key.split("_")[0]]);
+			.map((key) => userList[parseInt(key.split("_")[0])]);
 		const details = {
 			classId: classObject.id,
 			licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
@@ -64,14 +72,14 @@ const AddModal = ({ setShow, classObject, setClassObject }: IAddModalProps): JSX
 		};
 		if (!details.licenseIds.length) return setIsLoading(false);
 		await post("/api/classes/add-users", details, () => {
-			let students = [];
-			let teachers = [];
+			let students: IClassStudent[] = [];
+			let teachers: IClassTeacher[] = [];
 			for (let i = 0; i < selectedUsers.length; i++) {
 				const user = selectedUsers[i];
 				if (user.role === "student") {
-					students.push({ email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId, role: user.role });
+					students.push({ email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId, profileId: user.profileId, role: user.role, status: "joined" });
 				} else if (user.role === "teacher" || user.role === "admin") {
-					teachers.push(user.alias);
+					teachers.push({ alias: user.alias, email: user.email, firstName: user.firstName, lastName: user.lastName, licenseId: user.licenseId, role: user.role, status: "joined" });
 				}
 			}
 			setClassObject((state) => ({
@@ -96,12 +104,12 @@ const AddModal = ({ setShow, classObject, setClassObject }: IAddModalProps): JSX
 				<div ref={ref} className={`${classes.container} roundScrollbar`}>
 					{userList.map(
 						(user, i) =>
-							user.name.toLowerCase().includes((searchValue || "").toLowerCase()) && (
-								<div key={user.licenseId} className={`${classes.item} ${user.joined ? classes.disabled : ""}`}>
-									<input type="checkbox" id={user.licenseId} name={user.licenseId} {...register(`${i}_user`)} />
+							user.fullName.toLowerCase().includes((searchValue || "").toLowerCase()) && (
+								<div key={user.licenseId} className={`${classes.item} ${user.status === "joined" ? classes.disabled : ""}`}>
+									<input type="checkbox" id={user.licenseId} {...register(`${i}_user`)} />
 									<label>
 										<div>
-											<p>{user.name}</p>
+											<p>{user.fullName}</p>
 											<p>{user.role}</p>
 										</div>
 										<i className={`material-icons-outlined ${classes.addIcon}`}>add_circle_outline</i>

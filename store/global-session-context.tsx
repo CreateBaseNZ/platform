@@ -2,7 +2,7 @@ import { useState, createContext, useMemo, useEffect, useContext, Dispatch, SetS
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import axios from "axios";
-import useApi, { ApiRes } from "../hooks/useApi";
+import useApi, { APIRes } from "../hooks/useApi";
 import { signOut } from "next-auth/react";
 import VisualBellContext from "./visual-bell-context";
 import { GroupAndUserObject } from "../types/types";
@@ -60,9 +60,9 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 					properties: { profile: ["recentGroups"], license: ["alias"] },
 				};
 				(async () => {
-					let data1: ApiRes = {};
+					let data1: APIRes = {};
 					try {
-						data1 = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"] as ApiRes; // TODO - find the not hacky solution
+						data1 = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"] as APIRes; // TODO - find the not hacky solution
 					} catch (error) {
 						data1.status = "error";
 					}
@@ -75,9 +75,9 @@ export const GlobalSessionContextProvider = ({ children }: { children: JSX.Eleme
 						return;
 					}
 					const groups = data1.content.groups.filter((group: GroupAndUserObject) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated");
-					let data2: ApiRes = {};
+					let data2: APIRes = {};
 					try {
-						data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups } }))["data"] as ApiRes; // TODO - find the not hacky solution
+						data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups } }))["data"] as APIRes; // TODO - find the not hacky solution
 					} catch (error) {
 						data2.status = "error";
 					}

@@ -55,13 +55,15 @@ interface IClassUser {
 	licenseId: string;
 }
 
-interface IClassStudent extends IClassUser {
+export interface IClassStudent extends IClassUser {
 	profileId: string;
-	role: "admin" | "teacher" | "student";
+	role: "student";
 	status: "joined" | "requested";
 }
 
-interface IClassTeacher extends IClassUser {
+export interface IClassTeacher extends IClassUser {
+	role: "teacher" | "admin";
+	status: "joined";
 	alias: string;
 }
 
