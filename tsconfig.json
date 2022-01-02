@@ -16,5 +16,10 @@
 		"incremental": true
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "additional.d.ts"],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules"],
+	"typedocOptions": {
+		"entryPoints": ["pages", "hooks", "utils", "components", "constants", "data", "store", "types"],
+		"out": "docs",
+		"entryPointStrategy": "expand"
+	}
 }
