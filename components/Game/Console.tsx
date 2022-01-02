@@ -5,7 +5,7 @@ import classes from "./Console.module.scss";
 
 type ILogProps = Omit<ILog, "type">;
 
-const Default = memo(({ message, time }: ILogProps): JSX.Element => {
+const DefaultLog = memo(({ message, time }: ILogProps): JSX.Element => {
 	return (
 		<div className={classes.log}>
 			{message} <p className={classes.time}>{time}</p>
@@ -13,7 +13,9 @@ const Default = memo(({ message, time }: ILogProps): JSX.Element => {
 	);
 });
 
-const Error = memo(({ message, time }: ILogProps): JSX.Element => {
+DefaultLog.displayName = "DefaultLog";
+
+const ErrorLog = memo(({ message, time }: ILogProps): JSX.Element => {
 	return (
 		<div className={classes.error}>
 			<span className="material-icons-outlined">bug_report</span>
@@ -23,7 +25,9 @@ const Error = memo(({ message, time }: ILogProps): JSX.Element => {
 	);
 });
 
-const Warning = memo(({ message, time }: ILogProps): JSX.Element => {
+ErrorLog.displayName = "ErrorLog";
+
+const WarningLog = memo(({ message, time }: ILogProps): JSX.Element => {
 	return (
 		<div className={classes.warning}>
 			<span className="material-icons-outlined">report_problem</span>
@@ -33,9 +37,20 @@ const Warning = memo(({ message, time }: ILogProps): JSX.Element => {
 	);
 });
 
+WarningLog.displayName = "WarningLog";
+
 let key = 0;
 
-const Console = ({ show }: { show: boolean }): JSX.Element => {
+type ConsoleProps = {
+	/** Whether the console is shown in the Workspace */
+	show: boolean;
+};
+
+/**
+ * Console in the Game screen Workspace
+ * @component
+ */
+const Console = ({ show }: ConsoleProps): JSX.Element => {
 	const ref = useRef<HTMLDivElement>(null);
 	const consoleCtx = useContext(ConsoleContext);
 	const [darkMode, setDarkMode] = useState(true);
@@ -75,9 +90,9 @@ const Console = ({ show }: { show: boolean }): JSX.Element => {
 		<div id="console" className={`${classes.console} ${darkMode ? classes.darkMode : classes.lightMode} ${show ? "" : "hide"}`}>
 			<div className={classes.logArea}>
 				{consoleCtx.logs.map((log) => {
-					if (log.type === "default") return <Default key={key++} message={log.message} time={log.time} />;
-					if (log.type === "warning") return <Warning key={key++} message={log.message} time={log.time} />;
-					if (log.type === "error") return <Error key={key++} message={log.message} time={log.time} />;
+					if (log.type === "default") return <DefaultLog key={key++} message={log.message} time={log.time} />;
+					if (log.type === "warning") return <WarningLog key={key++} message={log.message} time={log.time} />;
+					if (log.type === "error") return <ErrorLog key={key++} message={log.message} time={log.time} />;
 				})}
 				<div ref={ref} />
 			</div>

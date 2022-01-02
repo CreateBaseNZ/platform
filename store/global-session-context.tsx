@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo, useEffect, useContext, Dispatch, SetStateAction } from "react";
+import { useState, createContext, useMemo, useEffect, useContext, Dispatch, SetStateAction, ReactNode } from "react";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import axios from "axios";
@@ -45,7 +45,9 @@ const GlobalSessionContext = createContext<IGlobalSessionCtx>({
 
 export default GlobalSessionContext;
 
-export const GlobalSessionContextProvider = ({ children }: { children: JSX.Element }) => {
+type GlobalSessionCtxProps = { children: ReactNode };
+
+export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps) => {
 	const { data: session, status } = useSession();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { post } = useApi();

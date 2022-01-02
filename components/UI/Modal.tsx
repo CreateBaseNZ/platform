@@ -1,18 +1,19 @@
 // TODO add enter transition animation to modals [FRONTEND]
 
+import { ReactNode } from "react";
 import ClientOnlyPortal from "./ClientOnlyPortal";
 
 import classes from "./Modal.module.scss";
 
-interface IModalProps {
+type ModalProps = {
 	setShow: (_: boolean) => void;
 	title: string;
-	children: JSX.Element;
+	children: ReactNode;
 	backgroundColor?: string;
 	width?: string;
-}
+};
 
-const Modal = ({ setShow, title, backgroundColor, width, children }: IModalProps): JSX.Element => {
+const Modal = ({ setShow, title, backgroundColor, width, children }: ModalProps): JSX.Element => {
 	return (
 		<ClientOnlyPortal selector="#modal-root">
 			<div className={classes.view}>

@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo, useEffect, useRef, SetStateAction, Dispatch } from "react";
+import { useState, createContext, useMemo, useEffect, useRef, SetStateAction, Dispatch, ReactNode } from "react";
 
 type BellType = "success" | "neutral" | "alert" | "warning" | "error" | "catastrophe";
 
@@ -20,11 +20,11 @@ const VisualBellContext = createContext<IVisualBellCtx>({
 
 export default VisualBellContext;
 
-interface IVisualBellProviderProps {
-	children: JSX.Element;
-}
+type VisualBellProviderProps = {
+	children: ReactNode;
+};
 
-export const VisualBellContextProvider = ({ children }: IVisualBellProviderProps) => {
+export const VisualBellContextProvider = ({ children }: VisualBellProviderProps) => {
 	const timer = useRef<NodeJS.Timeout | null>(null);
 	const [visualBell, setVisualBell] = useState<VisualBell>(null);
 

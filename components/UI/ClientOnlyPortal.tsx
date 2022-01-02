@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-interface ClientOnlyPortalProps {
-	children: JSX.Element;
+type ClientOnlyPortalProps = {
+	children: ReactNode;
 	selector: string;
-}
+};
 
 const ClientOnlyPortal = ({ children, selector }: ClientOnlyPortalProps): JSX.Element | null => {
 	const [mounted, setMounted] = useState(false);

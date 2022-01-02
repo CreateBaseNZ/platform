@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo, Dispatch, SetStateAction } from "react";
+import { useState, createContext, useMemo, Dispatch, SetStateAction, ReactNode } from "react";
 
 interface IMainLayoutCtx {
 	headerIsCollapsed: boolean;
@@ -16,11 +16,11 @@ const MainLayoutContext = createContext<IMainLayoutCtx>({
 
 export default MainLayoutContext;
 
-interface IMainLayoutProviderProps {
-	children: JSX.Element | JSX.Element[];
-}
+type MainLayoutProviderProps = {
+	children: ReactNode;
+};
 
-export const MainLayoutContextProvider = ({ children }: IMainLayoutProviderProps) => {
+export const MainLayoutContextProvider = ({ children }: MainLayoutProviderProps) => {
 	const [headerIsCollapsed, setHeaderIsCollapsed] = useState(false);
 	const [navIsCollapsed, setNavIsCollapsed] = useState(false);
 

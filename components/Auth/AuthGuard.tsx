@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { ReactNode, useContext, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
 import router from "next/router";
@@ -18,12 +18,12 @@ const hasAccess = (role: Role, auth: AuthLevel) => {
 	}
 };
 
-interface IAuthGuardProps {
-	children: JSX.Element;
+type AuthGuardProps = {
+	children: ReactNode;
 	auth: AuthLevel;
-}
+};
 
-const AuthGuard = ({ children, auth }: IAuthGuardProps): JSX.Element => {
+const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
@@ -43,7 +43,7 @@ const AuthGuard = ({ children, auth }: IAuthGuardProps): JSX.Element => {
 		if (!globalSession.verified) {
 			return <LoadingScreen />;
 		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]].role, auth)) {
-			return children;
+			return <>{children}</>;
 		} else {
 			return <div>No access</div>;
 		}

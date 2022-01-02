@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo } from "react";
+import { useState, createContext, useMemo, ReactNode } from "react";
 
 export interface ILog {
 	type: "default" | "warning" | "error";
@@ -32,7 +32,9 @@ const ConsoleContext = createContext<IConsoleCtx>({
 
 export default ConsoleContext;
 
-export const ConsoleContextProvider = ({ children }: { children: JSX.Element }) => {
+type ConsoleCtxProps = { children: ReactNode };
+
+export const ConsoleContextProvider = ({ children }: ConsoleCtxProps) => {
 	const [logs, setLogs] = useState<ILog[]>([]);
 	const [unreadStatus, setUnreadStatus] = useState<UnreadStatus>();
 
