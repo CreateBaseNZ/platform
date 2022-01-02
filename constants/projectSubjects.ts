@@ -14,3 +14,4 @@ export const SOCIAL_SCIENCE: SubjectInterface = { color: "#ee92da", label: "Soci
 export const FIRE_SAFETY: SubjectInterface = { color: "#ffd84b", label: "Fire safety" };
 export const SCRIPTING: SubjectInterface = { color: "#c8f028", label: "Scripting" };
 export const TRIGONOMETRY: SubjectInterface = { color: "#a2e483", label: "Trigonometry" };
+export const JAVASCRIPT: SubjectInterface = { color: "yellow", label: "JavaScript" };

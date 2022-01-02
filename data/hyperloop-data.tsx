@@ -1,31 +1,32 @@
-import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY } from "../constants/projectSubjects";
+import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY, JAVASCRIPT } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/types";
 
 const HYPERLOOP_DATA: IProjectReadOnly = {
 	name: "Hyperloop",
 	query: "hyperloop",
 	caption:
-		"Students will be creating a hyperloop controller where they will control the output track that the starting track is connected to. The people using the hyperloop cars will display which output they want to go in a number system of binary, octal, decimal, or hexadecimal in a text box. This will then need to be converted to another number system which will tell a robot in a booth which buttons to press to turn the connecting track to the correct output. The purpose of this project is to understand how different number base systems work.",
+		"Chaos! Passengers arriving at a hyperloop terminal need to have their passenger numbers matched up to the correct capsule, but the computer system has malfunctioned! Students will learn how to convert between different number systems before implementing an algorithm to automate this process. Hyperloop capsules and passengers will display their identification numbers in variety of number systems, including binary, trinary, decimal, and hexadecimal. Note that students are expected to have had some minor experience with text coding before attempting this Project.",
 	stacked: true,
 	noFlow: true,
 	scenePrefix: "Project_Hyperloop",
 	runType: "loop",
 	durPerLesson: "45 mins",
-	numOfLessons: 8,
-	difficulty: "advanced",
-	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE],
-	learningOutcome: "/hyperloop/files/project-overview.pdf",
+	numOfLessons: 5,
+	difficulty: "proficient",
+	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, JAVASCRIPT],
+	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	cads: {
 		nz: "/send-it/cads/020802AC Curriculum Alignment - Send It - NZ.pdf",
 		aus: "/send-it/cads/020802AC Curriculum Alignment - Send It - ACARA.pdf",
 		cali: "/send-it/cads/020802AC Curriculum Alignment - Send It - California.pdf",
 		uk: "/send-it/cads/020802AC Curriculum Alignment - Send It - England.pdf",
 	}, // TODO
-	lessonPlan: "/hyperloop/files/lesson-plan-hyperloop.pdf",
+	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Convert a binary number to a decimal number.",
-		"Convert a decimal number to a binary number",
+		"Convert a decimal number to a binary number.",
 		"Convert any base number system to any other base number system by using base 10 as an intermediary conversion.",
+		"Revise how to create and call functions using JavaScript."
 	],
 	define: {
 		threshold: 30,
@@ -35,7 +36,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
 		title: "Hyperloop",
 		docs: "https://docs.google.com/document/d/1MZ43lDVs1unrV7QQJW2YzQmc0WnzNZ2wJ7JGzD3GLaU/edit",
-		word: "https://docs.google.com/document/d/1MZ43lDVs1unrV7QQJW2YzQmc0WnzNZ2wJ7JGzD3GLaU/edit",
+		word: "/hyperloop/files/210701AA Hyperloop Learning Journal.docx",
 	},
 	imagine: {
 		threshold: 30,
