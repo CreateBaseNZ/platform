@@ -64,216 +64,175 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
-				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+				"In this subsystem, we will create a simple JavaScript program that maps binary numbers to the equivalent hexadecimal number. This will allow our robot to perform hardcoded number conversions using a series of IF statements, but is it the most efficient?",
 			research: {
 				threshold: 30,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
 						type: "pdf",
-						title: "Axis, Pitch and Yaw",
-						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Trigonometry",
-						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Introduction to Flow Part I",
-						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+						title: "How to Hyperloop",
+						url: "/hyperloop/files/210701AD How to Hyperloop.pdf",
 					},
 				],
 			},
 			plan: {
 				threshold: 30,
 				list: [
-					"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
+					"In this first subsystem, our aim is to create a direct mapping between two different number systems.",
 					"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
-				threshold: 30,
+				threshold: 60,
 				tasks: [
-					"Mosquitos will be appearing across your screen in a horizontal line.",
-					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
-					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly.",
+					"Passengers will be queueing up and need to be allocated one at a time to the correct Hyperloop capsule.",
+					"You will need to create a program that detects the passenger's number, converts it to the correct hyperloop number, and then calls the MovePersonToHyperloop() function with the correct hyperloop number.",
 				],
 				hints: [
-					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
-					"You can aim by controlling the velocity of the motors in the robot's arm.",
-					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps.",
+					"Your code will automatically run once for each new passenger.",
+					"Make sure that you know how to map between binary and hexadecimal.",
+					"The largest possible passenger number is 1111 so you don't need to add mappings for any numbers higher than this.",
 				],
 			},
 			blockList: [],
 		},
 		{
 			title: "Binary to decimal",
-			requirements: [],
+			requirements: [
+				"Binary to hexadecimal"
+			],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
-				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+				"In this subsystem, we will create a more advanced JavaScript program that uses an algorithm to convert any binary number to the equivalent decimal number. This approach is much more scalable than hard-coding number conversions.",
 			research: {
-				threshold: 0, // TODO
+				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
 						type: "pdf",
-						title: "Axis, Pitch and Yaw",
-						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Trigonometry",
-						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Introduction to Flow Part I",
-						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+						title: "Binary to decimal",
+						url: "/hyperloop/files/210701AC Research - 2.pdf",
 					},
 				],
 			},
 			plan: {
-				threshold: 0, // TODO
+				threshold: 30,
 				list: [
-					"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
-					"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+					"In this second subsystem, our aim is to create a program that implements the algorithm that we outlined in the research step.",
+					"To do this, we will start with a basic framework for the code. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
-				threshold: 0, // TODO
+				threshold: 300,
 				tasks: [
-					"Mosquitos will be appearing across your screen in a horizontal line.",
-					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
-					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly.",
+					"Passengers will be queueing up and need to be allocated one at a time to the correct Hyperloop capsule.",
+					"You will need to create a program that detects the passenger's number, converts it to the correct hyperloop number, and then calls the MovePersonToHyperloop() function with the correct hyperloop number.",
 				],
 				hints: [
-					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
-					"You can aim by controlling the velocity of the motors in the robot's arm.",
-					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps.",
+					"Your code will automatically run once for each new passenger.",
+					"Make sure that you know how to map between binary and decimal using an algorithm.",
+					"Don't forget about JavaScript syntax, including how to index arrays.",
 				],
 			},
 			blockList: [],
 		},
 		{
 			title: "Decimal to binary",
-			requirements: [],
+			requirements: [
+				"Binary to hexadecimal"
+			],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
-				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+				"Let's try the reverse of subsystem 2 and create a JavaScript program that uses an algorithm to convert a decimal number to the equivalent binary number. We will generalize our answer to be able to convert to any base between 2 and 10.",
 			research: {
-				threshold: 0, // READONLY
+				threshold: 60, // READONLY
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
 						type: "pdf",
-						title: "Axis, Pitch and Yaw",
-						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Trigonometry",
-						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Introduction to Flow Part I",
-						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+						title: "Decimal to Binary",
+						url: "/hyperloop/files/210701AC Research - 3.pdf",
 					},
 				],
 			},
 			plan: {
-				threshold: 0, // TODO
+				threshold: 30,
 				list: [
-					"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
-					"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+					"In this third subsystem, our aim is to create a program that implements the algorithm that we outlined in the research step. We will start with a basic framework for the code. ",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 3. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
-				threshold: 0, // TODO
+				threshold: 300,
 				tasks: [
-					"Mosquitos will be appearing across your screen in a horizontal line.",
-					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
-					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly.",
+					"Passengers will be queueing up and need to be allocated one at a time to the correct Hyperloop capsule.",
+					"You will need to create a program that detects the passenger's number, converts it to the correct hyperloop number, and then calls the MovePersonToHyperloop() function with the correct hyperloop number.",
 				],
 				hints: [
-					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
-					"You can aim by controlling the velocity of the motors in the robot's arm.",
-					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps.",
+					"Your code will automatically run once for each new passenger.",
+					"Make sure that you know how to map between decimal and binary using an algorithm.",
+					"Don't forget about JavaScript syntax, including how to index arrays.",
 				],
 			},
 			blockList: [],
 		},
 		{
 			title: "Ternary to tridecimal",
-			requirements: [],
+			requirements: [
+				"Binary to decimal",
+				"Decimal to binary"
+			],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
-				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
+				"In this subsystem, we will combine everything we have learnt to far to create a JavaScript program that uses an algorithm to convert between base 3 and base 13.",
 			research: {
-				threshold: 0, // READONLY
+				threshold: 60, // READONLY
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
 						type: "pdf",
-						title: "Axis, Pitch and Yaw",
-						url: "/aimbot/pdf/2105050301AA_research_pitch_yaw_axis.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Trigonometry",
-						url: "/aimbot/pdf/2105050301AB_research_trigonometry.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Introduction to Flow Part I",
-						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+						title: "Converting between any two bases",
+						url: "/hyperloop/files/210701AC Research - 4.pdf",
 					},
 				],
 			},
 			plan: {
-				threshold: 0, // TODO
+				threshold: 30,
 				list: [
-					"In this first subsystem, our aim is to understand how to calculate how far we need to move our arm to aim at the next mosquito. We will then perform a movement before firing the laser at the mosquito.",
-					"To do this, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
+					"In this fourth and final subsystem, our aim is to create a program that implements the algorithm that we outlined in the research step. We will start with a more advanced framework for the code. ",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 4. If you get stuck, your educator may let you ask your classmates for help, but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
-				threshold: 0, // TODO
+				threshold: 300,
 				tasks: [
-					"Mosquitos will be appearing across your screen in a horizontal line.",
-					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
-					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly.",
+					"Passengers will be queueing up and need to be allocated one at a time to the correct Hyperloop capsule.",
+					"You will need to create a program that detects the passenger's number, converts it to the correct hyperloop number, and then calls the MovePersonToHyperloop() function with the correct hyperloop number.",
 				],
 				hints: [
-					"You will need to use the x coordinate of the mosquitos to calculate the angle that you need to aim at using trigonometry.",
-					"You can aim by controlling the velocity of the motors in the robot's arm.",
-					"Too avoid overshooting your target, you may want to have a dynamic velocity where you slow down your speed as you get close to your target.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in future steps.",
+					"Your code will automatically run once for each new passenger.",
+					"Make sure that you know how to map between any base to decimal and then to any other base using an algorithm.",
+					"Don't forget about JavaScript syntax, including how to index arrays.",
 				],
 			},
 			blockList: [],
 		},
 	],
 	improve: {
-		threshold: 0, // TODO
+		threshold: 60,
 		alert:
-			"Congratulations! You now have a solution that will destroy any mosquitos that cross the path of your robot! Mosquitos everywhere will be trembling in fear! We have now added a timer to the simulation that will measure how long it takes your robot to find and destroy all of the mosquitos.",
+			"Congratulations! You should now have a good understanding about how to convert between two static number systems. But, what if the number systems that you were converting between weren't always the same?",
 		tasks: [
-			"Mosquitos will be appearing across your screen in both the x and y directions.",
-			"You will need to find the position of each mosquito, aim your robot, and then fire to destroy all of the mosquitos, just like in the Create step.",
-			"You will need to move your arm as fast as possible to get the fastest possible time.",
-			"Compete with your peers to get the fastest time.",
+			"Each passenger will arrive with a randomised number form a randomised base.",
+			"In addition to passenger number systems changing, the number systems used by the hyperloop capsules will also randomly change each time a new passenger arrives! Absolute chaos!",
+			"Modify your code from subsystem 4 so that it can handle this randomisation.",
 		],
 		hints: [
-			"If you set the speed of your arm too high, you may overshoot your targets.",
-			"The best way to decrease your time will be to optimise your controller.",
-			"Don't forget to take a screenshot of your best time and paste it into your learning journal for proof!",
+			"The robot already has access to three variables: personNumber, personBase and hyperloopBase.",
+			"personBase contains the value of the base of the next passenger.",
+			"hyperloopBase contains the value of the base of the hyperloop capsules.",
+			"If your solution for subsystem 4 is robust enough, the only thing that you will need to change is your inputs to MovePersonToHyperloop()",
 		],
 		blockList: [],
 	},
