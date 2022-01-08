@@ -11,7 +11,6 @@ import MobileView from "../components/MobileView/MobileView";
 import AuthGuard from "../components/Auth/AuthGuard";
 
 import "../styles/globals.scss";
-import styles from "../styles/_exports.module.scss";
 
 type NextPageWithLayout = NextPage & {
 	getLayout?: (page: ReactElement) => JSX.Element;

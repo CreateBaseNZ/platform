@@ -1,44 +1,72 @@
 import { useState, createContext, useMemo, ReactNode } from "react";
 
+/** Log type identifiers. */
+export type LogType = "default" | "warning" | "error";
+
 export interface ILog {
-	type: "default" | "warning" | "error";
+	/** Log type identifiers. */
+	type: LogType;
+	/** Message to be logged. */
 	message: string;
+	/** Time of logging (automatically handled). */
 	time: string;
 }
 
-type UnreadStatus = "default" | "warning" | "error" | undefined;
+/** Console tab status corresponding to unread logs, or `null` if none unread. Logs are marked as read when the tab is opened while of after a log is printed.  */
+export type UnreadStatus = LogType | null;
 
-type AddLog = (_: string) => void;
+/**
+ * Generic type alias for functions that add logs (e.g. see {@link addDefault}, {@link addWarning}).
+ * @param message Message to be logged.
+ */
+export type AddLog = (message: string) => void;
 
-interface IConsoleCtx {
+/** Console context object. */
+export interface IConsoleCtx {
+	/** Array of logs shown in the Console. */
 	logs: ILog[];
+	/** Adds a default log. */
 	addDefault: AddLog;
+	/** Adds a warning log. */
 	addWarning: AddLog;
+	/** Adds an error log. */
 	addError: AddLog;
+	/** Clears all logs in the Console. */
 	clearLogs: () => void;
+	/** Console tab styling to indicate unread log status. */
 	unreadStatus: UnreadStatus;
+	/** Sets {@link unreadStatus} to `null`. */
 	clearUnread: () => void;
 }
 
+/**
+ * @ignore
+ */
 const ConsoleContext = createContext<IConsoleCtx>({
 	logs: [],
 	addDefault: () => {},
 	addWarning: () => {},
 	addError: () => {},
 	clearLogs: () => {},
-	unreadStatus: undefined,
+	unreadStatus: null,
 	clearUnread: () => {},
 });
 
 export default ConsoleContext;
 
+/**
+ * @ignore
+ */
 type ConsoleCtxProps = { children: ReactNode };
 
+/**
+ * @ignore
+ */
 export const ConsoleContextProvider = ({ children }: ConsoleCtxProps) => {
 	const [logs, setLogs] = useState<ILog[]>([]);
-	const [unreadStatus, setUnreadStatus] = useState<UnreadStatus>();
+	const [unreadStatus, setUnreadStatus] = useState<UnreadStatus>(null);
 
-	const addDefault = (message: string): void => {
+	const addDefault: AddLog = (message) => {
 		setLogs((state) => [
 			...state,
 			{
@@ -53,7 +81,7 @@ export const ConsoleContextProvider = ({ children }: ConsoleCtxProps) => {
 		setUnreadStatus("default");
 	};
 
-	const addWarning = (message: string): void => {
+	const addWarning: AddLog = (message) => {
 		setLogs((state) => [
 			...state,
 			{
@@ -68,7 +96,7 @@ export const ConsoleContextProvider = ({ children }: ConsoleCtxProps) => {
 		setUnreadStatus("warning");
 	};
 
-	const addError = (message: string): void => {
+	const addError: AddLog = (message) => {
 		setLogs((state) => [
 			...state,
 			{
@@ -88,7 +116,7 @@ export const ConsoleContextProvider = ({ children }: ConsoleCtxProps) => {
 	};
 
 	const clearUnread = (): void => {
-		setUnreadStatus(undefined);
+		setUnreadStatus(null);
 	};
 
 	const value = useMemo(

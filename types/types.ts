@@ -1,10 +1,10 @@
 import { DeepReadonly } from "ts-essentials";
 import { SubjectInterface } from "../constants/projectSubjects";
-import { ExploreInterface } from "../data/explore-data";
+import { ExploreInterface } from "../types/explore";
 import { IBasicVidData, IFullVidData } from "../components/Project/VideoViewer";
 import { ProjectDifficulty } from "../constants/projectDifficulties";
 
-type Module =
+export type Module =
 	| {
 			type: "pdf";
 			title: string;
@@ -28,7 +28,7 @@ type Module =
 	  };
 
 // TODO - array of possible strings, and update blocks
-type BlockList = Array<{ name: string; blocks: JSX.Element[] }>;
+export type BlockList = Array<{ name: string; blocks: JSX.Element[] }>;
 
 export interface ISubsystem {
 	title: string;
@@ -52,7 +52,7 @@ export interface ISubsystem {
 	blockList: BlockList;
 }
 
-interface IProject {
+export interface IProject {
 	name: string;
 	query: string;
 	caption: string;

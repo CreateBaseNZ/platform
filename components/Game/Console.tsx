@@ -3,6 +3,10 @@ import ConsoleContext, { ILog } from "../../store/console-context";
 
 import classes from "./Console.module.scss";
 
+/**
+ * @module /components/Game/Console
+ */
+
 type ILogProps = Omit<ILog, "type">;
 
 const DefaultLog = memo(({ message, time }: ILogProps): JSX.Element => {
@@ -41,15 +45,10 @@ WarningLog.displayName = "WarningLog";
 
 let key = 0;
 
-type ConsoleProps = {
-	/** Whether the console is shown in the Workspace */
+export type ConsoleProps = {
 	show: boolean;
 };
 
-/**
- * Console in the Game screen Workspace
- * @component
- */
 const Console = ({ show }: ConsoleProps): JSX.Element => {
 	const ref = useRef<HTMLDivElement>(null);
 	const consoleCtx = useContext(ConsoleContext);

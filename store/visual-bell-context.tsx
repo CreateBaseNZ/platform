@@ -1,14 +1,21 @@
-import { useState, createContext, useMemo, useEffect, useRef, SetStateAction, Dispatch, ReactNode } from "react";
+import { useState, createContext, useMemo, ReactNode } from "react";
 
-type BellType = "success" | "neutral" | "alert" | "warning" | "error" | "catastrophe";
+/**
+ * Visual bell type identifiers.
+ * - `success` - green
+ * - `neutral` - grey
+ * - `alert`, `warning` - orange
+ * - `error`, `catastrophe` - red
+ * **Note: `catastrophe` and `warning` will persist unless manually dismissed.**
+ */
+export type BellType = "success" | "neutral" | "alert" | "warning" | "error" | "catastrophe";
 
-type VisualBell = {
+export type VisualBell = {
 	type: BellType;
 	message: string;
-	key: number;
 } | null;
 
-interface IVisualBellCtx {
+export interface IVisualBellCtx {
 	visualBell: VisualBell;
 	setVisualBell: (type?: BellType, message?: string) => void;
 }
@@ -25,28 +32,16 @@ type VisualBellProviderProps = {
 };
 
 export const VisualBellContextProvider = ({ children }: VisualBellProviderProps) => {
-	const timer = useRef<NodeJS.Timeout | null>(null);
 	const [visualBell, setVisualBell] = useState<VisualBell>(null);
 
-	useEffect(() => {
-		if (visualBell) {
-			if (timer.current && (visualBell.type === "catastrophe" || visualBell.type === "warning")) {
-				clearTimeout(timer.current);
-			}
-			if (visualBell.type !== "catastrophe" && visualBell.type !== "warning") {
-				timer.current = setTimeout(() => setVisualBell(null), 5100);
-			}
-		}
-	}, [visualBell?.key]);
+	console.log(visualBell);
 
-	const setVisualBellWithTrigger = (type?: BellType, message?: string) => {
-		if (type && message) setVisualBell({ type, message, key: Math.random() });
-	};
+	const intermediarySetVisualBell = (type?: BellType, message?: string) => (type && message ? setVisualBell({ type, message }) : setVisualBell(null));
 
 	const value = useMemo(
 		() => ({
 			visualBell: visualBell,
-			setVisualBell: setVisualBellWithTrigger,
+			setVisualBell: intermediarySetVisualBell,
 		}),
 		[visualBell]
 	);

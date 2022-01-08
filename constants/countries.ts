@@ -1,4 +1,11 @@
-export default [
+export interface ICountry {
+	/** Formatted country name */
+	name: string;
+	/** ISO Alpha-2 code */
+	code: string;
+}
+
+const COUNTRIES: ICountry[] = [
 	{ name: "Afghanistan", code: "AF" },
 	{ name: "Åland Islands", code: "AX" },
 	{ name: "Albania", code: "AL" },
@@ -243,3 +250,5 @@ export default [
 	{ name: "Zambia", code: "ZM" },
 	{ name: "Zimbabwe", code: "ZW" },
 ];
+
+export default COUNTRIES;

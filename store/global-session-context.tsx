@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo, useEffect, useContext, Dispatch, SetStateAction, ReactNode } from "react";
+import { useState, createContext, useMemo, useEffect, useContext, Dispatch, SetStateAction, ReactNode, useReducer } from "react";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import axios from "axios";
@@ -7,15 +7,25 @@ import { signOut } from "next-auth/react";
 import VisualBellContext from "./visual-bell-context";
 import { GroupAndUserObject } from "../types/types";
 
-interface IGlobalSession {
+/** Global session object. */
+export interface IGlobalSession {
+	/** User account ID, or `null` if session is not authenticated. */
 	accountId: string | null;
+	/** User email. */
 	email: string;
+	/** User first name. */
 	firstName: string;
+	/** Array of groups the user is in. */
 	groups: GroupAndUserObject[];
+	/** User last name. */
 	lastName: string;
+	/** Number of notifications. */
 	numOfNotifications: number;
+	/** User profile ID. */
 	profileId: string;
+	/** Array of ordered group indices from most recent to oldest. */
 	recentGroups: number[];
+	/** Whether user is verified. */
 	verified: boolean;
 }
 
@@ -31,12 +41,19 @@ const defaultGlobalSession: IGlobalSession = {
 	verified: false,
 };
 
-interface IGlobalSessionCtx {
+/** Global session context object. */
+export interface IGlobalSessionCtx {
+	/** Whether the session has loaded and the global session context is set. */
 	loaded: boolean;
+	/** Global session object. */
 	globalSession: IGlobalSession;
+	/** Sets the global session object. */
 	setGlobalSession: Dispatch<SetStateAction<IGlobalSession>>;
 }
 
+/**
+ * @ignore
+ */
 const GlobalSessionContext = createContext<IGlobalSessionCtx>({
 	loaded: false,
 	globalSession: defaultGlobalSession,
@@ -45,8 +62,14 @@ const GlobalSessionContext = createContext<IGlobalSessionCtx>({
 
 export default GlobalSessionContext;
 
+/**
+ * @ignore
+ */
 type GlobalSessionCtxProps = { children: ReactNode };
 
+/**
+ * @ignore
+ */
 export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps) => {
 	const { data: session, status } = useSession();
 	const { setVisualBell } = useContext(VisualBellContext);
@@ -54,9 +77,11 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 	const [loaded, setLoaded] = useState(false);
 	const [globalSession, setGlobalSession] = useState<IGlobalSession>(defaultGlobalSession);
 
+	console.log(session?.user);
+
 	useEffect(() => {
 		if (status !== "loading") {
-			if (session) {
+			if (session?.user) {
 				const inputs = {
 					date: new Date().toString(),
 					properties: { profile: ["recentGroups"], license: ["alias"] },
@@ -96,7 +121,7 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 
 	useEffect(() => {
 		if (!loaded || !globalSession.accountId) return;
-		(async () => {
+		const postGroupUpdate = async () => {
 			await post("/api/profile/update-saves", {
 				profileId: globalSession.profileId,
 				update: { recentGroups: globalSession.recentGroups },
@@ -106,8 +131,9 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 			if (group) {
 				setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
 			}
-		})();
-	}, [globalSession.recentGroups]);
+		};
+		postGroupUpdate();
+	}, [loaded, globalSession.recentGroups]);
 
 	const value = useMemo(
 		() => ({

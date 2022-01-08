@@ -18,7 +18,7 @@
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "additional.d.ts"],
 	"exclude": ["node_modules"],
 	"typedocOptions": {
-		"entryPoints": ["pages", "hooks", "utils", "components", "constants", "data", "store", "types"],
+		"entryPoints": ["./pages/_app.tsx", "./store"],
 		"out": "docs",
 		"entryPointStrategy": "expand"
 	}

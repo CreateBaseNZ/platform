@@ -15,6 +15,7 @@
 	padding: 0.5em 1em;
 	color: $lightest;
 	border-radius: 8px;
+	text-align: center;
 	opacity: 0;
 	animation: animate 5s linear forwards;
 	i {
@@ -61,11 +62,11 @@
 
 .warning,
 .catastrophe {
-	text-align: center;
 	border-radius: 0;
 	margin-top: 0;
 	width: 100vw;
-	animation: remain 5s linear forwards;
+	opacity: 1;
+	animation: none;
 	i {
 		display: block;
 	}
@@ -100,18 +101,6 @@
 	}
 }
 
-@keyframes remain {
-	0% {
-		opacity: 0;
-		transform: translateY(-4px);
-	}
-	2% {
-		transform: translateY(0);
-	}
-	5% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 1;
-	}
+.hide {
+	display: none;
 }
