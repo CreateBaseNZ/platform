@@ -9,9 +9,12 @@ import classes from "/styles/myGroups.module.scss";
 
 const MyGroups = () => {
 	const router = useRouter();
-	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession, updateRecentGroups } = useContext(GlobalSessionContext);
 
-	const cardClickHandler = (i) => setGlobalSession((state) => ({ ...state, recentGroups: [i, ...state.recentGroups.filter((_group) => _group !== i)].slice(0, 3) }));
+	// const cardClickHandler = (i) => setGlobalSession((state) => ({ ...state, recentGroups: [i, ...state.recentGroups.filter((_group) => _group !== i)].slice(0, 3) }));
+
+	const cardClickHandler = (i) => updateRecentGroups((currState) => [i, ...currState.recentGroups.filter((_group) => _group !== i)].slice(0, 3));
+
 	return (
 		<div className={classes.view}>
 			<Head>

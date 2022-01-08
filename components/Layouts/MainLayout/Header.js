@@ -11,12 +11,14 @@ import DEFAULT_TABS from "../../../constants/mainTabs";
 import classes from "./Header.module.scss";
 
 const Header = ({ setShowAliasModal }) => {
-	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession, updateRecentGroups } = useContext(GlobalSessionContext);
 	const { navIsCollapsed, setNavIsCollapsed } = useContext(MainLayoutContext);
 	const [showDropdown, setShowDropdown] = useState(false);
 
 	const changeGroup = (groupIndex) => {
-		setGlobalSession((state) => ({ ...state, recentGroups: [groupIndex, ...state.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3) }));
+		// setGlobalSession((state) => ({ ...state, recentGroups: [groupIndex, ...state.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3) }));
+		const updaterFunc = (currState) => [groupIndex, ...currState.recentGroups.filter((_group) => _group !== groupIndex)].slice(0, 3);
+		updateRecentGroups(updaterFunc);
 		router.push("/browse");
 	};
 

@@ -10,7 +10,7 @@ import classes from "/styles/myGroups.module.scss";
 
 const JoinSchoolStudent = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession, updateRecentGroups } = useContext(GlobalSessionContext);
 	const { post } = useApi();
 	const {
 		register,
@@ -25,7 +25,9 @@ const JoinSchoolStudent = () => {
 			"/api/groups/join-school-student",
 			{ profileId: globalSession.profileId, code: inputValues.code, date: new Date().toString() },
 			(data) => {
-				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
+				// setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
+				const updaterFunc = (currState) => [currState.groups.length, ...currState.recentGroups.slice(0, 2)];
+				updateRecentGroups(updaterFunc);
 				router.push("/my-groups");
 			},
 			(data) => {

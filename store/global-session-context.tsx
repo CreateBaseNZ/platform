@@ -29,7 +29,7 @@ export interface IGlobalSession {
 	verified: boolean;
 }
 
-const defaultGlobalSession: IGlobalSession = {
+const initialState: IGlobalSession = {
 	accountId: null,
 	email: "",
 	firstName: "",
@@ -49,6 +49,8 @@ export interface IGlobalSessionCtx {
 	globalSession: IGlobalSession;
 	/** Sets the global session object. */
 	setGlobalSession: Dispatch<SetStateAction<IGlobalSession>>;
+
+	updateRecentGroups: (func: (currState: IGlobalSession) => number[]) => void;
 }
 
 /**
@@ -56,8 +58,9 @@ export interface IGlobalSessionCtx {
  */
 const GlobalSessionContext = createContext<IGlobalSessionCtx>({
 	loaded: false,
-	globalSession: defaultGlobalSession,
+	globalSession: initialState,
 	setGlobalSession: () => {},
+	updateRecentGroups: () => {},
 });
 
 export default GlobalSessionContext;
@@ -75,7 +78,7 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { post } = useApi();
 	const [loaded, setLoaded] = useState(false);
-	const [globalSession, setGlobalSession] = useState<IGlobalSession>(defaultGlobalSession);
+	const [globalSession, setGlobalSession] = useState<IGlobalSession>(initialState);
 
 	console.log(session?.user);
 
@@ -135,13 +138,33 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 		postGroupUpdate();
 	}, [loaded, globalSession.recentGroups]);
 
+	const updateRecentGroups = (fnc: (currState: IGlobalSession) => number[]) => {
+		setGlobalSession((state) => {
+			const newArray = fnc(state);
+			const postUpdate = async () => {
+				await post("/api/profile/update-saves", {
+					profileId: globalSession.profileId,
+					update: { recentGroups: newArray },
+					date: new Date().toString(),
+				});
+				const group = globalSession.groups[newArray[0]];
+				if (group) {
+					setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
+				}
+			};
+			postUpdate();
+			return { ...state, recentGroups: newArray };
+		});
+	};
+
 	const value = useMemo(
 		() => ({
 			loaded: loaded,
 			globalSession: globalSession,
 			setGlobalSession: setGlobalSession,
+			updateRecentGroups: updateRecentGroups,
 		}),
-		[loaded, globalSession]
+		[loaded, globalSession, updateRecentGroups]
 	);
 
 	return <GlobalSessionContext.Provider value={value}>{children}</GlobalSessionContext.Provider>;
