@@ -3,16 +3,6 @@
 
 import axios from "axios";
 
-// OUTPUT ===================================================
-
-const DUMMY_GROUP = {
-	id: "mit",
-	name: "Massachusetts Institute of Technology",
-	role: "student",
-	numOfUsers: { admins: 2, teachers: 5, students: 350 },
-	type: "school",
-};
-
 // MAIN =====================================================
 
 export default async function (req, res) {
@@ -21,31 +11,6 @@ export default async function (req, res) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	// // Test Logic
-	// let data;
-	// if (req.body.status === "succeeded") {
-	// 	data = {
-	// 		status: "succeeded",
-	// 		content: DUMMY_GROUP,
-	// 	};
-	// } else if (req.body.status === "failed 1") {
-	// 	data = {
-	// 		status: "failed",
-	// 		content: "incorrect",
-	// 	};
-	// } else if (req.body.status === "failed 2") {
-	// 	data = {
-	// 		status: "failed",
-	// 		content: "expired",
-	// 	};
-	// } else if (req.body.status === "failed 3") {
-	// 	data = {
-	// 		status: "failed",
-	// 		content: "already joined",
-	// 	};
-	// }
-	// Integration Logic
-	// Fetch the group with the specified student code
 	let data1;
 	try {
 		data1 = (

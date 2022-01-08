@@ -1,23 +1,23 @@
 import { CSSProperties } from "react";
 
-export interface NodeData {
+export interface INodeData {
 	values: any; // TODO
 	connections: any[]; // TODO
 }
 
 export interface AimbotSensingProps {
-	data?: NodeData;
+	data?: INodeData;
 	isConnectable?: boolean;
 }
 
 export interface AimbotActionProps {
 	id?: string;
-	data?: NodeData;
+	data?: INodeData;
 	isConnectable?: boolean;
 }
 
 export interface NodeProps {
-	data: NodeData;
+	data: INodeData;
 	id: string;
 	label: string;
 	isConnectable: boolean;

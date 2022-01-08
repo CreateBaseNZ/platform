@@ -1,4 +1,4 @@
-import { NodeMagnebotMoveArmMini, NodeMagnebotSwitchMini } from "../components/ReactFlow/NodeMagneBot";
+import { NodeMagnebotMoveArmMini, NodeMagnebotSwitchMini } from "../components/Nodes/NodeMagneBot";
 import { AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, MATH, SOCIAL_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/types";
 import { recycleRightData } from "./explore-data";

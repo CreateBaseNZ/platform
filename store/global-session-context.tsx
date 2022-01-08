@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo, useEffect, useContext, Dispatch, SetStateAction, ReactNode, useReducer } from "react";
+import { useState, createContext, useMemo, useEffect, useContext, Dispatch, SetStateAction, ReactNode, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import axios from "axios";
@@ -49,8 +49,8 @@ export interface IGlobalSessionCtx {
 	globalSession: IGlobalSession;
 	/** Sets the global session object. */
 	setGlobalSession: Dispatch<SetStateAction<IGlobalSession>>;
-
-	updateRecentGroups: (func: (currState: IGlobalSession) => number[]) => void;
+	/** Updates the `recentGroup` property in the profile saves object. */
+	postRecentGroups: (newState: IGlobalSession) => void;
 }
 
 /**
@@ -60,7 +60,7 @@ const GlobalSessionContext = createContext<IGlobalSessionCtx>({
 	loaded: false,
 	globalSession: initialState,
 	setGlobalSession: () => {},
-	updateRecentGroups: () => {},
+	postRecentGroups: () => {},
 });
 
 export default GlobalSessionContext;
@@ -80,7 +80,7 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 	const [loaded, setLoaded] = useState(false);
 	const [globalSession, setGlobalSession] = useState<IGlobalSession>(initialState);
 
-	console.log(session?.user);
+	console.log("** re-rendered **");
 
 	useEffect(() => {
 		if (status !== "loading") {
@@ -114,57 +114,41 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 					if (data2.status === "error" || data2.status === "failed") return router.push("/404");
 					data1.content.numOfNotifications = data2.content.length;
 					setGlobalSession((state) => ({ ...state, ...data1.content }));
+					const group = data1.content.groups[data1.content.recentGroups[0]];
+					if (group) {
+						setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
+					}
 					setLoaded(true);
 				})();
 			} else {
 				setLoaded(true);
 			}
 		}
-	}, [status, session?.user]);
+	}, [status, session?.user, setVisualBell]);
 
-	useEffect(() => {
-		if (!loaded || !globalSession.accountId) return;
-		const postGroupUpdate = async () => {
+	const postRecentGroups = useCallback(
+		async (newState: IGlobalSession) => {
 			await post("/api/profile/update-saves", {
-				profileId: globalSession.profileId,
-				update: { recentGroups: globalSession.recentGroups },
+				profileId: newState.profileId,
+				update: { recentGroups: newState.recentGroups },
 				date: new Date().toString(),
 			});
-			const group = globalSession.groups[globalSession.recentGroups[0]];
+			const group = newState.groups[newState.recentGroups[0]];
 			if (group) {
 				setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
 			}
-		};
-		postGroupUpdate();
-	}, [loaded, globalSession.recentGroups]);
-
-	const updateRecentGroups = (fnc: (currState: IGlobalSession) => number[]) => {
-		setGlobalSession((state) => {
-			const newArray = fnc(state);
-			const postUpdate = async () => {
-				await post("/api/profile/update-saves", {
-					profileId: globalSession.profileId,
-					update: { recentGroups: newArray },
-					date: new Date().toString(),
-				});
-				const group = globalSession.groups[newArray[0]];
-				if (group) {
-					setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
-				}
-			};
-			postUpdate();
-			return { ...state, recentGroups: newArray };
-		});
-	};
+		},
+		[post, setVisualBell]
+	);
 
 	const value = useMemo(
 		() => ({
 			loaded: loaded,
 			globalSession: globalSession,
 			setGlobalSession: setGlobalSession,
-			updateRecentGroups: updateRecentGroups,
+			postRecentGroups: postRecentGroups,
 		}),
-		[loaded, globalSession, updateRecentGroups]
+		[loaded, globalSession, postRecentGroups]
 	);
 
 	return <GlobalSessionContext.Provider value={value}>{children}</GlobalSessionContext.Provider>;

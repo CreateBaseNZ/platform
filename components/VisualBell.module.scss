@@ -17,6 +17,7 @@
 	border-radius: 8px;
 	text-align: center;
 	opacity: 0;
+	pointer-events: none;
 	animation: animate 5s linear forwards;
 	i {
 		position: absolute;
@@ -66,6 +67,7 @@
 	margin-top: 0;
 	width: 100vw;
 	opacity: 1;
+	pointer-events: auto;
 	animation: none;
 	i {
 		display: block;

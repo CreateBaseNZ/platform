@@ -10,7 +10,7 @@ import classes from "/styles/myGroups.module.scss";
 
 const JoinSchoolStudent = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const { globalSession, setGlobalSession, updateRecentGroups } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession, postRecentGroups } = useContext(GlobalSessionContext);
 	const { post } = useApi();
 	const {
 		register,
@@ -25,10 +25,13 @@ const JoinSchoolStudent = () => {
 			"/api/groups/join-school-student",
 			{ profileId: globalSession.profileId, code: inputValues.code, date: new Date().toString() },
 			(data) => {
-				// setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] }));
-				const updaterFunc = (currState) => [currState.groups.length, ...currState.recentGroups.slice(0, 2)];
-				updateRecentGroups(updaterFunc);
+				let newState = {};
+				setGlobalSession((state) => {
+					newState = { ...state, groups: [...state.groups, data.content], recentGroups: [state.groups.length, ...state.recentGroups.slice(0, 2)] };
+					return newState;
+				});
 				router.push("/my-groups");
+				postRecentGroups(newState);
 			},
 			(data) => {
 				if (data.content === "incorrect") {

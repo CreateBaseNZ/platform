@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo, ReactNode } from "react";
+import { useState, createContext, useMemo, ReactNode, useCallback } from "react";
 
 /**
  * Visual bell type identifiers.
@@ -36,14 +36,14 @@ export const VisualBellContextProvider = ({ children }: VisualBellProviderProps)
 
 	console.log(visualBell);
 
-	const intermediarySetVisualBell = (type?: BellType, message?: string) => (type && message ? setVisualBell({ type, message }) : setVisualBell(null));
+	const intermediarySetVisualBell = useCallback((type?: BellType, message?: string) => (type && message ? setVisualBell({ type, message }) : setVisualBell(null)), []);
 
 	const value = useMemo(
 		() => ({
 			visualBell: visualBell,
 			setVisualBell: intermediarySetVisualBell,
 		}),
-		[visualBell]
+		[visualBell, intermediarySetVisualBell]
 	);
 
 	return <VisualBellContext.Provider value={value}>{children}</VisualBellContext.Provider>;

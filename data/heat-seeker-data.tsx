@@ -1,5 +1,5 @@
-import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
-import { NodeIfMini, NodeWhileMini } from "../components/ReactFlow/NodeConditionals";
+import { NodeGreaterThanMini, NodeLessThanMini } from "../components/Nodes/NodeComparisons";
+import { NodeIfMini, NodeWhileMini } from "../components/Nodes/NodeConditionals";
 import {
 	NodeHeatSeekerFireSensorMini,
 	NodeHeatSeekerLeftSensorMini,
@@ -8,9 +8,9 @@ import {
 	NodeHeatSeekerRightSensorMini,
 	NodeHeatSeekerRightWheelMini,
 	NodeHeatSeekerWaterHoseMini,
-} from "../components/ReactFlow/NodeHeatSeeker";
-import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
-import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
+} from "../components/Nodes/NodeHeatSeeker";
+import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
+import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/types";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";

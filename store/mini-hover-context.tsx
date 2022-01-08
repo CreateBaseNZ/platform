@@ -1,16 +1,21 @@
 import { useState, createContext, useMemo, ReactNode } from "react";
 
-// TODO replace any type
+/** Node being hovered, or `null` if none. */
 export type ActiveNode = {
-	nodeType: any;
-	block: any;
+	/** Unique identifier. */
+	nodeType: string;
+	/** Node JSX element. */
+	block: JSX.Element;
 } | null;
 
-// TODO replace any type
+/** Mini node context object. */
 export interface IMiniHoverCtx {
+	/** Node being hovered. */
 	activeNode: ActiveNode;
-	mouseEnterHandler: any;
-	mouseLeaveHandler: any;
+	/** Function called on mouse enter. */
+	mouseEnterHandler: (nodeType: string, block: JSX.Element) => void;
+	/** Function called on mouse leave. */
+	mouseLeaveHandler: () => void;
 }
 
 /**
@@ -37,14 +42,9 @@ type MiniHoverProviderProps = {
 export const MiniHoverContextProvider = ({ children }: MiniHoverProviderProps) => {
 	const [activeNode, setActiveNode] = useState<ActiveNode>(null);
 
-	// TODO replace any type
-	const mouseEnterHandler = (nodeType: any, block: any) => {
-		console.log(nodeType);
-		console.log(block);
-		setActiveNode({ nodeType, block });
-	};
+	const mouseEnterHandler = (nodeType: string, block: any): void => setActiveNode({ nodeType, block });
 
-	const mouseLeaveHandler = () => setActiveNode(null);
+	const mouseLeaveHandler = (): void => setActiveNode(null);
 
 	const value = useMemo(
 		() => ({

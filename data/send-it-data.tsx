@@ -6,11 +6,11 @@ import {
 	NodeSendItJumpMini,
 	NodeSendItSpeedOfMini,
 	NodeSendItWidthOfMini,
-} from "../components/ReactFlow/NodeSendIt";
-import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
-import { NodeIfMini } from "../components/ReactFlow/NodeConditionals";
-import { NodeAndMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
-import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
+} from "../components/Nodes/NodeSendIt";
+import { NodeGreaterThanMini, NodeLessThanMini } from "../components/Nodes/NodeComparisons";
+import { NodeIfMini } from "../components/Nodes/NodeConditionals";
+import { NodeAndMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
+import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
 import { AI, AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, ETHICS, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/types";
