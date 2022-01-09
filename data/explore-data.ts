@@ -1,6 +1,6 @@
-import { ExploreInterface } from "../types/explore";
+import { IExplore } from "../types/explore";
 
-export const comparisonBoostData: ExploreInterface = {
+export const comparisonBoostData: IExplore = {
 	title: "Comparison Boost",
 	caption: "Upgrade your skills and become an expert with comparison blocks",
 	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/explore/comparison-boost.jpg",
@@ -9,7 +9,7 @@ export const comparisonBoostData: ExploreInterface = {
 	col2: "rgba(254, 117, 126, 0.5)",
 };
 
-export const ifBoostData: ExploreInterface = {
+export const ifBoostData: IExplore = {
 	title: "If Boost",
 	caption: "Upgrade your skills and become an expert with if blocks",
 	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/explore/if-boost.jpg",
@@ -18,7 +18,7 @@ export const ifBoostData: ExploreInterface = {
 	col2: "rgba(253, 105, 203, 0.5)",
 };
 
-export const whileBoostData: ExploreInterface = {
+export const whileBoostData: IExplore = {
 	title: "While Boost",
 	caption: "Upgrade your skills and become an expert with while blocks",
 	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/explore/while-boost.jpg",
@@ -27,7 +27,7 @@ export const whileBoostData: ExploreInterface = {
 	col2: "rgba(253, 105, 203, 0.5)",
 };
 
-export const recycleRightData: ExploreInterface = {
+export const recycleRightData: IExplore = {
 	title: "Recycle Right",
 	caption: "Are you a recycling legend? Play the game to find out",
 	img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/explore/recycle-right.jpg",

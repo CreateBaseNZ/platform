@@ -1,31 +1,7 @@
 import { DeepReadonly } from "ts-essentials";
 import { SubjectInterface } from "../constants/projectSubjects";
-import { ExploreInterface } from "../types/explore";
-import { IBasicVidData, IFullVidData } from "../components/Project/VideoViewer";
 import { ProjectDifficulty } from "../constants/projectDifficulties";
-
-export type Module =
-	| {
-			type: "pdf";
-			title: string;
-			url: string;
-			img?: string;
-	  }
-	| {
-			type: "tut";
-			title: string;
-			items: IBasicVidData[];
-	  }
-	| {
-			type: "video";
-			title: string;
-			data: IFullVidData;
-	  }
-	| {
-			type: "explore";
-			title: string;
-			items: ExploreInterface[];
-	  };
+import { ModuleList } from "./modules";
 
 // TODO - array of possible strings, and update blocks
 export type BlockList = Array<{ name: string; blocks: JSX.Element[] }>;
@@ -38,7 +14,7 @@ export interface ISubsystem {
 	research: {
 		threshold: number;
 		caption: string[];
-		modules: Module[];
+		modules: ModuleList;
 	};
 	plan: {
 		threshold: number;
@@ -81,7 +57,7 @@ export interface IProject {
 	imagine: {
 		threshold: number;
 		caption: string[];
-		modules: Module[];
+		modules: ModuleList;
 	};
 	subsystems: ISubsystem[];
 	improve: {
