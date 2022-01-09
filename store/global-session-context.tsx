@@ -42,7 +42,7 @@ const initialState: IGlobalSession = {
 };
 
 /** Global session context object. */
-export interface IGlobalSessionCtx {
+export type GlobalSessionCtx = {
 	/** Whether the session has loaded and the global session context is set. */
 	loaded: boolean;
 	/** Global session object. */
@@ -51,12 +51,12 @@ export interface IGlobalSessionCtx {
 	setGlobalSession: Dispatch<SetStateAction<IGlobalSession>>;
 	/** Updates the `recentGroup` property in the profile saves object. */
 	postRecentGroups: (newState: IGlobalSession) => void;
-}
+};
 
 /**
  * @ignore
  */
-const GlobalSessionContext = createContext<IGlobalSessionCtx>({
+const GlobalSessionContext = createContext<GlobalSessionCtx>({
 	loaded: false,
 	globalSession: initialState,
 	setGlobalSession: () => {},
@@ -65,9 +65,6 @@ const GlobalSessionContext = createContext<IGlobalSessionCtx>({
 
 export default GlobalSessionContext;
 
-/**
- * @ignore
- */
 type GlobalSessionCtxProps = { children: ReactNode };
 
 /**

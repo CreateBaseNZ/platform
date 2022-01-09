@@ -1,5 +1,5 @@
 import { DeepReadonly } from "ts-essentials";
-import { ISubsystem } from "../types/types";
+import { ISubsystem } from "../types/projects";
 import { ALL_PROJECTS_ARRAY } from "./getProjectData";
 
 const generateSubsystem = (subsystems: DeepReadonly<ISubsystem[]>, fn: () => void) => {

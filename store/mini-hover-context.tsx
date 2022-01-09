@@ -9,19 +9,19 @@ export type ActiveNode = {
 } | null;
 
 /** Mini node context object. */
-export interface IMiniHoverCtx {
+export type MiniHoverCtx = {
 	/** Node being hovered. */
 	activeNode: ActiveNode;
 	/** Function called on mouse enter. */
 	mouseEnterHandler: (nodeType: string, block: JSX.Element) => void;
 	/** Function called on mouse leave. */
 	mouseLeaveHandler: () => void;
-}
+};
 
 /**
  * @ignore
  */
-const MiniHoverContext = createContext<IMiniHoverCtx>({
+const MiniHoverContext = createContext<MiniHoverCtx>({
 	activeNode: null,
 	mouseEnterHandler: () => {},
 	mouseLeaveHandler: () => {},
@@ -29,9 +29,6 @@ const MiniHoverContext = createContext<IMiniHoverCtx>({
 
 export default MiniHoverContext;
 
-/**
- * @ignore
- */
 type MiniHoverProviderProps = {
 	children: ReactNode;
 };

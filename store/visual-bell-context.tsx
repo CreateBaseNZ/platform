@@ -10,17 +10,29 @@ import { useState, createContext, useMemo, ReactNode, useCallback } from "react"
  */
 export type BellType = "success" | "neutral" | "alert" | "warning" | "error" | "catastrophe";
 
+/** Visual bell object; `null` if none shown. */
 export type VisualBell = {
+	/** Bell type identifier. */
 	type: BellType;
+	/** Message to be displayed. */
 	message: string;
 } | null;
 
-export interface IVisualBellCtx {
-	visualBell: VisualBell;
-	setVisualBell: (type?: BellType, message?: string) => void;
-}
+/** Sets the visual bell context state. */
+export type IntermediarySetter = (type?: /** Bell type identifier. */ BellType, message?: /** Message to be displayed. */ string) => void;
 
-const VisualBellContext = createContext<IVisualBellCtx>({
+/** Visual bell context object. */
+export type VisualBellCtx = {
+	/** Visual bell object. */
+	visualBell: VisualBell;
+	/** Visual bell setter. */
+	setVisualBell: IntermediarySetter;
+};
+
+/**
+ * @ignore
+ */
+const VisualBellContext = createContext<VisualBellCtx>({
 	visualBell: null,
 	setVisualBell: () => {},
 });
@@ -31,12 +43,13 @@ type VisualBellProviderProps = {
 	children: ReactNode;
 };
 
+/**
+ * @ignore
+ */
 export const VisualBellContextProvider = ({ children }: VisualBellProviderProps) => {
 	const [visualBell, setVisualBell] = useState<VisualBell>(null);
 
-	console.log(visualBell);
-
-	const intermediarySetVisualBell = useCallback((type?: BellType, message?: string) => (type && message ? setVisualBell({ type, message }) : setVisualBell(null)), []);
+	const intermediarySetVisualBell: IntermediarySetter = useCallback((type, message) => (type && message ? setVisualBell({ type, message }) : setVisualBell(null)), []);
 
 	const value = useMemo(
 		() => ({

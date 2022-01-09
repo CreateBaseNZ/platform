@@ -49,7 +49,7 @@ const Define = () => {
 						<div className={classes.content}>
 							<p>Open one of the learning journals and save it somewhere that you can access. Your teacher will tell you which file to open and where to save your copy.</p>
 							<div className={classes.files}>
-								<a href={data.define.docs} target="_blank" title="Learning Journal - Google Docs" style={{ backgroundColor: "#3086F6" }}>
+								<a href={data.define.docs} target="_blank" title="Learning Journal - Google Docs" style={{ backgroundColor: "#3086F6" }} rel="noreferrer">
 									<div className={classes.iconContainer}>
 										<span className="material-icons-outlined">link</span>
 									</div>

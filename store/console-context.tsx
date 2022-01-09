@@ -3,6 +3,7 @@ import { useState, createContext, useMemo, ReactNode } from "react";
 /** Log type identifiers. */
 export type LogType = "default" | "warning" | "error";
 
+/** Console log object. */
 export interface ILog {
 	/** Log type identifiers. */
 	type: LogType;
@@ -22,7 +23,7 @@ export type UnreadStatus = LogType | null;
 export type AddLog = (message: string) => void;
 
 /** Console context object. */
-export interface IConsoleCtx {
+export type ConsoleCtx = {
 	/** Array of logs shown in the Console. */
 	logs: ILog[];
 	/** Adds a default log. */
@@ -37,12 +38,12 @@ export interface IConsoleCtx {
 	unreadStatus: UnreadStatus;
 	/** Sets {@link unreadStatus} to `null`. */
 	clearUnread: () => void;
-}
+};
 
 /**
  * @ignore
  */
-const ConsoleContext = createContext<IConsoleCtx>({
+const ConsoleContext = createContext<ConsoleCtx>({
 	logs: [],
 	addDefault: () => {},
 	addWarning: () => {},
@@ -54,9 +55,6 @@ const ConsoleContext = createContext<IConsoleCtx>({
 
 export default ConsoleContext;
 
-/**
- * @ignore
- */
 type ConsoleCtxProps = { children: ReactNode };
 
 /**

@@ -1,7 +1,7 @@
 import { useState, createContext, useMemo, Dispatch, SetStateAction, ReactNode } from "react";
 
 /** Main layout context object. */
-export interface IMainLayoutCtx {
+export type MainLayoutCtx = {
 	/** `true` if the header is collapsed, `false` otherwise. */
 	headerIsCollapsed: boolean;
 	/** Sets {@link headerIsCollapsed}. */
@@ -10,12 +10,12 @@ export interface IMainLayoutCtx {
 	navIsCollapsed: boolean;
 	/** Sets {@link navIsCollapsed}. */
 	setNavIsCollapsed: Dispatch<SetStateAction<boolean>>;
-}
+};
 
 /**
  * @ignore
  */
-const MainLayoutContext = createContext<IMainLayoutCtx>({
+const MainLayoutContext = createContext<MainLayoutCtx>({
 	headerIsCollapsed: false,
 	setHeaderIsCollapsed: () => {},
 	navIsCollapsed: false,
@@ -24,9 +24,6 @@ const MainLayoutContext = createContext<IMainLayoutCtx>({
 
 export default MainLayoutContext;
 
-/**
- * @ignore
- */
 type MainLayoutProviderProps = {
 	children: ReactNode;
 };

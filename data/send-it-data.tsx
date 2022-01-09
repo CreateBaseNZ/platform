@@ -13,7 +13,7 @@ import { NodeAndMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
 import { comparisonBoostData, ifBoostData } from "./explore-data";
 import { AI, AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, ETHICS, TECHNOLOGY } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/types";
+import { IProjectReadOnly } from "../types/projects";
 
 const SEND_IT_DATA: IProjectReadOnly = {
 	name: "Send It",
@@ -45,7 +45,6 @@ const SEND_IT_DATA: IProjectReadOnly = {
 		threshold: 60,
 		url: "https://youtu.be/wB53GoLXzME",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/situation.mp4",
-		title: "Send It",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
@@ -53,10 +52,6 @@ const SEND_IT_DATA: IProjectReadOnly = {
 	},
 	imagine: {
 		threshold: 600,
-		caption: [
-			"Explore the advantages and disadvantages of automation and AI by discussing the questions in ONE of the first five modules below with your group. Make sure to write your answers in your own learning journal. If your group finishes early, feel free to try complete a second module as well!",
-			"When every group has finished, your teacher will call you back to discuss your answers and narrow in on the problem that you will be solving.",
-		],
 		modules: [
 			{
 				type: "pdf",

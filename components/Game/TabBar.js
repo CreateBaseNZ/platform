@@ -27,7 +27,7 @@ const Tab = ({ id, active, value, icon, title, status, innerRef, onChangeHandler
 	);
 };
 
-const TabBar = ({ active, onChange, stacked, noFlow }) => {
+const TabBar = ({ active, onChange, stacked, textCodingOnly }) => {
 	const flowRef = useRef(null);
 	const textRef = useRef(null);
 	const consoleRef = useRef(null);
@@ -64,7 +64,7 @@ const TabBar = ({ active, onChange, stacked, noFlow }) => {
 			default:
 				setSliderSize({
 					top: 0,
-					size: noFlow ? textRef.current.offsetTop : flowRef.current.offsetHeight,
+					size: textCodingOnly ? textRef.current.offsetTop : flowRef.current.offsetHeight,
 				});
 				break;
 		}
@@ -81,7 +81,9 @@ const TabBar = ({ active, onChange, stacked, noFlow }) => {
 	return (
 		<div className={`${classes.tabbar} ${stacked ? classes.stacked : classes.shelved}`}>
 			<span id="tab-slider" className={`${classes.slider} span`} style={{ top: sliderSize.top, height: sliderSize.size }} />
-			{!noFlow && <Tab title="Flow" id="flow-tab" value="flow" icon={<i className="material-icons-outlined">swap_calls</i>} onChangeHandler={onChangeHandler} active={active} innerRef={flowRef} />}
+			{!textCodingOnly && (
+				<Tab title="Flow" id="flow-tab" value="flow" icon={<i className="material-icons-outlined">swap_calls</i>} onChangeHandler={onChangeHandler} active={active} innerRef={flowRef} />
+			)}
 			<Divider tabBefore="flow" tabAfter="text" active={active} />
 			<Tab title="Text" id="text-tab" value="text" icon={<i className="material-icons-outlined">code</i>} onChangeHandler={onChangeHandler} active={active} innerRef={textRef} />
 			<Divider tabBefore="text" tabAfter="console" active={active} />

@@ -1,5 +1,5 @@
 import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY, JAVASCRIPT } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/types";
+import { IProjectReadOnly } from "../types/projects";
 
 const HYPERLOOP_DATA: IProjectReadOnly = {
 	name: "Hyperloop",
@@ -7,7 +7,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 	caption:
 		"Chaos! Passengers arriving at a hyperloop terminal need to have their passenger numbers matched up to the correct capsule, but the computer system has malfunctioned! Students will learn how to convert between different number systems before implementing an algorithm to automate this process. Hyperloop capsules and passengers will display their identification numbers in variety of number systems, including binary, trinary, decimal, and hexadecimal. Note that students are expected to have had some minor experience with text coding before attempting this Project.",
 	stacked: true,
-	noFlow: true,
+	textCodingOnly: true,
 	scenePrefix: "Project_Hyperloop",
 	runType: "loop",
 	durPerLesson: "45 mins",
@@ -26,7 +26,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		"Convert a binary number to a decimal number.",
 		"Convert a decimal number to a binary number.",
 		"Convert any base number system to any other base number system by using base 10 as an intermediary conversion.",
-		"Revise how to create and call functions using JavaScript."
+		"Revise how to create and call functions using JavaScript.",
 	],
 	define: {
 		threshold: 30,
@@ -34,16 +34,11 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		src: "/hyperloop/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
-		title: "Hyperloop",
 		docs: "https://docs.google.com/document/d/1MZ43lDVs1unrV7QQJW2YzQmc0WnzNZ2wJ7JGzD3GLaU/edit",
 		word: "/hyperloop/files/210701AA Hyperloop Learning Journal.docx",
 	},
 	imagine: {
 		threshold: 30,
-		caption: [
-			"As a class, dive into group discussions around the Project theme to fully define our problem.",
-			"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
-		],
 		modules: [
 			{
 				type: "pdf",
@@ -100,9 +95,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Binary to decimal",
-			requirements: [
-				"Binary to hexadecimal"
-			],
+			requirements: ["Binary to hexadecimal"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
 				"In this subsystem, we will create a more advanced JavaScript program that uses an algorithm to convert any binary number to the equivalent decimal number. This approach is much more scalable than hard-coding number conversions.",
@@ -140,9 +133,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Decimal to binary",
-			requirements: [
-				"Binary to hexadecimal"
-			],
+			requirements: ["Binary to hexadecimal"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
 			description:
 				"Let's try the reverse of subsystem 2 and create a JavaScript program that uses an algorithm to convert a decimal number to the equivalent binary number. We will generalize our answer to be able to convert to any base between 2 and 10.",
@@ -180,13 +171,9 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Ternary to tridecimal",
-			requirements: [
-				"Binary to decimal",
-				"Decimal to binary"
-			],
+			requirements: ["Binary to decimal", "Decimal to binary"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
-			description:
-				"In this subsystem, we will combine everything we have learnt to far to create a JavaScript program that uses an algorithm to convert between base 3 and base 13.",
+			description: "In this subsystem, we will combine everything we have learnt to far to create a JavaScript program that uses an algorithm to convert between base 3 and base 13.",
 			research: {
 				threshold: 60, // READONLY
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],

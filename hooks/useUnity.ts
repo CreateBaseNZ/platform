@@ -2,7 +2,7 @@ import router from "next/router";
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 import { install } from "resize-observer";
-import { IProjectReadOnly } from "../types/types";
+import { IProjectReadOnly } from "../types/projects";
 
 interface IUnity {
 	scenePrefix: string;

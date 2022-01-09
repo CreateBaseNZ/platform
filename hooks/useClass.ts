@@ -4,7 +4,7 @@ import GlobalSessionContext from "../store/global-session-context";
 import useApi from "./useApi";
 import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
 import useMixpanel from "./useMixpanel";
-import { ISubsystem } from "../types/types";
+import { ISubsystem } from "../types/projects";
 import { DeepReadonly } from "ts-essentials";
 
 interface IFilter {

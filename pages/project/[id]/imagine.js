@@ -46,7 +46,15 @@ const Imagine = () => {
 				<title>Imagine • {data.name} | CreateBase</title>
 				<meta name="description" content={data.caption} />
 			</Head>
-			<ModuleContainer active={active} clickHandler={cardClickHandler} modules={data.imagine.modules} caption={data.imagine.caption} />
+			<ModuleContainer
+				active={active}
+				clickHandler={cardClickHandler}
+				modules={data.imagine.modules}
+				caption={[
+					"As a class, dive into group discussions around the Project theme to fully define our problem.",
+					"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
+				]}
+			/>
 			<div className={classes.mainContainer}>
 				<ModuleBody module={data.imagine.modules[active]} length={data.imagine.modules.length} />
 			</div>

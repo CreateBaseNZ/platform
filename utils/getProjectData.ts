@@ -3,7 +3,7 @@ import magnebotData from "../data/magnebot-data";
 import heatSeekerData from "../data/heat-seeker-data";
 import aimbotData from "../data/aimbot-data";
 import hyperloopData from "../data/hyperloop-data";
-import { IProjectReadOnly } from "../types/types";
+import { IProjectReadOnly } from "../types/projects";
 
 // ----- How to Add Projects -----
 //

@@ -25,10 +25,10 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
 });
 
-const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, noFlow }) => {
+const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, textCodingOnly }) => {
 	const editorRef = useRef();
 	const sensorDataRef = useRef();
-	const [activeTab, setActiveTab] = useState(noFlow ? "text" : "flow");
+	const [activeTab, setActiveTab] = useState(textCodingOnly ? "text" : "flow");
 	const [elements, setElements] = useState(initialElements);
 	const [text, setText] = useState("// Let's code! 💡");
 	const [theme, setTheme] = useState(null);
@@ -174,7 +174,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}
 			<Console show={activeTab === "console"} />
 			<Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
-			<TabBar stacked={stacked} noFlow={noFlow} active={activeTab} onChange={changeTabHandler} />
+			<TabBar stacked={stacked} textCodingOnly={textCodingOnly} active={activeTab} onChange={changeTabHandler} />
 		</div>
 	);
 };

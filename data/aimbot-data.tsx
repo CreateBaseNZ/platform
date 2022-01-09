@@ -18,7 +18,7 @@ import { NodeAndMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
 import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini, NodePIMini, NodeSqrtMini, NodeClampMini } from "../components/Nodes/NodeOperations";
 import { NodePrintMini } from "../components/Nodes/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/types";
+import { IProjectReadOnly } from "../types/projects";
 
 const AIMBOT_DATA: IProjectReadOnly = {
 	name: "AimBot",
@@ -53,16 +53,11 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
-		title: "AimBot",
 		docs: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
 		word: "/aimbot/files/210505AC AimBot Learning Journal.docx",
 	},
 	imagine: {
 		threshold: 60,
-		caption: [
-			"As a class, dive into group discussions around the Project theme to fully define our problem.",
-			"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
-		],
 		modules: [
 			{
 				type: "pdf",

@@ -12,7 +12,7 @@ import {
 import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
 import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/types";
+import { IProjectReadOnly } from "../types/projects";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 const HEAT_SEEKER_DATA: IProjectReadOnly = {
@@ -55,16 +55,11 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/vid/situation.mp4",
 		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
 		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
-		title: "Heat Seeker",
 		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
 		word: "/heat-seeker/files/learning-journal-heat-seeker.docx",
 	},
 	imagine: {
 		threshold: 120,
-		caption: [
-			"As a class, dive into group discussions around the Project theme to fully define our problem.",
-			"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
-		],
 		modules: [
 			{
 				type: "pdf",

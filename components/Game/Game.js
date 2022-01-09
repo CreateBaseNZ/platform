@@ -62,7 +62,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 						_unityContext={unityContext}
 						sensorData={sensorData}
 						gameState={gameState}
-						noFlow={project.noFlow}
+						textCodingOnly={project.textCodingOnly}
 					/>
 				</div>
 			</ConsoleContextProvider>

@@ -1,6 +1,6 @@
 import { NodeMagnebotMoveArmMini, NodeMagnebotSwitchMini } from "../components/Nodes/NodeMagneBot";
 import { AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, MATH, SOCIAL_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/types";
+import { IProjectReadOnly } from "../types/projects";
 import { recycleRightData } from "./explore-data";
 
 const MAGNEBOT_DATA: IProjectReadOnly = {
@@ -37,16 +37,11 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/situation.mp4",
 		h1: "Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!",
 		h2: "Unfortunately, a self-driving cart has driven through our recycling facility and spilt bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...",
-		title: "MagneBot",
 		docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
 		word: "/magnebot/files/learning-journal-magnebot.docx",
 	},
 	imagine: {
 		threshold: 300,
-		caption: [
-			"As a class, dive into group discussions around the Project theme to fully define our problem. Your learning journal and/or teacher will tell you what to do.",
-			"Don't have a teacher to guide you through? Check back soon for individual content!",
-		],
 		modules: [
 			{
 				type: "pdf",
