@@ -3,6 +3,7 @@ import {
 	CONTACTING_CREATEBASE,
 	CREATE_A_CLASS,
 	FLOW_CODING,
+	TEXT_CODING,
 	GETTING_STARTED_ON_CREATEBASE,
 	GROUP_ROLES,
 	JOIN_A_SCHOOL,
@@ -59,6 +60,13 @@ const SUPPORT_DATA = {
 						caption: "Learn about Flow coding, its benefits, and how it works on CreateBase",
 						tags: ["flow code", "blockly", "text", "coding"],
 						content: FLOW_CODING.shared,
+					},
+					{
+						query: "text-coding",
+						heading: "Text coding",
+						caption: "Learn about coding using text-based languages on the CreateBase platform",
+						tags: ["python", "javascript", "text", "coding"],
+						content: TEXT_CODING.shared,
 					},
 					{
 						query: "learning-journals",
@@ -221,6 +229,13 @@ const SUPPORT_DATA = {
 						caption: "Learn about Flow coding, its benefits, and how it works on CreateBase",
 						tags: ["flow code", "blockly", "text", "coding"],
 						content: FLOW_CODING.shared,
+					},
+					{
+						query: "text-coding",
+						heading: "Text coding",
+						caption: "Learn about coding using text-based languages on the CreateBase platform",
+						tags: ["python", "javascript", "text", "coding"],
+						content: TEXT_CODING.shared,
 					},
 					{
 						query: "learning-journals",
@@ -444,6 +459,13 @@ const SUPPORT_DATA = {
 						caption: "Learn about Flow coding, its benefits, and how it works on CreateBase",
 						tags: ["flow code", "blockly", "text", "coding"],
 						content: FLOW_CODING.shared,
+					},
+					{
+						query: "text-coding",
+						heading: "Text coding",
+						caption: "Learn about coding using text-based languages on the CreateBase platform",
+						tags: ["python", "javascript", "text", "coding"],
+						content: TEXT_CODING.shared,
 					},
 					{
 						query: "learning-journals",
