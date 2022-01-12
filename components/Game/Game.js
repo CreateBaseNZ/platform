@@ -16,7 +16,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
-		isImprove: isImprove,
+		suffix: isImprove ? "improve" : null,
 		index: index,
 		wip: project.wip,
 		setLoaded: setGameLoaded,
@@ -62,6 +62,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 						_unityContext={unityContext}
 						sensorData={sensorData}
 						gameState={gameState}
+						textCodingOnly={project.textCodingOnly}
 					/>
 				</div>
 			</ConsoleContextProvider>

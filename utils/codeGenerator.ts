@@ -87,7 +87,7 @@ export class CodeGenerator {
 		return false;
 	}
 
-	private addFunction(functionName) {
+	private addFunction(functionName: any) {
 		for (let i = 0; i < this.functions.length; i++) {
 			if (this.functions[i] === functionName) {
 				return false;
@@ -124,7 +124,7 @@ export class CodeGenerator {
 		return false;
 	}
 
-	private absolute(blockDetail) {
+	private absolute(blockDetail: any) {
 		let inputs = "a";
 		let val = String(blockDetail.value[inputs]).trim();
 		if (!this.isNumber(val)) {
@@ -145,7 +145,7 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private arcTan(blockDetail) {
+	private arcTan(blockDetail: any) {
 		let inputs = "a";
 		let val = String(blockDetail.value[inputs]).trim();
 		if (!this.isNumber(val)) {
@@ -166,7 +166,7 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private sqrt(blockDetail) {
+	private sqrt(blockDetail: any) {
 		let inputs = "a";
 		let val = String(blockDetail.value[inputs]).trim();
 		if (!this.isNumber(val)) {
@@ -187,12 +187,10 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private clamp(blockDetail) {
-		let vals = [String(blockDetail.value["a"]).trim(),
-		String(blockDetail.value["b"]).trim(),
-		String(blockDetail.value["c"]).trim()];
+	private clamp(blockDetail: any) {
+		let vals = [String(blockDetail.value["a"]).trim(), String(blockDetail.value["b"]).trim(), String(blockDetail.value["c"]).trim()];
 
-		vals.forEach(val => {
+		vals.forEach((val) => {
 			if (!this.isNumber(val)) {
 				if (!this.checkVariable(val)) {
 					return [false, "error", "The inputs to one of the operators is not a number"];
@@ -212,7 +210,7 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private pi(blockDetail) {
+	private pi(blockDetail: any) {
 		let output: any;
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
@@ -223,7 +221,7 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private start(correctSystem) {
+	private start(correctSystem: any) {
 		this.executes.push(correctSystem.functions.NodeStart.logic);
 		this.simpleExecutes.push(correctSystem.functions.NodeStart.simpleLogic);
 		return true;
@@ -262,7 +260,7 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private move(blockDetail: any, correctSystem, generalSystem) {
+	private move(blockDetail: any, correctSystem: any, generalSystem: any) {
 		// Fetch the Block Function
 		let blockFunction = correctSystem.functions[blockDetail.name];
 		if (!blockFunction) {
@@ -334,7 +332,7 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private forStart(blockDetail) {
+	private forStart(blockDetail: any) {
 		let val = String(blockDetail.value.condition).trim();
 		if (!this.isNumber(val)) {
 			if (!this.checkVariable(val)) {
@@ -385,7 +383,7 @@ export class CodeGenerator {
 		return true;
 	}
 
-	private intialise(blockDetail) {
+	private intialise(blockDetail: any) {
 		let currentInput = String(blockDetail.value.value).trim();
 		if (!this.isNumber(currentInput)) {
 			if (!this.checkVariable(currentInput) && !this.isBool(currentInput)) {
@@ -414,12 +412,12 @@ export class CodeGenerator {
 	private end(correctSystem: any) {
 		// Add to execute
 		this.executes.push(correctSystem.functions.NodeEnd.logic);
-		this.simpleExecutes.push(correctSystem.functions.NodeEnd.logic);
+		this.simpleExecutes.push(correctSystem.functions.NodeEnd.simpleLogic);
 		return true;
 	}
 
 	//TODO
-	private doMove(blockDetail, correctSystem) {
+	private doMove(blockDetail: any, correctSystem: any) {
 		let blockFunction = correctSystem.actions[blockDetail.name];
 		if (blockFunction == undefined) {
 			return [false, "error", "Function does not exist"];
@@ -432,7 +430,7 @@ export class CodeGenerator {
 		return [true];
 	}
 
-	private readSensors(blockDetail, correctSystem) {
+	private readSensors(blockDetail: any, correctSystem: any) {
 		if (blockDetail.value) {
 			const output = this.checkCorrectVar(String(blockDetail.value.out));
 			const target = blockDetail.name;
@@ -451,7 +449,7 @@ export class CodeGenerator {
 		}
 	}
 
-	private printMessage(blockDetail, printNum) {
+	private printMessage(blockDetail: any, printNum: any) {
 		if (blockDetail.value) {
 			printNum++;
 			const input = String(blockDetail.value.a);
@@ -459,10 +457,10 @@ export class CodeGenerator {
 			str = `if(printing>=10){
                `;
 			if (this.checkVariable(input)) {
-				str += `ctx.addLog(\`Print Number ${printNum}= \${${input}} \`)`;
+				str += `consoleCtx.addDefault(\`Print Number ${printNum}= \${${input}} \`)`;
 				simpleStr = `console.log(\`Print Number ${printNum}= \${${input}}\`)`;
 			} else if (this.isNumber(input) || this.isBool(input)) {
-				str += `ctx.addLog(\`Print Number ${printNum}= ${input}\`)`;
+				str += `consoleCtx.addDefault(\`Print Number ${printNum}= ${input}\`)`;
 				simpleStr = `console.log(\`Print Number ${printNum}= ${input}\`)`;
 			} else {
 				printNum--;

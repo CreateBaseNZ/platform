@@ -1,9 +1,13 @@
 import VideoViewer from "./VideoViewer";
 
+import classes from "./VideoModule.module.scss";
+
 const VideoModule = ({ module }) => {
 	return (
-		<div style={{ width: "85%" }}>
-			<VideoViewer data={module.data} />
+		<div className={classes.container}>
+			<div className={classes.wrapper}>
+				<VideoViewer data={module.data} />
+			</div>
 		</div>
 	);
 };

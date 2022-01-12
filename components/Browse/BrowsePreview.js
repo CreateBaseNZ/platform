@@ -1,8 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import useMixpanel from "../../hooks/useMixpanel";
-import GlobalSessionContext from "../../store/global-session-context";
 import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
@@ -28,25 +26,8 @@ const BrowsePreview = ({ project, role }) => {
 	const router = useRouter();
 	const [tab, setTab] = useState(getTabs(role)[0]);
 	const [videoLoaded, setVideoLoaded] = useState(false);
-	const { globalSession } = useContext(GlobalSessionContext);
-	const mp = useMixpanel();
 
 	useEffect(async () => {
-		// // EXAMPLE: Fetching data
-		// // Array of filters
-		// // Each filter has two properties:
-		// //			event - the event name that we want to retrieve
-		// //			properties - further filter the datasets to only containing the properties specified
-		// const filters = [
-		// 	{
-		// 		event: "MagneBot Card",
-		// 		properties: [{ distinct_id: globalSession.profileId }],
-		// 	},
-		// ];
-		// const cb = (data) => {
-		// 	console.log(data);
-		// };
-		// mp.init();
 		return () => (ref.current = false);
 	}, []);
 
@@ -56,12 +37,6 @@ const BrowsePreview = ({ project, role }) => {
 			const queriedStep = getTabs(role).find((t) => t === tab);
 			if (queriedStep) {
 				setTab(queriedStep);
-				// // mixpanel tracking
-				// const data = {
-				// 	property1: "value1",
-				// 	property2: 2,
-				// };
-				// mp.track(`${project.name} ${tab}`, data);
 			}
 		}
 	}, [router.query.tab]);
@@ -70,13 +45,6 @@ const BrowsePreview = ({ project, role }) => {
 		if (ref.current) {
 			setVideoLoaded(false);
 		}
-		// // mixpanel tracking
-		// const data = {
-		// 	string: "Hello World!",
-		// 	number: 42069,
-		// 	array: [1, 2, 3, 4, 5],
-		// };
-		// mp.track(`${project.name} Card`, data);
 	}, [project]);
 
 	const canPlayHandler = () => {
@@ -90,7 +58,7 @@ const BrowsePreview = ({ project, role }) => {
 			<div className={classes.vidContainer}>
 				<video
 					ref={ref}
-					src={`https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project.query}/vid/situation.mp4`}
+					src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${project.query}/vid/situation.mp4`}
 					autoPlay={true}
 					muted={true}
 					className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`}

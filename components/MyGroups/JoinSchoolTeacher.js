@@ -29,11 +29,7 @@ const JoinSchoolTeacher = () => {
 	const debounceFn = useCallback(_debounce(handleDebounceFn, 200), []);
 
 	async function handleDebounceFn(value) {
-		await post({
-			route: "/api/groups/query",
-			input: { query: value },
-			successHandler: (data) => setQueryDropdown((state) => ({ ...state, show: true, groups: data.content, selectedId: "" })),
-		});
+		await post("/api/groups/query", { query: value }, (data) => setQueryDropdown((state) => ({ ...state, show: true, groups: data.content, selectedId: "" })));
 	}
 
 	const onSearch = (e) => {
@@ -64,16 +60,24 @@ const JoinSchoolTeacher = () => {
 			return;
 		}
 		setIsLoading(true);
-		await post({
-			route: "/api/groups/join-school-teacher",
-			input: {
+		await post(
+			"/api/groups/join-school-teacher",
+			{
 				profileId: globalSession.profileId,
 				schoolId: queryDropdown.selectedId,
 				alias: `${globalSession.firstName} ${globalSession.lastName}`,
 				message: inputValues.message,
 				date: new Date().toString(),
 			},
-			failHandler: (data) => {
+			(data) => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
+				setVisualBell("success", "Your request has been sent");
+				setHasRequested(true);
+				reset();
+				setQueryDropdown({ show: false, groups: null, selectedId: "" });
+				setIsLoading(false);
+			},
+			(data) => {
 				if (data.content === "already joined") {
 					setError("name", {
 						type: "manual",
@@ -89,16 +93,8 @@ const JoinSchoolTeacher = () => {
 					setQueryDropdown({ show: false, groups: null, selectedId: "" });
 					setIsLoading(false);
 				}
-			},
-			successHandler: (data) => {
-				setGlobalSession((state) => ({ ...state, groups: [...state.groups, data.content] }));
-				setVisualBell({ type: "success", message: "Your request has been sent" });
-				setHasRequested(true);
-				reset();
-				setQueryDropdown({ show: false, groups: null, selectedId: "" });
-				setIsLoading(false);
-			},
-		});
+			}
+		);
 	};
 
 	return hasRequested ? (

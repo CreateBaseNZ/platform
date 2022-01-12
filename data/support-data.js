@@ -3,6 +3,7 @@ import {
 	CONTACTING_CREATEBASE,
 	CREATE_A_CLASS,
 	FLOW_CODING,
+	TEXT_CODING,
 	GETTING_STARTED_ON_CREATEBASE,
 	GROUP_ROLES,
 	JOIN_A_SCHOOL,
@@ -21,6 +22,7 @@ import {
 	STUDENT_TRACKING,
 	THE_5_STEP_CREATION_PROCESS,
 	WHAT_ARE_GROUPS,
+	DATA_PRIVACY,
 } from "./support-articles";
 
 const SUPPORT_DATA = {
@@ -59,6 +61,13 @@ const SUPPORT_DATA = {
 						caption: "Learn about Flow coding, its benefits, and how it works on CreateBase",
 						tags: ["flow code", "blockly", "text", "coding"],
 						content: FLOW_CODING.shared,
+					},
+					{
+						query: "text-coding",
+						heading: "Text coding",
+						caption: "Learn about coding using text-based languages on the CreateBase platform",
+						tags: ["python", "javascript", "text", "coding"],
+						content: TEXT_CODING.shared,
 					},
 					{
 						query: "learning-journals",
@@ -112,6 +121,13 @@ const SUPPORT_DATA = {
 						caption: "Find out how to touch base with us!",
 						tags: ["contact us", "enquiries"],
 						content: CONTACTING_CREATEBASE.shared,
+					},
+					{
+						query: "data-privacy",
+						heading: "Data Privacy",
+						caption: "Learn about our policies regarding data collection and usage",
+						tags: ["data", "privacy", "policy"],
+						content: DATA_PRIVACY.shared,
 					},
 				],
 			},
@@ -221,6 +237,13 @@ const SUPPORT_DATA = {
 						caption: "Learn about Flow coding, its benefits, and how it works on CreateBase",
 						tags: ["flow code", "blockly", "text", "coding"],
 						content: FLOW_CODING.shared,
+					},
+					{
+						query: "text-coding",
+						heading: "Text coding",
+						caption: "Learn about coding using text-based languages on the CreateBase platform",
+						tags: ["python", "javascript", "text", "coding"],
+						content: TEXT_CODING.shared,
 					},
 					{
 						query: "learning-journals",
@@ -336,6 +359,13 @@ const SUPPORT_DATA = {
 						tags: ["contact us", "enquiries"],
 						content: CONTACTING_CREATEBASE.shared,
 					},
+					{
+						query: "data-privacy",
+						heading: "Data Privacy",
+						caption: "Learn about our policies regarding data collection and usage",
+						tags: ["data", "privacy", "policy"],
+						content: DATA_PRIVACY.shared,
+					},
 				],
 			},
 		],
@@ -444,6 +474,13 @@ const SUPPORT_DATA = {
 						caption: "Learn about Flow coding, its benefits, and how it works on CreateBase",
 						tags: ["flow code", "blockly", "text", "coding"],
 						content: FLOW_CODING.shared,
+					},
+					{
+						query: "text-coding",
+						heading: "Text coding",
+						caption: "Learn about coding using text-based languages on the CreateBase platform",
+						tags: ["python", "javascript", "text", "coding"],
+						content: TEXT_CODING.shared,
 					},
 					{
 						query: "learning-journals",
@@ -558,6 +595,13 @@ const SUPPORT_DATA = {
 						caption: "Find out how to touch base with us!",
 						tags: ["contact us", "enquiries"],
 						content: CONTACTING_CREATEBASE.shared,
+					},
+					{
+						query: "data-privacy",
+						heading: "Data Privacy",
+						caption: "Learn about our policies regarding data collection and usage",
+						tags: ["data", "privacy", "policy"],
+						content: DATA_PRIVACY.shared,
 					},
 				],
 			},

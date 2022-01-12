@@ -4,7 +4,7 @@ import InnerLayout from "../../../components/Layouts/InnerLayout/InnerLayout";
 import CLASSES_TABS from "../../../constants/classesConstants";
 
 const ClassesTabRoot = () => {
-	if (router.query?.id) router.replace({ pathname: "/classes/[id]/announcements", query: { id: router.query.id } });
+	if (router.query?.id) router.replace({ pathname: "/classes/[id]/progress", query: { id: router.query.id } });
 	return null;
 };
 

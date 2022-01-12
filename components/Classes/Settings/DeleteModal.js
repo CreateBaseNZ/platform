@@ -14,24 +14,24 @@ const DeleteModal = ({ setShow, classObject }) => {
 	const { setVisualBell } = useContext(VisualBellContext);
 
 	const deleteHandler = async () => {
-		await post({
-			route: "/api/classes/delete",
-			input: {
+		await post(
+			"/api/classes/delete",
+			{
 				classId: classObject.id,
 				date: new Date().toString(),
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 			},
-			failHandler: (data) => {
+			() => {
+				router.push("/classes");
+				setVisualBell("neutral", "Class deleted");
+			},
+			(data) => {
 				if (data.content === "unauthorised") {
-					setVisualBell({ type: "error", message: "You do not have permission to delete this class" });
+					setVisualBell("error", "You do not have permission to delete this class");
 					setShow(false);
 				}
-			},
-			successHandler: () => {
-				router.push("/classes");
-				setVisualBell({ type: "neutral", message: "Class deleted" });
-			},
-		});
+			}
+		);
 	};
 
 	return (

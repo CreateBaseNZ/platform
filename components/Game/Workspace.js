@@ -25,19 +25,14 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
 });
 
-/**
- *
- * @param {*} query is the project's name
- * @returns
- */
-const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked }) => {
+const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, textCodingOnly }) => {
 	const editorRef = useRef();
 	const sensorDataRef = useRef();
-	const [activeTab, setActiveTab] = useState("flow");
+	const [activeTab, setActiveTab] = useState(textCodingOnly ? "text" : "flow");
 	const [elements, setElements] = useState(initialElements);
 	const [text, setText] = useState("// Let's code! 💡");
 	const [theme, setTheme] = useState(null);
-	const ctx = useContext(ConsoleContext);
+	const consoleCtx = useContext(ConsoleContext);
 
 	sensorDataRef.current = sensorData;
 
@@ -65,19 +60,19 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		// Convert the flow arrangement to a configuration of blocks
 		const [blocks, type, message] = flow2Text(elements, query);
 		if (type && type === "warning" && activeTab == "flow") {
-			ctx.addWarning(message);
+			consoleCtx.addWarning(message);
 		}
 		if (Array.isArray(blocks)) {
 			const codeGen = new CodeGenerator();
 			const [newText, type, message, dispCode] = codeGen.build(blocks, onceCode);
 			if (type === "warning") {
-				ctx.addWarning(message);
+				consoleCtx.addWarning(message);
 			} else if (type === "error") {
-				ctx.addError(message);
+				consoleCtx.addError(message);
 			}
 			return [newText, dispCode];
 		} else {
-			ctx.addError(blocks);
+			consoleCtx.addError(blocks);
 			const message = "// Oops! An error occurred, please check the Console for more info";
 			return [message, message];
 		}
@@ -91,7 +86,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			const unityContext = _unityContext;
 			const dispError = (error) => {
 				if (error.name) {
-					ctx.addError(error.message);
+					consoleCtx.addError(error.message);
 					resolve(false);
 				} else {
 					resolve(true);
@@ -121,11 +116,6 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		const systemName = defineObject(query);
 		let code = convertCode(t, systemName, onceCode);
 		runCode(code, onceCode);
-		setFlowVisualBell((state) => ({
-			message: "Code is now running",
-			switch: !state.switch,
-			show: true,
-		}));
 	};
 
 	const runCode = async (code, onceCode) => {
@@ -170,11 +160,6 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		const onceCode = isOnceCode(query);
 		let [code, dispCode] = compileCode(onceCode);
 		runCode(code, onceCode);
-		setFlowVisualBell((state) => ({
-			message: "Code is now running",
-			switch: !state.switch,
-			show: true,
-		}));
 	};
 
 	return (
@@ -189,7 +174,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}
 			<Console show={activeTab === "console"} />
 			<Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
-			<TabBar stacked={stacked} active={activeTab} onChange={changeTabHandler} />
+			<TabBar stacked={stacked} textCodingOnly={textCodingOnly} active={activeTab} onChange={changeTabHandler} />
 		</div>
 	);
 };

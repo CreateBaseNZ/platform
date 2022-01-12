@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Img from "../UI/Img";
 import styles from "../../styles/_exports.module.scss";
 
 import classes from "./OnboardingTask.module.scss";

@@ -28,21 +28,21 @@ const ClassNameForm = ({ defaultValue, classId, setClassObject }) => {
 			groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 			name: inputValues.name.trim(),
 		};
-		await post({
-			route: "/api/classes/update",
-			input: input,
-			failHandler: (data) => {
+		await post(
+			"/api/classes/update",
+			input,
+			() => {
+				setClassObject((state) => ({ ...state, name: input.name }));
+				setVisualBell("success", "Class details updated");
+				setIsLoading(false);
+			},
+			(data) => {
 				if (data.content === "name taken") {
 					setError("name", { type: "manual", message: "This name is already taken in your school" });
 				}
 				setIsLoading(false);
-			},
-			successHandler: () => {
-				setClassObject((state) => ({ ...state, name: input.name }));
-				setVisualBell({ type: "success", message: "Class details updated" });
-				setIsLoading(false);
-			},
-		});
+			}
+		);
 	};
 
 	return (

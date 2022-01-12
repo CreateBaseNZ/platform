@@ -4,7 +4,7 @@ import Head from "next/head";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import Game from "../../../components/Game/Game";
-import getProjectData from "../../../utils/getProjectData";
+import { ALL_PROJECTS_ARRAY } from "../../../utils/getProjectData";
 import LoadingScreen from "../../../components/UI/LoadingScreen";
 
 const SubsystemGame = () => {
@@ -12,7 +12,7 @@ const SubsystemGame = () => {
 	const [data, setData] = useState();
 	const [subsystemIndex, setSubsystemIndex] = useState(null);
 	const mp = useMixpanel();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
 		mp.init();
@@ -25,17 +25,18 @@ const SubsystemGame = () => {
 		return () => {
 			clearSession();
 		};
-	}, [globalSession.loaded]);
+	}, [loaded]);
 
 	useEffect(() => {
 		if (router.isReady) {
-			if (router.query.id) {
-				const _data = getProjectData(router.query.id);
-				setData(_data);
-				setSubsystemIndex(_data.subsystems.findIndex((subsystem) => subsystem.title === router.query.subsystem));
-			} else {
-				router.replace("/404");
-			}
+			const _data = ALL_PROJECTS_ARRAY.find((project) => project.query === router.query.id);
+			if (!_data) return void router.replace("/404");
+
+			const _subsystemIndex = _data.subsystems.findIndex((subsystem) => subsystem.title === router.query.subsystem);
+			if (_subsystemIndex < 0) return void router.replace("/404");
+
+			setData(_data);
+			setSubsystemIndex(_subsystemIndex);
 		}
 	}, [router.isReady, router.query.id]);
 

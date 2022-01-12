@@ -44,7 +44,14 @@ const Plan = () => {
 			</Head>
 			<div className={classes.container}>
 				<div className={classes.imgWrapper}>
-					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/plan.svg" layout="responsive" width="100%" height="100%" objectFit="contain" label="Illustration by Storyset" />
+					<Img
+						src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/plan.svg"
+						layout="responsive"
+						width="100%"
+						height="100%"
+						objectFit="contain"
+						label="Illustration by Storyset"
+					/>
 				</div>
 				<div className={classes.contentContainer}>
 					<h2>Let's plan!</h2>

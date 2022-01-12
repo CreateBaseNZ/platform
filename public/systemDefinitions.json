@@ -6,7 +6,7 @@
 		"actions": {},
 		"functions": {
 			"NodeStart": {
-				"simpleLogic": "IntialiseRobot();",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 2500);\n})\n};\nawait reset()\n",
 				"await": false
@@ -14,7 +14,7 @@
 			"NodeEnd": {
 				"simpleLogic": "",
 				"inputs": [],
-				"logic": "",
+				"logic": "}",
 				"await": false
 			},
 			"NodeMagnebotMoveArm": {
@@ -23,7 +23,7 @@
 					{ "variable": "y", "type": "number", "value": 0 },
 					{ "variable": "z", "type": "number", "value": 0 }
 				],
-				"logic": "const intialPoint=JSON.parse(sensorDataRef.current).endEffectorPosition\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 1;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nconst position=JSON.parse(sensorDataRef.current).endEffectorPosition;\n\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.01) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\n//ctx.addLog(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
+				"logic": "const intialPoint=JSON.parse(sensorDataRef.current).endEffectorPosition\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 1;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nconst position=JSON.parse(sensorDataRef.current).endEffectorPosition;\n\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.01) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\n//consoleCtx.addDefault(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
 				"simpleLogic": "MoveArm",
 				"await": true
 			},
@@ -74,13 +74,13 @@
 		},
 		"functions": {
 			"NodeStart": {
-				"simpleLogic": "while(gameIsON){",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "if(sensorData){\n",
 				"await": false
 			},
 			"NodeEnd": {
-				"simpleLogic": "}",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "}",
 				"await": false
@@ -111,7 +111,7 @@
 		"actions": {},
 		"functions": {
 			"NodeStart": {
-				"simpleLogic": "while(gameIsON){",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "if(sensorData){\n",
 				"await": false
@@ -188,7 +188,7 @@
 				"await": false
 			},
 			"NodeEnd": {
-				"simpleLogic": "}",
+				"simpleLogic": "",
 				"inputs": [],
 				"logic": "}",
 				"await": false
@@ -197,7 +197,7 @@
 	},
 	{
 		"robot": "aimbot",
-		"startingCode": "",
+		"startingCode": "unityContext.send(\"SceneController\",\"ResetScene\")",
 		"sensors": {
 			"NodeAimBotGetYawAngle": {
 				"name": "yawSensor",
@@ -231,7 +231,7 @@
 			"NodeStart": {
 				"simpleLogic": "",
 				"inputs": [],
-				"logic": "",
+				"logic": "if(sensorData){\n",
 				"await": false
 			},
 			"NodeAimBotSetYawSpeed": {
@@ -270,6 +270,51 @@
 				"simpleLogic": "setCurrentPitchSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
 				"logic": "return m.currentPitchSpeed = a;",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "}",
+				"await": false
+			}
+		}
+	},
+	{
+		"robot": "hyperloop",
+		"startingCode": "",
+		"sensors": {
+			"NodeHyperloopGetPersonNumber": {
+				"name": "personNumber",
+				"simpleName": "personNumber"
+			},
+			"NodeHyperloopGetPersonBase": {
+				"name": "personBase",
+				"simpleName": "personBase"
+			},
+			"NodeHyperloopGetHyperloopBase": {
+				"name": "hyperloopBase",
+				"simpleName": "hyperloopBase"
+			}
+		},
+		"actions": {
+			"NodeHyperloopNoAction": {
+				"inputs": [],
+				"syntaxSimple": "",
+				"syntax": ""
+			}
+		},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "",
+				"await": false
+			},
+			"NodeAimBotMovePersonToHyperloop": {
+				"simpleLogic": "MovePersonToHyperloop",
+				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
+				"logic": "unityContext.send(\"People\", \"MovePersonToHyperloop\", a);",
 				"await": false
 			},
 			"NodeEnd": {

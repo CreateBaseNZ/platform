@@ -11,7 +11,7 @@ const ModuleBody = ({ module, length }) => {
 			<div className={classes.empty}>
 				<h1>Nothing to see here!</h1>
 				<div className={classes.emptyImg}>
-					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/empty-modules.svg" layout="fill" objectFit="contain" label="Illustration by Storyset" />
+					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/empty-modules.svg" layout="fill" objectFit="contain" label="Illustration by Storyset" />
 				</div>
 				<h2>You've got everything you need to continue to the next step!</h2>
 			</div>

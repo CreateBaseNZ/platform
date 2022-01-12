@@ -40,16 +40,16 @@ const Define = () => {
 				<meta name="description" content={data.caption} />
 			</Head>
 			<div className={classes.wrapper}>
-				{data && <VideoViewer data={data.define} />}
+				{data && <VideoViewer data={data.define} title={data.name} />}
 				{data && data.define.word && data.define.docs && (
 					<div className={classes.instructions}>
 						<div className={classes.imgContainer}>
-							<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/define.svg" alt="Define" layout="fill" objectFit="contain" label="Illustration by Storyset" />
+							<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/define.svg" alt="Define" layout="fill" objectFit="contain" label="Illustration by Storyset" />
 						</div>
 						<div className={classes.content}>
 							<p>Open one of the learning journals and save it somewhere that you can access. Your teacher will tell you which file to open and where to save your copy.</p>
 							<div className={classes.files}>
-								<a href={data.define.docs} target="_blank" title="Learning Journal - Google Docs" style={{ backgroundColor: "#3086F6" }}>
+								<a href={data.define.docs} target="_blank" title="Learning Journal - Google Docs" style={{ backgroundColor: "#3086F6" }} rel="noreferrer">
 									<div className={classes.iconContainer}>
 										<span className="material-icons-outlined">link</span>
 									</div>

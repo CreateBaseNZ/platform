@@ -5,10 +5,32 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
+	padding: 2vh 2vw;
+	background: white;
 	h1 {
 		font-size: 2rem;
 		font-weight: 600;
+	}
+}
+
+.header {
+	flex: 0 0 auto;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.controls {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 1rem 0;
+	.skeletonSelect {
+		width: 10rem;
+		height: 2.5rem;
+		margin-right: 1rem;
+		border-radius: 12px;
+		background: $lighter;
 	}
 }

@@ -118,9 +118,9 @@ const Support = () => {
 				</div>
 			) : (
 				<div className={classes.cardContainer}>
-					<UserCard title="Students" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/students.svg" route="/support/students" />
-					<UserCard title="Teachers" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/teachers.svg" route="/support/teachers" />
-					<UserCard title="Admins" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/admins.svg" route="/support/admins" />
+					<UserCard title="Students" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/students.svg" route="/support/students" />
+					<UserCard title="Teachers" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/teachers.svg" route="/support/teachers" />
+					<UserCard title="Admins" imgSrc="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/admins.svg" route="/support/admins" />
 				</div>
 			)}
 		</div>

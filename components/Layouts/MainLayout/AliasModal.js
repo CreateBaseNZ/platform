@@ -24,21 +24,21 @@ const AliasModal = ({ setShow }) => {
 
 	const onSubmit = async (inputValues) => {
 		setIsLoading(true);
-		await post({
-			route: "/api/license/update-saves",
-			input: { licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, update: { alias: inputValues.alias }, date: new Date().toString() },
-			failHandler: (data) => {
+		await post(
+			"/api/license/update-saves",
+			{ licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId, update: { alias: inputValues.alias }, date: new Date().toString() },
+			() => {
+				setGlobalSession((state) => ({ ...state, groups: [...state.groups].map((_group, i) => (i === state.recentGroups[0] ? { ..._group, alias: inputValues.alias } : _group)) }));
+				setVisualBell("success", "Your alias has been updated");
+				setShow(false);
+			},
+			(data) => {
 				if (data.content === "taken") {
 					setError("alias", { type: "manual", message: "This alias is already taken in your group" });
 				}
 				setIsLoading(false);
-			},
-			successHandler: () => {
-				setGlobalSession((state) => ({ ...state, groups: [...state.groups].map((_group, i) => (i === state.recentGroups[0] ? { ..._group, alias: inputValues.alias } : _group)) }));
-				setVisualBell({ type: "success", message: "Your alias has been updated" });
-				setShow(false);
-			},
-		});
+			}
+		);
 	};
 
 	return (

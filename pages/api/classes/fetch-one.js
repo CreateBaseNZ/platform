@@ -43,6 +43,7 @@ export default async function (req, res) {
 	// }
 	// Integration Logic
 	let data1;
+	console.log("fetching");
 	try {
 		data1 = (
 			await axios.post(process.env.ROUTE_URL + "/class/retrieve", {
@@ -56,6 +57,7 @@ export default async function (req, res) {
 	} catch (error) {
 		data1 = { status: "error", content: error };
 	}
+	console.log(data1);
 	if (data1.status !== "succeeded") return res.send({ status: "error" });
 	// Construct the success object
 	const data = { status: "succeeded", content: constructClass(data1.content[0]) };

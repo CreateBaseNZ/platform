@@ -53,18 +53,11 @@ const MyProfile = () => {
 		if (frontendError) {
 			return setIsLoading(false);
 		}
-		await post({
-			route: "/api/profile/update-profile",
-			input: { ...inputValues, date: new Date().toString(), profileId: globalSession.profileId },
-			successHandler: () => {
-				setGlobalSession((state) => ({ ...state, ...inputValues }));
-				setVisualBell({
-					type: "success",
-					message: "Your profile has been updated",
-				});
-				setIsLoading(false);
-				reset(inputValues);
-			},
+		await post("/api/profile/update-profile", { ...inputValues, date: new Date().toString(), profileId: globalSession.profileId }, () => {
+			setGlobalSession((state) => ({ ...state, ...inputValues }));
+			setVisualBell("success", "Your profile has been updated");
+			setIsLoading(false);
+			reset(inputValues);
 		});
 	};
 

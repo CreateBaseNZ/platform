@@ -6,19 +6,15 @@ const ClassRequestNotification = ({ notification, setNotifications }) => {
 	const { post } = useApi();
 
 	const approveHandler = async () => {
-		await post({
-			route: "/api/classes/approve-student",
-			input: { licenseId: notification.params.user.licenseId, classId: notification.params.class.id },
-			successHandler: () => setNotifications((state) => state.filter((notif) => notif.id !== notification.id)),
-		});
+		await post("/api/classes/approve-student", { licenseId: notification.params.user.licenseId, classId: notification.params.class.id }, () =>
+			setNotifications((state) => state.filter((notif) => notif.id !== notification.id))
+		);
 	};
 
 	const denyHandler = async () => {
-		await post({
-			route: "/api/classes/deny-student",
-			input: { licenseId: notification.params.user.licenseId, classId: notification.params.class.id, date: new Date().toString() },
-			successHandler: () => setNotifications((state) => state.filter((notif) => notif.id !== notification.id)),
-		});
+		await post("/api/classes/deny-student", { licenseId: notification.params.user.licenseId, classId: notification.params.class.id, date: new Date().toString() }, () =>
+			setNotifications((state) => state.filter((notif) => notif.id !== notification.id))
+		);
 	};
 
 	return (

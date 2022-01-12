@@ -26,16 +26,20 @@ const ClassesNew = () => {
 	} = useForm({ mode: "onTouched" });
 
 	const onSubmit = async (inputValues) => {
-		await post({
-			route: "/api/classes/new",
-			input: {
+		await post(
+			"/api/classes/new",
+			{
 				alias: globalSession.groups[globalSession.recentGroups[0]].alias,
 				date: new Date().toString(),
 				groupId: globalSession.groups[globalSession.recentGroups[0]].id,
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				name: inputValues.name.trim(),
 			},
-			failHandler: (data) => {
+			(data) => {
+				setVisualBell("success", `Welcome to ${data.content.name}!`);
+				router.push(`/classes/${data.content.id}`);
+			},
+			(data) => {
 				if (data.content === "taken") {
 					setError(
 						"name",
@@ -47,12 +51,8 @@ const ClassesNew = () => {
 					);
 					setIsLoading(false);
 				}
-			},
-			successHandler: (data) => {
-				setVisualBell({ type: "success", message: `Welcome to ${data.content.name}!` });
-				router.push(`/classes/${data.content.id}`);
-			},
-		});
+			}
+		);
 	};
 
 	return (

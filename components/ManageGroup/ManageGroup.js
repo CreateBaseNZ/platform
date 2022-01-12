@@ -19,19 +19,19 @@ const ManageGroup = ({ role }) => {
 	const [showAddModal, setShowAddModal] = useState(false);
 
 	useEffect(async () => {
-		await post({
-			route: "/api/groups/fetch-users",
-			input: {
+		await post(
+			"/api/groups/fetch-users",
+			{
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
 			},
-			failHandler: (data) => {
+			(data) => ref.current && setData(data.content.filter((user) => user.role === role && user.status !== "deactivated")),
+			(data) => {
 				if (data.content === "unauthorised") {
 					router.replace("/404");
 				}
-			},
-			successHandler: (data) => ref.current && setData(data.content.filter((user) => user.role === role && user.status !== "deactivated")),
-		});
+			}
+		);
 		return () => (ref.current = null);
 	}, []);
 
@@ -62,23 +62,19 @@ const ManageGroup = ({ role }) => {
 							licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 							date: new Date().toString(),
 						};
-						await post({
-							route: "/api/groups/promote-users",
-							input: input,
-							successHandler: () => {
-								setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
-								setGlobalSession((state) => ({
-									...state,
-									groups: state.groups.map((group) =>
-										group.id === input.groupId
-											? {
-													...group,
-													numOfUsers: { ...group.numOfUsers, teachers: group.numOfUsers.teachers - input.licenseIds.length, admins: group.numOfUsers.admins + input.licenseIds.length },
-											  }
-											: group
-									),
-								}));
-							},
+						await post("/api/groups/promote-users", input, () => {
+							setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
+							setGlobalSession((state) => ({
+								...state,
+								groups: state.groups.map((group) =>
+									group.id === input.groupId
+										? {
+												...group,
+												numOfUsers: { ...group.numOfUsers, teachers: group.numOfUsers.teachers - input.licenseIds.length, admins: group.numOfUsers.admins + input.licenseIds.length },
+										  }
+										: group
+								),
+							}));
 						});
 					}}
 				/>
@@ -98,18 +94,12 @@ const ManageGroup = ({ role }) => {
 							date: new Date().toString(),
 							role,
 						};
-						await post({
-							route: "/api/groups/remove-users",
-							input: input,
-							successHandler: () => {
-								setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
-								setGlobalSession((state) => ({
-									...state,
-									groups: state.groups.map((group) =>
-										group.id === input.groupId ? { ...group, numOfUsers: { ...group.numOfUsers, [role]: group.numOfUsers[role] - input.licenseIds.length } } : group
-									),
-								}));
-							},
+						await post("/api/groups/remove-users", input, () => {
+							setData((state) => state.filter((_, i) => !Object.keys(selectedRowIds).includes(i.toString())));
+							setGlobalSession((state) => ({
+								...state,
+								groups: state.groups.map((group) => (group.id === input.groupId ? { ...group, numOfUsers: { ...group.numOfUsers, [role]: group.numOfUsers[role] - input.licenseIds.length } } : group)),
+							}));
 						});
 					}}
 				/>

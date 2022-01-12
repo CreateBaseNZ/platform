@@ -49,7 +49,7 @@ const AddGroupUserModal = ({ setShow, role }) => {
 	// 			failHandler: () => {},
 	// 			successHandler: () => {
 	// 				setShow(false);
-	// 				setVisualBell({ type: "success", message: "Invitations have been sent out!" });
+	// 				setVisualBell( "success", "Invitations have been sent out!" );
 	// 			},
 	// 		});
 	// 	}
@@ -57,7 +57,7 @@ const AddGroupUserModal = ({ setShow, role }) => {
 
 	const copyHandler = () => {
 		navigator.clipboard.writeText(globalSession.groups[globalSession.recentGroups[0]].studentCode);
-		setVisualBell({ type: "success", message: "Code copied to clipboard" });
+		setVisualBell("success", "Code copied to clipboard");
 	};
 
 	return (

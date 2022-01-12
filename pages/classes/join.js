@@ -22,14 +22,14 @@ const ClassJoin = () => {
 	const queryValue = watch("searchQuery");
 
 	useEffect(async () => {
-		await post({
-			route: "/api/classes/fetch-all",
-			input: {
+		await post(
+			"/api/classes/fetch-all",
+			{
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				schoolId: globalSession.groups[globalSession.recentGroups[0]].id,
 			},
-			successHandler: (data) => setQueriedClasses(data.content.filter((_class) => _class.status !== "joined" && _class.status !== "requested")),
-		});
+			(data) => setQueriedClasses(data.content.filter((_class) => _class.status !== "joined" && _class.status !== "requested"))
+		);
 	}, []);
 
 	const onSubmit = async (inputValues) => {
@@ -37,19 +37,19 @@ const ClassJoin = () => {
 		if (!inputValues.classId) {
 			return setIsLoading(false);
 		}
-		await post({
-			route: "/api/classes/join",
-			input: {
+		await post(
+			"/api/classes/join",
+			{
 				classId: inputValues.classId,
 				licenseId: globalSession.groups[globalSession.recentGroups[0]].licenseId,
 				role: globalSession.groups[globalSession.recentGroups[0]].role,
 				date: new Date().toString(),
 			},
-			successHandler: () => {
-				setVisualBell({ type: "success", message: "Request sent" });
+			() => {
+				setVisualBell("success", "Request sent");
 				router.push("/classes");
-			},
-		});
+			}
+		);
 	};
 
 	return (

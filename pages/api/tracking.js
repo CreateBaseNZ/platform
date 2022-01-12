@@ -15,7 +15,7 @@ export default async function (req, res) {
 	// Integration Logic
 	let data;
 	try {
-		data = (await axios.post(url, { ...keys }))["data"];
+		data = (await axios.post(url, { ...keys, input }))["data"];
 	} catch (error) {
 		data = { status: "error", content: error };
 	}

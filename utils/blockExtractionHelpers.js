@@ -464,14 +464,11 @@ export const flow2Text = (elements, projectName) => {
  */
 export const defineObject = (projectName) => {
 	switch (projectName) {
-		case "send-it":
-			return "Player";
-		case "magnebot":
-			return "Arm";
-		case "heat-seeker":
-			return "Car";
-		case "aimbot":
-			return "aimbot";
+		case "send-it": return "Player";
+		case "magnebot": return "Arm";
+		case "heat-seeker": return "Car";
+		case "aimbot": return "aimbot";
+		case "hyperloop": return "hyperloop"
 	}
 	return "";
 };
@@ -481,6 +478,7 @@ export const isOnceCode = (projectName) => {
 		case "send-it":
 		case "heat-seeker":
 		case "aimbot":
+		case "hyperloop":
 			return false;
 		case "magnebot":
 			return true;
