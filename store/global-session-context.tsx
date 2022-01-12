@@ -5,7 +5,7 @@ import axios from "axios";
 import useApi, { APIRes } from "../hooks/useApi";
 import { signOut } from "next-auth/react";
 import VisualBellContext from "./visual-bell-context";
-import { GroupAndUserObject } from "../types/types";
+import { GroupAndUserObject } from "../types/groups";
 
 /** Global session object. */
 export interface IGlobalSession {

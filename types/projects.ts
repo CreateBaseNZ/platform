@@ -1,6 +1,6 @@
 import { DeepReadonly } from "ts-essentials";
 import { ModuleList } from "./modules";
-import { BlockList } from "./types";
+import { BlockList } from "./flow";
 import { ProjectDifficulty } from "../constants/projectDifficulties";
 import { SubjectInterface } from "../constants/projectSubjects";
 import { IFullVidData } from "../components/Project/VideoViewer";

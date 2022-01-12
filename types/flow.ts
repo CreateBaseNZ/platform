@@ -5,17 +5,6 @@ export interface INodeData {
 	connections: any[]; // TODO
 }
 
-export interface AimbotSensingProps {
-	data?: INodeData;
-	isConnectable?: boolean;
-}
-
-export interface AimbotActionProps {
-	id?: string;
-	data?: INodeData;
-	isConnectable?: boolean;
-}
-
 export interface NodeProps {
 	data: INodeData;
 	id: string;
@@ -23,3 +12,6 @@ export interface NodeProps {
 	isConnectable: boolean;
 	style?: CSSProperties;
 }
+
+// TODO - array of possible strings, and update blocks
+export type BlockList = Array<{ name: string; blocks: JSX.Element[] }>;

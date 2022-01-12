@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
 import router from "next/router";
 import LoadingScreen from "../UI/LoadingScreen";
-import { Role } from "../../types/types";
+import { Role } from "../../types/groups";
 
 export type AuthLevel = "admin" | "staff" | "user" | "any";
 
