@@ -34,7 +34,7 @@ const useMixpanel = () => {
 	// first parameter is the event name
 	// optional second parameter containining additional data to store
 	const track = (event, payload) => {
-		mixpanel.track(event, { payload });
+		mixpanel.track(event, { ...payload });
 	};
 
 	// note: MUST run clearSession in the return of useEffect
