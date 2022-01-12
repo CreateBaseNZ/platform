@@ -1,4 +1,10 @@
-const STEPS = [
+interface ProjectStep {
+	title: string;
+	icon: string;
+	name: string;
+}
+
+const STEPS: ProjectStep[] = [
 	{ title: "Define", icon: "biotech", name: "define" },
 	{ title: "Imagine", icon: "filter_drama", name: "imagine" },
 	// { title: "Research", icon: "travel_explore", name: "research" },

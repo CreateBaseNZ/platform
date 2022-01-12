@@ -6,7 +6,7 @@ export interface IInnerLayoutTab {
 	title: string;
 	/** Unique tab name. */
 	name: string;
-	/** Tab icon. */
+	/** Google Fonts icon name. */
 	icon: string;
 	/** URL path to navigate to. */
 	pathname: string;
@@ -29,6 +29,16 @@ export interface IMainLayoutTab {
 	page: string;
 	/** Formatted page name. */
 	label: string;
-	/** Page icon. */
+	/** Google Fonts icon name. */
+	icon: string;
+}
+
+/** My Account tab parameters. */
+export interface IMyAccountLayoutTab {
+	/** Unique tab identifier. */
+	name: string;
+	/** Tab label displayed. */
+	title: string;
+	/** Google Fonts icon name. */
 	icon: string;
 }

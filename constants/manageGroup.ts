@@ -1,3 +1,5 @@
+import { IInnerLayoutTabObject } from "../types/layouts";
+
 const GROUP_CONFIG = {
 	school: {
 		roles: [
@@ -13,7 +15,7 @@ const GROUP_CONFIG = {
 
 export default GROUP_CONFIG;
 
-export const SCHOOL_TABS = {
+export const SCHOOL_TABS: IInnerLayoutTabObject = {
 	admin: [
 		{ title: "Students", name: "students", icon: "backpack", pathname: "/manage-group/students" },
 		{ title: "Teachers", name: "teachers", icon: "school", pathname: "/manage-group/teachers" },
@@ -23,6 +25,7 @@ export const SCHOOL_TABS = {
 		{ title: "Students", name: "students", icon: "backpack", pathname: "/manage-group/students" },
 		{ title: "Teachers", name: "teachers", icon: "school", pathname: "/manage-group/teachers" },
 	],
+	student: [],
 };
 
 export const COLUMNS = [

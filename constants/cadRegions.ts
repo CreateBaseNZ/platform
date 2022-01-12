@@ -1,7 +1,5 @@
 type CADRegion = {
-	/** Formatted region name */
 	name: string;
-	/** Unique region ID */
 	id: string;
 };
 
