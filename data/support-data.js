@@ -22,6 +22,7 @@ import {
 	STUDENT_TRACKING,
 	THE_5_STEP_CREATION_PROCESS,
 	WHAT_ARE_GROUPS,
+	DATA_PRIVACY,
 } from "./support-articles";
 
 const SUPPORT_DATA = {
@@ -120,6 +121,13 @@ const SUPPORT_DATA = {
 						caption: "Find out how to touch base with us!",
 						tags: ["contact us", "enquiries"],
 						content: CONTACTING_CREATEBASE.shared,
+					},
+					{
+						query: "data-privacy",
+						heading: "Data Privacy",
+						caption: "Learn about our policies regarding data collection and usage",
+						tags: ["data", "privacy", "policy"],
+						content: DATA_PRIVACY.shared,
 					},
 				],
 			},
@@ -351,6 +359,13 @@ const SUPPORT_DATA = {
 						tags: ["contact us", "enquiries"],
 						content: CONTACTING_CREATEBASE.shared,
 					},
+					{
+						query: "data-privacy",
+						heading: "Data Privacy",
+						caption: "Learn about our policies regarding data collection and usage",
+						tags: ["data", "privacy", "policy"],
+						content: DATA_PRIVACY.shared,
+					},
 				],
 			},
 		],
@@ -580,6 +595,13 @@ const SUPPORT_DATA = {
 						caption: "Find out how to touch base with us!",
 						tags: ["contact us", "enquiries"],
 						content: CONTACTING_CREATEBASE.shared,
+					},
+					{
+						query: "data-privacy",
+						heading: "Data Privacy",
+						caption: "Learn about our policies regarding data collection and usage",
+						tags: ["data", "privacy", "policy"],
+						content: DATA_PRIVACY.shared,
 					},
 				],
 			},

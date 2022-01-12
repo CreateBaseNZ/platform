@@ -264,7 +264,7 @@ export const TEXT_CODING = {
 
 			<h2>Other languages are coming soon</h2>
 			<p>
-			You will soon be able to complete each of our Projects using other text-based languages, including Python. Make sure that you follow our <Link href="https://www.facebook.com/CreateBaseNZ">social media</Link> to get notified when this feature is released!
+				You will soon be able to complete each of our Projects using other text-based languages, including Python. Make sure that you follow our <Link href="https://www.facebook.com/CreateBaseNZ">social media</Link> to get notified when this feature is released!
 			</p>
 		</>
 	),
@@ -388,6 +388,30 @@ export const CONTACTING_CREATEBASE = {
 				.
 			</p>
 			<p>We aim to respond to any questions, comments or enquiries within one working day.</p>
+		</>
+	),
+};
+
+export const DATA_PRIVACY = {
+	shared: (
+		<>
+			<h2>
+				Our policies
+			</h2>
+			<p>
+				At CreateBase, we strive to align with every country’s student data collection and usage policies. Data that we collect is restricted to enable certain features like authentication, personalisation
+				and progress tracking, as well as to optimise the experience of our sites. We do not share this data with anyone outside of CreateBase unless required by law.
+			</p>
+			<p>
+				With a team consisting of many young individuals, data privacy is at the forefront of our minds. Although we only track the minimum amount of data required to provide our services, we encourage you to
+				check out the user data section of our terms & conditions as well as our privacy policy to decide for yourself if CreateBase aligns with your school’s policies.
+			</p>
+			<p>
+				For more information about the particular user data that we collect and what we use it for, you can check out our privacy policy at:
+			</p>
+			<p>
+				<a href="https://createbase.co.nz/privacy">https://createbase.co.nz/privacy</a>
+			</p>
 		</>
 	),
 };
