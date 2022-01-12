@@ -1,6 +1,5 @@
 import styles from "../styles/_exports.module.scss";
-
-export type ProjectDifficulty = "introductory" | "proficient" | "advanced";
+import { ProjectDifficulty } from "../types/projects";
 
 type DifficultyColors = Record<ProjectDifficulty, string>;
 

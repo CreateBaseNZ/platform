@@ -1,8 +1,17 @@
 import { DeepReadonly } from "ts-essentials";
 import { ModuleList } from "./modules";
 import { BlockList } from "./flow";
-import { ProjectDifficulty } from "../constants/projectDifficulties";
-import { SubjectInterface } from "../constants/projectSubjects";
+
+/** Project difficulty levels. */
+export type ProjectDifficulty = "introductory" | "proficient" | "advanced";
+
+/** Project subject type. */
+export interface IProjectSubject {
+	/** Subject colour rendered with tags. */
+	color: string;
+	/** Subject label. */
+	label: string;
+}
 
 /** Basic video data object (typically shown as a GIF). */
 export interface IBasicVidData {
@@ -91,7 +100,7 @@ export interface IProject {
 	/** Suggested project difficulty. */
 	difficulty: ProjectDifficulty;
 	/** List of subjects covered. */
-	subjects: SubjectInterface[];
+	subjects: IProjectSubject[];
 	/** Path to Learning Outcomes PDF file. */
 	learningOutcome: string;
 	/** Object containing paths to curriculum alignment documents for each supported region. */
