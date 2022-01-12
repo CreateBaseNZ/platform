@@ -4,7 +4,7 @@ import { generateRandomProgress, generateStudentData } from "../utils/generateDu
 
 const tabs: IInnerLayoutTab[] = [
 	{ title: "Progress", name: "progress", icon: "table_chart", pathname: "/classes/[id]/progress" },
-	{ title: "Reporting", name: "reporting", icon: "pending_actions", pathname: "/classes/[id]/reporting" },
+	// { title: "Reporting", name: "reporting", icon: "pending_actions", pathname: "/classes/[id]/reporting" },
 	{ title: "Manage Members", name: "manage", icon: "manage_accounts", pathname: "/classes/[id]/manage-members" },
 	{ title: "Settings", name: "settings", icon: "tune", pathname: "/classes/[id]/settings" },
 	// { title: "Announcements (Coming Soon!)", name: "announcements", icon: "campaign", pathname: "/classes/[id]/announcements", todo: true },
