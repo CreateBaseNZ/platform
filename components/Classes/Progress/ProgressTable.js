@@ -2,7 +2,8 @@ import { Fragment, memo, useState, useEffect } from "react";
 import classes from "./ProgressTable.module.scss";
 
 const ProgressTable = ({ data, view, setTooltip }) => {
-	console.log("*** rerendered ***");
+	// console.log("*** progress table rerendered ***");
+
 	const [width, setWidth] = useState(window.innerWidth);
 	const [height, setHeight] = useState(window.innerHeight);
 	const updateDimensions = () => {

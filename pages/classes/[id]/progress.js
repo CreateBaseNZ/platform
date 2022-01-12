@@ -45,7 +45,7 @@ const ClassesProgress = () => {
 				setPreData(_preData);
 			}
 		})();
-	}, [classLoaded, fetchProgressData]);
+	}, [classLoaded]);
 
 	useEffect(() => {
 		if (!preData || !ref.current) return;

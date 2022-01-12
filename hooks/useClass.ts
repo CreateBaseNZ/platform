@@ -109,7 +109,7 @@ const useClass = () => {
 				);
 			}
 		})();
-	}, [router.isReady, router.query.id]);
+	}, [router.isReady]);
 
 	const fetchData = async (filters: IFilter[]) => {
 		if (!classLoaded) return;
@@ -121,6 +121,8 @@ const useClass = () => {
 		} finally {
 			setLastSynced(new Date());
 		}
+		console.log(preprocessData);
+		// console.log(JSON.parse(preprocessData));
 		return preprocessData;
 	};
 
@@ -187,6 +189,8 @@ const useClass = () => {
 		].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
 		const postprocessData = await fetchData(filters);
+
+		console.log(postprocessData);
 
 		const processData = (event: string, project: string, license: string, threshold: number, subsystem?: string, gameProgressEvent?: string) => {
 			let duration = 0;
