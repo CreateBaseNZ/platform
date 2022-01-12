@@ -1,28 +1,17 @@
 import { Attributes, memo } from "react";
 import { YTIcon } from "../UI/Icons";
+import { IBasicVidData, IFullVidData } from "../../types/projects";
 
 import classes from "./VideoViewer.module.scss";
 
-export interface IBasicVidData {
-	src: string;
-	subtitle: JSX.Element;
-}
-
-export interface IFullVidData {
-	url: string;
-	src: string;
-	h1: string;
-	h2: string;
-}
-
-interface IVideoViewerProps {
+interface VideoViewerProps {
 	title: string;
 	attributes: Attributes;
 	data: IBasicVidData | IFullVidData;
 	controls?: boolean;
 }
 
-const VideoViewer = ({ data, attributes, title, controls = true }: IVideoViewerProps): JSX.Element => {
+const VideoViewer = ({ data, attributes, title, controls = true }: VideoViewerProps): JSX.Element => {
 	const basicVidData = data as IBasicVidData;
 	const fullVidData = data as IFullVidData;
 

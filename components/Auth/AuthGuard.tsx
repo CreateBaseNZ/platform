@@ -3,11 +3,11 @@ import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
 import router from "next/router";
 import LoadingScreen from "../UI/LoadingScreen";
-import { Role } from "../../types/groups";
+import { SchoolRole } from "../../types/groups";
 
 export type AuthLevel = "admin" | "staff" | "user" | "any";
 
-const hasAccess = (role: Role, auth: AuthLevel) => {
+const hasAccess = (role: SchoolRole, auth: AuthLevel) => {
 	switch (auth) {
 		case "admin":
 			return role === "admin";

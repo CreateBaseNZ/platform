@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode, useContext } from "react";
 import GlobalSessionContext from "../../../store/global-session-context";
-import { IInnerLayoutTabObject } from "../../../types/innerLayout";
+import { IInnerLayoutTabObject } from "../../../types/layouts";
 
 import classes from "./InnerLayout.module.scss";
 

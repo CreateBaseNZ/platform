@@ -3,7 +3,26 @@ import { ModuleList } from "./modules";
 import { BlockList } from "./flow";
 import { ProjectDifficulty } from "../constants/projectDifficulties";
 import { SubjectInterface } from "../constants/projectSubjects";
-import { IFullVidData } from "../components/Project/VideoViewer";
+
+/** Basic video data object (typically shown as a GIF). */
+export interface IBasicVidData {
+	/** Video file. */
+	src: string;
+	/** A short description. */
+	subtitle: JSX.Element;
+}
+
+/** Full video data object (usually with controls). */
+export interface IFullVidData {
+	/** YouTube link. */
+	url: string;
+	/** Video file. */
+	src: string;
+	/** Title. */
+	h1: string;
+	/** Subtitle. */
+	h2: string;
+}
 
 /** Subsystem data object. */
 export interface ISubsystem {

@@ -1,4 +1,4 @@
-import { IInnerLayoutTab, IInnerLayoutTabObject } from "../types/innerLayout";
+import { IInnerLayoutTab, IInnerLayoutTabObject } from "../types/layouts";
 import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
 import { generateRandomProgress, generateStudentData } from "../utils/generateDummyClassData";
 

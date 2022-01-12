@@ -1,4 +1,4 @@
-import { IBasicVidData, IFullVidData } from "../components/Project/VideoViewer";
+import { IBasicVidData, IFullVidData } from "./projects";
 import { IExplore } from "./explore";
 
 /** PDF module. */

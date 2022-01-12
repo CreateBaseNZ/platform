@@ -1,11 +1,11 @@
-export interface ICountry {
+type Country = {
 	/** Formatted country name */
 	name: string;
 	/** ISO Alpha-2 code */
 	code: string;
-}
+};
 
-const COUNTRIES: ICountry[] = [
+const COUNTRIES: Country[] = [
 	{ name: "Afghanistan", code: "AF" },
 	{ name: "Åland Islands", code: "AX" },
 	{ name: "Albania", code: "AL" },

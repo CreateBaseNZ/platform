@@ -1,3 +1,5 @@
+import { UrlObject } from "url";
+
 /** Inner layout tab parameters. */
 export interface IInnerLayoutTab {
 	/** Formatted tab name. */
@@ -17,4 +19,16 @@ export interface IInnerLayoutTabObject {
 	admin: IInnerLayoutTab[];
 	teacher: IInnerLayoutTab[];
 	student: IInnerLayoutTab[];
+}
+
+/** Main layout tab parameters. */
+export interface IMainLayoutTab {
+	/** URL to navigate to. */
+	urlObject: UrlObject;
+	/** Page ID. */
+	page: string;
+	/** Formatted page name. */
+	label: string;
+	/** Page icon. */
+	icon: string;
 }
