@@ -42,7 +42,7 @@ const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
 	if (globalSession.accountId) {
 		if (!globalSession.verified) {
 			return <LoadingScreen />;
-		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]].role, auth)) {
+		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]]?.role, auth)) {
 			return <>{children}</>;
 		} else {
 			return <div>No access</div>;

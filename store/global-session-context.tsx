@@ -79,6 +79,8 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 
 	console.log("** re-rendered **");
 
+	console.log(globalSession);
+
 	useEffect(() => {
 		if (status !== "loading") {
 			if (session?.user) {
@@ -111,7 +113,7 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 					if (data2.status === "error" || data2.status === "failed") return router.push("/404");
 					data1.content.numOfNotifications = data2.content.length;
 					setGlobalSession((state) => ({ ...state, ...data1.content }));
-					const group = data1.content.groups[data1.content.recentGroups[0]];
+					const group = data1.content.groups[data1.content.recentGroups?.[0]];
 					if (group) {
 						setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
 					}
