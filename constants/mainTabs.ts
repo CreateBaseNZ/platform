@@ -18,7 +18,7 @@ export const MAIN_TABS = {
 	school: {
 		admin: [CLASSES, MANAGE_GROUP],
 		teacher: [CLASSES, MANAGE_GROUP],
-		student: [CLASSES],
+		student: [],
 	},
 	family: {
 		admin: [],

@@ -10,7 +10,7 @@ const NavTab = ({ tab, page }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	return tab.page ? (
-		<Link href={tab.urlObject}>
+		<Link href={tab.urlObject} passHref>
 			<button className={`${classes.tab} ${tab.page === page ? classes.active : ""}`}>
 				<i className="material-icons-outlined">{tab.icon}</i>
 				{tab.label}
@@ -28,6 +28,8 @@ const Nav = ({ page }) => {
 	const defaultTabs = globalSession.recentGroups.length
 		? [...MAIN_TABS[globalSession.groups[globalSession.recentGroups[0]].type]?.[globalSession.groups[globalSession.recentGroups[0]].role], { page: null }]
 		: [];
+
+	console.log(defaultTabs);
 
 	const activeTab = [BROWSE, ...defaultTabs, ...DEFAULT_TABS].findIndex((t) => t.page === page);
 
