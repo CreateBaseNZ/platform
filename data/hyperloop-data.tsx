@@ -16,12 +16,12 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, JAVASCRIPT],
 	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	cads: {
-		nz: "/send-it/cads/020802AC Curriculum Alignment - Send It - NZ.pdf",
-		aus: "/send-it/cads/020802AC Curriculum Alignment - Send It - ACARA.pdf",
-		cali: "/send-it/cads/020802AC Curriculum Alignment - Send It - California.pdf",
-		uk: "/send-it/cads/020802AC Curriculum Alignment - Send It - England.pdf",
-	}, // TODO
-	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
+		nz: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - NZ.pdf",
+		aus: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - ACARA.pdf",
+		cali: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - California.pdf",
+		uk: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - England.pdf",
+	}, 
+	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf", // TODO
 	learnings: [
 		"Convert a binary number to a decimal number.",
 		"Convert a decimal number to a binary number.",
