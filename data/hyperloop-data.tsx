@@ -21,7 +21,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		cali: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - California.pdf",
 		uk: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - England.pdf",
 	}, 
-	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf", // TODO
+	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Convert a binary number to a decimal number.",
 		"Convert a decimal number to a binary number.",
@@ -43,13 +43,13 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "What is a number system?",
-				img: "/hyperloop/img/thumbnail.jpg",
+				img: "/hyperloop/img/thumbnail.png",
 				url: "/hyperloop/files/210701AB Imagine - 1.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Robot capabilities: ticket master",
-				img: "/hyperloop/img/thumbnail.jpg",
+				img: "/hyperloop/img/thumbnail.png",
 				url: "/hyperloop/files/210701AB Imagine - 2.pdf",
 			},
 		],
@@ -58,7 +58,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		{
 			title: "Binary to hexadecimal",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/hyperloop/subsystem/img/1.jpg",
 			description:
 				"In this subsystem, we will create a simple JavaScript program that maps binary numbers to the equivalent hexadecimal number. This will allow our robot to perform hardcoded number conversions using a series of IF statements, but is it the most efficient?",
 			research: {
@@ -96,7 +96,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		{
 			title: "Binary to decimal",
 			requirements: ["Binary to hexadecimal"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/hyperloop/subsystem/img/2.jpg",
 			description:
 				"In this subsystem, we will create a more advanced JavaScript program that uses an algorithm to convert any binary number to the equivalent decimal number. This approach is much more scalable than hard-coding number conversions.",
 			research: {
@@ -134,7 +134,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		{
 			title: "Decimal to binary",
 			requirements: ["Binary to hexadecimal"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/hyperloop/subsystem/img/3.jpg",
 			description:
 				"Let's try the reverse of subsystem 2 and create a JavaScript program that uses an algorithm to convert a decimal number to the equivalent binary number. We will generalize our answer to be able to convert to any base between 2 and 10.",
 			research: {
@@ -172,7 +172,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		{
 			title: "Ternary to tridecimal",
 			requirements: ["Binary to decimal", "Decimal to binary"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/thumbnail.png", // TODO
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/hyperloop/subsystem/img/4.jpg",
 			description: "In this subsystem, we will combine everything we have learnt to far to create a JavaScript program that uses an algorithm to convert between base 3 and base 13.",
 			research: {
 				threshold: 60, // READONLY
