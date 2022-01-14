@@ -3,6 +3,7 @@ import magnebotData from "../data/magnebot-data";
 import heatSeekerData from "../data/heat-seeker-data";
 import aimbotData from "../data/aimbot-data";
 import hyperloopData from "../data/hyperloop-data";
+import flowTrainingCampData from "../data/flow-training-camp-data";
 import { IProjectReadOnly } from "../types/projects";
 
 // ----- How to Add Projects -----
@@ -24,6 +25,8 @@ const getProjectData = (query: string) => {
 			return aimbotData;
 		case "hyperloop":
 			return hyperloopData;
+		case "flow-training-camp":
+				return flowTrainingCampData;
 		default:
 			return null;
 	}
@@ -31,4 +34,4 @@ const getProjectData = (query: string) => {
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData, flowTrainingCampData];

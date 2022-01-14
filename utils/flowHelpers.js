@@ -24,7 +24,19 @@ export const getDefaultValues = (type) => {
 		type === "NodeAimBotSetCurrentYawSpeed" ||
 		type === "NodeAimBotSetCurrentPitchSpeed" ||
 		type === "NodeAimBotGetCurrentYawSpeed" ||
-		type === "NodeAimBotGetCurrentPitchSpeed"
+		type === "NodeAimBotGetCurrentPitchSpeed" || 
+		type === "NodeTrainingBotGetBananaGreen" ||
+		type === "NodeTrainingBotGetBananaYellow" ||
+		type === "NodeTrainingBotGetBananaBrown" ||
+		type === "NodeTrainingBotGetTrafficLight" ||
+		type === "NodeTrainingBotPullLever" ||
+		type === "NodeTrainingBotPunch" ||
+		type === "NodeTrainingBotTurnLeft" ||
+		type === "NodeTrainingBotTurnRight" ||
+		type === "NodeTrainingBotMoveForward" ||
+		type === "NodeTrainingBotPumpTyre" ||
+		type === "NodeTrainingBotWalk" ||
+		type === "NodeTrainingBotStop"
 	) {
 		return { a: 0 };
 	}
@@ -152,6 +164,19 @@ export const nodeTypeHandles = {
 	NodeAimBotSetCurrentPitchSpeed: actionHandles,
 	NodeAimBotGetCurrentYawSpeed: sensingHandles,
 	NodeAimBotGetCurrentPitchSpeed: sensingHandles,
+
+	NodeTrainingBotGetBananaGreen: ["boolean__out"],
+	NodeTrainingBotGetBananaYellow: ["boolean__out"],
+	NodeTrainingBotGetBananaBrown: ["boolean__out"],
+	NodeTrainingBotGetTrafficLight: sensingHandles,
+	NodeTrainingBotPullLever: ["execution__in", "boolean__in__a", "execution__out"],
+	NodeTrainingBotPunch: actionHandles,
+	NodeTrainingBotTurnLeft: actionHandles,
+	NodeTrainingBotTurnRight: actionHandles,
+	NodeTrainingBotMoveForward: actionHandles,
+	NodeTrainingBotPumpTyre: actionHandles,
+	NodeTrainingBotWalk: actionHandles,
+	NodeTrainingBotStop: actionHandles,
 };
 
 export const infoLogs = [

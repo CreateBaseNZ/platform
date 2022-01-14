@@ -37,6 +37,20 @@ import {
 	NodeHeatSeekerDifference,
 	NodeHeatSeekerFireSensor,
 } from "../components/Nodes/NodeHeatSeeker";
+import {
+	NodeTrainingBotGetBananaGreen,
+	NodeTrainingBotGetBananaYellow,
+	NodeTrainingBotGetBananaBrown,
+	NodeTrainingBotGetTrafficLight,
+	NodeTrainingBotPullLever,
+	NodeTrainingBotPunch,
+	NodeTrainingBotTurnLeft,
+	NodeTrainingBotTurnRight,
+	NodeTrainingBotMoveForward,
+	NodeTrainingBotPumpTyre,
+	NodeTrainingBotWalk,
+	NodeTrainingBotStop,
+} from "../components/Nodes/NodeTrainingCamp";
 
 import { ExecutionEdge, BooleanEdge, FloatEdge } from "../components/Nodes/Edges";
 
@@ -159,6 +173,18 @@ export const nodeTypes = {
 	NodeAimBotSetCurrentPitchSpeed,
 	NodeAimBotGetCurrentYawSpeed,
 	NodeAimBotGetCurrentPitchSpeed,
+	NodeTrainingBotGetBananaGreen,
+	NodeTrainingBotGetBananaYellow,
+	NodeTrainingBotGetBananaBrown,
+	NodeTrainingBotGetTrafficLight,
+	NodeTrainingBotPullLever,
+	NodeTrainingBotPunch,
+	NodeTrainingBotTurnLeft,
+	NodeTrainingBotTurnRight,
+	NodeTrainingBotMoveForward,
+	NodeTrainingBotPumpTyre,
+	NodeTrainingBotWalk,
+	NodeTrainingBotStop,
 };
 
 export const tooltips = {
@@ -292,6 +318,18 @@ export const tooltips = {
 	NodeAimBotSetCurrentPitchSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Set the value of the variable"],
 	NodeAimBotGetCurrentYawSpeed: [<NoneType />, <FloatType />, "Return the value from variable"],
 	NodeAimBotGetCurrentPitchSpeed: [<NoneType />, <FloatType />, "Return the value from variable"],
+	NodeTrainingBotGetBananaGreen: [<NoneType />, <BooleanType />, "Return if the banana has green"],
+	NodeTrainingBotGetBananaYellow: [<NoneType />, <BooleanType />, "Return if the banana has yellow"],
+	NodeTrainingBotGetBananaBrown: [<NoneType />, <BooleanType />, "Return if the banana has brown"],
+	NodeTrainingBotGetTrafficLight: [<NoneType />, <FloatType />, "Return the colour of the traffic light"],
+	NodeTrainingBotPullLever: [<ExecutionType />, <BooleanType />, <ExecutionType />, "Pull the lever"],
+	NodeTrainingBotPunch: [<ExecutionType />, <ExecutionType />, "Punch"],
+	NodeTrainingBotTurnLeft: [<ExecutionType />, <ExecutionType />, "Turn 90 degrees to the left"],
+	NodeTrainingBotTurnRight: [<ExecutionType />, <ExecutionType />, "Turn 90 degrees to the right"],
+	NodeTrainingBotMoveForward: [<ExecutionType />, <ExecutionType />, "Move forward 1 step"],
+	NodeTrainingBotPumpTyre: [<ExecutionType />, <ExecutionType />, "Pump the tyre once"],
+	NodeTrainingBotWalk: [<ExecutionType />, <ExecutionType />, "Start walking forward"],
+	NodeTrainingBotStop: [<ExecutionType />, <ExecutionType />, "Stop the robot walking"],
 };
 
 export const initialElements = [
