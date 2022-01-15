@@ -62,7 +62,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "In this Project...",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/thumbnail.jpg",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_1.jpg",
 				url: "/aimbot/files/21050502AA_imagine.pdf",
 			},
 		],
