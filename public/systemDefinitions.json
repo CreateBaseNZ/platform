@@ -14,7 +14,7 @@
 			"NodeEnd": {
 				"simpleLogic": "",
 				"inputs": [],
-				"logic": "}",
+				"logic": "",
 				"await": false
 			},
 			"NodeMagnebotMoveArm": {
@@ -47,7 +47,7 @@
 						"value": true
 					}
 				],
-				"logic": "if(a){\n\tprops.unityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tprops.unityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
+				"logic": "if(a){\n\tunityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tunityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
 				"simpleLogic": "MagneticSwitch",
 				"await": true
 			}
