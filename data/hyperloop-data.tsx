@@ -20,7 +20,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		aus: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - ACARA.pdf",
 		cali: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - California.pdf",
 		uk: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - England.pdf",
-	}, 
+	},
 	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Convert a binary number to a decimal number.",
@@ -30,7 +30,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 	],
 	define: {
 		threshold: 30,
-		url: "https://youtu.be/UvZtYfMDLDI",
+		url: "https://youtu.be/K6KXIWtlVH8",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/hyperloop/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
