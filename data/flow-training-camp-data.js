@@ -1,5 +1,5 @@
-import { NodeGreaterThanMini, NodeLessThanMini } from "../components/ReactFlow/NodeComparisons";
-import { NodeIfMini, NodeWhileMini } from "../components/ReactFlow/NodeConditionals";
+import { NodeGreaterThanMini, NodeLessThanMini } from "../components/Nodes/NodeComparisons";
+import { NodeIfMini, NodeWhileMini } from "../components/Nodes/NodeConditionals";
 import {
 	NodeHeatSeekerFireSensorMini,
 	NodeHeatSeekerLeftSensorMini,
@@ -8,17 +8,16 @@ import {
 	NodeHeatSeekerRightSensorMini,
 	NodeHeatSeekerRightWheelMini,
 	NodeHeatSeekerWaterHoseMini,
-} from "../components/ReactFlow/NodeHeatSeeker";
-import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/ReactFlow/NodeLogicals";
-import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/ReactFlow/NodeOperations";
+} from "../components/Nodes/NodeHeatSeeker";
+import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
+import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 export default {
 	name: "Flow Training Camp",
 	query: "flow-training-camp",
-	caption:
-		"TBD",
+	caption: "TBD",
 	stacked: true,
 	scenePrefix: "Project_FlowTrainingCamp",
 	runType: "loop",
@@ -29,9 +28,7 @@ export default {
 	learningOutcome: "/heat-seeker/files/project-overview.pdf",
 	curriculumAlignment: "/heat-seeker/files/curriculum-alignment.pdf",
 	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
-	learnings: [
-		"TBD",
-	],
+	learnings: ["TBD"],
 	define: {
 		threshold: 60,
 		url: "https://youtu.be/a7ahjbh_lUg",
@@ -104,18 +101,13 @@ export default {
 			},
 			plan: {
 				threshold: 60,
-				list: [
-					"TBD",
-				],
+				list: ["TBD"],
 			},
 			code: {
 				threshold: 120,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["TBD"],
-				hints: [
-					"TBD",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
-				],
+				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps."],
 			},
 			blockList: [{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] }],
 		},
@@ -147,17 +139,13 @@ export default {
 			},
 			plan: {
 				threshold: 300,
-				list: [
-					"TBD",
-				],
+				list: ["TBD"],
 			},
 			code: {
 				threshold: 300,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["TBD"],
-				hints: [
-					"TBD",
-				],
+				hints: ["TBD"],
 			},
 			blockList: [
 				{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerRightSensorMini />] },
@@ -186,17 +174,13 @@ export default {
 			},
 			plan: {
 				threshold: 300,
-				list: [
-					"TBD",
-				],
+				list: ["TBD"],
 			},
 			code: {
 				threshold: 300,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["TBD"],
-				hints: [
-					"TBD",
-				],
+				hints: ["TBD"],
 			},
 			blockList: [
 				{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />] },
@@ -211,8 +195,7 @@ export default {
 			title: "Putting it all together",
 			requirements: ["TBD"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/img/thumbnail.png",
-			description:
-				"TBD",
+			description: "TBD",
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
@@ -226,18 +209,13 @@ export default {
 			},
 			plan: {
 				threshold: 30,
-				list: [
-					"TBD",
-				],
+				list: ["TBD"],
 			},
 			code: {
 				threshold: 120,
 				caption: "This step is all about building your own code, making sure you test as you go. Rinse and repeat. Be sure to share it with your friends!",
 				tasks: ["TBD"],
-				hints: [
-					"TBD",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in the Improve step.",
-				],
+				hints: ["TBD", "Click the save button in the bottom left menu when you have finished writing your code so that you can access it in the Improve step."],
 			},
 			blockList: [
 				{
@@ -270,14 +248,9 @@ export default {
 	improve: {
 		threshold: 600,
 		caption: "Test what you’ve learnt by taking on more challenges. There are always ways to make your solution smarter, faster, stronger!",
-		alert:
-			"TBD",
-		tasks: [
-			"TBD",
-		],
-		hints: [
-			"TBD",
-		],
+		alert: "TBD",
+		tasks: ["TBD"],
+		hints: ["TBD"],
 		blockList: [
 			{
 				name: "Sensing",
