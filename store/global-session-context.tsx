@@ -84,44 +84,44 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 
 	useEffect(() => {
 		if (status !== "loading") {
-			if (session?.user) {
-				const inputs = {
-					date: new Date().toString(),
-					properties: { profile: ["recentGroups"], license: ["alias"] },
-				};
-				(async () => {
-					let data1: APIRes = {};
-					try {
-						data1 = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"] as APIRes; // TODO - find the not hacky solution
-					} catch (error) {
-						data1.status = "error";
-					}
-					if (data1.status === "error" || data1.status === "failed") {
-						if (data1.content === "invalid account id") {
-							signOut();
-						} else {
-							router.push("/404");
-						}
-						return;
-					}
-					const groups = data1.content.groups.filter((group: GroupAndUserObject) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated");
-					let data2: APIRes = {};
-					try {
-						data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups } }))["data"] as APIRes; // TODO - find the not hacky solution
-					} catch (error) {
-						data2.status = "error";
-					}
-					if (data2.status === "error" || data2.status === "failed") return router.push("/404");
-					data1.content.numOfNotifications = data2.content.length;
-					setGlobalSession((state) => ({ ...state, ...data1.content, loaded: true }));
-					const group = data1.content.groups[data1.content.recentGroups?.[0]];
-					if (group) {
-						setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
-					}
-				})();
-			} else {
+			if (!session?.user) {
 				setGlobalSession((state) => ({ ...state, loaded: false }));
+				return;
 			}
+			const inputs = {
+				date: new Date().toString(),
+				properties: { profile: ["recentGroups"], license: ["alias"] },
+			};
+			(async () => {
+				let data1: APIRes = {};
+				try {
+					data1 = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"] as APIRes; // TODO - find the not hacky solution
+				} catch (error) {
+					data1.status = "error";
+				}
+				if (data1.status === "error" || data1.status === "failed") {
+					if (data1.content === "invalid account id") {
+						signOut();
+					} else {
+						router.push("/404");
+					}
+					return;
+				}
+				const groups = data1.content.groups.filter((group: GroupAndUserObject) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated");
+				let data2: APIRes = {};
+				try {
+					data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups } }))["data"] as APIRes; // TODO - find the not hacky solution
+				} catch (error) {
+					data2.status = "error";
+				}
+				if (data2.status === "error" || data2.status === "failed") return router.push("/404");
+				data1.content.numOfNotifications = data2.content.length;
+				setGlobalSession((state) => ({ ...state, ...data1.content, loaded: true }));
+				const group = data1.content.groups[data1.content.recentGroups?.[0]];
+				if (group) {
+					setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
+				}
+			})();
 		}
 	}, [status, session?.user]);
 

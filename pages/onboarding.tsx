@@ -251,6 +251,8 @@ Onboarding.getLayout = (page: ReactElement) => {
 
 Onboarding.auth = "any";
 
+// TODO - remove this
+
 export async function getServerSideProps(context) {
 	return {
 		props: {
