@@ -3,7 +3,7 @@ import axios from "axios";
 import { useFieldArray, useForm } from "react-hook-form";
 import { emailPattern } from "../../utils/formValidation";
 import GlobalSessionContext from "../../store/global-session-context";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import Input from "../UI/Input";
 import Modal from "../UI/Modal";
 import { PrimaryButton, TertiaryButton } from "../UI/Buttons";
@@ -14,7 +14,7 @@ const ROLES = ["student", "teacher", "admin"];
 const AddGroupUserModal = ({ setShow, role }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const {
 		register,
 		handleSubmit,

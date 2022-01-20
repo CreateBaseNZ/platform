@@ -5,7 +5,7 @@ import router from "next/router";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
 import GlobalSessionContext from "../../store/global-session-context";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import { SearchBar } from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
@@ -17,7 +17,7 @@ const ClassJoin = () => {
 	const [queriedClasses, setQueriedClasses] = useState([]);
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const { register, handleSubmit, watch } = useForm({ mode: "onTouched" });
 	const queryValue = watch("searchQuery");
 

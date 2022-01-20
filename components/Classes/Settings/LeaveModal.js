@@ -2,14 +2,14 @@ import { useContext } from "react";
 import router from "next/router";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
-import VisualBellContext from "../../../store/visual-bell-context";
+import { useSetVisualBell } from "../../../store/visual-bell-context";
 import Modal from "../../UI/Modal";
 import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
 import classes from "./LeaveModal.module.scss";
 
 const LeaveModal = ({ setShow, classObject }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const { post } = useApi();
 
 	const leaveHandler = async () => {

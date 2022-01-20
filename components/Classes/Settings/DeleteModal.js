@@ -2,7 +2,7 @@ import { useContext } from "react";
 import router from "next/router";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
-import VisualBellContext from "../../../store/visual-bell-context";
+import { useSetVisualBell } from "../../../store/visual-bell-context";
 import { PrimaryButton, TertiaryButton } from "../../UI/Buttons";
 import Modal from "../../UI/Modal";
 
@@ -11,7 +11,7 @@ import classes from "./DeleteModal.module.scss";
 const DeleteModal = ({ setShow, classObject }) => {
 	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 
 	const deleteHandler = async () => {
 		await post(

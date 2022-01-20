@@ -11,7 +11,6 @@ import MobileView from "../components/MobileView/MobileView";
 import AuthGuard from "../components/Auth/AuthGuard";
 
 import "../styles/globals.scss";
-import { VisualBellProvider2 } from "../store/test-context";
 
 type NextPageWithLayout = NextPage & {
 	getLayout?: (page: ReactElement) => JSX.Element;
@@ -30,19 +29,17 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
 
 	return (
 		<SessionProvider session={session}>
-			<VisualBellProvider2>
-				<VisualBellProvider>
-					<GlobalSessionContextProvider>
-						<MainLayoutContextProvider>
-							<div id="modal-root" />
-							<NextNProgress color="#772eff" options={{ showSpinner: false }} />
-							{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
-							<MobileView />
-							<VisualBell />
-						</MainLayoutContextProvider>
-					</GlobalSessionContextProvider>
-				</VisualBellProvider>
-			</VisualBellProvider2>
+			<VisualBellProvider>
+				<GlobalSessionContextProvider>
+					<MainLayoutContextProvider>
+						<div id="modal-root" />
+						<NextNProgress color="#772eff" options={{ showSpinner: false }} />
+						{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
+						<MobileView />
+						<VisualBell />
+					</MainLayoutContextProvider>
+				</GlobalSessionContextProvider>
+			</VisualBellProvider>
 		</SessionProvider>
 	);
 };

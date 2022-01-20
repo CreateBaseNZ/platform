@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
 import GlobalSessionContext from "../../store/global-session-context";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import MyAccountLayout from "../../components/Layouts/MyAccountLayout/MyAccountLayout";
 import { PasswordInput } from "../../components/UI/Input";
@@ -15,7 +15,7 @@ import classes from "../../styles/myAccount.module.scss";
 const MySecurity = () => {
 	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const [isLoading, setIsLoading] = useState(false);
 	const password = useRef({});
 	const {

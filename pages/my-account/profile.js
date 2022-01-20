@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import MyAccountLayout from "../../components/Layouts/MyAccountLayout/MyAccountLayout";
@@ -16,7 +16,7 @@ import classes from "../../styles/myAccount.module.scss";
 const MyProfile = () => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,

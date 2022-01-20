@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
-import VisualBellContext from "../../../store/visual-bell-context";
+import { useSetVisualBell } from "../../../store/visual-bell-context";
 import { nameMaxLength, nameMinLength, namePattern, nameValidation } from "../../../utils/formValidation";
 import { PrimaryButton } from "../../UI/Buttons";
 import Input from "../../UI/Input";
@@ -13,7 +13,7 @@ import classes from "./AliasModal.module.scss";
 const AliasModal = ({ setShow }) => {
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const { post } = useApi();
 	const {
 		register,

@@ -4,9 +4,8 @@ import router from "next/router";
 import axios from "axios";
 import useApi, { APIRes } from "../hooks/useApi";
 import { signOut } from "next-auth/react";
-import VisualBellContext from "./visual-bell-context";
 import { GroupAndUserObject } from "../types/groups";
-import { useSetVisualBell } from "./test-context";
+import { useSetVisualBell } from "./visual-bell-context";
 
 /** Global session object. */
 export interface IGlobalSession {
@@ -73,11 +72,9 @@ type GlobalSessionCtxProps = { children: ReactNode };
  */
 export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps) => {
 	const { data: session, status } = useSession();
-	const { setVisualBell } = useContext(VisualBellContext);
 	const { post } = useApi();
+	const setVisualBell = useSetVisualBell();
 	const [globalSession, setGlobalSession] = useState<IGlobalSession>(initialState);
-
-	const setVisualBell2 = useSetVisualBell();
 
 	console.log("** re-rendered **");
 
@@ -123,7 +120,6 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 				const group = data1.content.groups[data1.content.recentGroups?.[0]];
 				if (group) {
 					setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
-					setVisualBell2("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
 				}
 			})();
 		}
@@ -137,8 +133,7 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 		});
 		const group = newState.groups[newState.recentGroups[0]];
 		if (group) {
-			// setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
-			// setVisualBell2("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
+			setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
 		}
 	};
 

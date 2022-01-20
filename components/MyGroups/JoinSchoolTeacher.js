@@ -2,7 +2,7 @@ import { useCallback, useContext, useState } from "react";
 import _debounce from "lodash/debounce";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
 import { SearchBar, TextArea } from "../../components/UI/Input";
 import { PrimaryButton, SecondaryButton } from "../../components/UI/Buttons";
@@ -14,7 +14,7 @@ const JoinSchoolTeacher = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasRequested, setHasRequested] = useState(false);
 	const [queryDropdown, setQueryDropdown] = useState({ show: false, groups: null, selectedId: "" });
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const { post } = useApi();
 	const {
 		register,

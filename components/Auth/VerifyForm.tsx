@@ -2,9 +2,9 @@ import { useRef, useState, useContext, useEffect, KeyboardEvent, ChangeEvent, Cl
 import { useRouter } from "next/router";
 import { signIn, signOut } from "next-auth/react";
 import useApi from "../../hooks/useApi";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
-import Input, { IInputProps } from "../UI/Input";
+import Input from "../UI/Input";
 import { PrimaryButton } from "../UI/Buttons";
 
 import classes from "./AuthForms.module.scss";
@@ -18,7 +18,7 @@ const CODE_LENGTH = 6;
 
 const Verify = ({ routerEmail = "", routerCode = "" }: IVerifyProps): JSX.Element | null => {
 	const router = useRouter();
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isResending, setIsResending] = useState(false);

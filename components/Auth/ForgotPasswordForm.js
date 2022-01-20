@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
 import Input, { PasswordInput } from "../UI/Input";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import { PrimaryButton } from "../UI/Buttons";
 import { emailPattern } from "../../utils/formValidation";
 import { passwordMinLength, passwordValidate } from "../../utils/formValidation";
@@ -15,7 +15,7 @@ const codeLength = 6;
 const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { post } = useApi();
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const {
 		register,
 		handleSubmit,
@@ -78,7 +78,7 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 };
 
 const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const [isLoading, setIsLoading] = useState(false);
 	const [isResending, setIsResending] = useState(false);
 	const { post } = useApi();
@@ -193,7 +193,7 @@ const ForgotPasswordStepTwo = ({ setStep, inputValues, setInputValues }) => {
 };
 
 const ForgotPasswordStepThree = ({ inputValues }) => {
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const newPassword = useRef({});
 	const { post } = useApi();
 	const [isLoading, setIsLoading] = useState(false);

@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo, ReactNode, useCallback } from "react";
+import React, { createContext, Dispatch, ReactNode, SetStateAction, useCallback } from "react";
 
 /**
  * Visual bell type identifiers.
@@ -18,46 +18,32 @@ export type VisualBell = {
 	message: string;
 } | null;
 
-/** Sets the visual bell context state. */
-export type IntermediarySetter = (type?: /** Bell type identifier. */ BellType, message?: /** Message to be displayed. */ string) => void;
+const VisualBellContext = createContext<VisualBell>(null);
+const SetVisualBellContext = createContext<Dispatch<SetStateAction<VisualBell>>>(() => {});
 
-/** Visual bell context object. */
-export type VisualBellCtx = {
-	/** Visual bell object. */
-	visualBell: VisualBell;
-	/** Visual bell setter. */
-	setVisualBell: IntermediarySetter;
-};
-
-/**
- * @ignore
- */
-const VisualBellContext = createContext<VisualBellCtx>({
-	visualBell: null,
-	setVisualBell: () => {},
-});
-
-export default VisualBellContext;
-
-type VisualBellProviderProps = {
+type Props = {
 	children: ReactNode;
 };
 
-/**
- * @ignore
- */
-export const VisualBellProvider = ({ children }: VisualBellProviderProps) => {
-	const [visualBell, setVisualBell] = useState<VisualBell>(null);
+export const VisualBellProvider = ({ children }: Props) => {
+	const [visualBell, setVisualBell] = React.useState<VisualBell>(null);
 
-	const intermediarySetVisualBell: IntermediarySetter = useCallback((type, message) => (type && message ? setVisualBell({ type, message }) : setVisualBell(null)), []);
-
-	const value = useMemo(
-		() => ({
-			visualBell: visualBell,
-			setVisualBell: intermediarySetVisualBell,
-		}),
-		[visualBell, intermediarySetVisualBell]
+	return (
+		<VisualBellContext.Provider value={visualBell}>
+			<SetVisualBellContext.Provider value={setVisualBell}>{children}</SetVisualBellContext.Provider>
+		</VisualBellContext.Provider>
 	);
+};
 
-	return <VisualBellContext.Provider value={value}>{children}</VisualBellContext.Provider>;
+export const useVisualBell = () => React.useContext(VisualBellContext);
+
+/** Sets the visual bell context state. */
+export type setVisualBell = (type?: /** Bell type identifier. */ BellType, message?: /** Message to be displayed. */ string) => void;
+
+export const useSetVisualBell = () => {
+	const setState = React.useContext(SetVisualBellContext);
+
+	const setVisualBell: setVisualBell = useCallback((type, message) => (type && message ? setState({ type, message }) : setState(null)), [setState]);
+
+	return setVisualBell;
 };

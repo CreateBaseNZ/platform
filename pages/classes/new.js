@@ -4,7 +4,7 @@ import Link from "next/link";
 import router from "next/router";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
 import Input from "../../components/UI/Input";
@@ -16,7 +16,7 @@ import { classNameMaxLength, classNameMinLength } from "../../utils/formValidati
 const ClassesNew = () => {
 	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,

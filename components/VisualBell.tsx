@@ -1,10 +1,8 @@
-import { useContext, memo } from "react";
-import { useSetVisualBell, useVisualBell } from "../store/test-context";
-import VisualBellContext from "../store/visual-bell-context";
+import { memo } from "react";
+import { useSetVisualBell, useVisualBell } from "../store/visual-bell-context";
 import classes from "./VisualBell.module.scss";
 
 const VisualBell = (): JSX.Element => {
-	// const { visualBell, setVisualBell } = useContext(VisualBellContext);
 	const visualBell = useVisualBell();
 	const setVisualBell = useSetVisualBell();
 

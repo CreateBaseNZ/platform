@@ -5,7 +5,7 @@ import router from "next/router";
 import { useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
 import GlobalSessionContext from "../../store/global-session-context";
-import VisualBellContext from "../../store/visual-bell-context";
+import { useSetVisualBell } from "../../store/visual-bell-context";
 import Input, { SearchBar } from "../../components/UI/Input";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import MainLayout from "../../components/Layouts/MainLayout/MainLayout";
@@ -24,7 +24,7 @@ const NewSchool = () => {
 	const [showCountries, setShowCountries] = useState(false);
 	const [duplicateParams, setDuplicateParams] = useState();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const {
 		register,
 		handleSubmit,

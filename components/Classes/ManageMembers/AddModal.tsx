@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import router from "next/router";
 import useApi, { APIRes } from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
-import VisualBellContext from "../../../store/visual-bell-context";
+import { useSetVisualBell } from "../../../store/visual-bell-context";
 import { PrimaryButton } from "../../UI/Buttons";
 import { SearchBar } from "../../UI/Input";
 import Modal from "../../UI/Modal";
@@ -29,7 +29,7 @@ const AddModal = ({ setShow, classObject, setClassObject }: IAddModalProps): JSX
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [userList, setUserList] = useState<IUserList[]>([]);
-	const { setVisualBell } = useContext(VisualBellContext);
+	const setVisualBell = useSetVisualBell();
 	const { register, handleSubmit, watch } = useForm();
 	const searchValue = watch("searchValue");
 	const { post } = useApi();
