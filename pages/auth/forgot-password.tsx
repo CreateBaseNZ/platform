@@ -6,13 +6,13 @@ import AuthLayout from "../../components/Layouts/AuthLayout/AuthLayout";
 import router from "next/router";
 
 const ForgotPassword = (): JSX.Element | null => {
-	const { loaded, globalSession } = useContext(GlobalSessionContext);
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded && globalSession.accountId) return void router.replace("/");
+		if (globalSession.loaded && globalSession.accountId) return void router.replace("/");
 	}, [globalSession]);
 
-	if (!loaded || globalSession.accountId) return null;
+	if (!globalSession.loaded || globalSession.accountId) return null;
 
 	return (
 		<>

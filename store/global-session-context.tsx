@@ -27,6 +27,8 @@ export interface IGlobalSession {
 	recentGroups: number[];
 	/** Whether user is verified. */
 	verified: boolean;
+	/** Whether the session has loaded and the global session context is set. */
+	loaded: boolean;
 }
 
 const initialState: IGlobalSession = {
@@ -39,12 +41,11 @@ const initialState: IGlobalSession = {
 	profileId: "",
 	recentGroups: [],
 	verified: false,
+	loaded: false,
 };
 
 /** Global session context object. */
 export type GlobalSessionCtx = {
-	/** Whether the session has loaded and the global session context is set. */
-	loaded: boolean;
 	/** Global session object. */
 	globalSession: IGlobalSession;
 	/** Sets the global session object. */
@@ -57,7 +58,6 @@ export type GlobalSessionCtx = {
  * @ignore
  */
 const GlobalSessionContext = createContext<GlobalSessionCtx>({
-	loaded: false,
 	globalSession: initialState,
 	setGlobalSession: () => {},
 	postRecentGroups: () => {},
@@ -74,14 +74,12 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 	const { data: session, status } = useSession();
 	const { setVisualBell } = useContext(VisualBellContext);
 	const { post } = useApi();
-	const [loaded, setLoaded] = useState(false);
 	const [globalSession, setGlobalSession] = useState<IGlobalSession>(initialState);
 
 	console.log("** re-rendered **");
 
 	console.log(session);
 	console.log(status);
-	console.log(loaded);
 	console.log(globalSession);
 
 	useEffect(() => {
@@ -115,15 +113,14 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 					}
 					if (data2.status === "error" || data2.status === "failed") return router.push("/404");
 					data1.content.numOfNotifications = data2.content.length;
-					setGlobalSession((state) => ({ ...state, ...data1.content }));
+					setGlobalSession((state) => ({ ...state, ...data1.content, loaded: true }));
 					const group = data1.content.groups[data1.content.recentGroups?.[0]];
 					if (group) {
 						setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
 					}
-					setLoaded(true);
 				})();
 			} else {
-				setLoaded(true);
+				setGlobalSession((state) => ({ ...state, loaded: false }));
 			}
 		}
 	}, [status, session?.user]);
@@ -142,12 +139,11 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 
 	const value = useMemo(
 		() => ({
-			loaded: loaded,
 			globalSession: globalSession,
 			setGlobalSession: setGlobalSession,
 			postRecentGroups: postRecentGroups,
 		}),
-		[loaded, globalSession, postRecentGroups]
+		[globalSession, postRecentGroups]
 	);
 
 	return <GlobalSessionContext.Provider value={value}>{children}</GlobalSessionContext.Provider>;

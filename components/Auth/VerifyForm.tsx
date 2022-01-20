@@ -19,7 +19,7 @@ const CODE_LENGTH = 6;
 const Verify = ({ routerEmail = "", routerCode = "" }: IVerifyProps): JSX.Element | null => {
 	const router = useRouter();
 	const { setVisualBell } = useContext(VisualBellContext);
-	const { loaded, globalSession, setGlobalSession } = useContext(GlobalSessionContext);
+	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isResending, setIsResending] = useState(false);
 	const [error, setError] = useState<string | undefined>(undefined);
@@ -103,7 +103,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }: IVerifyProps): JSX.Elemen
 		submitCode(newCode.join(""));
 	};
 
-	if (!loaded || !router.isReady) return null;
+	if (!globalSession.loaded || !router.isReady) return null;
 
 	if (globalSession.verified) {
 		router.replace("/");

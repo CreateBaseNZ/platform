@@ -8,6 +8,7 @@ import OnboardingVideo from "../components/Onboarding/OnboardingVideo";
 import OnboardingText from "../components/Onboarding/OnboardingText";
 
 import classes from "../styles/onboarding.module.scss";
+import { getSession } from "next-auth/react";
 
 type OnboardingTask =
 	| {
@@ -249,5 +250,13 @@ Onboarding.getLayout = (page: ReactElement) => {
 };
 
 Onboarding.auth = "any";
+
+export async function getServerSideProps(context) {
+	return {
+		props: {
+			session: await getSession(context),
+		},
+	};
+}
 
 export default Onboarding;

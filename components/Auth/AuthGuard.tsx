@@ -24,10 +24,10 @@ type AuthGuardProps = {
 };
 
 const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
-	const { loaded, globalSession } = useContext(GlobalSessionContext);
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded) {
+		if (globalSession.loaded) {
 			if (!globalSession.accountId) {
 				return void signIn();
 			}
@@ -35,9 +35,9 @@ const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
 				return void router.push({ pathname: "/auth/verify", query: router.query });
 			}
 		}
-	}, [loaded, globalSession.accountId, globalSession.verified]);
+	}, [globalSession.loaded, globalSession.accountId, globalSession.verified]);
 
-	if (!loaded) return <LoadingScreen />;
+	if (!globalSession.loaded) return <LoadingScreen />;
 
 	if (globalSession.accountId) {
 		if (!globalSession.verified) {

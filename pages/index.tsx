@@ -6,10 +6,10 @@ import DEFAULT_TABS from "../constants/mainTabs";
 
 const Index = (): JSX.Element | null => {
 	const router = useRouter();
-	const { loaded, globalSession } = useContext(GlobalSessionContext);
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded) {
+		if (globalSession.loaded) {
 			if (globalSession.accountId) {
 				if (globalSession.recentGroups.length) {
 					console.log("hi");
@@ -21,7 +21,7 @@ const Index = (): JSX.Element | null => {
 				signIn();
 			}
 		}
-	}, [loaded, globalSession, router]);
+	}, [globalSession, router]);
 
 	return null;
 };

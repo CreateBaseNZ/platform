@@ -7,13 +7,13 @@ import GlobalSessionContext from "../../store/global-session-context";
 
 const Login = (): JSX.Element | null => {
 	const router = useRouter();
-	const { loaded, globalSession } = useContext(GlobalSessionContext);
+	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded && globalSession.accountId) return void router.replace("/");
-	}, [loaded, globalSession]);
+		if (globalSession.loaded && globalSession.accountId) return void router.replace("/");
+	}, [globalSession, router]);
 
-	if (!loaded || globalSession.accountId) return null;
+	if (!globalSession.loaded || globalSession.accountId) return null;
 
 	return (
 		<>

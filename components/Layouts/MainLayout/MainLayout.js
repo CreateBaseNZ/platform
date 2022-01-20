@@ -12,6 +12,8 @@ const MainLayout = ({ children, page }) => {
 	const { navIsCollapsed, headerIsCollapsed } = useContext(MainLayoutContext);
 	const [showAliasModal, setShowAliasModal] = useState(false);
 
+	console.log("** main layout rerendered **");
+
 	return (
 		<div className={classes.frame}>
 			{globalSession.accountId && (
