@@ -25,6 +25,9 @@ type Props = {
 	children: ReactNode;
 };
 
+/**
+ * @ignore
+ */
 export const VisualBellProvider = ({ children }: Props) => {
 	const [visualBell, setVisualBell] = React.useState<VisualBell>(null);
 
@@ -35,11 +38,17 @@ export const VisualBellProvider = ({ children }: Props) => {
 	);
 };
 
+/**
+ * @ignore
+ */
 export const useVisualBell = () => React.useContext(VisualBellContext);
 
 /** Sets the visual bell context state. */
 export type setVisualBell = (type?: /** Bell type identifier. */ BellType, message?: /** Message to be displayed. */ string) => void;
 
+/**
+ * @ignore
+ */
 export const useSetVisualBell = () => {
 	const setState = React.useContext(SetVisualBellContext);
 

@@ -102,7 +102,7 @@ const NewSchool = () => {
 				<title>Register a School | CreateBase</title>
 				<meta name="description" content="Register your school as a group on CreateBase" />
 			</Head>
-			<Link href="/my-groups">
+			<Link href="/my-groups" passHref>
 				<button className={classes.backBtn}>
 					<i className="material-icons-outlined">chevron_left</i>Back
 				</button>
