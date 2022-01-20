@@ -79,6 +79,9 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 
 	console.log("** re-rendered **");
 
+	console.log(session);
+	console.log(status);
+	console.log(loaded);
 	console.log(globalSession);
 
 	useEffect(() => {
@@ -123,22 +126,19 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 				setLoaded(true);
 			}
 		}
-	}, [status, session?.user, setVisualBell]);
+	}, [status, session?.user]);
 
-	const postRecentGroups = useCallback(
-		async (newState: IGlobalSession) => {
-			await post("/api/profile/update-saves", {
-				profileId: newState.profileId,
-				update: { recentGroups: newState.recentGroups },
-				date: new Date().toString(),
-			});
-			const group = newState.groups[newState.recentGroups[0]];
-			if (group) {
-				setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
-			}
-		},
-		[post, setVisualBell]
-	);
+	const postRecentGroups = async (newState: IGlobalSession) => {
+		await post("/api/profile/update-saves", {
+			profileId: newState.profileId,
+			update: { recentGroups: newState.recentGroups },
+			date: new Date().toString(),
+		});
+		const group = newState.groups[newState.recentGroups[0]];
+		if (group) {
+			setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
+		}
+	};
 
 	const value = useMemo(
 		() => ({

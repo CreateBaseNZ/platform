@@ -12,8 +12,6 @@ const MainLayout = ({ children, page }) => {
 	const { navIsCollapsed, headerIsCollapsed } = useContext(MainLayoutContext);
 	const [showAliasModal, setShowAliasModal] = useState(false);
 
-	console.log(globalSession);
-
 	return (
 		<div className={classes.frame}>
 			{globalSession.accountId && (

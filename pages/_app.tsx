@@ -4,7 +4,7 @@ import { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import NextNProgress from "nextjs-progressbar";
 import { GlobalSessionContextProvider } from "../store/global-session-context";
-import { VisualBellContextProvider } from "../store/visual-bell-context";
+import { VisualBellProvider } from "../store/visual-bell-context";
 import { MainLayoutContextProvider } from "../store/main-layout-context";
 import VisualBell from "../components/VisualBell";
 import MobileView from "../components/MobileView/MobileView";
@@ -29,7 +29,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
 
 	return (
 		<SessionProvider session={session}>
-			<VisualBellContextProvider>
+			<VisualBellProvider>
 				<GlobalSessionContextProvider>
 					<MainLayoutContextProvider>
 						<div id="modal-root" />
@@ -39,7 +39,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
 						<VisualBell />
 					</MainLayoutContextProvider>
 				</GlobalSessionContextProvider>
-			</VisualBellContextProvider>
+			</VisualBellProvider>
 		</SessionProvider>
 	);
 };

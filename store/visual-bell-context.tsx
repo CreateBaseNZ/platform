@@ -46,7 +46,7 @@ type VisualBellProviderProps = {
 /**
  * @ignore
  */
-export const VisualBellContextProvider = ({ children }: VisualBellProviderProps) => {
+export const VisualBellProvider = ({ children }: VisualBellProviderProps) => {
 	const [visualBell, setVisualBell] = useState<VisualBell>(null);
 
 	const intermediarySetVisualBell: IntermediarySetter = useCallback((type, message) => (type && message ? setVisualBell({ type, message }) : setVisualBell(null)), []);
