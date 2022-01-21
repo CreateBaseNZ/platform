@@ -13,15 +13,12 @@ const Index = (): JSX.Element => {
 	if (!globalSession.accountId) {
 		console.log("not signed in");
 		signIn();
-		return <></>;
-	}
-
-	if (globalSession.recentGroups.length) {
+	} else if (globalSession.recentGroups.length) {
 		router.replace("/browse");
-		return <></>;
+	} else {
+		router.replace(DEFAULT_TABS[0].urlObject);
 	}
 
-	router.replace(DEFAULT_TABS[0].urlObject);
 	return <></>;
 };
 
