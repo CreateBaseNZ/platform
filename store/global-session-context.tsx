@@ -78,47 +78,49 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 
 	console.log("** global context re-rendered **");
 
+	console.log(globalSession);
+
 	useEffect(() => {
-		if (status !== "loading") {
-			if (!session?.user) {
-				setGlobalSession((state) => ({ ...state, loaded: false }));
+		if (status === "loading") return;
+		if (!session?.user) {
+			console.log("not signed in");
+			setGlobalSession((state) => ({ ...state, loaded: true }));
+			return;
+		}
+		const inputs = {
+			date: new Date().toString(),
+			properties: { profile: ["recentGroups"], license: ["alias"] },
+		};
+		(async () => {
+			let data1: APIRes = {};
+			try {
+				data1 = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"] as APIRes; // TODO - find the not hacky solution
+			} catch (error) {
+				data1.status = "error";
+			}
+			if (data1.status === "error" || data1.status === "failed") {
+				if (data1.content === "invalid account id") {
+					signOut();
+				} else {
+					router.push("/404");
+				}
 				return;
 			}
-			const inputs = {
-				date: new Date().toString(),
-				properties: { profile: ["recentGroups"], license: ["alias"] },
-			};
-			(async () => {
-				let data1: APIRes = {};
-				try {
-					data1 = (await axios.post("/api/session", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: inputs }))["data"] as APIRes; // TODO - find the not hacky solution
-				} catch (error) {
-					data1.status = "error";
-				}
-				if (data1.status === "error" || data1.status === "failed") {
-					if (data1.content === "invalid account id") {
-						signOut();
-					} else {
-						router.push("/404");
-					}
-					return;
-				}
-				const groups = data1.content.groups.filter((group: GroupAndUserObject) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated");
-				let data2: APIRes = {};
-				try {
-					data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups } }))["data"] as APIRes; // TODO - find the not hacky solution
-				} catch (error) {
-					data2.status = "error";
-				}
-				if (data2.status === "error" || data2.status === "failed") return router.push("/404");
-				data1.content.numOfNotifications = data2.content.length;
-				setGlobalSession((state) => ({ ...state, ...data1.content, loaded: true }));
-				const group = data1.content.groups[data1.content.recentGroups?.[0]];
-				if (group) {
-					setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
-				}
-			})();
-		}
+			const groups = data1.content.groups.filter((group: GroupAndUserObject) => (group.role === "admin" || group.role === "teacher") && group.verified && group.status === "activated");
+			let data2: APIRes = {};
+			try {
+				data2 = (await axios.post("/api/notifications/fetch", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { groups } }))["data"] as APIRes; // TODO - find the not hacky solution
+			} catch (error) {
+				data2.status = "error";
+			}
+			if (data2.status === "error" || data2.status === "failed") return router.push("/404");
+			data1.content.numOfNotifications = data2.content.length;
+			setGlobalSession((state) => ({ ...state, ...data1.content, loaded: true }));
+			const group = data1.content.groups[data1.content.recentGroups?.[0]];
+			if (group) {
+				setVisualBell("success", `Now viewing as a${group.role === "admin" ? "n" : ""} ${group.role} of ${group.name}`);
+			}
+		})();
 	}, [status, session?.user, setVisualBell]);
 
 	const postRecentGroups = useCallback(

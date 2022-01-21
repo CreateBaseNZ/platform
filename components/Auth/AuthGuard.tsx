@@ -26,27 +26,28 @@ type AuthGuardProps = {
 const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
-	useEffect(() => {
-		if (globalSession.loaded) {
-			if (!globalSession.accountId) {
-				return void signIn();
-			}
-			if (!globalSession.verified) {
-				return void router.push({ pathname: "/auth/verify", query: router.query });
-			}
-		}
-	}, [globalSession.loaded, globalSession.accountId, globalSession.verified]);
+	console.log(globalSession);
+
+	// useEffect(() => {
+	// 	if (!globalSession.loaded) return;
+	// 	if (!globalSession.accountId) return void signIn();
+	// 	if (!globalSession.verified) return void router.push({ pathname: "/auth/verify", query: router.query });
+	// }, [globalSession.loaded, globalSession.accountId, globalSession.verified]);
 
 	if (!globalSession.loaded) return <LoadingScreen />;
 
-	if (globalSession.accountId) {
-		if (!globalSession.verified) {
-			return <LoadingScreen />;
-		} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]]?.role, auth)) {
-			return <>{children}</>;
-		} else {
-			return <div>No access</div>;
-		}
+	if (!globalSession.accountId) {
+		console.log("no account");
+		signIn();
+		return <></>;
+	}
+
+	if (!globalSession.verified) {
+		return <LoadingScreen />;
+	} else if (hasAccess(globalSession.groups[globalSession.recentGroups[0]]?.role, auth)) {
+		return <>{children}</>;
+	} else {
+		return <div>No access</div>;
 	}
 
 	return <LoadingScreen />;
