@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect } from "react";
+import { ReactNode, useContext } from "react";
 import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
 import router from "next/router";
@@ -33,6 +33,7 @@ const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
 		signIn();
 		return <LoadingScreen />;
 	}
+
 	if (!globalSession.verified) {
 		console.log("not verified");
 		router.push({ pathname: "/auth/verify", query: router.query });

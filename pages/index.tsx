@@ -11,7 +11,6 @@ const Index = (): JSX.Element => {
 	if (!globalSession.loaded) return <></>;
 
 	if (!globalSession.accountId) {
-		console.log("not signed in");
 		signIn();
 	} else if (globalSession.recentGroups.length) {
 		router.replace("/browse");
