@@ -8,22 +8,6 @@ const Index = (): JSX.Element => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 
-	console.log(globalSession);
-
-	// useEffect(() => {
-	// 	if (!globalSession.loaded) return;
-	// 	if (!globalSession.accountId) {
-	// 		console.log("not signed in");
-	// 		return void signIn();
-	// 	}
-	// 	if (globalSession.recentGroups.length) {
-	// 		console.log("hi");
-	// 		return void router.replace("/browse");
-	// 	} else {
-	// 		return void router.replace(DEFAULT_TABS[0].urlObject);
-	// 	}
-	// }, [globalSession, router]);
-
 	if (!globalSession.loaded) return <></>;
 
 	if (!globalSession.accountId) {

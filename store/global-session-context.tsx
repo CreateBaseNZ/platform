@@ -78,8 +78,6 @@ export const GlobalSessionContextProvider = ({ children }: GlobalSessionCtxProps
 
 	console.log("** global context re-rendered **");
 
-	console.log(globalSession);
-
 	useEffect(() => {
 		if (status === "loading") return;
 		if (!session?.user) {
