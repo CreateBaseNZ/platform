@@ -25,6 +25,8 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 		mode: "onTouched",
 	});
 
+	console.log(errors);
+
 	const onSubmit = async (input) => {
 		setIsLoading(true);
 		await post(
@@ -39,7 +41,7 @@ const ForgotPasswordStepOne = ({ setStep, setInputValues }) => {
 				setStep(1);
 			},
 			(data) => {
-				if (data.content === "does not exist") {
+				if (data.content?.account === "does not exist") {
 					setError("email", {
 						type: "manual",
 						message: "We could not find an account with that email",

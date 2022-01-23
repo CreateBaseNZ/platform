@@ -30,9 +30,9 @@ const Error = ({ statusCode }: IErrorProps): JSX.Element => {
 				<h3>{statusCode ? `A server-side ${statusCode} error occurred` : "A client-side error occurred"}, we're doing our best to resolve it. Sorry for the inconvenience!</h3>
 			</div>
 			<Link href="/" replace={true}>
-				<div>
+				<a>
 					<PrimaryButton mainLabel="Take me home" className={classes.btn} />
-				</div>
+				</a>
 			</Link>
 		</div>
 	);
