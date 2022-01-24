@@ -2,17 +2,15 @@ import { useEffect, useContext, ReactElement, useState } from "react";
 import Image from "next/Image";
 import YouTube from "react-youtube";
 import { useRouter } from "next/router";
-import Head from "next/head";
-import useMixpanel from "../../../hooks/useMixpanel";
 import ReactMarkdown from "react-markdown";
+import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { ALL_PROJECTS_ARRAY } from "../../../lib/getProjectData";
 import getProjectData from "../../../lib/getProjectData";
-
+import { IProjectReadOnly } from "../../../types/newProjects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 
 import classes from "/styles/define.module.scss";
-import { IProjectReadOnly } from "../../../types/newProjects";
 
 interface Props {
 	data: IProjectReadOnly;
@@ -36,15 +34,13 @@ const Define = ({ data }: Props) => {
 
 	return (
 		<div className={classes.page}>
-			{!showVid && (
-				<div className={classes.mediaContainer}>
-					<div className={classes.mediaWrapper}>
-						<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${data.id}/img/thumbnail.png`} layout="fill" objectFit="cover" objectPosition="center 25%" alt={data.title} />
-					</div>
+			<div className={classes.thumbnailContainer}>
+				<div className={`${classes.thumbnailWrapper} ${showVid ? classes.shrink : ""}`}>
+					<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${data.id}/img/thumbnail.png`} layout="fill" objectFit="cover" objectPosition="center 25%" alt={data.title} />
 				</div>
-			)}
+			</div>
 			<main className={classes.main}>
-				<div className={classes.mediaClick}>
+				<div className={classes.videoContainer}>
 					{showVid && (
 						<div className={classes.vidWrapper}>
 							<YouTube
@@ -57,7 +53,7 @@ const Define = ({ data }: Props) => {
 						</div>
 					)}
 					{!showVid && (
-						<div className={classes.clickable} onClick={() => setShowVid(true)} title="Play">
+						<div className={classes.playContainer} onClick={() => setShowVid(true)} title="Play">
 							<button>
 								<i className="material-icons">play_arrow</i>
 							</button>
