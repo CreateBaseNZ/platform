@@ -9,6 +9,7 @@ import ModuleBody from "../../../components/Project/ModuleBody";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "../../../styles/imagine.module.scss";
+import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 
 const Imagine = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -63,7 +64,7 @@ const Imagine = () => {
 };
 
 Imagine.getLayout = (page) => {
-	return <ProjectLayout activeStep="imagine">{page}</ProjectLayout>;
+	return <NewProjectLayout step="imagine">{page}</NewProjectLayout>;
 };
 
 Imagine.auth = "user";

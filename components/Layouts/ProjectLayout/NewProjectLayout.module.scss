@@ -1,0 +1,167 @@
+@import "/styles/variables.scss";
+
+.container {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	display: flex;
+}
+
+.nav {
+	width: fit-content;
+	z-index: 50;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 4rem;
+	display: flex;
+	align-items: center;
+	background: white;
+	border-radius: 0 0 12px 12px;
+	padding: 0 0.5rem;
+	box-shadow: 0 8px 32px -8px rgba($blue-dark, 0.1);
+	transition: all 0.2s ease-out;
+}
+
+.logo,
+.title,
+.steps,
+.buttons {
+	display: flex;
+	align-items: center;
+	padding: 0 1rem;
+	position: relative;
+	&:not(:last-child)::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		right: 0;
+		height: 2rem;
+		width: 1px;
+		background: $lighter;
+		transform: translateY(-50%);
+	}
+}
+
+.logo {
+	height: 100%;
+	.mainMenu {
+		padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+		border-radius: 0.75rem;
+		display: flex;
+		align-items: center;
+		i {
+			margin-left: 0.25rem;
+			font-size: 1.25rem;
+			color: $dark;
+			transition: transform 0.1s ease-out;
+		}
+		&:hover {
+			background: $lighter;
+			i {
+				transform: translateY(2px);
+			}
+		}
+	}
+}
+
+.title {
+	font-size: 14px;
+	font-weight: 600;
+	color: $darkest;
+}
+
+.steps {
+	height: 100%;
+	a {
+		height: 100%;
+		position: relative;
+		padding: 0 1rem;
+		color: $light;
+		font-size: 14px;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		transition: color 0.1s ease-out;
+		&::after {
+			content: "";
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			height: 0;
+			width: calc(100% - 2rem);
+			background: $blue-dark;
+			transition: height 0.1s ease-out;
+		}
+		&:hover {
+			color: $dark;
+		}
+		&.active {
+			color: $blue-dark;
+			&::after {
+				height: 2px;
+			}
+		}
+	}
+	.separator {
+		height: 4px;
+		width: 4px;
+		background: $light;
+		border-radius: 4px;
+		transition: all 0.2s ease-out;
+	}
+}
+
+.buttons {
+	.group {
+		display: flex;
+		align-items: center;
+		font-size: 12px;
+		color: $dark;
+		i {
+			font-size: 1rem;
+			color: inherit;
+			margin-right: 0.5rem;
+		}
+	}
+	.upgrade {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 2.5rem;
+		width: 2.5rem;
+		background: $gold;
+		margin: 0 1rem;
+		border-radius: 0.75rem;
+		box-shadow: 0 4px 16px 0 rgba($gold, 0.5);
+		transition: transform 0.2s ease-out;
+		i {
+			font-size: 1.5rem;
+			color: white;
+		}
+		&:hover {
+			transform: translateY(-4px);
+		}
+	}
+	.avatar {
+		border-radius: 999px;
+		overflow: hidden;
+	}
+}
+
+@media only screen and (min-width: 1366px) {
+	.nav {
+		height: 4rem;
+		border-radius: 0 0 1rem 1rem;
+		padding: 0 1rem;
+	}
+
+	.steps {
+		.separator {
+			height: 1px;
+			width: 1rem;
+		}
+	}
+}

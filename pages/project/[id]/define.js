@@ -8,6 +8,8 @@ import Img from "../../../components/UI/Img";
 import VideoViewer from "../../../components/Project/VideoViewer";
 import getProjectData from "../../../utils/getProjectData";
 
+import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
+
 import classes from "/styles/define.module.scss";
 
 const Define = () => {
@@ -71,7 +73,7 @@ const Define = () => {
 };
 
 Define.getLayout = (page) => {
-	return <ProjectLayout activeStep="define">{page}</ProjectLayout>;
+	return <NewProjectLayout step="define">{page}</NewProjectLayout>;
 };
 
 Define.auth = "user";
