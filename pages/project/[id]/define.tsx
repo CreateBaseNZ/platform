@@ -36,10 +36,6 @@ const Define = ({ data }: Props) => {
 
 	return (
 		<div className={classes.page}>
-			<Head>
-				<title>Define • {data.title} | CreateBase</title>
-				<meta name="description" content={data.description} />
-			</Head>
 			{!showVid && (
 				<div className={classes.mediaContainer}>
 					<div className={classes.mediaWrapper}>
@@ -78,8 +74,12 @@ const Define = ({ data }: Props) => {
 	);
 };
 
-Define.getLayout = (page: ReactElement) => {
-	return <NewProjectLayout step="define">{page}</NewProjectLayout>;
+Define.getLayout = (page: ReactElement, data: any) => {
+	return (
+		<NewProjectLayout step="define" data={data.data}>
+			{page}
+		</NewProjectLayout>
+	);
 };
 
 Define.auth = "user";

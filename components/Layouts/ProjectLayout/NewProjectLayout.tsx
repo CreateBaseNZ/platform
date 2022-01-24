@@ -1,5 +1,6 @@
 import { Fragment, ReactElement, useContext, useState } from "react";
 import Image from "next/image";
+import Head from "next/head";
 import Link from "next/link";
 import classes from "./NewProjectLayout.module.scss";
 import STEPS from "../../../constants/projectSteps";
@@ -8,22 +9,28 @@ import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
 import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
+import { IProjectReadOnly } from "../../../types/newProjects";
 
 interface Props {
 	children: ReactElement;
 	step: string;
+	data: IProjectReadOnly;
 	isFlat?: boolean;
 }
 
-const NewProjectLayout = ({ children, step, isFlat = false }: Props) => {
+const NewProjectLayout = ({ children, step, data, isFlat = false }: Props) => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [showMenu, setShowMenu] = useState(false);
 
-	console.log(showMenu);
+	console.log(data);
 
 	return (
 		<div className={classes.container}>
+			<Head>
+				<title>Define • {data.title}</title>
+				<meta name="description" content={data.description} />
+			</Head>
 			<nav className={`${classes.nav} ${isFlat ? classes.flat : ""}`}>
 				<div className={`${classes.logo} ${showMenu ? classes.active : ""}`} tabIndex={-1} onBlur={() => setShowMenu(false)}>
 					<button className={classes.menuBtn} onClick={() => setShowMenu((state) => !state)} title="Open menu">
