@@ -5,7 +5,7 @@ import { NodeMini } from "./NodeGeneral";
 
 import classes from "./Nodes.module.scss";
 
-const NodeOperations = ({ id, label, data = { values: { a: 1, b: 2 }, connections: [] }, className = "", isConnectable }) => {
+export const NodeOperations = ({ id, label, data = { values: { a: 1, b: 2 }, connections: [] }, className = "", isConnectable }) => {
 	return (
 		<div className={`${classes.node} ${classes.operating} ${classes.hasRightHandle} ${className}`}>
 			<CustomHandle type="target" position="top" id="float__in__a" style={{ left: "30px", transform: "none" }} isConnectable={isConnectable} connections={data.connections} />
@@ -111,7 +111,7 @@ export const NodeGeneralOperator = memo(({ id, data = { values: { a: 1, b: 2, op
 	);
 });
 
-const NodeOperationsMini = (props) => {
+export const NodeOperationsMini = (props) => {
 	return (
 		<NodeMini {...props} className={`${classes.operating} ${props.className}`}>
 			<div className={classes.blankInput} />

@@ -61,3 +61,11 @@ export const NodePrintMini = memo(() => {
 export const NodeDelayMini = memo(() => {
 	return <NodeUtilsMini label="Delay" nodeType="NodeDelay" node={<NodeDelay />} />;
 });
+
+export const NodeTrueMini = memo(() => {
+	return <NodeUtilsMini label="True" nodeType="NodeTrue" node={<NodePrint />} />;
+});
+
+export const NodeFalseMini = memo(() => {
+	return <NodeUtilsMini label="False" nodeType="NodeFalse" node={<NodeDelay />} />;
+});

@@ -3,7 +3,7 @@ import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeAbsolute, NodeArcT
 import { NodeGreaterThan, NodeLessThan, NodeEquals, NodeNotEquals } from "../components/Nodes/NodeComparisons";
 import { NodeAnd, NodeOr, NodeNot } from "../components/Nodes/NodeLogicals";
 import { NodeIf, NodeRepeat, NodeWhile } from "../components/Nodes/NodeConditionals";
-import { NodePrint, NodeDelay, NodeTrue, NodeFalse } from "../components/Nodes/NodeUtils";
+import { NodePrint, NodeDelay} from "../components/Nodes/NodeUtils";
 import { NodeMagnebotMoveArm, NodeMagnebotSwitch } from "../components/Nodes/NodeMagneBot";
 import {
 	NodeAimBotGetYawAngle,
@@ -50,6 +50,15 @@ import {
 	NodeTrainingBotPumpTyre,
 	NodeTrainingBotWalk,
 	NodeTrainingBotStop,
+	NodeTrainingBotAdd,
+	NodeTrainingBotSub,
+	NodeTrainingBotMul,
+	NodeTrainingBotDiv,
+	NodeTrainingBotThrowBalloon,
+	NodeRestartInitialize,
+	NodeDelayedRestartInitialize,
+	NodeTrue,
+	NodeFalse
 } from "../components/Nodes/NodeTrainingCamp";
 
 import { ExecutionEdge, BooleanEdge, FloatEdge } from "../components/Nodes/Edges";
@@ -185,6 +194,13 @@ export const nodeTypes = {
 	NodeTrainingBotPumpTyre,
 	NodeTrainingBotWalk,
 	NodeTrainingBotStop,
+	NodeTrainingBotAdd,
+	NodeTrainingBotSub,
+	NodeTrainingBotMul,
+	NodeTrainingBotDiv,
+	NodeTrainingBotThrowBalloon,
+	NodeRestartInitialize,
+	NodeDelayedRestartInitialize
 };
 
 export const tooltips = {
@@ -204,7 +220,6 @@ export const tooltips = {
 		<FloatType />,
 		"Outputs an input number that is restricted between the given minimum and maximum values",
 	],
-
 	NodeGeneralOperator: [<FloatType />, <FloatType />, "Outputs the calulation based on the operation selected"],
 	NodeGreaterThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is greater than the right input, and FALSE otherwise"],
 	NodeLessThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is less than the right input, and FALSE otherwise"],
@@ -330,6 +345,13 @@ export const tooltips = {
 	NodeTrainingBotPumpTyre: [<ExecutionType />, <ExecutionType />, "Pump the tyre once"],
 	NodeTrainingBotWalk: [<ExecutionType />, <ExecutionType />, "Start walking forward"],
 	NodeTrainingBotStop: [<ExecutionType />, <ExecutionType />, "Stop the robot walking"],
+	NodeTrainingBotAdd:[<FloatType />, <FloatType />, "Outputs the sum of the two inputs"],
+	NodeTrainingBotSub:[<FloatType />, <FloatType />, "Outputs the difference of the two inputs"],
+	NodeTrainingBotMul:[<FloatType />, <FloatType />, "Outputs the product of the two inputs"],
+	NodeTrainingBotDiv:[<FloatType />, <FloatType />, "Outputs the quotient of the two inputs"],
+	NodeTrainingBotThrowBalloon: [<ExecutionType />, <FloatType />, <ExecutionType />, "Throw the balloon a specified distance"],
+	NodeRestartInitialize: [<ExecutionType />, <ExecutionType />, "Initialize the robot"],
+	NodeDelayedRestartInitialize:  [<ExecutionType />, <ExecutionType />, "Initialize the robot"]
 };
 
 export const initialElements = [

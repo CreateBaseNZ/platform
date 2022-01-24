@@ -422,7 +422,7 @@
 	},
 	{
 		"robot": "trainingbot",
-		"startingCode": "unityContext.send(\"SceneController\",\"ResetScene\")",
+		"startingCode": "",
 		"sensors": {
 			"NodeTrainingBotGetBananaGreen": {
 				"name": "greenBananaSensor",
@@ -442,6 +442,16 @@
 			}
 		},
 		"actions": {
+			"NodeRestartInitialize": {
+				"inputs": [],
+				"syntaxSimple": "Initialize",
+				"syntax": "unityContext.send(\"SceneController\",\"ResetScene\")"
+			},
+			"NodeDelayedRestartInitialize": {
+				"inputs": [],
+				"syntaxSimple": "Initialize",
+				"syntax": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 500);\n})\n};\nawait reset()\n"
+			},
 			"NodeTrainingBotPunch": {
 				"inputs": [],
 				"syntaxSimple": "punch",
@@ -482,7 +492,7 @@
 			"NodeStart": {
 				"simpleLogic": "",
 				"inputs": [],
-				"logic": "if(sensorData){\n",
+				"logic": "",
 				"await": false
 			},
 			"NodeTrainingBotPullLever": {
@@ -497,10 +507,102 @@
 				"logic": "unityContext.send(\"Lever\", \"PullLever\", a ? 1 : 0);",
 				"await": false
 			},
+			"NodeTrainingBotThrowBalloon": {
+				"simpleLogic": "throwBalloon",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a);\nunityContext.send(\"Robot\", \"ThrowBalloon\", a);",
+				"await": false
+			},
+			"NodeTrue": {
+				"simpleLogic": "true",
+				"inputs": [],
+				"logic": "return true;" ,
+				"await": false
+			},
+			"NodeFalse": {
+				"simpleLogic": "false",
+				"inputs": [],
+				"logic": "return false;" ,
+				"await": false
+			},
+			"NodeTrainingBotAdd": {
+				"simpleLogic": "add",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "b",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a+b);" ,
+				"await": false
+			},
+			"NodeTrainingBotSub": {
+				"simpleLogic": "sub",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "b",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a-b);" ,
+				"await": false
+			},
+			"NodeTrainingBotMul": {
+				"simpleLogic": "mul",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "b",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a*b);" ,
+				"await": false
+			},
+			"NodeTrainingBotDiv": {
+				"simpleLogic": "div",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "b",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a/b);" ,
+				"await": false
+			},
 			"NodeEnd": {
 				"simpleLogic": "",
 				"inputs": [],
-				"logic": "}",
+				"logic": "",
 				"await": false
 			}
 		}

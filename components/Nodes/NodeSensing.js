@@ -2,7 +2,7 @@ import { EntityDropdown, NodeMini } from "./NodeGeneral";
 import classes from "./Nodes.module.scss";
 import CustomHandle from "./Handles";
 
-const NodeSensing = ({ data = { values: {}, connections: [] }, isConnectable, label, style }) => {
+export const NodeSensing = ({ data = { values: {}, connections: [] }, isConnectable, label, style }) => {
 	return (
 		<div className={`${classes.node} ${classes.sensing} ${classes.hasRightHandle}`} style={style}>
 			{/* <h4>Distance from</h4>

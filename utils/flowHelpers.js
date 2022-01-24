@@ -36,7 +36,10 @@ export const getDefaultValues = (type) => {
 		type === "NodeTrainingBotMoveForward" ||
 		type === "NodeTrainingBotPumpTyre" ||
 		type === "NodeTrainingBotWalk" ||
-		type === "NodeTrainingBotStop"
+		type === "NodeTrainingBotStop" ||
+		type === "NodeTrainingBotThrowBalloon," ||
+		type === "NodeRestartInitialize," ||
+		type === "NodeDelayedRestartInitialize"
 	) {
 		return { a: 0 };
 	}
@@ -48,7 +51,11 @@ export const getDefaultValues = (type) => {
 		type === "NodeGreaterThan" ||
 		type === "NodeLessThan" ||
 		type === "NodeEquals" ||
-		type === "NodeNotEquals"
+		type === "NodeNotEquals" ||
+		type === "NodeTrainingBotAdd" ||
+		type === "NodeTrainingBotSub" ||
+		type === "NodeTrainingBotMul" ||
+		type === "NodeTrainingBotDiv"
 	) {
 		return { a: 0, b: 0 };
 	}
@@ -122,8 +129,8 @@ export const nodeTypeHandles = {
 	NodeWhile: ["execution__in", "boolean__in__condition", "execution__out__0", "execution__out__1"],
 	NodePrint: ["execution__in", "float__in__a", "execution__out"],
 	NodeDelay: ["execution__in", "float__in__a", "execution__out"],
-	NodeTrue: [],
-	NodeFalse: [],
+	NodeTrue: sensingHandles,
+	NodeFalse: sensingHandles,
 
 	NodeMagnebotMoveArm: ["execution__in", "float__in__x", "float__in__y", "float__in__z", "execution__out"],
 	NodeMagnebotSwitch: actionHandles,
@@ -177,6 +184,14 @@ export const nodeTypeHandles = {
 	NodeTrainingBotPumpTyre: actionHandles,
 	NodeTrainingBotWalk: actionHandles,
 	NodeTrainingBotStop: actionHandles,
+	NodeTrainingBotAdd: operatorHandles,
+	NodeTrainingBotSub: operatorHandles,
+	NodeTrainingBotMul: operatorHandles,
+	NodeTrainingBotDiv: operatorHandles,
+	NodeTrainingBotThrowBalloon: actionHandles,
+	NodeRestartInitialize: actionHandles,
+	NodeDelayedRestartInitialize: actionHandles
+	
 };
 
 export const infoLogs = [

@@ -480,11 +480,11 @@ export const isOnceCode = (projectName) => {
 		case "heat-seeker":
 		case "aimbot":
 		case "hyperloop":
-		case "flow-training-camp":
+
 			return false;
 		case "magnebot":
-		
+		case "flow-training-camp":
 			return true;
-		
+
 	}
 };
