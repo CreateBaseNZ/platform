@@ -84,12 +84,12 @@ export interface IProject {
 		md: string;
 	};
 	/** Imagine step data. */
-	// imagine: {
-	// 	/** Minimum recommended time spent on Imagine step. */
-	// 	threshold: number;
-	// 	/** List of Imagine step modules. */
-	// 	modules: ModuleList;
-	// };
+	imagine: {
+		/** Minimum recommended time spent on Imagine step. */
+		threshold: number;
+		/** List of Imagine step modules. */
+		modules: ModuleList;
+	};
 	// /** Project subsystems. */
 	// subsystems: ISubsystem[];
 	// /** Improve step data. */

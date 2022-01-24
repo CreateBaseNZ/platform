@@ -29,41 +29,41 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
     
 Unfortunately, a self-driving cart has driven through our recycling facility and spilt bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...`,
 	},
-	// imagine: {
-	// 	threshold: 300,
-	// 	modules: [
-	// 		{
-	// 			type: "pdf",
-	// 			title: "Intro to recycling",
-	// 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/recycling.jpg",
-	// 			url: "/magnebot/pdf/recycling.pdf",
-	// 		},
-	// 		{
-	// 			type: "pdf",
-	// 			title: "Intro to robotics",
-	// 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/robot.png",
-	// 			url: "/magnebot/pdf/robotics.pdf",
-	// 		},
-	// 		{
-	// 			type: "tut",
-	// 			title: "How to MagneBot",
-	// 			items: [
-	// 				{
-	// 					src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-1.mp4",
-	// 					subtitle: "Use the controls to move the arm and pick up rubbish bags",
-	// 				},
-	// 				{
-	// 					src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-2.mp4",
-	// 					subtitle: "Get all three rubbish bags into the bins",
-	// 				},
-	// 				{
-	// 					src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-3.mp4",
-	// 					subtitle: "Hold down and drag with right click to orbit the camera around the arm",
-	// 				},
-	// 			],
-	// 		},
-	// 	],
-	// },
+	imagine: {
+		threshold: 300,
+		modules: [
+			{
+				type: "pdf",
+				title: "Intro to recycling",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/recycling.jpg",
+				url: "/magnebot/pdf/recycling.pdf",
+			},
+			{
+				type: "pdf",
+				title: "Intro to robotics",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/robot.png",
+				url: "/magnebot/pdf/robotics.pdf",
+			},
+			{
+				type: "tut",
+				title: "How to MagneBot",
+				items: [
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-1.mp4",
+						subtitle: "Use the controls to move the arm and pick up rubbish bags",
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-2.mp4",
+						subtitle: "Get all three rubbish bags into the bins",
+					},
+					{
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-3.mp4",
+						subtitle: "Hold down and drag with right click to orbit the camera around the arm",
+					},
+				],
+			},
+		],
+	},
 	// subsystems: [
 	// 	{
 	// 		title: "Sequential programming",

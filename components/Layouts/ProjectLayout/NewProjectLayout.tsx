@@ -28,7 +28,9 @@ const NewProjectLayout = ({ children, step, data, isFlat = false }: Props) => {
 	return (
 		<div className={classes.container}>
 			<Head>
-				<title>Define • {data.title}</title>
+				<title>
+					{step} • {data.title}
+				</title>
 				<meta name="description" content={data.description} />
 			</Head>
 			<nav className={`${classes.nav} ${isFlat ? classes.flat : ""}`}>
@@ -63,7 +65,7 @@ const NewProjectLayout = ({ children, step, data, isFlat = false }: Props) => {
 						<Fragment key={s.name}>
 							{i !== 0 ? <div className={classes.separator} /> : null}
 							<Link href={{ pathname: `/project/[id]/${s.name}`, query: { id: router.query.id } }}>
-								<a className={step === s.name ? classes.active : ""} title={s.title}>
+								<a className={step.toLowerCase() === s.name ? classes.active : ""} title={s.title}>
 									{s.title}
 								</a>
 							</Link>

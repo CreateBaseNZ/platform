@@ -76,7 +76,7 @@ const Define = ({ data }: Props) => {
 
 Define.getLayout = (page: ReactElement, data: any) => {
 	return (
-		<NewProjectLayout step="define" data={data.data}>
+		<NewProjectLayout step="Define" data={data.data}>
 			{page}
 		</NewProjectLayout>
 	);

@@ -18,7 +18,7 @@ export interface IBasicVidData {
 	/** Video file. */
 	src: string;
 	/** A short description. */
-	subtitle: JSX.Element;
+	subtitle: string;
 }
 
 /** Full video data object (usually with controls). */

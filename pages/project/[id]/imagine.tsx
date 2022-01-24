@@ -1,19 +1,19 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, ReactElement } from "react";
 import router from "next/router";
-import Head from "next/head";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
-import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
-import ModuleContainer from "../../../components/Project/ModuleContainer";
-import ModuleBody from "../../../components/Project/ModuleBody";
-import getProjectData from "../../../utils/getProjectData";
+import getProjectData, { ALL_PROJECTS_ARRAY } from "../../../lib/getProjectData";
 
 import classes from "../../../styles/imagine.module.scss";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import { IProjectReadOnly } from "../../../types/newProjects";
 
-const Imagine = () => {
+interface Props {
+	data: IProjectReadOnly;
+}
+
+const Imagine = ({ data }: Props) => {
 	const { globalSession } = useContext(GlobalSessionContext);
-	const [data, setData] = useState();
 	const [active, setActive] = useState(0);
 	const mp = useMixpanel();
 
@@ -27,27 +27,19 @@ const Imagine = () => {
 		return () => clearSession();
 	}, []);
 
-	useEffect(() => {
-		if (router.query.id) {
-			setData(getProjectData(router.query.id));
-		}
-	}, [router.query.id]);
-
-	const cardClickHandler = (i) => {
-		if (i !== active) {
-			setActive(i);
-		}
-	};
-
 	if (!data) return null;
 
 	return (
-		<div className={`${classes.view} roundScrollbar`}>
-			<Head>
-				<title>Imagine • {data.name} | CreateBase</title>
-				<meta name="description" content={data.caption} />
-			</Head>
-			<ModuleContainer
+		<div className={`${classes.page} roundScrollbar`}>
+			<aside className={classes.aside}>
+				<div className={classes.header}>Modules</div>
+				{data.imagine.modules.map((mod, i) => (
+					<button key={mod.title} className={i === active ? classes.active : ""} title={mod.title} onClick={() => setActive(i)}>
+						{mod.title}
+					</button>
+				))}
+			</aside>
+			{/* <ModuleContainer
 				active={active}
 				clickHandler={cardClickHandler}
 				modules={data.imagine.modules}
@@ -55,18 +47,50 @@ const Imagine = () => {
 					"As a class, dive into group discussions around the Project theme to fully define our problem.",
 					"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
 				]}
-			/>
-			<div className={classes.mainContainer}>
+			/> */}
+			{/* <div className={classes.mainContainer}>
 				<ModuleBody module={data.imagine.modules[active]} length={data.imagine.modules.length} />
-			</div>
+			</div> */}
 		</div>
 	);
 };
 
-Imagine.getLayout = (page) => {
-	return <NewProjectLayout step="imagine">{page}</NewProjectLayout>;
+Imagine.getLayout = (page: ReactElement, data: any) => {
+	return (
+		<NewProjectLayout step="Imagine" data={data.data}>
+			{page}
+		</NewProjectLayout>
+	);
 };
 
 Imagine.auth = "user";
 
 export default Imagine;
+
+interface Params {
+	params: {
+		id: string;
+	};
+}
+
+export async function getStaticProps({ params }: Params) {
+	console.log(params);
+	return {
+		props: {
+			data: getProjectData(params.id),
+		},
+	};
+}
+
+export async function getStaticPaths() {
+	return {
+		paths: ALL_PROJECTS_ARRAY.map((project) => {
+			return {
+				params: {
+					id: project.id,
+				},
+			};
+		}),
+		fallback: false,
+	};
+}
