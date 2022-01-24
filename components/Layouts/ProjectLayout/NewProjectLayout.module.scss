@@ -8,20 +8,22 @@
 }
 
 .nav {
-	width: fit-content;
+	// width: fit-content;
 	z-index: 50;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
 	height: 4rem;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	background: white;
 	border-radius: 0 0 12px 12px;
 	padding: 0 0.5rem;
 	box-shadow: 0 8px 32px -8px rgba($blue-dark, 0.1);
-	transition: all 0.2s ease-out;
+	border-bottom: thin solid transparent;
+	transition: all 0.4s ease-out;
 }
 
 .logo,
@@ -32,7 +34,7 @@
 	align-items: center;
 	padding: 0 1rem;
 	position: relative;
-	&:not(:last-child)::after {
+	&::after {
 		content: "";
 		position: absolute;
 		top: 50%;
@@ -41,6 +43,10 @@
 		width: 1px;
 		background: $lighter;
 		transform: translateY(-50%);
+	}
+	&:last-child::after {
+		right: auto;
+		left: 0;
 	}
 }
 
@@ -69,8 +75,8 @@
 	.menu {
 		position: absolute;
 		bottom: 0;
-		left: 50%;
-		transform: translate(-50%, 100%);
+		left: 0;
+		transform: translate(1rem, 100%);
 		display: none;
 		flex-direction: column;
 		background: white;
@@ -104,8 +110,8 @@
 			content: "";
 			position: absolute;
 			top: 0;
-			left: 50%;
-			transform: translate(-50%, -100%);
+			left: 0;
+			transform: translate(1rem, -100%);
 			width: 0;
 			height: 0;
 			border-left: 0.5rem solid transparent;
@@ -131,10 +137,16 @@
 	font-size: 14px;
 	font-weight: 600;
 	color: $darkest;
+	white-space: nowrap;
 }
 
 .steps {
+	justify-content: center;
 	height: 100%;
+	transition: flex 0.8s ease-out;
+	&::after {
+		content: none;
+	}
 	a {
 		height: 100%;
 		position: relative;
@@ -240,11 +252,26 @@
 			}
 		}
 		&:hover {
-			border: 2px solid rgba($blue-dark, 0.5);
+			border: 2px solid $light;
 			.avatarTooltip {
 				opacity: 1;
 				transition: opacity 0.1s ease-out;
 			}
+		}
+	}
+}
+
+.nav.flat {
+	height: 3.5rem;
+	width: 100%;
+	border-radius: 0 0 0 0;
+	box-shadow: none;
+	border-bottom: thin solid $lighter;
+	.steps {
+		flex: 2 1 0;
+		.separator {
+			height: 0;
+			width: 0;
 		}
 	}
 }

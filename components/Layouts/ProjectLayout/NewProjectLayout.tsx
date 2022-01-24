@@ -12,9 +12,10 @@ import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
 interface Props {
 	children: ReactElement;
 	step: string;
+	isFlat?: boolean;
 }
 
-const NewProjectLayout = ({ children, step }: Props) => {
+const NewProjectLayout = ({ children, step, isFlat = false }: Props) => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [showMenu, setShowMenu] = useState(false);
@@ -23,10 +24,10 @@ const NewProjectLayout = ({ children, step }: Props) => {
 
 	return (
 		<div className={classes.container}>
-			<nav className={classes.nav}>
+			<nav className={`${classes.nav} ${isFlat ? classes.flat : ""}`}>
 				<div className={`${classes.logo} ${showMenu ? classes.active : ""}`} tabIndex={-1} onBlur={() => setShowMenu(false)}>
 					<button className={classes.menuBtn} onClick={() => setShowMenu((state) => !state)} title="Open menu">
-						<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/logo-no-text.svg" height={32} width={28} alt="CreateBase" />
+						<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/logo-no-text.svg" height={32} width={28} layout="fixed" alt="CreateBase" />
 						<i className="material-icons-outlined">expand_more</i>
 					</button>
 					<div className={classes.menu}>
@@ -49,7 +50,7 @@ const NewProjectLayout = ({ children, step }: Props) => {
 						))}
 					</div>
 				</div>
-				<div className={classes.title}>TO DO</div>
+				<div className={classes.title}>TO DO BUT VERY LONG</div>
 				<div className={classes.steps}>
 					{STEPS.map((s, i) => (
 						<Fragment key={s.name}>
