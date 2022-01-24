@@ -14,7 +14,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 60vh;
+	height: 65vh;
 	.mediaWrapper {
 		width: 100%;
 		height: 100%;
@@ -23,9 +23,7 @@
 }
 
 .main {
-	pointer-events: none;
 	z-index: 1;
-	padding-top: 60vh;
 	width: 100%;
 	height: 100%;
 	overflow: auto;
@@ -33,6 +31,54 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
+}
+
+.mediaClick {
+	width: 100%;
+	height: 65vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.clickable {
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	button {
+		height: 6rem;
+		width: 6rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(black, 0.2);
+		backdrop-filter: blur(0.5rem);
+		border-radius: 1rem;
+		overflow: hidden;
+		transition: background-color 0.1s ease-out;
+		i {
+			font-size: 4rem;
+			color: white;
+		}
+	}
+	&:hover button {
+		background: rgba(black, 0.5);
+	}
+}
+
+.vidWrapper {
+	width: 100%;
+	padding: 0 20vw;
+	height: 50vh;
+	position: relative;
+	align-self: flex-end;
+	& > * {
+		width: 100%;
+		height: 100%;
+	}
 }
 
 .container {
@@ -54,7 +100,4 @@
 		margin: 0.5rem 0;
 		font-size: 14px;
 	}
-}
-
-.wrapper {
 }

@@ -14,7 +14,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 	difficulty: "introductory",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, MATH, SOCIAL_SCIENCE],
 	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
-	situationVideo: "https://www.youtube.com/embed/3YOLGBQLGjY",
+	videoId: "3YOLGBQLGjY",
 	learningOutcomes: [
 		"Understand the basics of programming a robotic system.",
 		"Convert simple human decisions into an instruction set for a robot.",

@@ -74,8 +74,8 @@ export interface IProject {
 	lessonPlan: string;
 	/** Bullet-pointed list of learning outcomes. */
 	learningOutcomes: string[];
-	/** Embedded YouTube link. */
-	situationVideo: string;
+	/** Situation video on YouTube ID. */
+	videoId: string;
 	/** Define step data. */
 	define: {
 		/** Minimum recommended time spent on Define step. */

@@ -1,6 +1,7 @@
-import { useEffect, useContext, ReactElement } from "react";
+import { useEffect, useContext, ReactElement, useState } from "react";
+import Image from "next/Image";
+import YouTube from "react-youtube";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import Head from "next/head";
 import useMixpanel from "../../../hooks/useMixpanel";
 import ReactMarkdown from "react-markdown";
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const Define = ({ data }: Props) => {
+	const [showVid, setShowVid] = useState(false);
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const mp = useMixpanel();
@@ -38,20 +40,34 @@ const Define = ({ data }: Props) => {
 				<title>Define • {data.title} | CreateBase</title>
 				<meta name="description" content={data.description} />
 			</Head>
-			<div className={classes.mediaContainer}>
-				<div className={classes.mediaWrapper}>
-					<iframe
-						width="100%"
-						height="100%"
-						src={data.situationVideo}
-						title={data.title}
-						frameBorder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowFullScreen
-						className={classes.video}></iframe>
+			{!showVid && (
+				<div className={classes.mediaContainer}>
+					<div className={classes.mediaWrapper}>
+						<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${data.id}/img/thumbnail.png`} layout="fill" objectFit="cover" objectPosition="center 25%" alt={data.title} />
+					</div>
 				</div>
-			</div>
+			)}
 			<main className={classes.main}>
+				<div className={classes.mediaClick}>
+					{showVid && (
+						<div className={classes.vidWrapper}>
+							<YouTube
+								videoId={data.videoId}
+								title={data.title}
+								className={classes.video}
+								opts={{ height: "100%", width: "100%", playerVars: { autoplay: 1 } }}
+								onEnd={() => setTimeout(() => setShowVid(false), 100)}
+							/>
+						</div>
+					)}
+					{!showVid && (
+						<div className={classes.clickable} onClick={() => setShowVid(true)}>
+							<button title="Play">
+								<i className="material-icons-outlined">play_arrow</i>
+							</button>
+						</div>
+					)}
+				</div>
 				<div className={classes.container}>
 					<h1>{data.title}</h1>
 					<h2>{data.subtitle}</h2>
