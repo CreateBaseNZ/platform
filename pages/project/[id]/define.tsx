@@ -61,9 +61,9 @@ const Define = ({ data }: Props) => {
 						</div>
 					)}
 					{!showVid && (
-						<div className={classes.clickable} onClick={() => setShowVid(true)}>
-							<button title="Play">
-								<i className="material-icons-outlined">play_arrow</i>
+						<div className={classes.clickable} onClick={() => setShowVid(true)} title="Play">
+							<button>
+								<i className="material-icons">play_arrow</i>
 							</button>
 						</div>
 					)}
