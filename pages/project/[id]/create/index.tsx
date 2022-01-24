@@ -3,7 +3,7 @@ import router from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import ProjectLayout from "../../../../components/Layouts/ProjectLayout/ProjectLayout";
-import getProjectData from "../../../../utils/getProjectData";
+import getProjectData, { ALL_PROJECTS_ARRAY } from "../../../../utils/getProjectData";
 import Img from "../../../../components/UI/Img";
 import { PrimaryButton } from "../../../../components/UI/Buttons";
 

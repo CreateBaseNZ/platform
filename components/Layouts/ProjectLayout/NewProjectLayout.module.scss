@@ -1,0 +1,292 @@
+@import "/styles/variables.scss";
+
+.container {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	display: flex;
+}
+
+.nav {
+	// width: fit-content;
+	z-index: 50;
+	position: fixed;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: white;
+	border-radius: 0 0 12px 12px;
+	padding: 0 0.5rem;
+	box-shadow: 0 8px 32px -8px rgba($blue-dark, 0.1);
+	border-bottom: 0px solid transparent;
+	transition: all 0.4s ease-out;
+}
+
+.logo,
+.title,
+.steps,
+.buttons {
+	display: flex;
+	align-items: center;
+	padding: 0 1rem;
+	position: relative;
+	&::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		right: 0;
+		height: 2rem;
+		width: 1px;
+		background: $lighter;
+		transform: translateY(-50%);
+	}
+	&:last-child::after {
+		right: auto;
+		left: 0;
+	}
+}
+
+.logo {
+	height: 100%;
+	position: relative;
+	.menuBtn {
+		height: 2.5rem;
+		padding: 0 0.25rem 0 0.5rem;
+		border-radius: 0.75rem;
+		display: flex;
+		align-items: center;
+		i {
+			margin-left: 0.25rem;
+			font-size: 1.25rem;
+			color: $dark;
+			transition: margin 0.1s ease-out;
+		}
+		&:hover {
+			background: $lighter;
+			i {
+				margin-top: 4px;
+			}
+		}
+	}
+	.menu {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		transform: translate(1rem, 100%);
+		display: none;
+		flex-direction: column;
+		background: white;
+		padding: 0.5rem 0;
+		border-radius: 8px;
+		box-shadow: 0 0rem 2rem 0 rgba($blue-dark, 0.15);
+		a {
+			display: flex;
+			align-items: center;
+			font-size: 14px;
+			padding: 0.5rem 1.5rem;
+			white-space: nowrap;
+			transition: all 0.1s ease-out;
+			i {
+				color: inherit;
+				font-size: 1rem;
+				margin-right: 0.75rem;
+			}
+			&:hover {
+				color: $blue-dark;
+				background: rgba($blue-dark, 0.05);
+			}
+		}
+		.sep {
+			height: 1px;
+			margin: 0.5rem 1.5rem;
+			width: calc(100% - 3rem);
+			background: $lighter;
+		}
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: translate(1rem, -100%);
+			width: 0;
+			height: 0;
+			border-left: 0.5rem solid transparent;
+			border-right: 0.5rem solid transparent;
+			border-bottom: 0.5rem solid white;
+		}
+	}
+	&.active {
+		.menuBtn {
+			background: $lighter;
+			i {
+				color: $blue-dark;
+				margin-top: 4px;
+			}
+		}
+		.menu {
+			display: flex;
+		}
+	}
+}
+
+.title {
+	font-size: 14px;
+	font-weight: 600;
+	color: $darkest;
+	white-space: nowrap;
+}
+
+.steps {
+	justify-content: center;
+	height: 100%;
+	transition: flex 0.8s ease-out;
+	&::after {
+		content: none;
+	}
+	a {
+		height: 100%;
+		position: relative;
+		padding: 0 1rem;
+		color: $light;
+		font-size: 14px;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		transition: color 0.1s ease-out;
+		&::after {
+			content: "";
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			height: 0;
+			width: calc(100% - 2rem);
+			background: $blue-dark;
+			transition: height 0.1s ease-out;
+		}
+		&:hover {
+			color: $dark;
+		}
+		&.active {
+			color: $blue-dark;
+			&::after {
+				height: 2px;
+			}
+		}
+	}
+	.separator {
+		height: 4px;
+		width: 4px;
+		background: $light;
+		border-radius: 4px;
+		transition: all 0.2s ease-out;
+	}
+}
+
+.buttons {
+	.upgrade {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 2.5rem;
+		width: 2.5rem;
+		background: $gold;
+		margin: 0 1rem;
+		border-radius: 0.75rem;
+		box-shadow: 0 4px 16px 0 rgba($gold, 0.5);
+		transition: transform 0.2s ease-out;
+		i {
+			font-size: 1.5rem;
+			color: white;
+		}
+		&:hover {
+			transform: translateY(-4px);
+		}
+	}
+	.avatarWrapper {
+		position: relative;
+		border: 2px solid transparent;
+		border-radius: 2.5rem;
+		transition: border 0.1s ease-out;
+		.avatar {
+			border-radius: 2.5rem;
+			overflow: hidden;
+			pointer-events: none;
+		}
+		.avatarTooltip {
+			display: flex;
+			pointer-events: none;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			opacity: 0;
+			transform: translateY(calc(100% + 0.75rem));
+			background: white;
+			flex-direction: column;
+			padding: 0.5rem 1rem;
+			border-radius: 4px;
+			box-shadow: 0 0rem 1rem 0 rgba($blue-dark, 0.15);
+			span {
+				font-size: 14px;
+				white-space: nowrap;
+				b {
+					font-size: inherit;
+					font-weight: 600;
+				}
+			}
+			&::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: 0.75rem;
+				transform: translate(0, -100%);
+				width: 0;
+				height: 0;
+				border-left: 0.5rem solid transparent;
+				border-right: 0.5rem solid transparent;
+				border-bottom: 0.5rem solid white;
+			}
+		}
+		&:hover {
+			border: 2px solid $light;
+			.avatarTooltip {
+				opacity: 1;
+				transition: opacity 0.1s ease-out;
+			}
+		}
+	}
+}
+
+.nav.flat {
+	height: 3.5rem;
+	width: 100%;
+	border-radius: 0 0 0 0;
+	box-shadow: none;
+	border-bottom: thin solid $lighter;
+	.steps {
+		flex: 2 1 0;
+		.separator {
+			height: 0;
+			width: 0;
+		}
+	}
+}
+
+@media only screen and (min-width: 1366px) {
+	.nav {
+		height: 4rem;
+		border-radius: 0 0 1rem 1rem;
+		padding: 0 1rem;
+	}
+
+	.steps {
+		.separator {
+			height: 1px;
+			width: 1rem;
+		}
+	}
+}
