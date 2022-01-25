@@ -39,6 +39,7 @@ const Imagine = ({ data }: Props) => {
 					</button>
 				))}
 			</aside>
+			<main className={classes.main}></main>
 			{/* <ModuleContainer
 				active={active}
 				clickHandler={cardClickHandler}
