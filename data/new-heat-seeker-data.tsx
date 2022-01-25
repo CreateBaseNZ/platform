@@ -8,12 +8,33 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 	description:
 		"In this Project, learners will create an algorithm to guide a line-following robot to a series of fires within a warehouse, putting them out safely before they spread to nearby hydrogen fuel cells! Learners will not only create their own control-algorithm, but will also learn about some of the basics of fire safety, warehouse automation, and the advantage that robots have over humans when operating in hazardous situations.",
 	scenePrefix: "Project_HeatSeeker",
+	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 9,
 	difficulty: "advanced",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
-	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
+	lessonPlan: "/projects/heat-seeker/lesson-plan-heat-seeker.pdf",
 	videoId: "a7ahjbh_lUg",
+	cads: {
+		nz: "/projects/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - NZ.pdf",
+		aus: "/projects/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - ACARA.pdf",
+		cali: "/projects/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - California.pdf",
+		uk: "/projects/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - England.pdf",
+	},
+	learnings: [
+		"Explain how and why line-following is used for navigation.",
+		"Understand why we decompose problems.",
+		"Understand the fundamentals of flow-based coding and write code using the Flow editor.",
+		"Describe DC motors and outline how they work (optional).",
+		"Describe IR sensors and outline how they work.",
+		"Define comparators and conditionals.",
+		"Write programs that use sensor data to control an output.",
+		"Use logical reasoning to derive simple and more complex algorithms.",
+		"Write programs that use conditional statements to control an output.",
+		"Differentiate between different types of fires and how to deal with them.",
+		"Define while loops and use them to solve problems.",
+		"Explore ways a solution can be optimised.",
+	],
 	learningOutcomes: [
 		"Explain how and why line-following is used for navigation.",
 		"Understand why we decompose problems.",
@@ -40,17 +61,17 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 			{
 				type: "pdf",
 				title: "Our problem",
-				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
+				url: "/projects/heat-seeker/imagine/12050102AB-imagine_page1.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Our solution",
-				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
+				url: "/projects/heat-seeker/imagine/12050102AB-imagine_page2.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Your approach",
-				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
+				url: "/projects/heat-seeker/imagine/12050102AB-imagine_page3.pdf",
 			},
 		],
 	},
@@ -58,7 +79,7 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 		{
 			title: "Speed control",
 			requirements: [],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/1.png",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-1.png",
 			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
 			research: {
 				threshold: 300,
@@ -68,8 +89,7 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 						type: "video",
 						title: "Flow tutorial",
 						data: {
-							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
+							videoId: "2Ndwtpk7iN8",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 						},
@@ -77,12 +97,12 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem1.pdf",
+						url: "/projects/heat-seeker/subsystems/Subproblem1.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Action blocks",
-						url: "/heat-seeker/pdf/Iter_0.pdf",
+						url: "/projects/heat-seeker/subsystems/Iter_0.pdf",
 					},
 				],
 			},
@@ -107,7 +127,7 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 		{
 			title: "Navigating curves",
 			requirements: ["Speed control"],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/2.PNG",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-2.PNG",
 			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
 			research: {
 				threshold: 120,
@@ -116,12 +136,12 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem2.pdf",
+						url: "/projects/heat-seeker/subsystems/Subproblem2.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Sensing blocks",
-						url: "/heat-seeker/pdf/Iter_1.pdf",
+						url: "/projects/heat-seeker/subsystems/Iter_1.pdf",
 					},
 				],
 			},
@@ -153,18 +173,12 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 		{
 			title: "Navigating turns",
 			requirements: ["Speed control"],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/3.png",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-3.png",
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
-				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 300,
@@ -194,7 +208,7 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 		{
 			title: "Extinguishing fires",
 			requirements: [],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/4.PNG",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-4.PNG",
 			description: "In this fourth subsystem, we will learn how to use a sensor to detect the presence of a fire and then perform the correct sequence of actions to automatically put it out.",
 			research: {
 				threshold: 300,
@@ -203,12 +217,12 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem3.pdf",
+						url: "/projects/heat-seeker/subsystems/Subproblem3.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Fire blocks",
-						url: "/heat-seeker/pdf/Iter_3.pdf",
+						url: "/projects/heat-seeker/subsystems/Iter_3.pdf",
 					},
 				],
 			},
@@ -239,19 +253,13 @@ h2: "Sending human fire-fighters into the warehouse would be extremely dangerous
 		{
 			title: "Putting it all together",
 			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/thumbnail.png",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/thumbnail.png",
 			description:
 				"We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
-				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 30,
