@@ -34,13 +34,11 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 			{
 				type: "pdf",
 				title: "Intro to recycling",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/recycling.jpg",
 				url: "/magnebot/pdf/recycling.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Intro to robotics",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/robot.png",
 				url: "/magnebot/pdf/robotics.pdf",
 			},
 			{
@@ -48,15 +46,15 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 				title: "How to MagneBot",
 				items: [
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/gifs/tut-1.gif",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/magnebot/gifs/tut-1.gif",
 						caption: "Use the controls to move the arm and pick up rubbish bags",
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/gifs/tut-2.gif",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/magnebot/gifs/tut-2.gif",
 						caption: "Get all three rubbish bags into the bins",
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/gifs/tut-3.gif",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/magnebot/gifs/tut-3.gif",
 						caption: "Hold down and drag with right click to orbit the camera around the arm",
 					},
 				],

@@ -36,7 +36,13 @@ const Define = ({ data }: Props) => {
 		<div className={classes.page}>
 			<div className={classes.thumbnailContainer}>
 				<div className={`${classes.thumbnailWrapper} ${showVid ? classes.shrink : ""}`}>
-					<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${data.id}/images/thumbnail.png`} layout="fill" objectFit="cover" objectPosition="center 25%" alt={data.title} />
+					<Image
+						src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/${data.id}/images/thumbnail.png`}
+						layout="fill"
+						objectFit="cover"
+						objectPosition="center 25%"
+						alt={data.title}
+					/>
 				</div>
 			</div>
 			<main className={classes.main}>

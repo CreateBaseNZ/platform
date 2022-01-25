@@ -9,8 +9,6 @@ export type PDFModule = {
 	title: string;
 	/** PDF file path (URL or relative). */
 	url: string;
-	/** Optional module thumbail source. */
-	img?: string;
 };
 
 /** Tutorial module. */

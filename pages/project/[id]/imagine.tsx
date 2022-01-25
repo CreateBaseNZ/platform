@@ -8,16 +8,28 @@ import classes from "../../../styles/imagine.module.scss";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import { IProjectReadOnly } from "../../../types/newProjects";
 import PdfModule from "../../../components/Project/PdfModule";
-import { PDFModule, TutModule } from "../../../types/modules";
+import { ExploreModule, PDFModule, TutModule, VidModule } from "../../../types/modules";
 import TutorialModule from "../../../components/Project/TutorialModule";
+import BlankModule from "../../../components/Project/BlankModule";
 
 interface Props {
 	data: IProjectReadOnly;
 }
 
+const renderModule = (module: any) => {
+	switch (module?.type) {
+		case "pdf":
+			return <PdfModule module={module as PDFModule} />;
+		case "tutorial":
+			return <TutorialModule module={module as TutModule} />;
+		default:
+			return <BlankModule />;
+	}
+};
+
 const Imagine = ({ data }: Props) => {
 	const { globalSession } = useContext(GlobalSessionContext);
-	const [active, setActive] = useState(0);
+	const [active, setActive] = useState(-1);
 	const mp = useMixpanel();
 
 	useEffect(() => {
@@ -42,10 +54,7 @@ const Imagine = ({ data }: Props) => {
 					</button>
 				))}
 			</aside>
-			<main className={classes.main}>
-				{data.imagine.modules[active].type === "pdf" && <PdfModule module={data.imagine.modules[active] as PDFModule} />}
-				{data.imagine.modules[active].type === "tutorial" && <TutorialModule module={data.imagine.modules[active] as TutModule} />}
-			</main>
+			<main className={classes.main}>{renderModule(data.imagine.modules[active])}</main>
 		</div>
 	);
 };
