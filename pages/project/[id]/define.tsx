@@ -9,7 +9,7 @@ import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/proj
 import { IProjectReadOnly } from "../../../types/projects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 
-import classes from "/styles/define.module.scss";
+import classes from "../../../styles/define.module.scss";
 
 interface Props {
 	data: IProjectReadOnly;
