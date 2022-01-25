@@ -32,25 +32,14 @@ const renderModule = (module: any) => {
 const Imagine = ({ data }: Props) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [active, setActive] = useState(-1);
-	const mp = useMixpanel();
+	const {} = useMixpanel("project_imagine");
 	const { post } = useApi();
 
 	useEffect(() => {
-		mp.init();
-		const clearSession = mp.trackActiveSession("project_imagine", {
-			licenses: globalSession.groups.map((group) => group.licenseId),
-			schools: globalSession.groups.map((group) => group.id),
-			project: router.query.id,
-		});
-		return () => clearSession();
-	}, []);
-
-	useEffect(() => {
 		if (!globalSession.loaded) return;
+		console.log("imagine page saved");
 		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "imagine" } }, date: new Date().toString() });
-	}, [globalSession.loaded]);
-
-	if (!data) return null;
+	}, [globalSession.loaded, globalSession.profileId, data.id, post]);
 
 	return (
 		<div className={`${classes.page} roundScrollbar`}>

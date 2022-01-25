@@ -32,7 +32,7 @@ const ProjectRoot = () => {
 				}
 			});
 		})();
-	}, [router, globalSession]);
+	}, [router, globalSession.loaded, globalSession.profileId, post]);
 
 	return null;
 };

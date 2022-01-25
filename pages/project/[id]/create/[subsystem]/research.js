@@ -19,12 +19,7 @@ const Research = () => {
 
 	useEffect(() => {
 		mp.init();
-		const clearSession = mp.trackActiveSession("project_create_research", {
-			licenses: globalSession.groups.map((group) => group.licenseId),
-			schools: globalSession.groups.map((group) => group.id),
-			project: router.query.id,
-			subsystem: router.query.subsystem,
-		});
+		const clearSession = mp.trackActiveSession("project_create_research");
 		return () => clearSession();
 	}, []);
 
@@ -35,7 +30,7 @@ const Research = () => {
 				setSubsystemData(projectData.subsystems.find((subsystem) => subsystem.title === router.query.subsystem));
 			}
 		}
-	}, [router.isReady, router.query.id, router.query.subystem]);
+	}, []);
 
 	if (!subsystemData) return null;
 

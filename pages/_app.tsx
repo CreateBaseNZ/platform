@@ -27,8 +27,6 @@ type AppPropsWithLayout = AppProps & {
 const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) => {
 	const getLayout = Component.getLayout ?? ((page) => page);
 
-	console.log(pageProps);
-
 	return (
 		<SessionProvider session={session}>
 			<VisualBellProvider>

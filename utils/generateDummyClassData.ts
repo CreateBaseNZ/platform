@@ -1,6 +1,6 @@
 import { DeepReadonly } from "ts-essentials";
 import { ISubsystem } from "../types/projects";
-import { ALL_PROJECTS_ARRAY } from "./getProjectData";
+import { ALL_PROJECTS_ARRAY } from "../constants/projects";
 
 const generateSubsystem = (subsystems: DeepReadonly<ISubsystem[]>, fn: () => void) => {
 	let ret: any = {}; // TODO replace any type
@@ -13,7 +13,7 @@ const generateSubsystem = (subsystems: DeepReadonly<ISubsystem[]>, fn: () => voi
 export const generateStudentData = (fn: () => void) => {
 	let ret: any = {}; // TODO replace any type
 	for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
-		ret[ALL_PROJECTS_ARRAY[i].query] = {
+		ret[ALL_PROJECTS_ARRAY[i].id] = {
 			define: fn(),
 			imagine: fn(),
 			create: generateSubsystem(ALL_PROJECTS_ARRAY[i].subsystems, fn),

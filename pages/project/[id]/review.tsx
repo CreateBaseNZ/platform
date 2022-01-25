@@ -17,8 +17,9 @@ const Review = ({ data }: Props) => {
 
 	useEffect(() => {
 		if (!globalSession.loaded) return;
+		console.log("review page saved");
 		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "review" } }, date: new Date().toString() });
-	}, [globalSession.loaded]);
+	}, [globalSession.loaded, globalSession.profileId, data.id, post]);
 
 	return (
 		<div className={`${classes.page} roundScrollbar`}>

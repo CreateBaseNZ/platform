@@ -1,5 +1,5 @@
 import { IInnerLayoutTab, IInnerLayoutTabObject } from "../types/layouts";
-import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
+import { ALL_PROJECTS_ARRAY } from "./projects";
 import { generateRandomProgress, generateStudentData } from "../utils/generateDummyClassData";
 
 const tabs: IInnerLayoutTab[] = [
@@ -28,7 +28,7 @@ export const MANAGE_MEMBERS_COLUMNS = [
 
 export const MANAGE_MEMBERS_SIZES = [10, 20, 50, 100];
 
-export const PROJECT_OPTIONS = ALL_PROJECTS_ARRAY.map((project) => ({ id: project.query, name: project.name }));
+export const PROJECT_OPTIONS = ALL_PROJECTS_ARRAY.map((project) => ({ id: project.id, name: project.title }));
 
 export const PROJECT_MAP = PROJECT_OPTIONS.reduce((acc, cur) => ({ ...acc, [cur.id]: cur.name }), {});
 

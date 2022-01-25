@@ -6,7 +6,7 @@ import GlobalSessionContext from "../../store/global-session-context";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
 import BrowseThumb from "./BrowseThumb";
 import BrowsePreview from "./BrowsePreview";
-import { ALL_PROJECTS_ARRAY } from "../../utils/getProjectData";
+import { ALL_PROJECTS_ARRAY } from "../../constants/projects";
 
 import "overlayscrollbars/css/OverlayScrollbars.css";
 import classes from "../../styles/browse.module.scss";
@@ -18,7 +18,7 @@ const Browse = (): JSX.Element => {
 
 	useEffect(() => {
 		const query = router?.query?.project;
-		const queriedProject = ALL_PROJECTS_ARRAY.find((data) => data.query === query);
+		const queriedProject = ALL_PROJECTS_ARRAY.find((data) => data.id === query);
 		if (queriedProject) {
 			setActiveProject(queriedProject);
 		}
@@ -37,7 +37,7 @@ const Browse = (): JSX.Element => {
 				<h2 className={classes.h2}>All Projects</h2>
 				<div className={classes.allProjects}>
 					{ALL_PROJECTS_ARRAY.map((project, index) => (
-						<BrowseThumb key={index} isActive={activeProject.query === project.query} query={project.query} name={project.name} />
+						<BrowseThumb key={index} isActive={activeProject.id === project.id} query={project.id} name={project.title} />
 					))}
 					{[...Array(ALL_PROJECTS_ARRAY.length % 4)].map((_, i) => (
 						<div key={i} className={classes.empty} />

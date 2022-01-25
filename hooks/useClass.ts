@@ -2,7 +2,7 @@ import router from "next/router";
 import { useContext, useEffect, useState } from "react";
 import GlobalSessionContext from "../store/global-session-context";
 import useApi from "./useApi";
-import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
+import { ALL_PROJECTS_ARRAY } from "../constants/projects";
 import useMixpanel from "./useMixpanel";
 import { ISubsystem } from "../types/projects";
 import { DeepReadonly } from "ts-essentials";
@@ -163,11 +163,11 @@ const useClass = () => {
 		return classObject?.students.map((student) => {
 			let projectData: Record<string, any> = {}; // TODO type
 			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
-				projectData[ALL_PROJECTS_ARRAY[i].query] = [
-					{ label: "Define", name: "define", bars: processData("project_define", ALL_PROJECTS_ARRAY[i].query, student.licenseId) },
-					{ label: "Imagine", name: "imagine", bars: processData("project_imagine", ALL_PROJECTS_ARRAY[i].query, student.licenseId) },
-					...processCreateData(ALL_PROJECTS_ARRAY[i].query, ALL_PROJECTS_ARRAY[i].subsystems, student.licenseId),
-					{ label: "Improve", name: "improve", bars: processData("code_improve_time", ALL_PROJECTS_ARRAY[i].query, student.licenseId) },
+				projectData[ALL_PROJECTS_ARRAY[i].id] = [
+					{ label: "Define", name: "define", bars: processData("project_define", ALL_PROJECTS_ARRAY[i].id, student.licenseId) },
+					{ label: "Imagine", name: "imagine", bars: processData("project_imagine", ALL_PROJECTS_ARRAY[i].id, student.licenseId) },
+					...processCreateData(ALL_PROJECTS_ARRAY[i].id, ALL_PROJECTS_ARRAY[i].subsystems, student.licenseId),
+					{ label: "Improve", name: "improve", bars: processData("code_improve_time", ALL_PROJECTS_ARRAY[i].id, student.licenseId) },
 				];
 			}
 			return { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: projectData };
@@ -242,11 +242,11 @@ const useClass = () => {
 		const data = classObject?.students.map((student) => {
 			const studentData: ProgressDatum = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
 			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
-				studentData.projects[ALL_PROJECTS_ARRAY[i].query] = {
-					define: processData("project_define", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].define.threshold),
-					imagine: processData("project_imagine", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].imagine.threshold),
-					create: processCreateData(ALL_PROJECTS_ARRAY[i].query, ALL_PROJECTS_ARRAY[i].subsystems, student.licenseId),
-					improve: processData("code_improve_time", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].improve.threshold, undefined, "game_improve_progress"),
+				studentData.projects[ALL_PROJECTS_ARRAY[i].id] = {
+					define: processData("project_define", ALL_PROJECTS_ARRAY[i].id, student.licenseId, ALL_PROJECTS_ARRAY[i].define.threshold),
+					imagine: processData("project_imagine", ALL_PROJECTS_ARRAY[i].id, student.licenseId, ALL_PROJECTS_ARRAY[i].imagine.threshold),
+					create: processCreateData(ALL_PROJECTS_ARRAY[i].id, ALL_PROJECTS_ARRAY[i].subsystems, student.licenseId),
+					improve: processData("code_improve_time", ALL_PROJECTS_ARRAY[i].id, student.licenseId, ALL_PROJECTS_ARRAY[i].improve.threshold, undefined, "game_improve_progress"),
 				};
 			}
 			return studentData;

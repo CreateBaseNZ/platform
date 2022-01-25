@@ -1,5 +1,6 @@
 import router from "next/router";
 import axios from "axios";
+import { useCallback } from "react";
 
 export interface APIRes {
 	status?: "succeeded" | "critical error" | "error" | "failed" | undefined;
@@ -14,7 +15,7 @@ const useApi = () => {
 		});
 	};
 
-	const post = async (route = "", input = {}, successHandler: (data: any) => void = () => {}, failHandler: (data: any) => void = () => {}) => {
+	const post = useCallback(async (route = "", input = {}, successHandler: (data: any) => void = () => {}, failHandler: (data: any) => void = () => {}) => {
 		let data: APIRes = {};
 		try {
 			data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"] as APIRes; // TODO
@@ -34,7 +35,7 @@ const useApi = () => {
 					return successHandler(data);
 			}
 		}
-	};
+	}, []);
 
 	return { post, reportError };
 };

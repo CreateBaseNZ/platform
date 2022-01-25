@@ -20,23 +20,14 @@ const Define = ({ data }: Props) => {
 	const [showVid, setShowVid] = useState(false);
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const mp = useMixpanel();
+	const {} = useMixpanel("project_define");
 	const { post } = useApi();
 
 	useEffect(() => {
-		mp.init();
-		const clearSession = mp.trackActiveSession("project_define", {
-			licenses: globalSession.groups.map((group) => group.licenseId),
-			schools: globalSession.groups.map((group) => group.id),
-			project: router.query.id,
-		});
-		return () => clearSession();
-	}, []);
-
-	useEffect(() => {
 		if (!globalSession.loaded) return;
+		console.log("define page saved");
 		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "define" } }, date: new Date().toString() });
-	}, [globalSession.loaded]);
+	}, [globalSession.loaded, globalSession.profileId, data.id, post]);
 
 	return (
 		<div className={classes.page}>

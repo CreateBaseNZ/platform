@@ -17,11 +17,7 @@ const Improve = () => {
 
 	useEffect(() => {
 		mp.init();
-		const clearSession = mp.trackActiveSession("project_improve", {
-			licenses: globalSession.groups.map((group) => group.licenseId),
-			schools: globalSession.groups.map((group) => group.id),
-			project: router.query.id,
-		});
+		const clearSession = mp.trackActiveSession("project_improve");
 		return () => clearSession();
 	}, []);
 
