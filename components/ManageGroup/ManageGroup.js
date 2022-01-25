@@ -49,7 +49,7 @@ const ManageGroup = ({ role }) => {
 	const renderBtns = [
 		(key, data, selectedRowIds) =>
 			role === "teacher" &&
-			globalSession.groups[globalSession.recentGroups[0]].role === "admin" && (
+			globalSession.groups[globalSession.recentGroups[0]]?.role === "admin" && (
 				<TertiaryButton
 					key={key}
 					mainLabel="Promote"
@@ -80,7 +80,7 @@ const ManageGroup = ({ role }) => {
 				/>
 			),
 		(key, data, selectedRowIds) =>
-			(globalSession.groups[globalSession.recentGroups[0]].role === "admin" || (globalSession.groups[globalSession.recentGroups[0]].role === "teacher" && role === "student")) && (
+			(globalSession.groups[globalSession.recentGroups[0]]?.role === "admin" || (globalSession.groups[globalSession.recentGroups[0]]?.role === "teacher" && role === "student")) && (
 				<TertiaryButton
 					key={key}
 					mainLabel="Remove"
