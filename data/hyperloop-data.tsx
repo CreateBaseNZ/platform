@@ -1,12 +1,15 @@
 import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY, JAVASCRIPT } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
 
+// TODO - @brad update the hyperloop thumbnail (needs to look good at minimum 1920px width)
+
 const HYPERLOOP_DATA: IProjectReadOnly = {
-	name: "Hyperloop",
-	query: "hyperloop",
-	caption:
+	id: "hyperloop",
+	title: "Hyperloop",
+	// TODO - give this a proper subtitle
+	subtitle: "Get hyped",
+	description:
 		"Chaos! Passengers arriving at a hyperloop terminal need to have their passenger numbers matched up to the correct capsule, but the computer system has malfunctioned! Students will learn how to convert between different number systems before implementing an algorithm to automate this process. Hyperloop capsules and passengers will display their identification numbers in variety of number systems, including binary, trinary, decimal, and hexadecimal. Note that students are expected to have had some minor experience with text coding before attempting this Project.",
-	stacked: true,
 	textCodingOnly: true,
 	scenePrefix: "Project_Hyperloop",
 	runType: "loop",
@@ -14,13 +17,14 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 	numOfLessons: 5,
 	difficulty: "proficient",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, JAVASCRIPT],
-	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	videoId: "K6KXIWtlVH8",
 	cads: {
-		nz: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - NZ.pdf",
-		aus: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - ACARA.pdf",
-		cali: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - California.pdf",
-		uk: "/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - England.pdf",
+		nz: "/projects/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - NZ.pdf",
+		aus: "/projects/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - ACARA.pdf",
+		cali: "/projects/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - California.pdf",
+		uk: "/projects/hyperloop/cads/020802AF Curriculum Alignment - Hyperloop - England.pdf",
 	},
+	// TODO - @brydon hyperloop lesson plan missing
 	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
 		"Convert a binary number to a decimal number.",
@@ -28,14 +32,17 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		"Convert any base number system to any other base number system by using base 10 as an intermediary conversion.",
 		"Revise how to create and call functions using JavaScript.",
 	],
+	learningOutcomes: [
+		"Convert a binary number to a decimal number.",
+		"Convert a decimal number to a binary number.",
+		"Convert any base number system to any other base number system by using base 10 as an intermediary conversion.",
+		"Revise how to create and call functions using JavaScript.",
+	],
 	define: {
 		threshold: 30,
-		url: "https://youtu.be/K6KXIWtlVH8",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/hyperloop/vid/situation.mp4",
-		h1: "Dive into the situation by watching this short video.",
-		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
-		docs: "https://docs.google.com/document/d/1MZ43lDVs1unrV7QQJW2YzQmc0WnzNZ2wJ7JGzD3GLaU/edit",
-		word: "/hyperloop/files/210701AA Hyperloop Learning Journal.docx",
+		md: `Dive into the situation by watching this short video.
+
+Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.`,
 	},
 	imagine: {
 		threshold: 30,
@@ -43,14 +50,12 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "What is a number system?",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/hyperloop/img/imagine_1.jpg",
-				url: "/hyperloop/files/210701AB Imagine - 1.pdf",
+				url: "/projects/hyperloop/imagine/210701AB Imagine - 1.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Robot capabilities: ticket master",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/hyperloop/img/imagine_2.jpg",
-				url: "/hyperloop/files/210701AB Imagine - 2.pdf",
+				url: "/projects/hyperloop/imagine/210701AB Imagine - 2.pdf",
 			},
 		],
 	},
@@ -58,7 +63,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		{
 			title: "Binary to hexadecimal",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/hyperloop/img/subsystem/1.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-1.jpg",
 			description:
 				"In this subsystem, we will create a simple JavaScript program that maps binary numbers to the equivalent hexadecimal number. This will allow our robot to perform hardcoded number conversions using a series of IF statements, but is it the most efficient?",
 			research: {
@@ -68,7 +73,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "How to Hyperloop",
-						url: "/hyperloop/files/210701AD How to Hyperloop.pdf",
+						url: "/projects/hyperloop/subsystems/210701AD How to Hyperloop.pdf",
 					},
 				],
 			},
@@ -96,7 +101,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		{
 			title: "Binary to decimal",
 			requirements: ["Binary to hexadecimal"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/hyperloop/img/subsystem/2.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-2.jpg",
 			description:
 				"In this subsystem, we will create a more advanced JavaScript program that uses an algorithm to convert any binary number to the equivalent decimal number. This approach is much more scalable than hard-coding number conversions.",
 			research: {
@@ -106,7 +111,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Binary to decimal",
-						url: "/hyperloop/files/210701AC Research - 2.pdf",
+						url: "/projects/hyperloop/subsystems/210701AC Research - 2.pdf",
 					},
 				],
 			},
@@ -134,17 +139,17 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		{
 			title: "Decimal to binary",
 			requirements: ["Binary to hexadecimal"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/hyperloop/img/subsystem/3.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-3.jpg",
 			description:
 				"Let's try the reverse of subsystem 2 and create a JavaScript program that uses an algorithm to convert a decimal number to the equivalent binary number. We will generalize our answer to be able to convert to any base between 2 and 10.",
 			research: {
-				threshold: 60, // READONLY
+				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
 						type: "pdf",
 						title: "Decimal to Binary",
-						url: "/hyperloop/files/210701AC Research - 3.pdf",
+						url: "/projects/hyperloop/subsystems/210701AC Research - 3.pdf",
 					},
 				],
 			},
@@ -172,16 +177,16 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		{
 			title: "Ternary to tridecimal",
 			requirements: ["Binary to decimal", "Decimal to binary"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/hyperloop/img/subsystem/4.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-4.jpg",
 			description: "In this subsystem, we will combine everything we have learnt to far to create a JavaScript program that uses an algorithm to convert between base 3 and base 13.",
 			research: {
-				threshold: 60, // READONLY
+				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to code your solution!"],
 				modules: [
 					{
 						type: "pdf",
 						title: "Converting between any two bases",
-						url: "/hyperloop/files/210701AC Research - 4.pdf",
+						url: "/projects/hyperloop/subsystems/210701AC Research - 4.pdf",
 					},
 				],
 			},

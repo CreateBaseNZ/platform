@@ -7,7 +7,7 @@ import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { ALL_PROJECTS_ARRAY } from "../../../lib/getProjectData";
 import getProjectData from "../../../lib/getProjectData";
-import { IProjectReadOnly } from "../../../types/newProjects";
+import { IProjectReadOnly } from "../../../types/projects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 
 import classes from "/styles/define.module.scss";

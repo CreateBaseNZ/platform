@@ -7,7 +7,7 @@ import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProje
 import TutorialModule from "../../../components/Project/TutorialModule";
 import BlankModule from "../../../components/Project/BlankModule";
 import PdfModule from "../../../components/Project/PdfModule";
-import { IProjectReadOnly } from "../../../types/newProjects";
+import { IProjectReadOnly } from "../../../types/projects";
 import { IPdfModule, ITutorialModule } from "../../../types/modules";
 
 import classes from "../../../styles/imagine.module.scss";

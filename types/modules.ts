@@ -1,5 +1,4 @@
 import { IFullVidData } from "./projects";
-import { IExplore } from "./explore";
 
 /** PDF module. */
 export type IPdfModule = {
@@ -36,15 +35,5 @@ export type VidModule = {
 	data: IFullVidData;
 };
 
-/** Explore module. */
-export type ExploreModule = {
-	/** Explore module identifier. */
-	type: "explore";
-	/** Module title. */
-	title: string;
-	/** Array of explore activities. */
-	items: IExplore[];
-};
-
 /** List of module data objects. */
-export type ModuleList = (IPdfModule | ITutorialModule | VidModule | ExploreModule)[];
+export type ModuleList = (IPdfModule | ITutorialModule | VidModule)[];

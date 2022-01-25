@@ -1,4 +1,3 @@
-import { comparisonBoostData, ifBoostData } from "./explore-data";
 import { AI, AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, ETHICS, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
 
@@ -136,11 +135,6 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						title: "Tips & tricks: sensing blocks",
 						img: "",
 						url: "/sensing-blocks.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [comparisonBoostData, ifBoostData],
 					},
 				],
 			},

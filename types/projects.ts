@@ -2,6 +2,8 @@ import { DeepReadonly } from "ts-essentials";
 import { ModuleList } from "./modules";
 import { BlockList } from "./flow";
 
+// TODO - re-evaluate whether all props are necessary
+
 /** Project difficulty levels. */
 export type ProjectDifficulty = "introductory" | "proficient" | "advanced";
 
@@ -13,18 +15,6 @@ export interface IProjectSubject {
 	label: string;
 }
 
-/** Full video data object (usually with controls). */
-export interface IFullVidData {
-	/** YouTube link. */
-	url: string;
-	/** Video file. */
-	src: string;
-	/** Title. */
-	h1: string;
-	/** Subtitle. */
-	h2: string;
-}
-
 /** Subsystem data object. */
 export interface ISubsystem {
 	/** Subsystem title. */
@@ -32,7 +22,7 @@ export interface ISubsystem {
 	/** List of prerequisites; each item should correspond to the title of another subsystem in the same project. */
 	requirements: string[];
 	/** Subsystem thumbnail source. */
-	imgSrc: string;
+	img: string;
 	/** Brief description of the subsystem. */
 	description: string;
 	/** Research step data. */
@@ -48,43 +38,44 @@ export interface ISubsystem {
 	plan: {
 		/** Minimum recommended time spent on Plan step. */
 		threshold: number;
-		/** List of tasks to complete in Plan step. */
+		// TODO - decide what to do with this prop
 		list: string[];
 	};
 	/** Code step data. */
 	code: {
 		/** Minimum recommended time spent on Code step. */
 		threshold: number;
-		/** List of tasks to complete in Code step. */
+		// TODO - decide what to do with this prop
 		tasks: string[];
-		/** List of hints. */
+		// TODO - decide what to do with this prop
 		hints: string[];
 	};
 	/** List of blocks available for coding in this subsystem. */
+	// TODO - deprecate this prop
 	blockList: BlockList;
 }
 
 /** Project data object. */
 export interface IProject {
-	/** Project name. */
-	name: string;
 	/** Unique project query ID. */
-	query: string;
+	id: string;
+	/** Project title. */
+	title: string;
+	/** Project subtitle. */
+	subtitle: string;
 	/** One paragraph description of the project. */
-	caption: string;
-	/** How the simulation and Flow coding windows are displayed. Currently does nothing.
-	 * @todo remove this prop or support shelved view.
-	 */
-	stacked: boolean;
-	/** If `true`, Flow will not be available. */
-	textCodingOnly?: boolean;
+	description: string;
 	/** Unique prefix for Unity scene rendering. */
 	scenePrefix: string;
 	/** How the code is run under-the-hood.
 	 * - `loop` - the code is continuously evaluated until terminated.
 	 * - `once` - the code runs once and is then terminated.
 	 */
+	// TODO - deprecate this prop
 	runType: "loop" | "once";
+	/** If `true`, Flow will not be available. */
+	// TODO - deprecate this prop
+	textCodingOnly?: boolean;
 	/** Estimated duration per lesson. */
 	durPerLesson: string;
 	/** Estimated number of lessons. */
@@ -93,23 +84,25 @@ export interface IProject {
 	difficulty: ProjectDifficulty;
 	/** List of subjects covered. */
 	subjects: IProjectSubject[];
-	/** Path to Learning Outcomes PDF file. */
-	learningOutcome: string;
-	/** Object containing paths to curriculum alignment documents for each supported region. */
-	cads: Record<"nz" | "aus" | "cali" | "uk", string>;
 	/** Path to Lesson Plan file. */
 	lessonPlan: string;
 	/** Bullet-pointed list of learning outcomes. */
+	learningOutcomes: string[];
+	/** Bullet-pointed list of learning outcomes. */
+	// TODO - deprecate this prop
 	learnings: string[];
+	/** Object containing paths to curriculum alignment documents for each supported region. */
+	// TODO - decide what we want to do with CADs
+	cads: Record<"nz" | "aus" | "cali" | "uk", string>;
+	/** Situation video on YouTube ID. */
+	videoId: string;
 	/** Define step data. */
 	define: {
 		/** Minimum recommended time spent on Define step. */
 		threshold: number;
-		/** Learning journal Google Docs link. */
-		docs: string;
-		/** Learning journal Word document. */
-		word: string;
-	} & IFullVidData;
+		/** Text content written in Markdown. */
+		md: string;
+	};
 	/** Imagine step data. */
 	imagine: {
 		/** Minimum recommended time spent on Imagine step. */
@@ -117,6 +110,7 @@ export interface IProject {
 		/** List of Imagine step modules. */
 		modules: ModuleList;
 	};
+	// TODO - rework all props below
 	/** Project subsystems. */
 	subsystems: ISubsystem[];
 	/** Improve step data. */

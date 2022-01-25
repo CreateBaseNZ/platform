@@ -199,15 +199,6 @@ export const FLOW_CODING = {
 					video
 				</li>
 			</ul>
-			<h2>Test your skills with comparison and conditional blocks</h2>
-			<ul>
-				<li>
-					<Link href="/explore/comparison-boost">Comparison boost</Link>
-				</li>
-				<li>
-					<Link href="/explore/if-boost">If boost</Link>
-				</li>
-			</ul>
 			<p>Finally, see how a solution comes together by watching this video which walks through the solution of the Send It project.</p>
 		</>
 	),
@@ -216,55 +207,48 @@ export const FLOW_CODING = {
 export const TEXT_CODING = {
 	shared: (
 		<>
-			<p>
-				As well as a visual coding language called Flow, the CreateBase Platform also uses a text-based code editor. Students can use this editor to write JavaScript code.
-			</p>
+			<p>As well as a visual coding language called Flow, the CreateBase Platform also uses a text-based code editor. Students can use this editor to write JavaScript code.</p>
 			<h2>The basics of our text editor</h2>
 			<p>
-				Whenever a user edits their visual code from the FLOW tab, the text-equivalent of that code is automatically generated in the TEXT tab. For all compatible Projects, simply select the TEXT tab in
-				the bottom right corner of your screen when viewing a simulation, like this <Link href="/game/magnebot/Sequential%20programming">one</Link>, to view the auto-generated text code.
+				Whenever a user edits their visual code from the FLOW tab, the text-equivalent of that code is automatically generated in the TEXT tab. For all compatible Projects, simply select the TEXT tab
+				in the bottom right corner of your screen when viewing a simulation, like this <Link href="/game/magnebot/Sequential%20programming">one</Link>, to view the auto-generated text code.
 			</p>
+			<p>You can type, copy, paste and delete text code directly from the TEXT tab and use the green compile button in the TEXT tab to run your code.</p>
 			<p>
-				You can type, copy, paste and delete text code directly from the TEXT tab and use the green compile button in the TEXT tab to run your code.
+				Select the CONSOLE tab to check the output of both your visual and text code, including any error messages. You can clear the console’s contents using the trash can icon in the bottom right
+				corner.
 			</p>
+			<p>Don’t like the visual style of the editor? Check out the CONFIG tab, which lets you select from various themes for the text editor.</p>
 			<p>
-				Select the CONSOLE tab to check the output of both your visual and text code, including any error messages. You can clear the console’s contents using the trash can icon in the bottom right corner.
-			</p>
-			<p>
-				Don’t like the visual style of the editor? Check out the CONFIG tab, which lets you select from various themes for the text editor.
-			</p>
-			<p>
-				There are multiple ways that students can interact with text code. Some students may create a basic solution using visual code and then edit it further using the text editor. At the same time, more advanced
-				students might skip the visual editor entirely and code straight from the text editor.
+				There are multiple ways that students can interact with text code. Some students may create a basic solution using visual code and then edit it further using the text editor. At the same time,
+				more advanced students might skip the visual editor entirely and code straight from the text editor.
 			</p>
 
 			<h2>Why use JavaScript?</h2>
+			<p>Currently, the programming language that users write in our text editor is limited to JavaScript.</p>
 			<p>
-				Currently, the programming language that users write in our text editor is limited to JavaScript.
+				Why JavaScript? Well, JavaScript is one of the most flexible and powerful programming languages available. As the “default language” of the internet, JavaScript is primarily used for web
+				development and powers a lot of the behaviour on fancy websites, including this platform.
 			</p>
 			<p>
-				Why JavaScript? Well, JavaScript is one of the most flexible and powerful programming languages available. As the “default language” of the internet, JavaScript is primarily used for web development and powers a
-				lot of the behaviour on fancy websites, including this platform.
+				As a higher-level language, JavaScript is easier to learn than many other alternatives. Its syntax is also quite logical and straightforward, with most of it resembling the English language.
+				JavaScript also has a massive community, so it is easy to find help and other resources whenever you encounter a problem.
 			</p>
-			<p>
-				As a higher-level language, JavaScript is easier to learn than many other alternatives. Its syntax is also quite logical and straightforward, with most of it resembling the English language. JavaScript also has a massive
-				community, so it is easy to find help and other resources whenever you encounter a problem.
-			</p>
-			<p>
-				Even if you don’t want to continue coding in JavaScript outside of this platform, the skills learnt while using the JavaScript language can be transferred to other languages.
-			</p>
-			<p>
-				Want a refresher on the JavaScript language? Check out these links to external resources:
-			</p>
+			<p>Even if you don’t want to continue coding in JavaScript outside of this platform, the skills learnt while using the JavaScript language can be transferred to other languages.</p>
+			<p>Want a refresher on the JavaScript language? Check out these links to external resources:</p>
 			<ul>
-				<li><Link href="https://www.w3schools.com/js/">W3 Schools</Link></li>
-				<li><Link href="https://htmlcheatsheet.com/js/">Interactive cheat sheet</Link></li>
+				<li>
+					<Link href="https://www.w3schools.com/js/">W3 Schools</Link>
+				</li>
+				<li>
+					<Link href="https://htmlcheatsheet.com/js/">Interactive cheat sheet</Link>
+				</li>
 			</ul>
-
 
 			<h2>Other languages are coming soon</h2>
 			<p>
-				You will soon be able to complete each of our Projects using other text-based languages, including Python. Make sure that you follow our <Link href="https://www.facebook.com/CreateBaseNZ">social media</Link> to get notified when this feature is released!
+				You will soon be able to complete each of our Projects using other text-based languages, including Python. Make sure that you follow our{" "}
+				<Link href="https://www.facebook.com/CreateBaseNZ">social media</Link> to get notified when this feature is released!
 			</p>
 		</>
 	),
@@ -395,20 +379,16 @@ export const CONTACTING_CREATEBASE = {
 export const DATA_PRIVACY = {
 	shared: (
 		<>
-			<h2>
-				Our policies
-			</h2>
+			<h2>Our policies</h2>
 			<p>
-				At CreateBase, we strive to align with every country’s student data collection and usage policies. Data that we collect is restricted to enable certain features like authentication, personalisation
-				and progress tracking, as well as to optimise the experience of our sites. We do not share this data with anyone outside of CreateBase unless required by law.
+				At CreateBase, we strive to align with every country’s student data collection and usage policies. Data that we collect is restricted to enable certain features like authentication,
+				personalisation and progress tracking, as well as to optimise the experience of our sites. We do not share this data with anyone outside of CreateBase unless required by law.
 			</p>
 			<p>
-				With a team consisting of many young individuals, data privacy is at the forefront of our minds. Although we only track the minimum amount of data required to provide our services, we encourage you to
-				check out the user data section of our terms & conditions as well as our privacy policy to decide for yourself if CreateBase aligns with your school’s policies.
+				With a team consisting of many young individuals, data privacy is at the forefront of our minds. Although we only track the minimum amount of data required to provide our services, we
+				encourage you to check out the user data section of our terms & conditions as well as our privacy policy to decide for yourself if CreateBase aligns with your school’s policies.
 			</p>
-			<p>
-				For more information about the particular user data that we collect and what we use it for, you can check out our privacy policy at:
-			</p>
+			<p>For more information about the particular user data that we collect and what we use it for, you can check out our privacy policy at:</p>
 			<p>
 				<a href="https://createbase.co.nz/privacy">https://createbase.co.nz/privacy</a>
 			</p>

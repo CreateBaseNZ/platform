@@ -1,11 +1,13 @@
-// TODO - replace the original
+// TODO - replace the original (in utils)
 
+// TODO - update when new replaces original
 import sendItData from "../data/new-send-it-data";
 import magnebotData from "../data/new-magnebot-data";
 import heatSeekerData from "../data/new-heat-seeker-data";
 import aimbotData from "../data/new-aimbot-data";
-import hyperloopData from "../data/new-hyperloop-data";
-import { IProjectReadOnly } from "../types/newProjects";
+import hyperloopData from "../data/hyperloop-data";
+import { IProjectReadOnly } from "../types/projects";
+import HYPERLOOP_DATA from "../data/hyperloop-data";
 
 // ----- How to Add Projects -----
 //
@@ -33,4 +35,4 @@ const getProjectData = (query: string) => {
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, heatSeekerData];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, heatSeekerData, HYPERLOOP_DATA];

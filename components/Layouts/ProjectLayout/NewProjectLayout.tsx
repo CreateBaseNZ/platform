@@ -9,7 +9,7 @@ import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
 import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
-import { IProjectReadOnly } from "../../../types/newProjects";
+import { IProjectReadOnly } from "../../../types/projects";
 
 interface Props {
 	children: ReactElement;

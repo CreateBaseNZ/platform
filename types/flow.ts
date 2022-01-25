@@ -1,3 +1,5 @@
+// TODO phase out this file
+
 import { CSSProperties } from "react";
 
 export interface INodeData {
