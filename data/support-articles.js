@@ -186,7 +186,7 @@ export const FLOW_CODING = {
 			<ul>
 				<li>
 					Read the{" "}
-					<a href="/intro-to-flow.pdf" target="_blank">
+					<a href="/projects/shared/intro-to-flow.pdf" target="_blank">
 						Intro to Flow
 					</a>{" "}
 					document

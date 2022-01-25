@@ -1,6 +1,3 @@
-// TODO - @louis check what's going on here
-import { IFullVidData } from "./projects";
-
 /** PDF module. */
 export type IPdfModule = {
 	/** Unique type. */
@@ -27,14 +24,21 @@ export type ITutorialModule = {
 };
 
 /** Video module. */
-export type VidModule = {
+export type IVideoModule = {
 	/** Video module identifier. */
 	type: "video";
 	/** Module title. */
 	title: string;
-	/** Full video data (displayed in full). */
-	data: IFullVidData;
+	/** Video data. */
+	data: {
+		/** YouTube video ID. */
+		videoId: string;
+		/** Main heading. */
+		h1: string;
+		/** Secondary heading. */
+		h2: string;
+	};
 };
 
 /** List of module data objects. */
-export type ModuleList = (IPdfModule | ITutorialModule | VidModule)[];
+export type ModuleList = (IPdfModule | ITutorialModule | IVideoModule)[];

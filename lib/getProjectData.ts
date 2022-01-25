@@ -3,7 +3,7 @@
 import SEND_IT_DATA from "../data/send-it-data";
 import MAGNEBOT_DATA from "../data/magnebot-data";
 import HEAT_SEEKER_DATA from "../data/heat-seeker-data";
-import AIMBOT_DATA from "../data/new-aimbot-data";
+import AIMBOT_DATA from "../data/aimbot-data";
 import HYPERLOOP_DATA from "../data/hyperloop-data";
 import { IProjectReadOnly } from "../types/projects";
 
