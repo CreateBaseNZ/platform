@@ -34,7 +34,7 @@ const Header = ({ setShowAliasModal }) => {
 				{globalSession.recentGroups.length ? (
 					<div className={classes.viewingAs} key={globalSession.groups[globalSession.recentGroups[0]].name}>
 						<div className={classes.viewingAsName}>{globalSession.groups[globalSession.recentGroups[0]].name}</div>
-						<div className={classes.viewingAsRole}>{globalSession.groups[globalSession.recentGroups[0]].role}</div>
+						<div className={classes.viewingAsRole}>{globalSession.groups[globalSession.recentGroups[0]]?.role}</div>
 					</div>
 				) : null}
 				{globalSession.accountId && (
@@ -49,7 +49,7 @@ const Header = ({ setShowAliasModal }) => {
 						<div className={`${classes.menu} ${showDropdown ? classes.active : ""}`}>
 							{globalSession.recentGroups.length ? (
 								<>
-									{globalSession.groups[globalSession.recentGroups[0]].role !== "student" && (
+									{globalSession.groups[globalSession.recentGroups[0]]?.role !== "student" && (
 										<>
 											<button onMouseDown={() => setShowAliasModal(true)} title="Edit alias">
 												<i className="material-icons-outlined">badge</i>

@@ -2,7 +2,7 @@ import { DeepReadonly } from "ts-essentials";
 import { ModuleList } from "./modules";
 import { BlockList } from "./flow";
 
-// TODO - re-evaluate whether all props are necessary
+// TODO - @louis re-evaluate whether all props are necessary
 
 /** Project difficulty levels. */
 export type ProjectDifficulty = "introductory" | "proficient" | "advanced";

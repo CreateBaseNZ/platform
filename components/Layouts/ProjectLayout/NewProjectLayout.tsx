@@ -23,8 +23,6 @@ const NewProjectLayout = ({ children, step, data, isFlat = false }: Props) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [showMenu, setShowMenu] = useState(false);
 
-	console.log(data);
-
 	return (
 		<div className={classes.container}>
 			<Head>
@@ -59,7 +57,7 @@ const NewProjectLayout = ({ children, step, data, isFlat = false }: Props) => {
 						))}
 					</div>
 				</div>
-				<div className={classes.title}>TO DO BUT VERY LONG</div>
+				<div className={classes.title}>{data.title}</div>
 				<div className={classes.steps}>
 					{STEPS.map((s, i) => (
 						<Fragment key={s.name}>
@@ -81,7 +79,7 @@ const NewProjectLayout = ({ children, step, data, isFlat = false }: Props) => {
 						<div className={classes.avatarTooltip}>
 							<span>
 								<b>{globalSession.groups[globalSession.recentGroups[0]].alias || `${globalSession.firstName} ${globalSession.lastName}`} </b> •{" "}
-								{globalSession.groups[globalSession.recentGroups[0]].name} {globalSession.groups[globalSession.recentGroups[0]].role}
+								{globalSession.groups[globalSession.recentGroups[0]].name} {globalSession.groups[globalSession.recentGroups[0]]?.role}
 							</span>
 						</div>
 					</div>

@@ -26,7 +26,7 @@ const Nav = ({ page }) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	const defaultTabs = globalSession.recentGroups.length
-		? [...MAIN_TABS[globalSession.groups[globalSession.recentGroups[0]].type]?.[globalSession.groups[globalSession.recentGroups[0]].role], { page: null }]
+		? [...MAIN_TABS[globalSession.groups[globalSession.recentGroups[0]].type]?.[globalSession.groups[globalSession.recentGroups[0]]?.role], { page: null }]
 		: [];
 
 	const activeTab = [BROWSE, ...defaultTabs, ...DEFAULT_TABS].findIndex((t) => t.page === page);

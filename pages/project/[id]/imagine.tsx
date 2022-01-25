@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, ReactElement } from "react";
 import router from "next/router";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
-import getProjectData, { ALL_PROJECTS_ARRAY } from "../../../lib/getProjectData";
+import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/projects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import TutorialModule from "../../../components/Project/TutorialModule";
 import BlankModule from "../../../components/Project/BlankModule";
@@ -81,7 +81,7 @@ export async function getStaticProps({ params }: Params) {
 	console.log(params);
 	return {
 		props: {
-			data: getProjectData(params.id),
+			data: ALL_PROJECTS_OBJECT[params.id],
 		},
 	};
 }
