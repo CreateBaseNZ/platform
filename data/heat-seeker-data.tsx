@@ -78,6 +78,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 	subsystems: [
 		{
 			title: "Speed control",
+			id: "speed-control",
 			requirements: [],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-1.png",
 			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
@@ -126,6 +127,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 		},
 		{
 			title: "Navigating curves",
+			id: "navigating-curves",
 			requirements: ["Speed control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-2.PNG",
 			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
@@ -172,6 +174,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 		},
 		{
 			title: "Navigating turns",
+			id: "navigating-turns",
 			requirements: ["Speed control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-3.png",
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
@@ -207,6 +210,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 		},
 		{
 			title: "Extinguishing fires",
+			id: "extinguishing-fires",
 			requirements: [],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-4.PNG",
 			description: "In this fourth subsystem, we will learn how to use a sensor to detect the presence of a fire and then perform the correct sequence of actions to automatically put it out.",
@@ -252,6 +256,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 		},
 		{
 			title: "Putting it all together",
+			id: "putting-it-all-together",
 			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/thumbnail.png",
 			description:

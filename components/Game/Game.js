@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import router from "next/router";
 import useUnity from "../../hooks/useUnity";
-import useMixPanel from "../../hooks/useMixpanel";
+import useMixpanel from "../../hooks/useMixpanel";
 import Unity from "./Unity";
 import Workspace from "./Workspace";
 import { ConsoleContextProvider } from "../../store/console-context";
@@ -21,16 +21,12 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 		wip: project.wip,
 		setLoaded: setGameLoaded,
 	});
-	const mp = useMixPanel();
+	const { track } = useMixpanel();
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		mp.init();
-	}, []);
-
-	useEffect(() => {
 		if (gameState === "Win") {
-			mp.track(`game_${isImprove ? "improve" : "create"}_progress`, {
+			track(`game_${isImprove ? "improve" : "create"}_progress`, {
 				state: "win",
 				licenses: globalSession.groups.map((group) => group.licenseId),
 				schools: globalSession.groups.map((group) => group.id),
@@ -38,7 +34,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 				subsystem: router.query.subsystem,
 			});
 		}
-	}, [gameState]);
+	}, [gameState, track, isImprove, globalSession.groups]);
 
 	return (
 		<div className={classes.code}>

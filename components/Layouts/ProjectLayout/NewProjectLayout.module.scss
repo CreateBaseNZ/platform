@@ -1,5 +1,7 @@
 @import "/styles/variables.scss";
 
+$border-color: #f1f1f1;
+
 .container {
 	height: 100vh;
 	width: 100vw;
@@ -265,12 +267,103 @@
 	width: 100%;
 	border-radius: 0 0 0 0;
 	box-shadow: none;
-	border-bottom: thin solid $lighter;
+	border-bottom: thin solid $border-color;
 	.steps {
 		flex: 2 1 0;
 		.separator {
 			height: 0;
 			width: 0;
+		}
+	}
+}
+
+.leftPanel {
+	padding-top: 3.5rem;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	flex: 0 0 200px;
+	max-width: 200px;
+	border-right: thin solid $border-color;
+	transition: flex 0.4s ease-out;
+	&.hide {
+		flex: 0 0 0;
+	}
+}
+
+.toSubsystems {
+	width: 100%;
+	height: 3rem;
+	display: flex;
+	align-items: center;
+	a {
+		padding-left: 1rem;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		font-size: 12px;
+		i {
+			margin-right: 0.5rem;
+			font-size: 16px;
+			color: inherit;
+			transition: transform 0.1s ease-out;
+		}
+		&:hover {
+			background: $lighter;
+			i {
+				transform: translateX(-4px);
+			}
+		}
+	}
+}
+
+.substepContainer {
+	width: 100%;
+	border-top: thin solid $border-color;
+	padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	.substepName {
+		width: 100%;
+		max-width: 100%;
+		font-size: 12px;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		padding: 0.75rem 0.5rem 0.75rem 1.5rem;
+	}
+	a {
+		width: 100%;
+		height: 2rem;
+		display: flex;
+		align-items: center;
+		opacity: 0.25;
+		font-size: 12px;
+		font-weight: 500;
+		padding-left: 2rem;
+		transition: all 0.1s ease-out;
+		i {
+			width: 0;
+			overflow: hidden;
+			opacity: 0;
+			font-size: 1rem;
+			margin-right: 0.25rem;
+			color: inherit;
+			transition: all 0.2s ease-out;
+		}
+		&:hover {
+			opacity: 1;
+			background: $lighter;
+		}
+		&.active {
+			opacity: 1;
+			color: $blue-dark;
+			i {
+				width: 1rem;
+				opacity: 1;
+			}
 		}
 	}
 }

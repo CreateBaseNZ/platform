@@ -1,31 +1,25 @@
-import { useState, useEffect, useContext } from "react";
-import router from "next/router";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
-import useMixpanel from "../../../hooks/useMixpanel";
-import GlobalSessionContext from "../../../store/global-session-context";
-import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
-import Img from "../../../components/UI/Img";
-import getProjectData from "../../../utils/getProjectData";
+import useMixpanel from "../../../../hooks/useMixpanel";
+import ProjectLayout from "../../../../components/Layouts/ProjectLayout/ProjectLayout";
+import Img from "../../../../components/UI/Img";
+import getProjectData from "../../../../utils/getProjectData";
 
 import classes from "/styles/improve.module.scss";
 
 const Improve = () => {
+	const router = useRouter();
 	const [data, setData] = useState();
-	const mp = useMixpanel();
-	const { globalSession } = useContext(GlobalSessionContext);
+	const {} = useMixpanel("project_improve");
 
 	useEffect(() => {
-		mp.init();
-		const clearSession = mp.trackActiveSession("project_improve");
-		return () => clearSession();
-	}, []);
-
-	useEffect(() => {
+		if (!router.isReady) return;
 		if (router.query.id) {
 			setData(getProjectData(router.query.id));
 		}
-	}, [router.query.id]);
+	}, [router.isReady, router.query]);
 
 	if (!data) return null;
 

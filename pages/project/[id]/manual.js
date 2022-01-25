@@ -21,15 +21,11 @@ const UnityWrapper = ({ data, setLoaded }) => {
 		setLoaded: setLoaded,
 	});
 	const { globalSession } = useContext(GlobalSessionContext);
-	const mp = useMixpanel();
-
-	useEffect(() => {
-		mp.init();
-	}, []);
+	const { track } = useMixpanel();
 
 	useEffect(() => {
 		if (gameState === "Win") {
-			mp.track("game_manual_progress", {
+			track("game_manual_progress", {
 				state: "win",
 				licenses: globalSession.groups.map((group) => group.licenseId),
 				schools: globalSession.groups.map((group) => group.id),
@@ -37,7 +33,7 @@ const UnityWrapper = ({ data, setLoaded }) => {
 				subsystem: router.query.subsystem,
 			});
 		}
-	}, [gameState]);
+	}, [globalSession.groups, track, gameState]);
 
 	return <Unity unityContext={unityContext} />;
 };

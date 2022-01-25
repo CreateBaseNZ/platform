@@ -81,6 +81,7 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 	subsystems: [
 		{
 			title: "Sequential programming",
+			id: "sequential-programming",
 			requirements: [],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/magnebot/images/sequential.jpg",
 			description: "In a single subsystem, your task is to write a sequential program to control MagneBot in order to pick up each rubbish bag and deposit them in one of the two recycling bins.",

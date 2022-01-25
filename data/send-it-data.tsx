@@ -94,6 +94,7 @@ What do you think is happening here? Discuss with your peers!`,
 	subsystems: [
 		{
 			title: "Obstacle avoidance",
+			id: "obstacle-avoidance",
 			requirements: [],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/send-it/images/thumbnail.png",
 			description:

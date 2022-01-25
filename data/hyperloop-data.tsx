@@ -62,6 +62,7 @@ Your first step to begin solving this problem is to download either of the learn
 	subsystems: [
 		{
 			title: "Binary to hexadecimal",
+			id: "binary-to-hexadecimal",
 			requirements: [],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-1.jpg",
 			description:
@@ -100,6 +101,7 @@ Your first step to begin solving this problem is to download either of the learn
 		},
 		{
 			title: "Binary to decimal",
+			id: "binary-to-decimal",
 			requirements: ["Binary to hexadecimal"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-2.jpg",
 			description:
@@ -138,6 +140,7 @@ Your first step to begin solving this problem is to download either of the learn
 		},
 		{
 			title: "Decimal to binary",
+			id: "decimal-to-binary",
 			requirements: ["Binary to hexadecimal"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-3.jpg",
 			description:
@@ -176,6 +179,7 @@ Your first step to begin solving this problem is to download either of the learn
 		},
 		{
 			title: "Ternary to tridecimal",
+			id: "ternary-to-tridecimal",
 			requirements: ["Binary to decimal", "Decimal to binary"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-4.jpg",
 			description: "In this subsystem, we will combine everything we have learnt to far to create a JavaScript program that uses an algorithm to convert between base 3 and base 13.",

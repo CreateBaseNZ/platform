@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import useMixpanel from "../../../hooks/useMixpanel";
-import GlobalSessionContext from "../../../store/global-session-context";
 import Game from "../../../components/Game/Game";
 import getProjectData from "../../../utils/getProjectData";
 import LoadingScreen from "../../../components/UI/LoadingScreen";
@@ -10,16 +9,7 @@ import LoadingScreen from "../../../components/UI/LoadingScreen";
 const ImproveGame = () => {
 	const router = useRouter();
 	const [data, setData] = useState();
-	const mp = useMixpanel();
-	const { globalSession } = useContext(GlobalSessionContext);
-
-	useEffect(() => {
-		mp.init();
-		const clearSession = mp.trackActiveSession("code_improve_time");
-		return () => {
-			clearSession();
-		};
-	}, []);
+	const {} = useMixpanel("code_improve_time");
 
 	useEffect(() => {
 		if (router.isReady) {

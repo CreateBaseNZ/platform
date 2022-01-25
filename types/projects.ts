@@ -17,6 +17,8 @@ export interface IProjectSubject {
 
 /** Subsystem data object. */
 export interface ISubsystem {
+	/** Subsystem ID. */
+	id: string;
 	/** Subsystem title. */
 	title: string;
 	/** List of prerequisites; each item should correspond to the title of another subsystem in the same project. */
