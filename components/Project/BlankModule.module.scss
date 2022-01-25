@@ -6,4 +6,9 @@
 	align-self: center;
 	display: flex;
 	flex-direction: column;
+	p {
+		font-size: 14px;
+		color: $dark;
+		text-align: center;
+	}
 }

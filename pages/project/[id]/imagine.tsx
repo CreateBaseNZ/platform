@@ -3,14 +3,14 @@ import router from "next/router";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getProjectData, { ALL_PROJECTS_ARRAY } from "../../../lib/getProjectData";
-
-import classes from "../../../styles/imagine.module.scss";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
-import { IProjectReadOnly } from "../../../types/newProjects";
-import PdfModule from "../../../components/Project/PdfModule";
-import { ExploreModule, PDFModule, TutModule, VidModule } from "../../../types/modules";
 import TutorialModule from "../../../components/Project/TutorialModule";
 import BlankModule from "../../../components/Project/BlankModule";
+import PdfModule from "../../../components/Project/PdfModule";
+import { IProjectReadOnly } from "../../../types/newProjects";
+import { IPdfModule, ITutorialModule } from "../../../types/modules";
+
+import classes from "../../../styles/imagine.module.scss";
 
 interface Props {
 	data: IProjectReadOnly;
@@ -19,9 +19,9 @@ interface Props {
 const renderModule = (module: any) => {
 	switch (module?.type) {
 		case "pdf":
-			return <PdfModule module={module as PDFModule} />;
+			return <PdfModule module={module as IPdfModule} />;
 		case "tutorial":
-			return <TutorialModule module={module as TutModule} />;
+			return <TutorialModule module={module as ITutorialModule} />;
 		default:
 			return <BlankModule />;
 	}
@@ -46,7 +46,7 @@ const Imagine = ({ data }: Props) => {
 
 	return (
 		<div className={`${classes.page} roundScrollbar`}>
-			<aside className={classes.aside}>
+			<aside className={`${classes.aside} ${active === -1 ? classes.blink : ""}`}>
 				<div className={classes.header}>Modules</div>
 				{data.imagine.modules.map((mod, i) => (
 					<button key={mod.title} className={i === active ? classes.active : ""} title={mod.title} onClick={() => setActive(i)}>

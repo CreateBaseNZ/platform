@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { TutModule } from "../../types/modules";
+import { ITutorialModule } from "../../types/modules";
 import classes from "./TutorialModule.module.scss";
 
 interface Props {
-	module: TutModule;
+	module: ITutorialModule;
 }
 
 const TutorialModule = ({ module }: Props): JSX.Element => {

@@ -2,7 +2,7 @@ import { IFullVidData } from "./projects";
 import { IExplore } from "./explore";
 
 /** PDF module. */
-export type PDFModule = {
+export type IPdfModule = {
 	/** Unique type. */
 	type: "pdf";
 	/** Module title. */
@@ -12,7 +12,7 @@ export type PDFModule = {
 };
 
 /** Tutorial module. */
-export type TutModule = {
+export type ITutorialModule = {
 	/** Tutorial module identifier. */
 	type: "tutorial";
 	/** Module title. */
@@ -47,4 +47,4 @@ export type ExploreModule = {
 };
 
 /** List of module data objects. */
-export type ModuleList = (PDFModule | TutModule | VidModule | ExploreModule)[];
+export type ModuleList = (IPdfModule | ITutorialModule | VidModule | ExploreModule)[];

@@ -41,6 +41,18 @@
 			color: $blue-dark;
 		}
 	}
+	&.blink {
+		animation: blink 0.6s ease-out alternate infinite;
+	}
+}
+
+@keyframes blink {
+	from {
+		box-shadow: 4px 0 2rem -8px rgba($blue-dark, 0.1);
+	}
+	to {
+		box-shadow: 4px 0 3rem 0 rgba($blue-dark, 0.25);
+	}
 }
 
 .main {
