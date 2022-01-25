@@ -1,13 +1,11 @@
 // TODO - replace the original (in utils)
 
-// TODO - update when new replaces original
-import SEND_IT_DATA from "../data/new-send-it-data";
+import SEND_IT_DATA from "../data/send-it-data";
 import MAGNEBOT_DATA from "../data/magnebot-data";
 import HEAT_SEEKER_DATA from "../data/heat-seeker-data";
-import aimbotData from "../data/new-aimbot-data";
-import hyperloopData from "../data/hyperloop-data";
-import { IProjectReadOnly } from "../types/projects";
+import AIMBOT_DATA from "../data/new-aimbot-data";
 import HYPERLOOP_DATA from "../data/hyperloop-data";
+import { IProjectReadOnly } from "../types/projects";
 
 // ----- How to Add Projects -----
 //
@@ -25,9 +23,9 @@ const getProjectData = (query: string) => {
 		case "heat-seeker":
 			return HEAT_SEEKER_DATA;
 		case "aimbot":
-			return aimbotData;
+			return AIMBOT_DATA;
 		case "hyperloop":
-			return hyperloopData;
+			return HYPERLOOP_DATA;
 		default:
 			return undefined;
 	}
@@ -35,4 +33,4 @@ const getProjectData = (query: string) => {
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [SEND_IT_DATA, MAGNEBOT_DATA, HEAT_SEEKER_DATA, HYPERLOOP_DATA];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [SEND_IT_DATA, MAGNEBOT_DATA, HEAT_SEEKER_DATA, HYPERLOOP_DATA, AIMBOT_DATA];
