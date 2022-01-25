@@ -2,8 +2,8 @@
 
 .page {
 	height: 100%;
+	max-height: 100%;
 	width: 100%;
-	display: flex;
 }
 
 .aside {
@@ -46,5 +46,8 @@
 .main {
 	height: 100%;
 	width: 100%;
-	background: red;
+	padding-top: 4rem;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
 }

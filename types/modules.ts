@@ -1,4 +1,4 @@
-import { IBasicVidData, IFullVidData } from "./projects";
+import { IFullVidData } from "./projects";
 import { IExplore } from "./explore";
 
 /** PDF module. */
@@ -16,11 +16,16 @@ export type PDFModule = {
 /** Tutorial module. */
 export type TutModule = {
 	/** Tutorial module identifier. */
-	type: "tut";
+	type: "tutorial";
 	/** Module title. */
 	title: string;
-	/** Array of tutorial video data (with simple display, similar to GIF's). */
-	items: IBasicVidData[];
+	/** Array of GIF's. */
+	items: {
+		/** URL to GIF file. */
+		src: string;
+		/** One sentence description. */
+		caption: string;
+	}[];
 };
 
 /** Video module. */

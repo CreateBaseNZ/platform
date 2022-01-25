@@ -7,6 +7,9 @@ import getProjectData, { ALL_PROJECTS_ARRAY } from "../../../lib/getProjectData"
 import classes from "../../../styles/imagine.module.scss";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import { IProjectReadOnly } from "../../../types/newProjects";
+import PdfModule from "../../../components/Project/PdfModule";
+import { PDFModule, TutModule } from "../../../types/modules";
+import TutorialModule from "../../../components/Project/TutorialModule";
 
 interface Props {
 	data: IProjectReadOnly;
@@ -39,16 +42,11 @@ const Imagine = ({ data }: Props) => {
 					</button>
 				))}
 			</aside>
-			<main className={classes.main}></main>
-			{/* <ModuleContainer
-				active={active}
-				clickHandler={cardClickHandler}
-				modules={data.imagine.modules}
-				caption={[
-					"As a class, dive into group discussions around the Project theme to fully define our problem.",
-					"Your educator will let you know if they want you to answer these questions in your learning journal individually, as a group, or as a class discussion.",
-				]}
-			/> */}
+			<main className={classes.main}>
+				{data.imagine.modules[active].type === "pdf" && <PdfModule module={data.imagine.modules[active] as PDFModule} />}
+				{data.imagine.modules[active].type === "tutorial" && <TutorialModule module={data.imagine.modules[active] as TutModule} />}
+			</main>
+
 			{/* <div className={classes.mainContainer}>
 				<ModuleBody module={data.imagine.modules[active]} length={data.imagine.modules.length} />
 			</div> */}

@@ -56,7 +56,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 				url: "/magnebot/pdf/robotics.pdf",
 			},
 			{
-				type: "tut",
+				type: "tutorial",
 				title: "How to MagneBot",
 				items: [
 					{

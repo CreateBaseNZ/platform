@@ -23,7 +23,7 @@ const ModuleBody = ({ module, length }) => {
 		<div style={{ width: "100%", height: "100%" }}>
 			{(module.type === "pdf" || module.type === "task") && <PdfModule module={module} />}
 			{module.type === "video" && <VideoModule module={module} />}
-			{module.type === "tut" && <TutorialModule module={module} />}
+			{module.type === "tutorial" && <TutorialModule module={module} />}
 			{module.type === "explore" && (
 				<div className={classes.exploreWrapper}>
 					{module.items.map((item, i) => (

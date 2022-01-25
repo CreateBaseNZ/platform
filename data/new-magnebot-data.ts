@@ -45,20 +45,20 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 				url: "/magnebot/pdf/robotics.pdf",
 			},
 			{
-				type: "tut",
+				type: "tutorial",
 				title: "How to MagneBot",
 				items: [
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-1.mp4",
-						subtitle: "Use the controls to move the arm and pick up rubbish bags",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/gifs/tut-1.gif",
+						caption: "Use the controls to move the arm and pick up rubbish bags",
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-2.mp4",
-						subtitle: "Get all three rubbish bags into the bins",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/gifs/tut-2.gif",
+						caption: "Get all three rubbish bags into the bins",
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-3.mp4",
-						subtitle: "Hold down and drag with right click to orbit the camera around the arm",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/gifs/tut-3.gif",
+						caption: "Hold down and drag with right click to orbit the camera around the arm",
 					},
 				],
 			},

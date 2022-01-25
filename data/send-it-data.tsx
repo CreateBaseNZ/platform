@@ -84,7 +84,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 				url: "/send-it/pdf/ethics.pdf",
 			},
 			{
-				type: "tut",
+				type: "tutorial",
 				title: "How to Send It",
 				items: [
 					{

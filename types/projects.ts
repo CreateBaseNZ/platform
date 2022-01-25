@@ -13,14 +13,6 @@ export interface IProjectSubject {
 	label: string;
 }
 
-/** Basic video data object (typically shown as a GIF). */
-export interface IBasicVidData {
-	/** Video file. */
-	src: string;
-	/** A short description. */
-	subtitle: string;
-}
-
 /** Full video data object (usually with controls). */
 export interface IFullVidData {
 	/** YouTube link. */
