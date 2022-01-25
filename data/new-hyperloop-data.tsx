@@ -1,5 +1,5 @@
 import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY, JAVASCRIPT } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/projects";
+import { IProjectReadOnly } from "../types/newProjects";
 
 const HYPERLOOP_DATA: IProjectReadOnly = {
 	name: "Hyperloop",

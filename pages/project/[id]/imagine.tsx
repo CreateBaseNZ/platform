@@ -46,10 +46,6 @@ const Imagine = ({ data }: Props) => {
 				{data.imagine.modules[active].type === "pdf" && <PdfModule module={data.imagine.modules[active] as PDFModule} />}
 				{data.imagine.modules[active].type === "tutorial" && <TutorialModule module={data.imagine.modules[active] as TutModule} />}
 			</main>
-
-			{/* <div className={classes.mainContainer}>
-				<ModuleBody module={data.imagine.modules[active]} length={data.imagine.modules.length} />
-			</div> */}
 		</div>
 	);
 };

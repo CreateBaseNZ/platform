@@ -27,10 +27,10 @@ const getProjectData = (query: string) => {
 		case "hyperloop":
 			return hyperloopData;
 		default:
-			return null;
+			return undefined;
 	}
 };
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, heatSeekerData];
