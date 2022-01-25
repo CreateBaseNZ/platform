@@ -7,6 +7,7 @@ import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProje
 import TutorialModule from "../../../components/Project/TutorialModule";
 import BlankModule from "../../../components/Project/BlankModule";
 import PdfModule from "../../../components/Project/PdfModule";
+import NoModule from "../../../components/Project/NoModule";
 import { IProjectReadOnly } from "../../../types/projects";
 import { IPdfModule, ITutorialModule } from "../../../types/modules";
 
@@ -46,15 +47,20 @@ const Imagine = ({ data }: Props) => {
 
 	return (
 		<div className={`${classes.page} roundScrollbar`}>
-			<aside className={`${classes.aside} ${active === -1 ? classes.blink : ""}`}>
-				<div className={classes.header}>Modules</div>
-				{data.imagine.modules.map((mod, i) => (
-					<button key={mod.title} className={i === active ? classes.active : ""} title={mod.title} onClick={() => setActive(i)}>
-						{mod.title}
-					</button>
-				))}
-			</aside>
-			<main className={classes.main}>{renderModule(data.imagine.modules[active])}</main>
+			{data.imagine.modules.length > 0 && (
+				<aside className={`${classes.aside} ${active === -1 ? classes.blink : ""}`}>
+					<div className={classes.header}>Modules</div>
+					{data.imagine.modules.map((mod, i) => (
+						<button key={mod.title} className={i === active ? classes.active : ""} title={mod.title} onClick={() => setActive(i)}>
+							{mod.title}
+						</button>
+					))}
+				</aside>
+			)}
+			<main className={classes.main}>
+				{renderModule(data.imagine.modules[active])}
+				{data.imagine.modules.length === 0 && <NoModule />}
+			</main>
 		</div>
 	);
 };

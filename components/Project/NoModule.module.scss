@@ -1,0 +1,17 @@
+@import "/styles/variables";
+
+.container {
+	position: relative;
+	justify-self: center;
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+	& > div {
+		transform: scaleX(-100%);
+	}
+	p {
+		font-size: 14px;
+		color: $dark;
+		text-align: center;
+	}
+}

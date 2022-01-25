@@ -1,29 +1,18 @@
-import { useState, useEffect } from "react";
-import router from "next/router";
-import Head from "next/head";
-import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
-import getProjectData from "../../../utils/getProjectData";
+import { ReactElement } from "react";
 import Img from "../../../components/UI/Img";
+import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import { IProjectReadOnly } from "../../../types/projects";
+import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../constants/projects";
 
 import classes from "/styles/review.module.scss";
 
-const Review = () => {
-	const [data, setData] = useState();
+interface Props {
+	data: IProjectReadOnly;
+}
 
-	useEffect(() => {
-		if (router.query.id) {
-			setData(getProjectData(router.query.id));
-		}
-	}, [router.query.id]);
-
-	if (!data) return null;
-
+const Review = ({ data }: Props) => {
 	return (
 		<div className={`${classes.view} roundScrollbar`}>
-			<Head>
-				<title>Improve • {data.name} | CreateBase</title>
-				<meta name="description" content={data.caption} />
-			</Head>
 			<div className={classes.imgContainer}>
 				<div className={classes.imgWrapper}>
 					<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/review.svg" layout="fill" objectFit="contain" label="Illustration by Storyset" />
@@ -58,10 +47,42 @@ const Review = () => {
 	);
 };
 
-Review.getLayout = (page) => {
-	return <ProjectLayout activeStep="review">{page}</ProjectLayout>;
+Review.getLayout = (page: ReactElement, data: any) => {
+	return (
+		<NewProjectLayout step="Review" data={data.data}>
+			{page}
+		</NewProjectLayout>
+	);
 };
 
 Review.auth = "user";
 
 export default Review;
+
+interface Params {
+	params: {
+		id: string;
+	};
+}
+
+export async function getStaticProps({ params }: Params) {
+	console.log(params);
+	return {
+		props: {
+			data: ALL_PROJECTS_OBJECT[params.id],
+		},
+	};
+}
+
+export async function getStaticPaths() {
+	return {
+		paths: ALL_PROJECTS_ARRAY.map((project) => {
+			return {
+				params: {
+					id: project.id,
+				},
+			};
+		}),
+		fallback: false,
+	};
+}
