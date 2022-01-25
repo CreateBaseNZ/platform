@@ -1,8 +1,8 @@
 // TODO - replace the original (in utils)
 
 // TODO - update when new replaces original
-import sendItData from "../data/new-send-it-data";
-import magnebotData from "../data/new-magnebot-data";
+import SEND_IT_DATA from "../data/new-send-it-data";
+import MAGNEBOT_DATA from "../data/magnebot-data";
 import HEAT_SEEKER_DATA from "../data/heat-seeker-data";
 import aimbotData from "../data/new-aimbot-data";
 import hyperloopData from "../data/hyperloop-data";
@@ -19,9 +19,9 @@ import HYPERLOOP_DATA from "../data/hyperloop-data";
 const getProjectData = (query: string) => {
 	switch (query) {
 		case "send-it":
-			return sendItData;
+			return SEND_IT_DATA;
 		case "magnebot":
-			return magnebotData;
+			return MAGNEBOT_DATA;
 		case "heat-seeker":
 			return HEAT_SEEKER_DATA;
 		case "aimbot":
@@ -35,4 +35,4 @@ const getProjectData = (query: string) => {
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, HEAT_SEEKER_DATA, HYPERLOOP_DATA];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [SEND_IT_DATA, MAGNEBOT_DATA, HEAT_SEEKER_DATA, HYPERLOOP_DATA];
