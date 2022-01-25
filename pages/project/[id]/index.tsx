@@ -21,25 +21,3 @@ interface Params {
 		id: string;
 	};
 }
-
-export async function getStaticProps({ params }: Params) {
-	console.log(params);
-	return {
-		props: {
-			data: getProjectData(params.id),
-		},
-	};
-}
-
-export async function getStaticPaths() {
-	return {
-		paths: ALL_PROJECTS_ARRAY.map((project) => {
-			return {
-				params: {
-					id: project.query,
-				},
-			};
-		}),
-		fallback: false,
-	};
-}

@@ -1,11 +1,11 @@
-// TODO - replace the original
+// TODO - replace the original (in utils)
 
-import sendItData from "../data/new-send-it-data";
-import magnebotData from "../data/new-magnebot-data";
-import heatSeekerData from "../data/new-heat-seeker-data";
-import aimbotData from "../data/new-aimbot-data";
-import hyperloopData from "../data/new-hyperloop-data";
-import { IProjectReadOnly } from "../types/newProjects";
+import SEND_IT_DATA from "../data/send-it-data";
+import MAGNEBOT_DATA from "../data/magnebot-data";
+import HEAT_SEEKER_DATA from "../data/heat-seeker-data";
+import AIMBOT_DATA from "../data/aimbot-data";
+import HYPERLOOP_DATA from "../data/hyperloop-data";
+import { IProjectReadOnly } from "../types/projects";
 
 // ----- How to Add Projects -----
 //
@@ -17,20 +17,20 @@ import { IProjectReadOnly } from "../types/newProjects";
 const getProjectData = (query: string) => {
 	switch (query) {
 		case "send-it":
-			return sendItData;
+			return SEND_IT_DATA;
 		case "magnebot":
-			return magnebotData;
+			return MAGNEBOT_DATA;
 		case "heat-seeker":
-			return heatSeekerData;
+			return HEAT_SEEKER_DATA;
 		case "aimbot":
-			return aimbotData;
+			return AIMBOT_DATA;
 		case "hyperloop":
-			return hyperloopData;
+			return HYPERLOOP_DATA;
 		default:
-			return null;
+			return undefined;
 	}
 };
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [SEND_IT_DATA, MAGNEBOT_DATA, HEAT_SEEKER_DATA, HYPERLOOP_DATA, AIMBOT_DATA];

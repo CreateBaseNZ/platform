@@ -1,47 +1,44 @@
-import { IBasicVidData, IFullVidData } from "./projects";
-import { IExplore } from "./explore";
-
 /** PDF module. */
-export type PDFModule = {
+export type IPdfModule = {
 	/** Unique type. */
 	type: "pdf";
 	/** Module title. */
 	title: string;
 	/** PDF file path (URL or relative). */
 	url: string;
-	/** Optional module thumbail source. */
-	img?: string;
 };
 
 /** Tutorial module. */
-export type TutModule = {
+export type ITutorialModule = {
 	/** Tutorial module identifier. */
-	type: "tut";
+	type: "tutorial";
 	/** Module title. */
 	title: string;
-	/** Array of tutorial video data (with simple display, similar to GIF's). */
-	items: IBasicVidData[];
+	/** Array of GIF's. */
+	items: {
+		/** URL to GIF file. */
+		src: string;
+		/** One sentence description. */
+		caption: string;
+	}[];
 };
 
 /** Video module. */
-export type VidModule = {
+export type IVideoModule = {
 	/** Video module identifier. */
 	type: "video";
 	/** Module title. */
 	title: string;
-	/** Full video data (displayed in full). */
-	data: IFullVidData;
-};
-
-/** Explore module. */
-export type ExploreModule = {
-	/** Explore module identifier. */
-	type: "explore";
-	/** Module title. */
-	title: string;
-	/** Array of explore activities. */
-	items: IExplore[];
+	/** Video data. */
+	data: {
+		/** YouTube video ID. */
+		videoId: string;
+		/** Main heading. */
+		h1: string;
+		/** Secondary heading. */
+		h2: string;
+	};
 };
 
 /** List of module data objects. */
-export type ModuleList = (PDFModule | TutModule | VidModule | ExploreModule)[];
+export type ModuleList = (IPdfModule | ITutorialModule | IVideoModule)[];

@@ -12,7 +12,6 @@ import {
 import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
 import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
-import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 export default {
 	name: "Flow Training Camp",
@@ -129,11 +128,6 @@ export default {
 						type: "pdf",
 						title: "Sensing blocks",
 						url: "/heat-seeker/pdf/Iter_1.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [comparisonBoostData, ifBoostData],
 					},
 				],
 			},

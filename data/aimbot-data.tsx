@@ -1,46 +1,35 @@
-import {
-	NodeAimBotGetYawAngleMini,
-	NodeAimBotGetPitchAngleMini,
-	NodeAimBotGetMosquitoXPosMini,
-	NodeAimBotGetMosquitoYPosMini,
-	NodeAimBotGetMosquitoZPosMini,
-	NodeAimBotSetYawSpeedMini,
-	NodeAimBotSetPitchSpeedMini,
-	NodeAimBotShootMini,
-	NodeAimBotSetCurrentYawSpeedMini,
-	NodeAimBotSetCurrentPitchSpeedMini,
-	NodeAimBotGetCurrentYawSpeedMini,
-	NodeAimBotGetCurrentPitchSpeedMini,
-} from "../components/Nodes/NodeAimbot";
-import { NodeGreaterThanMini, NodeLessThanMini } from "../components/Nodes/NodeComparisons";
-import { NodeIfMini } from "../components/Nodes/NodeConditionals";
-import { NodeAndMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
-import { NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeArcTanMini, NodePIMini, NodeSqrtMini, NodeClampMini } from "../components/Nodes/NodeOperations";
-import { NodePrintMini } from "../components/Nodes/NodeUtils";
 import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
 
 const AIMBOT_DATA: IProjectReadOnly = {
-	name: "AimBot",
-	query: "aimbot",
-	caption:
+	id: "aimbot",
+	title: "AimBot",
+	subtitle: "Target tracking",
+	description:
 		"Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
-	stacked: true,
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 9,
 	difficulty: "advanced",
 	subjects: [COMPUTER_SCIENCE, SCRIPTING, TRIGONOMETRY, ENGINEERING],
-	learningOutcome: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	videoId: "znMZhBSDW_I",
 	cads: {
-		nz: "/aimbot/cads/020802AE Curriculum Alignment - AimBot - NZ.pdf",
-		aus: "/aimbot/cads/020802AE Curriculum Alignment - AimBot - ACARA.pdf",
-		cali: "/aimbot/cads/020802AE Curriculum Alignment - AimBot - California.pdf",
-		uk: "/aimbot/cads/020802AE Curriculum Alignment - AimBot - England.pdf",
+		nz: "/projects/aimbot/cads/020802AE Curriculum Alignment - AimBot - NZ.pdf",
+		aus: "/projects/aimbot/cads/020802AE Curriculum Alignment - AimBot - ACARA.pdf",
+		cali: "/projects/aimbot/cads/020802AE Curriculum Alignment - AimBot - California.pdf",
+		uk: "/projects/aimbot/cads/020802AE Curriculum Alignment - AimBot - England.pdf",
 	},
-	lessonPlan: "/aimbot/files/210505AD_EarlyAccess.pdf",
+	// TODO - @brydon this file doesn't exist
+	lessonPlan: "/projects/aimbot/files/210505AD_EarlyAccess.pdf",
 	learnings: [
+		"Use and track multiple variables throughout a program.",
+		"Use while loops to continually perform micro-actions.",
+		"Apply trigonometry to calculate angles in a 2-dimensional plane.",
+		"Apply trigonometry to 3-dimensional space.",
+		"Apply control systems theory to a control plant.",
+	],
+	learningOutcomes: [
 		"Use and track multiple variables throughout a program.",
 		"Use while loops to continually perform micro-actions.",
 		"Apply trigonometry to calculate angles in a 2-dimensional plane.",
@@ -49,12 +38,9 @@ const AIMBOT_DATA: IProjectReadOnly = {
 	],
 	define: {
 		threshold: 30,
-		url: "https://www.youtube.com/watch?v=znMZhBSDW_I",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/vid/situation.mp4",
-		h1: "Dive into the situation by watching this short video.",
-		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
-		docs: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
-		word: "/aimbot/files/210505AC AimBot Learning Journal.docx",
+		md: `Dive into the situation by watching this short video.
+
+Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.`,
 	},
 	imagine: {
 		threshold: 60,
@@ -62,8 +48,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "In this Project...",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_1.jpg",
-				url: "/aimbot/files/21050502AA_imagine.pdf",
+				url: "/projects/aimbot/imagine/21050502AA_imagine.pdf",
 			},
 		],
 	},
@@ -71,7 +56,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Yaw control",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_1.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_1.jpg",
 			description:
 				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
@@ -81,20 +66,17 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Axis, Pitch and Yaw",
-						img: "",
-						url: "/aimbot/pdf/2105050301AA_research_PitchYawAxis.pdf",
+						url: "/projects/aimbot/subsystems/2105050301AA_research_PitchYawAxis.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Trigonometry",
-						img: "",
-						url: "/aimbot/pdf/2105050301AB_research_Trigonometry.pdf",
+						url: "/projects/aimbot/subsystems/2105050301AB_research_Trigonometry.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Introduction to Flow Part I",
-						img: "",
-						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+						url: "/projects/aimbot/subsystems/2105050301AC_research_1_blocks.pdf",
 					},
 				],
 			},
@@ -120,18 +102,18 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
-				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
+				{ name: "Utilities", blocks: [] },
 			],
 		},
 		{
 			title: "Pitch control",
 			requirements: ["Yaw control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_2.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_2.jpg",
 			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
 			research: {
 				threshold: 30,
@@ -140,7 +122,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks 2",
-						url: "/aimbot/pdf/2105050301AD_research_2_blocks.pdf",
+						url: "/projects/aimbot/subsystems/2105050301AD_research_2_blocks.pdf",
 					},
 				],
 			},
@@ -165,20 +147,20 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			blockList: [
 				{
 					name: "Sensing",
-					blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />],
+					blocks: [],
 				},
-				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
+				{ name: "Utilities", blocks: [] },
 			],
 		},
 		{
 			title: "Velocity controller",
 			requirements: ["Yaw control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_3.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_3.jpg",
 			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
 			research: {
 				threshold: 600,
@@ -187,17 +169,17 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Intro to Forces",
-						url: "/aimbot/pdf/2105050301AE_research_IntroToForces.pdf",
+						url: "/projects/aimbot/subsystems/2105050301AE_research_IntroToForces.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Intro to Controllers",
-						url: "/aimbot/pdf/2105050301AF_research_IntroToControllers.pdf",
+						url: "/projects/aimbot/subsystems/2105050301AF_research_IntroToControllers.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Finer Velocity Control",
-						url: "/aimbot/pdf/2105050301AG_research_FinerVelocityControl.pdf",
+						url: "/projects/aimbot/subsystems/2105050301AG_research_FinerVelocityControl.pdf",
 					},
 				],
 			},
@@ -220,31 +202,25 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [<NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
-				{ name: "Sensing", blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoZPosMini />] },
-				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotShootMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeClampMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
+				{ name: "Variables", blocks: [] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
+				{ name: "Utilities", blocks: [] },
 			],
 		},
 		{
 			title: "Putting it all together",
 			requirements: ["Pitch control", "Velocity controller"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_4.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_4.jpg",
 			description: "Lets put together everything that we have learnt to program a solution to the full problem!",
 			research: {
 				threshold: 1,
 				caption: ["There is no new research for this subsystem. Move directly to Plan. Do not pass Go. Do not collect $100."],
-				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 30,
@@ -265,17 +241,17 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
+				{ name: "Variables", blocks: [] },
 				{
 					name: "Sensing",
-					blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />],
+					blocks: [],
 				},
-				{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
-				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />, <NodeClampMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
+				{ name: "Utilities", blocks: [] },
 			],
 		},
 	],
@@ -295,17 +271,17 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			"Don't forget to take a screenshot of your best time and paste it into your learning journal for proof!",
 		],
 		blockList: [
-			{ name: "Variables", blocks: [<NodeAimBotGetCurrentPitchSpeedMini />, <NodeAimBotGetCurrentYawSpeedMini />, <NodeAimBotSetCurrentPitchSpeedMini />, <NodeAimBotSetCurrentYawSpeedMini />] },
+			{ name: "Variables", blocks: [] },
 			{
 				name: "Sensing",
-				blocks: [<NodeAimBotGetYawAngleMini />, <NodeAimBotGetPitchAngleMini />, <NodeAimBotGetMosquitoXPosMini />, <NodeAimBotGetMosquitoYPosMini />, <NodeAimBotGetMosquitoZPosMini />],
+				blocks: [],
 			},
-			{ name: "Actions", blocks: [<NodeAimBotSetYawSpeedMini />, <NodeAimBotSetPitchSpeedMini />, <NodeAimBotShootMini />] },
-			{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeArcTanMini />, <NodePIMini />, <NodeSqrtMini />, <NodeClampMini />] },
-			{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-			{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
-			{ name: "Conditionals", blocks: [<NodeIfMini />] },
-			{ name: "Utilities", blocks: [<NodePrintMini />] },
+			{ name: "Actions", blocks: [] },
+			{ name: "Operators", blocks: [] },
+			{ name: "Comparisons", blocks: [] },
+			{ name: "Logicals", blocks: [] },
+			{ name: "Conditionals", blocks: [] },
+			{ name: "Utilities", blocks: [] },
 		],
 	},
 };

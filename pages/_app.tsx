@@ -13,7 +13,7 @@ import AuthGuard from "../components/Auth/AuthGuard";
 import "../styles/globals.scss";
 
 type NextPageWithLayout = NextPage & {
-	getLayout?: (page: ReactElement) => JSX.Element;
+	getLayout?: (page: ReactElement, data: any) => JSX.Element;
 	auth?: "user" | "staff";
 };
 
@@ -27,6 +27,8 @@ type AppPropsWithLayout = AppProps & {
 const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) => {
 	const getLayout = Component.getLayout ?? ((page) => page);
 
+	console.log(pageProps);
+
 	return (
 		<SessionProvider session={session}>
 			<VisualBellProvider>
@@ -34,7 +36,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
 					<MainLayoutContextProvider>
 						<div id="modal-root" />
 						<NextNProgress color="#772eff" options={{ showSpinner: false }} />
-						{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />)}</AuthGuard> : getLayout(<Component {...pageProps} />)}
+						{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />, pageProps)}</AuthGuard> : getLayout(<Component {...pageProps} />, pageProps)}
 						<MobileView />
 						<VisualBell />
 					</MainLayoutContextProvider>
