@@ -2,7 +2,6 @@ import { ReactNode, useContext } from "react";
 import { signIn } from "next-auth/react";
 import GlobalSessionContext from "../../store/global-session-context";
 import router from "next/router";
-import LoadingScreen from "../UI/LoadingScreen";
 import { SchoolRole } from "../../types/groups";
 
 export type AuthLevel = "admin" | "staff" | "user" | "any";
@@ -26,24 +25,24 @@ type AuthGuardProps = {
 const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
-	if (!globalSession.loaded) return <LoadingScreen />;
+	if (!globalSession.loaded) return <></>;
 
 	if (!globalSession.accountId) {
 		console.log("not authed");
 		signIn();
-		return <LoadingScreen />;
+		return <></>;
 	}
 
 	if (!globalSession.verified) {
 		console.log("not verified");
 		router.push({ pathname: "/auth/verify", query: router.query });
-		return <LoadingScreen />;
+		return <></>;
 	}
 
 	if (!hasAccess(globalSession.groups[globalSession.recentGroups[0]]?.role, auth)) {
 		console.log("no permission");
 		router.replace("/404");
-		return <LoadingScreen />;
+		return <></>;
 	}
 
 	return <>{children}</>;

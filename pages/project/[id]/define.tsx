@@ -10,6 +10,7 @@ import { IProjectReadOnly } from "../../../types/projects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 
 import classes from "../../../styles/define.module.scss";
+import useApi from "../../../hooks/useApi";
 
 interface Props {
 	data: IProjectReadOnly;
@@ -20,6 +21,7 @@ const Define = ({ data }: Props) => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const mp = useMixpanel();
+	const { post } = useApi();
 
 	useEffect(() => {
 		mp.init();
@@ -30,6 +32,11 @@ const Define = ({ data }: Props) => {
 		});
 		return () => clearSession();
 	}, []);
+
+	useEffect(() => {
+		if (!globalSession.loaded) return;
+		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "define" } }, date: new Date().toString() });
+	}, [globalSession.loaded]);
 
 	return (
 		<div className={classes.page}>
@@ -94,7 +101,6 @@ interface Params {
 }
 
 export async function getStaticProps({ params }: Params) {
-	console.log(params);
 	return {
 		props: {
 			data: ALL_PROJECTS_OBJECT[params.id],

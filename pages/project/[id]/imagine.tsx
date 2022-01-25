@@ -12,6 +12,7 @@ import { IProjectReadOnly } from "../../../types/projects";
 import { IPdfModule, ITutorialModule } from "../../../types/modules";
 
 import classes from "../../../styles/imagine.module.scss";
+import useApi from "../../../hooks/useApi";
 
 interface Props {
 	data: IProjectReadOnly;
@@ -32,6 +33,7 @@ const Imagine = ({ data }: Props) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [active, setActive] = useState(-1);
 	const mp = useMixpanel();
+	const { post } = useApi();
 
 	useEffect(() => {
 		mp.init();
@@ -42,6 +44,11 @@ const Imagine = ({ data }: Props) => {
 		});
 		return () => clearSession();
 	}, []);
+
+	useEffect(() => {
+		if (!globalSession.loaded) return;
+		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "imagine" } }, date: new Date().toString() });
+	}, [globalSession.loaded]);
 
 	if (!data) return null;
 

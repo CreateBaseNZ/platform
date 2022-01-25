@@ -1,15 +1,25 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext, useEffect } from "react";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import { IProjectReadOnly } from "../../../types/projects";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../constants/projects";
 
 import classes from "../../../styles/review.module.scss";
+import useApi from "../../../hooks/useApi";
+import GlobalSessionContext from "../../../store/global-session-context";
 
 interface Props {
 	data: IProjectReadOnly;
 }
 
 const Review = ({ data }: Props) => {
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { post } = useApi();
+
+	useEffect(() => {
+		if (!globalSession.loaded) return;
+		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "review" } }, date: new Date().toString() });
+	}, [globalSession.loaded]);
+
 	return (
 		<div className={`${classes.page} roundScrollbar`}>
 			<div className={classes.caption}>
