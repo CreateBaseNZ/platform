@@ -1,7 +1,7 @@
 import { AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, MATH, SOCIAL_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
 
-// TODO - update this file
+// TODO - update this file when type gets updated
 
 const MAGNEBOT_DATA: IProjectReadOnly = {
 	id: "magnebot",
@@ -11,17 +11,17 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 		"In this Project, users will control the MagneBot robotic arm using logical flow-based programming to clean up a recycling facility. Users will learn the basics of the Flow programming language and how to convert their thinking into instructions for the robot. Along the way, they will also gain an understanding of recycling and how robotic systems can be used to carry out tasks traditionally performed by humans.",
 	runType: "once",
 	cads: {
-		nz: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - NZ.pdf",
-		aus: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - ACARA.pdf",
-		cali: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - California.pdf",
-		uk: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - England.pdf",
+		nz: "/projects/magnebot/cads/020802AB Curriculum Alignment - MagneBot - NZ.pdf",
+		aus: "/projects/magnebot/cads/020802AB Curriculum Alignment - MagneBot - ACARA.pdf",
+		cali: "/projects/magnebot/cads/020802AB Curriculum Alignment - MagneBot - California.pdf",
+		uk: "/projects/magnebot/cads/020802AB Curriculum Alignment - MagneBot - England.pdf",
 	},
 	scenePrefix: "Project_RoboticArm",
 	durPerLesson: "45 mins",
 	numOfLessons: 5,
 	difficulty: "introductory",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, MATH, SOCIAL_SCIENCE],
-	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
+	lessonPlan: "/projects/magnebot/lesson-plan-magnebot.pdf",
 	videoId: "3YOLGBQLGjY",
 	learnings: [
 		"Understand the basics of programming a robotic system.",
@@ -51,12 +51,12 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 			{
 				type: "pdf",
 				title: "Intro to recycling",
-				url: "/magnebot/pdf/recycling.pdf",
+				url: "/projects/magnebot/imagine/recycling.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Intro to robotics",
-				url: "/magnebot/pdf/robotics.pdf",
+				url: "/projects/magnebot/imagine/robotics.pdf",
 			},
 			{
 				type: "tutorial",
@@ -82,7 +82,7 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 		{
 			title: "Sequential programming",
 			requirements: [],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/sequential.jpg",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/magnebot/images/sequential.jpg",
 			description: "In a single subsystem, your task is to write a sequential program to control MagneBot in order to pick up each rubbish bag and deposit them in one of the two recycling bins.",
 			research: {
 				threshold: 300,
@@ -92,8 +92,7 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 						type: "video",
 						title: "Flow tutorial",
 						data: {
-							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
+							videoId: "2Ndwtpk7iN8",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 						},
@@ -101,7 +100,7 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/intro-to-flow.pdf",
+						url: "/projects/shared/intro-to-flow.pdf",
 					},
 				],
 			},

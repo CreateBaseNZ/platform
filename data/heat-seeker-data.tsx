@@ -1,41 +1,41 @@
-import { NodeGreaterThanMini, NodeLessThanMini } from "../components/Nodes/NodeComparisons";
-import { NodeIfMini, NodeWhileMini } from "../components/Nodes/NodeConditionals";
-import {
-	NodeHeatSeekerFireSensorMini,
-	NodeHeatSeekerLeftSensorMini,
-	NodeHeatSeekerLeftWheelMini,
-	NodeHeatSeekerMiddleSensorMini,
-	NodeHeatSeekerRightSensorMini,
-	NodeHeatSeekerRightWheelMini,
-	NodeHeatSeekerWaterHoseMini,
-} from "../components/Nodes/NodeHeatSeeker";
-import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
-import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
-import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 const HEAT_SEEKER_DATA: IProjectReadOnly = {
-	name: "Heat Seeker",
-	query: "heat-seeker",
-	caption:
+	title: "Heat Seeker",
+	id: "heat-seeker",
+	subtitle: "Line-following robot",
+	description:
 		"In this Project, learners will create an algorithm to guide a line-following robot to a series of fires within a warehouse, putting them out safely before they spread to nearby hydrogen fuel cells! Learners will not only create their own control-algorithm, but will also learn about some of the basics of fire safety, warehouse automation, and the advantage that robots have over humans when operating in hazardous situations.",
-	stacked: true,
 	scenePrefix: "Project_HeatSeeker",
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 9,
 	difficulty: "advanced",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
-	learningOutcome: "/heat-seeker/files/project-overview.pdf",
+	lessonPlan: "/projects/heat-seeker/lesson-plan-heat-seeker.pdf",
+	videoId: "a7ahjbh_lUg",
 	cads: {
-		nz: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - NZ.pdf",
-		aus: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - ACARA.pdf",
-		cali: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - California.pdf",
-		uk: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - England.pdf",
+		nz: "/projects/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - NZ.pdf",
+		aus: "/projects/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - ACARA.pdf",
+		cali: "/projects/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - California.pdf",
+		uk: "/projects/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - England.pdf",
 	},
-	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
 	learnings: [
+		"Explain how and why line-following is used for navigation.",
+		"Understand why we decompose problems.",
+		"Understand the fundamentals of flow-based coding and write code using the Flow editor.",
+		"Describe DC motors and outline how they work (optional).",
+		"Describe IR sensors and outline how they work.",
+		"Define comparators and conditionals.",
+		"Write programs that use sensor data to control an output.",
+		"Use logical reasoning to derive simple and more complex algorithms.",
+		"Write programs that use conditional statements to control an output.",
+		"Differentiate between different types of fires and how to deal with them.",
+		"Define while loops and use them to solve problems.",
+		"Explore ways a solution can be optimised.",
+	],
+	learningOutcomes: [
 		"Explain how and why line-following is used for navigation.",
 		"Understand why we decompose problems.",
 		"Understand the fundamentals of flow-based coding and write code using the Flow editor.",
@@ -51,12 +51,9 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 	],
 	define: {
 		threshold: 60,
-		url: "https://youtu.be/a7ahjbh_lUg",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/vid/situation.mp4",
-		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
-		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
-		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
-		word: "/heat-seeker/files/learning-journal-heat-seeker.docx",
+		md: `An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.
+
+Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...`,
 	},
 	imagine: {
 		threshold: 120,
@@ -64,20 +61,17 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "Our problem",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/imagine_1.jpg",
-				url: "/heat-seeker/files/12050102AB-imagine_page1.pdf",
+				url: "/projects/heat-seeker/imagine/12050102AB-imagine_page1.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Our solution",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/thumbnail.png",
-				url: "/heat-seeker/files/12050102AB-imagine_page2.pdf",
+				url: "/projects/heat-seeker/imagine/12050102AB-imagine_page2.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Your approach",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/imagine_3.jpg",
-				url: "/heat-seeker/files/12050102AB-imagine_page3.pdf",
+				url: "/projects/heat-seeker/imagine/12050102AB-imagine_page3.pdf",
 			},
 		],
 	},
@@ -85,7 +79,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 		{
 			title: "Speed control",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/1.png",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-1.png",
 			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
 			research: {
 				threshold: 300,
@@ -95,8 +89,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 						type: "video",
 						title: "Flow tutorial",
 						data: {
-							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
+							videoId: "2Ndwtpk7iN8",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 						},
@@ -104,12 +97,12 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem1.pdf",
+						url: "/projects/heat-seeker/subsystems/Subproblem1.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Action blocks",
-						url: "/heat-seeker/pdf/Iter_0.pdf",
+						url: "/projects/heat-seeker/subsystems/Iter_0.pdf",
 					},
 				],
 			},
@@ -129,12 +122,12 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
-			blockList: [{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] }],
+			blockList: [{ name: "Actions", blocks: [] }],
 		},
 		{
 			title: "Navigating curves",
 			requirements: ["Speed control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/2.PNG",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-2.PNG",
 			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
 			research: {
 				threshold: 120,
@@ -143,17 +136,12 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem2.pdf",
+						url: "/projects/heat-seeker/subsystems/Subproblem2.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Sensing blocks",
-						url: "/heat-seeker/pdf/Iter_1.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [comparisonBoostData, ifBoostData],
+						url: "/projects/heat-seeker/subsystems/Iter_1.pdf",
 					},
 				],
 			},
@@ -174,29 +162,23 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerRightSensorMini />] },
-				{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] },
-				{ name: "Operators", blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
 			],
 		},
 		{
 			title: "Navigating turns",
 			requirements: ["Speed control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/3.png",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-3.png",
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
-				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 300,
@@ -215,18 +197,18 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />] },
-				{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] },
-				{ name: "Operators", blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Operators", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
 			],
 		},
 		{
 			title: "Extinguishing fires",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/4.PNG",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-4.PNG",
 			description: "In this fourth subsystem, we will learn how to use a sensor to detect the presence of a fire and then perform the correct sequence of actions to automatically put it out.",
 			research: {
 				threshold: 300,
@@ -235,17 +217,12 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem3.pdf",
+						url: "/projects/heat-seeker/subsystems/Subproblem3.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Fire blocks",
-						url: "/heat-seeker/pdf/Iter_3.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [whileBoostData],
+						url: "/projects/heat-seeker/subsystems/Iter_3.pdf",
 					},
 				],
 			},
@@ -266,29 +243,23 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeHeatSeekerFireSensorMini />] },
-				{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />, <NodeHeatSeekerWaterHoseMini />] },
-				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
-				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
-				{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />] },
+				{ name: "Sensing", blocks: [] },
+				{ name: "Actions", blocks: [] },
+				{ name: "Comparisons", blocks: [] },
+				{ name: "Logicals", blocks: [] },
+				{ name: "Conditionals", blocks: [] },
 			],
 		},
 		{
 			title: "Putting it all together",
 			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/thumbnail.png",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/thumbnail.png",
 			description:
 				"We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
-				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 30,
@@ -309,27 +280,27 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 			blockList: [
 				{
 					name: "Sensing",
-					blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />, <NodeHeatSeekerFireSensorMini />],
+					blocks: [],
 				},
 				{
 					name: "Actions",
-					blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />, <NodeHeatSeekerWaterHoseMini />],
+					blocks: [],
 				},
 				{
 					name: "Operators",
-					blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />],
+					blocks: [],
 				},
 				{
 					name: "Comparisons",
-					blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />],
+					blocks: [],
 				},
 				{
 					name: "Logicals",
-					blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />],
+					blocks: [],
 				},
 				{
 					name: "Conditionals",
-					blocks: [<NodeIfMini />, <NodeWhileMini />],
+					blocks: [],
 				},
 			],
 		},
@@ -349,27 +320,27 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 		blockList: [
 			{
 				name: "Sensing",
-				blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />, <NodeHeatSeekerFireSensorMini />],
+				blocks: [],
 			},
 			{
 				name: "Actions",
-				blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />, <NodeHeatSeekerWaterHoseMini />],
+				blocks: [],
 			},
 			{
 				name: "Operators",
-				blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />],
+				blocks: [],
 			},
 			{
 				name: "Comparisons",
-				blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />],
+				blocks: [],
 			},
 			{
 				name: "Logicals",
-				blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />],
+				blocks: [],
 			},
 			{
 				name: "Conditionals",
-				blocks: [<NodeIfMini />, <NodeWhileMini />],
+				blocks: [],
 			},
 		],
 	},
