@@ -10,6 +10,20 @@ import getMainTabs from "../../../lib/getMainTabs";
 import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
 import { IProjectReadOnly } from "../../../types/projects";
 import classes from "./NewProjectLayout.module.scss";
+import CodeContext, { TCodeTab, TCodeLayout } from "../../../store/code-context";
+
+const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
+const CODE_TABS: TCodeTab[] = ["Blocks", "Files"];
+const renderFileIcon = (type: string) => {
+	switch (type) {
+		case "js":
+			return "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg";
+		case "blockly":
+			return "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/blockly.svg";
+		default:
+			return "";
+	}
+};
 
 interface Props {
 	children: ReactElement;
@@ -23,9 +37,8 @@ interface Props {
 const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = false, substep = "" }: Props) => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
+	const { codeLayout, setCodeLayout, codeTab, setCodeTab } = useContext(CodeContext);
 	const [showMenu, setShowMenu] = useState(false);
-
-	console.log(substep);
 
 	return (
 		<div className={classes.container}>
@@ -120,6 +133,47 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 								</Link>
 						  ))}
 				</div>
+				{substep === "code" && (
+					<>
+						<div className={classes.codePanel}>
+							<div className={classes.layouts}>
+								{CODE_LAYOUTS.map((view) => (
+									<button title={view} key={view} className={view === codeLayout ? classes.active : ""} onClick={() => setCodeLayout(view)}>
+										<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/layout-${view.toLowerCase()}.svg`} height={24} width={24} alt={view} />
+									</button>
+								))}
+							</div>
+							<div className={classes.codeTabs}>
+								{CODE_TABS.map((tab) => (
+									<button key={tab} title={tab} className={codeTab === tab ? classes.active : ""} onClick={() => setCodeTab(tab)}>
+										{tab}
+									</button>
+								))}
+							</div>
+							{codeTab === "Blocks" && (
+								<div className={classes.codeItemContainer}>
+									<div className={`${classes.codeItem} ${classes.block}`}>TODO - @louis</div>
+								</div>
+							)}
+							{codeTab === "Files" && (
+								<div className={classes.codeItemContainer}>
+									<div className={`${classes.codeItem} ${classes.file}`}>
+										<div className={classes.fileIcon}>
+											<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/blockly.svg`} alt="blockly" />
+										</div>
+										<span>A really really long lorem ipsum</span>
+									</div>
+									<div className={`${classes.codeItem} ${classes.file}`}>
+										<div className={classes.fileIcon}>
+											<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg`} alt="js" />
+										</div>
+										<span>JS file</span>
+									</div>
+								</div>
+							)}
+						</div>
+					</>
+				)}
 			</div>
 			{children}
 		</div>

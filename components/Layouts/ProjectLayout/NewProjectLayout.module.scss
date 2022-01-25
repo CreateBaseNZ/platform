@@ -42,7 +42,7 @@ $border-color: #f1f1f1;
 		right: 0;
 		height: 2rem;
 		width: 1px;
-		background: $lighter;
+		background: $border-color;
 		transform: translateY(-50%);
 	}
 	&:last-child::after {
@@ -67,7 +67,7 @@ $border-color: #f1f1f1;
 			transition: margin 0.1s ease-out;
 		}
 		&:hover {
-			background: $lighter;
+			background: $border-color;
 			i {
 				margin-top: 4px;
 			}
@@ -105,7 +105,7 @@ $border-color: #f1f1f1;
 			height: 1px;
 			margin: 0.5rem 1.5rem;
 			width: calc(100% - 3rem);
-			background: $lighter;
+			background: $border-color;
 		}
 		&::after {
 			content: "";
@@ -122,7 +122,7 @@ $border-color: #f1f1f1;
 	}
 	&.active {
 		.menuBtn {
-			background: $lighter;
+			background: $border-color;
 			i {
 				color: $blue-dark;
 				margin-top: 4px;
@@ -164,10 +164,10 @@ $border-color: #f1f1f1;
 			bottom: 0;
 			left: 50%;
 			transform: translateX(-50%);
-			height: 0;
-			width: calc(100% - 2rem);
+			height: 2px;
+			width: 0;
 			background: $blue-dark;
-			transition: height 0.1s ease-out;
+			transition: width 0.1s ease-out;
 		}
 		&:hover {
 			color: $dark;
@@ -175,7 +175,7 @@ $border-color: #f1f1f1;
 		&.active {
 			color: $blue-dark;
 			&::after {
-				height: 2px;
+				width: calc(100% - 2rem);
 			}
 		}
 	}
@@ -275,6 +275,13 @@ $border-color: #f1f1f1;
 			width: 0;
 		}
 	}
+	.logo,
+	.title,
+	.buttons {
+		&::after {
+			content: none;
+		}
+	}
 }
 
 .leftPanel {
@@ -310,7 +317,7 @@ $border-color: #f1f1f1;
 			transition: transform 0.1s ease-out;
 		}
 		&:hover {
-			background: $lighter;
+			background: $border-color;
 			i {
 				transform: translateX(-4px);
 			}
@@ -355,14 +362,114 @@ $border-color: #f1f1f1;
 		}
 		&:hover {
 			opacity: 1;
-			background: $lighter;
+			background: $border-color;
 		}
 		&.active {
 			opacity: 1;
 			color: $blue-dark;
+			background: rgba($blue-dark, 0.05);
 			i {
 				width: 1rem;
 				opacity: 1;
+			}
+		}
+	}
+}
+
+.codePanel {
+	border-top: thin solid $border-color;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem 0;
+	.layouts {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		padding: 0.5rem 0.5rem;
+		button {
+			margin: 0 0.25rem;
+			height: 2rem;
+			width: 2rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0.25;
+			border-radius: 2px;
+			transition: all 0.1s ease-out;
+			&:hover {
+				opacity: 0.75;
+			}
+			&.active {
+				background: $border-color;
+				opacity: 1;
+			}
+		}
+	}
+	.codeTabs {
+		padding: 0 0.25rem;
+		display: flex;
+		height: 2.5rem;
+		border-bottom: thin solid $border-color;
+		button {
+			height: 100%;
+			padding: 0 0.75rem;
+			font-size: 12px;
+			font-weight: 500;
+			opacity: 0.25;
+			position: relative;
+			transition: opacity 0.1s ease-out;
+			&::after {
+				content: "";
+				position: absolute;
+				width: 0;
+				height: 2px;
+				background: $darkest;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				transition: width 0.2s ease-out;
+			}
+			&:hover {
+				opacity: 0.75;
+			}
+			&.active {
+				opacity: 1;
+				&::after {
+					width: calc(100% - 1.5rem);
+				}
+			}
+		}
+	}
+	.codeItemContainer {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		.codeItem {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			font-size: 12px;
+			&.block {
+				padding: 0.75rem 0.5rem 0.75rem 1rem;
+			}
+			&.file {
+				height: 2.5rem;
+				padding-left: 1.5rem;
+				padding-right: 0.5rem;
+				.fileIcon {
+					position: relative;
+					display: flex;
+					align-items: center;
+					margin-right: 0.25rem;
+				}
+				span {
+					font-size: 11px;
+					font-weight: 500;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
 			}
 		}
 	}
