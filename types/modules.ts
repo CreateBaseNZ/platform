@@ -1,5 +1,5 @@
 /** PDF module. */
-export type IPdfModule = {
+export type TPdfModule = {
 	/** Unique type. */
 	type: "pdf";
 	/** Module title. */
@@ -9,7 +9,7 @@ export type IPdfModule = {
 };
 
 /** Tutorial module. */
-export type ITutorialModule = {
+export type TTutorialModule = {
 	/** Tutorial module identifier. */
 	type: "tutorial";
 	/** Module title. */
@@ -24,21 +24,16 @@ export type ITutorialModule = {
 };
 
 /** Video module. */
-export type IVideoModule = {
+export type TVideoModule = {
 	/** Video module identifier. */
 	type: "video";
 	/** Module title. */
 	title: string;
-	/** Video data. */
-	data: {
-		/** YouTube video ID. */
-		videoId: string;
-		/** Main heading. */
-		h1: string;
-		/** Secondary heading. */
-		h2: string;
-	};
+	/** YouTube video ID. */
+	videoId: string;
+	/** Brief description. */
+	description: string;
 };
 
 /** List of module data objects. */
-export type ModuleList = (IPdfModule | ITutorialModule | IVideoModule)[];
+export type ModuleList = (TPdfModule | TTutorialModule | TVideoModule)[];

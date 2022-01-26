@@ -1,4 +1,5 @@
 import { useState, createContext, useMemo, ReactNode, Dispatch, SetStateAction } from "react";
+import { ModuleList } from "../types/modules";
 
 /** Coding layouts. */
 export type TCodeLayout = "Default" | "Editor" | "Simulation";
@@ -6,7 +7,7 @@ export type TCodeLayout = "Default" | "Editor" | "Simulation";
 export type TCodeTab = "Blocks" | "Files";
 
 /** Mini node context object. */
-export type TCodeContext = {
+export type TProjectContext = {
 	/** Coding layout. */
 	codeLayout: TCodeLayout;
 	/** Set coding layout. */
@@ -15,19 +16,25 @@ export type TCodeContext = {
 	codeTab: TCodeTab;
 	/** Set coding tab. */
 	setCodeTab: Dispatch<SetStateAction<TCodeTab>>;
+	/** Research module index */
+	researchModule: number;
+	/** Set research module index. */
+	setResearchModule: Dispatch<SetStateAction<number>>;
 };
 
 /**
  * @ignore
  */
-const CodeContext = createContext<TCodeContext>({
+const ProjectContext = createContext<TProjectContext>({
 	codeLayout: "Default",
 	setCodeLayout: () => {},
 	codeTab: "Blocks",
 	setCodeTab: () => {},
+	researchModule: -1,
+	setResearchModule: () => {},
 });
 
-export default CodeContext;
+export default ProjectContext;
 
 interface Props {
 	children: ReactNode;
@@ -36,9 +43,10 @@ interface Props {
 /**
  * @ignore
  */
-export const CodeContextProvider = ({ children }: Props) => {
+export const ProjectContextProvider = ({ children }: Props) => {
 	const [codeLayout, setCodeLayout] = useState<TCodeLayout>("Default");
 	const [codeTab, setCodeTab] = useState<TCodeTab>("Blocks");
+	const [researchModule, setResearchModule] = useState(-1);
 
 	const value = useMemo(
 		() => ({
@@ -46,9 +54,11 @@ export const CodeContextProvider = ({ children }: Props) => {
 			setCodeLayout: setCodeLayout,
 			codeTab: codeTab,
 			setCodeTab: setCodeTab,
+			researchModule: researchModule,
+			setResearchModule: setResearchModule,
 		}),
-		[codeLayout, setCodeLayout, codeTab, setCodeTab]
+		[codeLayout, setCodeLayout, codeTab, setCodeTab, researchModule, setResearchModule]
 	);
 
-	return <CodeContext.Provider value={value}>{children}</CodeContext.Provider>;
+	return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>;
 };

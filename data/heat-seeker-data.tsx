@@ -89,11 +89,8 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 					{
 						type: "video",
 						title: "Flow tutorial",
-						data: {
-							videoId: "2Ndwtpk7iN8",
-							h1: "Flow Tutorial",
-							h2: "Get to know your way around Flow",
-						},
+						videoId: "2Ndwtpk7iN8",
+						description: "Get to know your way around Flow",
 					},
 					{
 						type: "pdf",

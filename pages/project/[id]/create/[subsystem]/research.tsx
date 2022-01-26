@@ -1,61 +1,71 @@
-// import { useContext, useEffect, useState } from "react";
-// import Head from "next/head";
-// import router from "next/router";
-// import useMixpanel from "../../../../../hooks/useMixpanel";
-// import GlobalSessionContext from "../../../../../store/global-session-context";
-// import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
-// import SubsystemLayout from "../../../../../components/Layouts/SubsystemLayout/SubsystemLayout";
-// import ModuleContainer from "../../../../../components/Project/ModuleContainer";
-// import ModuleBody from "../../../../../components/Project/ModuleBody";
-// import getProjectData from "../../../../../utils/getProjectData";
+import { ReactElement } from "react";
+import { useRouter } from "next/router";
+import useMixpanel from "../../../../../hooks/useMixpanel";
+import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import { IProjectReadOnly } from "../../../../../types/projects";
+import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
+import renderModule from "../../../../../lib/renderModule";
 
-// import classes from "../../../../../styles/research.module.scss";
+import classes from "../../../../../styles/research.module.scss";
 
-// const Research = () => {
-// 	const mp = useMixpanel();
-// 	const { globalSession } = useContext(GlobalSessionContext);
-// 	const [subsystemData, setSubsystemData] = useState();
-// 	const [activeModule, setActiveModule] = useState(0);
+interface Props {
+	data: IProjectReadOnly;
+	subsystem: string;
+}
 
-// 	useEffect(() => {
-// 		mp.init();
-// 		const clearSession = mp.trackActiveSession("project_create_research");
-// 		return () => clearSession();
-// 	}, []);
+const Research = ({ data, subsystem }: Props) => {
+	const router = useRouter();
+	const {} = useMixpanel("project_create_research");
 
-// 	useEffect(() => {
-// 		if (router.isReady) {
-// 			const projectData = getProjectData(router.query.id);
-// 			if (projectData && router.query.subsystem) {
-// 				setSubsystemData(projectData.subsystems.find((subsystem) => subsystem.title === router.query.subsystem));
-// 			}
-// 		}
-// 	}, []);
+	console.log(subsystem);
 
-// 	if (!subsystemData) return null;
+	return (
+		<div className={classes.page}>
+			<main className={classes.main}>{renderModule(data.subsystems.find((s) => s.id === subsystem)?.research.modules.find((m) => m.title === router.query.module))}</main>
+		</div>
+	);
+};
 
-// 	return (
-// 		<div className={classes.view}>
-// 			<Head>
-// 				<title>Research • {subsystemData.title} | CreateBase</title>
-// 				<meta name="description" content={subsystemData.description} />
-// 			</Head>
-// 			<ModuleContainer active={activeModule} clickHandler={(i) => setActiveModule(i)} modules={subsystemData.research.modules} caption={subsystemData.research.caption} showManualBtn={false} />
-// 			<div className={classes.mainContainer}>
-// 				<ModuleBody module={subsystemData.research.modules[activeModule]} length={subsystemData.research.modules.length} />
-// 			</div>
-// 		</div>
-// 	);
-// };
+Research.getLayout = (page: ReactElement, pageProps: any) => {
+	return (
+		<NewProjectLayout step="Create" substep="research" isFlat={true} hasLeftPanel={true} data={pageProps.data} subsystem={pageProps.subsystem}>
+			{page}
+		</NewProjectLayout>
+	);
+};
 
-// Research.getLayout = (page) => {
-// 	return (
-// 		<ProjectLayout activeStep="create">
-// 			<SubsystemLayout activeTab="research">{page}</SubsystemLayout>;
-// 		</ProjectLayout>
-// 	);
-// };
+Research.auth = "user";
 
-// Research.auth = "user";
+export default Research;
 
-// export default Research;
+interface Params {
+	params: {
+		id: string;
+		subsystem: string;
+	};
+}
+
+export async function getStaticProps({ params }: Params) {
+	return {
+		props: {
+			data: ALL_PROJECTS_OBJECT[params.id],
+			subsystem: params.subsystem,
+		},
+	};
+}
+
+export async function getStaticPaths() {
+	return {
+		paths: ALL_PROJECTS_ARRAY.map((project) => {
+			return project.subsystems.map((subsystem) => {
+				return {
+					params: {
+						id: project.id,
+						subsystem: subsystem.id,
+					},
+				};
+			});
+		}).flat(),
+		fallback: false,
+	};
+}

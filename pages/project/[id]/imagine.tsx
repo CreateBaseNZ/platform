@@ -1,33 +1,18 @@
 import { useState, useEffect, useContext, ReactElement } from "react";
-import router from "next/router";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/projects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
-import TutorialModule from "../../../components/Project/TutorialModule";
-import BlankModule from "../../../components/Project/BlankModule";
-import PdfModule from "../../../components/Project/PdfModule";
 import NoModule from "../../../components/Project/NoModule";
 import { IProjectReadOnly } from "../../../types/projects";
-import { IPdfModule, ITutorialModule } from "../../../types/modules";
 
 import classes from "../../../styles/imagine.module.scss";
 import useApi from "../../../hooks/useApi";
+import renderModule from "../../../lib/renderModule";
 
 interface Props {
 	data: IProjectReadOnly;
 }
-
-const renderModule = (module: any) => {
-	switch (module?.type) {
-		case "pdf":
-			return <PdfModule module={module as IPdfModule} />;
-		case "tutorial":
-			return <TutorialModule module={module as ITutorialModule} />;
-		default:
-			return <BlankModule />;
-	}
-};
 
 const Imagine = ({ data }: Props) => {
 	const { globalSession } = useContext(GlobalSessionContext);

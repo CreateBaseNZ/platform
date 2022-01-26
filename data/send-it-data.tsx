@@ -106,11 +106,8 @@ What do you think is happening here? Discuss with your peers!`,
 					{
 						type: "video",
 						title: "Flow tutorial",
-						data: {
-							videoId: "2Ndwtpk7iN8",
-							h1: "Flow Tutorial",
-							h2: "Get to know your way around Flow",
-						},
+						videoId: "2Ndwtpk7iN8",
+						description: "Get to know your way around Flow",
 					},
 					{
 						type: "pdf",

@@ -8,22 +8,12 @@ import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
 import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
-import { IProjectReadOnly } from "../../../types/projects";
+import { IProjectReadOnly, ISubsystem } from "../../../types/projects";
 import classes from "./NewProjectLayout.module.scss";
-import CodeContext, { TCodeTab, TCodeLayout } from "../../../store/code-context";
+import ProjectContext, { TCodeTab, TCodeLayout } from "../../../store/project-context";
 
 const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
 const CODE_TABS: TCodeTab[] = ["Blocks", "Files"];
-const renderFileIcon = (type: string) => {
-	switch (type) {
-		case "js":
-			return "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg";
-		case "blockly":
-			return "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/blockly.svg";
-		default:
-			return "";
-	}
-};
 
 interface Props {
 	children: ReactElement;
@@ -32,13 +22,18 @@ interface Props {
 	isFlat?: boolean;
 	hasLeftPanel?: boolean;
 	substep?: string;
+	subsystem?: string;
 }
 
-const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = false, substep = "" }: Props) => {
+const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = false, substep = "", subsystem = "" }: Props) => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { codeLayout, setCodeLayout, codeTab, setCodeTab } = useContext(CodeContext);
+	const { codeLayout, setCodeLayout, codeTab, setCodeTab } = useContext(ProjectContext);
 	const [showMenu, setShowMenu] = useState(false);
+
+	console.log(subsystem);
+
+	console.log(router);
 
 	return (
 		<div className={classes.container}>
@@ -173,6 +168,18 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 							)}
 						</div>
 					</>
+				)}
+				{substep === "research" && (
+					<div className={classes.researchPanel}>
+						<div className={classes.researchHeading}>Modules</div>
+						{data.subsystems
+							.find((s) => s.id === subsystem)
+							?.research.modules.map((module) => (
+								<Link key={module.title} href={{ pathname: router.pathname, query: { ...router.query, module: module.title } }}>
+									<a className={router.query.module === module.title ? classes.active : ""}>{module.title}</a>
+								</Link>
+							))}
+					</div>
 				)}
 			</div>
 			{children}

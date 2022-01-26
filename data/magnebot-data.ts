@@ -92,11 +92,8 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 					{
 						type: "video",
 						title: "Flow tutorial",
-						data: {
-							videoId: "2Ndwtpk7iN8",
-							h1: "Flow Tutorial",
-							h2: "Get to know your way around Flow",
-						},
+						videoId: "2Ndwtpk7iN8",
+						description: "Get to know your way around Flow",
 					},
 					{
 						type: "pdf",
