@@ -40,7 +40,10 @@ const subToEl = (subsystems: TSubsystem[]) => {
 				animated: true,
 				style: {
 					stroke: "#CECECE",
+					strokeWidth: 2,
+					strokeDashArray: "32, 64",
 				},
+				type: "smoothstep",
 			});
 			nHandleOuts[req] ? nHandleOuts[req].push(sub.id) : (nHandleOuts[req] = [sub.id]);
 		}
@@ -63,8 +66,8 @@ const Create = ({ data }: Props) => {
 	// TODO - @louis set nodesDraggable default to false
 	return (
 		<div className={classes.page}>
-			<ReactFlow elements={elements} onLoad={onLoad} nodeTypes={nodeTypes} snapToGrid={true} snapGrid={[16, 16]} nodesDraggable={data.wip || true} nodesConnectable={data.wip || false}>
-				<Background color="#aaa" />
+			<ReactFlow elements={elements} onLoad={onLoad} nodeTypes={nodeTypes} snapToGrid={true} snapGrid={[32, 32]} nodesDraggable={data.wip || true} nodesConnectable={data.wip || false}>
+				<Background color="#aaa" gap={32} size={1} />
 			</ReactFlow>
 		</div>
 	);

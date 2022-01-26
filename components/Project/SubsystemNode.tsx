@@ -10,13 +10,13 @@ interface Props {
 }
 
 const SubsystemNode = ({ data }: Props): ReactElement => {
-	console.log(data.requirements);
-	console.log(data.requiredBy);
 	return (
 		<div className={classes.container}>
-			{data.requirements.map((req) => (
-				<Handle key={req} position={Position.Left} type="target" id={`${data.id}_${req}`} />
-			))}
+			<div className={classes.handles}>
+				{data.requirements.map((req, i) => (
+					<Handle key={req} position={Position.Left} type="target" id={`${data.id}_${req}`} className={classes.handle} style={{ top: `${((i + 1) / (data.requirements.length + 1)) * 100}%` }} />
+				))}
+			</div>
 			<div className={classes.wrapper}>
 				<div className={classes.title}>{data.title}</div>
 				<div className={classes.img}>
@@ -24,9 +24,11 @@ const SubsystemNode = ({ data }: Props): ReactElement => {
 				</div>
 				<p className={classes.description}>{data.description}</p>
 			</div>
-			{data.requiredBy.map((reqBy) => (
-				<Handle key={reqBy} position={Position.Right} type="source" id={`${data.id}_${reqBy}`} />
-			))}
+			<div className={classes.handles}>
+				{data.requiredBy.map((reqBy) => (
+					<Handle key={reqBy} position={Position.Right} type="source" id={`${data.id}_${reqBy}`} className={classes.handle} />
+				))}
+			</div>
 		</div>
 	);
 };
