@@ -285,6 +285,7 @@ $border-color: #f1f1f1;
 }
 
 .leftPanel {
+	overflow: hidden;
 	padding-top: 3.5rem;
 	display: flex;
 	flex-direction: column;
@@ -292,9 +293,10 @@ $border-color: #f1f1f1;
 	flex: 0 0 200px;
 	max-width: 200px;
 	border-right: thin solid $border-color;
-	transition: flex 0.4s ease-out;
+	transition: flex 0.4s ease-out, max-width 0.4s ease-out;
 	&.hide {
 		flex: 0 0 0;
+		max-width: 0;
 	}
 }
 
