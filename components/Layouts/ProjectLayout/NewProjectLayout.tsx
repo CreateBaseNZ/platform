@@ -15,10 +15,10 @@ import ProjectContext, { TCodeTab, TCodeLayout } from "../../../store/project-co
 const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
 const CODE_TABS: TCodeTab[] = ["Blocks", "Files"];
 
-const renderModules = (data: IProjectReadOnly, subsystem: string, router: NextRouter) => {
+const renderResearchModules = (data: IProjectReadOnly, subsystem: string, router: NextRouter) => {
 	const modules = data.subsystems.find((s) => s.id === subsystem)?.research.modules;
 
-	if (!modules || modules?.length === 0) return <div>None</div>;
+	if (!modules || modules?.length === 0) return <a className={classes.noModules}>No modules</a>;
 
 	return modules.map((module) => (
 		<Link key={module.title} href={{ pathname: router.pathname, query: { ...router.query, module: module.title } }}>
@@ -184,9 +184,9 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 					</>
 				)}
 				{substep === "research" && (
-					<div className={classes.researchPanel}>
+					<div className={`${classes.researchPanel} ${router.query.module ? "" : classes.blink}`}>
 						<div className={classes.researchHeading}>Modules</div>
-						{renderModules(data, subsystem, router)}
+						{renderResearchModules(data, subsystem, router)}
 					</div>
 				)}
 			</div>
