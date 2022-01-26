@@ -134,7 +134,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 			title: "Navigating curves",
 			id: "navigating-curves",
 			requirements: ["speed-control"],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-2.PNG",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-2.png",
 			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
 			research: {
 				threshold: 120,
@@ -225,7 +225,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 			title: "Extinguishing fires",
 			id: "extinguishing-fires",
 			requirements: [],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-4.PNG",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-4.png",
 			description: "In this fourth subsystem, we will learn how to use a sensor to detect the presence of a fire and then perform the correct sequence of actions to automatically put it out.",
 			research: {
 				threshold: 300,

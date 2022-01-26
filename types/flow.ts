@@ -23,4 +23,6 @@ export type TSubsystemNode = {
 	title: string;
 	description: string;
 	img: string;
+	requirements: string[];
+	requiredBy: string[];
 };

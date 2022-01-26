@@ -11,6 +11,7 @@ const nodeTypes = {
 };
 
 const subToEl = (subsystems: TSubsystem[]) => {
+	const nHandleOuts: Record<string, string[]> = {};
 	const nodes = [];
 	const edges = [];
 	for (const sub of subsystems) {
@@ -22,22 +23,29 @@ const subToEl = (subsystems: TSubsystem[]) => {
 				title: sub.title,
 				description: sub.description,
 				img: sub.img,
+				requirements: sub.requirements,
 			},
 			position: sub.position,
 		});
+
+		if (!nHandleOuts[sub.id]) nHandleOuts[sub.id] = [];
+
 		for (const req of sub.requirements) {
 			edges.push({
-				id: `${req}-${sub.id}`,
+				id: `${req}_${sub.id}`,
 				source: req,
+				sourceHandle: `${req}_${sub.id}`,
 				target: sub.id,
+				targetHandle: `${sub.id}_${req}`,
 				animated: true,
 				style: {
 					stroke: "#CECECE",
 				},
 			});
+			nHandleOuts[req] ? nHandleOuts[req].push(sub.id) : (nHandleOuts[req] = [sub.id]);
 		}
 	}
-	return [...nodes, ...edges];
+	return [...nodes.map((node) => ({ ...node, data: { ...node.data, requiredBy: nHandleOuts[node.id] } })), ...edges];
 };
 
 const onLoad: OnLoadFunc = (reactFlowInstance) => {
@@ -52,9 +60,10 @@ interface Props {
 const Create = ({ data }: Props) => {
 	const [elements, setElements] = useState(subToEl(data.subsystems));
 
+	// TODO - @louis set nodesDraggable default to false
 	return (
 		<div className={classes.page}>
-			<ReactFlow elements={elements} onLoad={onLoad} nodeTypes={nodeTypes} snapToGrid={true} snapGrid={[16, 16]} nodesDraggable={data.wip || false} nodesConnectable={data.wip || false}>
+			<ReactFlow elements={elements} onLoad={onLoad} nodeTypes={nodeTypes} snapToGrid={true} snapGrid={[16, 16]} nodesDraggable={data.wip || true} nodesConnectable={data.wip || false}>
 				<Background color="#aaa" />
 			</ReactFlow>
 		</div>
