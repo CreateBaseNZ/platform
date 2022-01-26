@@ -7,12 +7,12 @@ import { TModule } from "../../../types/modules";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/projects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import NoModule from "../../../components/Project/NoModule";
-import { IProjectReadOnly } from "../../../types/projects";
+import { TProject } from "../../../types/projects";
 
 import classes from "../../../styles/imagine.module.scss";
 
 interface Props {
-	data: IProjectReadOnly;
+	data: TProject;
 }
 
 const Imagine = ({ data }: Props) => {

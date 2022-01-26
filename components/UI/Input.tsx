@@ -1,4 +1,4 @@
-import { HTMLAttributes, InputHTMLAttributes, Ref, TextareaHTMLAttributes, useState } from "react";
+import { HTMLAttributes, InputHTMLAttributes, ReactNode, Ref, TextareaHTMLAttributes, useState } from "react";
 import classes from "./Input.module.scss";
 
 export interface IInputProps extends HTMLAttributes<HTMLDivElement> {
@@ -11,7 +11,7 @@ export interface IInputProps extends HTMLAttributes<HTMLDivElement> {
 				message: string;
 		  }
 		| string;
-	icon?: any; // TODO
+	icon?: ReactNode;
 }
 
 const Input = ({ className, inputProps, label, labelProps, error, icon, ...rest }: IInputProps): JSX.Element => {

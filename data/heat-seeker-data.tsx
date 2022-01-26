@@ -1,7 +1,7 @@
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/projects";
+import { TProject } from "../types/projects";
 
-const HEAT_SEEKER_DATA: IProjectReadOnly = {
+const HEAT_SEEKER_DATA: TProject = {
 	title: "Heat Seeker",
 	id: "heat-seeker",
 	subtitle: "Line-following robot",
@@ -125,6 +125,10 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				],
 			},
 			blockList: [{ name: "Actions", blocks: [] }],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Navigating curves",
@@ -172,6 +176,10 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Logicals", blocks: [] },
 				{ name: "Conditionals", blocks: [] },
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Navigating turns",
@@ -208,6 +216,10 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Logicals", blocks: [] },
 				{ name: "Conditionals", blocks: [] },
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Extinguishing fires",
@@ -254,6 +266,10 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Logicals", blocks: [] },
 				{ name: "Conditionals", blocks: [] },
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Putting it all together",
@@ -309,6 +325,10 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 					blocks: [],
 				},
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 	],
 	improve: {

@@ -1,8 +1,8 @@
 import { DeepReadonly } from "ts-essentials";
-import { ISubsystem } from "../types/projects";
+import { TSubsystem } from "../types/projects";
 import { ALL_PROJECTS_ARRAY } from "../constants/projects";
 
-const generateSubsystem = (subsystems: DeepReadonly<ISubsystem[]>, fn: () => void) => {
+const generateSubsystem = (subsystems: DeepReadonly<TSubsystem[]>, fn: () => void) => {
 	let ret: any = {}; // TODO replace any type
 	for (let i = 0; i < subsystems.length; i++) {
 		ret[subsystems[i].title] = { research: fn(), plan: fn(), code: fn(), name: subsystems[i].title };

@@ -3,10 +3,10 @@ import TutorialModule from "../components/Project/TutorialModule";
 import BlankModule from "../components/Project/BlankModule";
 import { TTutorialModule, TPdfModule, TVideoModule, TModule } from "../types/modules";
 import VideoModule from "../components/Project/VideoModule";
-import { IProjectReadOnly } from "../types/projects";
+import { TProject } from "../types/projects";
 import PlaytestModule from "../components/Project/PlaytestModule";
 
-const renderModule = (module: TModule, data: IProjectReadOnly) => {
+const renderModule = (module: TModule, data: TProject) => {
 	switch (module?.type) {
 		case "pdf":
 			return <PdfModule module={module as TPdfModule} />;

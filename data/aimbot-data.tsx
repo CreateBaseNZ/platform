@@ -1,7 +1,7 @@
 import { COMPUTER_SCIENCE, ENGINEERING, TRIGONOMETRY, SCRIPTING } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/projects";
+import { TProject } from "../types/projects";
 
-const AIMBOT_DATA: IProjectReadOnly = {
+const AIMBOT_DATA: TProject = {
 	id: "aimbot",
 	title: "AimBot",
 	subtitle: "Target tracking",
@@ -114,6 +114,10 @@ Your first step to begin solving this problem is to download either of the learn
 				{ name: "Conditionals", blocks: [] },
 				{ name: "Utilities", blocks: [] },
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Pitch control",
@@ -162,6 +166,10 @@ Your first step to begin solving this problem is to download either of the learn
 				{ name: "Conditionals", blocks: [] },
 				{ name: "Utilities", blocks: [] },
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Velocity controller",
@@ -218,6 +226,10 @@ Your first step to begin solving this problem is to download either of the learn
 				{ name: "Conditionals", blocks: [] },
 				{ name: "Utilities", blocks: [] },
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Putting it all together",
@@ -261,6 +273,10 @@ Your first step to begin solving this problem is to download either of the learn
 				{ name: "Conditionals", blocks: [] },
 				{ name: "Utilities", blocks: [] },
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 	],
 	improve: {

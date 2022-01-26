@@ -2,11 +2,11 @@ import React, { ReactElement } from "react";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
-import { IProjectReadOnly } from "../../../../../types/projects";
+import { TProject } from "../../../../../types/projects";
 import classes from "../../../../../styles/code.module.scss";
 
 interface Props {
-	data: IProjectReadOnly;
+	data: TProject;
 }
 
 const Code = ({ data }: Props) => {

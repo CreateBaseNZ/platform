@@ -1,9 +1,9 @@
 import { AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, MATH, SOCIAL_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/projects";
+import { TProject } from "../types/projects";
 
 // TODO - update this file when type gets updated
 
-const MAGNEBOT_DATA: IProjectReadOnly = {
+const MAGNEBOT_DATA: TProject = {
 	id: "magnebot",
 	title: "MagneBot",
 	subtitle: "The coordinate-guided robotic arm",
@@ -128,6 +128,10 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 					blocks: [],
 				},
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 	],
 	improve: {

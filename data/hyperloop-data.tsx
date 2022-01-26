@@ -1,9 +1,9 @@
 import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY, JAVASCRIPT } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/projects";
+import { TProject } from "../types/projects";
 
 // TODO - @brad update the hyperloop thumbnail (needs to look good at minimum 1920px width)
 
-const HYPERLOOP_DATA: IProjectReadOnly = {
+const HYPERLOOP_DATA: TProject = {
 	id: "hyperloop",
 	title: "Hyperloop",
 	// TODO - give this a proper subtitle
@@ -102,6 +102,10 @@ Your first step to begin solving this problem is to download either of the learn
 				],
 			},
 			blockList: [],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Binary to decimal",
@@ -141,6 +145,10 @@ Your first step to begin solving this problem is to download either of the learn
 				],
 			},
 			blockList: [],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Decimal to binary",
@@ -180,6 +188,10 @@ Your first step to begin solving this problem is to download either of the learn
 				],
 			},
 			blockList: [],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Ternary to tridecimal",
@@ -218,6 +230,10 @@ Your first step to begin solving this problem is to download either of the learn
 				],
 			},
 			blockList: [],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 	],
 	improve: {
