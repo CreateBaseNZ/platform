@@ -133,7 +133,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 		{
 			title: "Navigating curves",
 			id: "navigating-curves",
-			requirements: ["Speed control"],
+			requirements: ["speed-control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-2.PNG",
 			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
 			research: {
@@ -184,7 +184,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 		{
 			title: "Navigating turns",
 			id: "navigating-turns",
-			requirements: ["Speed control"],
+			requirements: ["speed-control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-3.png",
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {
@@ -274,7 +274,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 		{
 			title: "Putting it all together",
 			id: "putting-it-all-together",
-			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
+			requirements: ["navigating-curves", "navigating-turns", "extinguishing-fires"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/thumbnail.png",
 			description:
 				"We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",

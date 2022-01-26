@@ -122,7 +122,7 @@ Your first step to begin solving this problem is to download either of the learn
 		{
 			title: "Pitch control",
 			id: "pitch-control",
-			requirements: ["Yaw control"],
+			requirements: ["yaw-control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_2.jpg",
 			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
 			research: {
@@ -174,7 +174,7 @@ Your first step to begin solving this problem is to download either of the learn
 		{
 			title: "Velocity controller",
 			id: "velocity-controller",
-			requirements: ["Yaw control"],
+			requirements: ["yaw-control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_3.jpg",
 			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
 			research: {
@@ -234,7 +234,7 @@ Your first step to begin solving this problem is to download either of the learn
 		{
 			title: "Putting it all together",
 			id: "putting-it-all-together",
-			requirements: ["Pitch control", "Velocity controller"],
+			requirements: ["pitch-control", "velocity-controller"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_4.jpg",
 			description: "Lets put together everything that we have learnt to program a solution to the full problem!",
 			research: {
