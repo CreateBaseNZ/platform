@@ -50,6 +50,10 @@ Your first step to begin solving this problem is to download either of the learn
 				title: "In this Project...",
 				url: "/projects/aimbot/imagine/21050502AA_imagine.pdf",
 			},
+			{
+				type: "playtest",
+				title: "Playtest AimBot",
+			},
 		],
 	},
 	subsystems: [

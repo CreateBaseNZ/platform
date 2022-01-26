@@ -57,6 +57,10 @@ Your first step to begin solving this problem is to download either of the learn
 				title: "Robot capabilities: ticket master",
 				url: "/projects/hyperloop/imagine/210701AB Imagine - 2.pdf",
 			},
+			{
+				type: "playtest",
+				title: "Playtest Hyperloop",
+			},
 		],
 	},
 	subsystems: [

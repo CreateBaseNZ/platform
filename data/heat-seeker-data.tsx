@@ -73,6 +73,10 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				title: "Your approach",
 				url: "/projects/heat-seeker/imagine/12050102AB-imagine_page3.pdf",
 			},
+			{
+				type: "playtest",
+				title: "Playtest Heat Seeker",
+			},
 		],
 	},
 	subsystems: [

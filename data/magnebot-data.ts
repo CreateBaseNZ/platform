@@ -76,6 +76,10 @@ Unfortunately, a self-driving cart has driven through our recycling facility and
 					},
 				],
 			},
+			{
+				type: "playtest",
+				title: "Playtest MagneBot",
+			},
 		],
 	},
 	subsystems: [

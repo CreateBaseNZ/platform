@@ -1,14 +1,15 @@
 import { useState, useEffect, useContext, ReactElement } from "react";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
+import useApi from "../../../hooks/useApi";
+import renderModule from "../../../lib/renderModule";
+import { TModule } from "../../../types/modules";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/projects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import NoModule from "../../../components/Project/NoModule";
 import { IProjectReadOnly } from "../../../types/projects";
 
 import classes from "../../../styles/imagine.module.scss";
-import useApi from "../../../hooks/useApi";
-import renderModule from "../../../lib/renderModule";
 
 interface Props {
 	data: IProjectReadOnly;
@@ -39,7 +40,7 @@ const Imagine = ({ data }: Props) => {
 				</aside>
 			)}
 			<main className={classes.main}>
-				{renderModule(data.imagine.modules[active])}
+				{renderModule(data.imagine.modules[active] as TModule, data)}
 				{data.imagine.modules.length === 0 && <NoModule />}
 			</main>
 		</div>

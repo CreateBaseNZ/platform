@@ -89,6 +89,10 @@ What do you think is happening here? Discuss with your peers!`,
 					},
 				],
 			},
+			{
+				type: "playtest",
+				title: "Playtest Send It",
+			},
 		],
 	},
 	subsystems: [

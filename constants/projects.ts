@@ -5,6 +5,11 @@ import MAGNEBOT_DATA from "../data/magnebot-data";
 import SEND_IT_DATA from "../data/send-it-data";
 import { IProjectReadOnly } from "../types/projects";
 
+/**
+ * Projects should be added to BOTH `ALL_PROJECTS_OBJECT` and `ALL_PROJECTS_ARRAY`
+ * Keys should match the project's ID
+ */
+
 export const ALL_PROJECTS_OBJECT: Record<string, IProjectReadOnly> = {
 	"send-it": SEND_IT_DATA,
 	magnebot: MAGNEBOT_DATA,

@@ -8,7 +8,7 @@ import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
 import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
-import { IProjectReadOnly, ISubsystem } from "../../../types/projects";
+import { IProjectReadOnly } from "../../../types/projects";
 import classes from "./NewProjectLayout.module.scss";
 import ProjectContext, { TCodeTab, TCodeLayout } from "../../../store/project-context";
 

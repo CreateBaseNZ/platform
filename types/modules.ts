@@ -35,5 +35,16 @@ export type TVideoModule = {
 	description: string;
 };
 
+/** Manual mode. */
+export type TPlaytestModule = {
+	/** Manual mode identifier. */
+	type: "playtest";
+	/** Manual mode identifier. */
+	title: string;
+};
+
+/** Module data object. */
+export type TModule = TPdfModule | TTutorialModule | TVideoModule | TPlaytestModule;
+
 /** List of module data objects. */
-export type ModuleList = (TPdfModule | TTutorialModule | TVideoModule)[];
+export type ModuleList = TModule[];

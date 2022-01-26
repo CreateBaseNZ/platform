@@ -8,6 +8,7 @@ import renderModule from "../../../../../lib/renderModule";
 import NoModule from "../../../../../components/Project/NoModule";
 
 import classes from "../../../../../styles/research.module.scss";
+import { TModule } from "../../../../../types/modules";
 
 interface Props {
 	data: IProjectReadOnly;
@@ -22,7 +23,7 @@ const Research = ({ data, subsystem }: Props) => {
 
 	return (
 		<div className={classes.page}>
-			<main className={classes.main}>{modules?.length ? renderModule(modules.find((m) => m.title === router.query.module)) : <NoModule />}</main>
+			<main className={classes.main}>{modules?.length ? renderModule(modules.find((m) => m.title === router.query.module) as TModule, data) : <NoModule />}</main>
 		</div>
 	);
 };

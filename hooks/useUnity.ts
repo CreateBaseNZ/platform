@@ -2,24 +2,23 @@ import router from "next/router";
 import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 import { install } from "resize-observer";
-import { IProjectReadOnly } from "../types/projects";
 
 interface IUnity {
-	scenePrefix: string;
-	suffix: string;
 	index: number;
-	project: IProjectReadOnly;
-	wip: boolean;
+	project: string;
+	scenePrefix: string;
 	setLoaded: any; // TODO
+	suffix: string;
+	wip?: boolean;
 }
 
-const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }: IUnity) => {
+const useUnity = ({ scenePrefix, suffix, index, project, wip = false, setLoaded }: IUnity) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
 			loaderUrl: wip ? `/${project}/unity-build/Build.loader.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.loader.js`,
-			dataUrl: wip ? `/${project}/unity-build/Build.data` : `https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${project}/unity-build/Build.data`,
+			dataUrl: wip ? `/${project}/unity-build/Build.data` : `https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/${project}/unity-build/Build.data`,
 			frameworkUrl: wip ? `/${project}/unity-build/Build.framework.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.framework.js`,
-			codeUrl: wip ? `/${project}/unity-build/Build.wasm` : `https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${project}/unity-build/Build.wasm`,
+			codeUrl: wip ? `/${project}/unity-build/Build.wasm` : `https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/${project}/unity-build/Build.wasm`,
 			productName: "Simulation",
 			productVersion: "0.1",
 			companyName: "CreateBase",
@@ -29,7 +28,7 @@ const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }: IUnit
 		})
 	);
 	const [sensorData, setSensorData] = useState();
-	const [gameState, setGameState] = useState();
+	const [gameState, setGameState] = useState("");
 
 	useEffect(() => {
 		const canvas = document.createElement("canvas");
@@ -47,10 +46,10 @@ const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }: IUnit
 		});
 	}, []);
 
-	const sceneName = suffix ? `${scenePrefix}_${index},${suffix}` : `${scenePrefix}_${index}`;
-
 	useEffect(() => {
 		console.log("loading");
+		const sceneName = suffix ? `${scenePrefix}_${index},${suffix}` : `${scenePrefix}_${index}`;
+
 		unityContext.on("loaded", () => {
 			setTimeout(() => {
 				unityContext.send("SceneController", "LoadScene", sceneName);
@@ -64,7 +63,7 @@ const useUnity = ({ scenePrefix, suffix, index, project, wip, setLoaded }: IUnit
 
 	useEffect(() => {
 		return () => unityContext.removeAllEventListeners();
-	}, []);
+	}, [unityContext]);
 
 	const resetScene = () => {
 		unityContext.send("SceneController", "ResetScene");

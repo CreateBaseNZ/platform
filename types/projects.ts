@@ -128,6 +128,8 @@ export interface IProject {
 		/** List of blocks available for Improve step coding. */
 		blockList: BlockList;
 	};
+	/** Optional. If `true`, local Unity data will be used; otherwise, data hosted on Github. */
+	wip?: boolean;
 }
 
 /** Project data object (read-only). */
