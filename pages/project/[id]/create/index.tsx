@@ -2,18 +2,21 @@ import { ReactElement, useState } from "react";
 import NewProjectLayout from "../../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../../constants/projects";
 import { TProject, TSubsystem } from "../../../../types/projects";
-import ReactFlow from "react-flow-renderer";
+import ReactFlow, { Background, OnLoadFunc } from "react-flow-renderer";
 import classes from "../../../../styles/create.module.scss";
+import SubsystemNode from "../../../../components/Project/SubsystemNode";
 
-interface Props {
-	data: TProject;
-}
+const nodeTypes = {
+	subsystemNode: SubsystemNode,
+};
 
 const subToEl = (subsystems: TSubsystem[]) => {
-	const els = [];
+	const nodes = [];
+	const edges = [];
 	for (const sub of subsystems) {
-		els.push({
+		nodes.push({
 			id: sub.id,
+			type: "subsystemNode",
 			data: {
 				id: sub.id,
 				title: sub.title,
@@ -23,7 +26,7 @@ const subToEl = (subsystems: TSubsystem[]) => {
 			position: sub.position,
 		});
 		for (const req of sub.requirements) {
-			els.push({
+			edges.push({
 				id: `${req}-${sub.id}`,
 				source: req,
 				target: sub.id,
@@ -34,15 +37,26 @@ const subToEl = (subsystems: TSubsystem[]) => {
 			});
 		}
 	}
-	return els;
+	return [...nodes, ...edges];
 };
+
+const onLoad: OnLoadFunc = (reactFlowInstance) => {
+	console.log("flow loaded:", reactFlowInstance);
+	reactFlowInstance.fitView();
+};
+
+interface Props {
+	data: TProject;
+}
 
 const Create = ({ data }: Props) => {
 	const [elements, setElements] = useState(subToEl(data.subsystems));
 
 	return (
 		<div className={classes.page}>
-			<ReactFlow elements={elements}></ReactFlow>
+			<ReactFlow elements={elements} onLoad={onLoad} nodeTypes={nodeTypes} snapToGrid={true} snapGrid={[16, 16]} nodesDraggable={data.wip || false} nodesConnectable={data.wip || false}>
+				<Background color="#aaa" />
+			</ReactFlow>
 		</div>
 	);
 };

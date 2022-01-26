@@ -1,12 +1,12 @@
-// TODO phase out this file
-
 import { CSSProperties } from "react";
 
+// TODO - @louis phase this out
 export interface INodeData {
 	values: any; // TODO
 	connections: any[]; // TODO
 }
 
+// TODO - @louis phase this out
 export interface NodeProps {
 	data: INodeData;
 	id: string;
@@ -15,5 +15,12 @@ export interface NodeProps {
 	style?: CSSProperties;
 }
 
-// TODO - array of possible strings, and update blocks
+// TODO - @louis phase this out
 export type BlockList = Array<{ name: string; blocks: JSX.Element[] }>;
+
+export type TSubsystemNode = {
+	id: string;
+	title: string;
+	description: string;
+	img: string;
+};
