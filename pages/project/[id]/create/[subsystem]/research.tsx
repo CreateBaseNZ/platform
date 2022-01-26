@@ -5,6 +5,7 @@ import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/Ne
 import { IProjectReadOnly } from "../../../../../types/projects";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
 import renderModule from "../../../../../lib/renderModule";
+import NoModule from "../../../../../components/Project/NoModule";
 
 import classes from "../../../../../styles/research.module.scss";
 
@@ -17,11 +18,11 @@ const Research = ({ data, subsystem }: Props) => {
 	const router = useRouter();
 	const {} = useMixpanel("project_create_research");
 
-	console.log(subsystem);
+	const modules = data.subsystems.find((s) => s.id === subsystem)?.research.modules;
 
 	return (
 		<div className={classes.page}>
-			<main className={classes.main}>{renderModule(data.subsystems.find((s) => s.id === subsystem)?.research.modules.find((m) => m.title === router.query.module))}</main>
+			<main className={classes.main}>{modules?.length ? renderModule(modules.find((m) => m.title === router.query.module)) : <NoModule />}</main>
 		</div>
 	);
 };

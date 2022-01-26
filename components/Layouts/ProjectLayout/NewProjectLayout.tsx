@@ -3,7 +3,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import STEPS, { IMPROVE_STEPS, SUBSYSTEM_STEPS } from "../../../constants/projectSteps";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
@@ -14,6 +14,18 @@ import ProjectContext, { TCodeTab, TCodeLayout } from "../../../store/project-co
 
 const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
 const CODE_TABS: TCodeTab[] = ["Blocks", "Files"];
+
+const renderModules = (data: IProjectReadOnly, subsystem: string, router: NextRouter) => {
+	const modules = data.subsystems.find((s) => s.id === subsystem)?.research.modules;
+
+	if (!modules || modules?.length === 0) return <div>None</div>;
+
+	return modules.map((module) => (
+		<Link key={module.title} href={{ pathname: router.pathname, query: { ...router.query, module: module.title } }}>
+			<a className={router.query.module === module.title ? classes.active : ""}>{module.title}</a>
+		</Link>
+	));
+};
 
 interface Props {
 	children: ReactElement;
@@ -90,8 +102,10 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 						<UserAvatar id={globalSession.accountId} size={40} className={classes.avatar} />
 						<div className={classes.avatarTooltip}>
 							<span>
-								<b>{globalSession.groups[globalSession.recentGroups[0]].alias || `${globalSession.firstName} ${globalSession.lastName}`} </b> •{" "}
-								{globalSession.groups[globalSession.recentGroups[0]].name} {globalSession.groups[globalSession.recentGroups[0]]?.role}
+								<b>{globalSession.groups[globalSession.recentGroups[0]]?.alias || `${globalSession.firstName} ${globalSession.lastName}`}</b>
+								{globalSession.groups[globalSession.recentGroups[0]]
+									? ` • ${globalSession.groups[globalSession.recentGroups[0]].name} ${globalSession.groups[globalSession.recentGroups[0]].role}`
+									: ""}
 							</span>
 						</div>
 					</div>
@@ -172,13 +186,7 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 				{substep === "research" && (
 					<div className={classes.researchPanel}>
 						<div className={classes.researchHeading}>Modules</div>
-						{data.subsystems
-							.find((s) => s.id === subsystem)
-							?.research.modules.map((module) => (
-								<Link key={module.title} href={{ pathname: router.pathname, query: { ...router.query, module: module.title } }}>
-									<a className={router.query.module === module.title ? classes.active : ""}>{module.title}</a>
-								</Link>
-							))}
+						{renderModules(data, subsystem, router)}
 					</div>
 				)}
 			</div>

@@ -505,6 +505,11 @@ $border-color: #f1f1f1;
 			color: $blue-dark;
 			background: rgba($blue-dark, 0.05);
 		}
+		&.noModules {
+			pointer-events: none;
+			color: $light;
+			font-style: italic;
+		}
 	}
 }
 
