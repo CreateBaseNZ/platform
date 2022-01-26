@@ -50,11 +50,16 @@ Your first step to begin solving this problem is to download either of the learn
 				title: "In this Project...",
 				url: "/projects/aimbot/imagine/21050502AA_imagine.pdf",
 			},
+			{
+				type: "playtest",
+				title: "Playtest AimBot",
+			},
 		],
 	},
 	subsystems: [
 		{
 			title: "Yaw control",
+			id: "yaw-control",
 			requirements: [],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_1.jpg",
 			description:
@@ -112,6 +117,7 @@ Your first step to begin solving this problem is to download either of the learn
 		},
 		{
 			title: "Pitch control",
+			id: "pitch-control",
 			requirements: ["Yaw control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_2.jpg",
 			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
@@ -159,6 +165,7 @@ Your first step to begin solving this problem is to download either of the learn
 		},
 		{
 			title: "Velocity controller",
+			id: "velocity-controller",
 			requirements: ["Yaw control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_3.jpg",
 			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
@@ -214,6 +221,7 @@ Your first step to begin solving this problem is to download either of the learn
 		},
 		{
 			title: "Putting it all together",
+			id: "putting-it-all-together",
 			requirements: ["Pitch control", "Velocity controller"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/aimbot/images/subsystem/subsystem_4.jpg",
 			description: "Lets put together everything that we have learnt to program a solution to the full problem!",

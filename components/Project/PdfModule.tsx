@@ -1,7 +1,7 @@
-import { IPdfModule } from "../../types/modules";
+import { TPdfModule } from "../../types/modules";
 
 interface Props {
-	module: IPdfModule;
+	module: TPdfModule;
 }
 
 const PdfModule = ({ module }: Props): JSX.Element => {

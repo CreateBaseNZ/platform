@@ -91,7 +91,7 @@ const useMixpanel = (eventName) => {
 			clearTimeout(sessionTimer);
 			clearTimeout(throttleTimer);
 		};
-	}, [eventName, router.isReady, router.query, globalSession.loaded, globalSession.groups]);
+	}, [eventName, track, router, globalSession.loaded, globalSession.groups]);
 
 	const init = useCallback(() => {
 		// initialise mixpanel channel
@@ -120,9 +120,9 @@ const useMixpanel = (eventName) => {
 	// mixpanel event tracking
 	// first parameter is the event name
 	// optional second parameter containining additional data to store
-	const track = (event, payload) => {
+	const track = useCallback((event, payload) => {
 		mixpanel.track(event, { ...payload });
-	};
+	}, []);
 
 	// note: MUST run clearSession in the return of useEffect
 	const trackActiveSession = (event) => {

@@ -17,6 +17,8 @@ export interface IProjectSubject {
 
 /** Subsystem data object. */
 export interface ISubsystem {
+	/** Subsystem ID. */
+	id: string;
 	/** Subsystem title. */
 	title: string;
 	/** List of prerequisites; each item should correspond to the title of another subsystem in the same project. */
@@ -126,6 +128,8 @@ export interface IProject {
 		/** List of blocks available for Improve step coding. */
 		blockList: BlockList;
 	};
+	/** Optional. If `true`, local Unity data will be used; otherwise, data hosted on Github. */
+	wip?: boolean;
 }
 
 /** Project data object (read-only). */

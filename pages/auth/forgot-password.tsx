@@ -9,7 +9,7 @@ const ForgotPassword = (): JSX.Element | null => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (globalSession.loaded && globalSession.accountId) return void router.replace("/");
+		if (globalSession.loaded && globalSession.accountId) return void router.replace((router.query.callbackUrl as string) || "/");
 	}, [globalSession]);
 
 	if (!globalSession.loaded || globalSession.accountId) return null;

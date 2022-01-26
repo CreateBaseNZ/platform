@@ -2,26 +2,50 @@ import { Fragment, ReactElement, useContext, useState } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import classes from "./NewProjectLayout.module.scss";
-import STEPS from "../../../constants/projectSteps";
-import { useRouter } from "next/router";
+import STEPS, { IMPROVE_STEPS, SUBSYSTEM_STEPS } from "../../../constants/projectSteps";
+import { NextRouter, useRouter } from "next/router";
 import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
 import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
 import { IProjectReadOnly } from "../../../types/projects";
+import classes from "./NewProjectLayout.module.scss";
+import ProjectContext, { TCodeTab, TCodeLayout } from "../../../store/project-context";
+
+const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
+const CODE_TABS: TCodeTab[] = ["Blocks", "Files"];
+
+const renderModules = (data: IProjectReadOnly, subsystem: string, router: NextRouter) => {
+	const modules = data.subsystems.find((s) => s.id === subsystem)?.research.modules;
+
+	if (!modules || modules?.length === 0) return <div>None</div>;
+
+	return modules.map((module) => (
+		<Link key={module.title} href={{ pathname: router.pathname, query: { ...router.query, module: module.title } }}>
+			<a className={router.query.module === module.title ? classes.active : ""}>{module.title}</a>
+		</Link>
+	));
+};
 
 interface Props {
 	children: ReactElement;
 	step: string;
 	data: IProjectReadOnly;
 	isFlat?: boolean;
+	hasLeftPanel?: boolean;
+	substep?: string;
+	subsystem?: string;
 }
 
-const NewProjectLayout = ({ children, step, data, isFlat = false }: Props) => {
+const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = false, substep = "", subsystem = "" }: Props) => {
 	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
+	const { codeLayout, setCodeLayout, codeTab, setCodeTab } = useContext(ProjectContext);
 	const [showMenu, setShowMenu] = useState(false);
+
+	console.log(subsystem);
+
+	console.log(router);
 
 	return (
 		<div className={classes.container}>
@@ -78,13 +102,94 @@ const NewProjectLayout = ({ children, step, data, isFlat = false }: Props) => {
 						<UserAvatar id={globalSession.accountId} size={40} className={classes.avatar} />
 						<div className={classes.avatarTooltip}>
 							<span>
-								<b>{globalSession.groups[globalSession.recentGroups[0]].alias || `${globalSession.firstName} ${globalSession.lastName}`} </b> •{" "}
-								{globalSession.groups[globalSession.recentGroups[0]].name} {globalSession.groups[globalSession.recentGroups[0]]?.role}
+								<b>{globalSession.groups[globalSession.recentGroups[0]]?.alias || `${globalSession.firstName} ${globalSession.lastName}`}</b>
+								{globalSession.groups[globalSession.recentGroups[0]]
+									? ` • ${globalSession.groups[globalSession.recentGroups[0]].name} ${globalSession.groups[globalSession.recentGroups[0]].role}`
+									: ""}
 							</span>
 						</div>
 					</div>
 				</div>
 			</nav>
+			<div className={`${classes.leftPanel} ${hasLeftPanel ? "" : classes.hide}`}>
+				{router.query.subsystem && (
+					<div className={classes.toSubsystems}>
+						<Link href={{ pathname: "/project/[id]/create/", query: { id: router.query.id } }}>
+							<a title="All subsystems">
+								<i className="material-icons-outlined">navigate_before</i>
+								All subsystems
+							</a>
+						</Link>
+					</div>
+				)}
+				<div className={classes.substepContainer}>
+					<div className={classes.substepName}>{data.subsystems.find((subsystem) => subsystem.id === router.query.subsystem)?.title || "Improve"}</div>
+					{router.query.subsystem
+						? SUBSYSTEM_STEPS.map((step) => (
+								<Link href={{ pathname: `/project/[id]/create/[subsystem]/${step.name}`, query: { id: router.query.id, subsystem: router.query.subsystem } }} key={step.name}>
+									<a className={substep === step.name ? classes.active : ""} title={step.title}>
+										<i className="material-icons-outlined">chevron_right</i>
+										{step.title}
+									</a>
+								</Link>
+						  ))
+						: IMPROVE_STEPS.map((step) => (
+								<Link href={{ pathname: `/project/[id]/improve/${step.name}`, query: { id: router.query.id } }} key={step.name}>
+									<a className={substep === step.name ? classes.active : ""} title={step.title}>
+										<i className="material-icons-outlined">chevron_right</i>
+										{step.title}
+									</a>
+								</Link>
+						  ))}
+				</div>
+				{substep === "code" && (
+					<>
+						<div className={classes.codePanel}>
+							<div className={classes.layouts}>
+								{CODE_LAYOUTS.map((view) => (
+									<button title={view} key={view} className={view === codeLayout ? classes.active : ""} onClick={() => setCodeLayout(view)}>
+										<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/layout-${view.toLowerCase()}.svg`} height={24} width={24} alt={view} />
+									</button>
+								))}
+							</div>
+							<div className={classes.codeTabs}>
+								{CODE_TABS.map((tab) => (
+									<button key={tab} title={tab} className={codeTab === tab ? classes.active : ""} onClick={() => setCodeTab(tab)}>
+										{tab}
+									</button>
+								))}
+							</div>
+							{codeTab === "Blocks" && (
+								<div className={classes.codeItemContainer}>
+									<div className={`${classes.codeItem} ${classes.block}`}>TODO - @louis</div>
+								</div>
+							)}
+							{codeTab === "Files" && (
+								<div className={classes.codeItemContainer}>
+									<div className={`${classes.codeItem} ${classes.file}`}>
+										<div className={classes.fileIcon}>
+											<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/blockly.svg`} alt="blockly" />
+										</div>
+										<span>A really really long lorem ipsum</span>
+									</div>
+									<div className={`${classes.codeItem} ${classes.file}`}>
+										<div className={classes.fileIcon}>
+											<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg`} alt="js" />
+										</div>
+										<span>JS file</span>
+									</div>
+								</div>
+							)}
+						</div>
+					</>
+				)}
+				{substep === "research" && (
+					<div className={classes.researchPanel}>
+						<div className={classes.researchHeading}>Modules</div>
+						{renderModules(data, subsystem, router)}
+					</div>
+				)}
+			</div>
 			{children}
 		</div>
 	);
