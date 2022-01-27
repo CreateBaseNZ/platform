@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/NewProjectLayout";
@@ -9,6 +9,8 @@ import NoModule from "../../../../../components/Project/NoModule";
 
 import classes from "../../../../../styles/research.module.scss";
 import { TModule } from "../../../../../types/modules";
+import GlobalSessionContext from "../../../../../store/global-session-context";
+import useApi from "../../../../../hooks/useApi";
 
 interface Props {
 	data: TProject;
@@ -18,6 +20,18 @@ interface Props {
 const Research = ({ data, subsystem }: Props) => {
 	const router = useRouter();
 	const {} = useMixpanel("project_create_research");
+	const { post } = useApi();
+	const { globalSession } = useContext(GlobalSessionContext);
+
+	useEffect(() => {
+		if (!globalSession.loaded) return;
+		(async () => {
+			let saves = {};
+			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [data.id] }, (savesData) => (saves = savesData.content[data.id]));
+			post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, [subsystem]: "research" } }, date: new Date().toString() });
+		})();
+		console.log("research page saved");
+	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
 
 	const modules = data.subsystems.find((s) => s.id === subsystem)?.research.modules;
 

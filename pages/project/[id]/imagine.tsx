@@ -23,8 +23,12 @@ const Imagine = ({ data }: Props) => {
 
 	useEffect(() => {
 		if (!globalSession.loaded) return;
-		console.log("imagine page saved");
-		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "imagine" } }, date: new Date().toString() });
+		(async () => {
+			let saves = {};
+			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [data.id] }, (savesData) => (saves = savesData.content[data.id]));
+			post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, step: "imagine" } }, date: new Date().toString() });
+			console.log("imagine page saved");
+		})();
 	}, [globalSession.loaded, globalSession.profileId, data.id, post]);
 
 	return (

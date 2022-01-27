@@ -1,6 +1,9 @@
-import { ReactElement } from "react";
+import { useRouter } from "next/router";
+import { ReactElement, useContext, useEffect } from "react";
 import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
+import useApi from "../../../../../hooks/useApi";
+import GlobalSessionContext from "../../../../../store/global-session-context";
 import { TProject } from "../../../../../types/projects";
 
 interface Props {
@@ -9,6 +12,22 @@ interface Props {
 }
 
 const Subsystem = ({ data, subsystem }: Props) => {
+	const router = useRouter();
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { post } = useApi();
+
+	useEffect(() => {
+		if (!router.isReady || !globalSession.loaded) return;
+		const id = router.query.id as string;
+
+		post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [id] }, (saves) => {
+			router.replace(`/project/${data.id}/create/${subsystem}/${saves.content[id]?.[subsystem] || "research"}`);
+			console.log(saves);
+		});
+
+		console.log("subsystem flow saved");
+	}, [router, globalSession.loaded, globalSession.profileId, post, subsystem, data]);
+
 	return null;
 };
 

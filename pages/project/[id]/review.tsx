@@ -17,8 +17,12 @@ const Review = ({ data }: Props) => {
 
 	useEffect(() => {
 		if (!globalSession.loaded) return;
-		console.log("review page saved");
-		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "review" } }, date: new Date().toString() });
+		(async () => {
+			let saves = {};
+			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [data.id] }, (savesData) => (saves = savesData.content[data.id]));
+			post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, step: "review" } }, date: new Date().toString() });
+			console.log("review page saved");
+		})();
 	}, [globalSession.loaded, globalSession.profileId, data.id, post]);
 
 	return (

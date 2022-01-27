@@ -1,17 +1,31 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext, useEffect } from "react";
 import NewProjectLayout from "../../../../components/Layouts/ProjectLayout/NewProjectLayout";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../../constants/projects";
 import { TProject } from "../../../../types/projects";
 import { ReactFlowProvider } from "react-flow-renderer";
 import SubsystemsFlow from "../../../../components/Project/SubsystemsFlow";
 import classes from "../../../../styles/create.module.scss";
+import GlobalSessionContext from "../../../../store/global-session-context";
+import useApi from "../../../../hooks/useApi";
 
 interface Props {
 	data: TProject;
 }
 
 const Create = ({ data }: Props) => {
-	// TODO - @louis set nodesDraggable default to false
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { post } = useApi();
+
+	useEffect(() => {
+		if (!globalSession.loaded) return;
+		let saves = {};
+		(async () => {
+			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [data.id] }, (savesData) => (saves = savesData.content[data.id]));
+			post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, step: "create" } }, date: new Date().toString() });
+			console.log("create page saved");
+		})();
+	}, [globalSession.loaded, globalSession.profileId, data.id, post]);
+
 	return (
 		<div className={classes.page}>
 			<ReactFlowProvider>

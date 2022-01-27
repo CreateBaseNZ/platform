@@ -25,8 +25,12 @@ const Define = ({ data }: Props) => {
 
 	useEffect(() => {
 		if (!globalSession.loaded) return;
-		console.log("define page saved");
-		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { step: "define" } }, date: new Date().toString() });
+		(async () => {
+			let saves = {};
+			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [data.id] }, (savesData) => (saves = savesData.content[data.id]));
+			post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, step: "define" } }, date: new Date().toString() });
+			console.log("define page saved");
+		})();
 	}, [globalSession.loaded, globalSession.profileId, data.id, post]);
 
 	return (
