@@ -4,7 +4,7 @@ import GlobalSessionContext from "../store/global-session-context";
 import useApi from "./useApi";
 import { ALL_PROJECTS_ARRAY } from "../constants/projects";
 import useMixpanel from "./useMixpanel";
-import { ISubsystem } from "../types/projects";
+import { TSubsystem } from "../types/projects";
 import { DeepReadonly } from "ts-essentials";
 
 interface IFilter {
@@ -148,7 +148,7 @@ const useClass = () => {
 				.map((item) => ({ start: new Date(item.properties.start), duration: item.properties.duration, type: type }));
 		};
 
-		const processCreateData = (project: string, subsystems: DeepReadonly<ISubsystem[]>, license: string) => {
+		const processCreateData = (project: string, subsystems: DeepReadonly<TSubsystem[]>, license: string) => {
 			return subsystems.map((subsystem) => ({
 				name: subsystem.title,
 				label: subsystem.title,
@@ -226,7 +226,7 @@ const useClass = () => {
 			return { ...params, formattedDuration };
 		};
 
-		const processCreateData = (project: string, subsystems: DeepReadonly<ISubsystem[]>, license: string) => {
+		const processCreateData = (project: string, subsystems: DeepReadonly<TSubsystem[]>, license: string) => {
 			const createData: Record<string, any> = {}; // TODO
 			for (let j = 0; j < subsystems.length; j++) {
 				createData[subsystems[j].title] = {

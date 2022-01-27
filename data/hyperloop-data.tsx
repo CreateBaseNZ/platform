@@ -1,9 +1,9 @@
 import { COMPUTER_SCIENCE, ENGINEERING, TECHNOLOGY, JAVASCRIPT } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/projects";
+import { TProject } from "../types/projects";
 
 // TODO - @brad update the hyperloop thumbnail (needs to look good at minimum 1920px width)
 
-const HYPERLOOP_DATA: IProjectReadOnly = {
+const HYPERLOOP_DATA: TProject = {
 	id: "hyperloop",
 	title: "Hyperloop",
 	// TODO - give this a proper subtitle
@@ -102,11 +102,15 @@ Your first step to begin solving this problem is to download either of the learn
 				],
 			},
 			blockList: [],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Binary to decimal",
 			id: "binary-to-decimal",
-			requirements: ["Binary to hexadecimal"],
+			requirements: ["binary-to-hexadecimal"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-2.jpg",
 			description:
 				"In this subsystem, we will create a more advanced JavaScript program that uses an algorithm to convert any binary number to the equivalent decimal number. This approach is much more scalable than hard-coding number conversions.",
@@ -141,11 +145,15 @@ Your first step to begin solving this problem is to download either of the learn
 				],
 			},
 			blockList: [],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Decimal to binary",
 			id: "decimal-to-binary",
-			requirements: ["Binary to hexadecimal"],
+			requirements: ["binary-to-hexadecimal"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-3.jpg",
 			description:
 				"Let's try the reverse of subsystem 2 and create a JavaScript program that uses an algorithm to convert a decimal number to the equivalent binary number. We will generalize our answer to be able to convert to any base between 2 and 10.",
@@ -180,11 +188,15 @@ Your first step to begin solving this problem is to download either of the learn
 				],
 			},
 			blockList: [],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 		{
 			title: "Ternary to tridecimal",
 			id: "ternary-to-tridecimal",
-			requirements: ["Binary to decimal", "Decimal to binary"],
+			requirements: ["binary-to-decimal", "decimal-to-binary"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/hyperloop/images/subsystem-4.jpg",
 			description: "In this subsystem, we will combine everything we have learnt to far to create a JavaScript program that uses an algorithm to convert between base 3 and base 13.",
 			research: {
@@ -218,6 +230,10 @@ Your first step to begin solving this problem is to download either of the learn
 				],
 			},
 			blockList: [],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 	],
 	improve: {

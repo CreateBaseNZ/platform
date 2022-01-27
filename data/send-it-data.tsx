@@ -1,7 +1,7 @@
 import { AI, AUTOMATION, COMPUTER_SCIENCE, ENGINEERING, ETHICS, TECHNOLOGY } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/projects";
+import { TProject } from "../types/projects";
 
-const SEND_IT_DATA: IProjectReadOnly = {
+const SEND_IT_DATA: TProject = {
 	id: "send-it",
 	title: "Send It",
 	subtitle: "Programmable endless runner",
@@ -151,6 +151,10 @@ What do you think is happening here? Discuss with your peers!`,
 				{ name: "Logicals", blocks: [] },
 				{ name: "Conditionals", blocks: [] },
 			],
+			position: {
+				x: 0,
+				y: 0,
+			},
 		},
 	],
 	improve: {

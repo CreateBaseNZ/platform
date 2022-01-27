@@ -1,0 +1,111 @@
+@import "/styles/variables";
+
+.wipBtn {
+	position: absolute;
+	bottom: 5vh;
+	left: 5vw;
+	z-index: 10;
+	background: black;
+	color: white;
+	font-size: 14px;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	box-shadow: 0 4px 12px 0 rgba(black, 0.2);
+}
+
+.minimap {
+	left: 2vw !important;
+	bottom: 2vh !important;
+	path {
+		fill: rgba(black, 0.5) !important;
+	}
+}
+
+.help {
+	z-index: 10;
+	position: absolute;
+	bottom: 3vh;
+	right: 2vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 3rem;
+	width: 3rem;
+	border-radius: 1rem;
+	background: white;
+	box-shadow: 0 4px 24px -12px rgba($blue-dark, 0.5);
+	transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+	i {
+		color: $dark;
+		transition: color 0.1s ease-out;
+	}
+	&:hover {
+		box-shadow: 0 16px 32px -12px rgba($blue-dark, 0.25);
+		i {
+			color: $blue-dark;
+		}
+	}
+	&.active {
+		background: rgba($blue-dark, 0.1);
+		box-shadow: none;
+		i {
+			color: $blue-dark;
+		}
+	}
+}
+
+.tooltip {
+	width: 300px;
+	z-index: 50;
+	position: absolute;
+	bottom: calc(4rem + 2vh);
+	right: 2vw;
+	display: flex;
+	flex-direction: column;
+	background: white;
+	padding: 1.25rem 1.25rem 1rem 1.25rem;
+	border-radius: 1rem;
+	box-shadow: 0 1rem 2rem -0.5rem rgba($blue-dark, 0.25);
+	h5 {
+		font-weight: 600;
+	}
+	p {
+		margin: 0.25rem 0;
+		font-size: 12px;
+	}
+	ul {
+		font-size: 12px;
+		padding-left: 1.25rem;
+		li {
+			font-size: inherit;
+			margin: 0.25rem 0;
+			span {
+				font-weight: 500;
+				font-size: inherit;
+			}
+		}
+	}
+	.tooltipClose {
+		position: absolute;
+		right: 0.5rem;
+		top: 0.5rem;
+		height: 2rem;
+		width: 2rem;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background-color 0.1s ease-out;
+		i {
+			font-size: 1rem;
+			color: $dark;
+			transition: color 0.1s ease-out;
+		}
+		&:hover {
+			background: $lighter;
+			i {
+				color: $darkest;
+			}
+		}
+	}
+}

@@ -8,14 +8,14 @@ import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
 import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
-import { IProjectReadOnly } from "../../../types/projects";
+import { TProject } from "../../../types/projects";
 import classes from "./NewProjectLayout.module.scss";
 import ProjectContext, { TCodeTab, TCodeLayout } from "../../../store/project-context";
 
 const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
 const CODE_TABS: TCodeTab[] = ["Blocks", "Files"];
 
-const renderResearchModules = (data: IProjectReadOnly, subsystem: string, router: NextRouter) => {
+const renderResearchModules = (data: TProject, subsystem: string, router: NextRouter) => {
 	const modules = data.subsystems.find((s) => s.id === subsystem)?.research.modules;
 
 	if (!modules || modules?.length === 0) return <a className={classes.noModules}>No modules</a>;
@@ -30,7 +30,7 @@ const renderResearchModules = (data: IProjectReadOnly, subsystem: string, router
 interface Props {
 	children: ReactElement;
 	step: string;
-	data: IProjectReadOnly;
+	data: TProject;
 	isFlat?: boolean;
 	hasLeftPanel?: boolean;
 	substep?: string;

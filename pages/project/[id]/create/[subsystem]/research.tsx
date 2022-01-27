@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { useRouter } from "next/router";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/NewProjectLayout";
-import { IProjectReadOnly } from "../../../../../types/projects";
+import { TProject } from "../../../../../types/projects";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
 import renderModule from "../../../../../lib/renderModule";
 import NoModule from "../../../../../components/Project/NoModule";
@@ -11,7 +11,7 @@ import classes from "../../../../../styles/research.module.scss";
 import { TModule } from "../../../../../types/modules";
 
 interface Props {
-	data: IProjectReadOnly;
+	data: TProject;
 	subsystem: string;
 }
 

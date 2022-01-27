@@ -1,35 +1,33 @@
 import { ReactElement } from "react";
-import useMixpanel from "../../../../../hooks/useMixpanel";
 import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/NewProjectLayout";
-import { TProject } from "../../../../../types/projects";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
-import classes from "../../../../../styles/plan.module.scss";
+import { TProject } from "../../../../../types/projects";
 
 interface Props {
 	data: TProject;
+	subsystem: string;
 }
 
-const Plan = ({ data }: Props) => {
-	const {} = useMixpanel("project_create_plan");
-
-	return <div className={classes.page}></div>;
+const Subsystem = ({ data, subsystem }: Props) => {
+	return null;
 };
 
-Plan.getLayout = (page: ReactElement, data: any) => {
+Subsystem.getLayout = (page: ReactElement, pageProps: any) => {
 	return (
-		<NewProjectLayout step="Create" substep="plan" data={data.data} isFlat={true} hasLeftPanel={true}>
+		<NewProjectLayout step="Create" isFlat={true} hasLeftPanel={true} data={pageProps.data} subsystem={pageProps.subsystem}>
 			{page}
 		</NewProjectLayout>
 	);
 };
 
-Plan.auth = "user";
+Subsystem.auth = "user";
 
-export default Plan;
+export default Subsystem;
 
 interface Params {
 	params: {
 		id: string;
+		subsystem: string;
 	};
 }
 
@@ -37,6 +35,7 @@ export async function getStaticProps({ params }: Params) {
 	return {
 		props: {
 			data: ALL_PROJECTS_OBJECT[params.id],
+			subsystem: params.subsystem,
 		},
 	};
 }

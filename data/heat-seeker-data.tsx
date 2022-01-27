@@ -1,7 +1,7 @@
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
-import { IProjectReadOnly } from "../types/projects";
+import { TProject } from "../types/projects";
 
-const HEAT_SEEKER_DATA: IProjectReadOnly = {
+const HEAT_SEEKER_DATA: TProject = {
 	title: "Heat Seeker",
 	id: "heat-seeker",
 	subtitle: "Line-following robot",
@@ -125,12 +125,16 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				],
 			},
 			blockList: [{ name: "Actions", blocks: [] }],
+			position: {
+				x: -896,
+				y: -160,
+			},
 		},
 		{
 			title: "Navigating curves",
 			id: "navigating-curves",
-			requirements: ["Speed control"],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-2.PNG",
+			requirements: ["speed-control"],
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-2.png",
 			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
 			research: {
 				threshold: 120,
@@ -172,11 +176,15 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Logicals", blocks: [] },
 				{ name: "Conditionals", blocks: [] },
 			],
+			position: {
+				x: -320,
+				y: -352,
+			},
 		},
 		{
 			title: "Navigating turns",
 			id: "navigating-turns",
-			requirements: ["Speed control"],
+			requirements: ["speed-control"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-3.png",
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {
@@ -208,12 +216,16 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Logicals", blocks: [] },
 				{ name: "Conditionals", blocks: [] },
 			],
+			position: {
+				x: -320,
+				y: 0,
+			},
 		},
 		{
 			title: "Extinguishing fires",
 			id: "extinguishing-fires",
 			requirements: [],
-			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-4.PNG",
+			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/subsystem-4.png",
 			description: "In this fourth subsystem, we will learn how to use a sensor to detect the presence of a fire and then perform the correct sequence of actions to automatically put it out.",
 			research: {
 				threshold: 300,
@@ -254,11 +266,15 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Logicals", blocks: [] },
 				{ name: "Conditionals", blocks: [] },
 			],
+			position: {
+				x: -64,
+				y: 384,
+			},
 		},
 		{
 			title: "Putting it all together",
 			id: "putting-it-all-together",
-			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
+			requirements: ["navigating-curves", "navigating-turns", "extinguishing-fires"],
 			img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/projects/heat-seeker/images/thumbnail.png",
 			description:
 				"We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
@@ -309,6 +325,10 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 					blocks: [],
 				},
 			],
+			position: {
+				x: 544,
+				y: -96,
+			},
 		},
 	],
 	improve: {
@@ -350,6 +370,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 			},
 		],
 	},
+	// wip: true,
 };
 
 export default HEAT_SEEKER_DATA;

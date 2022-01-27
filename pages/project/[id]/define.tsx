@@ -6,14 +6,14 @@ import ReactMarkdown from "react-markdown";
 import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/projects";
-import { IProjectReadOnly } from "../../../types/projects";
+import { TProject } from "../../../types/projects";
 import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
 
 import classes from "../../../styles/define.module.scss";
 import useApi from "../../../hooks/useApi";
 
 interface Props {
-	data: IProjectReadOnly;
+	data: TProject;
 }
 
 const Define = ({ data }: Props) => {

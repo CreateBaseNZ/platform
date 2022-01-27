@@ -4,12 +4,12 @@ import useMixpanel from "../../hooks/useMixpanel";
 import useUnity from "../../hooks/useUnity";
 import GlobalSessionContext from "../../store/global-session-context";
 import { TPlaytestModule } from "../../types/modules";
-import { IProjectReadOnly } from "../../types/projects";
+import { TProject } from "../../types/projects";
 import classes from "./PlaytestModule.module.scss";
 
 interface Props {
 	module: TPlaytestModule;
-	data: IProjectReadOnly;
+	data: TProject;
 }
 
 const PlaytestModule = ({ module, data }: Props): JSX.Element => {

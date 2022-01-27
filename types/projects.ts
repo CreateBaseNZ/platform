@@ -8,7 +8,7 @@ import { BlockList } from "./flow";
 export type ProjectDifficulty = "introductory" | "proficient" | "advanced";
 
 /** Project subject type. */
-export interface IProjectSubject {
+export interface TProjectSubject {
 	/** Subject colour rendered with tags. */
 	color: string;
 	/** Subject label. */
@@ -16,7 +16,7 @@ export interface IProjectSubject {
 }
 
 /** Subsystem data object. */
-export interface ISubsystem {
+export type TSubsystem = {
 	/** Subsystem ID. */
 	id: string;
 	/** Subsystem title. */
@@ -55,10 +55,17 @@ export interface ISubsystem {
 	/** List of blocks available for coding in this subsystem. */
 	// TODO - deprecate this prop
 	blockList: BlockList;
-}
+	/** Position of subsystem in Create Flow UI. */
+	position: {
+		/** x coordinate. */
+		x: number;
+		/** y coordinate. */
+		y: number;
+	};
+};
 
 /** Project data object. */
-export interface IProject {
+export type TProject = {
 	/** Unique project query ID. */
 	id: string;
 	/** Project title. */
@@ -85,7 +92,7 @@ export interface IProject {
 	/** Suggested project difficulty. */
 	difficulty: ProjectDifficulty;
 	/** List of subjects covered. */
-	subjects: IProjectSubject[];
+	subjects: TProjectSubject[];
 	/** Path to Lesson Plan file. */
 	lessonPlan: string;
 	/** Bullet-pointed list of learning outcomes. */
@@ -114,7 +121,7 @@ export interface IProject {
 	};
 	// TODO - rework all props below
 	/** Project subsystems. */
-	subsystems: ISubsystem[];
+	subsystems: TSubsystem[];
 	/** Improve step data. */
 	improve: {
 		/** Minimum recommended time spent on Improve step. */
@@ -130,7 +137,4 @@ export interface IProject {
 	};
 	/** Optional. If `true`, local Unity data will be used; otherwise, data hosted on Github. */
 	wip?: boolean;
-}
-
-/** Project data object (read-only). */
-export type IProjectReadOnly = DeepReadonly<IProject>;
+};
