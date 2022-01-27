@@ -1,7 +1,5 @@
 @import "/styles/variables";
 
-$border-color: #f1f1f1;
-
 .container {
 	height: 100vh;
 	width: 100vw;
@@ -375,105 +373,6 @@ $border-color: #f1f1f1;
 			i {
 				width: 1rem;
 				opacity: 1;
-			}
-		}
-	}
-}
-
-.codePanel {
-	border-top: thin solid $border-color;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	padding: 1rem 0;
-	.layouts {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		padding: 0.5rem 0.5rem;
-		button {
-			margin: 0 0.25rem;
-			height: 2rem;
-			width: 2rem;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			opacity: 0.25;
-			border-radius: 2px;
-			transition: all 0.1s ease-out;
-			&:hover {
-				opacity: 0.75;
-			}
-			&.active {
-				background: $border-color;
-				opacity: 1;
-			}
-		}
-	}
-	.codeTabs {
-		padding: 0 0.25rem;
-		display: flex;
-		height: 2.5rem;
-		border-bottom: thin solid $border-color;
-		button {
-			height: 100%;
-			padding: 0 0.75rem;
-			font-size: 12px;
-			font-weight: 500;
-			opacity: 0.25;
-			position: relative;
-			transition: opacity 0.1s ease-out;
-			&::after {
-				content: "";
-				position: absolute;
-				width: 0;
-				height: 2px;
-				background: $darkest;
-				bottom: 0;
-				left: 50%;
-				transform: translateX(-50%);
-				transition: width 0.2s ease-out;
-			}
-			&:hover {
-				opacity: 0.75;
-			}
-			&.active {
-				opacity: 1;
-				&::after {
-					width: calc(100% - 1.5rem);
-				}
-			}
-		}
-	}
-	.codeItemContainer {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		.codeItem {
-			width: 100%;
-			display: flex;
-			align-items: center;
-			font-size: 12px;
-			&.block {
-				padding: 0.75rem 0.5rem 0.75rem 1rem;
-			}
-			&.file {
-				height: 2.5rem;
-				padding-left: 1.5rem;
-				padding-right: 0.5rem;
-				.fileIcon {
-					position: relative;
-					display: flex;
-					align-items: center;
-					margin-right: 0.25rem;
-				}
-				span {
-					font-size: 11px;
-					font-weight: 500;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
 			}
 		}
 	}

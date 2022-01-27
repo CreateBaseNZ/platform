@@ -11,7 +11,6 @@ import MobileView from "../components/MobileView/MobileView";
 import AuthGuard from "../components/Auth/AuthGuard";
 
 import "../styles/globals.scss";
-import { ProjectContextProvider } from "../store/project-context";
 
 type NextPageWithLayout = NextPage & {
 	getLayout?: (page: ReactElement, pageProps: any) => JSX.Element;
@@ -35,9 +34,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
 					<MainLayoutContextProvider>
 						<div id="modal-root" />
 						<NextNProgress color="#772eff" options={{ showSpinner: false }} />
-						<ProjectContextProvider>
-							{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />, pageProps)}</AuthGuard> : getLayout(<Component {...pageProps} />, pageProps)}
-						</ProjectContextProvider>
+						{Component.auth ? <AuthGuard auth={Component.auth}>{getLayout(<Component {...pageProps} />, pageProps)}</AuthGuard> : getLayout(<Component {...pageProps} />, pageProps)}
 						<MobileView />
 						<VisualBell />
 					</MainLayoutContextProvider>

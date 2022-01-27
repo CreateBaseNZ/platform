@@ -7,7 +7,7 @@ export type TCodeLayout = "Default" | "Editor" | "Simulation";
 export type TCodeTab = "Blocks" | "Files";
 
 /** Mini node context object. */
-export type TProjectContext = {
+export type TCodeContext = {
 	/** Coding layout. */
 	codeLayout: TCodeLayout;
 	/** Set coding layout. */
@@ -21,14 +21,14 @@ export type TProjectContext = {
 /**
  * @ignore
  */
-const ProjectContext = createContext<TProjectContext>({
+const CodeContext = createContext<TCodeContext>({
 	codeLayout: "Default",
 	setCodeLayout: () => {},
 	codeTab: "Blocks",
 	setCodeTab: () => {},
 });
 
-export default ProjectContext;
+export default CodeContext;
 
 interface Props {
 	children: ReactNode;
@@ -37,7 +37,7 @@ interface Props {
 /**
  * @ignore
  */
-export const ProjectContextProvider = ({ children }: Props) => {
+export const CodeContextProvider = ({ children }: Props) => {
 	const router = useRouter();
 	const [codeLayout, setCodeLayout] = useState<TCodeLayout>("Default");
 	const [codeTab, setCodeTab] = useState<TCodeTab>("Blocks");
@@ -56,5 +56,5 @@ export const ProjectContextProvider = ({ children }: Props) => {
 		[codeLayout, setCodeLayout, codeTab, setCodeTab]
 	);
 
-	return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>;
+	return <CodeContext.Provider value={value}>{children}</CodeContext.Provider>;
 };
