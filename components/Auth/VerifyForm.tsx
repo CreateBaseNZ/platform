@@ -9,14 +9,14 @@ import { PrimaryButton } from "../UI/Buttons";
 
 import classes from "./AuthForms.module.scss";
 
-interface IVerifyProps {
+interface Props {
 	routerEmail: string;
 	routerCode: string;
 }
 
 const CODE_LENGTH = 6;
 
-const Verify = ({ routerEmail = "", routerCode = "" }: IVerifyProps): JSX.Element | null => {
+const Verify = ({ routerEmail = "", routerCode = "" }: Props): JSX.Element | null => {
 	const router = useRouter();
 	const setVisualBell = useSetVisualBell();
 	const { globalSession, setGlobalSession } = useContext(GlobalSessionContext);
@@ -28,6 +28,7 @@ const Verify = ({ routerEmail = "", routerCode = "" }: IVerifyProps): JSX.Elemen
 	const { post } = useApi();
 	const refs = useRef<HTMLInputElement[]>([]);
 
+	// TODO - @louis refactor this and just submit code if it changes
 	useEffect(() => {
 		(async () => {
 			if (code.every((char) => char !== "") && email) await submitCode(code.join(""));

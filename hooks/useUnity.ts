@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 import { install } from "resize-observer";
 
-interface IUnity {
+interface Props {
 	index: number;
 	project: string;
 	scenePrefix: string;
@@ -12,7 +12,7 @@ interface IUnity {
 	wip?: boolean;
 }
 
-const useUnity = ({ scenePrefix, suffix, index, project, wip = false, setLoaded }: IUnity) => {
+const useUnity = ({ scenePrefix, suffix, index, project, wip = false, setLoaded }: Props) => {
 	const [unityContext, setUnityContext] = useState(
 		new UnityContext({
 			loaderUrl: wip ? `/${project}/unity-build/Build.loader.js` : `https://cdn.statically.io/gh/CreateBaseNZ/public/main/${project}/unity-build/Build.loader.js`,

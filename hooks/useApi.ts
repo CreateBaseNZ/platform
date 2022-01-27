@@ -2,9 +2,10 @@ import router from "next/router";
 import axios from "axios";
 import { useCallback } from "react";
 
+// TODO - @louis probably use generics to declare content shape for each API
 export interface APIRes {
 	status?: "succeeded" | "critical error" | "error" | "failed" | undefined;
-	content?: any; // TODO
+	content?: any;
 }
 
 const useApi = () => {
@@ -19,7 +20,7 @@ const useApi = () => {
 		async (route = "", input = {}, successHandler: (data: any) => void = () => {}, failHandler: (data: any) => void = () => {}) => {
 			let data: APIRes = {};
 			try {
-				data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"] as APIRes; // TODO
+				data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"] as APIRes;
 			} catch (error) {
 				data.status = "error";
 			} finally {
