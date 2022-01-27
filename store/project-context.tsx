@@ -1,5 +1,5 @@
-import { useState, createContext, useMemo, ReactNode, Dispatch, SetStateAction } from "react";
-import { ModuleList } from "../types/modules";
+import { useRouter } from "next/router";
+import { useState, createContext, useMemo, ReactNode, Dispatch, SetStateAction, useEffect } from "react";
 
 /** Coding layouts. */
 export type TCodeLayout = "Default" | "Editor" | "Simulation";
@@ -16,10 +16,6 @@ export type TProjectContext = {
 	codeTab: TCodeTab;
 	/** Set coding tab. */
 	setCodeTab: Dispatch<SetStateAction<TCodeTab>>;
-	/** Research module index */
-	researchModule: number;
-	/** Set research module index. */
-	setResearchModule: Dispatch<SetStateAction<number>>;
 };
 
 /**
@@ -30,8 +26,6 @@ const ProjectContext = createContext<TProjectContext>({
 	setCodeLayout: () => {},
 	codeTab: "Blocks",
 	setCodeTab: () => {},
-	researchModule: -1,
-	setResearchModule: () => {},
 });
 
 export default ProjectContext;
@@ -44,9 +38,13 @@ interface Props {
  * @ignore
  */
 export const ProjectContextProvider = ({ children }: Props) => {
+	const router = useRouter();
 	const [codeLayout, setCodeLayout] = useState<TCodeLayout>("Default");
 	const [codeTab, setCodeTab] = useState<TCodeTab>("Blocks");
-	const [researchModule, setResearchModule] = useState(-1);
+
+	useEffect(() => {
+		if (!router.isReady) return;
+	}, [router.isReady, router.query.module]);
 
 	const value = useMemo(
 		() => ({
@@ -54,10 +52,8 @@ export const ProjectContextProvider = ({ children }: Props) => {
 			setCodeLayout: setCodeLayout,
 			codeTab: codeTab,
 			setCodeTab: setCodeTab,
-			researchModule: researchModule,
-			setResearchModule: setResearchModule,
 		}),
-		[codeLayout, setCodeLayout, codeTab, setCodeTab, researchModule, setResearchModule]
+		[codeLayout, setCodeLayout, codeTab, setCodeTab]
 	);
 
 	return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>;

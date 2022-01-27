@@ -22,6 +22,7 @@ const Research = ({ data, subsystem }: Props) => {
 	const {} = useMixpanel("project_create_research");
 	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
+	console.log("loading");
 
 	useEffect(() => {
 		if (!globalSession.loaded) return;
@@ -32,6 +33,14 @@ const Research = ({ data, subsystem }: Props) => {
 		})();
 		console.log("research page saved");
 	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
+
+	useEffect(() => {
+		if (!router.isReady) return;
+		const current = router.query.module as string;
+		if (router.query.module) return localStorage.setItem(`${data.id}_${subsystem}`, current);
+		const recent = localStorage.getItem(`${data.id}_${subsystem}`);
+		if (recent) router.replace({ pathname: router.pathname, query: { ...router.query, module: recent } });
+	}, [router, data.id, subsystem]);
 
 	const modules = data.subsystems.find((s) => s.id === subsystem)?.research.modules;
 

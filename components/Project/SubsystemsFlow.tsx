@@ -109,7 +109,7 @@ const SubsystemsFlow = ({ data }: Props): JSX.Element => {
 					</div>
 					<h1>{preview.title}</h1>
 					<p>{preview.description}</p>
-					{preview.requirements.length > 0 && <p style={{ fontWeight: 500 }}>Requirements:</p>}
+					{preview.requirements.length > 0 && <p style={{ fontWeight: 600 }}>Requirements:</p>}
 					{preview.requirements.map((req) => (
 						<div key={req} className={classes.previewReq}>
 							<span>{data.subsystems.find((sub) => sub.id === req)?.title}</span>

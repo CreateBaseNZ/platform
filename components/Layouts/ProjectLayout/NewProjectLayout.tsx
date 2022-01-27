@@ -3,7 +3,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import STEPS, { IMPROVE_STEPS, SUBSYSTEM_STEPS } from "../../../constants/projectSteps";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
@@ -11,21 +11,10 @@ import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
 import { TProject } from "../../../types/projects";
 import classes from "./NewProjectLayout.module.scss";
 import ProjectContext, { TCodeTab, TCodeLayout } from "../../../store/project-context";
+import ResearchPanel from "./ResearchPanel";
 
 const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
 const CODE_TABS: TCodeTab[] = ["Blocks", "Files"];
-
-const renderResearchModules = (data: TProject, subsystem: string, router: NextRouter) => {
-	const modules = data.subsystems.find((s) => s.id === subsystem)?.research.modules;
-
-	if (!modules || modules?.length === 0) return <a className={classes.noModules}>No modules</a>;
-
-	return modules.map((module) => (
-		<Link key={module.title} href={{ pathname: router.pathname, query: { ...router.query, module: module.title } }}>
-			<a className={router.query.module === module.title ? classes.active : ""}>{module.title}</a>
-		</Link>
-	));
-};
 
 interface Props {
 	children: ReactElement;
@@ -183,12 +172,7 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 						</div>
 					</>
 				)}
-				{substep === "research" && (
-					<div className={`${classes.researchPanel} ${router.query.module ? "" : classes.blink}`}>
-						<div className={classes.researchHeading}>Modules</div>
-						{renderResearchModules(data, subsystem, router)}
-					</div>
-				)}
+				{substep === "research" && <ResearchPanel data={data} subsystem={subsystem} />}
 			</div>
 			{children}
 		</div>
