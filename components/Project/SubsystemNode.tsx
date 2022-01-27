@@ -14,14 +14,21 @@ interface Props {
 const SubsystemNode = ({ data }: Props): ReactElement => {
 	const router = useRouter();
 
+	const previewData = {
+		title: data.title,
+		description: data.description,
+		img: data.img,
+		requirements: data.requirements,
+	};
+
 	return (
 		<div className={classes.container}>
 			<div className={classes.handles}>
 				{data.requirements.map((req, i) => (
-					<Handle key={req} position={Position.Left} type="target" id={`${data.id}_${req}`} className={classes.handle} style={{ top: `${((i + 1) / (data.requirements.length + 1)) * 100}%` }} />
+					<Handle key={req} position={Position.Left} type="target" id={`${data.id}_${req}`} className={classes.handle} />
 				))}
 			</div>
-			<div className={classes.wrapper}>
+			<div className={classes.wrapper} onMouseOver={() => data.setPreview(previewData)} onMouseOut={() => data.setPreview(null)}>
 				<div className={classes.title}>{data.title}</div>
 				<div className={classes.img}>
 					<Image src={data.img} layout="fill" objectFit="cover" alt={data.title} />

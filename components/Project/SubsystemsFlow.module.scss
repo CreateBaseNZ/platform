@@ -21,6 +21,49 @@
 	}
 }
 
+.preview {
+	pointer-events: none;
+	z-index: 9;
+	position: absolute;
+	top: 50%;
+	right: 2vw;
+	transform: translateY(-50%);
+	display: flex;
+	flex-direction: column;
+	width: calc(160px + 10vw);
+	background: white;
+	border-radius: 1rem;
+	padding: 1rem;
+	box-shadow: 0 0.5rem 2rem -0.5rem rgba($blue-dark, 0.25);
+	.previewImg {
+		width: 100%;
+		height: 0;
+		padding-bottom: 56.25%;
+		position: relative;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	h1 {
+		font-size: 1.25rem;
+		font-weight: 600;
+		padding: 0.75rem 0.5rem 0.25rem 0.5rem;
+	}
+	p {
+		padding: 0.25rem 0.5rem;
+		font-size: 12px;
+		font-weight: 500;
+	}
+	.previewReq {
+		margin: 0.1rem 0;
+		display: flex;
+		align-items: center;
+		padding-left: 0.75rem;
+		span {
+			font-size: 14px;
+		}
+	}
+}
+
 .help {
 	z-index: 10;
 	position: absolute;

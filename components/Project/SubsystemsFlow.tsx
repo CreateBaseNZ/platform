@@ -1,6 +1,7 @@
-import { useState } from "react";
-import ReactFlow, { Background, Edge, MiniMap, Node, OnLoadFunc, useStoreState } from "react-flow-renderer";
-import { TSubsystemNodeData } from "../../types/flow";
+import { useState, Dispatch, SetStateAction } from "react";
+import ReactFlow, { Background, MiniMap, Node, Edge, OnLoadFunc, useStoreState } from "react-flow-renderer";
+import Image from "next/image";
+import { TNodePreview, TSubsystemNodeData } from "../../types/flow";
 import { TProject, TSubsystem } from "../../types/projects";
 import SubsystemNode from "./SubsystemNode";
 
@@ -10,7 +11,7 @@ const nodeTypes = {
 	subsystemNode: SubsystemNode,
 };
 
-const subToEl = (subsystems: TSubsystem[]): Array<Node<TSubsystemNodeData> | Edge> => {
+const subToEl = (subsystems: TSubsystem[], setPreview: Dispatch<SetStateAction<TNodePreview | null>>): Array<Node<TSubsystemNodeData> | Edge> => {
 	const nHandleOuts: Record<string, string[]> = {};
 	const nodes = [];
 	const edges = [];
@@ -24,6 +25,7 @@ const subToEl = (subsystems: TSubsystem[]): Array<Node<TSubsystemNodeData> | Edg
 				description: sub.description,
 				img: sub.img,
 				requirements: sub.requirements,
+				setPreview: setPreview,
 			},
 			position: sub.position,
 		});
@@ -59,7 +61,8 @@ interface Props {
 
 const SubsystemsFlow = ({ data }: Props): JSX.Element => {
 	const [helpShown, setHelpShown] = useState(false);
-	const [elements, setElements] = useState(subToEl(data.subsystems));
+	const [preview, setPreview] = useState<TNodePreview | null>(null);
+	const [elements, setElements] = useState(subToEl(data.subsystems, setPreview));
 	const nodes = useStoreState((store) => store.nodes);
 
 	const printPositions = () => {
@@ -98,6 +101,21 @@ const SubsystemsFlow = ({ data }: Props): JSX.Element => {
 				<button className={classes.wipBtn} onClick={printPositions}>
 					Print positions
 				</button>
+			)}
+			{preview && (
+				<div className={classes.preview}>
+					<div className={classes.previewImg}>
+						<Image src={preview.img} layout="fill" objectFit="cover" alt={preview.title} />
+					</div>
+					<h1>{preview.title}</h1>
+					<p>{preview.description}</p>
+					{preview.requirements.length > 0 && <p style={{ fontWeight: 500 }}>Requirements:</p>}
+					{preview.requirements.map((req) => (
+						<div key={req} className={classes.previewReq}>
+							<span>{data.subsystems.find((sub) => sub.id === req)?.title}</span>
+						</div>
+					))}
+				</div>
 			)}
 			<button className={`${classes.help} ${helpShown ? classes.active : ""}`} title="Help" onClick={() => setHelpShown((state) => !state)}>
 				<i className="material-icons-outlined">help_outline</i>
