@@ -30,9 +30,9 @@ const Code = ({ data, subsystem }: Props) => {
 	return <div className={classes.page}></div>;
 };
 
-Code.getLayout = (page: ReactElement, data: any) => {
+Code.getLayout = (page: ReactElement, pageProps: any) => {
 	return (
-		<NewProjectLayout step="Create" substep="code" isFlat={true} hasLeftPanel={true} data={data.data}>
+		<NewProjectLayout step="Create" substep="code" isFlat={true} hasLeftPanel={true} data={pageProps.data} subsystem={pageProps.subsystem}>
 			{page}
 		</NewProjectLayout>
 	);

@@ -72,7 +72,7 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 					{STEPS.map((s, i) => (
 						<Fragment key={s.name}>
 							{i !== 0 ? <div className={classes.separator} /> : null}
-							<Link href={{ pathname: `/project/[id]/${s.name}`, query: { id: router.query.id } }}>
+							<Link href={{ pathname: `/project/[id]/${s.name}`, query: { id: data.id } }}>
 								<a className={step.toLowerCase() === s.name ? classes.active : ""} title={s.title}>
 									{s.title}
 								</a>
@@ -98,9 +98,9 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 				</div>
 			</nav>
 			<div className={`${classes.leftPanel} ${hasLeftPanel ? "" : classes.hide}`}>
-				{router.query.subsystem && (
+				{subsystem && (
 					<div className={classes.toSubsystems}>
-						<Link href={{ pathname: "/project/[id]/create/", query: { id: router.query.id } }}>
+						<Link href={{ pathname: "/project/[id]/create/", query: { id: data.id } }}>
 							<a title="All subsystems">
 								<i className="material-icons-outlined">navigate_before</i>
 								All subsystems
@@ -109,10 +109,10 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 					</div>
 				)}
 				<div className={classes.substepContainer}>
-					<div className={classes.substepName}>{data.subsystems.find((subsystem) => subsystem.id === router.query.subsystem)?.title || "Improve"}</div>
-					{router.query.subsystem
+					<div className={classes.substepName}>{data.subsystems.find((sub) => sub.id === subsystem)?.title || "Improve"}</div>
+					{subsystem
 						? SUBSYSTEM_STEPS.map((step) => (
-								<Link href={{ pathname: `/project/[id]/create/[subsystem]/${step.name}`, query: { id: router.query.id, subsystem: router.query.subsystem } }} key={step.name}>
+								<Link href={{ pathname: `/project/[id]/create/[subsystem]/${step.name}`, query: { id: data.id, subsystem: subsystem } }} key={step.name}>
 									<a className={substep === step.name ? classes.active : ""} title={step.title}>
 										<i className="material-icons-outlined">chevron_right</i>
 										{step.title}
@@ -120,7 +120,7 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 								</Link>
 						  ))
 						: IMPROVE_STEPS.map((step) => (
-								<Link href={{ pathname: `/project/[id]/improve/${step.name}`, query: { id: router.query.id } }} key={step.name}>
+								<Link href={{ pathname: `/project/[id]/improve/${step.name}`, query: { id: data.id } }} key={step.name}>
 									<a className={substep === step.name ? classes.active : ""} title={step.title}>
 										<i className="material-icons-outlined">chevron_right</i>
 										{step.title}
