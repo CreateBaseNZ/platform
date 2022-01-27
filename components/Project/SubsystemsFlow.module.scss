@@ -1,0 +1,14 @@
+@import "/styles/variables";
+
+.wipBtn {
+	position: absolute;
+	bottom: 5vh;
+	right: 5vw;
+	z-index: 10;
+	background: black;
+	color: white;
+	font-size: 14px;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	box-shadow: 0 4px 12px 0 rgba(black, 0.2);
+}

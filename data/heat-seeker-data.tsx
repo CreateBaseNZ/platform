@@ -370,6 +370,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 			},
 		],
 	},
+	wip: true,
 };
 
 export default HEAT_SEEKER_DATA;

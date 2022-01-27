@@ -1,12 +1,12 @@
 import { memo, ReactElement } from "react";
 import Image from "next/image";
 import { Handle, Position } from "react-flow-renderer";
-import { TSubsystemNode } from "../../types/flow";
+import { TSubsystemNodeData } from "../../types/flow";
 
 import classes from "./SubsystemNode.module.scss";
 
 interface Props {
-	data: TSubsystemNode;
+	data: TSubsystemNodeData;
 }
 
 const SubsystemNode = ({ data }: Props): ReactElement => {

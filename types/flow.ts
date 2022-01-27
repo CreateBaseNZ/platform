@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import { Node } from "react-flow-renderer";
 
 // TODO - @louis phase this out
 export interface INodeData {
@@ -18,7 +19,8 @@ export interface NodeProps {
 // TODO - @louis phase this out
 export type BlockList = Array<{ name: string; blocks: JSX.Element[] }>;
 
-export type TSubsystemNode = {
+// TODO - @louis comment this
+export type TSubsystemNodeData = {
 	id: string;
 	title: string;
 	description: string;
