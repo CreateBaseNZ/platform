@@ -50,7 +50,7 @@ const subToEl = (subsystems: TSubsystem[]): Array<Node<TSubsystemNodeData> | Edg
 
 const onLoad: OnLoadFunc = (reactFlowInstance) => {
 	console.log("flow loaded:", reactFlowInstance);
-	reactFlowInstance.fitView();
+	reactFlowInstance.fitView({ padding: 0.25 });
 };
 
 interface Props {
@@ -67,8 +67,16 @@ const SubsystemsFlow = ({ data }: Props): JSX.Element => {
 
 	return (
 		<>
-			<ReactFlow elements={elements} onLoad={onLoad} nodeTypes={nodeTypes} snapToGrid={true} snapGrid={[32, 32]} nodesDraggable={data.wip || false} nodesConnectable={data.wip || false}>
-				<Background color="#aaa" gap={32} size={1} />
+			<ReactFlow
+				elements={elements}
+				onLoad={onLoad}
+				nodeTypes={nodeTypes}
+				snapToGrid={true}
+				snapGrid={[32, 32]}
+				nodesDraggable={data.wip || false}
+				nodesConnectable={data.wip || false}
+				elementsSelectable={data.wip || false}>
+				<Background color="#cccccc" gap={32} size={1} />
 				<MiniMap
 					nodeColor={(node) => {
 						switch (node.type) {

@@ -126,8 +126,8 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 			},
 			blockList: [{ name: "Actions", blocks: [] }],
 			position: {
-				x: 0,
-				y: 0,
+				x: -896,
+				y: -160,
 			},
 		},
 		{
@@ -177,8 +177,8 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Conditionals", blocks: [] },
 			],
 			position: {
-				x: 0,
-				y: 0,
+				x: -320,
+				y: -352,
 			},
 		},
 		{
@@ -217,7 +217,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Conditionals", blocks: [] },
 			],
 			position: {
-				x: 0,
+				x: -320,
 				y: 0,
 			},
 		},
@@ -267,8 +267,8 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				{ name: "Conditionals", blocks: [] },
 			],
 			position: {
-				x: 0,
-				y: 0,
+				x: -64,
+				y: 384,
 			},
 		},
 		{
@@ -326,8 +326,8 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 				},
 			],
 			position: {
-				x: 0,
-				y: 0,
+				x: 544,
+				y: -96,
 			},
 		},
 	],
@@ -370,7 +370,7 @@ Sending human fire-fighters into the warehouse would be extremely dangerous as t
 			},
 		],
 	},
-	wip: true,
+	// wip: true,
 };
 
 export default HEAT_SEEKER_DATA;

@@ -3,16 +3,23 @@
 .container {
 	display: flex;
 	align-items: center;
+	cursor: auto;
 }
 
 .wrapper {
+	pointer-events: auto;
 	width: 20rem;
 	display: flex;
 	flex-direction: column;
-	padding: 0.5rem;
+	padding: 0.5rem 0.75rem;
 	border-radius: 0.5rem;
 	background: #f5f5f5;
 	position: relative;
+	transition: box-shadow 0.1s ease-out;
+	&:hover {
+		background: white;
+		box-shadow: 0 0 3rem -0.5rem rgba($blue-dark, 0.25);
+	}
 }
 
 .title {
@@ -36,10 +43,10 @@
 
 .description {
 	color: black;
-	padding: 0.25rem;
+	padding: 0.5rem 0.25rem;
 	font-size: 12px;
 	font-family: $jetbrains;
-	line-height: 1.5em;
+	line-height: 1.25em;
 	font-weight: 500;
 }
 
@@ -57,4 +64,21 @@
 	height: 8px !important;
 	width: 8px !important;
 	border: 2px solid #cecece !important;
+}
+
+.btn {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 2rem;
+	color: white;
+	font-size: 14px;
+	background: $blue-dark;
+	border-radius: 4px;
+	font-family: $jetbrains;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	margin-bottom: 0.25rem;
+	pointer-events: auto;
 }
