@@ -58,6 +58,7 @@ interface Props {
 }
 
 const SubsystemsFlow = ({ data }: Props): JSX.Element => {
+	const [helpShown, setHelpShown] = useState(false);
 	const [elements, setElements] = useState(subToEl(data.subsystems));
 	const nodes = useStoreState((store) => store.nodes);
 
@@ -97,6 +98,31 @@ const SubsystemsFlow = ({ data }: Props): JSX.Element => {
 				<button className={classes.wipBtn} onClick={printPositions}>
 					Print positions
 				</button>
+			)}
+			<button className={`${classes.help} ${helpShown ? classes.active : ""}`} title="Help" onClick={() => setHelpShown((state) => !state)}>
+				<i className="material-icons-outlined">help_outline</i>
+			</button>
+			{helpShown && (
+				<div className={classes.tooltip}>
+					<button className={classes.tooltipClose} title="Close" onClick={() => setHelpShown(false)}>
+						<i className="material-icons-outlined">close</i>
+					</button>
+					<h5 className={classes.tooltipHeader}>What&apos;s this?</h5>
+					<p>Welcome to the Create step! Each card here represents a subsystem and is linked by its requirements.</p>
+					<p>Connections can be three colours:</p>
+					<ul>
+						<li>
+							<span style={{ color: "#cecece" }}>Grey</span> - incomplete requirement
+						</li>
+						<li>
+							<span style={{ color: "#fdb554" }}>Amber</span> - requirement in progress
+						</li>
+						<li>
+							<span style={{ color: "#18dbac" }}>Green</span> - requirement completed
+						</li>
+					</ul>
+					<p>Click on a card to get started.</p>
+				</div>
 			)}
 		</>
 	);
