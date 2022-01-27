@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ReactFlow, { Background, Edge, Node, OnLoadFunc, useStoreState } from "react-flow-renderer";
+import ReactFlow, { Background, Edge, MiniMap, Node, OnLoadFunc, useStoreState } from "react-flow-renderer";
 import { TSubsystemNodeData } from "../../types/flow";
 import { TProject, TSubsystem } from "../../types/projects";
 import SubsystemNode from "./SubsystemNode";
@@ -67,8 +67,23 @@ const SubsystemsFlow = ({ data }: Props): JSX.Element => {
 
 	return (
 		<>
-			<ReactFlow elements={elements} onLoad={onLoad} nodeTypes={nodeTypes} snapToGrid={true} snapGrid={[32, 32]} nodesDraggable={data.wip || true} nodesConnectable={data.wip || false}>
+			<ReactFlow elements={elements} onLoad={onLoad} nodeTypes={nodeTypes} snapToGrid={true} snapGrid={[32, 32]} nodesDraggable={data.wip || false} nodesConnectable={data.wip || false}>
 				<Background color="#aaa" gap={32} size={1} />
+				<MiniMap
+					nodeColor={(node) => {
+						switch (node.type) {
+							case "ongoing":
+								return "#fdb554";
+							case "complete":
+								return "#18dbac";
+							default:
+								return "#ededed";
+						}
+					}}
+					nodeStrokeWidth={0}
+					nodeBorderRadius={16}
+					className={classes.minimap}
+				/>
 			</ReactFlow>
 			{data.wip && (
 				<button className={classes.wipBtn} onClick={printPositions}>

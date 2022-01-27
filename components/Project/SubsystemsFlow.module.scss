@@ -3,7 +3,7 @@
 .wipBtn {
 	position: absolute;
 	bottom: 5vh;
-	right: 5vw;
+	left: 5vw;
 	z-index: 10;
 	background: black;
 	color: white;
@@ -11,4 +11,12 @@
 	padding: 0.5rem 1rem;
 	border-radius: 4px;
 	box-shadow: 0 4px 12px 0 rgba(black, 0.2);
+}
+
+.minimap {
+	right: 2vw !important;
+	bottom: 2vh !important;
+	path {
+		fill: rgba(black, 0.5) !important;
+	}
 }
