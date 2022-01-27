@@ -103,8 +103,8 @@ Your first step to begin solving this problem is to download either of the learn
 			},
 			blockList: [],
 			position: {
-				x: 0,
-				y: 0,
+				x: -512,
+				y: 160,
 			},
 		},
 		{
@@ -146,8 +146,8 @@ Your first step to begin solving this problem is to download either of the learn
 			},
 			blockList: [],
 			position: {
-				x: 0,
-				y: 0,
+				x: 32,
+				y: -64,
 			},
 		},
 		{
@@ -189,8 +189,8 @@ Your first step to begin solving this problem is to download either of the learn
 			},
 			blockList: [],
 			position: {
-				x: 0,
-				y: 0,
+				x: 32,
+				y: 384,
 			},
 		},
 		{
@@ -231,8 +231,8 @@ Your first step to begin solving this problem is to download either of the learn
 			},
 			blockList: [],
 			position: {
-				x: 0,
-				y: 0,
+				x: 544,
+				y: 192,
 			},
 		},
 	],

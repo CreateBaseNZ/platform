@@ -115,7 +115,7 @@ Your first step to begin solving this problem is to download either of the learn
 				{ name: "Utilities", blocks: [] },
 			],
 			position: {
-				x: 0,
+				x: -512,
 				y: 0,
 			},
 		},
@@ -167,8 +167,8 @@ Your first step to begin solving this problem is to download either of the learn
 				{ name: "Utilities", blocks: [] },
 			],
 			position: {
-				x: 0,
-				y: 0,
+				x: 32,
+				y: -192,
 			},
 		},
 		{
@@ -227,8 +227,8 @@ Your first step to begin solving this problem is to download either of the learn
 				{ name: "Utilities", blocks: [] },
 			],
 			position: {
-				x: 0,
-				y: 0,
+				x: 32,
+				y: 224,
 			},
 		},
 		{
@@ -274,8 +274,8 @@ Your first step to begin solving this problem is to download either of the learn
 				{ name: "Utilities", blocks: [] },
 			],
 			position: {
-				x: 0,
-				y: 0,
+				x: 576,
+				y: 32,
 			},
 		},
 	],
