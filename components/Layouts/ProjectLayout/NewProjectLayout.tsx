@@ -3,7 +3,6 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import STEPS, { IMPROVE_STEPS, SUBSYSTEM_STEPS } from "../../../constants/projectSteps";
-import { useRouter } from "next/router";
 import UserAvatar from "../../UI/UserAvatar";
 import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
@@ -25,13 +24,8 @@ interface Props {
 }
 
 const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = false, substep = "", subsystem = "" }: Props) => {
-	const router = useRouter();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [showMenu, setShowMenu] = useState(false);
-
-	console.log(subsystem);
-
-	console.log(router);
 
 	return (
 		<div className={classes.container}>

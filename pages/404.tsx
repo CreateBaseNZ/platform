@@ -3,18 +3,19 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { PrimaryButton } from "../components/UI/Buttons";
 import Img from "../components/UI/Img";
-import router from "next/router";
+import { useRouter } from "next/router";
 import useApi from "../hooks/useApi";
 
 import classes from "../styles/404.module.scss";
 
 const Error404 = (): JSX.Element => {
+	const router = useRouter();
 	const { reportError } = useApi();
 
 	useEffect(() => {
-		if (router.asPath === "/404") return;
+		if (!router.isReady || router.asPath === "/404") return;
 		reportError(router.asPath, "404", `A user is trying to access ${router.asPath} route`);
-	}, []);
+	}, [router, reportError]);
 
 	return (
 		<div className={classes.view}>
@@ -29,13 +30,13 @@ const Error404 = (): JSX.Element => {
 						<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" />
 					</div>
 				</div>
-				<h2>Oops! You've found a magical land with polygon chickens.</h2>
-				<h3>The page you're looking for doesn't exist or has been removed. Poof! You didn't see anything...</h3>
+				<h2>Oops! You&apos;ve found a magical land with polygon chickens.</h2>
+				<h3>The page you&apos;re looking for doesn&apos;t exist or has been removed. Poof! You didn&apos;t see anything...</h3>
 			</div>
-			<Link href="/" replace={true}>
-				<div>
+			<Link href="/">
+				<a>
 					<PrimaryButton mainLabel="Take me home" className={classes.btn} />
-				</div>
+				</a>
 			</Link>
 		</div>
 	);
