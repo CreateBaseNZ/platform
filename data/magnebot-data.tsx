@@ -34,7 +34,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 	define: {
 		threshold: 60,
 		url: "https://youtu.be/3YOLGBQLGjY",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/situation.mp4",
 		h1: "Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!",
 		h2: "Unfortunately, a self-driving cart has driven through our recycling facility and spilt bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...",
 		docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
@@ -46,13 +46,13 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "Intro to recycling",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/recycling.jpg",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/recycling.jpg",
 				url: "/magnebot/pdf/recycling.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Intro to robotics",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/robot.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/robot.png",
 				url: "/magnebot/pdf/robotics.pdf",
 			},
 			{
@@ -60,15 +60,15 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 				title: "How to MagneBot",
 				items: [
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-1.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-1.mp4",
 						subtitle: <p>Use the controls to move the arm and pick up rubbish bags</p>,
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-2.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-2.mp4",
 						subtitle: <p>Get all three rubbish bags into the bins</p>,
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/vid/tut-3.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/tut-3.mp4",
 						subtitle: <p>Hold down and drag with right click to orbit the camera around the arm</p>,
 					},
 				],
@@ -79,7 +79,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Sequential programming",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/magnebot/img/sequential.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/sequential.jpg",
 			description: "In a single subsystem, your task is to write a sequential program to control MagneBot in order to pick up each rubbish bag and deposit them in one of the two recycling bins.",
 			research: {
 				threshold: 300,
@@ -90,7 +90,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 						title: "Flow tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 						},

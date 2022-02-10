@@ -50,7 +50,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 	define: {
 		threshold: 30,
 		url: "https://www.youtube.com/watch?v=znMZhBSDW_I",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
 		docs: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
@@ -62,7 +62,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "In this Project...",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_1.jpg",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_1.jpg",
 				url: "/aimbot/files/21050502AA_imagine.pdf",
 			},
 		],
@@ -71,7 +71,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Yaw control",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_1.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_1.jpg",
 			description:
 				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
@@ -131,7 +131,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Pitch control",
 			requirements: ["Yaw control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_2.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_2.jpg",
 			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
 			research: {
 				threshold: 30,
@@ -178,7 +178,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Velocity controller",
 			requirements: ["Yaw control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_3.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_3.jpg",
 			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
 			research: {
 				threshold: 600,
@@ -233,7 +233,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Putting it all together",
 			requirements: ["Pitch control", "Velocity controller"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_4.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_4.jpg",
 			description: "Lets put together everything that we have learnt to program a solution to the full problem!",
 			research: {
 				threshold: 1,

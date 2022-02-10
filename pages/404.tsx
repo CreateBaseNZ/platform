@@ -26,7 +26,7 @@ const Error404 = (): JSX.Element => {
 				<div className={classes.heading}>
 					<h1>404</h1>
 					<div className={classes.img}>
-						<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" />
+						<Img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/404.png" layout="fill" objectFit="contain" />
 					</div>
 				</div>
 				<h2>Oops! You've found a magical land with polygon chickens.</h2>

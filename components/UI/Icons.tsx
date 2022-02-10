@@ -8,7 +8,7 @@ interface IWhiteLogoProps extends ImageProps {
 export const WhiteLogo = ({ className = "", ...rest }: IWhiteLogoProps): JSX.Element => {
 	return (
 		<a target="_blank" href="https://createbase.co.nz/" className={className} title="createbase.co.nz" style={{ position: "relative", height: "100%", width: "100%" }}>
-			<Image {...rest} src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/white-logo.png" alt="CreateBase" />
+			<Image {...rest} src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/icons/white-logo.png" alt="CreateBase" />
 		</a>
 	);
 };

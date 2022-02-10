@@ -92,11 +92,10 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 					resolve(true);
 				}
 			};
-			try {
-				eval("(async ()=>{" + text + "})()");
-			} catch (error) {
-				dispError(error);
-			}
+			eval("(async ()=>{" + text + "})()").catch((error) => {
+				consoleCtx.addError(error.message);
+				resolve(false);
+			});
 
 			if (codeChanged) {
 				resolve(true);

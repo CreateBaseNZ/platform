@@ -72,7 +72,7 @@ const Improve = () => {
 			<div className={classes.rightContainer}>
 				<div className={classes.imgContainer}>
 					<Img
-						src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/improve.svg"
+						src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/project-pages/improve.svg"
 						layout="responsive"
 						width={1000}
 						height={1000}

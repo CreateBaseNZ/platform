@@ -44,7 +44,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 	define: {
 		threshold: 60,
 		url: "https://youtu.be/wB53GoLXzME",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
 		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
@@ -56,31 +56,31 @@ const SEND_IT_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "Vehicular Delivery",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/types-0.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/types-0.png",
 				url: "/send-it/pdf/delivery.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Your Robot has Mail",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/mail-2.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/mail-2.png",
 				url: "/send-it/pdf/mail.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Controlling a Robot",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/controlling-1.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-1.png",
 				url: "/send-it/pdf/controlling.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Sensing Sensors",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/controlling-0.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-0.png",
 				url: "/send-it/pdf/sensors.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Automation & Ethics",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/thumbnail.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
 				url: "/send-it/pdf/ethics.pdf",
 			},
 			{
@@ -88,11 +88,11 @@ const SEND_IT_DATA: IProjectReadOnly = {
 				title: "How to Send It",
 				items: [
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/tut-1.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-1.mp4",
 						subtitle: <p>Run 1000m to deliver the Pizza</p>,
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/tut-2.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-2.mp4",
 						subtitle: (
 							<p>
 								Jump over obstacles to avoid crashing into them
@@ -101,7 +101,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						),
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/tut-3.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-3.mp4",
 						subtitle: (
 							<p>
 								Crouch under flying obstacles to avoid crashing into them
@@ -110,7 +110,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						),
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/tut-4.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-4.mp4",
 						subtitle: <p>Change the simulation speed to allow more time for your code to react</p>,
 					},
 				],
@@ -121,7 +121,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 		{
 			title: "Obstacle avoidance",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/thumbnail.png",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
 			description:
 				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
 			research: {
@@ -133,7 +133,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						title: "Flow tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 						},

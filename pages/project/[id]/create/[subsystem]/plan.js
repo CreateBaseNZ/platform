@@ -45,7 +45,7 @@ const Plan = () => {
 			<div className={classes.container}>
 				<div className={classes.imgWrapper}>
 					<Img
-						src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/plan.svg"
+						src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/project-pages/plan.svg"
 						layout="responsive"
 						width="100%"
 						height="100%"

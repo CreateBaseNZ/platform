@@ -55,18 +55,18 @@ const Boost = ({ mode, loadLevel = 0 }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [volume, setVolume] = useState({ curr: 0.35, prev: 0.35 });
 	const [boostColor] = useState(getColour(mode));
-	const [playDonk] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/dev/sounds/donk.mp3", { volume: volume.curr });
-	const [playFlick] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/dev/sounds/flick.mp3", { volume: volume.curr });
-	const [playSynth, { stop: stopSynth }] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/dev/sounds/synth.mp3", {
+	const [playDonk] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/donk.mp3", { volume: volume.curr });
+	const [playFlick] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/flick.mp3", { volume: volume.curr });
+	const [playSynth, { stop: stopSynth }] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/synth.mp3", {
 		volume: volume.curr,
 	});
-	const [playCorrect] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/dev/sounds/correct.mp3", {
+	const [playCorrect] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/correct.mp3", {
 		volume: volume.curr,
 	});
-	const [playSkip] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/dev/sounds/skip.mp3", {
+	const [playSkip] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/skip.mp3", {
 		volume: volume.curr,
 	});
-	const [playInCorrect] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/dev/sounds/incorrect.mp3", {
+	const [playInCorrect] = useSound("https://raw.githubusercontent.com/CreateBaseNZ/public/main/sounds/incorrect.mp3", {
 		volume: volume.curr,
 	});
 
