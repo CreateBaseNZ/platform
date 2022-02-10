@@ -84,22 +84,11 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		return new Promise((resolve, reject) => {
 			const sensorData = sensorDataRef.current;
 			const unityContext = _unityContext;
-			const dispError = (error) => {
-				if (error.name) {
-					consoleCtx.addError(error.message);
-					resolve(false);
-				} else {
-					resolve(true);
-				}
-			};
 			eval("(async ()=>{" + text + "})()").catch((error) => {
 				consoleCtx.addError(error.message);
 				resolve(false);
 			});
-
-			if (codeChanged) {
-				resolve(true);
-			}
+			if (codeChanged) resolve(true);
 		});
 	};
 
