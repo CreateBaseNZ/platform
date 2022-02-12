@@ -27,13 +27,17 @@ const Tab = ({ id, active, value, icon, title, status, innerRef, onChangeHandler
 	);
 };
 
-const TabBar = ({ active, onChange, stacked, textCodingOnly }) => {
+const TabBar = ({ active, stacked, textCodingOnly, onChange }) => {
+	console.log("rerendered");
+
 	const flowRef = useRef(null);
 	const textRef = useRef(null);
 	const consoleRef = useRef(null);
 	const configRef = useRef(null);
 	const [sliderSize, setSliderSize] = useState({ top: 0, size: 1 });
 	const consoleCtx = useContext(ConsoleContext);
+
+	console.log(consoleCtx);
 
 	useEffect(() => {
 		switch (active) {

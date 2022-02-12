@@ -1,4 +1,4 @@
-import { useRef, useContext, useState, useEffect, memo } from "react";
+import { useRef, useContext, useState, useEffect, memo, useCallback } from "react";
 import dynamic from "next/dynamic";
 import TextEditor from "./TextEditor";
 import { initialElements } from "../../utils/flowConfig";
@@ -78,7 +78,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		}
 	};
 
-	const changeTabHandler = (tab) => setActiveTab(tab);
+	const changeTabHandler = useCallback((tab) => setActiveTab(tab), []);
 
 	const executeCode = (text, printing = 0) => {
 		return new Promise((resolve, reject) => {
@@ -162,7 +162,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}
 			<Console show={activeTab === "console"} />
 			<Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
-			<TabBar stacked={stacked} textCodingOnly={textCodingOnly} active={activeTab} onChange={changeTabHandler} />
+			<TabBar active={activeTab} stacked={stacked} textCodingOnly={textCodingOnly} onChange={changeTabHandler} />
 		</div>
 	);
 };

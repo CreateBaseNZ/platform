@@ -66,13 +66,13 @@
 			color: $logo-mid;
 		}
 	}
-	&.hasLog {
+	&.default {
 		animation: log 0.5s ease-out infinite alternate;
 	}
-	&.hasWarning {
+	&.warning {
 		animation: warning 0.5s ease-out infinite alternate;
 	}
-	&.hasError {
+	&.error {
 		animation: error 0.5s ease-out infinite alternate;
 	}
 }

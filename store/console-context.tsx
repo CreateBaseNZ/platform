@@ -80,6 +80,7 @@ export const ConsoleContextProvider = ({ children }: ConsoleCtxProps) => {
 	};
 
 	const addWarning: AddLog = (message) => {
+		console.log("setting warning");
 		setLogs((state) => [
 			...state,
 			{
