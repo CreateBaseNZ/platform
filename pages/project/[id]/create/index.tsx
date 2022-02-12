@@ -1,5 +1,5 @@
 import { ReactElement, useContext, useEffect } from "react";
-import NewProjectLayout from "../../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import ProjectLayout from "../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../../constants/projects";
 import { TProject } from "../../../../types/projects";
 import { ReactFlowProvider } from "react-flow-renderer";
@@ -37,9 +37,9 @@ const Create = ({ data }: Props) => {
 
 Create.getLayout = (page: ReactElement, pageProps: any) => {
 	return (
-		<NewProjectLayout step="Create" data={pageProps.data}>
+		<ProjectLayout step="Create" data={pageProps.data}>
 			{page}
-		</NewProjectLayout>
+		</ProjectLayout>
 	);
 };
 

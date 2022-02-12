@@ -1,5 +1,5 @@
 import { ReactElement, useContext, useEffect } from "react";
-import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { TProject } from "../../../types/projects";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../constants/projects";
 
@@ -56,9 +56,9 @@ const Review = ({ data }: Props) => {
 
 Review.getLayout = (page: ReactElement, data: any) => {
 	return (
-		<NewProjectLayout step="Review" data={data.data}>
+		<ProjectLayout step="Review" data={data.data}>
 			{page}
-		</NewProjectLayout>
+		</ProjectLayout>
 	);
 };
 

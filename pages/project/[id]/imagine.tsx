@@ -5,7 +5,7 @@ import useApi from "../../../hooks/useApi";
 import renderModule from "../../../lib/renderModule";
 import { TModule } from "../../../types/modules";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/projects";
-import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
 import NoModule from "../../../components/Project/NoModule";
 import { TProject } from "../../../types/projects";
 
@@ -53,9 +53,9 @@ const Imagine = ({ data }: Props) => {
 
 Imagine.getLayout = (page: ReactElement, data: any) => {
 	return (
-		<NewProjectLayout step="Imagine" data={data.data}>
+		<ProjectLayout step="Imagine" data={data.data}>
 			{page}
-		</NewProjectLayout>
+		</ProjectLayout>
 	);
 };
 

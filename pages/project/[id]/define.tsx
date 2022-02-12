@@ -7,7 +7,7 @@ import useMixpanel from "../../../hooks/useMixpanel";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/projects";
 import { TProject } from "../../../types/projects";
-import NewProjectLayout from "../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
 
 import classes from "../../../styles/define.module.scss";
 import useApi from "../../../hooks/useApi";
@@ -79,9 +79,9 @@ const Define = ({ data }: Props) => {
 
 Define.getLayout = (page: ReactElement, data: any) => {
 	return (
-		<NewProjectLayout step="Define" data={data.data}>
+		<ProjectLayout step="Define" data={data.data}>
 			{page}
-		</NewProjectLayout>
+		</ProjectLayout>
 	);
 };
 

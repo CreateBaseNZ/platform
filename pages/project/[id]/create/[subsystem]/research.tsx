@@ -1,7 +1,7 @@
 import { ReactElement, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import useMixpanel from "../../../../../hooks/useMixpanel";
-import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { TProject } from "../../../../../types/projects";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
 import renderModule from "../../../../../lib/renderModule";
@@ -53,9 +53,9 @@ const Research = ({ data, subsystem }: Props) => {
 
 Research.getLayout = (page: ReactElement, pageProps: any) => {
 	return (
-		<NewProjectLayout step="Create" substep="research" isFlat={true} hasLeftPanel={true} data={pageProps.data} subsystem={pageProps.subsystem}>
+		<ProjectLayout step="Create" substep="research" isFlat={true} hasLeftPanel={true} data={pageProps.data} subsystem={pageProps.subsystem}>
 			{page}
-		</NewProjectLayout>
+		</ProjectLayout>
 	);
 };
 

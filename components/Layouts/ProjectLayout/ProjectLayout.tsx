@@ -8,10 +8,10 @@ import GlobalSessionContext from "../../../store/global-session-context";
 import getMainTabs from "../../../lib/getMainTabs";
 import { NEW_DEFAULT_TABS } from "../../../constants/mainTabs";
 import { TProject } from "../../../types/projects";
-import classes from "./NewProjectLayout.module.scss";
 import ResearchPanel from "./ResearchPanel";
 import CodePanel from "./CodePanel";
 import { CodeContextProvider } from "../../../store/code-context";
+import classes from "./ProjectLayout.module.scss";
 
 interface Props {
 	children: ReactElement;
@@ -23,7 +23,7 @@ interface Props {
 	subsystem?: string;
 }
 
-const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = false, substep = "", subsystem = "" }: Props) => {
+const ProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = false, substep = "", subsystem = "" }: Props) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [showMenu, setShowMenu] = useState(false);
 
@@ -134,4 +134,4 @@ const NewProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel =
 	);
 };
 
-export default NewProjectLayout;
+export default ProjectLayout;

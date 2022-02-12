@@ -1,6 +1,6 @@
 import { ReactElement, useContext, useEffect } from "react";
 import useMixpanel from "../../../../../hooks/useMixpanel";
-import NewProjectLayout from "../../../../../components/Layouts/ProjectLayout/NewProjectLayout";
+import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { TProject } from "../../../../../types/projects";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
 import classes from "../../../../../styles/plan.module.scss";
@@ -32,9 +32,9 @@ const Plan = ({ data, subsystem }: Props) => {
 
 Plan.getLayout = (page: ReactElement, pageProps: any) => {
 	return (
-		<NewProjectLayout step="Create" substep="plan" data={pageProps.data} subsystem={pageProps.subsystem} isFlat={true} hasLeftPanel={true}>
+		<ProjectLayout step="Create" substep="plan" data={pageProps.data} subsystem={pageProps.subsystem} isFlat={true} hasLeftPanel={true}>
 			{page}
-		</NewProjectLayout>
+		</ProjectLayout>
 	);
 };
 

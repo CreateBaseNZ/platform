@@ -297,6 +297,7 @@
 	&.hide {
 		flex: 0 0 0;
 		max-width: 0;
+		border-right: 0 solid $border-color;
 	}
 }
 
