@@ -64,12 +64,12 @@
 			"NodeSendItJump": {
 				"inputs": [],
 				"syntaxSimple": "Jump",
-				"syntax": "unityContext.send(\"Player\",\"Jump\");"
+				"syntax": "try{unityContext.send(\"Player\",\"Jump\");}catch(error){}"
 			},
 			"NodeSendItCrouch": {
 				"inputs": [],
 				"syntaxSimple": "Crouch",
-				"syntax": "unityContext.send(\"Player\",\"Crouch\");"
+				"syntax": "try{unityContext.send(\"Player\",\"Crouch\");}catch(error){}"
 			}
 		},
 		"functions": {
