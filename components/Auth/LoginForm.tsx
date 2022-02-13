@@ -48,7 +48,7 @@ export const LoginForm = (): JSX.Element => {
 		}
 	}, [router.query.error]);
 
-	const onSubmit = async (input: ILoginInputs) => {
+	const onSubmit = async (input: any) => {
 		setIsLoading(true);
 		window.localStorage.setItem("createbase__remember-me", input.email);
 		await signIn("credentials", {
