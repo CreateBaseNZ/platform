@@ -54,21 +54,11 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 
 	useEffect(() => {
 		if (!router.isReady) return;
-		if (activeTab === "text") {
+		if (editorRef.current) {
 			console.log("reading saves");
 			loadText();
 		}
-	}, [router, activeTab]);
-
-	useEffect(() => {
-		if (activeTab === "text") {
-			const onceCode = isOnceCode(query);
-			const [newText, dispCode] = compileCode(onceCode);
-			if (newText) {
-				setText(dispCode);
-			}
-		}
-	}, [activeTab]);
+	}, [editorRef.current]);
 
 	const loadText = async () => {
 		post(
@@ -80,9 +70,16 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			},
 			(data) => {
 				console.log(data);
-				editorRef.current.setValue(data.content[`${router.query.id}-${router.query.subsystem}`]);
+				let t = data.content[`${router.query.id}-${router.query.subsystem}`];
+				t && editorRef.current.setValue(t);
 			}
 		);
+	};
+
+	const flowToText = () => {
+		const onceCode = isOnceCode(query);
+		let [code, dispCode] = compileCode(onceCode);
+		editorRef.current.setValue(dispCode);
 	};
 
 	const compileCode = (onceCode) => {
@@ -113,12 +110,11 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		return new Promise((resolve, reject) => {
 			const sensorData = sensorDataRef.current;
 			const unityContext = _unityContext;
-			console.log(text);
 			eval("(async ()=>{" + text + "})()").catch((error) => {
 				consoleCtx.addError(error.message);
-				return resolve(false);
+				resolve(false);
 			});
-			if (codeChanged) return resolve(true);
+			if (codeChanged) resolve(true);
 		});
 	};
 
@@ -141,11 +137,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		codeChanged = true;
 		m = {};
 
-		code += "\nreturn resolve(true);";
-		const startingCode = async () => {
-			const startCode = findStartingCode(query);
-			const isRun = await executeCode(startCode);
-		};
+		code += "\nresolve(true);";
 		let functionExecute = async () => {
 			printing++;
 			const isRun = await executeCode(code, printing);
@@ -169,7 +161,10 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			codeChanged = false;
 		}
 		let printing = 10;
-
+		const startingCode = async () => {
+			const startCode = findStartingCode(query);
+			const isRun = await executeCode(startCode);
+		};
 		await startingCode();
 		functionExecute();
 		codesDone++;
@@ -192,10 +187,14 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 
 	return (
 		<div className={classes.workspace}>
-			{activeTab === "flow" && <GreenButton className={classes.compileBtn} clickHandler={compileHandler} caption="Compile" />}
-
+			{activeTab === "flow" && (
+				<div className={classes.btnContainer} style={{ top: "52vh", left: "240px" }}>
+					<button onClick={compileHandler}>Compile</button>
+					<button onClick={flowToText}>To Text</button>
+				</div>
+			)}
 			{activeTab === "text" && (
-				<div className={classes.textBtnContainer}>
+				<div className={classes.btnContainer}>
 					<button onClick={compileHandlerTxt}>Compile</button>
 					<button onClick={saveTextHandler}>Save</button>
 					<button onClick={loadText}>Restore</button>
