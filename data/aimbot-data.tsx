@@ -53,7 +53,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
-		docs: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
+		docs: "https://docs.google.com/document/d/14pcr2e0JVVL2vvv7EpH6y8lRReZeFKJbKUAHMYY41a4/edit?usp=sharing",
 		word: "/aimbot/files/210505AC AimBot Learning Journal.docx",
 	},
 	imagine: {
