@@ -77,8 +77,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 				date: new Date().toString(),
 			},
 			(data) => {
-				console.log(data);
-				editorRef.current.setValue(data.content[`${router.query.id}-${router.query.subsystem}`]);
+				if (editorRef.current) editorRef.current.setValue(data.content[`${router.query.id}-${router.query.subsystem}`]);
 			}
 		);
 	};
