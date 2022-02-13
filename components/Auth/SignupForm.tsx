@@ -30,7 +30,7 @@ const SignupForm = (): JSX.Element => {
 		// defaultValues: {}, // TODO prefill if in URL query params
 	});
 
-	const onSubmit = async (input: ISignupInputs) => {
+	const onSubmit = async (input: any) => {
 		setIsLoading(true);
 		let frontEndError = false;
 		if (isBlacklisted(input.firstName)) {
