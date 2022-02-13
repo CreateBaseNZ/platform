@@ -54,9 +54,11 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 
 	useEffect(() => {
 		if (!router.isReady) return;
-		console.log("reading saves");
-		loadText();
-	}, [router]);
+		if (activeTab === "text") {
+			console.log("reading saves");
+			loadText();
+		}
+	}, [router, activeTab]);
 
 	useEffect(() => {
 		if (activeTab === "text") {
