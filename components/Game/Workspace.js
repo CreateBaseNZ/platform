@@ -79,7 +79,8 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 				date: new Date().toString(),
 			},
 			(data) => {
-				if (editorRef.current) editorRef.current.setValue(data.content[`${router.query.id}-${router.query.subsystem}`]);
+				console.log(data);
+				editorRef.current.setValue(data.content[`${router.query.id}-${router.query.subsystem}`]);
 			}
 		);
 	};
@@ -112,11 +113,12 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		return new Promise((resolve, reject) => {
 			const sensorData = sensorDataRef.current;
 			const unityContext = _unityContext;
+			console.log(text);
 			eval("(async ()=>{" + text + "})()").catch((error) => {
 				consoleCtx.addError(error.message);
-				resolve(false);
+				return resolve(false);
 			});
-			if (codeChanged) resolve(true);
+			if (codeChanged) return resolve(true);
 		});
 	};
 
@@ -139,7 +141,11 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		codeChanged = true;
 		m = {};
 
-		code += "\nresolve(true);";
+		code += "\nreturn resolve(true);";
+		const startingCode = async () => {
+			const startCode = findStartingCode(query);
+			const isRun = await executeCode(startCode);
+		};
 		let functionExecute = async () => {
 			printing++;
 			const isRun = await executeCode(code, printing);
@@ -163,10 +169,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			codeChanged = false;
 		}
 		let printing = 10;
-		const startingCode = async () => {
-			const startCode = findStartingCode(query);
-			const isRun = await executeCode(startCode);
-		};
+
 		await startingCode();
 		functionExecute();
 		codesDone++;

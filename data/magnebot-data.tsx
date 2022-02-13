@@ -15,7 +15,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 	numOfLessons: 5,
 	difficulty: "introductory",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, MATH, SOCIAL_SCIENCE],
-	learningOutcome: "/magnebot/project_overview.pdf",
+	learningOutcome: "/magnebot/files/project_overview.pdf",
 	cads: {
 		nz: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - NZ.pdf",
 		aus: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - ACARA.pdf",
@@ -37,8 +37,8 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/vid/situation.mp4",
 		h1: "Introducing MagneBot, a robotic arm that can move objects with its magnetic sphere attachment! This arm is located in our autonomous recycling facility. Being autonomous means that the entire facility is run by robots: there are no humans present!",
 		h2: "Unfortunately, a self-driving cart has driven through our recycling facility and spilt bags of rubbish all over the floor! If those bags contain magnetic materials, we might be able to clean up this mess without having to get our own hands dirty...",
-		docs: "https://docs.google.com/document/d/1sOH-6yl4nzDGWRv_B1fxPWFdwuDKiGrSb6JgZ5oQaDw/edit?usp=sharing",
-		word: "/magnebot/files/learning-journal-magnebot.docx",
+		docs: "https://docs.google.com/document/d/1zAOawKIeEW_AIyPvhIcuOCEwBCZsL4RZCyEscTwZ3CA/edit?usp=sharing",
+		word: "/magnebot/files/0209AC MagneBot Learning Journal.docx",
 	},
 	imagine: {
 		threshold: 300,
@@ -98,7 +98,12 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Introduction to Flow blocks",
-						url: "/intro-to-flow.pdf",
+						url: "/magnebot/pdf/intro_to_flow.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Introduction to JavaScript functions",
+						url: "/magnebot/pdf/intro_to_JS.pdf",
 					},
 					{
 						type: "explore",

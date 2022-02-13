@@ -55,8 +55,8 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/heat-seeker/vid/situation.mp4",
 		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
 		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
-		docs: "https://docs.google.com/document/d/1N8EoifM1ab4bYGe-sQOeHM4aCjCaAqrb8vyBBag7u4A/edit",
-		word: "/heat-seeker/files/learning-journal-heat-seeker.docx",
+		docs: "https://docs.google.com/document/d/1G0COlmaXf2Oo1iRH25En5mUVp1sZYJtVN_nTRQB0sZI/edit?usp=sharing",
+		word: "/heat-seeker/files/210501AC Heat Seeker Learning Journal.docx",
 	},
 	imagine: {
 		threshold: 120,
@@ -89,11 +89,11 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
 			research: {
 				threshold: 300,
-				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Your learning journal will guide you through completing either the Flow or the JS modules below.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "video",
-						title: "Flow tutorial",
+						title: "Flow: UI tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
 							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
@@ -103,13 +103,13 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 					},
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem1.pdf",
+						title: "Flow: Motor blocks",
+						url: "/heat-seeker/pdf/Iter_0.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Action blocks",
-						url: "/heat-seeker/pdf/Iter_0.pdf",
+						title: "JS: Motor functions",
+						url: "/heat-seeker/pdf/JS-functions.pdf",
 					},
 				],
 			},
@@ -142,13 +142,23 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem2.pdf",
+						title: "Flow: Advanced Control",
+						url: "/heat-seeker/pdf/intro-to-Flow.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Sensing blocks",
-						url: "/heat-seeker/pdf/Iter_1.pdf",
+						title: "Flow: Sensing Blocks",
+						url: "/heat-seeker/pdf/Flow-line-sensors.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Advanced Control",
+						url: "/heat-seeker/pdf/intro-to-JS.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Flow: Sensing Functions",
+						url: "/heat-seeker/pdf/JS-line-sensors.pdf",
 					},
 					{
 						type: "explore",
@@ -174,7 +184,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerRightSensorMini />] },
+				{ name: "Sensing", blocks: [<NodeHeatSeekerLeftSensorMini />, <NodeHeatSeekerMiddleSensorMini />, <NodeHeatSeekerRightSensorMini />] },
 				{ name: "Actions", blocks: [<NodeHeatSeekerLeftWheelMini />, <NodeHeatSeekerRightWheelMini />] },
 				{ name: "Operators", blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
@@ -191,11 +201,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
 				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
+
 				],
 			},
 			plan: {
@@ -208,9 +214,10 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 			},
 			code: {
 				threshold: 300,
-				tasks: ["Upgrade your code so that your robot can follow the line achieve turns properly."],
+				tasks: ["Upgrade your code so that your robot can follow the line and complete tighter turns."],
 				hints: [
 					"You will need to use a sensor to detect the line and differentiate between curves and turns.",
+					"Your solution to subsystem 2 only needed the left and right sensors, but now you might need to start using the middle sensor as well.",
 					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
 				],
 			},
@@ -234,13 +241,23 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem3.pdf",
+						title: "Flow: While Loops",
+						url: "/heat-seeker/pdf/Flow-while-loops.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Fire blocks",
-						url: "/heat-seeker/pdf/Iter_3.pdf",
+						title: "Flow: Fire Blocks",
+						url: "/heat-seeker/pdf/Flow-fire.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: While Loops",
+						url: "/heat-seeker/pdf/JS-while-loops.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Fire Functions",
+						url: "/heat-seeker/pdf/JS-fire.pdf",
 					},
 					{
 						type: "explore",
@@ -283,11 +300,6 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
 				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
 				],
 			},
 			plan: {

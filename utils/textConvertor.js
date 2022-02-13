@@ -133,7 +133,7 @@ export const convertCode = (text, system, onceCode) => {
 	}
 
 	let intermediateCode = "\n";
-	intermediateCode += "if (codeChanged) { resolve(true); } \n";
+	intermediateCode += "if (codeChanged) { return resolve(true); } \n";
 	let middleCode = splittedCode.reduce((accumulator, element, i) => {
 		accumulator += element;
 		if (i != splittedCode.length - 1 && element.length > 0) {

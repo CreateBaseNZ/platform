@@ -15,9 +15,9 @@ export const findStartingCode = (projectName) => {
 	})[0];
 	let startCode = correctSystem.startingCode;
 	if (startCode) {
-		startCode += "\nresolve(true);";
+		startCode += "\nreturn resolve(true);";
 	} else {
-		startCode = "resolve(true);";
+		startCode = "return resolve(true);";
 	}
 
 	return startCode;
@@ -49,7 +49,7 @@ const findNextNode = (currentNode, path, elements) => {
 		return false;
 	});
 	if (reqConnection.length > 1) {
-		return [false, "One Block has multiple exectution connection"];
+		return [false, "One Block has multiple execution connections"];
 	}
 	if (reqConnection.length == 0) {
 		return [true, false];
@@ -476,8 +476,8 @@ export const defineObject = (projectName) => {
 export const isOnceCode = (projectName) => {
 	switch (projectName) {
 		case "send-it":
-		case "heat-seeker":
 		case "aimbot":
+		case "heat-seeker":
 		case "hyperloop":
 			return false;
 		case "magnebot":
