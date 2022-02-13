@@ -47,8 +47,8 @@ const SEND_IT_DATA: IProjectReadOnly = {
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
-		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
-		word: "/send-it/files/learning-journal-send-it.docx",
+		docs: "https://docs.google.com/document/d/1RODSWsBmfx-LaCL7lAArenwNX60WvYvs8SCCKIXYis8/edit?usp=sharing",
+		word: "/send-it/files/0209AA Send it Learning Journal.docx",
 	},
 	imagine: {
 		threshold: 600,
@@ -126,11 +126,11 @@ const SEND_IT_DATA: IProjectReadOnly = {
 				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
 			research: {
 				threshold: 600,
-				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Your learning journal will guide you through completing either the Flow or the JS modules below.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "video",
-						title: "Flow tutorial",
+						title: "Flow: Editor tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
 							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
@@ -140,15 +140,27 @@ const SEND_IT_DATA: IProjectReadOnly = {
 					},
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
+						title: "Flow: Introduction to blocks",
 						img: "",
 						url: "/intro-to-flow.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Tips & tricks: sensing blocks",
+						title: "Flow: Tips & tricks with sensing blocks",
 						img: "",
 						url: "/sensing-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to JavaScript",
+						img: "",
+						url: "/send-it/pdf/intro_to_JS.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Tips & tricks with sensing functions",
+						img: "",
+						url: "/send-it/pdf/sensing_functions.pdf",
 					},
 					{
 						type: "explore",

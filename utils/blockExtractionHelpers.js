@@ -15,9 +15,9 @@ export const findStartingCode = (projectName) => {
 	})[0];
 	let startCode = correctSystem.startingCode;
 	if (startCode) {
-		startCode += "\nresolve(true);";
+		startCode += "\nreturn resolve(true);";
 	} else {
-		startCode = "resolve(true);";
+		startCode = "return resolve(true);";
 	}
 
 	return startCode;
