@@ -89,7 +89,7 @@
 	},
 	{
 		"robot": "Car",
-		"startingCode": "unityContext.send(\"LeftWheel\", \"StopMotor\")\nunityContext.send(\"RightWheel\", \"StopMotor\")\nunityContext.send(\"SceneController\",\"ResetScene\")",
+		"startingCode": "unityContext.send(\"SceneController\",\"ResetScene\")\nawait delay(100)",
 		"sensors": {
 			"NodeHeatSeekerLeftSensor": {
 				"name": "leftLineSensor",

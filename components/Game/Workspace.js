@@ -140,6 +140,10 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		m = {};
 
 		code += "\nreturn resolve(true);";
+		const startingCode = async () => {
+			const startCode = findStartingCode(query);
+			const isRun = await executeCode(startCode);
+		};
 		let functionExecute = async () => {
 			printing++;
 			const isRun = await executeCode(code, printing);
@@ -163,10 +167,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			codeChanged = false;
 		}
 		let printing = 10;
-		const startingCode = async () => {
-			const startCode = findStartingCode(query);
-			const isRun = await executeCode(startCode);
-		};
+
 		await startingCode();
 		functionExecute();
 		codesDone++;
