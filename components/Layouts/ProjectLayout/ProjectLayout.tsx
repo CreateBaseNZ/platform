@@ -84,7 +84,7 @@ const ProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = fa
 							<span>
 								<b>{globalSession.groups[globalSession.recentGroups[0]]?.alias || `${globalSession.firstName} ${globalSession.lastName}`}</b>
 								{globalSession.groups[globalSession.recentGroups[0]]
-									? ` • ${globalSession.groups[globalSession.recentGroups[0]].name} ${globalSession.groups[globalSession.recentGroups[0]].role}`
+									? ` ∙ ${globalSession.groups[globalSession.recentGroups[0]].name} ${globalSession.groups[globalSession.recentGroups[0]].role}`
 									: ""}
 							</span>
 						</div>
