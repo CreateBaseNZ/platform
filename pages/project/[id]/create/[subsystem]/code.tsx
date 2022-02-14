@@ -10,6 +10,7 @@ import Console from "../../../../../components/Project/Code/Console";
 import Unity from "../../../../../components/Project/Code/Unity";
 import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
+import { UnityContext } from "react-unity-webgl";
 
 interface Props {
 	data: TProject;
@@ -21,14 +22,14 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	const {} = useMixpanel("project_create_code");
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
-	const [gameLoaded, setGameLoaded] = useState(false);
+	const [unityLoaded, setUnityLoaded] = useState(false);
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: data.id,
 		scenePrefix: data.scenePrefix,
 		suffix: "",
 		index: subsystemIndex,
 		wip: data.wip,
-		setLoaded: setGameLoaded,
+		setLoaded: setUnityLoaded,
 	});
 
 	useEffect(() => {
@@ -48,7 +49,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 					<Editor />
 				</div>
 				<div className={classes.unity}>
-					<Unity unityContext={unityContext} />
+					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />
 				</div>
 				<div className={classes.console}>
 					<Console />

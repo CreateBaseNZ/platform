@@ -3,10 +3,6 @@ import ConsoleContext, { ILog } from "../../store/console-context";
 
 import classes from "./Console.module.scss";
 
-/**
- * @module /components/Game/Console
- */
-
 type ILogProps = Omit<ILog, "type">;
 
 const DefaultLog = memo(({ message, time }: ILogProps): JSX.Element => {
