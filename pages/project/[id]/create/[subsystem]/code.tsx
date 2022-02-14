@@ -11,6 +11,7 @@ import Unity from "../../../../../components/Project/Code/Unity";
 import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
 import { UnityContext } from "react-unity-webgl";
+import CodeContext from "../../../../../store/code-context";
 
 interface Props {
 	data: TProject;
@@ -21,6 +22,7 @@ interface Props {
 const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	const {} = useMixpanel("project_create_code");
 	const { globalSession } = useContext(GlobalSessionContext);
+	const { codeLayout, codeTab } = useContext(CodeContext);
 	const { post } = useApi();
 	const [unityLoaded, setUnityLoaded] = useState(false);
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
@@ -44,7 +46,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 
 	return (
 		<div className={classes.page}>
-			<div className={classes.main}>
+			<div className={`${classes.main} ${classes[`${codeLayout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
 					<Editor />
 				</div>

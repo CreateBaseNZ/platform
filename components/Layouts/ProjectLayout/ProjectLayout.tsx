@@ -91,45 +91,43 @@ const ProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = fa
 					</div>
 				</div>
 			</nav>
-			<div className={`${classes.leftPanel} ${hasLeftPanel ? "" : classes.hide}`}>
-				{subsystem && (
-					<div className={classes.toSubsystems}>
-						<Link href={{ pathname: "/project/[id]/create/", query: { id: data.id } }}>
-							<a title="All subsystems">
-								<i className="material-icons-outlined">navigate_before</i>
-								All subsystems
-							</a>
-						</Link>
+			<CodeContextProvider>
+				<div className={`${classes.leftPanel} ${hasLeftPanel ? "" : classes.hide}`}>
+					{subsystem && (
+						<div className={classes.toSubsystems}>
+							<Link href={{ pathname: "/project/[id]/create/", query: { id: data.id } }}>
+								<a title="All subsystems">
+									<i className="material-icons-outlined">navigate_before</i>
+									All subsystems
+								</a>
+							</Link>
+						</div>
+					)}
+					<div className={classes.substepContainer}>
+						<div className={classes.substepName}>{data.subsystems.find((sub) => sub.id === subsystem)?.title || "Improve"}</div>
+						{subsystem
+							? SUBSYSTEM_STEPS.map((step) => (
+									<Link href={{ pathname: `/project/[id]/create/[subsystem]/${step.name}`, query: { id: data.id, subsystem: subsystem } }} key={step.name}>
+										<a className={substep === step.name ? classes.active : ""} title={step.title}>
+											<i className="material-icons-outlined">chevron_right</i>
+											{step.title}
+										</a>
+									</Link>
+							  ))
+							: IMPROVE_STEPS.map((step) => (
+									<Link href={{ pathname: `/project/[id]/improve/${step.name}`, query: { id: data.id } }} key={step.name}>
+										<a className={substep === step.name ? classes.active : ""} title={step.title}>
+											<i className="material-icons-outlined">chevron_right</i>
+											{step.title}
+										</a>
+									</Link>
+							  ))}
 					</div>
-				)}
-				<div className={classes.substepContainer}>
-					<div className={classes.substepName}>{data.subsystems.find((sub) => sub.id === subsystem)?.title || "Improve"}</div>
-					{subsystem
-						? SUBSYSTEM_STEPS.map((step) => (
-								<Link href={{ pathname: `/project/[id]/create/[subsystem]/${step.name}`, query: { id: data.id, subsystem: subsystem } }} key={step.name}>
-									<a className={substep === step.name ? classes.active : ""} title={step.title}>
-										<i className="material-icons-outlined">chevron_right</i>
-										{step.title}
-									</a>
-								</Link>
-						  ))
-						: IMPROVE_STEPS.map((step) => (
-								<Link href={{ pathname: `/project/[id]/improve/${step.name}`, query: { id: data.id } }} key={step.name}>
-									<a className={substep === step.name ? classes.active : ""} title={step.title}>
-										<i className="material-icons-outlined">chevron_right</i>
-										{step.title}
-									</a>
-								</Link>
-						  ))}
+					{substep === "code" && <CodePanel />}
+					{substep === "research" && <ResearchPanel data={data} subsystem={subsystem} />}
 				</div>
-				{substep === "code" && (
-					<CodeContextProvider>
-						<CodePanel />
-					</CodeContextProvider>
-				)}
-				{substep === "research" && <ResearchPanel data={data} subsystem={subsystem} />}
-			</div>
-			{children}
+				{children}
+			</CodeContextProvider>
 		</div>
 	);
 };
