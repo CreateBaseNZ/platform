@@ -204,7 +204,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.min(Math.max(${vals[0]}, ${vals[1]}), ${vals[2]})`;
-		const simpleStr = `${output}clamp(${vals[0]}, ${vals[1]}, ${vals[2]})`;
+		const simpleStr = `${output}Math.min(Math.max(${vals[0]}, ${vals[1]}), ${vals[2]})`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
@@ -215,7 +215,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.PI`;
-		const simpleStr = `${output}PI`;
+		const simpleStr = `${output}Math.PI`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
