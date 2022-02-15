@@ -160,7 +160,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.atan(${val})`;
-		const simpleStr = `${output}atan(${val})`;
+		const simpleStr = `${output}Math.atan(${val})`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
