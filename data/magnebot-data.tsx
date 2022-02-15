@@ -9,6 +9,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 	caption:
 		"In this Project, users will control the MagneBot robotic arm using logical flow-based programming to clean up a recycling facility. Users will learn the basics of the Flow programming language and how to convert their thinking into instructions for the robot. Along the way, they will also gain an understanding of recycling and how robotic systems can be used to carry out tasks traditionally performed by humans.",
 	stacked: true,
+	documentation: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps",
 	scenePrefix: "Project_RoboticArm",
 	runType: "once",
 	durPerLesson: "45 mins",

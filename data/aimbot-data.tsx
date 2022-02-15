@@ -26,6 +26,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 	caption:
 		"Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
 	stacked: true,
+	documentation: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps",
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
 	durPerLesson: "45 mins",
@@ -80,7 +81,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Axis, Pitch and Yaw",
+						title: "Axis, Pitch & Yaw",
 						img: "",
 						url: "/aimbot/pdf/2105050301AA_research_PitchYawAxis.pdf",
 					},
@@ -92,9 +93,21 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					},
 					{
 						type: "pdf",
-						title: "Introduction to Flow Part I",
+						title: "Flow: Introduction to Blocks",
 						img: "",
 						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to JavaScript",
+						img: "",
+						url: "/aimbot/pdf/JS-intro-1.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Subsystem 1 Function List",
+						img: "",
+						url: "/aimbot/pdf/JS-functions-1.pdf",
 					},
 				],
 			},
@@ -109,6 +122,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				threshold: 600,
 				tasks: [
 					"Mosquitos will be appearing across your screen in a horizontal line.",
+					"Mosquitos will start spawning and de-spawning once you take your first shot.",
 					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
 					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly.",
 				],
@@ -139,8 +153,18 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks 2",
+						title: "Flow: Introduction to Logical Blocks",
 						url: "/aimbot/pdf/2105050301AD_research_2_blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to Logical Statements",
+						url: "/aimbot/pdf/JS-logicals.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Subsystem 2 New Functions",
+						url: "/aimbot/pdf/JS-functions-2.pdf",
 					},
 				],
 			},
@@ -196,8 +220,13 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					},
 					{
 						type: "pdf",
-						title: "Finer Velocity Control",
-						url: "/aimbot/pdf/2105050301AG_research_FinerVelocityControl.pdf",
+						title: "Flow: Finer Velocity Control",
+						url: "/aimbot/pdf/2105050301AG-Finer-Velocity-Control-(Flow).pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Finer Velocity Control",
+						url: "/aimbot/pdf/2105050301AH-Finer-Velocity-Control-(JS).pdf",
 					},
 				],
 			},
@@ -239,11 +268,6 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				threshold: 1,
 				caption: ["There is no new research for this subsystem. Move directly to Plan. Do not pass Go. Do not collect $100."],
 				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
 				],
 			},
 			plan: {

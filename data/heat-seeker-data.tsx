@@ -21,6 +21,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 	caption:
 		"In this Project, learners will create an algorithm to guide a line-following robot to a series of fires within a warehouse, putting them out safely before they spread to nearby hydrogen fuel cells! Learners will not only create their own control-algorithm, but will also learn about some of the basics of fire safety, warehouse automation, and the advantage that robots have over humans when operating in hazardous situations.",
 	stacked: true,
+	documentation: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps",
 	scenePrefix: "Project_HeatSeeker",
 	runType: "loop",
 	durPerLesson: "45 mins",

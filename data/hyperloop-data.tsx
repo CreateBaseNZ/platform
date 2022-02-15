@@ -7,6 +7,7 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 	caption:
 		"Chaos! Passengers arriving at a hyperloop terminal need to have their passenger numbers matched up to the correct capsule, but the computer system has malfunctioned! Students will learn how to convert between different number systems before implementing an algorithm to automate this process. Hyperloop capsules and passengers will display their identification numbers in variety of number systems, including binary, trinary, decimal, and hexadecimal. Note that students are expected to have had some minor experience with text coding before attempting this Project.",
 	stacked: true,
+	documentation: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps",
 	textCodingOnly: true,
 	scenePrefix: "Project_Hyperloop",
 	runType: "loop",
