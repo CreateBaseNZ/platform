@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import Editor from "@monaco-editor/react";
+import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 
 import classes from "./TextEditor.module.scss";
+import { editor } from "monaco-editor";
 
 const EDITOR_OPTIONS = {
 	automaticLayout: true,
@@ -11,8 +12,17 @@ const EDITOR_OPTIONS = {
 	lineDecorationsWidth: 0,
 };
 
-const TextEditor = ({ text }): JSX.Element => {
-	const monacoRef = useRef();
+interface Props {
+	run: (code: string) => void;
+}
+
+const TextEditor = ({ run }: Props): JSX.Element => {
+	const monacoRef = useRef<Monaco>();
+	const editorRef = useRef<editor.IStandaloneCodeEditor>();
+
+	const runHandler = () => {
+		editorRef.current && run(editorRef.current?.getValue());
+	};
 
 	// useEffect(() => {
 	// 	if (ref.current) {
@@ -30,9 +40,9 @@ const TextEditor = ({ text }): JSX.Element => {
 	// 	}
 	// }, [props.theme]);
 
-	const editorDidMount = (editor, monaco) => {
-		// ref.current = editor;
-		// monacoRef.current = monaco;
+	const editorDidMount: OnMount = (editor, monaco) => {
+		editorRef.current = editor;
+		monacoRef.current = monaco;
 		// for (const t in themeFiles) {
 		// 	monacoRef.current.editor.defineTheme(t, themeFiles[t]);
 		// }
@@ -48,9 +58,10 @@ const TextEditor = ({ text }): JSX.Element => {
 					</div>
 					loremIpsum.js
 				</div>
+				<button onClick={runHandler}>Yo click me</button>
 			</div>
 			<div className={classes.wrapper}>
-				<Editor language="javascript" value={text} onMount={editorDidMount} options={EDITOR_OPTIONS} />
+				<Editor language="javascript" onMount={editorDidMount} options={EDITOR_OPTIONS} />
 			</div>
 		</div>
 	);

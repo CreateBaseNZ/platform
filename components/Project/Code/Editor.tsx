@@ -2,10 +2,14 @@ import TextEditor from "./TextEditor";
 
 import classes from "./Editor.module.scss";
 
-const Editor = (): JSX.Element => {
+interface Props {
+	run: (code: string) => void;
+}
+
+const Editor = ({ run }: Props): JSX.Element => {
 	return (
 		<div className={classes.editor}>
-			<TextEditor text="" />
+			<TextEditor run={run} />
 		</div>
 	);
 };

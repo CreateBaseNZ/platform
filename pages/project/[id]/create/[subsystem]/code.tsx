@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
@@ -6,12 +6,13 @@ import { TProject } from "../../../../../types/projects";
 import classes from "../../../../../styles/code.module.scss";
 import GlobalSessionContext from "../../../../../store/global-session-context";
 import useApi from "../../../../../hooks/useApi";
-import Console from "../../../../../components/Project/Code/Console";
+// import Console from "../../../../../components/Project/Code/Console";
 import Unity from "../../../../../components/Project/Code/Unity";
 import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
 import { UnityContext } from "react-unity-webgl";
 import CodeContext from "../../../../../store/code-context";
+import { Console, Hook, Unhook } from "console-feed";
 
 interface Props {
 	data: TProject;
@@ -20,10 +21,12 @@ interface Props {
 }
 
 const Code = ({ data, subsystem, subsystemIndex }: Props) => {
+	const iframeRef = useRef<HTMLIFrameElement>();
 	const {} = useMixpanel("project_create_code");
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { codeLayout, codeTab } = useContext(CodeContext);
 	const { post } = useApi();
+	const [logs, setLogs] = useState([]);
 	const [unityLoaded, setUnityLoaded] = useState(false);
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: data.id,
@@ -44,19 +47,30 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		})();
 	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
 
+	useEffect(() => {
+		Hook(iframeRef.current.contentWindow.console, (log) => setLogs((state) => [...state, log]), false);
+		return () => void Unhook(iframeRef.current.contentWindow.console);
+	}, []);
+
+	const run = (code: string) => {
+		const args = Object.keys(iframeRef.current.contentWindow).join();
+		iframeRef.current.contentWindow.F(args, code)();
+	};
+
 	return (
 		<div className={classes.page}>
 			<div className={`${classes.main} ${classes[`${codeLayout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
-					<Editor />
+					<Editor run={run} />
 				</div>
 				<div className={classes.unity}>
 					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />
 				</div>
 				<div className={classes.console}>
-					<Console />
+					<Console logs={logs} variant="dark" />
 				</div>
 			</div>
+			<iframe ref={iframeRef} className={classes.iframe} />
 		</div>
 	);
 };

@@ -158,13 +158,7 @@ export default {
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
-				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 300,
@@ -193,13 +187,7 @@ export default {
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
-				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 30,

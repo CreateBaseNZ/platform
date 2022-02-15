@@ -6,6 +6,15 @@
 	padding-top: 3.5rem;
 }
 
+.iframe {
+	position: absolute;
+	height: 0;
+	width: 0;
+	opacity: 0;
+	overflow: hidden;
+	pointer-events: none;
+}
+
 .main {
 	border: thin solid red;
 	width: 100%;
