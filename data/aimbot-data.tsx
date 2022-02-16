@@ -26,7 +26,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 	caption:
 		"Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
 	stacked: true,
-	documentation: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps",
+	documentation: "https://docs.google.com/document/d/1cB5lIt0QYDaEbF3SSsiFInk5M-Xz51IYSrIWAslMP1E/edit?usp=sharing",
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
 	durPerLesson: "45 mins",
