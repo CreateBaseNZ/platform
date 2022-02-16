@@ -12,7 +12,7 @@ import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
 import { UnityContext } from "react-unity-webgl";
 import CodeContext from "../../../../../store/code-context";
-import { Console, Hook, Unhook } from "console-feed";
+// import { Console, Hook, Unhook } from "console-feed";
 
 interface Props {
 	data: TProject;
@@ -21,7 +21,9 @@ interface Props {
 }
 
 const Code = ({ data, subsystem, subsystemIndex }: Props) => {
-	const iframeRef = useRef<HTMLIFrameElement>();
+	const iframeRef = useRef<HTMLIFrameElement>(null);
+	const intervalRef = useRef<NodeJS.Timeout>();
+	const workerRef = useRef<Worker>();
 	const {} = useMixpanel("project_create_code");
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { codeLayout, codeTab } = useContext(CodeContext);
@@ -47,30 +49,52 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		})();
 	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
 
-	useEffect(() => {
-		Hook(iframeRef.current.contentWindow.console, (log) => setLogs((state) => [...state, log]), false);
-		return () => void Unhook(iframeRef.current.contentWindow.console);
-	}, []);
+	// useEffect(() => {
+	// 	Hook(iframeRef.current?.contentWindow?.console, (log) => setLogs((state) => [...state, log]), false);
+	// 	return () => void Unhook(iframeRef.current?.contentWindow?.console);
+	// }, []);
+
+	// const run = (code: string) => {
+	// 	const fn = new Function(
+	// 		"sensorData",
+	// 		`try {
+	//     ${code}
+	//   } catch(error) {
+	//     console.error(error)
+	//   }`
+	// 	);
+	// 	fn(sensorData);
+	// };
 
 	const run = (code: string) => {
-		const args = Object.keys(iframeRef.current.contentWindow).join();
-		iframeRef.current.contentWindow.F(args, code)();
+		workerRef.current?.terminate();
+		workerRef.current = new window.Worker("/user-worker.js", { name: code });
+		workerRef.current.onerror = (err) => err;
+		workerRef.current.onmessage = (e) => {
+			console.log(e.data);
+		};
+		intervalRef.current = setInterval(() => {
+			workerRef.current?.postMessage({ sensorDataString: sensorData });
+		}, 1000 / 1);
+	};
+
+	const stop = () => {
+		clearInterval(intervalRef.current as NodeJS.Timeout);
+		workerRef.current?.terminate();
 	};
 
 	return (
 		<div className={classes.page}>
 			<div className={`${classes.main} ${classes[`${codeLayout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
-					<Editor run={run} />
+					<Editor run={run} stop={stop} />
 				</div>
 				<div className={classes.unity}>
 					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />
 				</div>
-				<div className={classes.console}>
-					<Console logs={logs} variant="dark" />
-				</div>
+				<div className={classes.console}>{/* <Console logs={logs} variant="dark" /> */}</div>
 			</div>
-			<iframe ref={iframeRef} className={classes.iframe} />
+			<iframe ref={iframeRef} className={classes.iframe} name="yes" />
 		</div>
 	);
 };

@@ -14,15 +14,18 @@ const EDITOR_OPTIONS = {
 
 interface Props {
 	run: (code: string) => void;
+	stop: () => void;
 }
 
-const TextEditor = ({ run }: Props): JSX.Element => {
+const TextEditor = ({ run, stop }: Props): JSX.Element => {
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
 	const runHandler = () => {
 		editorRef.current && run(editorRef.current?.getValue());
 	};
+
+	const stopHandler = () => stop();
 
 	// useEffect(() => {
 	// 	if (ref.current) {
@@ -58,7 +61,8 @@ const TextEditor = ({ run }: Props): JSX.Element => {
 					</div>
 					loremIpsum.js
 				</div>
-				<button onClick={runHandler}>Yo click me</button>
+				<button onClick={runHandler}>Run</button>
+				<button onClick={stopHandler}>Stop</button>
 			</div>
 			<div className={classes.wrapper}>
 				<Editor language="javascript" onMount={editorDidMount} options={EDITOR_OPTIONS} />
