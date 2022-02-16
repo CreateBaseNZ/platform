@@ -12,7 +12,10 @@ import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
 import { UnityContext } from "react-unity-webgl";
 import CodeContext from "../../../../../store/code-context";
-// import { Console, Hook, Unhook } from "console-feed";
+
+let Console: any = () => <></>;
+let Hook: any = () => {};
+let Unhook: any = () => {};
 
 interface Props {
 	data: TProject;
@@ -28,7 +31,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { codeLayout, codeTab } = useContext(CodeContext);
 	const { post } = useApi();
-	const [logs, setLogs] = useState([]);
+	const [logs, setLogs] = useState<Array<any>>([]);
 	const [unityLoaded, setUnityLoaded] = useState(false);
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: data.id,
@@ -49,34 +52,39 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		})();
 	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
 
-	// useEffect(() => {
-	// 	Hook(iframeRef.current?.contentWindow?.console, (log) => setLogs((state) => [...state, log]), false);
-	// 	return () => void Unhook(iframeRef.current?.contentWindow?.console);
-	// }, []);
+	useEffect(() => {
+		(async () => {
+			({ Console, Hook, Unhook } = await import("console-feed"));
 
-	// const run = (code: string) => {
-	// 	const fn = new Function(
-	// 		"sensorData",
-	// 		`try {
-	//     ${code}
-	//   } catch(error) {
-	//     console.error(error)
-	//   }`
-	// 	);
-	// 	fn(sensorData);
-	// };
+			Hook((iframeRef.current?.contentWindow as any)?.console, (log: any) => setLogs((state) => [...state, log]), false);
+			return () => void Unhook((iframeRef.current?.contentWindow as any)?.console);
+		})();
+	}, []);
 
 	const run = (code: string) => {
-		workerRef.current?.terminate();
-		workerRef.current = new window.Worker("/user-worker.js", { name: code });
-		workerRef.current.onerror = (err) => err;
-		workerRef.current.onmessage = (e) => {
-			console.log(e.data);
-		};
-		intervalRef.current = setInterval(() => {
-			workerRef.current?.postMessage({ sensorDataString: sensorData });
-		}, 1000 / 1);
+		const fn = (iframeRef.current?.contentWindow as any)?.Function;
+		const args = Object.keys(iframeRef.current?.contentWindow as any).join();
+		fn(
+			args + ",sensorData",
+			`try {
+	    ${code}
+	  } catch(error) {
+	    console.error(error)
+	  }`
+		)(sensorData);
 	};
+
+	// const run = (code: string) => {
+	// 	workerRef.current?.terminate();
+	// 	workerRef.current = new window.Worker("/user-worker.js", { name: code });
+	// 	workerRef.current.onerror = (err) => err;
+	// 	workerRef.current.onmessage = (e) => {
+	// 		console.log(e.data);
+	// 	};
+	// 	intervalRef.current = setInterval(() => {
+	// 		workerRef.current?.postMessage({ sensorDataString: sensorData });
+	// 	}, 1000 / 1);
+	// };
 
 	const stop = () => {
 		clearInterval(intervalRef.current as NodeJS.Timeout);
@@ -92,7 +100,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 				<div className={classes.unity}>
 					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />
 				</div>
-				<div className={classes.console}>{/* <Console logs={logs} variant="dark" /> */}</div>
+				<div className={classes.console}>{Console && <Console logs={logs} variant="dark" />}</div>
 			</div>
 			<iframe ref={iframeRef} className={classes.iframe} name="yes" />
 		</div>
