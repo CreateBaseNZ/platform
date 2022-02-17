@@ -9,7 +9,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 	caption:
 		"In this Project, users will control the MagneBot robotic arm using logical flow-based programming to clean up a recycling facility. Users will learn the basics of the Flow programming language and how to convert their thinking into instructions for the robot. Along the way, they will also gain an understanding of recycling and how robotic systems can be used to carry out tasks traditionally performed by humans.",
 	stacked: true,
-	documentation: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps",
+	documentation: "https://docs.google.com/document/d/1f4an-HmXYdInKVTrN3n9EW0QXIaXtWDZ5hKlxL5ETNc/edit?usp=sharing",
 	scenePrefix: "Project_RoboticArm",
 	runType: "once",
 	durPerLesson: "45 mins",
@@ -88,7 +88,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "video",
-						title: "Flow tutorial",
+						title: "Flow: UI Tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
 							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
@@ -98,12 +98,12 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 					},
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
+						title: "Flow: Introduction to Blocks",
 						url: "/magnebot/pdf/intro_to_flow.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Introduction to JavaScript functions",
+						title: "JS: Introduction to Functions",
 						url: "/magnebot/pdf/intro_to_JS.pdf",
 					},
 					{
