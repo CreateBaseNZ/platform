@@ -139,7 +139,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.abs(${val})`;
-		const simpleStr = `${output}abs(${val})`;
+		const simpleStr = `${output}Math.abs(${val})`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
@@ -181,7 +181,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.sqrt(${val})`;
-		const simpleStr = `${output}sqrt(${val})`;
+		const simpleStr = `${output}Math.sqrt(${val})`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
