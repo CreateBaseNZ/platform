@@ -326,6 +326,63 @@
 		}
 	},
 	{
+		"robot": "hydroponics",
+		"startingCode": "unityContext.send(\"SceneController\",\"ResetScene\")",
+		"sensors": {
+			"NodeHydroponicsGetWaterLevel": {
+				"name": "waterLevel",
+				"simpleName": "waterLevel"
+			},
+			"NodeHydroponicsGetNutrientConcentration": {
+				"name": "nutrientConcentration",
+				"simpleName": "nutrientConcentration"
+			},
+			"NodeHydroponicsGetPHLevel": {
+				"name": "pHLevel",
+				"simpleName": "pHLevel"
+			}
+		},
+		"actions": {
+			"NodeHydroponicsNoAction": {
+				"inputs": [],
+				"syntaxSimple": "",
+				"syntax": ""
+			}
+		},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "if(sensorData){\n",
+				"await": false
+			},
+			"NodeHydroponicsAddWater": {
+				"simpleLogic": "AddWater",
+				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
+				"logic": "unityContext.send(\"WaterLevel\", \"AddWater\", a);",
+				"await": false
+			},
+			"NodeHydroponicsAddNutrients": {
+				"simpleLogic": "AddNutrients",
+				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
+				"logic": "unityContext.send(\"NutrientConcentration\", \"AddNutrients\", a);",
+				"await": false
+			},
+			"NodeHydroponicsAddAcid": {
+				"simpleLogic": "AddAcid",
+				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
+				"logic": "unityContext.send(\"PotentialHydrogen\", \"AddAcid\", a);",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "}",
+				"await": false
+			}
+		}
+	},
+	{
 		"mathOps": {
 			"NodeAdd": "+",
 			"NodeSubtract": "-",

@@ -469,6 +469,7 @@ export const defineObject = (projectName) => {
 		case "heat-seeker": return "Car";
 		case "aimbot": return "aimbot";
 		case "hyperloop": return "hyperloop"
+		case "hydroponics": return "hydroponics"
 	}
 	return "";
 };
@@ -479,6 +480,7 @@ export const isOnceCode = (projectName) => {
 		case "aimbot":
 		case "heat-seeker":
 		case "hyperloop":
+		case "hydroponics":
 			return false;
 		case "magnebot":
 			return true;
