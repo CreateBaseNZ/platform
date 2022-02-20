@@ -28,7 +28,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 	numOfLessons: 9,
 	difficulty: "advanced",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
-	learningOutcome: "/heat-seeker/files/project-overview.pdf",
+	learningOutcome: "/heat-seeker/files/project-overview-heat-seeker.pdf",
 	cads: {
 		nz: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - NZ.pdf",
 		aus: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - ACARA.pdf",
@@ -161,11 +161,12 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 						title: "Flow: Sensing Functions",
 						url: "/heat-seeker/pdf/JS-line-sensors.pdf",
 					},
-					{
+					// comment out until fixed
+					/*{
 						type: "explore",
 						title: "Explore more",
 						items: [comparisonBoostData, ifBoostData],
-					},
+					}, */
 				],
 			},
 			plan: {
@@ -260,11 +261,12 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 						title: "JS: Fire Functions",
 						url: "/heat-seeker/pdf/JS-fire.pdf",
 					},
-					{
+					// comment out until fixed
+					/*{
 						type: "explore",
 						title: "Explore more",
 						items: [whileBoostData],
-					},
+					}, */
 				],
 			},
 			plan: {
