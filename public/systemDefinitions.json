@@ -356,22 +356,28 @@
 				"logic": "if(sensorData){\n",
 				"await": false
 			},
-			"NodeHydroponicsAddWater": {
-				"simpleLogic": "AddWater",
+			"NodeHydroponicsSetWaterValve": {
+				"simpleLogic": "SetWaterValve",
 				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
-				"logic": "unityContext.send(\"WaterLevel\", \"AddWater\", a);",
+				"logic": "unityContext.send(\"WaterLevel\", \"SetWaterValve\", a);",
 				"await": false
 			},
-			"NodeHydroponicsAddNutrients": {
-				"simpleLogic": "AddNutrients",
+			"NodeHydroponicsSetNutrientsValve": {
+				"simpleLogic": "SetNutrientsValve",
 				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
 				"logic": "unityContext.send(\"NutrientConcentration\", \"AddNutrients\", a);",
 				"await": false
 			},
-			"NodeHydroponicsAddAcid": {
-				"simpleLogic": "AddAcid",
+			"NodeHydroponicsSetAcidValve": {
+				"simpleLogic": "SetAcidValve",
 				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
 				"logic": "unityContext.send(\"PotentialHydrogen\", \"AddAcid\", a);",
+				"await": false
+			},
+			"NodeHydroponicsSetBaseValve": {
+				"simpleLogic": "SetBaseValve",
+				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
+				"logic": "unityContext.send(\"PotentialHydrogen\", \"AddBase\", a);",
 				"await": false
 			},
 			"NodeEnd": {
