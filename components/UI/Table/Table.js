@@ -83,9 +83,9 @@ const Table = ({ columns, data, pageSizes, renderBtns = [] }) => {
 					<tbody {...getTableBodyProps()} className={classes.tbody}>
 						{page.map((row, _) => {
 							prepareRow(row);
-							// console.log(row);
+							console.log(row.cells);
 							return (
-								<tr {...row.getRowProps()} className={`${classes.tr} ${row.isSelected ? classes.trSelected : ""}`}>
+								<tr {...row.getRowProps()} className={`${classes.tr} ${row.isSelected ? classes.trSelected : ""} ${row.cells[4].value === "requested" ? classes.notSelectable : ""}`}>
 									{row.cells.map((cell) => (
 										<td {...cell.getCellProps()} className={classes.td}>
 											{cell.render("Cell")}
