@@ -60,5 +60,10 @@
 }
 
 .console {
+	background: #202124;
 	grid-area: console;
+	overflow-y: auto;
+	* {
+		color: inherit;
+	}
 }

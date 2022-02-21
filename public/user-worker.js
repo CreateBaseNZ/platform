@@ -1,14 +1,18 @@
 const code = this.name;
 
+let buffer = [];
+
 const func = new Function(
 	"sensorData",
+	"buffer",
 	`
-  console.log = () => {}
+  buffer.push("hi")
   try {
     ${code}
   } catch(error) {
-    console.error(error)
-  }`
+    console.error(error);
+  };
+  `
 );
 
 onmessage = (e) => {
@@ -16,9 +20,8 @@ onmessage = (e) => {
 
 	const sensorData = JSON.parse(sensorDataString);
 
-	func(sensorData);
+	buffer = [];
 
-	postMessage({
-		sensorData,
-	});
+	func(sensorData, buffer);
+	postMessage({ buffer });
 };

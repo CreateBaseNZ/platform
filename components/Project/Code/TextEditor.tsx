@@ -22,6 +22,7 @@ const TextEditor = ({ run, stop }: Props): JSX.Element => {
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
 	const runHandler = () => {
+		console.log(editorRef.current?.getValue());
 		editorRef.current && run(editorRef.current?.getValue());
 	};
 
