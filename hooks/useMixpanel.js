@@ -43,10 +43,10 @@ const useMixpanel = () => {
 		const data = {
 			// Identifiers
 			profile: globalSession.profileId,
-			group: globalSession.groups[globalSession.recentGroups[0]].id,
-			groups: globalSession.groups.map((group) => group.id),
-			license: globalSession.groups[globalSession.recentGroups[0]].licenseId,
-			licenses: globalSession.groups.map((group) => group.licenseId),
+			group: globalSession.groups[globalSession.recentGroups[0]]?.id,
+			groups: globalSession.groups?.map((group) => group.id),
+			license: globalSession.groups[globalSession.recentGroups[0]]?.licenseId,
+			licenses: globalSession.groups?.map((group) => group.licenseId),
 			classes: [], // TODO
 			// Required Properties
 			event: event,
