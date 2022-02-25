@@ -7,13 +7,13 @@ const useMixpanel = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	const init = () => {
-		// initialise mixpanel channel
-		// first param - API Key
-		mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
-		// set the distinct_id of the events that will be created
-		mixpanel.identify(globalSession.profileId);
-		// establish the associated user details for the specified id (business data)
-		mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
+		// // initialise mixpanel channel
+		// // first param - API Key
+		// mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
+		// // set the distinct_id of the events that will be created
+		// mixpanel.identify(globalSession.profileId);
+		// // establish the associated user details for the specified id (business data)
+		// mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
 	};
 
 	// retrieving mixpanel data (via createbase backend)
