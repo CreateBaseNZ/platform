@@ -175,18 +175,25 @@ const useClass = () => {
 	};
 
 	const fetchProgressData = async () => {
-		const filters = [
-			"project_define",
-			"project_imagine",
-			"project_improve",
-			"project_create_research",
-			"project_create_plan",
-			"code_create_time",
-			"code_improve_time",
-			"game_manual_progress",
-			"game_create_progress",
-			"game_improve_progress",
-		].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
+		// const filters = [
+		// 	"project_define",
+		// 	"project_imagine",
+		// 	"project_improve",
+		// 	"project_create_research",
+		// 	"project_create_plan",
+		// 	"code_create_time",
+		// 	"code_improve_time",
+		// 	"game_manual_progress",
+		// 	"game_create_progress",
+		// 	"game_improve_progress",
+		// ].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
+
+		const filters: any = {
+			event: [ "project_define", "project_imagine", "project_improve", "project_create_research",
+				"project_create_plan", "code_create_time", "code_improve_time", "game_manual_progress",
+				"game_create_progress", "game_improve_progress" ],
+			group: [ globalSession.groups[globalSession.recentGroups[0]].id ]
+		}
 
 		const postprocessData = await fetchData(filters);
 
@@ -195,23 +202,42 @@ const useClass = () => {
 		const processData = (event: string, project: string, license: string, threshold: number, subsystem?: string, gameProgressEvent?: string) => {
 			let duration = 0;
 			let isWin = false;
+			// for (let k = 0; k < postprocessData.length; k++) {
+			// 	if (
+			// 		postprocessData[k].event === event &&
+			// 		postprocessData[k].properties.project === project &&
+			// 		postprocessData[k].properties.licenses.includes(license) &&
+			// 		(subsystem ? postprocessData[k].properties.subsystem === subsystem : true)
+			// 	) {
+			// 		duration += postprocessData[k].properties.duration;
+			// 	}
+			// 	if (
+			// 		gameProgressEvent &&
+			// 		postprocessData[k].event === gameProgressEvent &&
+			// 		postprocessData[k].properties.project === project &&
+			// 		postprocessData[k].properties.licenses.includes(license) &&
+			// 		(subsystem ? postprocessData[k].properties.subsystem === subsystem : true)
+			// 	) {
+			// 		isWin = postprocessData[k].properties.state === "win";
+			// 	}
+			// }
 			for (let k = 0; k < postprocessData.length; k++) {
 				if (
 					postprocessData[k].event === event &&
-					postprocessData[k].properties.project === project &&
-					postprocessData[k].properties.licenses.includes(license) &&
-					(subsystem ? postprocessData[k].properties.subsystem === subsystem : true)
+					postprocessData[k].project === project &&
+					postprocessData[k].licenses.includes(license) &&
+					(subsystem ? postprocessData[k].subsystem === subsystem : true)
 				) {
-					duration += postprocessData[k].properties.duration;
+					duration += postprocessData[k].duration;
 				}
 				if (
 					gameProgressEvent &&
 					postprocessData[k].event === gameProgressEvent &&
-					postprocessData[k].properties.project === project &&
-					postprocessData[k].properties.licenses.includes(license) &&
-					(subsystem ? postprocessData[k].properties.subsystem === subsystem : true)
+					postprocessData[k].project === project &&
+					postprocessData[k].licenses.includes(license) &&
+					(subsystem ? postprocessData[k].subsystem === subsystem : true)
 				) {
-					isWin = postprocessData[k].properties.state === "win";
+					isWin = postprocessData[k].state === "win";
 				}
 			}
 			const formattedThreshold = `${Math.floor(threshold / 3600) ? `${Math.floor(threshold / 3600)}hr` : ""}${Math.floor((threshold % 3600) / 60) ? ` ${Math.floor((threshold % 3600) / 60)}min` : ""}${

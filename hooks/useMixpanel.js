@@ -21,10 +21,15 @@ const useMixpanel = () => {
 		return new Promise(async (resolve, reject) => {
 			let data;
 			try {
-				data = (await axios.post("/api/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { filters } }))["data"];
+				data = (await axios.post("/api/tracking/retrieve", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: filters }))["data"];
 			} catch (error) {
 				return reject({ status: "error", content: error });
 			}
+			// try {
+			// 	data = (await axios.post("/api/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { filters } }))["data"];
+			// } catch (error) {
+			// 	return reject({ status: "error", content: error });
+			// }
 			if (data.status !== "succeeded") return reject(data);
 			return resolve(data.content);
 		});
@@ -53,7 +58,7 @@ const useMixpanel = () => {
 			project: payload.project,
 			subsystem: payload.subsystem,
 		};
-		mixpanel.track(event, { ...payload });
+		// mixpanel.track(event, { ...payload });
 		axios.post("/api/tracking/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: data });
 	};
 
