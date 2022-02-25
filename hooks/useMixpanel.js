@@ -34,7 +34,27 @@ const useMixpanel = () => {
 	// first parameter is the event name
 	// optional second parameter containining additional data to store
 	const track = (event, payload) => {
+		// Construct Data
+		const data = {
+			// Identifiers
+			profile: globalSession.profileId,
+			group: globalSession.groups[globalSession.recentGroups[0]].id,
+			groups: globalSession.groups.map((group) => group.id),
+			license: globalSession.groups[globalSession.recentGroups[0]].licenseId,
+			licenses: globalSession.groups.map((group) => group.licenseId),
+			classes: [], // TODO
+			// Required Properties
+			event: event,
+			timestamp: Date.now(),
+			// Optional Properties
+			start: payload.start,
+			end: payload.end,
+			duration: payload.duration,
+			project: payload.project,
+			subsystem: payload.subsystem,
+		};
 		mixpanel.track(event, { ...payload });
+		axios.post("/api/tracking/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: data });
 	};
 
 	// note: MUST run clearSession in the return of useEffect
