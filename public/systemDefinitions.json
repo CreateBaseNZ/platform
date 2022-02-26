@@ -122,7 +122,6 @@
 				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". LeftWheel takes input of type number.\") ;\nreturn;}\nif(a==0){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", -a)\n}",
 				"await": false
 			},
-
 			"NodeHeatSeekerRightWheel": {
 				"simpleLogic": "RightWheel",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
@@ -344,7 +343,7 @@
 			"NodeDelay": {
 				"simpleLogic": "Delay",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". Delay takes input of type number.\") ;setTimeout(resolve, a*1000);",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". Delay takes input of type number.\")} ;setTimeout(resolve, a*1000);",
 				"await": true
 			},
 			"NodeNot": {
