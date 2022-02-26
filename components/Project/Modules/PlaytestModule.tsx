@@ -1,10 +1,10 @@
 import { useContext, useEffect } from "react";
 import Unity, { UnityContext } from "react-unity-webgl";
-import useMixpanel from "../../hooks/useMixpanel";
-import useUnity from "../../hooks/useUnity";
-import GlobalSessionContext from "../../store/global-session-context";
-import { TPlaytestModule } from "../../types/modules";
-import { TProject } from "../../types/projects";
+import useMixpanel from "../../../hooks/useMixpanel";
+import useUnity from "../../../hooks/useUnity";
+import GlobalSessionContext from "../../../store/global-session-context";
+import { TPlaytestModule } from "../../../types/modules";
+import { TProject } from "../../../types/projects";
 import classes from "./PlaytestModule.module.scss";
 
 interface Props {

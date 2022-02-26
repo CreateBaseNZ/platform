@@ -1,10 +1,10 @@
-import PdfModule from "../components/Project/PdfModule";
-import TutorialModule from "../components/Project/TutorialModule";
-import BlankModule from "../components/Project/BlankModule";
+import PdfModule from "../components/Project/Modules/PdfModule";
+import TutorialModule from "../components/Project/Modules/TutorialModule";
+import BlankModule from "../components/Project/Modules/BlankModule";
 import { TTutorialModule, TPdfModule, TVideoModule, TModule } from "../types/modules";
-import VideoModule from "../components/Project/VideoModule";
+import VideoModule from "../components/Project/Modules/VideoModule";
 import { TProject } from "../types/projects";
-import PlaytestModule from "../components/Project/PlaytestModule";
+import PlaytestModule from "../components/Project/Modules/PlaytestModule";
 
 const renderModule = (module: TModule, data: TProject) => {
 	switch (module?.type) {

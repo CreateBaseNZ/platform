@@ -1,4 +1,4 @@
-import { TPdfModule } from "../../types/modules";
+import { TPdfModule } from "../../../types/modules";
 
 interface Props {
 	module: TPdfModule;

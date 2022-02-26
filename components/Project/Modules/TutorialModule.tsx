@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { TTutorialModule } from "../../types/modules";
+import { TTutorialModule } from "../../../types/modules";
 import classes from "./TutorialModule.module.scss";
 
 interface Props {

@@ -5,7 +5,7 @@ import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/Proje
 import { TProject } from "../../../../../types/projects";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
 import renderModule from "../../../../../lib/renderModule";
-import NoModule from "../../../../../components/Project/NoModule";
+import NoModule from "../../../../../components/Project/Modules/NoModule";
 import { TModule } from "../../../../../types/modules";
 import GlobalSessionContext from "../../../../../store/global-session-context";
 import useApi from "../../../../../hooks/useApi";

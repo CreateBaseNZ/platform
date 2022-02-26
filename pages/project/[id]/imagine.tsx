@@ -6,7 +6,7 @@ import renderModule from "../../../lib/renderModule";
 import { TModule } from "../../../types/modules";
 import { ALL_PROJECTS_OBJECT, ALL_PROJECTS_ARRAY } from "../../../constants/projects";
 import ProjectLayout from "../../../components/Layouts/ProjectLayout/ProjectLayout";
-import NoModule from "../../../components/Project/NoModule";
+import NoModule from "../../../components/Project/Modules/NoModule";
 import { TProject } from "../../../types/projects";
 
 import classes from "../../../styles/imagine.module.scss";

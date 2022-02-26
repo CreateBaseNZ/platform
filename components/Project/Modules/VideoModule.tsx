@@ -1,5 +1,5 @@
 import classes from "./VideoModule.module.scss";
-import { TVideoModule } from "../../types/modules";
+import { TVideoModule } from "../../../types/modules";
 import YouTube from "react-youtube";
 
 interface Props {
