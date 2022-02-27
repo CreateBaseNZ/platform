@@ -15,6 +15,7 @@ import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
 import CodeContext from "../../../../../store/code-context";
 import Image from "next/image";
+import { Restart, Run, Stop, Unlink } from "../../../../../types/editor";
 
 declare global {
 	interface String {
@@ -75,7 +76,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		})();
 	}, []);
 
-	const run = async (code: string) => {
+	const run: Run = async (code) => {
 		Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
 
 		const whileEntry: number[] = [];
@@ -95,15 +96,19 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		Unhook(window.console);
 	};
 
-	const stop = () => {
+	const stop: Stop = () => {
 		Unhook(window.console);
 	};
+
+	const restart: Restart = () => {};
+
+	const unlink: Unlink = () => {};
 
 	return (
 		<div className={classes.page}>
 			<div className={`${classes.main} ${classes[`${codeLayout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
-					<Editor run={run} stop={stop} />
+					<Editor run={run} stop={stop} restart={restart} unlink={unlink} />
 				</div>
 				<div className={classes.unity}>
 					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />

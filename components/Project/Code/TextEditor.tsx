@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import classes from "./TextEditor.module.scss";
 import { editor } from "monaco-editor";
+import { Restart, Run, Stop, Unlink } from "../../../types/editor";
 
 const EDITOR_OPTIONS = {
 	automaticLayout: true,
@@ -13,20 +14,50 @@ const EDITOR_OPTIONS = {
 };
 
 interface Props {
-	run: (code: string) => void;
-	stop: () => void;
+	run: Run;
+	stop: Stop;
+	restart: Restart;
+	unlink: Unlink;
 }
 
-const TextEditor = ({ run, stop }: Props): JSX.Element => {
+const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
-	const runHandler = () => {
-		console.log(editorRef.current?.getValue());
-		editorRef.current && run(editorRef.current?.getValue());
-	};
-
-	const stopHandler = () => stop();
+	const buttonConfig = [
+		{
+			title: "Run",
+			icon: "play_arrow",
+			func: () => {
+				console.log(editorRef.current?.getValue());
+				editorRef.current && run(editorRef.current?.getValue());
+			},
+		},
+		{
+			title: "Stop",
+			icon: "stop",
+			func: () => {
+				console.log(editorRef.current?.getValue());
+				editorRef.current && run(editorRef.current?.getValue());
+			},
+		},
+		{
+			title: "Restart",
+			icon: "replay",
+			func: () => {
+				console.log(editorRef.current?.getValue());
+				editorRef.current && run(editorRef.current?.getValue());
+			},
+		},
+		{
+			title: "Unlink",
+			icon: "link_off",
+			func: () => {
+				console.log(editorRef.current?.getValue());
+				editorRef.current && run(editorRef.current?.getValue());
+			},
+		},
+	];
 
 	// useEffect(() => {
 	// 	if (ref.current) {
@@ -62,8 +93,14 @@ const TextEditor = ({ run, stop }: Props): JSX.Element => {
 					</div>
 					loremIpsum.js
 				</div>
-				<button onClick={runHandler}>Run</button>
-				<button onClick={stopHandler}>Stop</button>
+				<div className={classes.btnContainer}>
+					{buttonConfig.map((conf) => (
+						<button key={conf.title} className={classes[conf.title.toLowerCase()]} onClick={conf.func} title={conf.title}>
+							<i className="material-icons-outlined">{conf.icon}</i>
+							{conf.title}
+						</button>
+					))}
+				</div>
 			</div>
 			<div className={classes.wrapper}>
 				<Editor language="javascript" onMount={editorDidMount} options={EDITOR_OPTIONS} />
