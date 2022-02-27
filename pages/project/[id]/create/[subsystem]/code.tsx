@@ -60,32 +60,13 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 
 	useEffect(() => {
 		(async () => {
-			// ({ Console, Hook, Unhook } = await import("console-feed"));
-
-			// Hook((iframeRef.current?.contentWindow as any)?.console, (log: any) => setLogs((state) => [...state, log]), false);
-			// return () => void Unhook((iframeRef.current?.contentWindow as any)?.console);
-
-			({ Console } = await import("console-feed"));
+			({ Console, Hook, Unhook } = await import("console-feed"));
 		})();
 	}, []);
-
-	// const run = (code: string) => {
-	// 	const fn = (iframeRef.current?.contentWindow as any)?.Function;
-	// 	fn(
-	// 		"sensorData",
-	// 		`
-	//     try {
-	//       ${code}
-	//     } catch(error) {
-	//       console.error(error)
-	//     }`
-	// 	)(sensorData);
-	// };
 
 	const run = async (code: string) => {
 		workerRef.current?.terminate();
 		workerRef.current = new window.Worker("/user-worker.js", { name: code });
-		({ Hook, Unhook } = await import("console-feed"));
 		Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
 		workerRef.current.onerror = (err) => err;
 		workerRef.current.onmessage = (e) => {
@@ -98,9 +79,9 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	};
 
 	const stop = () => {
-		clearInterval(intervalRef.current as NodeJS.Timeout);
-		Unhook(window.console);
 		workerRef.current?.terminate();
+		Unhook(window.console);
+		clearInterval(intervalRef.current as NodeJS.Timeout);
 	};
 
 	return (

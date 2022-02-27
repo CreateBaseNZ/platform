@@ -55,9 +55,9 @@ const useMixpanel = (eventName) => {
 					if (!hasFocus) return (throttleTimer = null);
 					if (startTime === null) {
 						startTime = Date.now();
-						console.log("session started");
+						// console.log("session started");
 					} else {
-						console.log("session continued");
+						// console.log("session continued");
 					}
 					clearTimeout(sessionTimer);
 					sessionTimer = setTimeout(endSession, inactivityTimer); // inactive margin in ms
