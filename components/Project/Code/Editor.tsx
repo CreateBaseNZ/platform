@@ -3,8 +3,6 @@ import TextEditor from "./TextEditor";
 import classes from "./Editor.module.scss";
 import { Restart, Run, Stop, Unlink } from "../../../types/editor";
 
-// TODO @louis - declare and import types
-
 interface Props {
 	run: Run;
 	stop: Stop;

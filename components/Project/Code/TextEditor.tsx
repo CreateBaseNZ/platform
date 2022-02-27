@@ -26,14 +26,13 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
+	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
+
 	const buttonConfig = [
 		{
 			title: "Run",
 			icon: "play_arrow",
-			func: () => {
-				console.log(editorRef.current?.getValue());
-				editorRef.current && run(editorRef.current?.getValue());
-			},
+			func: runHandler,
 		},
 		{
 			title: "Stop",
@@ -82,9 +81,7 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.F5],
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 2,
-			run: () => {
-				run(editor.getValue());
-			},
+			run: runHandler,
 		});
 		editor.addAction({
 			id: "stop",

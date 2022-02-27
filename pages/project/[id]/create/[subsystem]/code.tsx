@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 import * as Esprima from "esprima";
-import * as Escodegen from "escodegen";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
