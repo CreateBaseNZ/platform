@@ -100,9 +100,13 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		Unhook(window.console);
 	};
 
-	const restart: Restart = () => {};
+	const restart: Restart = () => {
+		// TODO @louis
+	};
 
-	const unlink: Unlink = () => {};
+	const unlink: Unlink = () => {
+		// TODO @louis
+	};
 
 	return (
 		<div className={classes.page}>

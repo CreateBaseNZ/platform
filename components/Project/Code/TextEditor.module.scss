@@ -10,9 +10,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: 2.5rem;
+	height: 3rem;
 	padding: 0 1rem;
-	border-bottom: thin solid $border-color;
 	.filename {
 		display: flex;
 		align-items: center;
@@ -58,10 +57,18 @@
 			color: $blue-mid;
 			font-size: 16px;
 		}
+		&.more {
+			padding: 0 0.25rem;
+			i {
+				color: $dark;
+				margin: 0;
+			}
+		}
 	}
 }
 
 .wrapper {
+	border-top: thin solid $border-color;
 	height: 100%;
 	width: 100%;
 	display: flex;

@@ -1,16 +1,18 @@
 import { useEffect, useRef } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
-
-import classes from "./TextEditor.module.scss";
 import { editor } from "monaco-editor";
 import { Restart, Run, Stop, Unlink } from "../../../types/editor";
 
-const EDITOR_OPTIONS = {
+import classes from "./TextEditor.module.scss";
+
+const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 	automaticLayout: true,
 	formatOnPaste: true,
 	fontFamily: "Roboto Mono, mono",
 	lineDecorationsWidth: 0,
+	glyphMargin: false,
+	lineNumbersMinChars: 3,
 };
 
 interface Props {
@@ -36,10 +38,7 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 		{
 			title: "Stop",
 			icon: "stop",
-			func: () => {
-				console.log(editorRef.current?.getValue());
-				editorRef.current && run(editorRef.current?.getValue());
-			},
+			func: stop,
 		},
 		{
 			title: "Restart",
@@ -60,22 +59,57 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 	];
 
 	// useEffect(() => {
-	// 	if (ref.current) {
-	// 		ref.current.updateOptions({ readOnly: false });
-	// 		ref.current
-	// 			.getAction("editor.action.formatDocument")
-	// 			.run()
-	// 			.then(() => ref.current.updateOptions({ readOnly: false }));
-	// 	}
-	// }, [props.text]);
-
-	// useEffect(() => {
 	// 	if (monacoRef.current) {
 	// 		monacoRef.current.editor.setTheme(props.theme);
 	// 	}
 	// }, [props.theme]);
 
 	const editorDidMount: OnMount = (editor, monaco) => {
+		editor.addAction({
+			id: "save",
+			label: "Save",
+			// This DOES works but linting raises an error
+			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S],
+			contextMenuGroupId: "2_basic",
+			contextMenuOrder: 1,
+			run: () => {
+				editor.getAction("editor.action.formatDocument").run();
+			},
+		});
+		editor.addAction({
+			id: "run",
+			label: "Run",
+			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.F5],
+			contextMenuGroupId: "2_basic",
+			contextMenuOrder: 2,
+			run: () => {
+				run(editor.getValue());
+			},
+		});
+		editor.addAction({
+			id: "stop",
+			label: "Stop",
+			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KEY_C],
+			contextMenuGroupId: "2_basic",
+			contextMenuOrder: 3,
+			run: () => {
+				run(editor.getValue());
+			},
+		});
+		editor.addAction({
+			id: "restart",
+			label: "Restart",
+			// This DOES works but linting raises an error
+			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.F5],
+			contextMenuGroupId: "2_basic",
+			contextMenuOrder: 4,
+			run: function (ed) {
+				alert("i'm running => " + ed.getPosition());
+			},
+		});
+
+		editor.focus();
+
 		editorRef.current = editor;
 		monacoRef.current = monaco;
 		// for (const t in themeFiles) {
@@ -100,6 +134,9 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 							{conf.title}
 						</button>
 					))}
+					<button className={classes.more} title="More">
+						<i className="material-icons-outlined">more_vert</i>
+					</button>
 				</div>
 			</div>
 			<div className={classes.wrapper}>
