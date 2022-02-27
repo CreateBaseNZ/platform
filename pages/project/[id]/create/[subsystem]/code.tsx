@@ -1,4 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
+import { UnityContext } from "react-unity-webgl";
+import * as Esprima from "esprima";
+import * as Escodegen from "escodegen";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
@@ -10,8 +13,19 @@ import useApi from "../../../../../hooks/useApi";
 import Unity from "../../../../../components/Project/Code/Unity";
 import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
-import { UnityContext } from "react-unity-webgl";
 import CodeContext from "../../../../../store/code-context";
+import Image from "next/image";
+
+declare global {
+	interface String {
+		insert(index: number, string: string): string;
+	}
+}
+
+String.prototype.insert = function (index: number, string: string) {
+	const ind = index < 0 ? this.length + index : index;
+	return this.substring(0, ind) + string + this.substring(ind);
+};
 
 let Console: any = () => <></>;
 let Hook: any = () => {};
@@ -24,9 +38,6 @@ interface Props {
 }
 
 const Code = ({ data, subsystem, subsystemIndex }: Props) => {
-	const iframeRef = useRef<HTMLIFrameElement>(null);
-	const intervalRef = useRef<NodeJS.Timeout>();
-	const workerRef = useRef<Worker>();
 	const consoleRef = useRef<HTMLDivElement>(null);
 	const {} = useMixpanel("project_create_code");
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -65,23 +76,27 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	}, []);
 
 	const run = async (code: string) => {
-		workerRef.current?.terminate();
-		workerRef.current = new window.Worker("/user-worker.js", { name: code });
 		Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
-		workerRef.current.onerror = (err) => err;
-		workerRef.current.onmessage = (e) => {
-			// Function(e.mainThreadCode)()
-			console.log(e.data.buffer);
-		};
-		intervalRef.current = setInterval(() => {
-			workerRef.current?.postMessage({ sensorDataString: sensorData });
-		}, 1000 / 1);
+
+		const whileEntry: number[] = [];
+		Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
+			console.log(node);
+			if (node.type === "WhileStatement") {
+				whileEntry.push(node.body.range[0]);
+			}
+		});
+		whileEntry.forEach((pos) => {
+			code = code.insert(pos + 1, `# insert code here`);
+		});
+
+		console.log(whileEntry);
+		console.log(code);
+		// console.log(Escodegen.generate(ast));
+		Unhook(window.console);
 	};
 
 	const stop = () => {
-		workerRef.current?.terminate();
 		Unhook(window.console);
-		clearInterval(intervalRef.current as NodeJS.Timeout);
 	};
 
 	return (
@@ -93,11 +108,17 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 				<div className={classes.unity}>
 					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />
 				</div>
-				<div ref={consoleRef} className={classes.console}>
-					{Console && <Console logs={logs} variant="light" />}
+				<div className={classes.consoleContainer}>
+					<div className={classes.consoleHeader}>
+						<button title="Clear console" className={classes.clearConsole} onClick={() => setLogs([])}>
+							<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/clear-console.svg`} height={24} width={24} alt="Clear console" />
+						</button>
+					</div>
+					<div ref={consoleRef} className={classes.consoleWrapper}>
+						{Console && <Console logs={logs} variant="dark" />}
+					</div>
 				</div>
 			</div>
-			<iframe ref={iframeRef} className={classes.iframe} name="yes" />
 		</div>
 	);
 };

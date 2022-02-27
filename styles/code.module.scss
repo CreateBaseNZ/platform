@@ -59,11 +59,41 @@
 	border-bottom: thin solid $border-color;
 }
 
-.console {
+.consoleContainer {
+	display: flex;
+	flex-direction: column;
 	background: #202124;
-	grid-area: console;
-	overflow-y: auto;
-	* {
-		color: inherit;
+	.clearConsole {
+		height: 28px;
+		width: 28px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background-color 0.1s ease-out;
+		&:hover {
+			background: rgba(white, 0.1);
+		}
+	}
+	.consoleWrapper {
+		grid-area: console;
+		overflow-y: auto;
+		&::-webkit-scrollbar {
+			width: 12px;
+		}
+		&::-webkit-scrollbar-track {
+			background: rgba(white, 0.05);
+		}
+		&::-webkit-scrollbar-thumb {
+			background: rgba(white, 0.25);
+		}
+		&::-webkit-scrollbar-thumb:hover {
+			background: rgba(white, 0.4);
+		}
+		&::-webkit-scrollbar-thumb:active {
+			background: rgba(white, 0.65);
+		}
+		* {
+			color: inherit;
+		}
 	}
 }

@@ -18,6 +18,7 @@
 		"axios": "^0.24.0",
 		"boring-avatars": "^1.6.3",
 		"console-feed": "^3.3.0",
+		"escodegen": "^2.0.0",
 		"esprima": "^4.0.1",
 		"fuse.js": "^6.4.6",
 		"html2canvas": "^1.4.1",
@@ -49,6 +50,8 @@
 	},
 	"devDependencies": {
 		"@monaco-editor/react": "^4.3.1",
+		"@types/escodegen": "^0.0.7",
+		"@types/esprima": "^4.0.3",
 		"@types/node": "^17.0.21",
 		"@types/react": "^17.0.39",
 		"cypress": "^9.5.0",
