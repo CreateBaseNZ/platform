@@ -59,22 +59,47 @@
 	border-bottom: thin solid $border-color;
 }
 
+$console-black: #242424;
+
 .consoleContainer {
 	display: flex;
 	flex-direction: column;
-	background: #202124;
-	.clearConsole {
-		height: 28px;
-		width: 28px;
+	background: $console-black;
+	.consoleHeader {
+		background: #181818;
+		width: 100%;
+		height: 2rem;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		transition: background-color 0.1s ease-out;
-		&:hover {
-			background: rgba(white, 0.1);
+		justify-content: space-between;
+		border-bottom: thin solid $console-black;
+		.consoleTitle {
+			height: 100%;
+			font-size: 12px;
+			color: white;
+			display: flex;
+			align-items: center;
+			padding: 0 1rem;
+			background: $console-black;
+		}
+		.consoleBtnContainer {
+			display: flex;
+			align-items: center;
+			.clearConsole {
+				height: 32px;
+				width: 32px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: background-color 0.1s ease-out;
+				&:hover {
+					background: rgba(white, 0.1);
+				}
+			}
 		}
 	}
 	.consoleWrapper {
+		flex: 1;
 		grid-area: console;
 		overflow-y: auto;
 		&::-webkit-scrollbar {
@@ -92,8 +117,9 @@
 		&::-webkit-scrollbar-thumb:active {
 			background: rgba(white, 0.65);
 		}
-		* {
-			color: inherit;
-		}
 	}
+}
+
+.consoleWrapper * {
+	color: inherit;
 }

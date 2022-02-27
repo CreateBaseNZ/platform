@@ -110,9 +110,12 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 				</div>
 				<div className={classes.consoleContainer}>
 					<div className={classes.consoleHeader}>
-						<button title="Clear console" className={classes.clearConsole} onClick={() => setLogs([])}>
-							<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/clear-console.svg`} height={24} width={24} alt="Clear console" />
-						</button>
+						<div className={classes.consoleTitle}>Console</div>
+						<div className={classes.consoleBtnContainer}>
+							<button title="Clear console" className={classes.clearConsole} onClick={() => setLogs([])}>
+								<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/clear-console.svg`} height={24} width={24} alt="Clear console" />
+							</button>
+						</div>
 					</div>
 					<div ref={consoleRef} className={classes.consoleWrapper}>
 						{Console && <Console logs={logs} variant="dark" />}
