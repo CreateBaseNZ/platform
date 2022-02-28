@@ -1,4 +1,4 @@
-import { useRef, useContext, useState, useEffect, memo } from "react";
+import { useRef, useContext, useState, useEffect, memo, useCallback } from "react";
 import dynamic from "next/dynamic";
 import TextEditor from "./TextEditor";
 import { initialElements } from "../../utils/flowConfig";
@@ -12,6 +12,9 @@ import { CodeGenerator } from "../../utils/codeGenerator.ts";
 import classes from "./Workspace.module.scss";
 import { flow2Text, isOnceCode, defineObject, findStartingCode } from "../../utils/blockExtractionHelpers";
 import { convertCode } from "../../utils/textConvertor";
+import GlobalSessionContext from "../../store/global-session-context";
+import { useRouter } from "next/router";
+import useApi from "../../hooks/useApi";
 let codeChanged = false;
 
 let codesDone = 0;
@@ -25,13 +28,16 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
 });
 
-const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, textCodingOnly }) => {
+const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, textCodingOnly, url="https://app.createbase.co.nz/404" }) => {
+	const router = useRouter();
 	const editorRef = useRef();
 	const sensorDataRef = useRef();
 	const [activeTab, setActiveTab] = useState(textCodingOnly ? "text" : "flow");
 	const [elements, setElements] = useState(initialElements);
 	const [text, setText] = useState("// Let's code! 💡");
 	const [theme, setTheme] = useState(null);
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { post } = useApi();
 	const consoleCtx = useContext(ConsoleContext);
 
 	sensorDataRef.current = sensorData;
@@ -47,14 +53,34 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 	}, []);
 
 	useEffect(() => {
-		if (activeTab === "text") {
-			const onceCode = isOnceCode(query);
-			const [newText, dispCode] = compileCode(onceCode);
-			if (newText) {
-				setText(dispCode);
-			}
+		if (!router.isReady) return;
+		if (editorRef.current) {
+			console.log("reading saves");
+			loadText();
 		}
-	}, [activeTab]);
+	}, [editorRef.current]);
+
+	const loadText = async () => {
+		post(
+			"/api/profile/read-saves",
+			{
+				profileId: globalSession.profileId,
+				properties: [`${router.query.id}-${router.query.subsystem}`],
+				date: new Date().toString(),
+			},
+			(data) => {
+				console.log(data);
+				let t = data.content[`${router.query.id}-${router.query.subsystem}`];
+				t && editorRef.current.setValue(t);
+			}
+		);
+	};
+
+	const flowToText = () => {
+		const onceCode = isOnceCode(query);
+		let [code, dispCode] = compileCode(onceCode);
+		editorRef.current.setValue(dispCode);
+	};
 
 	const compileCode = (onceCode) => {
 		// Convert the flow arrangement to a configuration of blocks
@@ -78,29 +104,17 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		}
 	};
 
-	const changeTabHandler = (tab) => setActiveTab(tab);
+	const changeTabHandler = useCallback((tab) => setActiveTab(tab), []);
 
 	const executeCode = (text, printing = 0) => {
 		return new Promise((resolve, reject) => {
 			const sensorData = sensorDataRef.current;
 			const unityContext = _unityContext;
-			const dispError = (error) => {
-				if (error.name) {
-					consoleCtx.addError(error.message);
-					resolve(false);
-				} else {
-					resolve(true);
-				}
-			};
-			try {
-				eval("(async ()=>{" + text + "})()");
-			} catch (error) {
-				dispError(error);
-			}
-
-			if (codeChanged) {
-				resolve(true);
-			}
+			eval("(async ()=>{" + text + "})()").catch((error) => {
+				consoleCtx.addError(error.message);
+				resolve(false);
+			});
+			if (codeChanged) resolve(true);
 		});
 	};
 
@@ -162,10 +176,31 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 		runCode(code, onceCode);
 	};
 
+	const saveTextHandler = () => {
+		let t = editorRef.current.getValue();
+		post("/api/profile/update-saves", {
+			profileId: globalSession.profileId,
+			update: { [`${router.query.id}-${router.query.subsystem}`]: t },
+			date: new Date().toString(),
+		});
+	};
+
 	return (
 		<div className={classes.workspace}>
-			{activeTab === "flow" && <GreenButton className={classes.compileBtn} clickHandler={compileHandler} caption="Compile" />}
-			{activeTab === "text" && <GreenButton className={classes.compileTextBtn} clickHandler={compileHandlerTxt} caption="Compile" />}
+			{activeTab === "flow" && (
+				<div className={classes.btnContainer} style={{ top: "52vh", left: "240px" }}>
+					<button onClick={compileHandler}>Compile</button>
+					<button onClick={flowToText}>To Text</button>
+				</div>
+			)}
+			{activeTab === "text" && (
+				<div className={classes.btnContainer}>
+					<button onClick={compileHandlerTxt}>Compile</button>
+					<button onClick={saveTextHandler}>Save</button>
+					<button onClick={loadText}>Restore</button>
+					<button onClick={() => window.open(url, '_blank').focus()}>Documentation</button>
+				</div>
+			)}
 			<MiniHoverContextProvider>
 				<ReactFlowProvider>
 					<FlowEditor saveName={saveName} blockList={blockList} show={activeTab === "flow"} elements={elements} setElements={setElements} />
@@ -174,7 +209,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}
 			<Console show={activeTab === "console"} />
 			<Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
-			<TabBar stacked={stacked} textCodingOnly={textCodingOnly} active={activeTab} onChange={changeTabHandler} />
+			<TabBar active={activeTab} stacked={stacked} textCodingOnly={textCodingOnly} onChange={changeTabHandler} />
 		</div>
 	);
 };

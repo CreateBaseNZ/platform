@@ -5,7 +5,6 @@ import BlocksF from "../public/systemDefinitions.json";
  *
  * @param {*} projectName : The project name from the data file
  * @returns
- * EXPLAINDone: Salim - What is this function for?
  * This function returns the code to be run to reset the system
  */
 export const findStartingCode = (projectName) => {
@@ -15,21 +14,20 @@ export const findStartingCode = (projectName) => {
 	})[0];
 	let startCode = correctSystem.startingCode;
 	if (startCode) {
-		startCode += "\nresolve(true);";
+		startCode += "\nreturn resolve(true);";
 	} else {
-		startCode = "resolve(true);";
+		startCode = "return resolve(true);";
 	}
 
 	return startCode;
 };
 
 /**
- * EXPLAINDone: Salim - Define this input variable
  * @param {*} currentNode : The node we want to find the next node in the execution path
  * @param {*} path : The ID of the execution  handle we want to find what node its connected to it
  * @param {*} elements : The list of all nodes and connections
  * @returns
- * EXPLAINDone: Salim - What is this function for?
+
  * The purpose of this function is to find the node that is connected to the handle defined in path
  * It returns two outputs [state, nextNode]
  * @param {*} state: returns true or false whether the process of finding the next node is successful.(ie. nextNode is found)
@@ -49,7 +47,7 @@ const findNextNode = (currentNode, path, elements) => {
 		return false;
 	});
 	if (reqConnection.length > 1) {
-		return [false, "One Block has multiple exectution connection"];
+		return [false, "One Block has multiple execution connections"];
 	}
 	if (reqConnection.length == 0) {
 		return [true, false];
@@ -111,11 +109,10 @@ const determineType = (block, currentNode, generalBlocks, mathOperations, action
 };
 
 /**
- * EXPLAINDone: Salim - Define these input variables
  * @param {*} currentNode : Current node we are trying to analyse
  * @param {*} elements : the full list of nodes and connections
  * @returns
- * EXPLAINDone: Salim - What is this function for?
+
  * This function returns whether this node has only one previous node (node prior in execution order) connected to it, except for start node, returns
  * true always
  */
@@ -477,8 +474,8 @@ export const defineObject = (projectName) => {
 export const isOnceCode = (projectName) => {
 	switch (projectName) {
 		case "send-it":
-		case "heat-seeker":
 		case "aimbot":
+		case "heat-seeker":
 		case "hyperloop":
 
 			return false;

@@ -13,11 +13,26 @@
 	z-index: 5;
 	font-size: 1.25rem;
 }
-.compileTextBtn {
-	position: absolute;
-	top: 52vh;
-	right: 240px;
-	padding: 0.5em 1em;
+
+.btnContainer {
 	z-index: 5;
-	font-size: 1.25rem;
+	position: absolute;
+	bottom: 2vh;
+	right: 240px;
+	display: flex;
+	align-items: center;
+	height: 2rem;
+	button {
+		margin: 0 0.25rem;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+		border: 2px solid black;
+		color: black;
+		background: white;
+		text-transform: uppercase;
+		font-weight: 600;
+		padding: 0 0.75rem;
+	}
 }

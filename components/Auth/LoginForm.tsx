@@ -48,7 +48,7 @@ export const LoginForm = (): JSX.Element => {
 		}
 	}, [router.query.error]);
 
-	const onSubmit = async (input: ILoginInputs) => {
+	const onSubmit = async (input: any) => {
 		setIsLoading(true);
 		window.localStorage.setItem("createbase__remember-me", input.email);
 		await signIn("credentials", {
@@ -107,7 +107,7 @@ export const LoginForm = (): JSX.Element => {
 					loadingLabel="Loading Google auth"
 					mainLabel="Log in with Google"
 					onClick={() => signIn("google")}
-					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/auth/google.svg" />}
+					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/google.svg" />}
 				/>
 			</form>
 			<div className={`${classes.smallFont} ${classes.switch}`}>

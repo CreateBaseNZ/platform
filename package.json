@@ -1,6 +1,6 @@
 {
 	"name": "platform",
-	"version": "1.1.1",
+	"version": "1.2.7",
 	"private": true,
 	"engines": {
 		"node": "14.16.0"
@@ -10,7 +10,8 @@
 		"build": "next build",
 		"start": "next start -p $PORT",
 		"lint": "next lint",
-		"docs": "typedoc"
+		"docs": "typedoc",
+		"cypress": "cypress open"
 	},
 	"dependencies": {
 		"@types/react-dom": "^17.0.11",
@@ -55,6 +56,7 @@
 		"cypress": "^9.2.1",
 		"eslint": "^7.32.0",
 		"eslint-config-next": "^12.0.7",
+		"eslint-plugin-cypress": "^2.12.1",
 		"sharp": "^0.29.3",
 		"typedoc": "^0.22.10",
 		"typescript": "^4.5.4"

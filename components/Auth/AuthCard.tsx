@@ -14,10 +14,10 @@ const AuthCard = ({ isSignup }: AuthCardProps): JSX.Element => {
 		<div className={classes.authCard}>
 			<div className={`${classes.imgContainer} ${isSignup ? classes.signup : classes.login}`}>
 				<div className={classes.imgWrapper}>
-					<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/auth/turtle.svg" layout="fill" objectFit="cover" />
+					<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/turtle.svg" layout="fill" objectFit="cover" />
 					<div className={isSignup ? classes.signupImg : classes.loginImg} style={{ marginLeft: "-10%", height: "100%", width: "140%" }}>
 						<Img
-							src={isSignup ? "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/auth/signup.svg" : "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/auth/login.svg"}
+							src={isSignup ? "https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/signup.svg" : "https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/login.svg"}
 							layout="fill"
 							objectFit="contain"
 							label="Illustration by Storyset"

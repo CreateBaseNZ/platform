@@ -30,7 +30,7 @@ const SignupForm = (): JSX.Element => {
 		// defaultValues: {}, // TODO prefill if in URL query params
 	});
 
-	const onSubmit = async (input: ISignupInputs) => {
+	const onSubmit = async (input: any) => {
 		setIsLoading(true);
 		let frontEndError = false;
 		if (isBlacklisted(input.firstName)) {
@@ -167,7 +167,7 @@ const SignupForm = (): JSX.Element => {
 					loadingLabel="Loading Google auth"
 					mainLabel="Sign up with Google"
 					onClick={() => signIn("google")}
-					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/auth/google.svg" />}
+					iconLeft={<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/auth/google.svg" />}
 				/>
 			</form>
 			<div className={`${classes.smallFont} ${classes.switch}`}>

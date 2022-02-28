@@ -26,6 +26,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 	caption:
 		"Mosquitos are spreading disease amongst the human population! In this Project, students will reprogram a series of robots to detect, track and destroy any mosquitos that they encounter. Students will use basic trigonometry principles to convert raw sensor data into movements for the robot which will require the use of variables and mathematical operations. Other topics covered include the effect that internal forces can have on a robot's design/operation and an introduction to proportional controllers.",
 	stacked: true,
+	documentation: "https://docs.google.com/document/d/1cB5lIt0QYDaEbF3SSsiFInk5M-Xz51IYSrIWAslMP1E/edit?usp=sharing",
 	scenePrefix: "Project_Aimbot",
 	runType: "loop",
 	durPerLesson: "45 mins",
@@ -50,10 +51,10 @@ const AIMBOT_DATA: IProjectReadOnly = {
 	define: {
 		threshold: 30,
 		url: "https://www.youtube.com/watch?v=znMZhBSDW_I",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "Your first step to begin solving this problem is to download either of the learning journals below, saving a copy for yourself. Your learning journal will guide you through the Project and serves as a place to document your progress.",
-		docs: "https://docs.google.com/document/d/1UTyQpsp9bAAdAiJFq9vbNVb7Cy1PoW2x57Sv5YgTYnM/edit#",
+		docs: "https://docs.google.com/document/d/14pcr2e0JVVL2vvv7EpH6y8lRReZeFKJbKUAHMYY41a4/edit?usp=sharing",
 		word: "/aimbot/files/210505AC AimBot Learning Journal.docx",
 	},
 	imagine: {
@@ -62,7 +63,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "In this Project...",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/thumbnail.jpg",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_1.jpg",
 				url: "/aimbot/files/21050502AA_imagine.pdf",
 			},
 		],
@@ -71,7 +72,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Yaw control",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_1.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_1.jpg",
 			description:
 				"In this subsystem, we will restrict the movement of the mosquito and our arm to a single dimension. We will need to use sensor data to calculate where we should aim, move our arm to that position, and then activate the laser!",
 			research: {
@@ -80,7 +81,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Axis, Pitch and Yaw",
+						title: "Axis, Pitch & Yaw",
 						img: "",
 						url: "/aimbot/pdf/2105050301AA_research_PitchYawAxis.pdf",
 					},
@@ -92,9 +93,21 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					},
 					{
 						type: "pdf",
-						title: "Introduction to Flow Part I",
+						title: "Flow: Introduction to Blocks",
 						img: "",
 						url: "/aimbot/pdf/2105050301AC_research_1_blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to JavaScript",
+						img: "",
+						url: "/aimbot/pdf/JS-intro-1.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Subsystem 1 Function List",
+						img: "",
+						url: "/aimbot/pdf/JS-functions-1.pdf",
 					},
 				],
 			},
@@ -109,6 +122,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				threshold: 600,
 				tasks: [
 					"Mosquitos will be appearing across your screen in a horizontal line.",
+					"Mosquitos will start spawning and de-spawning once you take your first shot.",
 					"You need to find the position of each mosquito, aim your robot by controlling its yaw angle, and then fire to destroy all of the mosquitos.",
 					"If you aim too slowly, the mosquitos will disappear! Make sure that you turn your robot quickly.",
 				],
@@ -131,7 +145,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Pitch control",
 			requirements: ["Yaw control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_2.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_2.jpg",
 			description: "Let's expand our problem from subsystem 1 to include a second dimension! We will be copying our answer from the previous code but adding pitch motor controls.",
 			research: {
 				threshold: 30,
@@ -139,8 +153,18 @@ const AIMBOT_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks 2",
+						title: "Flow: Introduction to Logical Blocks",
 						url: "/aimbot/pdf/2105050301AD_research_2_blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to Logical Statements",
+						url: "/aimbot/pdf/JS-logicals.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Subsystem 2 New Functions",
+						url: "/aimbot/pdf/JS-functions-2.pdf",
 					},
 				],
 			},
@@ -178,7 +202,7 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Velocity controller",
 			requirements: ["Yaw control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_3.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_3.jpg",
 			description: "In this subsystem, we will try and make our solution to the first subsystem more realistic by incorporating forces and a breakable arm.",
 			research: {
 				threshold: 600,
@@ -196,8 +220,13 @@ const AIMBOT_DATA: IProjectReadOnly = {
 					},
 					{
 						type: "pdf",
-						title: "Finer Velocity Control",
-						url: "/aimbot/pdf/2105050301AG_research_FinerVelocityControl.pdf",
+						title: "Flow: Finer Velocity Control",
+						url: "/aimbot/pdf/2105050301AG-Finer-Velocity-Control-(Flow).pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Finer Velocity Control",
+						url: "/aimbot/pdf/2105050301AH-Finer-Velocity-Control-(JS).pdf",
 					},
 				],
 			},
@@ -233,17 +262,12 @@ const AIMBOT_DATA: IProjectReadOnly = {
 		{
 			title: "Putting it all together",
 			requirements: ["Pitch control", "Velocity controller"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/aimbot/img/subsystem/subsystem_4.jpg",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/aimbot/img/subsystem/subsystem_4.jpg",
 			description: "Lets put together everything that we have learnt to program a solution to the full problem!",
 			research: {
 				threshold: 1,
 				caption: ["There is no new research for this subsystem. Move directly to Plan. Do not pass Go. Do not collect $100."],
 				modules: [
-					{
-						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
-					},
 				],
 			},
 			plan: {

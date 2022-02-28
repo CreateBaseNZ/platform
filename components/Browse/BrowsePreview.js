@@ -58,7 +58,7 @@ const BrowsePreview = ({ project, role }) => {
 			<div className={classes.vidContainer}>
 				<video
 					ref={ref}
-					src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/${project.query}/vid/situation.mp4`}
+					src={`https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project.query}/vid/situation.mp4`}
 					autoPlay={true}
 					muted={true}
 					className={`${classes.vid} ${videoLoaded ? classes.vidLoaded : ""}`}

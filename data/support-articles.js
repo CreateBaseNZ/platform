@@ -53,17 +53,17 @@ export const JOIN_A_SCHOOL = {
 			<ol>
 				<li>
 					From the My Groups page teachers click "Join a school"
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/join-school.jpg" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-school.jpg" style={{ maxWidth: 800 }} />
 				</li>
 				<li>Teachers search for their school</li>
 				<li>
 					Then complete and send a message
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/join-school-teach.gif" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-school-teach.gif" style={{ maxWidth: 800 }} />
 				</li>
 				<li>The Admin of the school will be notified and can accept or reject the request</li>
 			</ol>
 			<p>Join request messages can be viewed from the inbox tab.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/admin-inbox.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/admin-inbox.jpg" style={{ maxWidth: 800 }} />
 			<p>Once accepted, the teacher will gain access to teaching content, will be able to create classes and will be able to manage the students in your school group.</p>
 			<iframe
 				src="https://www.youtube.com/embed/K9BLb9clLRk"
@@ -181,7 +181,7 @@ export const FLOW_CODING = {
 				</li>
 			</ul>
 			<p>As you can see, blocks can only be connected if they have a matching information type to prevent unintended errors.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/flow-code.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/flow-code.gif" style={{ maxWidth: 800 }} />
 			<h2>Looking to learn Flow coding?</h2>
 			<ul>
 				<li>
@@ -216,55 +216,48 @@ export const FLOW_CODING = {
 export const TEXT_CODING = {
 	shared: (
 		<>
-			<p>
-				As well as a visual coding language called Flow, the CreateBase Platform also uses a text-based code editor. Students can use this editor to write JavaScript code.
-			</p>
+			<p>As well as a visual coding language called Flow, the CreateBase Platform also uses a text-based code editor. Students can use this editor to write JavaScript code.</p>
 			<h2>The basics of our text editor</h2>
 			<p>
-				Whenever a user edits their visual code from the FLOW tab, the text-equivalent of that code is automatically generated in the TEXT tab. For all compatible Projects, simply select the TEXT tab in
-				the bottom right corner of your screen when viewing a simulation, like this <Link href="/game/magnebot/Sequential%20programming">one</Link>, to view the auto-generated text code.
+				Whenever a user edits their visual code from the FLOW tab, the text-equivalent of that code is automatically generated in the TEXT tab. For all compatible Projects, simply select the TEXT tab
+				in the bottom right corner of your screen when viewing a simulation, like this <Link href="/game/magnebot/Sequential%20programming">one</Link>, to view the auto-generated text code.
 			</p>
+			<p>You can type, copy, paste and delete text code directly from the TEXT tab and use the green compile button in the TEXT tab to run your code.</p>
 			<p>
-				You can type, copy, paste and delete text code directly from the TEXT tab and use the green compile button in the TEXT tab to run your code.
+				Select the CONSOLE tab to check the output of both your visual and text code, including any error messages. You can clear the console’s contents using the trash can icon in the bottom right
+				corner.
 			</p>
+			<p>Don’t like the visual style of the editor? Check out the CONFIG tab, which lets you select from various themes for the text editor.</p>
 			<p>
-				Select the CONSOLE tab to check the output of both your visual and text code, including any error messages. You can clear the console’s contents using the trash can icon in the bottom right corner.
-			</p>
-			<p>
-				Don’t like the visual style of the editor? Check out the CONFIG tab, which lets you select from various themes for the text editor.
-			</p>
-			<p>
-				There are multiple ways that students can interact with text code. Some students may create a basic solution using visual code and then edit it further using the text editor. At the same time, more advanced
-				students might skip the visual editor entirely and code straight from the text editor.
+				There are multiple ways that students can interact with text code. Some students may create a basic solution using visual code and then edit it further using the text editor. At the same time,
+				more advanced students might skip the visual editor entirely and code straight from the text editor.
 			</p>
 
 			<h2>Why use JavaScript?</h2>
+			<p>Currently, the programming language that users write in our text editor is limited to JavaScript.</p>
 			<p>
-				Currently, the programming language that users write in our text editor is limited to JavaScript.
+				Why JavaScript? Well, JavaScript is one of the most flexible and powerful programming languages available. As the “default language” of the internet, JavaScript is primarily used for web
+				development and powers a lot of the behaviour on fancy websites, including this platform.
 			</p>
 			<p>
-				Why JavaScript? Well, JavaScript is one of the most flexible and powerful programming languages available. As the “default language” of the internet, JavaScript is primarily used for web development and powers a
-				lot of the behaviour on fancy websites, including this platform.
+				As a higher-level language, JavaScript is easier to learn than many other alternatives. Its syntax is also quite logical and straightforward, with most of it resembling the English language.
+				JavaScript also has a massive community, so it is easy to find help and other resources whenever you encounter a problem.
 			</p>
-			<p>
-				As a higher-level language, JavaScript is easier to learn than many other alternatives. Its syntax is also quite logical and straightforward, with most of it resembling the English language. JavaScript also has a massive
-				community, so it is easy to find help and other resources whenever you encounter a problem.
-			</p>
-			<p>
-				Even if you don’t want to continue coding in JavaScript outside of this platform, the skills learnt while using the JavaScript language can be transferred to other languages.
-			</p>
-			<p>
-				Want a refresher on the JavaScript language? Check out these links to external resources:
-			</p>
+			<p>Even if you don’t want to continue coding in JavaScript outside of this platform, the skills learnt while using the JavaScript language can be transferred to other languages.</p>
+			<p>Want a refresher on the JavaScript language? Check out these links to external resources:</p>
 			<ul>
-				<li><Link href="https://www.w3schools.com/js/">W3 Schools</Link></li>
-				<li><Link href="https://htmlcheatsheet.com/js/">Interactive cheat sheet</Link></li>
+				<li>
+					<Link href="https://www.w3schools.com/js/">W3 Schools</Link>
+				</li>
+				<li>
+					<Link href="https://htmlcheatsheet.com/js/">Interactive cheat sheet</Link>
+				</li>
 			</ul>
-
 
 			<h2>Other languages are coming soon</h2>
 			<p>
-				You will soon be able to complete each of our Projects using other text-based languages, including Python. Make sure that you follow our <Link href="https://www.facebook.com/CreateBaseNZ">social media</Link> to get notified when this feature is released!
+				You will soon be able to complete each of our Projects using other text-based languages, including Python. Make sure that you follow our{" "}
+				<Link href="https://www.facebook.com/CreateBaseNZ">social media</Link> to get notified when this feature is released!
 			</p>
 		</>
 	),
@@ -293,7 +286,7 @@ export const LEARNING_JOURNALS = {
 				<li>Head to the Define tab</li>
 				<li>
 					Open the learning journal in either Google Docs or Word and save a local copy
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/learning-journal.gif" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/learning-journal.gif" style={{ maxWidth: 800 }} />
 				</li>
 			</ol>
 			<h2>How do I use learning journals?</h2>
@@ -395,20 +388,16 @@ export const CONTACTING_CREATEBASE = {
 export const DATA_PRIVACY = {
 	shared: (
 		<>
-			<h2>
-				Our policies
-			</h2>
+			<h2>Our policies</h2>
 			<p>
-				At CreateBase, we strive to align with every country’s student data collection and usage policies. Data that we collect is restricted to enable certain features like authentication, personalisation
-				and progress tracking, as well as to optimise the experience of our sites. We do not share this data with anyone outside of CreateBase unless required by law.
+				At CreateBase, we strive to align with every country’s student data collection and usage policies. Data that we collect is restricted to enable certain features like authentication,
+				personalisation and progress tracking, as well as to optimise the experience of our sites. We do not share this data with anyone outside of CreateBase unless required by law.
 			</p>
 			<p>
-				With a team consisting of many young individuals, data privacy is at the forefront of our minds. Although we only track the minimum amount of data required to provide our services, we encourage you to
-				check out the user data section of our terms & conditions as well as our privacy policy to decide for yourself if CreateBase aligns with your school’s policies.
+				With a team consisting of many young individuals, data privacy is at the forefront of our minds. Although we only track the minimum amount of data required to provide our services, we
+				encourage you to check out the user data section of our terms & conditions as well as our privacy policy to decide for yourself if CreateBase aligns with your school’s policies.
 			</p>
-			<p>
-				For more information about the particular user data that we collect and what we use it for, you can check out our privacy policy at:
-			</p>
+			<p>For more information about the particular user data that we collect and what we use it for, you can check out our privacy policy at:</p>
 			<p>
 				<a href="https://createbase.co.nz/privacy">https://createbase.co.nz/privacy</a>
 			</p>
@@ -425,13 +414,13 @@ export const THE_5_STEP_CREATION_PROCESS = {
 			</p>
 			<p>Our Creation Process has been developed by some of the best engineering graduates from the University of Auckland alongside leading STEAM and Digital Technologies teachers.</p>
 			<p>The 5 Step Creation Process is a fundamental structure that's built into all the Project content on the Platform.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/5-steps.jpg" style={{ width: 400 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/5-steps.jpg" style={{ width: 400 }} />
 			<p>The Creation Process is reflected in the Project view</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/project-view.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/project-view.jpg" style={{ maxWidth: 800 }} />
 			<p>learning journals ...</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/learning-journal.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/learning-journal.jpg" style={{ maxWidth: 800 }} />
 			<p>and lesson plans ...</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/lesson-plan.jpg" style={{ width: 400 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson-plan.jpg" style={{ width: 400 }} />
 		</>
 	),
 };
@@ -440,9 +429,9 @@ export const REGISTER_A_SCHOOL = {
 	staff: (
 		<>
 			<p>Registering your school starts on the My Groups page.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/register-school.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register-school.jpg" style={{ maxWidth: 800 }} />
 			<p>Simply complete the Registration form and our team will verify your school within 24 hours.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/register-school.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/register-school.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -451,10 +440,10 @@ export const CREATE_A_CLASS = {
 	staff: (
 		<>
 			<p>To create a class head to the Classes page and click "Create class".</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/create-class.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/create-class.jpg" style={{ maxWidth: 800 }} />
 			<p>Enter a class name and you are good to go.</p>
 			<p>To add Students, visit the "Manage Members" tab, click "Add" and then select all the users from your group that you want to add to your class. Click "Add" to confirm the users.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/new-class.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/new-class.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -500,7 +489,7 @@ export const STEP_2_IMAGINE = {
 				simulated environment and discuss how the robotic system is a viable solution. After starting with a broad solution defined by the students, this second half reframes and narrows their focus
 				for the tasks at hand.
 			</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/imagine.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/imagine.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -539,7 +528,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				<li>Researching the Flow editor and how to use it to write code.</li>
 				<li>Learning to use the Flow blocks for the current sub-system.</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/research.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/research.gif" style={{ maxWidth: 800 }} />
 			<h2>Plan</h2>
 			<p>
 				Code solutions can be incredibly long and complicated, especially if you don't have any structure before you start coding. During our Create process, we make students stop and think about
@@ -555,7 +544,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				<li>Selecting their desired robotic system (coming soon)</li>
 				<li>Selecting specific components (coming soon)</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/plan.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/plan.gif" style={{ maxWidth: 800 }} />
 			<p>
 				After completing their Plan, students will not necessarily have a complete answer to the Code step, but will at least have enough information to start testing and iterating as well as a
 				concrete understanding of the logical process(es) that their solution will need to follow.
@@ -574,7 +563,7 @@ export const STEP_3_THE_CREATE_LOOP = {
 				are writing much more tangible as there are clear (and sometimes catastrophic) results for every change that they make. With a digital solution, there are no consequences for breaking the
 				robot so students are free to experiment and push boundaries with their testing, providing a rich opportunity for guided discovery learning.
 			</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/code.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/code.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -596,7 +585,7 @@ export const STEP_4_IMPROVE = {
 				<li>Problem extensions</li>
 				<li>Text-based coding</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/improve.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/improve.gif" style={{ maxWidth: 800 }} />
 			<p>
 				Although every student should be able to complete the Create step, the Improve step is often more open-ended, with room for students to create increasingly better-performing solutions. This
 				makes the Improve step an ideal place to cultivate the abilities of excelling students as an extension activity.
@@ -626,7 +615,7 @@ export const STEP_5_REVIEW = {
 				Reflecting on the learning journey is a key method to emphasise learning from our mistakes and our successes. Reflection is not always easy, so we provide questions to engage students in the
 				process of reflection. This is a solo activity, so it is perfect for distance learning!
 			</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/review.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/review.gif" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -647,7 +636,7 @@ export const LESSON_PLANS = {
 				<li>Open the teaching tab</li>
 				<li>Open or download the lesson plan pdf</li>
 			</ul>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/lesson-plan.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/lesson-plan.gif" style={{ maxWidth: 800 }} />
 			<p>And presto, it's that easy.</p>
 			<h2>Learning about the concepts you're teaching</h2>
 			<p>
@@ -686,8 +675,8 @@ export const REGISTER_OR_JOIN_YOUR_SCHOOL = {
 			<p>If your school has already been registered, you simply join the school instead!</p>
 			<p>From the My Groups page click "Join" and then send a message to the admin (the user who registered the school).</p>
 			<p>The admin can then accept your request.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/join-school.jpg" style={{ maxWidth: 600 }} />
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/join-school-teach.gif" style={{ maxWidth: 600 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-school.jpg" style={{ maxWidth: 600 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-school-teach.gif" style={{ maxWidth: 600 }} />
 			<p>For students to join a school, they must use a student code.</p>
 			<p>
 				Learn how to add students to your school <Link href="/support/admins/adding-students">here</Link>.
@@ -703,16 +692,16 @@ export const ADDING_STUDENTS = {
 			<ol>
 				<li>
 					Create their own account
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/join-school-student.jpg" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-school-student.jpg" style={{ maxWidth: 800 }} />
 				</li>
 				<li>
 					Open the My Groups tab and select join a group
-					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/join-school-students.gif" style={{ maxWidth: 800 }} />
+					<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/join-school-students.gif" style={{ maxWidth: 800 }} />
 				</li>
 				<li>Enter the student code</li>
 			</ol>
 			<p>You can find the student code for your group by clicking "Add" on the Manage Group page.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/add-students-school.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/add-students-school.jpg" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -726,7 +715,7 @@ export const MANAGE_USERS_IN_YOUR_SCHOOL = {
 			</p>
 			<p>In the Manage Users tab, you can view all the accounts that have joined your group.</p>
 			<p>Users are grouped based on their role within the group: admin, teacher or student.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/manage-users.gif" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/manage-users.gif" style={{ maxWidth: 800 }} />
 			<p>For all users, you can view their first name, last name, email and who invited them.</p>
 			<p>On this page admins can:</p>
 			<ul>
@@ -746,9 +735,9 @@ export const RECOVER_STUDENT_PASSWORDS = {
 	staff: (
 		<>
 			<p>All passwords can be reset with the "Forgot password" button on the login page.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/login.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/login.jpg" style={{ maxWidth: 800 }} />
 			<p>Students can then change their own passwords from their Account tab.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/change-password.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/change-password.jpg" style={{ maxWidth: 800 }} />
 		</>
 	),
 };
@@ -782,7 +771,7 @@ export const STUDENT_TRACKING = {
 				</li>
 			</ul>
 			<p>You can also hover over entries in the table to get more information.</p>
-			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/support/class-progress.jpg" style={{ maxWidth: 800 }} />
+			<img src="https://raw.githubusercontent.com/CreateBaseNZ/public/main/support/class-progress.jpg" style={{ maxWidth: 800 }} />
 			<h2>Engagement (coming soon)</h2>
 			<h2>Performance (coming soon)</h2>
 		</>

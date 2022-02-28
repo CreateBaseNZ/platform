@@ -7,13 +7,13 @@ const useMixpanel = () => {
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	const init = () => {
-		// initialise mixpanel channel
-		// first param - API Key
-		mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
-		// set the distinct_id of the events that will be created
-		mixpanel.identify(globalSession.profileId);
-		// establish the associated user details for the specified id (business data)
-		mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
+		// // initialise mixpanel channel
+		// // first param - API Key
+		// mixpanel.init(process.env.NEXT_PUBLIC_PROJECT_A_TOKEN);
+		// // set the distinct_id of the events that will be created
+		// mixpanel.identify(globalSession.profileId);
+		// // establish the associated user details for the specified id (business data)
+		// mixpanel.people.set({ $name: `${globalSession.firstName} ${globalSession.lastName}`, $email: globalSession.email });
 	};
 
 	// retrieving mixpanel data (via createbase backend)
@@ -21,10 +21,15 @@ const useMixpanel = () => {
 		return new Promise(async (resolve, reject) => {
 			let data;
 			try {
-				data = (await axios.post("/api/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { filters } }))["data"];
+				data = (await axios.post("/api/tracking/retrieve", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: filters }))["data"];
 			} catch (error) {
 				return reject({ status: "error", content: error });
 			}
+			// try {
+			// 	data = (await axios.post("/api/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { filters } }))["data"];
+			// } catch (error) {
+			// 	return reject({ status: "error", content: error });
+			// }
 			if (data.status !== "succeeded") return reject(data);
 			return resolve(data.content);
 		});
@@ -34,7 +39,27 @@ const useMixpanel = () => {
 	// first parameter is the event name
 	// optional second parameter containining additional data to store
 	const track = (event, payload) => {
-		mixpanel.track(event, { ...payload });
+		// Construct Data
+		const data = {
+			// Identifiers
+			profile: globalSession.profileId,
+			group: globalSession.groups[globalSession.recentGroups[0]]?.id,
+			groups: globalSession.groups?.map((group) => group.id),
+			license: globalSession.groups[globalSession.recentGroups[0]]?.licenseId,
+			licenses: globalSession.groups?.map((group) => group.licenseId),
+			classes: [], // TODO
+			// Required Properties
+			event: event,
+			timestamp: Date.now(),
+			// Optional Properties
+			start: payload.start,
+			end: payload.end,
+			duration: payload.duration,
+			project: payload.project,
+			subsystem: payload.subsystem,
+		};
+		// mixpanel.track(event, { ...payload });
+		axios.post("/api/tracking/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: data });
 	};
 
 	// note: MUST run clearSession in the return of useEffect

@@ -139,7 +139,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.abs(${val})`;
-		const simpleStr = `${output}abs(${val})`;
+		const simpleStr = `${output}Math.abs(${val})`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
@@ -160,7 +160,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.atan(${val})`;
-		const simpleStr = `${output}atan(${val})`;
+		const simpleStr = `${output}Math.atan(${val})`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
@@ -181,7 +181,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.sqrt(${val})`;
-		const simpleStr = `${output}sqrt(${val})`;
+		const simpleStr = `${output}Math.sqrt(${val})`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
@@ -204,7 +204,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.min(Math.max(${vals[0]}, ${vals[1]}), ${vals[2]})`;
-		const simpleStr = `${output}clamp(${vals[0]}, ${vals[1]}, ${vals[2]})`;
+		const simpleStr = `${output}Math.min(Math.max(${vals[0]}, ${vals[1]}), ${vals[2]})`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
@@ -215,7 +215,7 @@ export class CodeGenerator {
 		output = "";
 		output = this.checkCorrectVar(String(blockDetail.value.out));
 		const str = `${output}Math.PI`;
-		const simpleStr = `${output}PI`;
+		const simpleStr = `${output}Math.PI`;
 		this.simpleExecutes.push(simpleStr);
 		this.executes.push(str);
 		return [true];
@@ -570,7 +570,7 @@ export class CodeGenerator {
 			if (!state) {
 				return ["// Oops! An error occurred, please check the Console for more info", type, message, "// Oops! An error occurred, please check the Console for more info"];
 			}
-			const str = "if(codeChanged){resolve(true);}";
+			const str = "if(codeChanged){return resolve(true);}";
 			this.executes.push(str);
 		}
 

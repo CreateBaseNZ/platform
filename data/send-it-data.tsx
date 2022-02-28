@@ -21,13 +21,14 @@ const SEND_IT_DATA: IProjectReadOnly = {
 	caption:
 		'In this Project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
 	stacked: true,
+	documentation: "https://docs.google.com/document/d/1xAhje5B6cLefSjgddEHlziMfVQt1Tj5QQzT4cDNUVgg/edit?usp=sharing",
 	scenePrefix: "Project_Jump",
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 6,
 	difficulty: "proficient",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
-	learningOutcome: "/send-it/project_overview.pdf",
+	learningOutcome: "/send-it/files/project-overview-send-it.pdf",
 	cads: {
 		nz: "/send-it/cads/020802AC Curriculum Alignment - Send It - NZ.pdf",
 		aus: "/send-it/cads/020802AC Curriculum Alignment - Send It - ACARA.pdf",
@@ -44,11 +45,11 @@ const SEND_IT_DATA: IProjectReadOnly = {
 	define: {
 		threshold: 60,
 		url: "https://youtu.be/wB53GoLXzME",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/situation.mp4",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/situation.mp4",
 		h1: "Dive into the situation by watching this short video.",
 		h2: "What do you think is happening here? Discuss with your peers!",
-		docs: "https://docs.google.com/document/d/1BiybIT05ANt76b4rw0ArjHVHpN5LXWNxNCjavtnTM3A/edit?usp=sharing",
-		word: "/send-it/files/learning-journal-send-it.docx",
+		docs: "https://docs.google.com/document/d/1RODSWsBmfx-LaCL7lAArenwNX60WvYvs8SCCKIXYis8/edit?usp=sharing",
+		word: "/send-it/files/0209AA Send it Learning Journal.docx",
 	},
 	imagine: {
 		threshold: 600,
@@ -56,31 +57,31 @@ const SEND_IT_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "Vehicular Delivery",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/types-0.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/types-0.png",
 				url: "/send-it/pdf/delivery.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Your Robot has Mail",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/mail-2.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/mail-2.png",
 				url: "/send-it/pdf/mail.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Controlling a Robot",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/controlling-1.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-1.png",
 				url: "/send-it/pdf/controlling.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Sensing Sensors",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/controlling-0.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/controlling-0.png",
 				url: "/send-it/pdf/sensors.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Automation & Ethics",
-				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/thumbnail.png",
+				img: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
 				url: "/send-it/pdf/ethics.pdf",
 			},
 			{
@@ -88,11 +89,11 @@ const SEND_IT_DATA: IProjectReadOnly = {
 				title: "How to Send It",
 				items: [
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/tut-1.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-1.mp4",
 						subtitle: <p>Run 1000m to deliver the Pizza</p>,
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/tut-2.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-2.mp4",
 						subtitle: (
 							<p>
 								Jump over obstacles to avoid crashing into them
@@ -101,7 +102,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						),
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/tut-3.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-3.mp4",
 						subtitle: (
 							<p>
 								Crouch under flying obstacles to avoid crashing into them
@@ -110,7 +111,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						),
 					},
 					{
-						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/vid/tut-4.mp4",
+						src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/vid/tut-4.mp4",
 						subtitle: <p>Change the simulation speed to allow more time for your code to react</p>,
 					},
 				],
@@ -121,40 +122,53 @@ const SEND_IT_DATA: IProjectReadOnly = {
 		{
 			title: "Obstacle avoidance",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/send-it/img/thumbnail.png",
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
 			description:
 				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
 			research: {
 				threshold: 600,
-				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Your learning journal will guide you through completing either the Flow or the JS modules below.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "video",
-						title: "Flow tutorial",
+						title: "Flow: Editor tutorial",
 						data: {
 							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
 							h1: "Flow Tutorial",
 							h2: "Get to know your way around Flow",
 						},
 					},
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
+						title: "Flow: Introduction to blocks",
 						img: "",
 						url: "/intro-to-flow.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Tips & tricks: sensing blocks",
+						title: "Flow: Tips & tricks with sensing blocks",
 						img: "",
-						url: "/sensing-blocks.pdf",
+						url: "/send-it/pdf/sensing-blocks.pdf",
 					},
 					{
+						type: "pdf",
+						title: "JS: Introduction to JavaScript",
+						img: "",
+						url: "/send-it/pdf/intro_to_JS.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Tips & tricks with sensing functions",
+						img: "",
+						url: "/send-it/pdf/sensing_functions.pdf",
+					},
+					// comment out until fixed 
+					/*{
 						type: "explore",
 						title: "Explore more",
 						items: [comparisonBoostData, ifBoostData],
-					},
+					}, */
 				],
 			},
 			plan: {
