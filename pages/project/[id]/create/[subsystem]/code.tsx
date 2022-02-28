@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
+import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 import * as Esprima from "esprima";
 import useMixpanel from "../../../../../hooks/useMixpanel";
@@ -8,7 +8,6 @@ import { TProject } from "../../../../../types/projects";
 import classes from "../../../../../styles/code.module.scss";
 import GlobalSessionContext from "../../../../../store/global-session-context";
 import useApi from "../../../../../hooks/useApi";
-// import Console from "../../../../../components/Project/Code/Console";
 import Unity from "../../../../../components/Project/Code/Unity";
 import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
@@ -27,6 +26,16 @@ String.prototype.insert = function (index: number, string: string) {
 	return this.substring(0, ind) + string + this.substring(ind);
 };
 
+// const sandboxed = (code: string, args = {}) => {
+// 	const frame = document.createElement("iframe");
+// 	document.body.appendChild(frame);
+// 	Hook((frame.contentWindow as any)?.console);
+// 	const F = (frame.contentWindow as any)?.Function;
+// 	Unhook((frame.contentWindow as any)?.console);
+// 	document.body.removeChild(frame);
+// 	return F(...Object.keys(args), "'use strict';" + code)(...Object.values(args));
+// };
+
 let Console: any = () => <></>;
 let Hook: any = () => {};
 let Unhook: any = () => {};
@@ -38,11 +47,13 @@ interface Props {
 }
 
 const Code = ({ data, subsystem, subsystemIndex }: Props) => {
+	const iframeRef = useRef<HTMLIFrameElement>(null);
 	const consoleRef = useRef<HTMLDivElement>(null);
 	const {} = useMixpanel("project_create_code");
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { codeLayout, codeTab } = useContext(CodeContext);
 	const { post } = useApi();
+	const [status, setStatus] = useState("idle");
 	const [logs, setLogs] = useState<any[]>([]);
 	const [unityLoaded, setUnityLoaded] = useState(false);
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
@@ -72,31 +83,47 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	useEffect(() => {
 		(async () => {
 			({ Console, Hook, Unhook } = await import("console-feed"));
+			console.log("imported");
+			Hook((iframeRef.current?.contentWindow as any).console, (log: any) => setLogs((state) => [...state, log]), false);
 		})();
+		const dynRef = iframeRef.current;
+		return () => dynRef?.contentWindow && Unhook((dynRef.contentWindow as any)?.console);
 	}, []);
 
 	const run: Run = async (code) => {
-		Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
+		// Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
 
 		const whileEntry: number[] = [];
 		Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
 			console.log(node);
 			if (node.type === "WhileStatement") {
-				whileEntry.push(node.body.range[0]);
+				whileEntry.push(node.body.body[0].range[0]);
 			}
 		});
 		whileEntry.forEach((pos) => {
-			code = code.insert(pos + 1, `# insert code here`);
+			code = code.insert(pos, `# insert code here \n \t`);
 		});
 
-		console.log(whileEntry);
+		setStatus("running");
+
+		// console.log(whileEntry);
 		console.log(code);
+
+		code = ` try {
+      ${code}
+    } catch(e) {
+      console.error(e)
+    }`;
+
+		(iframeRef.current?.contentWindow as any).Function("sensorData", "unityContext", code)(sensorData, unityContext);
+
 		// console.log(Escodegen.generate(ast));
-		Unhook(window.console);
+		// Unhook(window.console);
 	};
 
 	const stop: Stop = () => {
-		Unhook(window.console);
+		console.log("stopping");
+		setStatus("idle");
 	};
 
 	const restart: Restart = () => {
@@ -109,6 +136,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 
 	return (
 		<div className={classes.page}>
+			<iframe ref={iframeRef} className={classes.iframe} />
 			<div className={`${classes.main} ${classes[`${codeLayout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
 					<Editor run={run} stop={stop} restart={restart} unlink={unlink} />

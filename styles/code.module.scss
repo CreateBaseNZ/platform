@@ -49,6 +49,7 @@
 }
 
 .editor {
+	z-index: 1;
 	grid-area: editor;
 	border-right: thin solid $border-color;
 }
