@@ -41,23 +41,23 @@
 		"sensors": {
 			"NodeSendItSpeedOf": {
 				"name": "obstacleSpeed",
-				"simpleName": "Speed"
+				"simpleName": "speedSensor"
 			},
 			"NodeSendItDistance": {
 				"name": "obstacleDistance.x",
-				"simpleName": "Distance"
+				"simpleName": "distanceSensor"
 			},
 			"NodeSendItElevationOf": {
 				"name": "obstacleDistance.y",
-				"simpleName": "Elevation"
+				"simpleName": "elevationSensor"
 			},
 			"NodeSendItWidthOf": {
 				"name": "obstacleSize.x",
-				"simpleName": "Width"
+				"simpleName": "widthSensor"
 			},
 			"NodeSendItHeightOf": {
 				"name": "obstacleSize.y",
-				"simpleName": "Height"
+				"simpleName": "heightSensor"
 			}
 		},
 		"actions": {
@@ -73,6 +73,36 @@
 			}
 		},
 		"functions": {
+			"SendItDistance": {
+				"simpleLogic": "Distance",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleDistance.x;",
+				"await": false
+			},
+			"SendItSpeed": {
+				"simpleLogic": "Speed",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleSpeed;",
+				"await": false
+			},
+			"SendItHeight": {
+				"simpleLogic": "Height",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleSize.y;",
+				"await": false
+			},
+			"SendItWidth": {
+				"simpleLogic": "Width",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleSize.x;",
+				"await": false
+			},
+			"SendItElevation": {
+				"simpleLogic": "Elevation",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleDistance.y;",
+				"await": false
+			},
 			"NodeStart": {
 				"simpleLogic": "",
 				"inputs": [],
@@ -114,6 +144,30 @@
 				"simpleLogic": "",
 				"inputs": [],
 				"logic": "if(sensorData){\n",
+				"await": false
+			},
+			"HeatSeekerLeftLineSensor": {
+				"simpleLogic": "LeftLineSensor",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).leftLineSensor;",
+				"await": false
+			},
+			"HeatSeekerMiddleLineSensor": {
+				"simpleLogic": "MiddleLineSensor",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).middleLineSensor;",
+				"await": false
+			},
+			"HeatSeekerRightLineSensor": {
+				"simpleLogic": "RightLineSensor",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).rightLineSensor;",
+				"await": false
+			},
+			"HeatSeekerFireDetectionSensor": {
+				"simpleLogic": "FireDetectionSensor",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).fireDetectionSensor;",
 				"await": false
 			},
 			"NodeHeatSeekerLeftWheel": {
@@ -222,7 +276,7 @@
 		"actions": {
 			"NodeAimBotShoot": {
 				"inputs": [],
-				"syntaxSimple": "shoot",
+				"syntaxSimple": "Shoot",
 				"syntax": "unityContext.send(\"Weapon\",\"Shoot\");"
 			}
 		},
@@ -231,6 +285,36 @@
 				"simpleLogic": "",
 				"inputs": [],
 				"logic": "if(sensorData){\n",
+				"await": false
+			},
+			"AimBotYawSensor": {
+				"simpleLogic": "YawAngle",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).yawSensor;",
+				"await": false
+			},
+			"AimBotPitchSensor": {
+				"simpleLogic": "PitchAngle",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).pitchSensor;",
+				"await": false
+			},
+			"AimBotGetMosquitoXPos": {
+				"simpleLogic": "MeasureXPos",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).enemyPosition.x;",
+				"await": false
+			},
+			"AimBotGetMosquitoYPos": {
+				"simpleLogic": "MeasureYPos",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).enemyPosition.y;",
+				"await": false
+			},
+			"AimBotGetMosquitoZPos": {
+				"simpleLogic": "MeasureZPos",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).enemyPosition.z;",
 				"await": false
 			},
 			"NodeAimBotSetYawSpeed": {
@@ -282,20 +366,7 @@
 	{
 		"robot": "hyperloop",
 		"startingCode": "",
-		"sensors": {
-			"NodeHyperloopGetPersonNumber": {
-				"name": "personNumber",
-				"simpleName": "personNumber"
-			},
-			"NodeHyperloopGetPersonBase": {
-				"name": "personBase",
-				"simpleName": "personBase"
-			},
-			"NodeHyperloopGetHyperloopBase": {
-				"name": "hyperloopBase",
-				"simpleName": "hyperloopBase"
-			}
-		},
+		"sensors": {},
 		"actions": {
 			"NodeHyperloopNoAction": {
 				"inputs": [],
@@ -310,10 +381,28 @@
 				"logic": "",
 				"await": false
 			},
+			"HyperloopGetPersonNumber": {
+				"simpleLogic": "PersonNumber",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).personNumber;",
+				"await": false
+			},
+			"HyperloopGetPersonBASE": {
+				"simpleLogic": "PersonBase",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).personBase;",
+				"await": false
+			},
+			"HyperloopGetHyperloopBase": {
+				"simpleLogic": "HyperloopBase",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).hyperloopBase;",
+				"await": false
+			},
 			"NodeAimBotMovePersonToHyperloop": {
 				"simpleLogic": "MovePersonToHyperloop",
-				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
-				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". MovePersonToHyperloop takes input of type number.\") ;\nreturn;}\nunityContext.send(\"People\", \"MovePersonToHyperloop\", a);",
+				"inputs": [{ "variable": "a", "type": "string", "value": "0" }],
+				"logic": "if(typeof(a) != \"string\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". MovePersonToHyperloop takes input of type string.\") ;\nreturn;}\nunityContext.send(\"People\", \"MovePersonToHyperloop\", a);",
 				"await": false
 			},
 			"NodeEnd": {

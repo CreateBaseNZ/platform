@@ -68,6 +68,11 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
+						title: "Binary to hexadecimal",
+						url: "/hyperloop/files/210701AC Research - 1.pdf",
+					},
+					{
+						type: "pdf",
 						title: "How to Hyperloop",
 						url: "/hyperloop/files/210701AD How to Hyperloop.pdf",
 					},
@@ -213,14 +218,14 @@ const HYPERLOOP_DATA: IProjectReadOnly = {
 		alert:
 			"Congratulations! You should now have a good understanding about how to convert between two static number systems. But, what if the number systems that you were converting between weren't always the same?",
 		tasks: [
-			"Each passenger will arrive with a randomised number form a randomised base.",
+			"Each passenger will arrive with a randomised number from a randomised base.",
 			"In addition to passenger number systems changing, the number systems used by the hyperloop capsules will also randomly change each time a new passenger arrives! Absolute chaos!",
 			"Modify your code from subsystem 4 so that it can handle this randomisation.",
 		],
 		hints: [
-			"The robot already has access to three variables: personNumber, personBase and hyperloopBase.",
-			"personBase contains the value of the base of the next passenger.",
-			"hyperloopBase contains the value of the base of the hyperloop capsules.",
+			"The robot already has access to three functions: PersonNumber(), PersonBase() and HyperloopBase().",
+			"PersonBase() returns the value of the base of the next passenger.",
+			"HyperloopBase() returns the value of the base of the hyperloop capsules.",
 			"If your solution for subsystem 4 is robust enough, the only thing that you will need to change is your inputs to MovePersonToHyperloop()",
 		],
 		blockList: [],

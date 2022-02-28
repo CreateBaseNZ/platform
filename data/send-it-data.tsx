@@ -149,7 +149,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						type: "pdf",
 						title: "Flow: Tips & tricks with sensing blocks",
 						img: "",
-						url: "/sensing-blocks.pdf",
+						url: "/send-it/pdf/sensing-blocks.pdf",
 					},
 					{
 						type: "pdf",
