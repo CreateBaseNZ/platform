@@ -115,7 +115,7 @@ export const NodeDelayedRestartInitialize = memo(({ data, isConnectable }) => {
 
 export const NodeTrainingBotPunch = memo(({ data, isConnectable }) => {
 	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`} style={{ height: "3rem" }}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
 			<h4>Punch</h4>
 			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -125,7 +125,7 @@ export const NodeTrainingBotPunch = memo(({ data, isConnectable }) => {
 
 export const NodeTrainingBotTurnLeft = memo(({ data, isConnectable }) => {
 	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`} style={{ height: "3rem" }}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
 			<h4>Turn Left</h4>
 			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -135,7 +135,7 @@ export const NodeTrainingBotTurnLeft = memo(({ data, isConnectable }) => {
 
 export const NodeTrainingBotTurnRight = memo(({ data, isConnectable }) => {
 	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`} style={{ height: "3rem" }}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
 			<h4>Turn Right</h4>
 			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -145,7 +145,7 @@ export const NodeTrainingBotTurnRight = memo(({ data, isConnectable }) => {
 
 export const NodeTrainingBotMoveForward = memo(({ data, isConnectable }) => {
 	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`} style={{ height: "3rem" }}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
 			<h4>Move Forward</h4>
 			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />

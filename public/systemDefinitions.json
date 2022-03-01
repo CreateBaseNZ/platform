@@ -467,37 +467,37 @@
 			},
 			"NodeTrainingBotPunch": {
 				"inputs": [],
-				"syntaxSimple": "punch",
+				"syntaxSimple": "Punch",
 				"syntax": "unityContext.send(\"Robot\",\"Punch\");"
 			},
 			"NodeTrainingBotTurnLeft": {
 				"inputs": [],
-				"syntaxSimple": "turnLeft",
+				"syntaxSimple": "TurnLeft",
 				"syntax": "unityContext.send(\"Robot\",\"TurnLeft\");"
 			},
 			"NodeTrainingBotTurnRight": {
 				"inputs": [],
-				"syntaxSimple": "turnRight",
+				"syntaxSimple": "TurnRight",
 				"syntax": "unityContext.send(\"Robot\",\"TurnRight\");"
 			},
 			"NodeTrainingBotMoveForward": {
 				"inputs": [],
-				"syntaxSimple": "moveForward",
+				"syntaxSimple": "MoveForward",
 				"syntax": "unityContext.send(\"Robot\",\"MoveForward\");"
 			},
 			"NodeTrainingBotPumpTyre": {
 				"inputs": [],
-				"syntaxSimple": "pumpTyre",
+				"syntaxSimple": "PumpTyre",
 				"syntax": "unityContext.send(\"Robot\",\"PumpTyre\");"
 			},
 			"NodeTrainingBotWalk": {
 				"inputs": [],
-				"syntaxSimple": "walk",
+				"syntaxSimple": "Walk",
 				"syntax": "unityContext.send(\"Robot\",\"Walk\");"
 			},
 			"NodeTrainingBotStop": {
 				"inputs": [],
-				"syntaxSimple": "stop",
+				"syntaxSimple": "Stop",
 				"syntax": "unityContext.send(\"Robot\",\"Stop\");"
 			}
 		},
@@ -509,7 +509,7 @@
 				"await": false
 			},
 			"NodeTrainingBotPullLever": {
-				"simpleLogic": "pullLever",
+				"simpleLogic": "PullLever",
 				"inputs": [
 					{
 						"variable": "a",
@@ -521,7 +521,7 @@
 				"await": false
 			},
 			"NodeTrainingBotThrowBalloon": {
-				"simpleLogic": "throwBalloon",
+				"simpleLogic": "ThrowBalloon",
 				"inputs": [
 					{
 						"variable": "a",
@@ -545,7 +545,7 @@
 				"await": false
 			},
 			"NodeTrainingBotAdd": {
-				"simpleLogic": "add",
+				"simpleLogic": "Add",
 				"inputs": [
 					{
 						"variable": "a",
@@ -562,7 +562,7 @@
 				"await": false
 			},
 			"NodeTrainingBotSub": {
-				"simpleLogic": "sub",
+				"simpleLogic": "Subtract",
 				"inputs": [
 					{
 						"variable": "a",
@@ -579,7 +579,7 @@
 				"await": false
 			},
 			"NodeTrainingBotMul": {
-				"simpleLogic": "mul",
+				"simpleLogic": "Multiply",
 				"inputs": [
 					{
 						"variable": "a",
@@ -596,7 +596,7 @@
 				"await": false
 			},
 			"NodeTrainingBotDiv": {
-				"simpleLogic": "div",
+				"simpleLogic": "Divide",
 				"inputs": [
 					{
 						"variable": "a",
