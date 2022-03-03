@@ -35,7 +35,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 	wip: true,
 	query: "flow-training-camp",
 	caption:
-		"In this Project, learners will create an algorithm to guide a line-following robot to a series of fires within a warehouse, putting them out safely before they spread to nearby hydrogen fuel cells! Learners will not only create their own control-algorithm, but will also learn about some of the basics of fire safety, warehouse automation, and the advantage that robots have over humans when operating in hazardous situations.",
+		"Learn the fundamentals of programming using the Flow visual language. Flow is synonymous with creating flow charts, so you can focus on learning programming logic without having to memorize arbitrary syntax! In this Project, you will be programming an assistant robot in a testing facility to complete a variety of unusual tasks.",
 	stacked: true,
 	scenePrefix: "Project_TrainingCamp",
 	runType: "loop",
@@ -58,8 +58,8 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		threshold: 60,
 		url: "https://www.youtube.com/watch?v=qsRFNAa3iaY",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-training-camp/vid/training-camp-situation.m4v",
-		h1: "An overloaded electrical circuit has resulted in a wooden pallet catching fire inside a warehouse! Explosive hydrogen fuel cells are located inside, posing a danger to any firefighters who would enter the warehouse.",
-		h2: "Sending human fire-fighters into the warehouse would be extremely dangerous as there is a risk that an explosion could occur at any time. Luckily, this warehouse utilizes line-following robots to move items around. Maybe we could program one of them to find and put out the fires safely...",
+		h1: "Welcome to CreateBase headquarters! In this testing facility, humanoid robots are built and programmed for the purpose of assisting humans to perform everyday tasks.",
+		h2: "As a testing officer, your job is assess the capabilities of the latest robot design. You will do this by creating programs that will enable the robot to progress through a series of increasingly difficult tests. If successful, your robot will be approved for release into the world!",
 		docs: "",
 		word: "/flow-training-camp/files/learning-journal-flow-training-camp.docx",
 	},
@@ -68,19 +68,19 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		modules: [
 			{
 				type: "pdf",
+				title: "Routines and automation",
+				img: "",
+				url: "",
+			},
+			{
+				type: "pdf",
 				title: "Our problem",
 				img: "",
 				url: "",
 			},
 			{
 				type: "pdf",
-				title: "Our solution",
-				img: "",
-				url: "",
-			},
-			{
-				type: "pdf",
-				title: "Your approach",
+				title: "Your solution",
 				img: "",
 				url: "",
 			},
@@ -91,9 +91,9 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			title: "The Maze",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/1.png",
-			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
+			description: "In this first subsystem, we will learn how to sequence code to enable our robot to navigate through a fixed maze.",
 			research: {
-				threshold: 300,
+				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
@@ -108,30 +108,24 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					},
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem1.pdf",
-					},
-					{
-						type: "pdf",
 						title: "Action blocks",
-						url: "/heat-seeker/pdf/Iter_0.pdf",
+						url: "/flow-training-camp/pdf/action-blocks.pdf",
 					},
 				],
 			},
 			plan: {
-				threshold: 60,
+				threshold: 30,
 				list: [
-					"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
-					"In the first step, our aim is to understand how we could move the robot through different paths by adjusting the speed of the wheels.",
-					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem2 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 1. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
 				threshold: 120,
-				tasks: ["Write some code so that your robot can drive forward, following a straight line accross the map."],
+				tasks: ["Test the robot's ability to perform actions by writing some code to navigate through a maze."],
 				hints: [
-					"You need to use the action blocks to adjust the speed of the wheels to get it done.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
+					"You need to use a sequence of action blocks.",
+					"Rather than trying to complete the entire task in one go, slowly build up your answer step by step.",
+					"Before you leave the simulation, click the save button in the bottom left menu so that you can continue writing your code where you left off when you return!",
 				],
 			},
 			blockList: [
