@@ -349,7 +349,7 @@ export const tooltips = {
 	NodeTrainingBotSub:[<FloatType />, <FloatType />, "Outputs the difference of the two inputs"],
 	NodeTrainingBotMul:[<FloatType />, <FloatType />, "Outputs the product of the two inputs"],
 	NodeTrainingBotDiv:[<FloatType />, <FloatType />, "Outputs the quotient of the two inputs"],
-	NodeTrainingBotThrowBalloon: [<ExecutionType />, <FloatType />, <ExecutionType />, "Throw the balloon a specified distance"],
+	NodeTrainingBotThrowBalloon: [<><ExecutionType /> <FloatType /></>, <ExecutionType />, "Throw the balloon a specified distance"],
 	NodeRestartInitialize: [<ExecutionType />, <ExecutionType />, "Initialize the robot"],
 	NodeDelayedRestartInitialize:  [<ExecutionType />, <ExecutionType />, "Initialize the robot"]
 };

@@ -54,11 +54,11 @@ export const NodeTrainingBotSub = memo(({ id, data, isConnectable }) => {
 });
 
 export const NodeTrainingBotMul = memo(({ id, data, isConnectable }) => {
-	return <NodeOperations id={id} label="*" data={data} isConnectable={isConnectable} />;
+	return <NodeOperations id={id} label="&times;" data={data} isConnectable={isConnectable} />;
 });
 
 export const NodeTrainingBotDiv = memo(({ id, data, isConnectable }) => {
-	return <NodeOperations id={id} label="/" data={data} isConnectable={isConnectable} />;
+	return <NodeOperations id={id} label="&divide;" data={data} isConnectable={isConnectable} />;
 });
 
 export const NodeTrainingBotGetBananaGreen = memo(({ data, isConnectable }) => {
@@ -90,7 +90,7 @@ export const NodeTrainingBotPullLever = memo(({ id, data, isConnectable }) => {
 });
 
 export const NodeTrainingBotThrowBalloon = memo(({ id, data, isConnectable }) => {
-	return <NodeTrainingBotFloatAction data={data} id={id} label="Throw Balloon" isConnectable={isConnectable} />;
+	return <NodeTrainingBotFloatAction label="Throw Balloon" selectName="throwBalloon" dataName="entity" isConnectable={isConnectable} />;
 });
 
 export const NodeRestartInitialize = memo(({ data, isConnectable }) => {
