@@ -55,7 +55,9 @@ export const getDefaultValues = (type) => {
 		type === "NodeTrainingBotAdd" ||
 		type === "NodeTrainingBotSub" ||
 		type === "NodeTrainingBotMul" ||
-		type === "NodeTrainingBotDiv"
+		type === "NodeTrainingBotDiv" ||
+		type === "NodeTrue" ||
+		type === "NodeFalse"
 	) {
 		return { a: 0, b: 0 };
 	}
@@ -129,9 +131,9 @@ export const nodeTypeHandles = {
 	NodeWhile: ["execution__in", "boolean__in__condition", "execution__out__0", "execution__out__1"],
 	NodePrint: ["execution__in", "float__in__a", "execution__out"],
 	NodeDelay: ["execution__in", "float__in__a", "execution__out"],
-	NodeTrue: sensingHandles,
-	NodeFalse: sensingHandles,
-
+	NodeTrue: comparisonHandles,
+	NodeFalse: comparisonHandles,
+	
 	NodeMagnebotMoveArm: ["execution__in", "float__in__x", "float__in__y", "float__in__z", "execution__out"],
 	NodeMagnebotSwitch: actionHandles,
 

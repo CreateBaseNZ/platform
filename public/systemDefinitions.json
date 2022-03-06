@@ -435,7 +435,7 @@
 	},
 	{
 		"robot": "trainingbot",
-		"startingCode": "",
+		"startingCode": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 500);\n})\n};\nawait reset()\n",
 		"sensors": {
 			"NodeTrainingBotGetBananaGreen": {
 				"name": "greenBananaSensor",
@@ -532,18 +532,6 @@
 				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a);\nunityContext.send(\"Robot\", \"ThrowBalloon\", a);",
 				"await": false
 			},
-			"NodeTrue": {
-				"simpleLogic": "true",
-				"inputs": [],
-				"logic": "return true;" ,
-				"await": false
-			},
-			"NodeFalse": {
-				"simpleLogic": "false",
-				"inputs": [],
-				"logic": "return false;" ,
-				"await": false
-			},
 			"NodeTrainingBotAdd": {
 				"simpleLogic": "Add",
 				"inputs": [
@@ -632,7 +620,9 @@
 			"NodeNotEquals": "!=",
 			"NodeAnd": "&&",
 			"NodeOr": "||",
-			"NodePower": "^^"
+			"NodePower": "^^",
+			"NodeTrue": "true",
+			"NodeFalse" : "false"
 		},
 		"general": [
 			"NodeIf",

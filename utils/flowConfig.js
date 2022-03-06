@@ -1,7 +1,7 @@
 import { NodeStart } from "../components/Nodes/NodeGeneral";
 import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeAbsolute, NodeArcTan, NodePI, NodeSqrt, NodeClamp, NodeGeneralOperator } from "../components/Nodes/NodeOperations";
-import { NodeGreaterThan, NodeLessThan, NodeEquals, NodeNotEquals } from "../components/Nodes/NodeComparisons";
-import { NodeAnd, NodeOr, NodeNot } from "../components/Nodes/NodeLogicals";
+import { NodeGreaterThan, NodeLessThan, NodeEquals, NodeNotEquals, NodeTrue, NodeFalse } from "../components/Nodes/NodeComparisons";
+import { NodeAnd, NodeOr, NodeNot} from "../components/Nodes/NodeLogicals";
 import { NodeIf, NodeRepeat, NodeWhile } from "../components/Nodes/NodeConditionals";
 import { NodePrint, NodeDelay} from "../components/Nodes/NodeUtils";
 import { NodeMagnebotMoveArm, NodeMagnebotSwitch } from "../components/Nodes/NodeMagneBot";
@@ -56,9 +56,7 @@ import {
 	NodeTrainingBotDiv,
 	NodeTrainingBotThrowBalloon,
 	NodeRestartInitialize,
-	NodeDelayedRestartInitialize,
-	NodeTrue,
-	NodeFalse
+	NodeDelayedRestartInitialize
 } from "../components/Nodes/NodeTrainingCamp";
 
 import { ExecutionEdge, BooleanEdge, FloatEdge } from "../components/Nodes/Edges";

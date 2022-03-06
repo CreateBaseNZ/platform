@@ -3,6 +3,7 @@ import { NodeMini, InputWithHandle } from "./NodeGeneral";
 import CustomHandle from "./Handles";
 import {NodeSensing, NodeSensingBool} from "./NodeSensing";
 import {NodeOperations, NodeOperationsMini} from "./NodeOperations";
+import {NodeComparisons, NodeComparisonsMini} from "./NodeComparisons";
 
 import classes from "./Nodes.module.scss";
 
@@ -75,14 +76,6 @@ export const NodeTrainingBotGetBananaBrown = memo(({ data, isConnectable }) => {
 
 export const NodeTrainingBotGetTrafficLight = memo(({ data, isConnectable }) => {
 	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Traffic Light" style={{ width: "12rem", height: "2rem" }} />;
-});
-
-export const NodeTrue = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="True" style={{ width: "10rem", height: "2rem" }} />;
-});
-
-export const NodeFalse = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="False" style={{ width: "10rem", height: "2rem" }} />;
 });
 
 export const NodeTrainingBotPullLever = memo(({ id, data, isConnectable }) => {
@@ -232,22 +225,6 @@ export const NodeTrainingBotGetTrafficLightMini = memo(() => {
 	return (
 		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetTrafficLight" node={<NodeTrainingBotGetTrafficLight />} style={{ border: "outset #00ffee" }}>
 			<h4>Get Traffic Light</h4>
-		</NodeMini>
-	);
-});
-
-export const NodeTrueMini = memo(() => {
-	return (
-		<NodeMini className={classes.sensing} nodeType="NodeTrue" node={<NodeTrue />} style={{ border: "outset #00ffee" }}>
-			<h4>True</h4>
-		</NodeMini>
-	);
-});
-
-export const NodeFalseMini = memo(() => {
-	return (
-		<NodeMini className={classes.sensing} nodeType="NodeFalse" node={<NodeFalse />} style={{ border: "outset #00ffee" }}>
-			<h4>False</h4>
 		</NodeMini>
 	);
 });

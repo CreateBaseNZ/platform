@@ -1,4 +1,4 @@
-import { NodeEqualsMini, NodeGreaterThanMini, NodeLessThanMini, NodeNotEqualsMini } from "../components/Nodes/NodeComparisons";
+import { NodeEqualsMini, NodeGreaterThanMini, NodeLessThanMini, NodeNotEqualsMini, NodeTrueMini, NodeFalseMini} from "../components/Nodes/NodeComparisons";
 import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "../components/Nodes/NodeConditionals";
 import {
 	NodeTrainingBotGetBananaGreenMini,
@@ -20,11 +20,9 @@ import {
 	NodeTrainingBotThrowBalloonMini,
 	NodeRestartInitializeMini,
 	NodeDelayedRestartInitializeMini,
-	NodeTrueMini,
-	NodeFalseMini
 } from "../components/Nodes/NodeTrainingCamp";
 import { NodePrintMini } from "../components/Nodes/NodeUtils";
-import { NodeAndMini, NodeNotMini, NodeOrMini } from "../components/Nodes/NodeLogicals";
+import { NodeAndMini, NodeNotMini, NodeOrMini} from "../components/Nodes/NodeLogicals";
 import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
 import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
@@ -130,55 +128,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			},
 			blockList: [
 				{ name: "Actions", blocks: [<NodeTrainingBotMoveForwardMini />, <NodeTrainingBotTurnLeftMini />, <NodeTrainingBotTurnRightMini />, <NodeTrainingBotPunchMini />] },
-				{ name: "Utilities", blocks: [<NodePrintMini />, <NodeDelayedRestartInitializeMini />] }
-			],
-		},
-		{
-			title: "Balloon Throwing",
-			requirements: ["Speed control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/2.PNG",
-			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
-			research: {
-				threshold: 120,
-				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
-				modules: [
-					{
-						type: "pdf",
-						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem2.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Sensing blocks",
-						url: "/heat-seeker/pdf/Iter_1.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [comparisonBoostData, ifBoostData],
-					},
-				],
-			},
-			plan: {
-				threshold: 300,
-				list: [
-					"Think back to when you were manually controlling the robot... What information were you using to decide which action to perform?",
-					"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
-					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-				],
-			},
-			code: {
-				threshold: 300,
-				tasks: ["Upgrade your code so that your robot can follow the line using the sensors."],
-				hints: [
-					"You will need to use a sensor to detect the line and adjust the speed of the wheels.",
-					"Your robot only has a limited amount of water, so make sure that you turn the hose off after you put out each fire.",
-				],
-			},
-			blockList: [
-				{ name: "Actions", blocks: [<NodeTrainingBotThrowBalloonMini />] },
-				{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] },
+				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
 		{
@@ -216,9 +166,9 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			blockList: [
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetBananaGreenMini />, <NodeTrainingBotGetBananaYellowMini />, <NodeTrainingBotGetBananaBrownMini />] },
 				{ name: "Actions", blocks: [<NodeTrainingBotPullLeverMini />] },
-				{ name: "Conditionals", blocks: [<NodeWhileMini />, <NodeEqualsMini />] },
-				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
-				{ name: "Utilities", blocks: [<NodePrintMini />, <NodeRestartInitializeMini />] }
+				{ name: "Conditionals", blocks: [<NodeWhileMini />, <NodeEqualsMini />, <NodeTrueMini />] },
+				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />, ] },
+				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
 		{
@@ -266,7 +216,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			blockList: [
 				{ name: "Actions", blocks: [<NodeTrainingBotPumpTyreMini />] },
 				{ name: "Conditionals", blocks: [<NodeRepeatMini />] },
-				{ name: "Utilities", blocks: [<NodePrintMini />, <NodeDelayedRestartInitializeMini />] }
+				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
 		{
@@ -307,7 +257,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				{ name: "Actions", blocks: [<NodeTrainingBotWalkMini />, <NodeTrainingBotStopMini />], },
 				{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeEqualsMini />], },
 				{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />, <NodeTrueMini />], },
-				{ name: "Utilities", blocks: [<NodePrintMini />, <NodeDelayedRestartInitializeMini />] }
+				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
 	],

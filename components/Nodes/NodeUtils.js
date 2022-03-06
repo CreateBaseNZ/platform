@@ -29,22 +29,6 @@ export const NodeDelay = memo(({ id, data = { values: { a: 1 }, connections: [] 
 	);
 });
 
-const NodeBoolean = ({ data = { connections: [] }, isConnectable, label }) => {
-	return (
-		<div className={`${classes.node} ${classes.utils} ${classes.hasRightHandle} ${classes.nodeBoolean}`}>
-			<h4>{label}</h4>
-			<CustomHandle type="source" position="right" id="boolean__out" isConnectable={isConnectable} connections={data.connections} />
-		</div>
-	);
-};
-
-export const NodeTrue = memo(({ data, isConnectable }) => {
-	return <NodeBoolean data={data} isConnectable={isConnectable} label="TRUE" />;
-});
-export const NodeFalse = memo(({ data, isConnectable }) => {
-	return <NodeBoolean data={data} isConnectable={isConnectable} label="FALSE" />;
-});
-
 const NodeUtilsMini = (props) => {
 	return (
 		<NodeMini {...props} className={classes.utils}>
@@ -60,12 +44,4 @@ export const NodePrintMini = memo(() => {
 
 export const NodeDelayMini = memo(() => {
 	return <NodeUtilsMini label="Delay" nodeType="NodeDelay" node={<NodeDelay />} />;
-});
-
-export const NodeTrueMini = memo(() => {
-	return <NodeUtilsMini label="True" nodeType="NodeTrue" node={<NodePrint />} />;
-});
-
-export const NodeFalseMini = memo(() => {
-	return <NodeUtilsMini label="False" nodeType="NodeFalse" node={<NodeDelay />} />;
 });
