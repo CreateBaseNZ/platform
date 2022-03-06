@@ -7,15 +7,15 @@ import axios from "axios";
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
 	let data1;
 	try {
 		data1 = (
-			await axios.post(process.env.ROUTE_URL + "/group/retrieve-by-code", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/group/retrieve-by-code", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: { role: "school-student", code: input.code, option: { license: [] } },
 			})
 		)["data"];
@@ -35,8 +35,8 @@ export default async function (req, res) {
 	let data2;
 	try {
 		data2 = (
-			await axios.post(process.env.ROUTE_URL + "/profile/retrieve", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/profile/retrieve", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: { query: { _id: input.profileId }, option: {} },
 			})
 		)["data"];
@@ -60,8 +60,8 @@ export default async function (req, res) {
 	let data3;
 	try {
 		data3 = (
-			await axios.post(process.env.ROUTE_URL + "/group/add-member", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/group/add-member", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: {
 					group: group._id,
 					profile: profile._id,

@@ -12,7 +12,7 @@ const DUMMY_OUTPUT = {};
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
@@ -28,8 +28,8 @@ export default async function (req, res) {
 	let data;
 	try {
 		data = (
-			await axios.post(process.env.ROUTE_URL + "/group/accept-member", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/group/accept-member", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: { query: { group: { _id: input.groupId }, license: { _id: input.licenseId } }, date: input.date },
 			})
 		)["data"];
@@ -57,8 +57,8 @@ async function checkPrivileges(licenseIds, groupId) {
 
 async function checkGroupPrivileges(licenseIds, groupId) {
 	// Check if all the licenses are active members of the group
-	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
-	const url = process.env.ROUTE_URL + "/group/check-privileges";
+	const keys = { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE };
+	const url = process.env.PREFIX_BACKEND + "/group/check-privileges";
 	const input = { query: { group: { _id: groupId }, license: { _id: licenseIds } }, licenseIds };
 	// Send request to the backend
 	let data;

@@ -23,8 +23,8 @@ export default NextAuth({
 			if (account.provider === "google") {
 				if (!profile.email_verified) return false;
 				// Construct the input object
-				const url = process.env.ROUTE_URL + "/login/google-auth";
-				const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
+				const url = process.env.PREFIX_BACKEND + "/login/google-auth";
+				const keys = { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE };
 				const input = { id: user.id, email: user.email, name: { first: profile.given_name, last: profile.family_name } };
 				let result;
 				try {
@@ -51,15 +51,15 @@ export default NextAuth({
 	providers: [
 		CredentialsProvider({
 			async authorize(credentials) {
-				// Validate PUBLIC_API_KEY
-				if (credentials.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+				// Validate API_KEY_PUBLIC
+				if (credentials.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 					throw new Error(JSON.stringify({ status: "critical error" }));
 				}
 				const input = { email: credentials.user, password: credentials.password };
 				// Perform authentication based on the type
 				let data;
 				try {
-					data = (await axios.post(process.env.ROUTE_URL + "/login", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+					data = (await axios.post(process.env.PREFIX_BACKEND + "/login", { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE, input }))["data"];
 				} catch (error) {
 					return res.send({ status: "error", content: error });
 				}
@@ -96,7 +96,7 @@ function sendEmail({ accountId, email }) {
 		// Send the processing request
 		let data;
 		try {
-			data = (await axios.post(process.env.ROUTE_URL + "/mail/send-email", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+			data = (await axios.post(process.env.PREFIX_BACKEND + "/mail/send-email", { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE, input }))["data"];
 		} catch (error) {
 			data = { status: "error", content: error };
 		}

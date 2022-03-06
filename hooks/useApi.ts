@@ -9,7 +9,7 @@ export interface APIRes {
 const useApi = () => {
 	const reportError = async (type = "", route = "", message = "", metadata = {}) => {
 		axios.post("/api/error", {
-			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+			API_KEY_PUBLIC: process.env.NEXT_PUBLIC_API_KEY,
 			input: { type: type, route: route, date: new Date().toString(), message: message, metadata: metadata },
 		});
 	};
@@ -17,7 +17,7 @@ const useApi = () => {
 	const post = async (route = "", input = {}, successHandler: (data: any) => void = () => {}, failHandler: (data: any) => void = () => {}) => {
 		let data: APIRes = {};
 		try {
-			data = (await axios.post(route, { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"] as APIRes; // TODO
+			data = (await axios.post(route, { API_KEY_PUBLIC: process.env.NEXT_PUBLIC_API_KEY, input: input }))["data"] as APIRes; // TODO
 		} catch (error) {
 			data.status = "error";
 		} finally {
