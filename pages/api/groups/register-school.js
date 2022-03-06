@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
@@ -16,8 +16,8 @@ export default async function (req, res) {
 	let data1;
 	try {
 		data1 = (
-			await axios.post(process.env.ROUTE_URL + "/group/school/register", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/group/school/register", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: {
 					name: input.name,
 					location: {
@@ -38,8 +38,8 @@ export default async function (req, res) {
 	let data2;
 	try {
 		data2 = (
-			await axios.post(process.env.ROUTE_URL + "/group/add-member", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/group/add-member", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: {
 					group: group._id,
 					profile: input.profileId,
@@ -93,7 +93,7 @@ function updateAlias(license, alias, date) {
 		// Send the processing request
 		let data;
 		try {
-			data = (await axios.post(process.env.ROUTE_URL + "/license/update", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+			data = (await axios.post(process.env.PREFIX_BACKEND + "/license/update", { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE, input }))["data"];
 		} catch (error) {
 			data = { status: "error", content: error };
 		}
@@ -122,7 +122,7 @@ function notifyTeam(profile, group) {
 		// Send the processing request
 		let data;
 		try {
-			data = (await axios.post(process.env.ROUTE_URL + "/mail/send-email", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+			data = (await axios.post(process.env.PREFIX_BACKEND + "/mail/send-email", { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE, input }))["data"];
 		} catch (error) {
 			data = { status: "error", content: error };
 		}

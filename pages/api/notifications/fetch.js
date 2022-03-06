@@ -9,7 +9,7 @@ import randomize from "randomatic";
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
@@ -21,8 +21,8 @@ export default async function (req, res) {
 	let data1;
 	try {
 		data1 = (
-			await axios.post(process.env.ROUTE_URL + "/group/retrieve", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/group/retrieve", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: { query: { _id: groupIds }, option: { class: [] } },
 			})
 		)["data"];
@@ -54,8 +54,8 @@ export default async function (req, res) {
 	let data2;
 	try {
 		data2 = (
-			await axios.post(process.env.ROUTE_URL + "/license/retrieve", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/license/retrieve", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: { query: { _id: licenseIds }, option: { profile: [], account: [] } },
 			})
 		)["data"];

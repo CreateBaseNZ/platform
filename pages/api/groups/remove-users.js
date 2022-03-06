@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
@@ -27,8 +27,8 @@ export default async function (req, res) {
 		let data1;
 		try {
 			data1 = (
-				await axios.post(process.env.ROUTE_URL + "/license/retrieve", {
-					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				await axios.post(process.env.PREFIX_BACKEND + "/license/retrieve", {
+					API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 					input: { query: { _id: licenseId }, option: { profile: [] } },
 				})
 			)["data"];
@@ -49,8 +49,8 @@ export default async function (req, res) {
 		let data2;
 		try {
 			data2 = (
-				await axios.post(process.env.ROUTE_URL + "/profile/update", {
-					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				await axios.post(process.env.PREFIX_BACKEND + "/profile/update", {
+					API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 					input: {
 						query: { _id: data1.content[0].profile._id },
 						updates: [{ type: "saves", update: { recentGroups: data1.content[0].profile.saves.recentGroups } }],
@@ -66,8 +66,8 @@ export default async function (req, res) {
 		let data3;
 		try {
 			data3 = (
-				await axios.post(process.env.ROUTE_URL + "/group/remove-member", {
-					PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+				await axios.post(process.env.PREFIX_BACKEND + "/group/remove-member", {
+					API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 					input: {
 						query: { group: { _id: input.groupId }, license: { _id: licenseId, group: input.groupId } },
 						date: input.date,
@@ -99,8 +99,8 @@ async function checkPrivileges(licenseIds, groupId, role) {
 
 async function checkGroupPrivileges(licenseIds, groupId, role) {
 	// Check if all the licenses are active members of the group
-	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
-	const url = process.env.ROUTE_URL + "/group/check-privileges";
+	const keys = { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE };
+	const url = process.env.PREFIX_BACKEND + "/group/check-privileges";
 	const input = { query: { group: { _id: groupId }, license: { _id: licenseIds } }, licenseIds };
 	// Send request to the backend
 	let data;

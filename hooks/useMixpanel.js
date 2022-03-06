@@ -21,12 +21,12 @@ const useMixpanel = () => {
 		return new Promise(async (resolve, reject) => {
 			let data;
 			try {
-				data = (await axios.post("/api/tracking/retrieve", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: filters }))["data"];
+				data = (await axios.post("/api/tracking/retrieve", { API_KEY_PUBLIC: process.env.NEXT_PUBLIC_API_KEY, input: filters }))["data"];
 			} catch (error) {
 				return reject({ status: "error", content: error });
 			}
 			// try {
-			// 	data = (await axios.post("/api/tracking", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: { filters } }))["data"];
+			// 	data = (await axios.post("/api/tracking", { API_KEY_PUBLIC: process.env.NEXT_PUBLIC_API_KEY, input: { filters } }))["data"];
 			// } catch (error) {
 			// 	return reject({ status: "error", content: error });
 			// }
@@ -59,7 +59,7 @@ const useMixpanel = () => {
 			subsystem: payload.subsystem,
 		};
 		// mixpanel.track(event, { ...payload });
-		axios.post("/api/tracking/create", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: data });
+		axios.post("/api/tracking/create", { API_KEY_PUBLIC: process.env.NEXT_PUBLIC_API_KEY, input: data });
 	};
 
 	// note: MUST run clearSession in the return of useEffect

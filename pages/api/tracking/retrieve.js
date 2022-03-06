@@ -6,12 +6,12 @@ import axios from "axios";
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
-	const url = process.env.ROUTE_API_URL + "/tracking/retrieve";
-	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
+	const url = process.env.PREFIX_API + "/tracking/retrieve";
+	const keys = { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE };
 	// Integration Logic
 	let data;
 	try {

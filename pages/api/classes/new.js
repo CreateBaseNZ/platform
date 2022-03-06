@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
@@ -17,8 +17,8 @@ export default async function (req, res) {
 	let data1;
 	try {
 		data1 = (
-			await axios.post(process.env.ROUTE_URL + "/class/create", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/class/create", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: {
 					group: input.groupId,
 					name: input.name,
@@ -41,8 +41,8 @@ export default async function (req, res) {
 	let data2;
 	try {
 		data2 = (
-			await axios.post(process.env.ROUTE_URL + "/class/add-member", {
-				PRIVATE_API_KEY: process.env.PRIVATE_API_KEY,
+			await axios.post(process.env.PREFIX_BACKEND + "/class/add-member", {
+				API_KEY_PRIVATE: process.env.API_KEY_PRIVATE,
 				input: {
 					class: data1.content.class._id,
 					license: input.licenseId,

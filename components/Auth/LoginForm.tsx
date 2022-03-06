@@ -54,7 +54,7 @@ export const LoginForm = (): JSX.Element => {
 		await signIn("credentials", {
 			user: input.email,
 			password: input.password,
-			PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+			API_KEY_PUBLIC: process.env.NEXT_PUBLIC_API_KEY,
 			callbackUrl: router.query.callbackUrl as string | undefined,
 		});
 	};

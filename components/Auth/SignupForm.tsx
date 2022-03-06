@@ -64,7 +64,7 @@ const SignupForm = (): JSX.Element => {
 					redirect: false,
 					user: input.email,
 					password: input.password,
-					PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+					API_KEY_PUBLIC: process.env.NEXT_PUBLIC_API_KEY,
 				}),
 					router.push({ pathname: "/auth/verify", query: router.query });
 			},
