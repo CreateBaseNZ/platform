@@ -72,13 +72,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			},
 			{
 				type: "pdf",
-				title: "Our problem",
-				img: "",
-				url: "",
-			},
-			{
-				type: "pdf",
-				title: "Your solution",
+				title: "Your mission",
 				img: "",
 				url: "",
 			},
@@ -89,7 +83,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			title: "The Maze",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/1.png",
-			description: "In this first subsystem, we will learn how to sequence code to enable our robot to navigate through a fixed maze.",
+			description: "We will start by learning what action blocks are and how we can sequence them together to enable our robot to navigate through a fixed maze.",
 			research: {
 				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -131,9 +125,57 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
+ 		/* {
+			title: "Balloon Throwing",
+			requirements: ["Speed control"],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/2.PNG",
+			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
+			research: {
+				threshold: 120,
+				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				modules: [
+					{
+						type: "pdf",
+						title: "Introduction to Flow blocks",
+						url: "/heat-seeker/pdf/Subproblem2.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Sensing blocks",
+						url: "/heat-seeker/pdf/Iter_1.pdf",
+					},
+					{
+						type: "explore",
+						title: "Explore more",
+						items: [comparisonBoostData, ifBoostData],
+					},
+				],
+			},
+			plan: {
+				threshold: 300,
+				list: [
+					"Think back to when you were manually controlling the robot... What information were you using to decide which action to perform?",
+					"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
+					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
+			code: {
+				threshold: 300,
+				tasks: ["Upgrade your code so that your robot can follow the line using the sensors."],
+				hints: [
+					"You will need to use a sensor to detect the line and adjust the speed of the wheels.",
+					"Your robot only has a limited amount of water, so make sure that you turn the hose off after you put out each fire.",
+				],
+			},
+			blockList: [
+				{ name: "Actions", blocks: [<NodeTrainingBotThrowBalloonMini />] },
+				{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
+				{ name: "Utilities", blocks: [<NodePrintMini />] },
+			],
+		},  */
 		{
 			title: "Banana Sorting",
-			requirements: ["Speed control"],
+			requirements: ["The Maze"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/3.png",
 			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
 			research: {

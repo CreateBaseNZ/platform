@@ -148,7 +148,7 @@ export const NodeTrainingBotMoveForward = memo(({ data, isConnectable }) => {
 
 export const NodeTrainingBotPumpTyre = memo(({ data, isConnectable }) => {
 	return (
-		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`}>
+		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle}`} style={{ height: "3rem" }}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
 			<h4>Pump Tyre</h4>
 			<CustomHandle type="source" position="right" id="execution__out" isConnectable={isConnectable} connections={data ? data.connections : []} />
