@@ -468,8 +468,9 @@ export const defineObject = (projectName) => {
 		case "magnebot": return "Arm";
 		case "heat-seeker": return "Car";
 		case "aimbot": return "aimbot";
-		case "hyperloop": return "hyperloop"
-		case "hydroponics": return "hydroponics"
+		case "hyperloop": return "hyperloop";
+		case "hydroponics": return "hydroponics";
+		case: "flow-training-camp": return "trainingbot";
 	}
 	return "";
 };
