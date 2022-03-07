@@ -98,7 +98,7 @@ export class CodeGenerator {
 	}
 
 	private checkSign(varName: string) {
-		const possibility = ["+", "-", "*", "/", "**", "%", "<", ">", ">=", "<=", "==", "!=", ">=", "||", "&&"];
+		const possibility = ["+", "-", "*", "/", "**", "%", "<", ">", ">=", "<=", "==", "!=", ">=", "||", "&&", "true", "false"];
 		for (let i = 0; i < possibility.length; i++) {
 			const data = possibility[i];
 			if (varName === data) {
@@ -249,7 +249,15 @@ export class CodeGenerator {
 					return [false, "error", "Something Went Wrong"];
 				}
 			}
-			inputs += val;
+			if(val == "true"){
+				inputs += "==";
+			}
+			else if(val == "false"){
+				inputs += "!=";
+			}
+			else{
+				inputs += val;
+			}
 		}
 		let output: any;
 		output = "";
@@ -577,6 +585,7 @@ export class CodeGenerator {
 		this.run();
 		const runCode = this.intialiseVar() + this.content + this.execute;
 		const simple = this.intialiseVar() + this.simpleContent + this.simpleExecute;
+		console.log(simple);
 		return [runCode, null, null, simple];
 	}
 }

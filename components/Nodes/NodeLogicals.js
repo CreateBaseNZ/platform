@@ -1,7 +1,7 @@
 import { memo } from "react";
 import CustomHandle from "./Handles";
 import { NodeMini } from "./NodeGeneral";
-
+import { InputWithHandle } from "./NodeGeneral";
 import classes from "./Nodes.module.scss";
 
 const NodeLogicals = ({ label, data, className = "", isConnectable }) => {

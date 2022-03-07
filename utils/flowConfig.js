@@ -1,9 +1,9 @@
 import { NodeStart } from "../components/Nodes/NodeGeneral";
 import { NodeAdd, NodeSubtract, NodeMultiply, NodeDivide, NodeAbsolute, NodeArcTan, NodePI, NodeSqrt, NodeClamp, NodeGeneralOperator } from "../components/Nodes/NodeOperations";
-import { NodeGreaterThan, NodeLessThan, NodeEquals, NodeNotEquals } from "../components/Nodes/NodeComparisons";
-import { NodeAnd, NodeOr, NodeNot } from "../components/Nodes/NodeLogicals";
+import { NodeGreaterThan, NodeLessThan, NodeEquals, NodeNotEquals, NodeTrue, NodeFalse } from "../components/Nodes/NodeComparisons";
+import { NodeAnd, NodeOr, NodeNot} from "../components/Nodes/NodeLogicals";
 import { NodeIf, NodeRepeat, NodeWhile } from "../components/Nodes/NodeConditionals";
-import { NodePrint, NodeDelay, NodeTrue, NodeFalse } from "../components/Nodes/NodeUtils";
+import { NodePrint, NodeDelay} from "../components/Nodes/NodeUtils";
 import { NodeMagnebotMoveArm, NodeMagnebotSwitch } from "../components/Nodes/NodeMagneBot";
 import {
 	NodeAimBotGetYawAngle,
@@ -37,6 +37,27 @@ import {
 	NodeHeatSeekerDifference,
 	NodeHeatSeekerFireSensor,
 } from "../components/Nodes/NodeHeatSeeker";
+import {
+	NodeTrainingBotGetBananaGreen,
+	NodeTrainingBotGetBananaYellow,
+	NodeTrainingBotGetBananaBrown,
+	NodeTrainingBotGetTrafficLight,
+	NodeTrainingBotPullLever,
+	NodeTrainingBotPunch,
+	NodeTrainingBotTurnLeft,
+	NodeTrainingBotTurnRight,
+	NodeTrainingBotMoveForward,
+	NodeTrainingBotPumpTyre,
+	NodeTrainingBotWalk,
+	NodeTrainingBotStop,
+	NodeTrainingBotAdd,
+	NodeTrainingBotSub,
+	NodeTrainingBotMul,
+	NodeTrainingBotDiv,
+	NodeTrainingBotThrowBalloon,
+	NodeRestartInitialize,
+	NodeDelayedRestartInitialize
+} from "../components/Nodes/NodeTrainingCamp";
 
 import { ExecutionEdge, BooleanEdge, FloatEdge } from "../components/Nodes/Edges";
 
@@ -159,6 +180,25 @@ export const nodeTypes = {
 	NodeAimBotSetCurrentPitchSpeed,
 	NodeAimBotGetCurrentYawSpeed,
 	NodeAimBotGetCurrentPitchSpeed,
+	NodeTrainingBotGetBananaGreen,
+	NodeTrainingBotGetBananaYellow,
+	NodeTrainingBotGetBananaBrown,
+	NodeTrainingBotGetTrafficLight,
+	NodeTrainingBotPullLever,
+	NodeTrainingBotPunch,
+	NodeTrainingBotTurnLeft,
+	NodeTrainingBotTurnRight,
+	NodeTrainingBotMoveForward,
+	NodeTrainingBotPumpTyre,
+	NodeTrainingBotWalk,
+	NodeTrainingBotStop,
+	NodeTrainingBotAdd,
+	NodeTrainingBotSub,
+	NodeTrainingBotMul,
+	NodeTrainingBotDiv,
+	NodeTrainingBotThrowBalloon,
+	NodeRestartInitialize,
+	NodeDelayedRestartInitialize
 };
 
 export const tooltips = {
@@ -178,7 +218,6 @@ export const tooltips = {
 		<FloatType />,
 		"Outputs an input number that is restricted between the given minimum and maximum values",
 	],
-
 	NodeGeneralOperator: [<FloatType />, <FloatType />, "Outputs the calulation based on the operation selected"],
 	NodeGreaterThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is greater than the right input, and FALSE otherwise"],
 	NodeLessThan: [<FloatType />, <BooleanType />, "Outputs TRUE if the left input is less than the right input, and FALSE otherwise"],
@@ -292,6 +331,25 @@ export const tooltips = {
 	NodeAimBotSetCurrentPitchSpeed: [<ExecutionType />, <FloatType />, <ExecutionType />, "Set the value of the variable"],
 	NodeAimBotGetCurrentYawSpeed: [<NoneType />, <FloatType />, "Return the value from variable"],
 	NodeAimBotGetCurrentPitchSpeed: [<NoneType />, <FloatType />, "Return the value from variable"],
+	NodeTrainingBotGetBananaGreen: [<NoneType />, <BooleanType />, "Return if the banana has green"],
+	NodeTrainingBotGetBananaYellow: [<NoneType />, <BooleanType />, "Return if the banana has yellow"],
+	NodeTrainingBotGetBananaBrown: [<NoneType />, <BooleanType />, "Return if the banana has brown"],
+	NodeTrainingBotGetTrafficLight: [<NoneType />, <FloatType />, "Return the colour of the traffic light"],
+	NodeTrainingBotPullLever: [<ExecutionType />, <BooleanType />, <ExecutionType />, "Pull the lever"],
+	NodeTrainingBotPunch: [<ExecutionType />, <ExecutionType />, "Punch"],
+	NodeTrainingBotTurnLeft: [<ExecutionType />, <ExecutionType />, "Turn 90 degrees to the left"],
+	NodeTrainingBotTurnRight: [<ExecutionType />, <ExecutionType />, "Turn 90 degrees to the right"],
+	NodeTrainingBotMoveForward: [<ExecutionType />, <ExecutionType />, "Move forward 1 step"],
+	NodeTrainingBotPumpTyre: [<ExecutionType />, <ExecutionType />, "Pump the tyre once"],
+	NodeTrainingBotWalk: [<ExecutionType />, <ExecutionType />, "Start walking forward"],
+	NodeTrainingBotStop: [<ExecutionType />, <ExecutionType />, "Stop the robot walking"],
+	NodeTrainingBotAdd:[<FloatType />, <FloatType />, "Outputs the sum of the two inputs"],
+	NodeTrainingBotSub:[<FloatType />, <FloatType />, "Outputs the difference of the two inputs"],
+	NodeTrainingBotMul:[<FloatType />, <FloatType />, "Outputs the product of the two inputs"],
+	NodeTrainingBotDiv:[<FloatType />, <FloatType />, "Outputs the quotient of the two inputs"],
+	NodeTrainingBotThrowBalloon: [<><ExecutionType /> <FloatType /></>, <ExecutionType />, "Throw the balloon a specified distance"],
+	NodeRestartInitialize: [<ExecutionType />, <ExecutionType />, "Initialize the robot"],
+	NodeDelayedRestartInitialize:  [<ExecutionType />, <ExecutionType />, "Initialize the robot"]
 };
 
 export const initialElements = [

@@ -19,17 +19,29 @@
 			},
 			"NodeMagnebotMoveArm": {
 				"inputs": [
-					{ "variable": "x", "type": "number", "value": 0 },
-					{ "variable": "y", "type": "number", "value": 0 },
-					{ "variable": "z", "type": "number", "value": 0 }
+					{
+						"variable": "x",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "y",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "z",
+						"type": "number",
+						"value": 0
+					}
 				],
-				"logic": "const intialPoint=JSON.parse(sensorDataRef.current).endEffectorPosition\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 1;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nconst position=JSON.parse(sensorDataRef.current).endEffectorPosition;\n\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.01) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\n//consoleCtx.addDefault(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
+				"logic": "if(typeof(x) != \"number\" || typeof(y) != \"number\" || typeof(z) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". MoveArm takes inputs of type number.\") ;\nreturn;}\nconst intialPoint=JSON.parse(sensorDataRef.current).endEffectorPosition\nconst point=`${x},${y},${z}`;\nunityContext.send(\"Arm\", \"SetTarget\", point)\nconst rate = 100;\nconst maxtime = 2.5;\nconst maxRepeats = maxtime * 1000 / rate;\nconst minTimeCheck = 1;\nconst minRepeats = minTimeCheck * 1000 / rate;\nlet repeats = 0;\nlet interval = setInterval(() => {\nconst position=JSON.parse(sensorDataRef.current).endEffectorPosition;\n\nlet Reached = true;\nrepeats++;\nconst error = [0, 0, 0];\nerror[0] = Math.abs(x - position.x);\nerror[1] = Math.abs(y - position.y);\nerror[2] = Math.abs(z - position.z);\nfor (let i = 0; i < error.length; i++) {\n\nif (error[i] > 0.05) {\n Reached = false;\nbreak;\n}\n}\nif (Reached||repeats>=maxRepeats) {\nclearInterval(interval);\nresolve();\n}if (repeats==minRepeats) {const change = [0, 0, 0];\nchange[0] = Math.abs(intialPoint.x - position.x);\nchange[1] = Math.abs(intialPoint.y - position.y);\nchange[2] = Math.abs(intialPoint.z - position.z);\nlet notMoved=true;\nfor (let i = 0; i < change.length; i++) {\n\nif (change[i] > 0.01) {\n notMoved = false;\nbreak;\n}\n}\nif(notMoved){\n//consoleCtx.addDefault(`Point can't be reached`)\nclearInterval(interval);\nresolve();\n}\n}\n}, rate);\n",
 				"simpleLogic": "MoveArm",
 				"await": true
 			},
 			"NodeMagnebotSwitch": {
 				"inputs": [{ "variable": "a", "type": "boolean", "value": true }],
-				"logic": "if(a){\n\tunityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tunityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
+				"logic": "if(typeof(a) != \"boolean\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". Switch takes input of type boolean.\") ;\nreturn;}\nif(a){\n\tunityContext.send(\"GravitySphere\", \"EnableGravitySphere\");\n}else{\n\tunityContext.send(\"GravitySphere\", \"DisableGravitySphere\");\n}\nsetTimeout(resolve, 100);\n",
 				"simpleLogic": "MagneticSwitch",
 				"await": true
 			}
@@ -41,23 +53,23 @@
 		"sensors": {
 			"NodeSendItSpeedOf": {
 				"name": "obstacleSpeed",
-				"simpleName": "Speed"
+				"simpleName": "speedSensor"
 			},
 			"NodeSendItDistance": {
 				"name": "obstacleDistance.x",
-				"simpleName": "Distance"
+				"simpleName": "distanceSensor"
 			},
 			"NodeSendItElevationOf": {
 				"name": "obstacleDistance.y",
-				"simpleName": "Elevation"
+				"simpleName": "elevationSensor"
 			},
 			"NodeSendItWidthOf": {
 				"name": "obstacleSize.x",
-				"simpleName": "Width"
+				"simpleName": "widthSensor"
 			},
 			"NodeSendItHeightOf": {
 				"name": "obstacleSize.y",
-				"simpleName": "Height"
+				"simpleName": "heightSensor"
 			}
 		},
 		"actions": {
@@ -73,6 +85,36 @@
 			}
 		},
 		"functions": {
+			"SendItDistance": {
+				"simpleLogic": "Distance",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleDistance.x;",
+				"await": false
+			},
+			"SendItSpeed": {
+				"simpleLogic": "Speed",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleSpeed;",
+				"await": false
+			},
+			"SendItHeight": {
+				"simpleLogic": "Height",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleSize.y;",
+				"await": false
+			},
+			"SendItWidth": {
+				"simpleLogic": "Width",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleSize.x;",
+				"await": false
+			},
+			"SendItElevation": {
+				"simpleLogic": "Elevation",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).obstacleDistance.y;",
+				"await": false
+			},
 			"NodeStart": {
 				"simpleLogic": "",
 				"inputs": [],
@@ -116,49 +158,80 @@
 				"logic": "if(sensorData){\n",
 				"await": false
 			},
+			"HeatSeekerLeftLineSensor": {
+				"simpleLogic": "LeftLineSensor",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).leftLineSensor;",
+				"await": false
+			},
+			"HeatSeekerMiddleLineSensor": {
+				"simpleLogic": "MiddleLineSensor",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).middleLineSensor;",
+				"await": false
+			},
+			"HeatSeekerRightLineSensor": {
+				"simpleLogic": "RightLineSensor",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).rightLineSensor;",
+				"await": false
+			},
+			"HeatSeekerFireDetectionSensor": {
+				"simpleLogic": "FireDetectionSensor",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).fireDetectionSensor;",
+				"await": false
+			},
 			"NodeHeatSeekerLeftWheel": {
 				"simpleLogic": "LeftWheel",
 				"inputs": [{ "variable": "a", "type": "number", "value": true }],
-				"logic": "if(a==0){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", -a)\n}",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". LeftWheel takes input of type number.\") ;\nreturn;}\nif(a==0){\nunityContext.send(\"LeftWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", -a)\n}",
 				"await": false
 			},
-
 			"NodeHeatSeekerRightWheel": {
 				"simpleLogic": "RightWheel",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "if(a==0){\nunityContext.send(\"RightWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", -a)\n}",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". RightWheel takes input of type number.\") ;\nreturn;}\nif(a==0){\nunityContext.send(\"RightWheel\", \"StopMotor\")\n}else if(a>0){\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", a)\n}else{\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", -a)\n}",
 				"await": false
 			},
 			"NodeHeatSeekerWaterHose": {
 				"simpleLogic": "WaterHose",
 				"inputs": [{ "variable": "a", "type": "boolean", "value": true }],
-				"logic": "if(a){\nunityContext.send(\"WaterHose\", \"TurnOnWater\")\n}else{\nunityContext.send(\"WaterHose\", \"TurnOffWater\")\n}",
+				"logic": "if(typeof(a) != \"boolean\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". WaterHose takes input of type boolean.\") ;\nreturn;}\nif(a){\nunityContext.send(\"WaterHose\", \"TurnOnWater\")\n}else{\nunityContext.send(\"WaterHose\", \"TurnOffWater\")\n}",
 				"await": false
 			},
 			"NodeHeatSeekerRobotOnLine": {
 				"simpleLogic": "RobotOnLine",
-				"output": { "variable": "out" },
+				"output": {
+					"variable": "out"
+				},
 				"inputs": [],
 				"logic": "return !((JSON.parse(sensorDataRef.current).rightLineSensor<0.1) && (JSON.parse(sensorDataRef.current).leftLineSensor<0.1))",
 				"await": false
 			},
 			"NodeHeatSeekerFrontOnLine": {
 				"simpleLogic": "FrontOnLine",
-				"output": { "variable": "out" },
+				"output": {
+					"variable": "out"
+				},
 				"inputs": [],
 				"logic": "return (JSON.parse(sensorDataRef.current).middleLineSensor>0.95)",
 				"await": false
 			},
 			"NodeHeatSeekerIsFireNear": {
 				"simpleLogic": "IsFireNear",
-				"output": { "variable": "out" },
+				"output": {
+					"variable": "out"
+				},
 				"inputs": [],
 				"logic": "return (JSON.parse(sensorDataRef.current).fireDetectionSensor>0.5)",
 				"await": false
 			},
 			"NodeHeatSeekerDifference": {
 				"simpleLogic": "Difference",
-				"output": { "variable": "out" },
+				"output": {
+					"variable": "out"
+				},
 				"inputs": [],
 				"logic": "return (JSON.parse(sensorDataRef.current).rightLineSensor-JSON.parse(sensorDataRef.current).leftLineSensor)",
 				"await": false
@@ -166,13 +239,13 @@
 			"NodeHeatSeekerMoveForward": {
 				"simpleLogic": "MoveForward",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "unityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33+a)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33-a)",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". MoveForward takes input of type number.\") ;\nreturn;}\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33+a)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33-a)",
 				"await": false
 			},
 			"NodeHeatSeekerTurn": {
 				"simpleLogic": "Turn",
 				"inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
-				"logic": "if(a){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33)}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33)\n}",
+				"logic": "if(typeof(a) != \"boolean\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". Turn takes input of type boolean.\") ;\nreturn;}\nif(a){\nunityContext.send(\"LeftWheel\", \"RotateMotorForwards\", 0.33)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33)}else{\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33)\nunityContext.send(\"RightWheel\", \"RotateMotorForwards\", 0.33)\n}",
 				"await": false
 			},
 			"NodeHeatSeekerStop": {
@@ -184,7 +257,7 @@
 			"NodeHeatSeekerMoveBackward": {
 				"simpleLogic": "MoveBackward",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "unityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33-a)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33+a)",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". MoveBackward takes input of type number.\") ;\nreturn;}\nunityContext.send(\"LeftWheel\", \"RotateMotorBackwards\", 0.33-a)\nunityContext.send(\"RightWheel\", \"RotateMotorBackwards\", 0.33+a)",
 				"await": false
 			},
 			"NodeEnd": {
@@ -223,7 +296,7 @@
 		"actions": {
 			"NodeAimBotShoot": {
 				"inputs": [],
-				"syntaxSimple": "shoot",
+				"syntaxSimple": "Shoot",
 				"syntax": "unityContext.send(\"Weapon\",\"Shoot\");"
 			}
 		},
@@ -234,42 +307,72 @@
 				"logic": "if(sensorData){\n",
 				"await": false
 			},
+			"AimBotYawSensor": {
+				"simpleLogic": "YawAngle",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).yawSensor;",
+				"await": false
+			},
+			"AimBotPitchSensor": {
+				"simpleLogic": "PitchAngle",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).pitchSensor;",
+				"await": false
+			},
+			"AimBotGetMosquitoXPos": {
+				"simpleLogic": "MeasureXPos",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).enemyPosition.x;",
+				"await": false
+			},
+			"AimBotGetMosquitoYPos": {
+				"simpleLogic": "MeasureYPos",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).enemyPosition.y;",
+				"await": false
+			},
+			"AimBotGetMosquitoZPos": {
+				"simpleLogic": "MeasureZPos",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).enemyPosition.z;",
+				"await": false
+			},
 			"NodeAimBotSetYawSpeed": {
-				"simpleLogic": "yawSpeed",
+				"simpleLogic": "YawSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 3 }],
-				"logic": "unityContext.send(\"Weapon\", \"SetYawVelocity\", a);",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". YawSpeed takes input of type number.\") ;\nreturn;}\nunityContext.send(\"Weapon\", \"SetYawVelocity\", a);",
 				"await": false
 			},
 			"NodeAimBotSetPitchSpeed": {
-				"simpleLogic": "pitchSpeed",
+				"simpleLogic": "PitchSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "unityContext.send(\"Weapon\", \"SetPitchVelocity\", a);",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". PitchSpeed takes input of type number.\") ;\nreturn;}\nunityContext.send(\"Weapon\", \"SetPitchVelocity\", a);",
 				"await": false
 			},
 			"NodeAimBotGetCurrentYawSpeed": {
-				"simpleLogic": "getCurrentYawSpeed",
+				"simpleLogic": "GetCurrentYawSpeed",
 				"output": { "variable": "out" },
 				"inputs": [],
 				"logic": "return m.currentYawSpeed ? m.currentYawSpeed : 0;",
 				"await": false
 			},
 			"NodeAimBotGetCurrentPitchSpeed": {
-				"simpleLogic": "getCurrentPitchSpeed",
+				"simpleLogic": "GetCurrentPitchSpeed",
 				"output": { "variable": "out" },
 				"inputs": [],
 				"logic": "return m.currentPitchSpeed ? m.currentPitchSpeed : 0;",
 				"await": false
 			},
 			"NodeAimBotSetCurrentYawSpeed": {
-				"simpleLogic": "setCurrentYawSpeed",
+				"simpleLogic": "SetCurrentYawSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "return m.currentYawSpeed = a;",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". SetCurrentYawSpeed takes input of type number.\") ;\nreturn;}\nreturn m.currentYawSpeed = a;",
 				"await": false
 			},
 			"NodeAimBotSetCurrentPitchSpeed": {
-				"simpleLogic": "setCurrentPitchSpeed",
+				"simpleLogic": "SetCurrentPitchSpeed",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "return m.currentPitchSpeed = a;",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". SetCurrentPitchSpeed takes input of type number.\") ;\nreturn;}\nreturn m.currentPitchSpeed = a;",
 				"await": false
 			},
 			"NodeEnd": {
@@ -283,20 +386,7 @@
 	{
 		"robot": "hyperloop",
 		"startingCode": "",
-		"sensors": {
-			"NodeHyperloopGetPersonNumber": {
-				"name": "personNumber",
-				"simpleName": "personNumber"
-			},
-			"NodeHyperloopGetPersonBase": {
-				"name": "personBase",
-				"simpleName": "personBase"
-			},
-			"NodeHyperloopGetHyperloopBase": {
-				"name": "hyperloopBase",
-				"simpleName": "hyperloopBase"
-			}
-		},
+		"sensors": {},
 		"actions": {
 			"NodeHyperloopNoAction": {
 				"inputs": [],
@@ -311,10 +401,203 @@
 				"logic": "",
 				"await": false
 			},
+			"HyperloopGetPersonNumber": {
+				"simpleLogic": "PersonNumber",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).personNumber;",
+				"await": false
+			},
+			"HyperloopGetPersonBASE": {
+				"simpleLogic": "PersonBase",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).personBase;",
+				"await": false
+			},
+			"HyperloopGetHyperloopBase": {
+				"simpleLogic": "HyperloopBase",
+				"inputs": [],
+				"logic": "return JSON.parse(sensorDataRef.current).hyperloopBase;",
+				"await": false
+			},
 			"NodeAimBotMovePersonToHyperloop": {
 				"simpleLogic": "MovePersonToHyperloop",
-				"inputs": [{ "variable": "a", "type": "number", "value": "0" }],
-				"logic": "unityContext.send(\"People\", \"MovePersonToHyperloop\", a);",
+				"inputs": [{ "variable": "a", "type": "string", "value": "0" }],
+				"logic": "if(typeof(a) != \"string\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". MovePersonToHyperloop takes input of type string.\") ;\nreturn;}\nunityContext.send(\"People\", \"MovePersonToHyperloop\", a);",
+				"await": false
+			},
+			"NodeEnd": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "",
+				"await": false
+			}
+		}
+	},
+	{
+		"robot": "trainingbot",
+		"startingCode": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 500);\n})\n};\nawait reset()\n",
+		"sensors": {
+			"NodeTrainingBotGetBananaGreen": {
+				"name": "greenBananaSensor",
+				"simpleName": "greenBanana"
+			},
+			"NodeTrainingBotGetBananaYellow": {
+				"name": "yellowBananaSensor",
+				"simpleName": "yellowBanana"
+			},
+			"NodeTrainingBotGetBananaBrown": {
+				"name": "brownBananaSensor",
+				"simpleName": "brownBanana"
+			},
+			"NodeTrainingBotGetTrafficLight": {
+				"name": "trafficLightSensor",
+				"simpleName": "trafficLight"
+			}
+		},
+		"actions": {
+			"NodeRestartInitialize": {
+				"inputs": [],
+				"syntaxSimple": "Initialize",
+				"syntax": "unityContext.send(\"SceneController\",\"ResetScene\")"
+			},
+			"NodeDelayedRestartInitialize": {
+				"inputs": [],
+				"syntaxSimple": "Initialize",
+				"syntax": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 500);\n})\n};\nawait reset()\n"
+			},
+			"NodeTrainingBotPunch": {
+				"inputs": [],
+				"syntaxSimple": "Punch",
+				"syntax": "unityContext.send(\"Robot\",\"Punch\");"
+			},
+			"NodeTrainingBotTurnLeft": {
+				"inputs": [],
+				"syntaxSimple": "TurnLeft",
+				"syntax": "unityContext.send(\"Robot\",\"TurnLeft\");"
+			},
+			"NodeTrainingBotTurnRight": {
+				"inputs": [],
+				"syntaxSimple": "TurnRight",
+				"syntax": "unityContext.send(\"Robot\",\"TurnRight\");"
+			},
+			"NodeTrainingBotMoveForward": {
+				"inputs": [],
+				"syntaxSimple": "MoveForward",
+				"syntax": "unityContext.send(\"Robot\",\"MoveForward\");"
+			},
+			"NodeTrainingBotPumpTyre": {
+				"inputs": [],
+				"syntaxSimple": "PumpTyre",
+				"syntax": "unityContext.send(\"Robot\",\"PumpTyre\");"
+			},
+			"NodeTrainingBotWalk": {
+				"inputs": [],
+				"syntaxSimple": "Walk",
+				"syntax": "unityContext.send(\"Robot\",\"Walk\");"
+			},
+			"NodeTrainingBotStop": {
+				"inputs": [],
+				"syntaxSimple": "Stop",
+				"syntax": "unityContext.send(\"Robot\",\"Stop\");"
+			}
+		},
+		"functions": {
+			"NodeStart": {
+				"simpleLogic": "",
+				"inputs": [],
+				"logic": "",
+				"await": false
+			},
+			"NodeTrainingBotPullLever": {
+				"simpleLogic": "PullLever",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "boolean",
+						"value": false
+					}
+				],
+				"logic": "unityContext.send(\"Lever\", \"PullLever\", a ? 1 : 0);",
+				"await": false
+			},
+			"NodeTrainingBotThrowBalloon": {
+				"simpleLogic": "ThrowBalloon",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a);\nunityContext.send(\"Robot\", \"ThrowBalloon\", a);",
+				"await": false
+			},
+			"NodeTrainingBotAdd": {
+				"simpleLogic": "Add",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "b",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a+b);" ,
+				"await": false
+			},
+			"NodeTrainingBotSub": {
+				"simpleLogic": "Subtract",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "b",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a-b);" ,
+				"await": false
+			},
+			"NodeTrainingBotMul": {
+				"simpleLogic": "Multiply",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "b",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a*b);" ,
+				"await": false
+			},
+			"NodeTrainingBotDiv": {
+				"simpleLogic": "Divide",
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "number",
+						"value": 0
+					},
+					{
+						"variable": "b",
+						"type": "number",
+						"value": 0
+					}
+				],
+				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a/b);" ,
 				"await": false
 			},
 			"NodeEnd": {
@@ -400,20 +683,45 @@
 			"NodeNotEquals": "!=",
 			"NodeAnd": "&&",
 			"NodeOr": "||",
-			"NodePower": "^^"
+			"NodePower": "^^",
+			"NodeTrue": "true",
+			"NodeFalse" : "false"
 		},
-		"general": ["NodeIf", "intialise", "NodeCompare", "NodeWhile", "NodeFor", "num", "NodeRepeat", "NodeOperatorGeneral", "NodePrint", "NodeAbsolute", "NodeArcTan", "NodePI", "NodeSqrt", "NodeClamp"],
+		"general": [
+			"NodeIf",
+			"intialise",
+			"NodeCompare",
+			"NodeWhile",
+			"NodeFor",
+			"num",
+			"NodeRepeat",
+			"NodeOperatorGeneral",
+			"NodePrint",
+			"NodeAbsolute",
+			"NodeArcTan",
+			"NodePI",
+			"NodeSqrt",
+			"NodeClamp"
+		],
 		"functions": {
 			"NodeDelay": {
 				"simpleLogic": "Delay",
 				"inputs": [{ "variable": "a", "type": "number", "value": 0 }],
-				"logic": "setTimeout(resolve, a*1000);",
+				"logic": "if(typeof(a) != \"number\"){throw new Error(\"Invalid input of type \" + typeof(a) + \". Delay takes input of type number.\")} ;setTimeout(resolve, a*1000);",
 				"await": true
 			},
 			"NodeNot": {
 				"simpleLogic": "Not",
-				"output": { "variable": "out" },
-				"inputs": [{ "variable": "a", "type": "boolean", "value": 0 }],
+				"output": {
+					"variable": "out"
+				},
+				"inputs": [
+					{
+						"variable": "a",
+						"type": "boolean",
+						"value": 0
+					}
+				],
 				"logic": "return !a;",
 				"await": false
 			}

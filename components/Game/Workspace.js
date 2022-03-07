@@ -28,7 +28,7 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
 });
 
-const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, textCodingOnly, url="https://app.createbase.co.nz/404" }) => {
+const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, textCodingOnly, url = "https://app.createbase.co.nz/404" }) => {
 	const router = useRouter();
 	const editorRef = useRef();
 	const sensorDataRef = useRef();
@@ -112,9 +112,9 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			const unityContext = _unityContext;
 			eval("(async ()=>{" + text + "})()").catch((error) => {
 				consoleCtx.addError(error.message);
-				resolve(false);
+				return resolve(true);
 			});
-			if (codeChanged) resolve(true);
+			if (codeChanged) return resolve(true);
 		});
 	};
 
@@ -198,7 +198,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 					<button onClick={compileHandlerTxt}>Compile</button>
 					<button onClick={saveTextHandler}>Save</button>
 					<button onClick={loadText}>Restore</button>
-					<button onClick={() => window.open(url, '_blank').focus()}>Documentation</button>
+					<button onClick={() => window.open(url, "_blank").focus()}>Documentation</button>
 				</div>
 			)}
 			<MiniHoverContextProvider>

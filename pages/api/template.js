@@ -12,7 +12,7 @@ const DUMMY_OUTPUT = {};
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
@@ -37,7 +37,7 @@ export default async function (req, res) {
 	// Integration Logic
 	let data1;
 	try {
-		data1 = (await axios.post(process.env.ROUTE_URL + "/", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input: {} }))["data"];
+		data1 = (await axios.post(process.env.PREFIX_BACKEND + "/", { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE, input: {} }))["data"];
 	} catch (error) {
 		data1 = { status: "error", content: error };
 	}

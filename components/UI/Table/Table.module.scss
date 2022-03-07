@@ -67,6 +67,10 @@
 				background: rgba($blue-dark, 0.1);
 			}
 		}
+		&.notSelectable {
+			opacity: 0.4;
+			pointer-events: none;
+		}
 	}
 }
 

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import router from "next/router";
 import useUnity from "../../hooks/useUnity";
-import useMixPanel from "../../hooks/useMixpanel";
+import useMixpanel from "../../hooks/useMixpanel";
 import Unity from "./Unity";
 import Workspace from "./Workspace";
 import { ConsoleContextProvider } from "../../store/console-context";
@@ -21,7 +21,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 		wip: project.wip,
 		setLoaded: setGameLoaded,
 	});
-	const mp = useMixPanel();
+	const mp = useMixpanel();
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {

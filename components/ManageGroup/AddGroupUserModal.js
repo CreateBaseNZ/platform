@@ -40,7 +40,7 @@ const AddGroupUserModal = ({ setShow, role }) => {
 	// 	let _data;
 	// 	const DUMMY_STATUS = "succeeded";
 	// 	try {
-	// 		_data = (await axios.post("/api/groups/invite-users", { PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
+	// 		_data = (await axios.post("/api/groups/invite-users", { API_KEY_PUBLIC: process.env.NEXT_PUBLIC_API_KEY, input: details, status: DUMMY_STATUS }))["data"];
 	// 	} catch (error) {
 	// 		_data.status = "error";
 	// 	} finally {

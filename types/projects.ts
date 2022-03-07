@@ -76,8 +76,8 @@ export interface ISubsystem {
 export interface IProject {
 	/** Project name. */
 	name: string;
-	/** Is unity build work in progress */
-	wip: boolean;
+	/** Optional if currently working on project simulation*/
+	wip?: boolean;
 	/** Unique project query ID. */
 	query: string;
 	/** One paragraph description of the project. */

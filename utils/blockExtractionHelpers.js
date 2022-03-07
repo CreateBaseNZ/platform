@@ -483,6 +483,7 @@ export const isOnceCode = (projectName) => {
 		case "hydroponics":
 			return false;
 		case "magnebot":
+		case "flow-training-camp":
 			return true;
 	}
 };

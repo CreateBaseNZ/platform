@@ -6,14 +6,14 @@ import axios from "axios";
 
 export default async function (req, res) {
 	if (req.method !== "POST") return;
-	// Validate PUBLIC_API_KEY
-	if (req.body.PUBLIC_API_KEY !== process.env.PUBLIC_API_KEY) {
+	// Validate API_KEY_PUBLIC
+	if (req.body.API_KEY_PUBLIC !== process.env.API_KEY_PUBLIC) {
 		return res.send({ status: "critical error" });
 	}
 	const input = req.body.input;
 	// Send the data to the main backend
-	const url = process.env.ROUTE_URL + "/profile/update";
-	const keys = { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY };
+	const url = process.env.PREFIX_BACKEND + "/profile/update";
+	const keys = { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE };
 	const backendInput = { query: { _id: input.profileId }, updates: [{ type: "saves", update: input.update }], date: input.date };
 	let data;
 	try {
@@ -104,7 +104,7 @@ function sendEmailBaseTasksCompleted(accountId, provider) {
 		// Send the processing request
 		let data;
 		try {
-			data = (await axios.post(process.env.ROUTE_URL + "/mail/send-email", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+			data = (await axios.post(process.env.PREFIX_BACKEND + "/mail/send-email", { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE, input }))["data"];
 		} catch (error) {
 			data = { status: "error", content: error };
 		}
@@ -125,7 +125,7 @@ function sendEmailAllTasksCompleted(accountId, provider) {
 		// Send the processing request
 		let data;
 		try {
-			data = (await axios.post(process.env.ROUTE_URL + "/mail/send-email", { PRIVATE_API_KEY: process.env.PRIVATE_API_KEY, input }))["data"];
+			data = (await axios.post(process.env.PREFIX_BACKEND + "/mail/send-email", { API_KEY_PRIVATE: process.env.API_KEY_PRIVATE, input }))["data"];
 		} catch (error) {
 			data = { status: "error", content: error };
 		}

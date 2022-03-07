@@ -28,7 +28,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 	numOfLessons: 6,
 	difficulty: "proficient",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, AI, ETHICS],
-	learningOutcome: "/send-it/project_overview.pdf",
+	learningOutcome: "/send-it/files/project-overview-send-it.pdf",
 	cads: {
 		nz: "/send-it/cads/020802AC Curriculum Alignment - Send It - NZ.pdf",
 		aus: "/send-it/cads/020802AC Curriculum Alignment - Send It - ACARA.pdf",
@@ -149,7 +149,7 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						type: "pdf",
 						title: "Flow: Tips & tricks with sensing blocks",
 						img: "",
-						url: "/sensing-blocks.pdf",
+						url: "/send-it/pdf/sensing-blocks.pdf",
 					},
 					{
 						type: "pdf",
@@ -163,11 +163,12 @@ const SEND_IT_DATA: IProjectReadOnly = {
 						img: "",
 						url: "/send-it/pdf/sensing_functions.pdf",
 					},
-					{
+					// comment out until fixed 
+					/*{
 						type: "explore",
 						title: "Explore more",
 						items: [comparisonBoostData, ifBoostData],
-					},
+					}, */
 				],
 			},
 			plan: {
