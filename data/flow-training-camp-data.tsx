@@ -100,7 +100,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "The Maze",
 			requirements: [],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/1.png",
+			imgSrc: "/flow-training-camp/img/1.png",
 			description: "We will start by learning what action blocks are and how to sequence them together to enable our robot to navigate through a fixed maze.",
 			research: {
 				threshold: 60,
@@ -194,7 +194,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Banana Sorting",
 			requirements: ["The Maze"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/3.png",
+			imgSrc: "/flow-training-camp/img/2.png",
 			description: "Use sensors to determine the physical properties of a banana, then pull the right elver to sort it into the correct crate.",
 			research: {
 				threshold: 1,
@@ -234,7 +234,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Tyre Pumping",
 			requirements: ["The Maze"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/4.PNG",
+			imgSrc: "/flow-training-camp/img/3.png",
 			description: "Learn how to use a repeat block to perform the same action multiple times, in this case, inflating a tire to the perfect pressure.",
 			research: {
 				threshold: 300,
@@ -282,7 +282,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Red Light Green Light",
 			requirements: ["The Maze", "Tyre Pumping"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/thumbnail.png",
+			imgSrc: "/flow-training-camp/img/4.png",
 			description: "IF statements? WHILE loops? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
 				threshold: 1,
