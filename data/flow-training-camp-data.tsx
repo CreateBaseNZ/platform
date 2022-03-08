@@ -67,14 +67,32 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "Routines and automation",
-				img: "",
-				url: "",
+				img: "/flow-training-camp/img/1.jpg",
+				url: "/flow-training-camp/pdf/routines-and-automation.pdf",
+			},
+			{
+				type: "pdf",
+				title: "What is automation?",
+				img: "/flow-training-camp/img/2.jpg",
+				url: "/flow-training-camp/pdf/what-is-automation.pdf",
+			},
+			{
+				type: "pdf",
+				title: "What are the advantages?",
+				img: "/flow-training-camp/img/3.jpg",
+				url: "/flow-training-camp/pdf/what-are-the-advantages.pdf",
+			},
+			{
+				type: "pdf",
+				title: "What does this mean for me?",
+				img: "/flow-training-camp/img/4.jpg",
+				url: "/flow-training-camp/pdf/what-does-this-mean-for-me.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Your mission",
 				img: "",
-				url: "",
+				url: "/flow-training-camp/pdf/your-mission.pdf",			
 			},
 		],
 	},
@@ -83,7 +101,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			title: "The Maze",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/1.png",
-			description: "We will start by learning what action blocks are and how we can sequence them together to enable our robot to navigate through a fixed maze.",
+			description: "We will start by learning what action blocks are and how to sequence them together to enable our robot to navigate through a fixed maze.",
 			research: {
 				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -177,7 +195,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			title: "Banana Sorting",
 			requirements: ["The Maze"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/3.png",
-			description: "Let's take things further by programming our robot to detect significant turns in the line and adjust its movement accordingly.",
+			description: "Use sensors to determine the physical properties of a banana, then pull the right elver to sort it into the correct crate.",
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
@@ -215,9 +233,9 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Tyre Pumping",
-			requirements: [],
+			requirements: ["The Maze"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/4.PNG",
-			description: "In this fourth subsystem, we will learn how to use a sensor to detect the presence of a fire and then perform the correct sequence of actions to automatically put it out.",
+			description: "Learn how to use a repeat block to perform the same action multiple times, in this case, inflating a tire to the perfect pressure.",
 			research: {
 				threshold: 300,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -263,10 +281,9 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Red Light Green Light",
-			requirements: ["Navigating curves", "Navigating turns", "Extinguishing fires"],
+			requirements: ["The Maze", "Tyre Pumping"],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/thumbnail.png",
-			description:
-				"We will now combine everything that we have learnt to create a control program for our line following robot to allow it to complete the full course, automatically putting out any fires in its way.",
+			description: "IF statements? WHILE loops? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
