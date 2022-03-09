@@ -63,19 +63,19 @@ export const NodeTrainingBotDiv = memo(({ id, data, isConnectable }) => {
 });
 
 export const NodeTrainingBotGetBananaGreen = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Get Banana Green" style={{ width: "10rem", height: "2rem" }} />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Get Banana Green" style={{ width: "10rem", height: "3rem" }} />;
 });
 
 export const NodeTrainingBotGetBananaYellow = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Get Banana Yellow" style={{ width: "10rem", height: "2rem" }} />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Get Banana Yellow" style={{ width: "10rem", height: "3rem" }} />;
 });
 
 export const NodeTrainingBotGetBananaBrown = memo(({ data, isConnectable }) => {
-	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Get Banana Brown" style={{ width: "10rem", height: "2rem" }} />;
+	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Get Banana Brown" style={{ width: "10rem", height: "3rem" }} />;
 });
 
 export const NodeTrainingBotGetTrafficLight = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Traffic Light" style={{ width: "12rem", height: "2rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Traffic Light" style={{ width: "10rem", height: "3rem" }} />;
 });
 
 export const NodeTrainingBotPullLever = memo(({ id, data, isConnectable }) => {

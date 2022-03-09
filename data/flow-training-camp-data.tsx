@@ -195,32 +195,35 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			title: "Banana Sorting",
 			requirements: ["The Maze"],
 			imgSrc: "/flow-training-camp/img/2.png",
-			description: "Use sensors to determine the physical properties of a banana, then pull the right elver to sort it into the correct crate.",
+			description: "Use sensors to determine the physical properties of a banana, then pull the right lever to sort it into the correct crate.",
 			research: {
-				threshold: 1,
-				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
+				threshold: 60,
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
+						title: "Boolean & logical blocks",
+						url: "/flow-training-camp/pdf/logical-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Sensing blocks",
+						url: "/flow-training-camp/pdf/sensing-blocks.pdf",
 					},
 				],
 			},
 			plan: {
-				threshold: 300,
+				threshold: 30,
 				list: [
-					"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
-					"In this step, our aim is to create a plan for how our robot could navigate around multiple turns.",
-					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
-				threshold: 300,
-				tasks: ["Upgrade your code so that your robot can follow the line achieve turns properly."],
+				threshold: 120,
+				tasks: ["Test the robot's ability to use sensor data to make decisions by sorting bananas into the correct crate."],
 				hints: [
-					"You will need to use a sensor to detect the line and differentiate between curves and turns.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
+					"Think about each possible colour combination for the bananas. For each combination, what is the right action to perform?",
+					"Before you leave the simulation, click the save button in the bottom left menu so that you can continue writing your code where you left off when you return!",
 				],
 			},
 			blockList: [
