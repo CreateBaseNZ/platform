@@ -78,6 +78,10 @@ export const NodeTrainingBotGetTrafficLight = memo(({ data, isConnectable }) => 
 	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Traffic Light" style={{ width: "10rem", height: "3rem" }} />;
 });
 
+export const NodeTrainingBotGetTyrePressure = memo(({ data, isConnectable }) => {
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Tyre Pressure" style={{ width: "10rem", height: "3rem" }} />;
+});
+
 export const NodeTrainingBotPullLever = memo(({ id, data, isConnectable }) => {
 	return <NodeTrainingBotAction data={data} id={id} label="Pull Lever" isConnectable={isConnectable} />;
 });
@@ -225,6 +229,14 @@ export const NodeTrainingBotGetTrafficLightMini = memo(() => {
 	return (
 		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetTrafficLight" node={<NodeTrainingBotGetTrafficLight />} style={{ border: "outset #00ffee" }}>
 			<h4>Get Traffic Light</h4>
+		</NodeMini>
+	);
+});
+
+export const NodeTrainingBotGetTyrePressureMini = memo(() => {
+	return (
+		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetTyrePressure" node={<NodeTrainingBotGetTyrePressure />} style={{ border: "outset #00ffee" }}>
+			<h4>Get Tyre Pressure</h4>
 		</NodeMini>
 	);
 });

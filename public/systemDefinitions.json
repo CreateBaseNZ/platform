@@ -437,6 +437,10 @@
 		"robot": "trainingbot",
 		"startingCode": "const reset = () => {\nreturn new Promise((resolve, reject) => {\nunityContext.send(\"SceneController\", \"ResetScene\");\nsetTimeout(resolve, 500);\n})\n};\nawait reset()\n",
 		"sensors": {
+			"NodeTrainingBotGetTyrePressure": {
+				"name": "tyrePressureSensor",
+				"simpleName": "tyrePressure"
+			},
 			"NodeTrainingBotGetBananaGreen": {
 				"name": "greenBananaSensor",
 				"simpleName": "greenBanana"

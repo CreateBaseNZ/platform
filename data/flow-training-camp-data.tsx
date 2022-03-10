@@ -5,6 +5,7 @@ import {
 	NodeTrainingBotGetBananaYellowMini,
 	NodeTrainingBotGetBananaBrownMini,
 	NodeTrainingBotGetTrafficLightMini,
+	NodeTrainingBotGetTyrePressureMini,
 	NodeTrainingBotPullLeverMini,
 	NodeTrainingBotPunchMini,
 	NodeTrainingBotTurnLeftMini,
@@ -192,49 +193,6 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			],
 		},  */
 		{
-			title: "Banana Sorting",
-			requirements: ["The Maze"],
-			imgSrc: "/flow-training-camp/img/2.png",
-			description: "Use sensors to determine the physical properties of a banana, then pull the right lever to sort it into the correct crate.",
-			research: {
-				threshold: 60,
-				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
-				modules: [
-					{
-						type: "pdf",
-						title: "Boolean & logical blocks",
-						url: "/flow-training-camp/pdf/logical-blocks.pdf",
-					},
-					{
-						type: "pdf",
-						title: "Sensing blocks",
-						url: "/flow-training-camp/pdf/sensing-blocks.pdf",
-					},
-				],
-			},
-			plan: {
-				threshold: 30,
-				list: [
-					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
-				],
-			},
-			code: {
-				threshold: 120,
-				tasks: ["Test the robot's ability to use sensor data to make decisions by sorting bananas into the correct crate."],
-				hints: [
-					"Think about each possible colour combination for the bananas. For each combination, what is the right action to perform?",
-					"Before you leave the simulation, click the save button in the bottom left menu so that you can continue writing your code where you left off when you return!",
-				],
-			},
-			blockList: [
-				{ name: "Sensing", blocks: [<NodeTrainingBotGetBananaGreenMini />, <NodeTrainingBotGetBananaYellowMini />, <NodeTrainingBotGetBananaBrownMini />] },
-				{ name: "Actions", blocks: [<NodeTrainingBotPullLeverMini />] },
-				{ name: "Conditionals", blocks: [<NodeWhileMini />, <NodeEqualsMini />, <NodeTrueMini />] },
-				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />, ] },
-				{ name: "Utilities", blocks: [<NodePrintMini />] }
-			],
-		},
-		{
 			title: "Tyre Pumping",
 			requirements: ["The Maze"],
 			imgSrc: "/flow-training-camp/img/3.png",
@@ -277,8 +235,53 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
+				{ name: "Sensing", blocks: [<NodeTrainingBotGetTyrePressureMini/>] },
 				{ name: "Actions", blocks: [<NodeTrainingBotPumpTyreMini />] },
-				{ name: "Conditionals", blocks: [<NodeRepeatMini />] },
+				{ name: "Conditionals", blocks: [<NodeWhileMini />] },
+				{ name: "Logicals", blocks: [<NodeLessThanMini/>, ] },
+				{ name: "Utilities", blocks: [<NodePrintMini />] }
+			],
+		},
+		{
+			title: "Banana Sorting",
+			requirements: ["The Maze"],
+			imgSrc: "/flow-training-camp/img/2.png",
+			description: "Use sensors to determine the physical properties of a banana, then pull the right lever to sort it into the correct crate.",
+			research: {
+				threshold: 60,
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				modules: [
+					{
+						type: "pdf",
+						title: "Boolean & logical blocks",
+						url: "/flow-training-camp/pdf/logical-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Sensing blocks",
+						url: "/flow-training-camp/pdf/sensing-blocks.pdf",
+					},
+				],
+			},
+			plan: {
+				threshold: 30,
+				list: [
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
+			code: {
+				threshold: 120,
+				tasks: ["Test the robot's ability to use sensor data to make decisions by sorting bananas into the correct crate."],
+				hints: [
+					"Think about each possible colour combination for the bananas. For each combination, what is the right action to perform?",
+					"Before you leave the simulation, click the save button in the bottom left menu so that you can continue writing your code where you left off when you return!",
+				],
+			},
+			blockList: [
+				{ name: "Sensing", blocks: [<NodeTrainingBotGetBananaGreenMini />, <NodeTrainingBotGetBananaYellowMini />, <NodeTrainingBotGetBananaBrownMini />] },
+				{ name: "Actions", blocks: [<NodeTrainingBotPullLeverMini />] },
+				{ name: "Conditionals", blocks: [<NodeWhileMini />, <NodeEqualsMini />, <NodeTrueMini />] },
+				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />, ] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
