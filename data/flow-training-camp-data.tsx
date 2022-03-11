@@ -67,27 +67,15 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		modules: [
 			{
 				type: "pdf",
-				title: "Routines and automation",
+				title: "Demystifying programming",
 				img: "/flow-training-camp/img/1.jpg",
-				url: "/flow-training-camp/pdf/routines-and-automation.pdf",
+				url: "/flow-training-camp/pdf/demystifying-programming.pdf",
 			},
 			{
 				type: "pdf",
-				title: "What is automation?",
+				title: "Application: automation",
 				img: "/flow-training-camp/img/2.jpg",
-				url: "/flow-training-camp/pdf/what-is-automation.pdf",
-			},
-			{
-				type: "pdf",
-				title: "What are the advantages?",
-				img: "/flow-training-camp/img/3.jpg",
-				url: "/flow-training-camp/pdf/what-are-the-advantages.pdf",
-			},
-			{
-				type: "pdf",
-				title: "What does this mean for me?",
-				img: "/flow-training-camp/img/4.jpg",
-				url: "/flow-training-camp/pdf/what-does-this-mean-for-me.pdf",
+				url: "/flow-training-camp/pdf/application-automation.pdf",
 			},
 			{
 				type: "pdf",
