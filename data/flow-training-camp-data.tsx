@@ -68,13 +68,13 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "Demystifying programming",
-				img: "/flow-training-camp/img/1.jpg",
+				img: "/flow-training-camp/img/code.jpg",
 				url: "/flow-training-camp/pdf/demystifying-programming.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Application: automation",
-				img: "/flow-training-camp/img/2.jpg",
+				img: "/flow-training-camp/img/automation.jpg",
 				url: "/flow-training-camp/pdf/application-automation.pdf",
 			},
 			{
@@ -280,7 +280,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			description: "IF statements? WHILE loops? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
 				threshold: 1,
-				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
+				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "pdf",
@@ -292,9 +292,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			plan: {
 				threshold: 30,
 				list: [
-					"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
-					"In this step, we will combine all of the logic and solutions that we have built so far to solve the full problem: navigating around the entire warehouse and putting out any fires in our way.",
-					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
