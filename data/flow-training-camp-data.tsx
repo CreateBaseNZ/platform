@@ -96,19 +96,24 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
-						type: "video",
-						title: "Flow tutorial",
-						data: {
-							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/flow-tut.mp4",
-							h1: "Flow Tutorial",
-							h2: "Get to know your way around Flow",
-						},
+						type: "pdf",
+						title: "Intro to functions",
+						url: "/flow-training-camp/pdf/functions.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Action blocks",
+						title: "Flow: Action blocks",
 						url: "/flow-training-camp/pdf/action-blocks.pdf",
+					},
+					{
+						type: "video",
+						title: "Flow: Editor tutorial",
+						data: {
+							url: "https://youtu.be/2Ndwtpk7iN8",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
+							h1: "Flow Tutorial",
+							h2: "Get to know your way around Flow",
+						},
 					},
 				],
 			},
@@ -184,25 +189,20 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			title: "Tyre Pumping",
 			requirements: ["The Maze"],
 			imgSrc: "/flow-training-camp/img/3.png",
-			description: "Learn how to use a repeat block to perform the same action multiple times, in this case, inflating a tire to the perfect pressure.",
+			description: "Learn how to use a while loop to perform the same action multiple times. In this case, inflating a tire to the perfect pressure.",
 			research: {
 				threshold: 300,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
-						url: "/heat-seeker/pdf/Subproblem3.pdf",
+						title: "Intro to comparisons",
+						url: "/flow-training-camp/pdf/comparisons.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Fire blocks",
-						url: "/heat-seeker/pdf/Iter_3.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [whileBoostData],
+						title: "Intro to while loops",
+						url: "/flow-training-camp/pdf/while-loops.pdf",
 					},
 				],
 			},
