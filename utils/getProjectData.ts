@@ -1,6 +1,7 @@
 import sendItData from "../data/send-it-data";
 import magnebotDeprecatedData from "../data/magnebot-deprecated-data";
 import magnebotData from "../data/magnebot-data";
+import magnebot2Data from "../data/magnebot2-data";
 import heatSeekerData from "../data/heat-seeker-data";
 import aimbotData from "../data/aimbot-data";
 import hyperloopData from "../data/hyperloop-data";
@@ -22,6 +23,8 @@ const getProjectData = (query: string) => {
 			return magnebotDeprecatedData;
 		case "magnebot":
 			return magnebotData;
+		case "magnebot2":
+			return magnebot2Data;
 		case "heat-seeker":
 			return heatSeekerData;
 		case "aimbot":
