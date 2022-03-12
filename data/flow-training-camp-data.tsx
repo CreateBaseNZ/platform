@@ -232,7 +232,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Banana Sorting",
-			requirements: ["The Maze"],
+			requirements: ["The Maze", "Tyre Pumping"],
 			imgSrc: "/flow-training-camp/img/2.png",
 			description: "Use sensors to determine the physical properties of a banana, then pull the right lever to sort it into the correct crate.",
 			research: {
@@ -241,13 +241,13 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Boolean & logical blocks",
-						url: "/flow-training-camp/pdf/logical-blocks.pdf",
+						title: "Intro to booleans & logicals",
+						url: "/flow-training-camp/pdf/logicals.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Sensing blocks",
-						url: "/flow-training-camp/pdf/sensing-blocks.pdf",
+						title: "Flow: Banana sorting",
+						url: "/flow-training-camp/pdf/banana-sorting.pdf",
 					},
 				],
 			},
@@ -275,7 +275,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Red Light Green Light",
-			requirements: ["The Maze", "Tyre Pumping"],
+			requirements: ["The Maze", "Tyre Pumping", "Banana Sorting"],
 			imgSrc: "/flow-training-camp/img/4.png",
 			description: "IF statements? WHILE loops? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
@@ -284,8 +284,8 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Proceed to Plan",
-						url: "/2105AD-No-Research.pdf",
+						title: "Intro to IF statements",
+						url: "/flow-training-camp/pdf/banana-sorting.pdf",
 					},
 				],
 			},
