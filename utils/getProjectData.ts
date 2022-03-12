@@ -1,4 +1,5 @@
 import sendItData from "../data/send-it-data";
+import magnebotDeprecatedData from "../data/magnebot-deprecated-data";
 import magnebotData from "../data/magnebot-data";
 import heatSeekerData from "../data/heat-seeker-data";
 import aimbotData from "../data/aimbot-data";
@@ -17,6 +18,8 @@ const getProjectData = (query: string) => {
 	switch (query) {
 		case "send-it":
 			return sendItData;
+		case "magnebot-deprecated":
+			return magnebotDeprecatedData;
 		case "magnebot":
 			return magnebotData;
 		case "heat-seeker":
@@ -34,4 +37,4 @@ const getProjectData = (query: string) => {
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData, flowTrainingCampData];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotDeprecatedData, magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData, flowTrainingCampData];

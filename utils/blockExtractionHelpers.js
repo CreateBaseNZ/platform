@@ -462,6 +462,7 @@ export const flow2Text = (elements, projectName) => {
 export const defineObject = (projectName) => {
 	switch (projectName) {
 		case "send-it": return "Player";
+		case "magnebot-deprecated": return "Arm";
 		case "magnebot": return "Arm";
 		case "heat-seeker": return "Car";
 		case "aimbot": return "aimbot";
@@ -477,8 +478,8 @@ export const isOnceCode = (projectName) => {
 		case "aimbot":
 		case "heat-seeker":
 		case "hyperloop":
-
 			return false;
+		case "magnebot-deprecated":
 		case "magnebot":
 		case "flow-training-camp":
 			return true;
