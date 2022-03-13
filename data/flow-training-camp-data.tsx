@@ -30,7 +30,7 @@ import { IProjectReadOnly } from "../types/projects";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
-	name: "Flow Training Camp",
+	name: "Fundamentals of Code",
 	wip: true,
 	query: "flow-training-camp",
 	caption:
@@ -285,6 +285,11 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Intro to IF statements",
+						url: "/flow-training-camp/pdf/banana-sorting.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Intro to comparisons II",
 						url: "/flow-training-camp/pdf/banana-sorting.pdf",
 					},
 				],
