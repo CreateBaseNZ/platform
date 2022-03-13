@@ -137,11 +137,11 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
- 		/* {
+ 		{
 			title: "Balloon Throwing",
-			requirements: ["Speed control"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/dev/heat-seeker/img/2.PNG",
-			description: "We will now program our robot to detect small curves in the line and adjust its movement accordingly by setting different speeds to each motor.",
+			requirements: ["The Maze"],
+			imgSrc: "/flow-training-camp/img/thumbnail.png",
+			description: "We will now program our robot to use sensor data and math blocks to calculate the correct input for an action block.",
 			research: {
 				threshold: 120,
 				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -184,10 +184,10 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
-		},  */
+		},
 		{
 			title: "Tyre Pumping",
-			requirements: ["The Maze"],
+			requirements: ["Balloon Throwing"],
 			imgSrc: "/flow-training-camp/img/3.png",
 			description: "Learn how to use a while loop to perform the same action multiple times. In this case, inflating a tire to the perfect pressure.",
 			research: {
@@ -232,7 +232,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Banana Sorting",
-			requirements: ["The Maze", "Tyre Pumping"],
+			requirements: ["Tyre Pumping"],
 			imgSrc: "/flow-training-camp/img/2.png",
 			description: "Use sensors to determine the physical properties of a banana, then pull the right lever to sort it into the correct crate.",
 			research: {
@@ -275,7 +275,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		},
 		{
 			title: "Red Light Green Light",
-			requirements: ["The Maze", "Tyre Pumping", "Banana Sorting"],
+			requirements: ["Banana Sorting"],
 			imgSrc: "/flow-training-camp/img/4.png",
 			description: "IF statements? WHILE loops? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
