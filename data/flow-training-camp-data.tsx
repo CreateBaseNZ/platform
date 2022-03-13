@@ -1,5 +1,5 @@
 import { NodeEqualsMini, NodeGreaterThanMini, NodeLessThanMini, NodeNotEqualsMini, NodeTrueMini, NodeFalseMini} from "../components/Nodes/NodeComparisons";
-import { NodeIfMini, NodeRepeatMini, NodeWhileMini } from "../components/Nodes/NodeConditionals";
+import { NodeIfMini, NodeWhileMini } from "../components/Nodes/NodeConditionals";
 import {
 	NodeTrainingBotGetBananaGreenMini,
 	NodeTrainingBotGetBananaYellowMini,
@@ -19,13 +19,11 @@ import {
 	NodeTrainingBotMulMini,
 	NodeTrainingBotDivMini,
 	NodeTrainingBotThrowBalloonMini,
-	NodeRestartInitializeMini,
-	NodeDelayedRestartInitializeMini,
 } from "../components/Nodes/NodeTrainingCamp";
 import { NodePrintMini } from "../components/Nodes/NodeUtils";
 import { NodeAndMini, NodeNotMini, NodeOrMini} from "../components/Nodes/NodeLogicals";
 import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
-import { COMPUTER_SCIENCE, ENGINEERING, FIRE_SAFETY, TECHNOLOGY } from "../constants/projectSubjects";
+import { COMPUTER_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
@@ -39,9 +37,9 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 	scenePrefix: "Project_TrainingCamp",
 	runType: "loop",
 	durPerLesson: "45 mins",
-	numOfLessons: 9,
+	numOfLessons: 5,
 	difficulty: "advanced",
-	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
+	subjects: [TECHNOLOGY, COMPUTER_SCIENCE],
 	learningOutcome: "/heat-seeker/files/project-overview.pdf",
 	cads: {
 		nz: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - NZ.pdf",
@@ -144,16 +142,16 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			description: "We will now program our robot to use sensor data and math blocks to calculate the correct input for an action block.",
 			research: {
 				threshold: 120,
-				caption: ["Work through the four modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to Flow blocks",
+						title: "Introduction to sensors",
 						url: "/heat-seeker/pdf/Subproblem2.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Sensing blocks",
+						title: "Flow: Math blocks",
 						url: "/heat-seeker/pdf/Iter_1.pdf",
 					},
 					{
@@ -223,10 +221,10 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeTrainingBotGetTyrePressureMini/>] },
+				{ name: "Sensing", blocks: [<NodeTrainingBotGetTyrePressureMini />] },
 				{ name: "Actions", blocks: [<NodeTrainingBotPumpTyreMini />] },
 				{ name: "Conditionals", blocks: [<NodeWhileMini />] },
-				{ name: "Logicals", blocks: [<NodeLessThanMini/>, ] },
+				{ name: "Logicals", blocks: [<NodeLessThanMini/>, <NodeGreaterThanMini/>] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
@@ -268,7 +266,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			blockList: [
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetBananaGreenMini />, <NodeTrainingBotGetBananaYellowMini />, <NodeTrainingBotGetBananaBrownMini />] },
 				{ name: "Actions", blocks: [<NodeTrainingBotPullLeverMini />] },
-				{ name: "Conditionals", blocks: [<NodeWhileMini />, <NodeEqualsMini />, <NodeTrueMini />] },
+				{ name: "Conditionals", blocks: [<NodeWhileMini />, <NodeEqualsMini />, <NodeTrueMini />, <NodeFalseMini />] },
 				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />, ] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],

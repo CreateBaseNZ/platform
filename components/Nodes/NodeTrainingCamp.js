@@ -219,7 +219,7 @@ export const NodeTrainingBotGetBananaYellowMini = memo(() => {
 
 export const NodeTrainingBotGetBananaBrownMini = memo(() => {
 	return (
-		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetBananaBrown" node={<NodeTrainingBotGetBananaBrown />} style={{ border: "outset #00ffee" }}>
+		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetBananaBrown" node={<NodeTrainingBotGetBananaBrown />}>
 			<h4>Get Banana Brown</h4>
 		</NodeMini>
 	);
@@ -235,7 +235,7 @@ export const NodeTrainingBotGetTrafficLightMini = memo(() => {
 
 export const NodeTrainingBotGetTyrePressureMini = memo(() => {
 	return (
-		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetTyrePressure" node={<NodeTrainingBotGetTyrePressure />} style={{ border: "outset #00ffee" }}>
+		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetTyrePressure" node={<NodeTrainingBotGetTyrePressure />}>
 			<h4>Get Tyre Pressure</h4>
 		</NodeMini>
 	);
