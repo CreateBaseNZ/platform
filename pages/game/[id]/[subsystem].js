@@ -34,9 +34,13 @@ const SubsystemGame = () => {
 
 			const _subsystemIndex = _data.subsystems.findIndex((subsystem) => subsystem.title === router.query.subsystem);
 			if (_subsystemIndex < 0) return void router.replace("/404");
-
+			
 			setData(_data);
-			setSubsystemIndex(_subsystemIndex);
+			if (_subsystemIndex > 1){
+				setSubsystemIndex(_subsystemIndex-1);
+			} else {
+				setSubsystemIndex(_subsystemIndex);
+			}
 		}
 	}, [router.isReady, router.query.id]);
 
