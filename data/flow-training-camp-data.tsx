@@ -147,17 +147,12 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Introduction to sensors",
-						url: "/heat-seeker/pdf/Subproblem2.pdf",
+						url: "/flow-training-camp/pdf/sensing-blocks.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Flow: Math blocks",
-						url: "/heat-seeker/pdf/Iter_1.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [comparisonBoostData, ifBoostData],
+						title: "Flow: Operation blocks",
+						url: "/flow-training-camp/pdf/operation-blocks.pdf",
 					},
 				],
 			},
