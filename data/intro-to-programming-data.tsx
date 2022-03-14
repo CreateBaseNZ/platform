@@ -27,7 +27,7 @@ import { COMPUTER_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
-const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
+const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 	name: "Intro to Programming",
 	wip: true,
 	query: "intro-to-programming",
@@ -347,4 +347,4 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 	},
 };
 
-export default FLOW_TRAINING_CAMP_DATA;
+export default INTRO_TO_PROGRAMMING_DATA;
