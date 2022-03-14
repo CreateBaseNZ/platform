@@ -157,19 +157,17 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				],
 			},
 			plan: {
-				threshold: 300,
+				threshold: 30,
 				list: [
-					"Think back to when you were manually controlling the robot... What information were you using to decide which action to perform?",
-					"In this step, our aim is to create a plan for how our robot could navigate around multiple curves.",
-					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
 				threshold: 300,
-				tasks: ["Upgrade your code so that your robot can follow the line using the sensors."],
+				tasks: ["Write some code that will tell the robot to throw a water balloon at the correct speed so that it hits a target."],
 				hints: [
-					"You will need to use a sensor to detect the line and adjust the speed of the wheels.",
-					"Your robot only has a limited amount of water, so make sure that you turn the hose off after you put out each fire.",
+					"You will need to use a sensor to detect the angle that the robot is currently aiming.",
+					"You will need to use math blocks to transform the angle in degrees to the correct velocity in metres per second.",
 				],
 			},
 			blockList: [
@@ -182,7 +180,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			title: "Tyre Pumping",
 			requirements: ["Balloon Throwing"],
 			imgSrc: "/flow-training-camp/img/3.png",
-			description: "Learn how to use a while loop to perform the same action multiple times. In this case, inflating a tire to the perfect pressure.",
+			description: "Learn how to use a while loop to perform the same action multiple times. In this case, inflating a tyre to the perfect pressure.",
 			research: {
 				threshold: 300,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -200,19 +198,19 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				],
 			},
 			plan: {
-				threshold: 120,
+				threshold: 30,
 				list: [
-					"Think back to when you were manually controlling the robot... What actions were you performing? What information were you using to decide which action to perform?",
-					"In this step, our aim is to create a plan for how our robot could put out fires using the water hose",
-					"But first, we need to make a plan. Open up your learning journal and answer all of the questions in the Plan section. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 3. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
 				threshold: 120,
-				tasks: ["Write some code so that your robot can drive forward, putting out fires along the way."],
+				tasks: ["Write some code so that your robot will inflate a tire to the correct pressure."],
 				hints: [
-					"You need to use the fire sensor to detect the fire.",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it for future steps.",
+					"If you inflate the tyre too much it will explode!",
+					"You will need to use a sensor to detect the current pressure of the tyre.",
+					"The optimal solution uses a WHILE block and a single Pump Tyre block",
+					"You will need to use a comparison block to compare the current pressure of the tyre to the target pressure. This would probably be a good condition for your WHILE block.",
 				],
 			},
 			blockList: [
@@ -249,7 +247,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			plan: {
 				threshold: 30,
 				list: [
-					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 4. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
@@ -276,7 +274,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			imgSrc: "/flow-training-camp/img/4.png",
 			description: "IF statements? WHILE loops? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
-				threshold: 1,
+				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
 				modules: [
 					{
@@ -299,7 +297,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			plan: {
 				threshold: 30,
 				list: [
-					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 2. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+					"Open up your learning journal and answer all of the questions in the Plan section for subsystem 5. If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
 				],
 			},
 			code: {
