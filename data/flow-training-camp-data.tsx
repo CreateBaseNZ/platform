@@ -272,7 +272,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			title: "Red Light Green Light",
 			requirements: ["Banana Sorting"],
 			imgSrc: "/flow-training-camp/img/4.png",
-			description: "IF statements? WHILE loops? We will learn how to use them to cross a road without getting hit by traffic.",
+			description: "IF statements? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
 				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
@@ -302,10 +302,10 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			},
 			code: {
 				threshold: 120,
-				tasks: ["Write some code so that your robot can follow the line, putting out fires along the way."],
+				tasks: ["Write some code to enable your robot to use traffic light signals to safely cross a road."],
 				hints: [
-					"You will need to use the fire sensor to detect the fire. Move through the map to find all the fires",
-					"Click the save button in the bottom left menu when you have finished writing your code so that you can access it in the Improve step.",
+					"You will need to use both a WHILE loop and an IF statement.",
+					"Before you leave the simulation, click the save button in the bottom left menu so that you can continue writing your code where you left off when you return!",
 				],
 			},
 			blockList: [
@@ -320,16 +320,20 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		},
 	],
 	improve: {
-		threshold: 600,
+		threshold: 300,
 		alert:
-			"Congratulations! If you managed to put out all of the fires with your robot, then you have successfully completed the Project! You now know how to write a line following algorithm that a robot, like our firefighting bot, can use to automatically navigate through an environment.",
+			"Congratulations! If you managed to complete all of the subsystems, then you have not only successfully tested the robot, but you have also proven your skills as a programmer and a problem solver. But, there is still one more bonus test to go; if you are feeling up to it...",
 		tasks: [
-			"In the Improve step, you will optimise your solution to try and put out all the fires in the shortest possible time.",
-			"If you want an additional challenge, try and solve the problem using as few blocks as possible.",
+			"In the Improve step, you will repeat the final test but with three new additions:",
+			"1: The traffic light will now also include an orange light that signals that the cars are about to start moving.",
+			"2: The roof of the testing facility has been opened, and there is a high chance of rain. When it is raining, the road becomes slippery and your robot will take a bit of time to slow down to a stop. The harder its raining, the more time it will take the robot to stop. Your robot can detect the amount of rain with a sensor.",
+			"3: Cars are now travelling at different speeds. Your robot has a sensor that can detect the speed on incoming cars.",
+			"You will optimise your solution to try and reach the other side of the road as fast as possible.",
 		],
 		hints: [
-			"Your robot's straight-line speed is maximised when the amount of time it spends turning is minimised. You want to be turning as fast as possible but not too fast, or else you may over-shoot the line and have to do another turn.",
-			"You could try sending a variable speed to each motor: if you are far away from the line, then turn quickly. If you are only slightly off the line, then turn slower so that your robot doesn't end up oscillating.",
+			"While it is raining, you will have to stop moving before the red light, or else your robot will slide into the traffic.",
+			"How early your robot needs to stop before the red light depends on how much it is raining.",
+			"If the cars are moving slow enough, you may be able to run straight past them..."
 		],
 		blockList: [
 			{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />], },
