@@ -30,6 +30,7 @@ export const getDefaultValues = (type) => {
 		type === "NodeTrainingBotGetBananaBrown" ||
 		type === "NodeTrainingBotGetTrafficLight" ||
 		type === "NodeTrainingBotGetTyrePressure" ||
+		type === "NodeTrainingBotGetTargetDistance" ||
 		type === "NodeTrainingBotPullLever" ||
 		type === "NodeTrainingBotPunch" ||
 		type === "NodeTrainingBotTurnLeft" ||
@@ -39,6 +40,7 @@ export const getDefaultValues = (type) => {
 		type === "NodeTrainingBotWalk" ||
 		type === "NodeTrainingBotStop" ||
 		type === "NodeTrainingBotThrowBalloon," ||
+		type === "NodeTrainingBotThrowConstant" ||
 		type === "NodeRestartInitialize," ||
 		type === "NodeDelayedRestartInitialize"
 	) {
@@ -53,10 +55,6 @@ export const getDefaultValues = (type) => {
 		type === "NodeLessThan" ||
 		type === "NodeEquals" ||
 		type === "NodeNotEquals" ||
-		type === "NodeTrainingBotAdd" ||
-		type === "NodeTrainingBotSub" ||
-		type === "NodeTrainingBotMul" ||
-		type === "NodeTrainingBotDiv" ||
 		type === "NodeTrue" ||
 		type === "NodeFalse"
 	) {
@@ -180,6 +178,7 @@ export const nodeTypeHandles = {
 	NodeTrainingBotGetBananaBrown: ["boolean__out"],
 	NodeTrainingBotGetTrafficLight: sensingHandles,
 	NodeTrainingBotGetTyrePressure: sensingHandles,
+	NodeTrainingBotGetTargetDistance: sensingHandles,
 	NodeTrainingBotPullLever: ["execution__in", "boolean__in__a", "execution__out"],
 	NodeTrainingBotPunch: actionHandles,
 	NodeTrainingBotTurnLeft: actionHandles,
@@ -188,11 +187,8 @@ export const nodeTypeHandles = {
 	NodeTrainingBotPumpTyre: actionHandles,
 	NodeTrainingBotWalk: actionHandles,
 	NodeTrainingBotStop: actionHandles,
-	NodeTrainingBotAdd: operatorHandles,
-	NodeTrainingBotSub: operatorHandles,
-	NodeTrainingBotMul: operatorHandles,
-	NodeTrainingBotDiv: operatorHandles,
-	NodeTrainingBotThrowBalloon: actionHandles,
+	NodeTrainingBotThrowBalloon: ["execution__in", "float__in__a", "execution__out"],
+	NodeTrainingBotThrowConstant: sensingHandles,
 	NodeRestartInitialize: actionHandles,
 	NodeDelayedRestartInitialize: actionHandles
 	

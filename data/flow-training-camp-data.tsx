@@ -6,6 +6,7 @@ import {
 	NodeTrainingBotGetBananaBrownMini,
 	NodeTrainingBotGetTrafficLightMini,
 	NodeTrainingBotGetTyrePressureMini,
+	NodeTrainingBotGetTargetDistanceMini,
 	NodeTrainingBotPullLeverMini,
 	NodeTrainingBotPunchMini,
 	NodeTrainingBotTurnLeftMini,
@@ -14,15 +15,12 @@ import {
 	NodeTrainingBotPumpTyreMini,
 	NodeTrainingBotWalkMini,
 	NodeTrainingBotStopMini,
-	NodeTrainingBotAddMini,
-	NodeTrainingBotSubMini,
-	NodeTrainingBotMulMini,
-	NodeTrainingBotDivMini,
 	NodeTrainingBotThrowBalloonMini,
+	NodeTrainingBotThrowConstantMini,
 } from "../components/Nodes/NodeTrainingCamp";
 import { NodePrintMini } from "../components/Nodes/NodeUtils";
 import { NodeAndMini, NodeNotMini, NodeOrMini} from "../components/Nodes/NodeLogicals";
-import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini } from "../components/Nodes/NodeOperations";
+import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeSqrtMini } from "../components/Nodes/NodeOperations";
 import { COMPUTER_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
 import { IProjectReadOnly } from "../types/projects";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
@@ -171,8 +169,9 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Actions", blocks: [<NodeTrainingBotThrowBalloonMini />] },
-				{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
+				{ name: "Sensing", blocks: [<NodeTrainingBotGetTargetDistanceMini />] },
+				{ name: "Actions", blocks: [<NodeTrainingBotThrowBalloonMini />, <NodeTrainingBotThrowConstantMini/>] },
+				{ name: "Operators", blocks: [<NodeMultiplyMini />, <NodeAddMini />, <NodeSqrtMini />, <NodeDivideMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		},
@@ -217,9 +216,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetTyrePressureMini />] },
 				{ name: "Actions", blocks: [<NodeTrainingBotPumpTyreMini />] },
 				{ name: "Conditionals", blocks: [<NodeWhileMini />] },
-				//{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini/>, <NodeGreaterThanMini/>] },
-				//{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
@@ -262,7 +259,6 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetBananaGreenMini />, <NodeTrainingBotGetBananaYellowMini />, <NodeTrainingBotGetBananaBrownMini />] },
 				{ name: "Actions", blocks: [<NodeTrainingBotPullLeverMini />] },
 				{ name: "Conditionals", blocks: [<NodeWhileMini />] },
-				//{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
 				{ name: "Comparisons", blocks: [<NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
 				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
@@ -312,7 +308,6 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />], },
 				{ name: "Actions", blocks: [<NodeTrainingBotWalkMini />, <NodeTrainingBotStopMini />], },
 				{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />], },
-				{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
 				{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeEqualsMini />, <NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
 				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
@@ -339,7 +334,6 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />], },
 			{ name: "Actions", blocks: [<NodeTrainingBotWalkMini />, <NodeTrainingBotStopMini />], },
 			{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />], },
-			{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
 			{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
 			{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 			{ name: "Utilities", blocks: [<NodePrintMini />] }

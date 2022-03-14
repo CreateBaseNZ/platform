@@ -43,6 +43,7 @@ import {
 	NodeTrainingBotGetBananaBrown,
 	NodeTrainingBotGetTrafficLight,
 	NodeTrainingBotGetTyrePressure,
+	NodeTrainingBotGetTargetDistance,
 	NodeTrainingBotPullLever,
 	NodeTrainingBotPunch,
 	NodeTrainingBotTurnLeft,
@@ -51,11 +52,8 @@ import {
 	NodeTrainingBotPumpTyre,
 	NodeTrainingBotWalk,
 	NodeTrainingBotStop,
-	NodeTrainingBotAdd,
-	NodeTrainingBotSub,
-	NodeTrainingBotMul,
-	NodeTrainingBotDiv,
 	NodeTrainingBotThrowBalloon,
+	NodeTrainingBotThrowConstant,
 	NodeRestartInitialize,
 	NodeDelayedRestartInitialize
 } from "../components/Nodes/NodeTrainingCamp";
@@ -186,6 +184,7 @@ export const nodeTypes = {
 	NodeTrainingBotGetBananaBrown,
 	NodeTrainingBotGetTrafficLight,
 	NodeTrainingBotGetTyrePressure,
+	NodeTrainingBotGetTargetDistance,
 	NodeTrainingBotPullLever,
 	NodeTrainingBotPunch,
 	NodeTrainingBotTurnLeft,
@@ -194,11 +193,8 @@ export const nodeTypes = {
 	NodeTrainingBotPumpTyre,
 	NodeTrainingBotWalk,
 	NodeTrainingBotStop,
-	NodeTrainingBotAdd,
-	NodeTrainingBotSub,
-	NodeTrainingBotMul,
-	NodeTrainingBotDiv,
 	NodeTrainingBotThrowBalloon,
+	NodeTrainingBotThrowConstant,
 	NodeRestartInitialize,
 	NodeDelayedRestartInitialize
 };
@@ -338,6 +334,7 @@ export const tooltips = {
 	NodeTrainingBotGetBananaBrown: [<NoneType />, <BooleanType />, "Return if the banana has brown"],
 	NodeTrainingBotGetTrafficLight: [<NoneType />, <FloatType />, "Return the colour of the traffic light"],
 	NodeTrainingBotGetTyrePressure: [<NoneType />, <FloatType />, "Return the pressure level of the tyre"],
+	NodeTrainingBotGetTargetDistance: [<NoneType />, <FloatType />, "Return distance of the target away from the robot"],
 	NodeTrainingBotPullLever: [<ExecutionType />, <BooleanType />, <ExecutionType />, "Pull the lever"],
 	NodeTrainingBotPunch: [<ExecutionType />, <ExecutionType />, "Punch"],
 	NodeTrainingBotTurnLeft: [<ExecutionType />, <ExecutionType />, "Turn 90 degrees to the left"],
@@ -346,11 +343,8 @@ export const tooltips = {
 	NodeTrainingBotPumpTyre: [<ExecutionType />, <ExecutionType />, "Pump the tyre once"],
 	NodeTrainingBotWalk: [<ExecutionType />, <ExecutionType />, "Start walking forward"],
 	NodeTrainingBotStop: [<ExecutionType />, <ExecutionType />, "Stop the robot walking"],
-	NodeTrainingBotAdd:[<FloatType />, <FloatType />, "Outputs the sum of the two inputs"],
-	NodeTrainingBotSub:[<FloatType />, <FloatType />, "Outputs the difference of the two inputs"],
-	NodeTrainingBotMul:[<FloatType />, <FloatType />, "Outputs the product of the two inputs"],
-	NodeTrainingBotDiv:[<FloatType />, <FloatType />, "Outputs the quotient of the two inputs"],
-	NodeTrainingBotThrowBalloon: [<><ExecutionType /> <FloatType /></>, <ExecutionType />, "Throw the balloon a specified distance"],
+	NodeTrainingBotThrowBalloon: [<><ExecutionType /> <FloatType /></>, <ExecutionType />, "Throw the balloon at a specified velocity"],
+	NodeTrainingBotThrowConstant: [<NoneType />, <FloatType />, "Return the throwing constant"],
 	NodeRestartInitialize: [<ExecutionType />, <ExecutionType />, "Initialize the robot"],
 	NodeDelayedRestartInitialize:  [<ExecutionType />, <ExecutionType />, "Initialize the robot"]
 };

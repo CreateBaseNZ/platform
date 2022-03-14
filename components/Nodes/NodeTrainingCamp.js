@@ -26,7 +26,7 @@ const NodeTrainingBotAction = ({ data = { values: { a: 1 }, connections: [] }, i
 	);
 };
 
-const NodeTrainingBotFloatAction = ({ data = { values: { a: 1 }, connections: [] }, id, label, isConnectable, style = {} }) => {
+const NodeTrainingBotFloatAction = ({ data = { values: { a: 1 }, connections: [] }, id, label, isConnectable, style }) => {
 	return (
 		<div className={`${classes.node} ${classes.actioning} ${classes.hasLeftHandle} ${classes.hasRightHandle} ${classes.heatSeekerAction}`} style={style}>
 			<CustomHandle type="target" position="left" id="execution__in" isConnectable={isConnectable} connections={data ? data.connections : []} />
@@ -44,23 +44,6 @@ const NodeTrainingBotFloatAction = ({ data = { values: { a: 1 }, connections: []
 		</div>
 	);
 };
-
-
-export const NodeTrainingBotAdd = memo(({ id, data, isConnectable }) => {
-	return <NodeOperations id={id} label="+" data={data} isConnectable={isConnectable} />;
-});
-
-export const NodeTrainingBotSub = memo(({ id, data, isConnectable }) => {
-	return <NodeOperations id={id} label="-" data={data} isConnectable={isConnectable} />;
-});
-
-export const NodeTrainingBotMul = memo(({ id, data, isConnectable }) => {
-	return <NodeOperations id={id} label="&times;" data={data} isConnectable={isConnectable} />;
-});
-
-export const NodeTrainingBotDiv = memo(({ id, data, isConnectable }) => {
-	return <NodeOperations id={id} label="&divide;" data={data} isConnectable={isConnectable} />;
-});
 
 export const NodeTrainingBotGetBananaGreen = memo(({ data, isConnectable }) => {
 	return <NodeSensingBool data={data} isConnectable={isConnectable} label="Get Banana Green" style={{ width: "10rem", height: "3rem" }} />;
@@ -82,12 +65,20 @@ export const NodeTrainingBotGetTyrePressure = memo(({ data, isConnectable }) => 
 	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Tyre Pressure" style={{ width: "10rem", height: "3rem" }} />;
 });
 
+export const NodeTrainingBotGetTargetDistance = memo(({ data, isConnectable }) => {
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Target Distance" style={{ width: "10rem", height: "3rem" }} />;
+});
+
 export const NodeTrainingBotPullLever = memo(({ id, data, isConnectable }) => {
 	return <NodeTrainingBotAction data={data} id={id} label="Pull Lever" isConnectable={isConnectable} />;
 });
 
 export const NodeTrainingBotThrowBalloon = memo(({ id, data, isConnectable }) => {
-	return <NodeTrainingBotFloatAction label="Throw Balloon" selectName="throwBalloon" dataName="entity" isConnectable={isConnectable} />;
+	return <NodeTrainingBotFloatAction data={data} id={id} label="Throw Balloon" isConnectable={isConnectable} />;
+});
+
+export const NodeTrainingBotThrowConstant = memo(({ data, isConnectable }) => {
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Throw Constant" style={{ width: "10rem", height: "3rem" }} />;
 });
 
 export const NodeRestartInitialize = memo(({ data, isConnectable }) => {
@@ -188,19 +179,6 @@ const NodeAimBotActionMini = (props) => {
 	);
 };
 
-export const NodeTrainingBotAddMini = memo(() => {
-	return <NodeOperationsMini label="+" nodeType="NodeTrainingBotAdd" node={<NodeTrainingBotAdd />} />;
-});
-export const NodeTrainingBotSubMini = memo(() => {
-	return <NodeOperationsMini label="-" nodeType="NodeTrainingBotSub" node={<NodeTrainingBotSub />} />;
-});
-export const NodeTrainingBotMulMini = memo(() => {
-	return <NodeOperationsMini label="&times;" nodeType="NodeTrainingBotMul" node={<NodeTrainingBotMul />} />;
-});
-export const NodeTrainingBotDivMini = memo(() => {
-	return <NodeOperationsMini label="&divide;" nodeType="NodeTrainingBotDiv" node={<NodeTrainingBotDiv />} />;
-});
-
 export const NodeTrainingBotGetBananaGreenMini = memo(() => {
 	return (
 		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetBananaGreen" node={<NodeTrainingBotGetBananaGreen />}>
@@ -241,6 +219,14 @@ export const NodeTrainingBotGetTyrePressureMini = memo(() => {
 	);
 });
 
+export const NodeTrainingBotGetTargetDistanceMini = memo(() => {
+	return (
+		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetTargetDistance" node={<NodeTrainingBotGetTargetDistance />}>
+			<h4>Get Target Distance</h4>
+		</NodeMini>
+	);
+});
+
 export const NodeTrainingBotPullLeverMini = memo(() => {
 	return (
 		<NodeMini className={classes.actioning} nodeType="NodeTrainingBotPullLever" node={<NodeTrainingBotPullLever />}>
@@ -253,6 +239,14 @@ export const NodeTrainingBotThrowBalloonMini = memo(() => {
 	return (
 		<NodeMini className={classes.actioning} nodeType="NodeTrainingBotThrowBalloon" node={<NodeTrainingBotThrowBalloon />}>
 			<h4>Throw Balloon</h4>
+		</NodeMini>
+	);
+});
+
+export const NodeTrainingBotThrowConstantMini = memo(() => {
+	return (
+		<NodeMini className={classes.actioning} nodeType="NodeTrainingBotThrowConstant" node={<NodeTrainingBotThrowConstant />}>
+			<h4>Throw Constant</h4>
 		</NodeMini>
 	);
 });
