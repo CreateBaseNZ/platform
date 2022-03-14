@@ -146,7 +146,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to sensors",
+						title: "Flow: Sensor blocks",
 						url: "/flow-training-camp/pdf/sensing-blocks.pdf",
 					},
 					{
@@ -189,12 +189,12 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Intro to comparisons",
+						title: "Flow: Comparison blocks",
 						url: "/flow-training-camp/pdf/comparisons.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Intro to while loops",
+						title: "Flow: While blocks",
 						url: "/flow-training-camp/pdf/while-loops.pdf",
 					},
 				],
@@ -234,7 +234,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Intro to booleans & logicals",
+						title: "Flow: Booleans & logical blocks",
 						url: "/flow-training-camp/pdf/logicals.pdf",
 					},
 					{
@@ -278,12 +278,17 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Intro to IF statements",
-						url: "/flow-training-camp/pdf/banana-sorting.pdf",
+						url: "/flow-training-camp/pdf/if-statements.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Intro to comparisons II",
-						url: "/flow-training-camp/pdf/banana-sorting.pdf",
+						title: "Flow: IF blocks",
+						url: "/flow-training-camp/pdf/if-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Flow: Comparisons part II",
+						url: "/flow-training-camp/pdf/comparisons-2.pdf",
 					},
 				],
 			},
