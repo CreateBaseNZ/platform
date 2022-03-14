@@ -28,9 +28,9 @@ import { IProjectReadOnly } from "../types/projects";
 import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data";
 
 const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
-	name: "Fundamentals of Code",
+	name: "Intro to Programming",
 	wip: true,
-	query: "flow-training-camp",
+	query: "intro-to-programming",
 	caption:
 		"Learn the fundamentals of programming using the Flow visual language. Flow is synonymous with creating flow charts, so you can focus on learning programming logic without having to memorize arbitrary syntax! In this Project, you will be programming an assistant robot in a testing facility to complete a variety of unusual tasks.",
 	stacked: true,
@@ -54,11 +54,11 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 	define: {
 		threshold: 60,
 		url: "https://www.youtube.com/watch?v=qsRFNAa3iaY",
-		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-training-camp/vid/training-camp-situation.m4v",
+		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/intro-to-programming/vid/situation.mp4",
 		h1: "Welcome to CreateBase headquarters! In this testing facility, humanoid robots are built and programmed for the purpose of assisting humans to perform everyday tasks.",
 		h2: "As a testing officer, your job is assess the capabilities of the latest robot design. You will do this by creating programs that will enable the robot to progress through a series of increasingly difficult tests. If successful, your robot will be approved for release into the world! To get started, make a copy of one of the learning journals below:",
 		docs: "https://docs.google.com/document/d/1PnUV4NtGB-ddr6ukNZiNdK6KRjisSoj8rzn3KgDT1MQ/edit",
-		word: "/flow-training-camp/files/learning-journal-flow-training-camp.docx",
+		word: "/intro-to-programming/files/learning-journal-intro-to-programming.docx",
 	},
 	imagine: {
 		threshold: 120,
@@ -66,20 +66,20 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			{
 				type: "pdf",
 				title: "Demystifying programming",
-				img: "/flow-training-camp/img/code.jpg",
-				url: "/flow-training-camp/pdf/demystifying-programming.pdf",
+				img: "/intro-to-programming/img/code.jpg",
+				url: "/intro-to-programming/pdf/demystifying-programming.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Application: automation",
-				img: "/flow-training-camp/img/automation.jpg",
-				url: "/flow-training-camp/pdf/application-automation.pdf",
+				img: "/intro-to-programming/img/automation.jpg",
+				url: "/intro-to-programming/pdf/application-automation.pdf",
 			},
 			{
 				type: "pdf",
 				title: "Your mission",
 				img: "",
-				url: "/flow-training-camp/pdf/your-mission.pdf",			
+				url: "/intro-to-programming/pdf/your-mission.pdf",			
 			},
 		],
 	},
@@ -87,21 +87,21 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "The Maze",
 			requirements: [],
-			imgSrc: "/flow-training-camp/img/maze.png",
+			imgSrc: "/intro-to-programming/img/maze.png",
 			description: "We will start by learning what action blocks are and how to sequence them together to enable our robot to navigate through a fixed maze.",
 			research: {
 				threshold: 60,
-				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: ["Work through ALL of the modules below to complete your research.", "After completing each card, return to your learning journal to solidify your understanding by answering some simple questions!"],
 				modules: [
 					{
 						type: "pdf",
 						title: "Intro to functions",
-						url: "/flow-training-camp/pdf/functions.pdf",
+						url: "/intro-to-programming/pdf/functions.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Flow: Action blocks",
-						url: "/flow-training-camp/pdf/action-blocks.pdf",
+						url: "/intro-to-programming/pdf/action-blocks.pdf",
 					},
 					{
 						type: "video",
@@ -138,7 +138,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
  		{
 			title: "Balloon Throwing",
 			requirements: ["The Maze"],
-			imgSrc: "/flow-training-camp/img/water-balloon.png",
+			imgSrc: "/intro-to-programming/img/water-balloon.png",
 			description: "We will now program our robot to use sensor data and math blocks to calculate the correct input for an action block.",
 			research: {
 				threshold: 120,
@@ -147,12 +147,12 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Flow: Sensor blocks",
-						url: "/flow-training-camp/pdf/sensing-blocks.pdf",
+						url: "/intro-to-programming/pdf/sensing-blocks.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Flow: Operation blocks",
-						url: "/flow-training-camp/pdf/operation-blocks.pdf",
+						url: "/intro-to-programming/pdf/operation-blocks.pdf",
 					},
 				],
 			},
@@ -179,7 +179,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Tyre Pumping",
 			requirements: ["Balloon Throwing"],
-			imgSrc: "/flow-training-camp/img/tyre.png",
+			imgSrc: "/intro-to-programming/img/tyre.png",
 			description: "Learn how to use a while loop to perform the same action multiple times. In this case, inflating a tyre to the perfect pressure.",
 			research: {
 				threshold: 300,
@@ -188,12 +188,12 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Flow: Comparison blocks",
-						url: "/flow-training-camp/pdf/comparisons.pdf",
+						url: "/intro-to-programming/pdf/comparisons.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Flow: While blocks",
-						url: "/flow-training-camp/pdf/while-loops.pdf",
+						url: "/intro-to-programming/pdf/while-loops.pdf",
 					},
 				],
 			},
@@ -226,7 +226,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Banana Sorting",
 			requirements: ["Tyre Pumping"],
-			imgSrc: "/flow-training-camp/img/banana.png",
+			imgSrc: "/intro-to-programming/img/banana.png",
 			description: "Use sensors to determine the physical properties of a banana, then pull the right lever to sort it into the correct crate.",
 			research: {
 				threshold: 60,
@@ -235,12 +235,12 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Flow: Booleans & logical blocks",
-						url: "/flow-training-camp/pdf/logicals.pdf",
+						url: "/intro-to-programming/pdf/logicals.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Flow: Banana sorting",
-						url: "/flow-training-camp/pdf/banana-sorting.pdf",
+						url: "/intro-to-programming/pdf/banana-sorting.pdf",
 					},
 				],
 			},
@@ -271,7 +271,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Red Light Green Light",
 			requirements: ["Banana Sorting"],
-			imgSrc: "/flow-training-camp/img/traffic.png",
+			imgSrc: "/intro-to-programming/img/traffic.png",
 			description: "IF statements? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
 				threshold: 60,
@@ -280,17 +280,17 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Intro to IF statements",
-						url: "/flow-training-camp/pdf/if-statements.pdf",
+						url: "/intro-to-programming/pdf/if-statements.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Flow: IF blocks",
-						url: "/flow-training-camp/pdf/if-blocks.pdf",
+						url: "/intro-to-programming/pdf/if-blocks.pdf",
 					},
 					{
 						type: "pdf",
 						title: "Flow: Comparisons part II",
-						url: "/flow-training-camp/pdf/comparisons-2.pdf",
+						url: "/intro-to-programming/pdf/comparisons-2.pdf",
 					},
 				],
 			},
