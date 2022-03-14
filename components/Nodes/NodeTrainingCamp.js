@@ -227,7 +227,7 @@ export const NodeTrainingBotGetBananaBrownMini = memo(() => {
 
 export const NodeTrainingBotGetTrafficLightMini = memo(() => {
 	return (
-		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetTrafficLight" node={<NodeTrainingBotGetTrafficLight />} style={{ border: "outset #00ffee" }}>
+		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetTrafficLight" node={<NodeTrainingBotGetTrafficLight />}>
 			<h4>Get Traffic Light</h4>
 		</NodeMini>
 	);

@@ -146,18 +146,13 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Introduction to sensors",
-						url: "/heat-seeker/pdf/Subproblem2.pdf",
+						title: "Flow: Sensor blocks",
+						url: "/flow-training-camp/pdf/sensing-blocks.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Flow: Math blocks",
-						url: "/heat-seeker/pdf/Iter_1.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [comparisonBoostData, ifBoostData],
+						title: "Flow: Operation blocks",
+						url: "/flow-training-camp/pdf/operation-blocks.pdf",
 					},
 				],
 			},
@@ -194,12 +189,12 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Intro to comparisons",
+						title: "Flow: Comparison blocks",
 						url: "/flow-training-camp/pdf/comparisons.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Intro to while loops",
+						title: "Flow: While blocks",
 						url: "/flow-training-camp/pdf/while-loops.pdf",
 					},
 				],
@@ -224,7 +219,9 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetTyrePressureMini />] },
 				{ name: "Actions", blocks: [<NodeTrainingBotPumpTyreMini />] },
 				{ name: "Conditionals", blocks: [<NodeWhileMini />] },
-				{ name: "Logicals", blocks: [<NodeLessThanMini/>, <NodeGreaterThanMini/>] },
+				//{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini/>, <NodeGreaterThanMini/>] },
+				//{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
@@ -239,7 +236,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 				modules: [
 					{
 						type: "pdf",
-						title: "Intro to booleans & logicals",
+						title: "Flow: Booleans & logical blocks",
 						url: "/flow-training-camp/pdf/logicals.pdf",
 					},
 					{
@@ -266,8 +263,10 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			blockList: [
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetBananaGreenMini />, <NodeTrainingBotGetBananaYellowMini />, <NodeTrainingBotGetBananaBrownMini />] },
 				{ name: "Actions", blocks: [<NodeTrainingBotPullLeverMini />] },
-				{ name: "Conditionals", blocks: [<NodeWhileMini />, <NodeEqualsMini />, <NodeTrueMini />, <NodeFalseMini />] },
-				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />, ] },
+				{ name: "Conditionals", blocks: [<NodeWhileMini />] },
+				//{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
+				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
@@ -283,12 +282,17 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 					{
 						type: "pdf",
 						title: "Intro to IF statements",
-						url: "/flow-training-camp/pdf/banana-sorting.pdf",
+						url: "/flow-training-camp/pdf/if-statements.pdf",
 					},
 					{
 						type: "pdf",
-						title: "Intro to comparisons II",
-						url: "/flow-training-camp/pdf/banana-sorting.pdf",
+						title: "Flow: IF blocks",
+						url: "/flow-training-camp/pdf/if-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Flow: Comparisons part II",
+						url: "/flow-training-camp/pdf/comparisons-2.pdf",
 					},
 				],
 			},
@@ -309,8 +313,10 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			blockList: [
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />], },
 				{ name: "Actions", blocks: [<NodeTrainingBotWalkMini />, <NodeTrainingBotStopMini />], },
-				{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeEqualsMini />], },
-				{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />, <NodeTrueMini />], },
+				{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />], },
+				{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
+				{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeEqualsMini />, <NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
+				{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] }
 			],
 		},
@@ -328,23 +334,13 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 			"You could try sending a variable speed to each motor: if you are far away from the line, then turn quickly. If you are only slightly off the line, then turn slower so that your robot doesn't end up oscillating.",
 		],
 		blockList: [
-						{
-				name: "Operators",
-				blocks: [<NodeAbsoluteMini />, <NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />],
-			},
-			{
-				name: "Comparisons",
-				blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />],
-			},
-			{
-				name: "Logicals",
-				blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />],
-			},
-			{
-				name: "Conditionals",
-				blocks: [<NodeIfMini />, <NodeWhileMini />],
-			},
-			{ name: "Utilities", blocks: [<NodePrintMini />] },
+			{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />], },
+			{ name: "Actions", blocks: [<NodeTrainingBotWalkMini />, <NodeTrainingBotStopMini />], },
+			{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />], },
+			{ name: "Operators", blocks: [<NodeTrainingBotAddMini />, <NodeTrainingBotSubMini />, <NodeTrainingBotMulMini />, <NodeTrainingBotDivMini />] },
+			{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
+			{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
+			{ name: "Utilities", blocks: [<NodePrintMini />] }
 		],
 	},
 };
