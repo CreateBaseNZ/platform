@@ -56,8 +56,8 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		url: "https://www.youtube.com/watch?v=qsRFNAa3iaY",
 		src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-training-camp/vid/training-camp-situation.m4v",
 		h1: "Welcome to CreateBase headquarters! In this testing facility, humanoid robots are built and programmed for the purpose of assisting humans to perform everyday tasks.",
-		h2: "As a testing officer, your job is assess the capabilities of the latest robot design. You will do this by creating programs that will enable the robot to progress through a series of increasingly difficult tests. If successful, your robot will be approved for release into the world!",
-		docs: "",
+		h2: "As a testing officer, your job is assess the capabilities of the latest robot design. You will do this by creating programs that will enable the robot to progress through a series of increasingly difficult tests. If successful, your robot will be approved for release into the world! To get started, make a copy of one of the learning journals below:",
+		docs: "https://docs.google.com/document/d/1PnUV4NtGB-ddr6ukNZiNdK6KRjisSoj8rzn3KgDT1MQ/edit",
 		word: "/flow-training-camp/files/learning-journal-flow-training-camp.docx",
 	},
 	imagine: {
@@ -87,7 +87,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "The Maze",
 			requirements: [],
-			imgSrc: "/flow-training-camp/img/1.png",
+			imgSrc: "/flow-training-camp/img/maze.png",
 			description: "We will start by learning what action blocks are and how to sequence them together to enable our robot to navigate through a fixed maze.",
 			research: {
 				threshold: 60,
@@ -138,7 +138,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
  		{
 			title: "Balloon Throwing",
 			requirements: ["The Maze"],
-			imgSrc: "/flow-training-camp/img/thumbnail.png",
+			imgSrc: "/flow-training-camp/img/water-balloon.png",
 			description: "We will now program our robot to use sensor data and math blocks to calculate the correct input for an action block.",
 			research: {
 				threshold: 120,
@@ -179,7 +179,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Tyre Pumping",
 			requirements: ["Balloon Throwing"],
-			imgSrc: "/flow-training-camp/img/3.png",
+			imgSrc: "/flow-training-camp/img/tyre.png",
 			description: "Learn how to use a while loop to perform the same action multiple times. In this case, inflating a tyre to the perfect pressure.",
 			research: {
 				threshold: 300,
@@ -226,7 +226,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Banana Sorting",
 			requirements: ["Tyre Pumping"],
-			imgSrc: "/flow-training-camp/img/2.png",
+			imgSrc: "/flow-training-camp/img/banana.png",
 			description: "Use sensors to determine the physical properties of a banana, then pull the right lever to sort it into the correct crate.",
 			research: {
 				threshold: 60,
@@ -271,7 +271,7 @@ const FLOW_TRAINING_CAMP_DATA: IProjectReadOnly = {
 		{
 			title: "Red Light Green Light",
 			requirements: ["Banana Sorting"],
-			imgSrc: "/flow-training-camp/img/4.png",
+			imgSrc: "/flow-training-camp/img/traffic.png",
 			description: "IF statements? We will learn how to use them to cross a road without getting hit by traffic.",
 			research: {
 				threshold: 60,
