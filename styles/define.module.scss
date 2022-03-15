@@ -86,3 +86,29 @@
 		}
 	}
 }
+
+.journalLink {
+	margin: 1rem 0 2rem 0;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	label {
+		font-size: 14px;
+	}
+	input {
+		width: 100%;
+		height: 3rem;
+		background: rgba(black, 0.05);
+		border-radius: 12px;
+		margin: 0.75rem 0;
+		padding: 0 1rem;
+		font-family: $poppins;
+		border: thin solid transparent;
+		transition: border 0.1s ease-out, background-color 0.1s ease-out;
+		&:focus {
+			background: white;
+			border: thin solid $logo-mid;
+		}
+	}
+}

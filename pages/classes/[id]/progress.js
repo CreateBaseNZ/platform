@@ -32,6 +32,8 @@ const ClassesProgress = () => {
 		};
 	}, []);
 
+	console.log(classObject);
+
 	useEffect(() => {
 		(async () => {
 			if (classLoaded) {
@@ -49,6 +51,7 @@ const ClassesProgress = () => {
 
 	useEffect(() => {
 		if (!preData || !ref.current) return;
+		console.log(preData);
 		if (viewSelect.id === "student") {
 			const student = preData.find((student) => student.id === studentSelect.id);
 			if (student) {
@@ -71,6 +74,8 @@ const ClassesProgress = () => {
 		}
 		setPreData(_preData);
 	};
+
+	console.log(postData);
 
 	return (
 		<div ref={ref} className={`${classes.view} roundScrollbar`}>

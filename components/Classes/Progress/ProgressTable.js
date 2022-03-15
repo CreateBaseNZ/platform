@@ -38,6 +38,8 @@ const ProgressTable = ({ data, view, setTooltip }) => {
 		setTooltip({ title, step, ...params, position, style: { [styleProp]: 0 } });
 	};
 
+	console.log(data);
+
 	return (
 		<div className={classes.table} style={{ gridTemplateRows: `repeat(${data.length},2.5rem)` }} onMouseLeave={() => setTooltip()}>
 			<div className={classes.header} onMouseOver={clearTooltip} style={{ borderTopLeftRadius: 12, justifyContent: "flex-start" }}>
@@ -57,7 +59,13 @@ const ProgressTable = ({ data, view, setTooltip }) => {
 			</div>
 			{data.map((item) => (
 				<Fragment key={item.id}>
-					<div onMouseOver={clearTooltip}>{item.name}</div>
+					{item.learningJournal ? (
+						<a href={item.learningJournal} onMouseOver={clearTooltip} target="_blank">
+							{item.name}
+						</a>
+					) : (
+						<div onMouseOver={clearTooltip}>{item.name}</div>
+					)}
 					<div className={`${classes.hoverable} ${classes[item.define.status]}`} onMouseOver={(e) => hoverHandler(item.name, "Define", item.define, e)} />
 					<div className={`${classes.hoverable} ${classes[item.imagine.status]}`} onMouseOver={(e) => hoverHandler(item.name, "Imagine", item.imagine, e)} />
 					<div className={classes.createStep}>
