@@ -189,11 +189,20 @@ const useClass = () => {
 		// ].map((ev) => ({ event: ev, properties: [{ schools: globalSession.groups[globalSession.recentGroups[0]].id }] }));
 
 		const filters: any = {
-			event: [ "project_define", "project_imagine", "project_improve", "project_create_research",
-				"project_create_plan", "code_create_time", "code_improve_time", "game_manual_progress",
-				"game_create_progress", "game_improve_progress" ],
-			group: [ globalSession.groups[globalSession.recentGroups[0]].id ]
-		}
+			event: [
+				"project_define",
+				"project_imagine",
+				"project_improve",
+				"project_create_research",
+				"project_create_plan",
+				"code_create_time",
+				"code_improve_time",
+				"game_manual_progress",
+				"game_create_progress",
+				"game_improve_progress",
+			],
+			group: [globalSession.groups[globalSession.recentGroups[0]].id],
+		};
 
 		const postprocessData = await fetchData(filters);
 
@@ -265,18 +274,37 @@ const useClass = () => {
 			return createData;
 		};
 
-		const data = classObject?.students.map((student) => {
-			const studentData: ProgressDatum = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
-			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
-				studentData.projects[ALL_PROJECTS_ARRAY[i].query] = {
-					define: processData("project_define", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].define.threshold),
-					imagine: processData("project_imagine", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].imagine.threshold),
-					create: processCreateData(ALL_PROJECTS_ARRAY[i].query, ALL_PROJECTS_ARRAY[i].subsystems, student.licenseId),
-					improve: processData("code_improve_time", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].improve.threshold, undefined, "game_improve_progress"),
-				};
-			}
-			return studentData;
-		});
+		const data = await Promise.all(
+			classObject?.students.map(async (student) => {
+				let learningJournals: any = {};
+				const properties = ALL_PROJECTS_ARRAY.map((proj) => `${student.licenseId}__${proj.query}`);
+				console.log(properties);
+				await post(
+					"/api/profile/read-saves",
+					{
+						profileId: student.profileId,
+						properties: ALL_PROJECTS_ARRAY.map((proj) => `${student.licenseId}__${proj.query}`),
+						date: new Date().toString(),
+					},
+					(data) => {
+						console.log(data);
+						learningJournals = data.content;
+					}
+				);
+
+				const studentData: ProgressDatum = { id: student.licenseId, name: `${student.firstName} ${student.lastName}`, projects: {} };
+				for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
+					studentData.projects[ALL_PROJECTS_ARRAY[i].query] = {
+						define: processData("project_define", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].define.threshold),
+						imagine: processData("project_imagine", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].imagine.threshold),
+						create: processCreateData(ALL_PROJECTS_ARRAY[i].query, ALL_PROJECTS_ARRAY[i].subsystems, student.licenseId),
+						improve: processData("code_improve_time", ALL_PROJECTS_ARRAY[i].query, student.licenseId, ALL_PROJECTS_ARRAY[i].improve.threshold, undefined, "game_improve_progress"),
+						learningJournal: learningJournals[`${student.licenseId}__${ALL_PROJECTS_ARRAY[i].query}`] || "",
+					};
+				}
+				return studentData;
+			})
+		);
 
 		return data;
 	};
