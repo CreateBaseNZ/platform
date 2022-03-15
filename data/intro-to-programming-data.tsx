@@ -162,16 +162,16 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 			},
 			code: {
 				threshold: 300,
-				tasks: ["Write some code that will tell the robot to throw a water balloon at the correct speed so that it hits a target."],
+				tasks: ["Write some code that will tell the robot to throw a water balloon with the correct amount of power so that it hits a target."],
 				hints: [
-					"You will need to use a sensor to detect the angle that the robot is currently aiming.",
-					"You will need to use math blocks to transform the angle in degrees to the correct velocity in metres per second.",
+					"You will need to use a sensor to detect the throwing constant for the angle that the robot is currently aiming.",
+					"You will need to use math blocks to calculate the correct power using the distance and throwing constant.",
 				],
 			},
 			blockList: [
 				{ name: "Sensing", blocks: [<NodeTrainingBotGetTargetDistanceMini />, <NodeTrainingBotThrowConstantMini/>] },
 				{ name: "Actions", blocks: [<NodeTrainingBotThrowBalloonMini />] },
-				{ name: "Operators", blocks: [<NodeMultiplyMini />, <NodeAddMini />, <NodeSqrtMini />, <NodeDivideMini />] },
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeSqrtMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],
 		},
@@ -224,7 +224,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 			title: "Banana Sorting",
 			requirements: ["Tyre Pumping"],
 			imgSrc: "/intro-to-programming/img/banana.png",
-			description: "Use sensors to determine the physical properties of a banana, then pull the right lever to sort it into the correct crate.",
+			description: "Use sensors to determine the physical properties of a banana, then use a combination of logical statements to pull the right lever to sort it into the correct crate.",
 			research: {
 				threshold: 60,
 				caption: ["Work through ALL of the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
