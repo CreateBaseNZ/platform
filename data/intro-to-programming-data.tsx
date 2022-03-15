@@ -169,8 +169,8 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 				],
 			},
 			blockList: [
-				{ name: "Sensing", blocks: [<NodeTrainingBotGetTargetDistanceMini />] },
-				{ name: "Actions", blocks: [<NodeTrainingBotThrowBalloonMini />, <NodeTrainingBotThrowConstantMini/>] },
+				{ name: "Sensing", blocks: [<NodeTrainingBotGetTargetDistanceMini />, <NodeTrainingBotThrowConstantMini/>] },
+				{ name: "Actions", blocks: [<NodeTrainingBotThrowBalloonMini />] },
 				{ name: "Operators", blocks: [<NodeMultiplyMini />, <NodeAddMini />, <NodeSqrtMini />, <NodeDivideMini />] },
 				{ name: "Utilities", blocks: [<NodePrintMini />] },
 			],

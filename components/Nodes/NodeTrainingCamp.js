@@ -78,7 +78,7 @@ export const NodeTrainingBotThrowBalloon = memo(({ id, data, isConnectable }) =>
 });
 
 export const NodeTrainingBotThrowConstant = memo(({ data, isConnectable }) => {
-	return <NodeSensing data={data} isConnectable={isConnectable} label="Throw Constant" style={{ width: "10rem", height: "3rem" }} />;
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Throw Constant" style={{ width: "10rem", height: "3rem" }} />;
 });
 
 export const NodeRestartInitialize = memo(({ data, isConnectable }) => {
@@ -245,8 +245,8 @@ export const NodeTrainingBotThrowBalloonMini = memo(() => {
 
 export const NodeTrainingBotThrowConstantMini = memo(() => {
 	return (
-		<NodeMini className={classes.actioning} nodeType="NodeTrainingBotThrowConstant" node={<NodeTrainingBotThrowConstant />}>
-			<h4>Throw Constant</h4>
+		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotThrowConstant" node={<NodeTrainingBotThrowConstant />}>
+			<h4>Get Throw Constant</h4>
 		</NodeMini>
 	);
 });
@@ -285,7 +285,7 @@ export const NodeTrainingBotTurnLeftMini = memo(() => {
 
 export const NodeTrainingBotTurnRightMini = memo(() => {
 	return (
-		<NodeMini className={classes.actioning} nodeType="NodeTrainingBotTurnRight" node={<NodeTrainingBotTurnRight />} style={{ border: "outset #5fdaff" }}>
+		<NodeMini className={classes.actioning} nodeType="NodeTrainingBotTurnRight" node={<NodeTrainingBotTurnRight />}>
 			<h4>Turn Right</h4>
 		</NodeMini>
 	);
@@ -293,7 +293,7 @@ export const NodeTrainingBotTurnRightMini = memo(() => {
 
 export const NodeTrainingBotMoveForwardMini = memo(() => {
 	return (
-		<NodeMini className={classes.actioning} nodeType="NodeTrainingBotMoveForward" node={<NodeTrainingBotMoveForward />} style={{ border: "outset #5fdaff" }}>
+		<NodeMini className={classes.actioning} nodeType="NodeTrainingBotMoveForward" node={<NodeTrainingBotMoveForward />}>
 			<h4>Move Forward</h4>
 		</NodeMini>
 	);
