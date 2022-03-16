@@ -12,11 +12,15 @@ import classes from "/styles/define.module.scss";
 import useApi from "../../../hooks/useApi";
 
 const Define = () => {
+	const timerRef = useRef();
 	const linkRef = useRef();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [data, setData] = useState();
 	const mp = useMixpanel();
 	const { post } = useApi();
+	const [saveStatus, setSaveStatus] = useState();
+
+	console.log(saveStatus);
 
 	useEffect(() => {
 		mp.init();
@@ -53,12 +57,20 @@ const Define = () => {
 
 	const journalLinkChangeHandler = (e) => {
 		console.log(e.target.value);
-		globalSession.groups.length &&
-			post("/api/profile/update-saves", {
-				profileId: globalSession.profileId,
-				update: { [`${globalSession.groups[globalSession.recentGroups[0]].licenseId}__${router.query.id}`]: e.target.value },
-				date: new Date().toString(),
-			});
+		if (globalSession.groups.length) {
+			setSaveStatus("pending");
+			post(
+				"/api/profile/update-saves",
+				{
+					profileId: globalSession.profileId,
+					update: { [`${globalSession.groups[globalSession.recentGroups[0]].licenseId}__${router.query.id}`]: e.target.value },
+					date: new Date().toString(),
+				},
+				() => {
+					setSaveStatus("success");
+				}
+			);
+		}
 	};
 
 	if (!data) return null;
@@ -99,6 +111,14 @@ const Define = () => {
 					<div className={classes.journalLink}>
 						<label>If your learning journal is on Google Docs, paste the link below:</label>
 						<input onChange={journalLinkChangeHandler} ref={linkRef} />
+						<div className={classes.saveStatus}>
+							{saveStatus === "pending" && "Saving ..."}
+							{saveStatus === "success" && (
+								<>
+									<i className="material-icons-outlined">done</i>Saved
+								</>
+							)}
+						</div>
 					</div>
 				)}
 			</div>
