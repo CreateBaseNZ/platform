@@ -164,7 +164,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 				threshold: 300,
 				tasks: ["Write some code that will tell the robot to throw a water balloon with the correct amount of power so that it hits a target."],
 				hints: [
-					"You will need to use a sensor to detect the throwing constant for the angle that the robot is currently aiming.",
+					"You will need to use a sensor to retrieve the throwing constant for the angle that the robot is currently aiming at.",
 					"You will need to use math blocks to calculate the correct power using the distance and throwing constant.",
 				],
 			},
