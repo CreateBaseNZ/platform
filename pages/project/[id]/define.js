@@ -12,7 +12,6 @@ import classes from "/styles/define.module.scss";
 import useApi from "../../../hooks/useApi";
 
 const Define = () => {
-	const timerRef = useRef();
 	const linkRef = useRef();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [data, setData] = useState();

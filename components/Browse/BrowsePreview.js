@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import BrowseSpotlight from "./BrowseSpotlight";
 import BrowseOverview from "./BrowseOverview";
 import BrowseTeaching from "./BrowseTeaching";
 import BrowseLearning from "./BrowseLearning";
@@ -13,11 +14,11 @@ const getTabs = (role) => {
 		case "student":
 			return ["overview"];
 		case "teacher":
-			return ["overview", "learning", "teaching"];
+			return ["spotlight", "overview", "learning", "teaching"];
 		case "admin":
-			return ["overview", "learning", "teaching"];
+			return ["spotlight", "overview", "learning", "teaching"];
 		default:
-			return ["overview", "learning", "teaching"];
+			return ["overview"];
 	}
 };
 
@@ -76,6 +77,7 @@ const BrowsePreview = ({ project, role }) => {
 					))}
 				</div>
 				<div className={classes.container}>
+					{tab === "spotlight" && <BrowseSpotlight project={project} />}
 					{tab === "overview" && <BrowseOverview project={project} />}
 					{tab === "learning" && <BrowseLearning learnings={project.learnings} />}
 					{tab === "teaching" && <BrowseTeaching project={project} role={role} />}
