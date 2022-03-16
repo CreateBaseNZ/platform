@@ -69,7 +69,7 @@ const useUnity = ({ scenePrefix, suffix, index, project, wip = false, setLoaded 
 		unityContext.send("SceneController", "ResetScene");
 	};
 
-	return [unityContext, sensorData, gameState, resetScene];
+	return [unityContext, sensorData, gameState, resetScene] as const;
 };
 
 export default useUnity;

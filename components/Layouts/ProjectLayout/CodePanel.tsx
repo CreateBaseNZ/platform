@@ -33,6 +33,7 @@ const CodePanel = (): JSX.Element => {
 			)}
 			{codeTab === "Files" && (
 				<div className={classes.codeItemContainer}>
+					<button className={classes.newFile} title="New file" />
 					<div className={`${classes.codeItem} ${classes.file}`}>
 						<div className={classes.fileIcon}>
 							<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/blockly.svg`} alt="blockly" />

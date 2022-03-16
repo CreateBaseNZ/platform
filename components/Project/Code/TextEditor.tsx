@@ -1,10 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
 import { Restart, Run, Stop, Unlink } from "../../../types/editor";
 
 import classes from "./TextEditor.module.scss";
+import useApi from "../../../hooks/useApi";
+import GlobalSessionContext from "../../../store/global-session-context";
 
 const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 	automaticLayout: true,
@@ -25,6 +27,8 @@ interface Props {
 const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
+	const { globalSession } = useContext(GlobalSessionContext);
+	const { post } = useApi();
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
 
@@ -72,6 +76,9 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 			contextMenuOrder: 1,
 			run: () => {
 				editor.getAction("editor.action.formatDocument").run();
+				post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, step: "define" } }, date: new Date().toString() }, () => {
+					alert("Saved");
+				});
 			},
 		});
 		editor.addAction({

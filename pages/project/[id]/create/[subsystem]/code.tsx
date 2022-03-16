@@ -90,30 +90,30 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		return () => dynRef?.contentWindow && Unhook((dynRef.contentWindow as any)?.console);
 	}, []);
 
-	const run: Run = async (code) => {
+	const run: Run = (code) => {
 		// Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
 
-		const whileEntry: number[] = [];
-		Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
-			console.log(node);
-			if (node.type === "WhileStatement") {
-				whileEntry.push(node.body.body[0].range[0]);
-			}
-		});
-		whileEntry.forEach((pos) => {
-			code = code.insert(pos, `# insert code here \n \t`);
-		});
+		// const whileEntry: number[] = [];
+		// Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
+		// 	console.log(node);
+		// 	if (node.type === "WhileStatement") {
+		// 		whileEntry.push(node.body.body[0].range[0]);
+		// 	}
+		// });
+		// whileEntry.forEach((pos) => {
+		// 	code = code.insert(pos, `# insert code here \n \t`);
+		// });
 
 		setStatus("running");
 
 		// console.log(whileEntry);
-		console.log(code);
 
 		code = ` try {
-      ${code}
+		  ${code}
+      unityContext.send("LeftWheel", "RotateMotorForwards", 0.1)		
     } catch(e) {
-      console.error(e)
-    }`;
+		  console.error(e)
+		}`;
 
 		(iframeRef.current?.contentWindow as any).Function("sensorData", "unityContext", code)(sensorData, unityContext);
 
@@ -124,6 +124,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	const stop: Stop = () => {
 		console.log("stopping");
 		setStatus("idle");
+		resetScene();
 	};
 
 	const restart: Restart = () => {
