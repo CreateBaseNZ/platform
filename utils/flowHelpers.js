@@ -30,6 +30,7 @@ export const getDefaultValues = (type) => {
 		type === "NodeTrainingBotGetBananaBrown" ||
 		type === "NodeTrainingBotGetTrafficLight" ||
 		type === "NodeTrainingBotGetTyrePressure" ||
+		type === "NodeTrainingBotGetSlipLevel" ||
 		type === "NodeTrainingBotGetTargetDistance" ||
 		type === "NodeTrainingBotPullLever" ||
 		type === "NodeTrainingBotPunch" ||
@@ -178,6 +179,7 @@ export const nodeTypeHandles = {
 	NodeTrainingBotGetBananaBrown: ["boolean__out"],
 	NodeTrainingBotGetTrafficLight: sensingHandles,
 	NodeTrainingBotGetTyrePressure: sensingHandles,
+	NodeTrainingBotGetSlipLevel: sensingHandles,
 	NodeTrainingBotGetTargetDistance: sensingHandles,
 	NodeTrainingBotPullLever: ["execution__in", "boolean__in__a", "execution__out"],
 	NodeTrainingBotPunch: actionHandles,

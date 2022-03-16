@@ -65,6 +65,10 @@ export const NodeTrainingBotGetTyrePressure = memo(({ data, isConnectable }) => 
 	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Tyre Pressure" style={{ width: "10rem", height: "3rem" }} />;
 });
 
+export const NodeTrainingBotGetSlipLevel = memo(({ data, isConnectable }) => {
+	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Slip Level" style={{ width: "10rem", height: "3rem" }} />;
+});
+
 export const NodeTrainingBotGetTargetDistance = memo(({ data, isConnectable }) => {
 	return <NodeSensing data={data} isConnectable={isConnectable} label="Get Target Distance" style={{ width: "10rem", height: "3rem" }} />;
 });
@@ -218,6 +222,15 @@ export const NodeTrainingBotGetTyrePressureMini = memo(() => {
 		</NodeMini>
 	);
 });
+
+export const NodeTrainingBotGetSlipLevelMini = memo(() => {
+	return (
+		<NodeMini className={classes.sensing} nodeType="NodeTrainingBotGetSlipLevel" node={<NodeTrainingBotGetSlipLevel />}>
+			<h4>Get Slip Level</h4>
+		</NodeMini>
+	);
+});
+
 
 export const NodeTrainingBotGetTargetDistanceMini = memo(() => {
 	return (

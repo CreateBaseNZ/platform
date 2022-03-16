@@ -441,6 +441,10 @@
 				"name": "tyrePressureSensor",
 				"simpleName": "tyrePressure"
 			},
+			"NodeTrainingBotGetSlipLevel": {
+				"name": "slipLevel",
+				"simpleName": "slipLevel"
+			},
 			"NodeTrainingBotGetTargetDistance": {
 				"name": "targetDistanceSensor",
 				"simpleName": "targetDistance"

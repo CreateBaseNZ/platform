@@ -6,6 +6,7 @@ import {
 	NodeTrainingBotGetBananaBrownMini,
 	NodeTrainingBotGetTrafficLightMini,
 	NodeTrainingBotGetTyrePressureMini,
+	NodeTrainingBotGetSlipLevelMini,
 	NodeTrainingBotGetTargetDistanceMini,
 	NodeTrainingBotPullLeverMini,
 	NodeTrainingBotPunchMini,
@@ -331,7 +332,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 			"If the cars are moving slow enough, you may be able to run straight past them..."
 		],
 		blockList: [
-			{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />], },
+			{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />, <NodeTrainingBotGetSlipLevelMini/>], },
 			{ name: "Actions", blocks: [<NodeTrainingBotWalkMini />, <NodeTrainingBotStopMini />], },
 			{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />], },
 			{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
