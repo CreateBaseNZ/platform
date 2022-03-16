@@ -38,14 +38,14 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 	numOfLessons: 5,
 	difficulty: "advanced",
 	subjects: [TECHNOLOGY, COMPUTER_SCIENCE],
-	learningOutcome: "/intro-to-programming/files/project-overview.pdf",
+	learningOutcome: "/intro-to-programming/files/project-overview-intro-to-programming.pdf",
 	cads: {
 		nz: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - NZ.pdf",
 		aus: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - ACARA.pdf",
 		cali: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - California.pdf",
 		uk: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - England.pdf",
 	},
-	lessonPlan: "/intro-to-programming/files/lesson-plan-heat-seeker.pdf",
+	lessonPlan: "/intro-to-programming/files/lesson-plan-intro-to-programming.pdf",
 	learnings: [
 		"TBD",
 	],
