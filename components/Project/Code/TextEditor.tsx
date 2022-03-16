@@ -67,8 +67,7 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 		editor.addAction({
 			id: "save",
 			label: "Save",
-			// This DOES works but linting raises an error
-			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S],
+			keybindings: [monaco.KeyMod.CtrlCmd | (monaco.KeyCode as any).KEY_S], // type coercion due to error in package
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 1,
 			run: () => {
@@ -86,7 +85,7 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 		editor.addAction({
 			id: "stop",
 			label: "Stop",
-			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KEY_C],
+			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | (monaco.KeyCode as any).KEY_C], // type coercion due to error in package
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 3,
 			run: () => {
@@ -96,7 +95,6 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 		editor.addAction({
 			id: "restart",
 			label: "Restart",
-			// This DOES works but linting raises an error
 			keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.F5],
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 4,
