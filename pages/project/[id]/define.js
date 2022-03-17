@@ -56,6 +56,7 @@ const Define = () => {
 
 	const journalLinkChangeHandler = (e) => {
 		console.log(e.target.value);
+		if (!globalSession.accountId) return;
 		if (globalSession.groups.length) {
 			setSaveStatus("pending");
 			post(

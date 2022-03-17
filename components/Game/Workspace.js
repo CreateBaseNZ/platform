@@ -178,6 +178,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 	};
 
 	const saveTextHandler = () => {
+		if (!globalSession.accountId) return;
 		let t = editorRef.current.getValue();
 		post("/api/profile/update-saves", {
 			profileId: globalSession.profileId,
