@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { memo, useContext, useEffect, useRef, useState } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
@@ -34,6 +34,7 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
 	const { activeFile, setFiles } = useContext(CodeContext);
+	const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
 
@@ -73,6 +74,11 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 	// }, [props.theme]);
 
 	const editorDidMount: OnMount = (editor, monaco) => {
+		editor.getModel()?.onDidChangeContent(() => setHasUnsavedChanges(true));
+
+		editor.getModel()?.setValue(activeFile.code);
+		setHasUnsavedChanges(false);
+
 		editor.addAction({
 			id: "save",
 			label: "Save",
@@ -80,20 +86,17 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 1,
 			run: () => {
-				console.log("saving");
+				const activeFileId = editor.getModel()?.uri.path.slice(1);
+				console.log("Saving currently active file: " + activeFileId);
 				editor.getAction("editor.action.formatDocument").run();
 				let newState: TCodeFile[] = [];
 				setFiles((state) => {
-					const ind = state.findIndex((f) => f.id === activeFile.id);
-					if (ind > -1) {
-						newState = [...state];
-						newState[ind] = { ...state[ind], code: editor.getValue(), lastModified: new Date() };
-					} else {
-						newState = [...state, { ...activeFile, code: editor.getValue(), lastModified: new Date() }];
-					}
+					console.log(state);
+					newState = state.map((f) => (f.id === activeFileId ? { ...f, code: editor.getValue(), lastModified: new Date() } : f));
 					return newState;
 				});
-				post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}`]: newState }, date: new Date().toString() });
+				console.log(newState);
+				post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}`]: newState }, date: new Date().toString() }, () => setHasUnsavedChanges(false));
 			},
 		});
 		editor.addAction({
@@ -138,9 +141,13 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 			<div className={classes.header}>
 				<div className={classes.filename}>
 					<div className={classes.fileIcon}>
-						<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg`} alt="js" />
+						{hasUnsavedChanges ? (
+							<i className={classes.unsavedIndicator} />
+						) : (
+							<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg`} alt="js" />
+						)}
 					</div>
-					{activeFile?.name || "Untitled"}
+					{activeFile.name}
 				</div>
 				<div className={classes.btnContainer}>
 					{buttonConfig.map((conf) => (
@@ -155,10 +162,10 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 				</div>
 			</div>
 			<div className={classes.wrapper}>
-				<Editor language="javascript" onMount={editorDidMount} options={EDITOR_OPTIONS} />
+				<Editor onMount={editorDidMount} options={EDITOR_OPTIONS} path={activeFile.id} defaultLanguage={activeFile.lang} defaultValue={activeFile.code} saveViewState={true} />
 			</div>
 		</div>
 	);
 };
 
-export default TextEditor;
+export default memo(TextEditor);

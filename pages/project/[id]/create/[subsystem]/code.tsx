@@ -90,7 +90,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		return () => dynRef?.contentWindow && Unhook((dynRef.contentWindow as any)?.console);
 	}, []);
 
-	const run: Run = (code) => {
+	const run: Run = useCallback((code) => {
 		// Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
 
 		// const whileEntry: number[] = [];
@@ -119,21 +119,21 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 
 		// console.log(Escodegen.generate(ast));
 		// Unhook(window.console);
-	};
+	}, []);
 
-	const stop: Stop = () => {
+	const stop: Stop = useCallback(() => {
 		console.log("stopping");
 		setStatus("idle");
 		resetScene();
-	};
+	}, []);
 
-	const restart: Restart = () => {
+	const restart: Restart = useCallback(() => {
 		// TODO @louis
-	};
+	}, []);
 
-	const unlink: Unlink = () => {
+	const unlink: Unlink = useCallback(() => {
 		// TODO @louis
-	};
+	}, []);
 
 	return (
 		<div className={classes.page}>

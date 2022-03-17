@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
@@ -26,8 +26,15 @@ const Editor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JS
 		(async () => {
 			const prop = `${projectId}__${subsystem}`;
 			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [prop] }, (data) => {
-				setFiles(data.content[prop] || []);
-				if (data.content[prop]?.[0]) setActiveFile(data.content[prop]?.[0]);
+				console.log(data);
+				if (data.content[prop].length) {
+					setFiles(data.content[prop]);
+					setActiveFile(data.content[prop][0]);
+				} else {
+					const newFile = { id: uuidv4(), name: "Untitled", lang: "js", code: "", created: new Date(), lastModified: new Date() };
+					setFiles([newFile]);
+					setActiveFile(newFile);
+				}
 			});
 		})();
 	}, [globalSession.profileId, projectId, subsystem, setFiles, setActiveFile, post]);
@@ -35,4 +42,4 @@ const Editor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JS
 	return <div className={classes.editor}>{activeFile.lang === "js" && <TextEditor projectId={projectId} subsystem={subsystem} run={run} stop={stop} restart={restart} unlink={unlink} />}</div>;
 };
 
-export default Editor;
+export default memo(Editor);
