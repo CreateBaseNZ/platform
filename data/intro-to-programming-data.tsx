@@ -320,16 +320,15 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 		alert:
 			"Congratulations! If you managed to complete all of the subsystems, then you have not only successfully tested the robot, but you have also proven your skills as a programmer and a problem solver. But, there is still one more bonus test to go; if you are feeling up to it...",
 		tasks: [
-			"In the Improve step, you will repeat the final test but with two new additions:",
-			"1: The roof of the testing facility has been opened, and there is a high chance of rain. When it is raining, the road becomes slippery and your robot will take a bit of time to slow down to a stop. The harder its raining, the more time it will take the robot to stop. Your robot can detect the amount of rain with a sensor.",
-			"2: Cars are now travelling at different speeds. Your robot has a sensor that can detect the speed on incoming cars.",
-			"You will optimise your solution to try and reach the other side of the road as fast as possible.",
+			"In the Improve step, you will repeat the final test but with a new addition:",
+			"The roof of the testing facility has been opened, and there is a high chance of snow. When it is snowing, the road becomes icy and your robot will take a bit of time to slow down to a stop. The harder its snowing, the more time it will take the robot to stop. Your robot can detect how slippery the road is with a sensor.",
+			//"Cars are now travelling at different speeds. Your robot has a sensor that can detect the speed on incoming cars.",
+			"You task is to optimise your solution to try and reach the other side of the road as fast as possible.",
 		],
 		hints: [
-			"While it is raining, you will have to stop moving before the red light, or else your robot will slide into the traffic.",
-			"How early your robot needs to stop before the red light depends on how much it is raining.",
+			"While it is snowing, you will have to stop moving before the red light, or else your robot will slide into the traffic.",
+			"How early your robot needs to stop before the red light depends on how much it is snowing.",
 			"You can use a Delay block to pause your program for the specified amount of seconds - like to wait for a light to change colour.",
-			"If the cars are moving slow enough, you may be able to run straight past them...",
 		],
 		blockList: [
 			{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />, <NodeTrainingBotGetSlipLevelMini/>], },
