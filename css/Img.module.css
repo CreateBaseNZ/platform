@@ -1,0 +1,92 @@
+.wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.wrapper::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  height: 200%;
+  width: 75%;
+  background: #ececec;
+  -webkit-filter: blur(20px);
+          filter: blur(20px);
+  -webkit-transform: skew(20deg);
+          transform: skew(20deg);
+  z-index: 1;
+  -webkit-animation: loading 1.2s linear infinite;
+          animation: loading 1.2s linear infinite;
+}
+
+.wrapper label {
+  pointer-events: none;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 2px 6px;
+  opacity: 0;
+  color: white;
+  font-size: 10px;
+  border-radius: 4px 4px 0 0;
+  white-space: nowrap;
+  -webkit-transform: translateX(-50%) translateY(100%);
+          transform: translateX(-50%) translateY(100%);
+  -webkit-transition: opacity 0.2s ease-out, -webkit-transform 0.8s ease-out;
+  transition: opacity 0.2s ease-out, -webkit-transform 0.8s ease-out;
+  transition: opacity 0.2s ease-out, transform 0.8s ease-out;
+  transition: opacity 0.2s ease-out, transform 0.8s ease-out, -webkit-transform 0.8s ease-out;
+}
+
+.wrapper:hover label {
+  opacity: 0.75;
+  -webkit-transform: translateX(-50%) translateY(0);
+          transform: translateX(-50%) translateY(0);
+  -webkit-transition: opacity 0.2s ease-out 0.6s, -webkit-transform 0.4s ease-out 0.4s;
+  transition: opacity 0.2s ease-out 0.6s, -webkit-transform 0.4s ease-out 0.4s;
+  transition: opacity 0.2s ease-out 0.6s, transform 0.4s ease-out 0.4s;
+  transition: opacity 0.2s ease-out 0.6s, transform 0.4s ease-out 0.4s, -webkit-transform 0.4s ease-out 0.4s;
+}
+
+.wrapper.loaded::before, .wrapper.loaded::after {
+  content: none;
+}
+
+@-webkit-keyframes loading {
+  0% {
+    left: -200%;
+  }
+  50% {
+    left: 175%;
+  }
+  100% {
+    left: 175%;
+  }
+}
+
+@keyframes loading {
+  0% {
+    left: -200%;
+  }
+  50% {
+    left: 175%;
+  }
+  100% {
+    left: 175%;
+  }
+}
+/*# sourceMappingURL=Img.module.css.map */

@@ -1,0 +1,64 @@
+@import "/styles/variables.scss";
+
+.container{
+    border: thin solid red;
+    height: 100%;
+}
+
+.header{
+    padding: 2rem 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h1{
+        padding-left: 1rem;
+        font-size: 1.3rem;
+    }
+    .logoWrap{
+        display: flex;
+        align-items: center;
+    }
+}
+
+.logoContainer{
+    position: relative;
+    height: 2rem;
+    width: 2rem;
+}
+
+.headerBtnContainer{
+    display: none;
+}
+
+.CTAbtn{
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    margin-left: 1rem;
+    min-width: 12rem;
+    &:hover{
+        transition: background-color ease 0.3s;
+    }
+    p{
+        color: $lightest;
+    }
+}
+
+.subscribeBtn{
+    background-color: $logo-light;
+}
+.shareBtn{
+    background-color: $blue-mid;
+}
+.learnMoreBtn{
+    background-color: $green-light;
+}
+
+@media only screen and (min-width: 786px) {
+    .headerBtnContainer{
+        display: flex;
+        border: thin solid red;
+    }
+}
+@media only screen and (min-width: 1200px) {
+
+}

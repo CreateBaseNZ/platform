@@ -1,0 +1,23 @@
+.learning {
+  margin-top: 1vh;
+  height: 100%;
+  width: 100%;
+}
+
+.learning,
+.learning * {
+  color: white;
+  font-size: 12px;
+}
+
+.learning ol {
+  margin: 1vh 0;
+  padding-left: 1rem;
+}
+
+.learning ol li {
+  padding-left: 0.25rem;
+  margin: 0.4vh 0;
+  line-height: 1.75em;
+}
+/*# sourceMappingURL=BrowseLearning.module.css.map */
