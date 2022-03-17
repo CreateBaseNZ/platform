@@ -189,7 +189,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 	return (
 		<div className={classes.workspace}>
 			{activeTab === "flow" && (
-				<div className={classes.btnContainer} style={{ top: "52vh", left: "240px" }}>
+				<div className={classes.btnContainer} style={{ top: "2vh", left: "240px" }}>
 					<button onClick={compileHandler}>Compile</button>
 					<button onClick={flowToText}>To Text</button>
 				</div>

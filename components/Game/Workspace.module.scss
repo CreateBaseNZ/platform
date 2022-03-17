@@ -3,11 +3,12 @@
 .workspace {
 	display: flex;
 	overflow: hidden;
+	position: relative;
 }
 
 .compileBtn {
 	position: absolute;
-	top: 52vh;
+	top: 2vh;
 	left: 240px;
 	padding: 0.5em 1em;
 	z-index: 5;
