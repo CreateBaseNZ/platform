@@ -7,6 +7,7 @@
 	flex-direction: column;
 	padding: 1rem 0;
 }
+
 .layouts {
 	width: 100%;
 	display: flex;
@@ -72,50 +73,43 @@
 	flex-direction: column;
 	.newFileBtn {
 		align-self: flex-end;
-		margin-top: 0.25rem;
-		margin-right: 0.25rem;
-		height: 1.75rem;
-		width: 1.75rem;
-		position: relative;
-		transition: background-color 0.1s ease-out;
-		&::before,
-		&::after {
-			content: "";
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			background: black;
-			transform: translate(-50%, -50%);
-			transition: background-color 0.1s ease-out;
-		}
-		&::before {
-			width: 11px;
-			height: 1px;
-		}
-		&::after {
-			height: 11px;
-			width: 1px;
-		}
-		&:hover,
-		&.active {
-			background: $border-color;
-			&::before,
-			&::after {
-				background: $blue-dark;
-			}
-		}
-	}
-	.newFileInput {
-		padding: 0 0.5rem;
-		margin: 0.5rem 0.25rem;
-		height: 1.75rem;
+		margin: 0.25rem;
 		display: flex;
 		align-items: center;
+		height: 1.5rem;
+		padding: 0 0.5rem;
+		border-radius: 3px;
 		font-size: 12px;
-		font-weight: 500;
-		font-family: $poppins;
-		border: thin solid $blue-mid;
-		background: rgba($blue-dark, 0.05);
+		background: $lighter;
+		color: $blue-dark;
+		transition: background-color 0.1s ease-out;
+		i {
+			height: 8px;
+			width: 8px;
+			position: relative;
+			margin-right: 0.25rem;
+			transition: background-color 0.1s ease-out;
+			&::before,
+			&::after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				background: $blue-dark;
+				transform: translate(-50%, -50%);
+			}
+			&::before {
+				width: 8px;
+				height: 1px;
+			}
+			&::after {
+				height: 8px;
+				width: 1px;
+			}
+		}
+		&:hover {
+			background: rgba($blue-dark, 0.1);
+		}
 	}
 	.codeItem {
 		width: 100%;
@@ -126,10 +120,10 @@
 			padding: 0.75rem 0.5rem 0.75rem 1rem;
 		}
 		&.file {
-			height: 2.5rem;
+			height: 2.25rem;
 			padding-left: 1.5rem;
 			padding-right: 0.5rem;
-			transition: opacity 0.1s ease-out;
+			transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
 			.fileIcon {
 				position: relative;
 				display: flex;
@@ -142,10 +136,39 @@
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
+				transition: color 0.1s ease-out;
+			}
+			&:hover,
+			&.toggled {
+				background: $lighter;
+			}
+			&.activeFile {
+				background: rgba($blue-dark, 0.05);
+				span {
+					color: $blue-dark;
+				}
 			}
 		}
-		&.faded {
-			opacity: 0.25;
+	}
+}
+
+.ctxMenu {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	background: white;
+	z-index: 1;
+	box-shadow: 0 2px 4px 0 rgb(black, 0.05);
+	padding: 0.25rem 0;
+	button {
+		display: flex;
+		align-items: center;
+		height: 1.75rem;
+		padding: 0 0.75rem;
+		font-size: 13px;
+		&:hover {
+			background: $lighter;
 		}
 	}
 }

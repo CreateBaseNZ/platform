@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, createContext, useMemo, ReactNode, Dispatch, SetStateAction, useEffect } from "react";
+import { useState, createContext, useMemo, ReactNode, Dispatch, SetStateAction } from "react";
 import { TCodeFile } from "../types/code";
 
 /** Coding layouts. */
@@ -20,9 +20,9 @@ export type TCodeContext = {
 	/** Set coding tab. */
 	setCodeTab: Dispatch<SetStateAction<TCodeTab>>;
 	/** ID of file currently open. */
-	activeFileId: string;
+	activeFile: TCodeFile;
 	/** Set ID of file currently open. */
-	setActiveFileId: Dispatch<SetStateAction<string>>;
+	setActiveFile: Dispatch<SetStateAction<TCodeFile>>;
 	/** All files belonging to the current subsystem. */
 	files: TCodeFile[];
 	/** Set all files. */
@@ -37,8 +37,8 @@ const CodeContext = createContext<TCodeContext>({
 	setCodeLayout: () => {},
 	codeTab: CODE_TABS[0],
 	setCodeTab: () => {},
-	activeFileId: "",
-	setActiveFileId: () => {},
+	activeFile: { id: "", name: "", lang: "", code: "", created: new Date(), lastModified: new Date() },
+	setActiveFile: () => {},
 	files: [],
 	setFiles: () => {},
 });
@@ -56,11 +56,8 @@ export const CodeContextProvider = ({ children }: Props) => {
 	const router = useRouter();
 	const [codeLayout, setCodeLayout] = useState<TCodeLayout>("Default");
 	const [codeTab, setCodeTab] = useState<TCodeTab>(CODE_TABS[0]);
-	const [activeFileId, setActiveFileId] = useState("");
-	const [files, setFiles] = useState<TCodeFile[]>([
-		{ id: "test", name: "test", lang: "js", code: "test", created: new Date(), lastModified: new Date() },
-		{ id: "test2", name: "test2", lang: "js", code: "test2", created: new Date(), lastModified: new Date() },
-	]);
+	const [activeFile, setActiveFile] = useState({ id: "", name: "", lang: "", code: "", created: new Date(), lastModified: new Date() });
+	const [files, setFiles] = useState<TCodeFile[]>([]);
 
 	const value = useMemo(
 		() => ({
@@ -68,12 +65,12 @@ export const CodeContextProvider = ({ children }: Props) => {
 			setCodeLayout: setCodeLayout,
 			codeTab: codeTab,
 			setCodeTab: setCodeTab,
-			activeFileId: activeFileId,
-			setActiveFileId: setActiveFileId,
+			activeFile: activeFile,
+			setActiveFile: setActiveFile,
 			files: files,
 			setFiles: setFiles,
 		}),
-		[codeLayout, setCodeLayout, codeTab, setCodeTab, activeFileId, setActiveFileId, files, setFiles]
+		[codeLayout, setCodeLayout, codeTab, setCodeTab, activeFile, setActiveFile, files, setFiles]
 	);
 
 	return <CodeContext.Provider value={value}>{children}</CodeContext.Provider>;

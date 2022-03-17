@@ -39,7 +39,10 @@
 		}
 	}
 	&.simulationLayout {
-		grid-template-areas: "unity" "console";
+		grid-template-areas:
+			"unity"
+			"console";
+		grid-template-columns: 100%;
 		grid-template-rows: 75% 25%;
 		.editor {
 			width: 0;
@@ -65,6 +68,7 @@ $console-black: #242424;
 	display: flex;
 	flex-direction: column;
 	background: $console-black;
+	grid-area: console;
 	.consoleHeader {
 		background: #181818;
 		width: 100%;
@@ -100,7 +104,6 @@ $console-black: #242424;
 	}
 	.consoleWrapper {
 		flex: 1;
-		grid-area: console;
 		overflow-y: auto;
 		&::-webkit-scrollbar {
 			width: 12px;

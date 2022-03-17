@@ -1,16 +1,14 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useContext, useRef } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
-import { Restart, Run, Stop, Unlink } from "../../../types/editor";
-
-import classes from "./TextEditor.module.scss";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
-import { useRouter } from "next/router";
-import { TCodeFile } from "../../../types/code";
 import CodeContext from "../../../store/code-context";
+import { Restart, Run, Stop, Unlink } from "../../../types/editor";
+import { TCodeFile } from "../../../types/code";
+
+import classes from "./TextEditor.module.scss";
 
 const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 	automaticLayout: true,
@@ -21,34 +19,23 @@ const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 	lineNumbersMinChars: 3,
 };
 
-const DEFAULT_FILENAME = "Untitled";
-
 interface Props {
+	subsystem: string;
+	projectId: string;
 	run: Run;
 	stop: Stop;
 	restart: Restart;
 	unlink: Unlink;
-	subsystem: string;
-	projectId: string;
 }
 
 const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props): JSX.Element => {
-	const router = useRouter();
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
-	const { activeFileId, setActiveFileId, files, setFiles } = useContext(CodeContext);
-	const [activeFile, setActiveFile] = useState<TCodeFile>();
+	const { activeFile, setFiles } = useContext(CodeContext);
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
-
-	useEffect(() => {
-		const _activeFile = files.find((f) => f.id === activeFileId);
-		setActiveFile(_activeFile);
-		editorRef.current?.setValue(_activeFile?.code || `// Let's start coding!`);
-		editorRef.current?.focus();
-	}, [activeFileId, files]);
 
 	const buttonConfig = [
 		{
@@ -92,18 +79,17 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 			keybindings: [monaco.KeyMod.CtrlCmd | (monaco.KeyCode as any).KEY_S], // type coercion due to error in package
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 1,
-			run: async () => {
+			run: () => {
+				console.log("saving");
 				editor.getAction("editor.action.formatDocument").run();
 				let newState: TCodeFile[] = [];
 				setFiles((state) => {
-					const ind = state.findIndex((f) => f.id === activeFileId);
+					const ind = state.findIndex((f) => f.id === activeFile.id);
 					if (ind > -1) {
 						newState = [...state];
 						newState[ind] = { ...state[ind], code: editor.getValue(), lastModified: new Date() };
 					} else {
-						const newFile: TCodeFile = { id: uuidv4(), name: DEFAULT_FILENAME, lang: "js", code: editor.getValue(), lastModified: new Date(), created: new Date() };
-						newState = [...state, newFile]; // TODO - @louis default lang
-						setActiveFileId(newFile.id);
+						newState = [...state, { ...activeFile, code: editor.getValue(), lastModified: new Date() }];
 					}
 					return newState;
 				});

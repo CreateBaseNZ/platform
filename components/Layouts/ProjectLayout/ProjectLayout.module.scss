@@ -284,8 +284,7 @@
 
 .leftPanel {
 	background: white;
-	z-index: 1;
-	overflow: hidden;
+	z-index: 2;
 	padding-top: 3.5rem;
 	display: flex;
 	flex-direction: column;
@@ -295,6 +294,7 @@
 	border-right: thin solid $border-color;
 	transition: flex 0.4s ease-out, max-width 0.4s ease-out;
 	&.hide {
+		overflow: hidden;
 		flex: 0 0 0;
 		max-width: 0;
 		border-right: 0 solid $border-color;

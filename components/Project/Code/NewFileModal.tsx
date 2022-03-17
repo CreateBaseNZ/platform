@@ -30,7 +30,7 @@ const NewFileModal = ({ projectId, subsystem, setIsCreatingNewFile }: Props): JS
 		shouldFocusError: true,
 	});
 	const selectedLang = watch("lang");
-	const { setFiles, setActiveFileId } = useContext(CodeContext);
+	const { setFiles, setActiveFile } = useContext(CodeContext);
 	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 
@@ -46,7 +46,7 @@ const NewFileModal = ({ projectId, subsystem, setIsCreatingNewFile }: Props): JS
 		});
 
 		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}`]: newState }, date: new Date().toString() }, () => {
-			setActiveFileId(newFile.id);
+			setActiveFile(newFile);
 			setIsCreatingNewFile(false);
 		});
 	};

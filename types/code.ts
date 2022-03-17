@@ -5,5 +5,5 @@ export type TCodeFile = {
 	code: string;
 	created: Date;
 	lastModified: Date;
-	lang: "flow" | "blockly" | "js";
+	lang: string;
 };
