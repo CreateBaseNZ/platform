@@ -1,15 +1,29 @@
 @import "/styles/variables";
 
 .spotlight {
-	width: 100%;
+	width: 80%;
 	color: white;
 	font-weight: 500;
+	position: relative;
 }
 
 .wrapper {
 	width: 100%;
 	padding-top: 56.25%;
 	position: relative;
+}
+
+.download {
+	position: absolute;
+	color: white;
+	font-size: 12px;
+	bottom: -5vh;
+	font-weight: 400;
+	a {
+		font-size: inherit;
+		color: $blue-light;
+		text-decoration: underline;
+	}
 }
 
 .iframe {

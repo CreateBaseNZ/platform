@@ -13,6 +13,12 @@ const BrowseSpotlight = ({ project }) => {
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowFullScreen
 					/>
+					<div className={classes.download}>
+						Can't view the video? Download it{" "}
+						<a href={`https://raw.githubusercontent.com/CreateBaseNZ/public/main/${project.query}/vid/spotlight.mp4`} download>
+							here
+						</a>
+					</div>
 				</div>
 			) : (
 				"Coming soon!"
