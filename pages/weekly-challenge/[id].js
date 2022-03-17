@@ -45,25 +45,58 @@ const WeeklyChallenge = () => {
 			</Head>
 			<div className={classes.container}>
 				<div className={classes.header}>
-					<div className={classes.logoWrap}>
-						<div className={classes.logoContainer}>
-							<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/logo-no-text.svg" layout="fill" objectFit="contain" alt="logo" />
+					<div className={classes.headerContainer}>
+						<div className={classes.logoWrap}>
+							<div className={classes.logoContainer}>
+								<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/logo-no-text.svg" layout="fill" objectFit="contain" alt="logo" />
+							</div>
+							<h1>Weekly Challenge</h1>
 						</div>
-						<h1>Weekly Challenge</h1>
+						<div className={classes.img}>{/* <Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" alt="logo" /> */}</div>
+						<div className={classes.headerBtnContainer}>
+							<button className={`${classes.subscribeBtn} ${classes.CTAbtn}`}>
+								<p>Subscribe</p>
+							</button>
+							<button className={`${classes.shareBtn} ${classes.CTAbtn}`}>
+								<p>Share</p>
+							</button>
+							<button className={`${classes.learnMoreBtn} ${classes.CTAbtn}`}>
+								<p>Learn More</p>
+							</button>
+						</div>
+						<div className={classes.hamburger}>
+							<span className="material-icons-outlined">menu</span>
+						</div>
 					</div>
-					<div className={classes.img}>{/* <Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" alt="logo" /> */}</div>
-					<div className={classes.headerBtnContainer}>
-						<button className={`${classes.subscribeBtn} ${classes.CTAbtn}`}>
-							<p>Subscribe</p>
-						</button>
-						<button className={`${classes.shareBtn} ${classes.CTAbtn}`}>
-							<p>Share</p>
-						</button>
-						<button className={`${classes.learnMoreBtn} ${classes.CTAbtn}`}>
-							<p>Learn More</p>
+					<div className={classes.nav}>
+						<div className={classes.navList}>
+							<div className="navBtnContainer">
+							<button className={classes.learningContentBtn}>
+									<span className="material-icons-outlined">movie</span>
+									<p>Define</p>
+								</button>
+							</div>
+							<div className="navBtnContainer">
+								<button className={classes.learningContentBtn}>
+									<span className="material-icons-outlined">filter_drama</span>
+									<p>Imagine</p>
+								</button>
+							</div>
+							<div className="navBtnContainer">
+							<button className={classes.learningContentBtn}>
+									<span className="material-icons-outlined">biotech</span>
+									<p>Research</p>
+								</button>
+							</div>
+						</div>
+						<div className={classes.spacer}></div>
+						<button className={classes.leaderboardBtn}>
+							<span className="material-icons-outlined">emoji_events</span>
+							<p>Leaderboard</p>
 						</button>
 					</div>
 				</div>
+
 				<div className={classes.game}>
 					{/* Unity component */}
 					<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />

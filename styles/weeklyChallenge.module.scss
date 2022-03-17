@@ -1,24 +1,30 @@
-@import "/styles/variables.scss";
+// @import "/styles/variables";
+@import "/styles/variables";
 
 .container {
-	border: thin solid red;
 	height: 100vh;
 	overflow: hidden;
 }
 
 .header {
-	padding: 2rem 5rem;
-	height: 10vh;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	padding: 2rem 2rem 0 2rem;
+	height: 6rem;
 	h1 {
-		padding-left: 1rem;
-		font-size: 1.3rem;
+		display: none;
 	}
 	.logoWrap {
 		display: flex;
 		align-items: center;
+	}
+	.headerContainer{
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		padding-bottom: 0.5rem;
+		border-bottom: thin solid $lighter;
+		margin-bottom: 0.5rem;
 	}
 }
 
@@ -28,42 +34,163 @@
 	width: 2rem;
 }
 
+.hamburger{
+	span{
+		color: $dark;
+	}
+}
+
 .headerBtnContainer {
 	display: none;
 }
 
 .CTAbtn {
-	padding: 1rem 2rem;
+	padding: 0.8rem 1.5rem;
 	border-radius: 10px;
 	margin-left: 1rem;
-	min-width: 12rem;
-	&:hover {
-		transition: background-color ease 0.3s;
-	}
-	p {
+	width: 100%;
+	max-width: 12rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: background-color ease 0.3s;
+	p{
+		font-family: $poppins;
+		font-weight: 500;
 		color: $lightest;
+        font-size: 0.8rem;
 	}
 }
 
 .subscribeBtn {
 	background-color: $logo-light;
+    &:hover {
+        background-color: $logo-mid;
+	}
 }
 .shareBtn {
 	background-color: $blue-mid;
+    &:hover {
+        background-color: $blue-dark;
+	}
 }
 .learnMoreBtn {
 	background-color: $green-light;
+    &:hover {
+        background-color: $green-mid;
+	}
+}
+.leaderboardBtn{
+    background-color: $amber;
+	padding: 0.8rem 1.5rem;
+	border-radius: 10px;
+	margin-left: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: background-color ease 0.3s;
+	&:hover {
+		background-color: #F39B23;
+	}
+	p{
+		color: $lightest;
+        font-size: 0.8rem;
+		padding-left: 1rem;
+		font-family: $poppins;
+		font-weight: 500;
+	}
+	span{
+		color: $lightest;
+	}
+}
+
+.spacer{
+	flex-grow: 1;
+}
+
+.nav{
+	display: none;
+}
+
+.learningContentBtn{
+	padding: 0.8rem 1.5rem 0.8rem 0;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	&:hover {
+		p{
+			color: $logo-light;
+		}
+		span{
+			color: $logo-light;
+		}
+	}
+	p{
+        font-size: 1rem;
+		color: #CECECE;
+		font-weight: 600;
+		padding-left: 1rem;
+		transition: color ease 0.3s;
+	}
+	span{
+		color: #CECECE;
+		transition: color ease 0.3s;
+	}
 }
 
 .game {
-	height: 90vh;
+	display: none;
 }
 
 @media only screen and (min-width: 786px) {
-	.headerBtnContainer {
-		display: flex;
-		border: thin solid red;
+	.header {
+		padding: 1rem 2rem 0 2rem;
+		height: 15vh;
+		min-height: 8.5rem;
+		h1 {
+			display: block;
+			padding-left: 1rem;
+			font-size: 1.3rem;
+		}
+		.logoWrap {
+			display: flex;
+			align-items: center;
+		}
+		.headerContainer{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			padding-bottom: 0.5rem;
+			border-bottom: thin solid $lighter;
+			margin-bottom: 0.5rem;
+		}
+		.headerBtnContainer {
+			display: flex;
+			justify-content: flex-end;
+			// border: thin solid red;
+			width: 60%;
+		}
 	}
+
+	.hamburger{
+		display: none;
+	}
+	.nav{
+		width: 100%;
+		display: flex;
+		.navList{
+			list-style-type: none;
+			display: flex;
+		}
+	}
+
+	.game {
+		display: block;
+		height: 85vh;
+	}
+
 }
 @media only screen and (min-width: 1200px) {
 }
