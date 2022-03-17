@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Game from "../../components/Game/Game.js";
@@ -11,7 +10,7 @@ import LoadingScreen from "../../components/UI/LoadingScreen";
 import router from "next/router";
 // import useApi from "../hooks/useApi";
 
-import classes from "../styles/weeklyChallenge.module.scss";
+import classes from "../../styles/weeklyChallenge.module.scss";
 
 const WeeklyChallenge = () => {
 	const router = useRouter();
@@ -21,15 +20,18 @@ const WeeklyChallenge = () => {
 	useEffect(() => {
 		if (router.isReady) {
 			let found = false;
-			for (let index = 0; index < ALL_PROJECTS_ARRAY.length; index++) {
-				const ind = ALL_PROJECTS_ARRAY[i].subsystems.indexOf((sub) => sub.title === router.query.id);
+			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
+				console.log(ALL_PROJECTS_ARRAY[i].subsystems);
+				console.log(router.query.id);
+				const ind = ALL_PROJECTS_ARRAY[i].subsystems.findIndex((sub) => sub.title === router.query.id);
 				if (ind > -1) {
 					found = true;
-					setData(_data);
+					setData(ALL_PROJECTS_ARRAY[i]);
 					setSubsystemIndex(ind);
+					return;
 				}
 			}
-			if (!found) router.replace("/404");
+			if (!found) return void router.replace("/404");
 		}
 	}, [router.isReady, router.query.id]);
 
@@ -73,3 +75,5 @@ const WeeklyChallenge = () => {
 };
 
 export default WeeklyChallenge;
+
+WeeklyChallenge.auth = "any";

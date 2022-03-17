@@ -61,19 +61,20 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 	}, [editorRef.current]);
 
 	const loadText = async () => {
-		post(
-			"/api/profile/read-saves",
-			{
-				profileId: globalSession.profileId,
-				properties: [`${router.query.id}-${router.query.subsystem}`],
-				date: new Date().toString(),
-			},
-			(data) => {
-				console.log(data);
-				let t = data.content[`${router.query.id}-${router.query.subsystem}`];
-				t && editorRef.current.setValue(t);
-			}
-		);
+		if (globalSession.accountId)
+			post(
+				"/api/profile/read-saves",
+				{
+					profileId: globalSession.profileId,
+					properties: [`${router.query.id}-${router.query.subsystem}`],
+					date: new Date().toString(),
+				},
+				(data) => {
+					console.log(data);
+					let t = data.content[`${router.query.id}-${router.query.subsystem}`];
+					t && editorRef.current.setValue(t);
+				}
+			);
 	};
 
 	const flowToText = () => {
