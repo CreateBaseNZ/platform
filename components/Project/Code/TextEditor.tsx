@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect, useRef, useState } from "react";
+import { Dispatch, memo, SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
@@ -9,6 +9,16 @@ import { Restart, Run, Stop, Unlink } from "../../../types/editor";
 import { TCodeFile } from "../../../types/code";
 
 import classes from "./TextEditor.module.scss";
+import { TOpenTextFile } from "./Editor";
+
+const getLang = (lang: string) => {
+	switch (lang) {
+		case "js":
+			return "javascript";
+		default:
+			return "javascript";
+	}
+};
 
 const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 	automaticLayout: true,
@@ -22,19 +32,20 @@ const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 interface Props {
 	subsystem: string;
 	projectId: string;
+	openTextFiles: TOpenTextFile[];
+	setOpenTextFiles: Dispatch<SetStateAction<TOpenTextFile[]>>;
 	run: Run;
 	stop: Stop;
 	restart: Restart;
 	unlink: Unlink;
 }
 
-const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props): JSX.Element => {
+const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run, stop, restart, unlink }: Props): JSX.Element => {
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
-	const { activeFile, setFiles } = useContext(CodeContext);
-	const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+	const { activeFile, setActiveFile, files, setFiles } = useContext(CodeContext);
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
 
@@ -72,13 +83,32 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 	// 		monacoRef.current.editor.setTheme(props.theme);
 	// 	}
 	// }, [props.theme]);
+	useEffect(() => {}, []);
+
+	console.log(openTextFiles);
+
+	useEffect(() => {
+		let newState: TOpenTextFile[] = [];
+		setOpenTextFiles((files) => {
+			const isOpen = files.some((f) => f.id === activeFile.id);
+			newState = isOpen ? files : [...files, { id: activeFile.id, name: activeFile.name, lang: activeFile.lang, lastSavedVersion: 1, isDirty: false }];
+			return newState;
+		});
+		console.log(newState);
+		post("/api/profile/update-saves", {
+			profileId: globalSession.profileId,
+			update: { [`${projectId}-${subsystem}__workspace`]: { openTextFileIds: newState.map((f) => f.id), activeFileId: activeFile.id } },
+			date: new Date().toString(),
+		});
+	}, [activeFile, setOpenTextFiles, globalSession.profileId, projectId, subsystem, post]);
+
+	const changeHandler = () => {
+		const _lastSavedVersion = editorRef.current?.getModel()?.getAlternativeVersionId();
+		const _fileId = editorRef.current?.getModel()?.uri.path.slice(1);
+		setOpenTextFiles((files) => files.map((f) => (f.id === _fileId ? { ...f, isDirty: f.lastSavedVersion !== _lastSavedVersion } : f)));
+	};
 
 	const editorDidMount: OnMount = (editor, monaco) => {
-		editor.getModel()?.onDidChangeContent(() => setHasUnsavedChanges(true));
-
-		editor.getModel()?.setValue(activeFile.code);
-		setHasUnsavedChanges(false);
-
 		editor.addAction({
 			id: "save",
 			label: "Save",
@@ -96,7 +126,17 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 					return newState;
 				});
 				console.log(newState);
-				post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}`]: newState }, date: new Date().toString() }, () => setHasUnsavedChanges(false));
+				post(
+					"/api/profile/update-saves",
+					{
+						profileId: globalSession.profileId,
+						update: { [`${projectId}-${subsystem}__files`]: newState },
+						date: new Date().toString(),
+					},
+					() => {
+						setOpenTextFiles((files) => files.map((f) => (f.id === activeFileId ? { ...f, lastSavedVersion: editor.getModel()?.getAlternativeVersionId(), isDirty: false } : f)));
+					}
+				);
 			},
 		});
 		editor.addAction({
@@ -139,30 +179,44 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 	return (
 		<div className={classes.textEditor}>
 			<div className={classes.header}>
-				<div className={classes.filename}>
-					<div className={classes.fileIcon}>
-						{hasUnsavedChanges ? (
-							<i className={classes.unsavedIndicator} />
-						) : (
-							<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg`} alt="js" />
-						)}
-					</div>
-					{activeFile.name}
-				</div>
-				<div className={classes.btnContainer}>
-					{buttonConfig.map((conf) => (
-						<button key={conf.title} className={classes[conf.title.toLowerCase()]} onClick={conf.func} title={conf.title}>
-							<i className="material-icons-outlined">{conf.icon}</i>
-							{conf.title}
-						</button>
-					))}
-					<button className={classes.more} title="More">
-						<i className="material-icons-outlined">more_vert</i>
+				{openTextFiles.map((f) => (
+					<button
+						key={f.id}
+						className={`${classes.filename} ${activeFile.id === f.id && classes.active}`}
+						title={f.name + "." + f.lang}
+						onClick={() => setActiveFile(files.find((_f) => _f.id === f.id) as TCodeFile)}>
+						<div className={classes.fileIcon}>
+							{f.isDirty ? (
+								<i className={classes.unsavedIndicator} />
+							) : (
+								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${f.lang}.svg`} alt="js" />
+							)}
+						</div>
+						{f.name}
 					</button>
-				</div>
+				))}
+			</div>
+			<div className={classes.btnContainer}>
+				{buttonConfig.map((conf) => (
+					<button key={conf.title} className={classes[conf.title.toLowerCase()]} onClick={conf.func} title={conf.title}>
+						<i className="material-icons-outlined">{conf.icon}</i>
+						{conf.title}
+					</button>
+				))}
+				<button className={classes.more} title="More">
+					<i className="material-icons-outlined">more_vert</i>
+				</button>
 			</div>
 			<div className={classes.wrapper}>
-				<Editor onMount={editorDidMount} options={EDITOR_OPTIONS} path={activeFile.id} defaultLanguage={activeFile.lang} defaultValue={activeFile.code} saveViewState={true} />
+				<Editor
+					onMount={editorDidMount}
+					onChange={changeHandler}
+					options={EDITOR_OPTIONS}
+					path={activeFile.id}
+					defaultLanguage={getLang(activeFile.lang)}
+					defaultValue={activeFile.code}
+					saveViewState={true}
+				/>
 			</div>
 		</div>
 	);
