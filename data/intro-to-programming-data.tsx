@@ -19,7 +19,7 @@ import {
 	NodeTrainingBotThrowBalloonMini,
 	NodeTrainingBotThrowConstantMini,
 } from "../components/Nodes/NodeTrainingCamp";
-import { NodePrintMini } from "../components/Nodes/NodeUtils";
+import { NodePrintMini, NodeDelayMini } from "../components/Nodes/NodeUtils";
 import { NodeAndMini, NodeNotMini, NodeOrMini} from "../components/Nodes/NodeLogicals";
 import { NodeAbsoluteMini, NodeAddMini, NodeDivideMini, NodeMultiplyMini, NodeSubtractMini, NodeSqrtMini } from "../components/Nodes/NodeOperations";
 import { COMPUTER_SCIENCE, TECHNOLOGY } from "../constants/projectSubjects";
@@ -320,24 +320,25 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 		alert:
 			"Congratulations! If you managed to complete all of the subsystems, then you have not only successfully tested the robot, but you have also proven your skills as a programmer and a problem solver. But, there is still one more bonus test to go; if you are feeling up to it...",
 		tasks: [
-			"In the Improve step, you will repeat the final test but with three new additions:",
-			"1: The traffic light will now also include an orange light that signals that the cars are about to start moving.",
-			"2: The roof of the testing facility has been opened, and there is a high chance of rain. When it is raining, the road becomes slippery and your robot will take a bit of time to slow down to a stop. The harder its raining, the more time it will take the robot to stop. Your robot can detect the amount of rain with a sensor.",
-			"3: Cars are now travelling at different speeds. Your robot has a sensor that can detect the speed on incoming cars.",
+			"In the Improve step, you will repeat the final test but with two new additions:",
+			"1: The roof of the testing facility has been opened, and there is a high chance of rain. When it is raining, the road becomes slippery and your robot will take a bit of time to slow down to a stop. The harder its raining, the more time it will take the robot to stop. Your robot can detect the amount of rain with a sensor.",
+			"2: Cars are now travelling at different speeds. Your robot has a sensor that can detect the speed on incoming cars.",
 			"You will optimise your solution to try and reach the other side of the road as fast as possible.",
 		],
 		hints: [
 			"While it is raining, you will have to stop moving before the red light, or else your robot will slide into the traffic.",
 			"How early your robot needs to stop before the red light depends on how much it is raining.",
-			"If the cars are moving slow enough, you may be able to run straight past them..."
+			"You can use a Delay block to pause your program for the specified amount of seconds - like to wait for a light to change colour.",
+			"If the cars are moving slow enough, you may be able to run straight past them...",
 		],
 		blockList: [
 			{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />, <NodeTrainingBotGetSlipLevelMini/>], },
 			{ name: "Actions", blocks: [<NodeTrainingBotWalkMini />, <NodeTrainingBotStopMini />], },
 			{ name: "Conditionals", blocks: [<NodeIfMini />, <NodeWhileMini />], },
-			{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
+			{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />, <NodeSqrtMini />] },
+			{ name: "Comparisons", blocks: [<NodeNotEqualsMini />, <NodeEqualsMini />, <NodeLessThanMini/>, <NodeGreaterThanMini/>, <NodeTrueMini />, <NodeFalseMini />] },
 			{ name: "Logicals", blocks: [<NodeNotMini />, <NodeAndMini />, <NodeOrMini />] },
-			{ name: "Utilities", blocks: [<NodePrintMini />] }
+			{ name: "Utilities", blocks: [<NodePrintMini />, <NodeDelayMini />] }
 		],
 	},
 };

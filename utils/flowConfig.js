@@ -334,7 +334,7 @@ export const tooltips = {
 	NodeTrainingBotGetBananaGreen: [<NoneType />, <BooleanType />, "Return TRUE if the banana has any green colour"],
 	NodeTrainingBotGetBananaYellow: [<NoneType />, <BooleanType />, "Return TRUE if the banana has any yellow colour"],
 	NodeTrainingBotGetBananaBrown: [<NoneType />, <BooleanType />, "Return TRUE if the banana has any brown colour"],
-	NodeTrainingBotGetTrafficLight: [<NoneType />, <FloatType />, "Return 1 if the traffic light is green and return 2 if the traffic light is red"],
+	NodeTrainingBotGetTrafficLight: [<NoneType />, <FloatType />, "Return 1 if the traffic light is green, 2 if the traffic light is orange, and 3 if the traffic light is red"],
 	NodeTrainingBotGetTyrePressure: [<NoneType />, <FloatType />, "Return the pressure level of the tyre"],
 	NodeTrainingBotGetSlipLevel: [<NoneType />, <FloatType />, "Return the slip level of the ground"],
 	NodeTrainingBotGetTargetDistance: [<NoneType />, <FloatType />, "Return distance of the target away from the robot"],
