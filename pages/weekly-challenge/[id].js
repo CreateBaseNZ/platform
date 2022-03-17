@@ -20,14 +20,16 @@ const WeeklyChallenge = () => {
 
 	useEffect(() => {
 		if (router.isReady) {
-			const _data = ALL_PROJECTS_ARRAY.find((project) => {project.subsystems.indexOf(sub => sub.title === router.query.id)});
-			if (!_data) return void router.replace("/404");
-
-			const _subsystemIndex = _data.subsystems.findIndex((subsystem) => subsystem.title === router.query.subsystem);
-			if (_subsystemIndex < 0) return void router.replace("/404");
-
-			setData(_data);
-			setSubsystemIndex(_subsystemIndex);
+			let found = false;
+			for (let index = 0; index < ALL_PROJECTS_ARRAY.length; index++) {
+				const ind = ALL_PROJECTS_ARRAY[i].subsystems.indexOf((sub) => sub.title === router.query.id);
+				if (ind > -1) {
+					found = true;
+					setData(_data);
+					setSubsystemIndex(ind);
+				}
+			}
+			if (!found) router.replace("/404");
 		}
 	}, [router.isReady, router.query.id]);
 
@@ -41,28 +43,30 @@ const WeeklyChallenge = () => {
 			</Head>
 			<div className={classes.container}>
 				<div className={classes.header}>
-                    <div className={classes.logoWrap}>
+					<div className={classes.logoWrap}>
 						<div className={classes.logoContainer}>
 							<Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/icons/logo-no-text.svg" layout="fill" objectFit="contain" alt="logo" />
 						</div>
 						<h1>Weekly Challenge</h1>
 					</div>
-					<div className={classes.img}>
-						{/* <Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" alt="logo" /> */}
-					</div>
+					<div className={classes.img}>{/* <Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" alt="logo" /> */}</div>
 					<div className={classes.headerBtnContainer}>
-						<button className={`${classes.subscribeBtn} ${classes.CTAbtn}`}><p>Subscribe</p></button>
-						<button className={`${classes.shareBtn} ${classes.CTAbtn}`}><p>Share</p></button>
-						<button className={`${classes.learnMoreBtn} ${classes.CTAbtn}`}><p>Learn More</p></button>
+						<button className={`${classes.subscribeBtn} ${classes.CTAbtn}`}>
+							<p>Subscribe</p>
+						</button>
+						<button className={`${classes.shareBtn} ${classes.CTAbtn}`}>
+							<p>Share</p>
+						</button>
+						<button className={`${classes.learnMoreBtn} ${classes.CTAbtn}`}>
+							<p>Learn More</p>
+						</button>
 					</div>
 				</div>
 				<div className="unityInstanceWrap">
 					{/* Unity component */}
 					<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
 				</div>
-				<div className="codeEditorWrap">
-					{/* Unity component */}
-				</div>
+				<div className="codeEditorWrap">{/* Unity component */}</div>
 			</div>
 		</div>
 	);
