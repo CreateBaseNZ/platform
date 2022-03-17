@@ -64,11 +64,10 @@ const WeeklyChallenge = () => {
 						</button>
 					</div>
 				</div>
-				<div className="unityInstanceWrap">
+				<div className={classes.game}>
 					{/* Unity component */}
 					<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
 				</div>
-				<div className="codeEditorWrap">{/* Unity component */}</div>
 			</div>
 		</div>
 	);
