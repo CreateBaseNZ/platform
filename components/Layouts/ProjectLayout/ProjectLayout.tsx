@@ -123,7 +123,7 @@ const ProjectLayout = ({ children, step, data, isFlat = false, hasLeftPanel = fa
 									</Link>
 							  ))}
 					</div>
-					{substep === "code" && <CodePanel />}
+					{substep === "code" && <CodePanel projectId={data.id} subsystem={subsystem} />}
 					{substep === "research" && <ResearchPanel data={data} subsystem={subsystem} />}
 				</div>
 				{children}

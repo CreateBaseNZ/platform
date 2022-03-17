@@ -70,7 +70,7 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	.newFile {
+	.newFileBtn {
 		align-self: flex-end;
 		margin-top: 0.25rem;
 		margin-right: 0.25rem;
@@ -96,13 +96,26 @@
 			height: 11px;
 			width: 1px;
 		}
-		&:hover {
+		&:hover,
+		&.active {
 			background: $border-color;
 			&::before,
 			&::after {
 				background: $blue-dark;
 			}
 		}
+	}
+	.newFileInput {
+		padding: 0 0.5rem;
+		margin: 0.5rem 0.25rem;
+		height: 1.75rem;
+		display: flex;
+		align-items: center;
+		font-size: 12px;
+		font-weight: 500;
+		font-family: $poppins;
+		border: thin solid $blue-mid;
+		background: rgba($blue-dark, 0.05);
 	}
 	.codeItem {
 		width: 100%;
@@ -116,6 +129,7 @@
 			height: 2.5rem;
 			padding-left: 1.5rem;
 			padding-right: 0.5rem;
+			transition: opacity 0.1s ease-out;
 			.fileIcon {
 				position: relative;
 				display: flex;
@@ -129,6 +143,9 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
+		}
+		&.faded {
+			opacity: 0.25;
 		}
 	}
 }

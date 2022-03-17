@@ -140,7 +140,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 			<iframe ref={iframeRef} className={classes.iframe} />
 			<div className={`${classes.main} ${classes[`${codeLayout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
-					<Editor run={run} stop={stop} restart={restart} unlink={unlink} />
+					<Editor run={run} stop={stop} restart={restart} unlink={unlink} projectId={data.id} subsystem={subsystem} />
 				</div>
 				<div className={classes.unity}>
 					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />

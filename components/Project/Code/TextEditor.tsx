@@ -1,4 +1,5 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
@@ -7,6 +8,9 @@ import { Restart, Run, Stop, Unlink } from "../../../types/editor";
 import classes from "./TextEditor.module.scss";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
+import { useRouter } from "next/router";
+import { TCodeFile } from "../../../types/code";
+import CodeContext from "../../../store/code-context";
 
 const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 	automaticLayout: true,
@@ -17,20 +21,34 @@ const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 	lineNumbersMinChars: 3,
 };
 
+const DEFAULT_FILENAME = "Untitled";
+
 interface Props {
 	run: Run;
 	stop: Stop;
 	restart: Restart;
 	unlink: Unlink;
+	subsystem: string;
+	projectId: string;
 }
 
-const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
+const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props): JSX.Element => {
+	const router = useRouter();
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
+	const { activeFileId, setActiveFileId, files, setFiles } = useContext(CodeContext);
+	const [activeFile, setActiveFile] = useState<TCodeFile>();
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
+
+	useEffect(() => {
+		const _activeFile = files.find((f) => f.id === activeFileId);
+		setActiveFile(_activeFile);
+		editorRef.current?.setValue(_activeFile?.code || `// Let's start coding!`);
+		editorRef.current?.focus();
+	}, [activeFileId, files]);
 
 	const buttonConfig = [
 		{
@@ -74,11 +92,22 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 			keybindings: [monaco.KeyMod.CtrlCmd | (monaco.KeyCode as any).KEY_S], // type coercion due to error in package
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 1,
-			run: () => {
+			run: async () => {
 				editor.getAction("editor.action.formatDocument").run();
-				post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, step: "define" } }, date: new Date().toString() }, () => {
-					alert("Saved");
+				let newState: TCodeFile[] = [];
+				setFiles((state) => {
+					const ind = state.findIndex((f) => f.id === activeFileId);
+					if (ind > -1) {
+						newState = [...state];
+						newState[ind] = { ...state[ind], code: editor.getValue(), lastModified: new Date() };
+					} else {
+						const newFile: TCodeFile = { id: uuidv4(), name: DEFAULT_FILENAME, lang: "js", code: editor.getValue(), lastModified: new Date(), created: new Date() };
+						newState = [...state, newFile]; // TODO - @louis default lang
+						setActiveFileId(newFile.id);
+					}
+					return newState;
 				});
+				post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}`]: newState }, date: new Date().toString() });
 			},
 		});
 		editor.addAction({
@@ -110,8 +139,6 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 			},
 		});
 
-		editor.focus();
-
 		editorRef.current = editor;
 		monacoRef.current = monaco;
 		// for (const t in themeFiles) {
@@ -125,9 +152,9 @@ const TextEditor = ({ run, stop, restart, unlink }: Props): JSX.Element => {
 			<div className={classes.header}>
 				<div className={classes.filename}>
 					<div className={classes.fileIcon}>
-						<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg`} alt="javascript" />
+						<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/js.svg`} alt="js" />
 					</div>
-					loremIpsum.js
+					{activeFile?.name || "Untitled"}
 				</div>
 				<div className={classes.btnContainer}>
 					{buttonConfig.map((conf) => (
