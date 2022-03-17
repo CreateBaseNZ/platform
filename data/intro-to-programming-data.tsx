@@ -31,7 +31,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 	wip: true,
 	query: "intro-to-programming",
 	caption:
-		"Learn the fundamentals of programming using the Flow visual language. Flow is synonymous with creating flow charts, so you can focus on learning programming logic without having to memorize arbitrary syntax! In this Project, you will be programming an assistant robot in a testing facility to complete a variety of unusual tasks.",
+		"Learn the fundamentals of programming using the Flow visual language. Flow is synonymous with creating flow charts, so you can focus on learning programming logic without having to memorize arbitrary syntax! In this Project, you will be programming an automation robot to complete a variety of tests to see if it is ready to send out into the world.",
 	stacked: true,
 	scenePrefix: "Project_TrainingCamp",
 	runType: "loop",
@@ -48,7 +48,16 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 	},
 	lessonPlan: "/intro-to-programming/files/lesson-plan-intro-to-programming.pdf",
 	learnings: [
-		"TBD",
+		"Explain what programming is and why it is important",
+		"Explain what an algorithm is and why they are important",
+		"Implement simple algorithms using Flow, a visual programming language",
+		"Explain what automation is using examples and describe its basic impacts on humanity",
+		"Define the purpose of functions and create a simple sequential program with functions using Flow",
+		"Define a sensor using examples and explain why they are important in robotics",
+		"Use sensors and mathematical operations to create a dynamic program",
+		"Define the purpose of a while loop and use one to create a simple iterative program",
+		"Define the purpose of simple logical statements and use a combination to create a more advanced dynamic program",
+		"Define the purpose of an IF statement and use one to create a simple branching program",
 	],
 	define: {
 		threshold: 60,
