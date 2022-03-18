@@ -4,17 +4,17 @@ import Image from "next/image";
 import Game from "../components/Game/Game.js";
 import { useContext, useEffect, useState } from "react";
 import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
-import LoadingScreen from "../components/UI/LoadingScreen";
-// import { PrimaryButton } from "../components/UI/Buttons";
-// import Img from "../components/UI/Img";
-import router from "next/router";
-// import useApi from "../hooks/useApi";
+import Leaderboard from "../components/WeeklyChallenge/Leaderboard"
+import Complete from "../components/WeeklyChallenge/Complete"
+import Share from "../components/WeeklyChallenge/Share"
 import classes from "../styles/weeklyChallenge.module.scss";
 
 const DATA = ALL_PROJECTS_ARRAY[0]
 const SUBSYSTEM_INDEX = 0
 
 const WeeklyChallenge = () => {
+	const [isModalActive, showModal] = useState(true);
+
 	return (
 		<div className={classes.view}>
 			<Head>
@@ -30,7 +30,6 @@ const WeeklyChallenge = () => {
 							</div>
 							<h1>Weekly Challenge</h1>
 						</div>
-						<div className={classes.img}>{/* <Image src="https://raw.githubusercontent.com/CreateBaseNZ/public/dev/404.png" layout="fill" objectFit="contain" alt="logo" /> */}</div>
 						<div className={classes.headerBtnContainer}>
 							<button className={`${classes.subscribeBtn} ${classes.CTAbtn}`}>
 								<p>Subscribe</p>
@@ -75,11 +74,32 @@ const WeeklyChallenge = () => {
 					</div>
 				</div>
 
-				<div className={classes.game}>
+				<div className={classes.gameWrap}>
 					{/* Modal */}
-					<></>
+					{isModalActive && 
+					<div className={classes.modalWrap}>
+						<div className={classes.modalContainer}>
+							<div className={classes.previousModal}>
+								<button className={classes.previousBtn}>
+									<span className="material-icons-outlined">navigate_before</span>
+								</button>
+							</div>
+							<div className={classes.Modal}>
+								{/* <Leaderboard/> */}
+								{/* <Complete/> */}
+								<Share/>
+							</div>
+							<div className={classes.nextModal}>
+								<button className={classes.nextBtn}>
+									<span className="material-icons-outlined">navigate_next</span>
+								</button>
+							</div>
+						</div>
+					</div>}
 					{/* Unity component */}
-					<Game project={DATA} index={SUBSYSTEM_INDEX} query={DATA.query} blockList={DATA.subsystems[SUBSYSTEM_INDEX].blockList} />
+					<div className={classes.game}>
+						<Game project={DATA} index={SUBSYSTEM_INDEX} query={DATA.query} blockList={DATA.subsystems[SUBSYSTEM_INDEX].blockList} />
+					</div>
 				</div>
 			</div>
 		</div>
