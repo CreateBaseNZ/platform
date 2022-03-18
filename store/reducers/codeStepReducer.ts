@@ -7,8 +7,8 @@ export type TCodeFile = {
 	name: string;
 	lang: string;
 	code: string;
-	created: Date;
-	lastModified: Date;
+	created: string;
+	lastModified: string;
 };
 export type TOpenTextFile = {
 	id: string;
@@ -29,11 +29,13 @@ export type TCodeStepState = {
 	ctxMenu: { x: number; y: number; id: string } | undefined;
 };
 
+const DEFAULT_FILE: TCodeFile = { id: "1", name: "", lang: "js", code: "", created: new Date().toString(), lastModified: new Date().toString() };
+
 export const DEFAULT_CODE_STEP_STATE: TCodeStepState = {
 	layout: "Default",
 	tab: "Files",
-	allFiles: [],
-	activeFile: { id: "", name: "", lang: "js", code: "", created: new Date(), lastModified: new Date() },
+	allFiles: [DEFAULT_FILE],
+	activeFile: DEFAULT_FILE,
 	openTextFiles: [],
 	ctxMenu: { x: 0, y: 0, id: "" },
 };
@@ -72,7 +74,7 @@ const codeStepReducer = (state: TCodeStepState = DEFAULT_CODE_STEP_STATE, action
 		case "SAVE_TEXT_FILE":
 			return {
 				...state,
-				allFiles: state.allFiles.map((file) => (file.id === action.payload.id ? { ...file, code: action.payload.code, lastModified: new Date() } : file)),
+				allFiles: state.allFiles.map((file) => (file.id === action.payload.id ? { ...file, code: action.payload.code, lastModified: new Date().toString() } : file)),
 				openTextFiles: state.openTextFiles.map((file) => (file.id === action.payload.id ? { ...file, lastSavedVersion: action.payload.version, isDirty: false } : file)),
 			};
 		case "SET_CTX":

@@ -96,45 +96,42 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		return () => dynRef?.contentWindow && Unhook((dynRef.contentWindow as any)?.console);
 	}, []);
 
-	const run: Run = useCallback(
-		(code) => {
-			// Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
+	const run: Run = useCallback((code) => {
+		// Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
 
-			// const whileEntry: number[] = [];
-			// Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
-			// 	console.log(node);
-			// 	if (node.type === "WhileStatement") {
-			// 		whileEntry.push(node.body.body[0].range[0]);
-			// 	}
-			// });
-			// whileEntry.forEach((pos) => {
-			// 	code = code.insert(pos, `# insert code here \n \t`);
-			// });
+		// const whileEntry: number[] = [];
+		// Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
+		// 	console.log(node);
+		// 	if (node.type === "WhileStatement") {
+		// 		whileEntry.push(node.body.body[0].range[0]);
+		// 	}
+		// });
+		// whileEntry.forEach((pos) => {
+		// 	code = code.insert(pos, `# insert code here \n \t`);
+		// });
 
-			setStatus("running");
+		setStatus("running");
 
-			// console.log(whileEntry);
+		// console.log(whileEntry);
 
-			code = ` try {
+		code = ` try {
 		  ${code}
       unityContext.send("LeftWheel", "RotateMotorForwards", 0.1)		
     } catch(e) {
 		  console.error(e)
 		}`;
 
-			(iframeRef.current?.contentWindow as any).Function("sensorData", "unityContext", code)(sensorData, unityContext);
+		(iframeRef.current?.contentWindow as any).Function("sensorData", "unityContext", code)(sensorData, unityContext);
 
-			// console.log(Escodegen.generate(ast));
-			// Unhook(window.console);
-		},
-		[sensorData, unityContext]
-	);
+		// console.log(Escodegen.generate(ast));
+		// Unhook(window.console);
+	}, []);
 
 	const stop: Stop = useCallback(() => {
 		console.log("stopping");
 		setStatus("idle");
 		resetScene();
-	}, [resetScene]);
+	}, []);
 
 	const restart: Restart = useCallback(() => {
 		// TODO @louis

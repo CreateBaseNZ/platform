@@ -32,11 +32,11 @@ const Editor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JS
 				console.log(data);
 
 				if (!data.content[filesProp]?.[0]) {
-					const newFile = { id: uuidv4(), name: "Untitled", lang: "js", code: "", created: new Date(), lastModified: new Date() };
+					const newFile = { id: uuidv4(), name: "Untitled", lang: "js", code: "", created: new Date().toString(), lastModified: new Date().toString() };
 					dispatch({
 						type: "INIT_EDITOR",
 						payload: {
-							allFiles: [newFile],
+							allFiles: newFile,
 							openTextFiles: [{ id: newFile.id, name: newFile.name, lang: newFile.lang, lastSavedVersion: 1, isDirty: false }],
 							activeFile: newFile,
 						},
@@ -59,7 +59,7 @@ const Editor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JS
 					dispatch({
 						type: "INIT_EDITOR",
 						payload: {
-							allFiles: [data.content[filesProp]],
+							allFiles: data.content[filesProp],
 							openTextFiles: [{ id: newOpenTextFile.id, name: newOpenTextFile.name, lang: newOpenTextFile.lang, lastSavedVersion: 1, isDirty: false }],
 							activeFile: newOpenTextFile,
 						},
