@@ -4,7 +4,7 @@ import { IProjectReadOnly } from "../types/projects";
 import { recycleRightData } from "./explore-data";
 
 const MAGNEBOT_DATA: IProjectReadOnly = {
-	name: "MagneBot V2",
+	name: "MagneBot 2",
 	query: "magnebot2",
 	wip: true,
 	caption:

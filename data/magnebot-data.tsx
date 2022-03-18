@@ -6,7 +6,6 @@ import { recycleRightData } from "./explore-data";
 const MAGNEBOT_DATA: IProjectReadOnly = {
 	name: "MagneBot",
 	query: "magnebot",
-	wip: true,
 	caption:
 		"In this Project, users will control the MagneBot robotic arm using logical flow-based programming to clean up a recycling facility. Users will learn the basics of the Flow programming language and how to convert their thinking into instructions for the robot. Along the way, they will also gain an understanding of recycling and how robotic systems can be used to carry out tasks traditionally performed by humans.",
 	stacked: true,
@@ -84,65 +83,6 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/sequential.jpg",
 			description: "In a single subsystem, your task is to write a sequential program to control MagneBot in order to pick up each rubbish bag and deposit them in one of the two recycling bins.",
-			research: {
-				threshold: 300,
-				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],
-				modules: [
-					{
-						type: "video",
-						title: "Flow: UI Tutorial",
-						data: {
-							url: "https://youtu.be/2Ndwtpk7iN8",
-							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
-							h1: "Flow Tutorial",
-							h2: "Get to know your way around Flow",
-						},
-					},
-					{
-						type: "pdf",
-						title: "Flow: Introduction to Blocks",
-						url: "/magnebot/pdf/intro_to_flow.pdf",
-					},
-					{
-						type: "pdf",
-						title: "JS: Introduction to Functions",
-						url: "/magnebot/pdf/intro_to_JS.pdf",
-					},
-					{
-						type: "explore",
-						title: "Explore more",
-						items: [recycleRightData],
-					},
-				],
-			},
-			plan: {
-				threshold: 30,
-				list: [
-					"Think back to when you were manually controlling the arm... What path did you take to reach the recycling bins? How did you avoid breaking the arm?",
-					"As a human, you had to decide which actions to perform in which order to move and control the magnetic sphere. Writing a program is the exact same thing! A program is simply a set of pre-written instructions that tell a robot or other device which action to perform in which order!",
-					"In the Create step, you will write a program (a set of instructions) and upload it to MagneBot. The robot will then follow your exact instructions to automatically complete the same task! Unlike you, however, the robot is unable to make decisions on its own. You will need to tell it exactly what do, testing often to find and solve any problems along the way.",
-				],
-			},
-			code: {
-				threshold: 600,
-				tasks: ["Write some code so that MagneBot can clean up the recycling facility for you", "Deposit three bags of rubbish into either of the two recycling bins to complete the task. Good luck!"],
-				hints: [
-					"If your arm collides with another object, it will break!",
-					"Instead of moving directly from point A to point B, you may need to split that into multiple smaller movements to avoid other obstacles",
-				],
-			},
-			blockList: [
-				{
-					name: "Actions",
-					blocks: [<NodeMagnebotMoveArmMini />, <NodeMagnebotSwitchMini />],
-				},
-			],
-		},
-		{
-			title: "Rubbish sorting",
-			requirements: ["Sequential programming"],
-			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/magnebot/img/sequential.jpg",
-			description: "Your task is now to deposit the rubbish into the correctly coloured bins",
 			research: {
 				threshold: 300,
 				caption: ["Work through the modules below to complete your research.", "Make sure that you understand all of the content as you will need it to create your solution!"],

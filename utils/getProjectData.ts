@@ -1,11 +1,10 @@
 import sendItData from "../data/send-it-data";
-import magnebotDeprecatedData from "../data/magnebot-deprecated-data";
 import magnebotData from "../data/magnebot-data";
 import magnebot2Data from "../data/magnebot2-data";
 import heatSeekerData from "../data/heat-seeker-data";
 import aimbotData from "../data/aimbot-data";
 import hyperloopData from "../data/hyperloop-data";
-import flowTrainingCampData from "../data/flow-training-camp-data";
+import introToProgrammingData from "../data/intro-to-programming-data";
 import { IProjectReadOnly } from "../types/projects";
 
 // ----- How to Add Projects -----
@@ -19,8 +18,6 @@ const getProjectData = (query: string) => {
 	switch (query) {
 		case "send-it":
 			return sendItData;
-		case "magnebot-deprecated":
-			return magnebotDeprecatedData;
 		case "magnebot":
 			return magnebotData;
 		case "magnebot2":
@@ -40,4 +37,4 @@ const getProjectData = (query: string) => {
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotDeprecatedData, magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData, flowTrainingCampData];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, magnebot2Data, sendItData, heatSeekerData, aimbotData, hyperloopData, introToProgrammingData];
