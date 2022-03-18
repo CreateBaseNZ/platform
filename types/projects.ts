@@ -86,6 +86,7 @@ export interface IProject {
 	 * @todo remove this prop or support shelved view.
 	 */
 	stacked: boolean;
+	spotlight?: string;
 	/** Link to Project text code documentation. */
 	documentation?: string;
 	/** If `true`, Flow will not be available. */

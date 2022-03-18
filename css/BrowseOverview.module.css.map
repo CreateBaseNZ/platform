@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACR,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,GAAG;EAChB,cAAc,EAAE,MAAM;EACtB,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,WAAW;EACnB,WAAW,EAAE,GAAG;CAChB",
+    "sources": [
+        "../components/Browse/BrowseOverview.module.scss"
+    ],
+    "names": [],
+    "file": "BrowseOverview.module.css"
+}

@@ -67,6 +67,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 	const _setFlowVisualBell = (message) => setFlowVisualBell({ message, key: Date.now() });
 
 	const loadFlow = async (callback = () => {}) => {
+		if (!globalSession.accountId) return;
 		let savedEls;
 		await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [saveName] }, (data) => data.content[saveName] && (savedEls = JSON.parse(data.content[saveName])));
 		if (savedEls) {
@@ -428,6 +429,7 @@ const FlowEditor = ({ saveName, blockList, show, isReadOnly = false, elements, s
 	};
 
 	const saveFlow = async () => {
+		if (!globalSession.accountId) return;
 		if (elements.length > 1) {
 			await post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [saveName]: JSON.stringify(elements) }, date: new Date().toString() }, () =>
 				_setFlowVisualBell("Code saved")

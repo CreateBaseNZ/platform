@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import useUnity from "../../hooks/useUnity";
 import useMixpanel from "../../hooks/useMixpanel";
 import Unity from "./Unity";
@@ -13,6 +13,7 @@ import GlobalSessionContext from "../../store/global-session-context";
 
 const Game = ({ isImprove, project, index, query, blockList }) => {
 	const [gameLoaded, setGameLoaded] = useState(false);
+	const router = useRouter()
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
@@ -26,6 +27,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 
 	useEffect(() => {
 		mp.init();
+		console.log(router.asPath.split('/')[1])
 	}, []);
 
 	useEffect(() => {
@@ -44,15 +46,15 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 		<div className={classes.code}>
 			<ConsoleContextProvider>
 				<div className={`${classes.mainWindow} ${project.stacked ? classes.stackedView : classes.shelvedView}`}>
-					<Link
+					{router.asPath.split('/')[1] !== 'weekly-challenge' && <Link
 						href={{
 							pathname: isImprove ? `/project/[id]/improve` : "/project/[id]/create/[subsystem]/code",
 							query: router.query,
 						}}>
 						<button className={classes.backButton} title="Back to project">
-							<span className="material-icons-outlined">exit_to_app</span>
+						<span className="material-icons-outlined">exit_to_app</span>
 						</button>
-					</Link>
+					</Link>}
 					<Unity unityContext={unityContext} />
 					<Workspace
 						saveName={isImprove ? `react-flow_${project.query}_improve` : `react-flow_${project.query}_${index}`}

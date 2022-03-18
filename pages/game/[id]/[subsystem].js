@@ -43,7 +43,7 @@ const SubsystemGame = () => {
 	if (!data || subsystemIndex === null) return <LoadingScreen />;
 
 	return (
-		<>
+		<div style={{ height: "100vh" }}>
 			<Head>
 				<title>
 					{data.subsystems[subsystemIndex].title} • {data.name} | CreateBase
@@ -51,7 +51,7 @@ const SubsystemGame = () => {
 				<meta name="description" content="CreateBase" />
 			</Head>
 			<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
-		</>
+		</div>
 	);
 };
 

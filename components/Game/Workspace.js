@@ -61,19 +61,20 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 	}, [editorRef.current]);
 
 	const loadText = async () => {
-		post(
-			"/api/profile/read-saves",
-			{
-				profileId: globalSession.profileId,
-				properties: [`${router.query.id}-${router.query.subsystem}`],
-				date: new Date().toString(),
-			},
-			(data) => {
-				console.log(data);
-				let t = data.content[`${router.query.id}-${router.query.subsystem}`];
-				t && editorRef.current.setValue(t);
-			}
-		);
+		if (globalSession.accountId)
+			post(
+				"/api/profile/read-saves",
+				{
+					profileId: globalSession.profileId,
+					properties: [`${router.query.id}-${router.query.subsystem}`],
+					date: new Date().toString(),
+				},
+				(data) => {
+					console.log(data);
+					let t = data.content[`${router.query.id}-${router.query.subsystem}`];
+					t && editorRef.current.setValue(t);
+				}
+			);
 	};
 
 	const flowToText = () => {
@@ -177,6 +178,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 	};
 
 	const saveTextHandler = () => {
+		if (!globalSession.accountId) return;
 		let t = editorRef.current.getValue();
 		post("/api/profile/update-saves", {
 			profileId: globalSession.profileId,
@@ -188,7 +190,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 	return (
 		<div className={classes.workspace}>
 			{activeTab === "flow" && (
-				<div className={classes.btnContainer} style={{ top: "52vh", left: "240px" }}>
+				<div className={classes.btnContainer} style={{ top: "2vh", left: "240px" }}>
 					<button onClick={compileHandler}>Compile</button>
 					<button onClick={flowToText}>To Text</button>
 				</div>
