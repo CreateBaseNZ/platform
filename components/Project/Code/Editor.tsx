@@ -31,30 +31,49 @@ const Editor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JS
 	const { files, setFiles, activeFile, setActiveFile } = useContext(CodeContext);
 	const [openTextFiles, setOpenTextFiles] = useState<TOpenTextFile[]>([]);
 
+	// post("/api/profile/update-saves", {
+	// 	profileId: globalSession.profileId,
+	// 	update: { [`${projectId}-${subsystem}__files`]: [], [`${projectId}-${subsystem}__workspace`]: {} },
+	// 	date: new Date().toString(),
+	// });
+
 	useEffect(() => {
 		(async () => {
 			const filesProp = `${projectId}-${subsystem}__files`;
 			const workspaceProp = `${projectId}-${subsystem}__workspace`;
 			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [filesProp, workspaceProp] }, (data) => {
 				console.log(data);
-				const newFile = { id: uuidv4(), name: "Untitled", lang: "js", code: "", created: new Date(), lastModified: new Date() };
-				if (data.content[filesProp]?.length) {
-					setFiles(data.content[filesProp]);
-				} else {
+				if (!data.content[filesProp]?.[0]) {
+					const newFile = { id: uuidv4(), name: "Untitled", lang: "js", code: "", created: new Date(), lastModified: new Date() };
 					setFiles([newFile]);
+					setActiveFile(newFile);
+					setOpenTextFiles([{ id: newFile.id, name: newFile.name, lang: newFile.lang, lastSavedVersion: 1, isDirty: false }]);
+					post("/api/profile/update-saves", {
+						profileId: globalSession.profileId,
+						update: { [`${projectId}-${subsystem}__files`]: [newFile], [`${projectId}-${subsystem}__workspace`]: { openTextFileIds: [newFile.id], activeFileId: newFile.id } },
+						date: new Date().toString(),
+					});
+					return;
+				}
+				const _openTextFiles = data.content[workspaceProp]?.openTextFileIds?.reduce((arr: TOpenTextFile[], id: string) => {
+					const file = data.content[filesProp]?.find((_f: TCodeFile) => _f.id === id);
+					if (file) arr.push({ id: id, name: file.name, lang: file.lang, lastSavedVersion: 1, isDirty: false });
+					return arr;
+				}, []);
+				if (!_openTextFiles?.[0]) {
+					const newOpenTextFile = data.content[filesProp][0];
+					setOpenTextFiles([{ id: newOpenTextFile.id, name: newOpenTextFile.name, lang: newOpenTextFile.lang, lastSavedVersion: 1, isDirty: false }]);
+					setActiveFile(newOpenTextFile);
+					return;
 				}
 				const _activeFile = data.content[filesProp]?.find((f: TCodeFile) => f.id === data.content[workspaceProp]?.activeFileId);
-				if (_activeFile) {
-					setActiveFile(_activeFile);
-				} else {
-					setActiveFile(newFile);
+				if (!_activeFile) {
+					setActiveFile(data.content[filesProp].find((f: TCodeFile) => f.id === _openTextFiles[0].id));
+					return;
 				}
-				setOpenTextFiles(
-					data.content[workspaceProp].openTextFileIds?.map((fileId: string) => {
-						const file = data.content[filesProp]?.find((_f: TCodeFile) => _f.id === fileId);
-						return { id: fileId, name: file.name, lang: file.lang, lastSavedVersionId: 1, isDirty: false };
-					}) || []
-				);
+				setFiles(data.content[filesProp]);
+				setOpenTextFiles(_openTextFiles);
+				setActiveFile(_activeFile);
 			});
 		})();
 	}, [globalSession.profileId, projectId, subsystem, setFiles, setActiveFile, post]);

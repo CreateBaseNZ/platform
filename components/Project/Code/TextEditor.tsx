@@ -1,4 +1,4 @@
-import { Dispatch, memo, SetStateAction, useContext, useEffect, useRef, useState } from "react";
+import { Dispatch, memo, SetStateAction, useContext, useEffect, useRef } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
@@ -83,22 +83,16 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 	// 		monacoRef.current.editor.setTheme(props.theme);
 	// 	}
 	// }, [props.theme]);
-	useEffect(() => {}, []);
-
-	console.log(openTextFiles);
 
 	useEffect(() => {
-		let newState: TOpenTextFile[] = [];
 		setOpenTextFiles((files) => {
-			const isOpen = files.some((f) => f.id === activeFile.id);
-			newState = isOpen ? files : [...files, { id: activeFile.id, name: activeFile.name, lang: activeFile.lang, lastSavedVersion: 1, isDirty: false }];
+			const newState = files.some((f) => f.id === activeFile.id) ? files : [...files, { id: activeFile.id, name: activeFile.name, lang: activeFile.lang, lastSavedVersion: 1, isDirty: false }];
+			post("/api/profile/update-saves", {
+				profileId: globalSession.profileId,
+				update: { [`${projectId}-${subsystem}__workspace`]: { openTextFileIds: newState.map((f) => f.id), activeFileId: activeFile.id } },
+				date: new Date().toString(),
+			});
 			return newState;
-		});
-		console.log(newState);
-		post("/api/profile/update-saves", {
-			profileId: globalSession.profileId,
-			update: { [`${projectId}-${subsystem}__workspace`]: { openTextFileIds: newState.map((f) => f.id), activeFileId: activeFile.id } },
-			date: new Date().toString(),
 		});
 	}, [activeFile, setOpenTextFiles, globalSession.profileId, projectId, subsystem, post]);
 
@@ -117,26 +111,22 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 			contextMenuOrder: 1,
 			run: () => {
 				const activeFileId = editor.getModel()?.uri.path.slice(1);
-				console.log("Saving currently active file: " + activeFileId);
 				editor.getAction("editor.action.formatDocument").run();
-				let newState: TCodeFile[] = [];
 				setFiles((state) => {
-					console.log(state);
-					newState = state.map((f) => (f.id === activeFileId ? { ...f, code: editor.getValue(), lastModified: new Date() } : f));
+					const newState = state.map((f) => (f.id === activeFileId ? { ...f, code: editor.getValue(), lastModified: new Date() } : f));
+					post(
+						"/api/profile/update-saves",
+						{
+							profileId: globalSession.profileId,
+							update: { [`${projectId}-${subsystem}__files`]: newState },
+							date: new Date().toString(),
+						},
+						() => {
+							setOpenTextFiles((files) => files.map((f) => (f.id === activeFileId ? { ...f, lastSavedVersion: editor.getModel()?.getAlternativeVersionId(), isDirty: false } : f)));
+						}
+					);
 					return newState;
 				});
-				console.log(newState);
-				post(
-					"/api/profile/update-saves",
-					{
-						profileId: globalSession.profileId,
-						update: { [`${projectId}-${subsystem}__files`]: newState },
-						date: new Date().toString(),
-					},
-					() => {
-						setOpenTextFiles((files) => files.map((f) => (f.id === activeFileId ? { ...f, lastSavedVersion: editor.getModel()?.getAlternativeVersionId(), isDirty: false } : f)));
-					}
-				);
 			},
 		});
 		editor.addAction({
