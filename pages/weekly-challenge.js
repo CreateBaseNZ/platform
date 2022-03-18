@@ -1,42 +1,20 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Game from "../../components/Game/Game.js";
+import Game from "../components/Game/Game.js";
 import { useContext, useEffect, useState } from "react";
-import { ALL_PROJECTS_ARRAY } from "../../utils/getProjectData";
-import LoadingScreen from "../../components/UI/LoadingScreen";
+import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
+import LoadingScreen from "../components/UI/LoadingScreen";
 // import { PrimaryButton } from "../components/UI/Buttons";
 // import Img from "../components/UI/Img";
 import router from "next/router";
 // import useApi from "../hooks/useApi";
+import classes from "../styles/weeklyChallenge.module.scss";
 
-import classes from "../../styles/weeklyChallenge.module.scss";
+const DATA = ALL_PROJECTS_ARRAY[0]
+const SUBSYSTEM_INDEX = 0
 
 const WeeklyChallenge = () => {
-	const router = useRouter();
-	const [data, setData] = useState();
-	const [subsystemIndex, setSubsystemIndex] = useState(null);
-
-	useEffect(() => {
-		if (router.isReady) {
-			let found = false;
-			for (let i = 0; i < ALL_PROJECTS_ARRAY.length; i++) {
-				console.log(ALL_PROJECTS_ARRAY[i].subsystems);
-				console.log(router.query.id);
-				const ind = ALL_PROJECTS_ARRAY[i].subsystems.findIndex((sub) => sub.title === router.query.id);
-				if (ind > -1) {
-					found = true;
-					setData(ALL_PROJECTS_ARRAY[i]);
-					setSubsystemIndex(ind);
-					return;
-				}
-			}
-			if (!found) return void router.replace("/404");
-		}
-	}, [router.isReady, router.query.id]);
-
-	if (!data || subsystemIndex === null) return <LoadingScreen />;
-
 	return (
 		<div className={classes.view}>
 			<Head>
@@ -70,19 +48,19 @@ const WeeklyChallenge = () => {
 					</div>
 					<div className={classes.nav}>
 						<div className={classes.navList}>
-							<div className="navBtnContainer">
+							<div className={classes.navBtnContainer}>
 							<button className={classes.learningContentBtn}>
 									<span className="material-icons-outlined">movie</span>
 									<p>Define</p>
 								</button>
 							</div>
-							<div className="navBtnContainer">
+							<div className={classes.navBtnContainer}>
 								<button className={classes.learningContentBtn}>
 									<span className="material-icons-outlined">filter_drama</span>
 									<p>Imagine</p>
 								</button>
 							</div>
-							<div className="navBtnContainer">
+							<div className={classes.navBtnContainer}>
 							<button className={classes.learningContentBtn}>
 									<span className="material-icons-outlined">biotech</span>
 									<p>Research</p>
@@ -98,8 +76,10 @@ const WeeklyChallenge = () => {
 				</div>
 
 				<div className={classes.game}>
+					{/* Modal */}
+					<></>
 					{/* Unity component */}
-					<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
+					<Game project={DATA} index={SUBSYSTEM_INDEX} query={DATA.query} blockList={DATA.subsystems[SUBSYSTEM_INDEX].blockList} />
 				</div>
 			</div>
 		</div>
