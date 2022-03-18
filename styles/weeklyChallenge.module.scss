@@ -183,6 +183,8 @@
 		// flex: 0 0 30%;
 		// min-width: 30%;
 		border: thin solid red;
+		display: flex;
+		justify-content: center;
 	}
 	.nextModal{
 		flex: 1 0 10%;

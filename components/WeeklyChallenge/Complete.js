@@ -1,8 +1,8 @@
 import React from "react"
-import classes from "./Complete.module.scss"
+import classes from "./Share.module.scss"
 
 
-const Complete = () => {
+const Share = () => {
   return (
     <div className={classes.completeContainer}>
         <div className={classes.titleContainer}>
@@ -10,7 +10,7 @@ const Complete = () => {
                 <span className="material-icons-outlined">task_alt</span>
             </div>
             <div className={classes.title}>
-                <h2>Challenge Complete!</h2>
+                <h2>Challenge Share!</h2>
             </div>
             <div className={classes.spacer}></div>
             <div className={classes.exitModal}>
@@ -29,8 +29,8 @@ const Complete = () => {
                             <h5>Best</h5>
                             <h4>292929pts</h4>
                         </div>
-                        <div className={classes.timeCompleted}>
-                            <h5>Completed in</h5>
+                        <div className={classes.timeShared}>
+                            <h5>Shared in</h5>
                             <h4>1hr 29m 30s</h4>
                         </div>
                     </div>
@@ -63,4 +63,4 @@ const Complete = () => {
   )
 }
 
-export default Complete
+export default Share

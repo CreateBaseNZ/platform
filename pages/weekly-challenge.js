@@ -7,6 +7,8 @@ import { ALL_PROJECTS_ARRAY } from "../utils/getProjectData";
 import Leaderboard from "../components/WeeklyChallenge/Leaderboard"
 import Complete from "../components/WeeklyChallenge/Complete"
 import Share from "../components/WeeklyChallenge/Share"
+import Subscribe from "../components/WeeklyChallenge/Subscribe"
+import EducationalContent from "../components/WeeklyChallenge/EducationalContent"
 import classes from "../styles/weeklyChallenge.module.scss";
 
 const DATA = ALL_PROJECTS_ARRAY[0]
@@ -87,7 +89,9 @@ const WeeklyChallenge = () => {
 							<div className={classes.Modal}>
 								{/* <Leaderboard/> */}
 								{/* <Complete/> */}
-								<Share/>
+								{/* <Share/> */}
+								{/* <Subscribe/> */}
+								<EducationalContent/>
 							</div>
 							<div className={classes.nextModal}>
 								<button className={classes.nextBtn}>
