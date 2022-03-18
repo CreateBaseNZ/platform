@@ -468,7 +468,7 @@ export const defineObject = (projectName) => {
 		case "heat-seeker": return "Car";
 		case "aimbot": return "aimbot";
 		case "hyperloop": return "hyperloop"
-		case "flow-training-camp": return "trainingbot"
+		case "intro-to-programming": return "trainingbot"
 	}
 	return "";
 };
@@ -479,11 +479,10 @@ export const isOnceCode = (projectName) => {
 		case "aimbot":
 		case "heat-seeker":
 		case "hyperloop":
+
 			return false;
-		case "magnebot-deprecated":
 		case "magnebot":
-		case "magnebot2":
-		case "flow-training-camp":
+		case "intro-to-programming":
 			return true;
 
 	}

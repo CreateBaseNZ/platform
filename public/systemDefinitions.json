@@ -441,6 +441,14 @@
 				"name": "tyrePressureSensor",
 				"simpleName": "tyrePressure"
 			},
+			"NodeTrainingBotGetSlipLevel": {
+				"name": "slipLevel",
+				"simpleName": "slipLevel"
+			},
+			"NodeTrainingBotGetTargetDistance": {
+				"name": "targetDistanceSensor",
+				"simpleName": "targetDistance"
+			},
 			"NodeTrainingBotGetBananaGreen": {
 				"name": "greenBananaSensor",
 				"simpleName": "greenBanana"
@@ -530,78 +538,18 @@
 					{
 						"variable": "a",
 						"type": "number",
-						"value": 0
+						"value": 10
 					}
 				],
-				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a);\nunityContext.send(\"Robot\", \"ThrowBalloon\", a);",
+				"logic": "unityContext.send(\"Robot\", \"ThrowBalloon\", a);",
 				"await": false
 			},
-			"NodeTrainingBotAdd": {
-				"simpleLogic": "Add",
-				"inputs": [
-					{
-						"variable": "a",
-						"type": "number",
-						"value": 0
-					},
-					{
-						"variable": "b",
-						"type": "number",
-						"value": 0
-					}
-				],
-				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a+b);" ,
-				"await": false
-			},
-			"NodeTrainingBotSub": {
-				"simpleLogic": "Subtract",
-				"inputs": [
-					{
-						"variable": "a",
-						"type": "number",
-						"value": 0
-					},
-					{
-						"variable": "b",
-						"type": "number",
-						"value": 0
-					}
-				],
-				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a-b);" ,
-				"await": false
-			},
-			"NodeTrainingBotMul": {
-				"simpleLogic": "Multiply",
-				"inputs": [
-					{
-						"variable": "a",
-						"type": "number",
-						"value": 0
-					},
-					{
-						"variable": "b",
-						"type": "number",
-						"value": 0
-					}
-				],
-				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a*b);" ,
-				"await": false
-			},
-			"NodeTrainingBotDiv": {
-				"simpleLogic": "Divide",
-				"inputs": [
-					{
-						"variable": "a",
-						"type": "number",
-						"value": 0
-					},
-					{
-						"variable": "b",
-						"type": "number",
-						"value": 0
-					}
-				],
-				"logic": "unityContext.send(\"NumberGenerator\", \"VerifyNumber\", a); unityContext.send(\"NumberGenerator\", \"VerifyNumber\", b);  return (a/b);" ,
+			"NodeTrainingBotThrowConstant": {
+				"simpleLogic": "ThrowConstant",
+				"output": {
+					"variable": "out"
+				},
+				"logic": "return 3.132091953;",
 				"await": false
 			},
 			"NodeEnd": {

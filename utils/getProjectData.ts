@@ -31,8 +31,8 @@ const getProjectData = (query: string) => {
 			return aimbotData;
 		case "hyperloop":
 			return hyperloopData;
-		case "flow-training-camp":
-				return flowTrainingCampData;
+		case "intro-to-programming":
+				return introToProgrammingData;
 		default:
 			return null;
 	}

@@ -35,6 +35,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 		cali: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - California.pdf",
 		uk: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - England.pdf",
 	},
+	spotlight: "https://www.youtube.com/embed/dQw4w9WgXcQ",
 	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
 	learnings: [
 		"Explain how and why line-following is used for navigation.",
@@ -90,7 +91,10 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 			description: "In this first subsystem, we will program our robot to move by individually setting the rotational speed of each of two motors.",
 			research: {
 				threshold: 300,
-				caption: ["Your learning journal will guide you through completing either the Flow or the JS modules below.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				caption: [
+					"Your learning journal will guide you through completing either the Flow or the JS modules below.",
+					"Make sure that you understand all of the content as you will need it to create your solution!",
+				],
 				modules: [
 					{
 						type: "video",
@@ -202,9 +206,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
-				modules: [
-
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 300,
@@ -302,8 +304,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 			research: {
 				threshold: 1,
 				caption: ["There is nothing new to research for this subsystem. You can continue to Plan."],
-				modules: [
-				],
+				modules: [],
 			},
 			plan: {
 				threshold: 30,

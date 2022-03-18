@@ -27,7 +27,7 @@ const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
 	const { loaded, globalSession } = useContext(GlobalSessionContext);
 
 	useEffect(() => {
-		if (loaded) {
+		if (loaded && auth !== "any") {
 			if (!globalSession.accountId) {
 				return void signIn();
 			}
@@ -47,6 +47,8 @@ const AuthGuard = ({ children, auth }: AuthGuardProps): JSX.Element => {
 		} else {
 			return <div>No access</div>;
 		}
+	} else if (auth === "any") {
+		return <>{children}</>;
 	}
 
 	return <LoadingScreen />;

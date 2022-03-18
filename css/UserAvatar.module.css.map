@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,OAAO,CAAC;EACP,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;CAIvB;;AAPD,AAIC,OAJM,CAIN,GAAG,CAAC;EACH,OAAO,EAAE,KAAK;CACd",
+    "sources": [
+        "../components/UI/UserAvatar.module.scss"
+    ],
+    "names": [],
+    "file": "UserAvatar.module.css"
+}

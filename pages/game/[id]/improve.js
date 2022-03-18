@@ -36,13 +36,13 @@ const ImproveGame = () => {
 	if (!data) return <LoadingScreen />;
 
 	return (
-		<>
+		<div style={{ height: "100vh" }}>
 			<Head>
 				<title>Improve • {data.name} | CreateBase</title>
 				<meta name="description" content="CreateBase" />
 			</Head>
 			<Game isImprove={true} project={data} index={data.subsystems.length - 1} query={data.query} blockList={data.improve.blockList} />
-		</>
+		</div>
 	);
 };
 

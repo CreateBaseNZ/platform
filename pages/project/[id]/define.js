@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import router from "next/router";
 import Head from "next/head";
 import useMixpanel from "../../../hooks/useMixpanel";
@@ -9,11 +9,17 @@ import VideoViewer from "../../../components/Project/VideoViewer";
 import getProjectData from "../../../utils/getProjectData";
 
 import classes from "/styles/define.module.scss";
+import useApi from "../../../hooks/useApi";
 
 const Define = () => {
+	const linkRef = useRef();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const [data, setData] = useState();
 	const mp = useMixpanel();
+	const { post } = useApi();
+	const [saveStatus, setSaveStatus] = useState();
+
+	console.log(saveStatus);
 
 	useEffect(() => {
 		mp.init();
@@ -30,6 +36,42 @@ const Define = () => {
 			setData(getProjectData(router.query.id));
 		}
 	}, [router.query.id]);
+
+	useEffect(() => {
+		globalSession.groups.length &&
+			(async () => {
+				post(
+					"/api/profile/read-saves",
+					{
+						profileId: globalSession.profileId,
+						properties: [`${globalSession.groups[globalSession.recentGroups[0]].licenseId}__${router.query.id}`],
+						date: new Date().toString(),
+					},
+					(data) => {
+						linkRef.current.value = data.content[`${globalSession.groups[globalSession.recentGroups[0]].licenseId}__${router.query.id}`] || "";
+					}
+				);
+			})();
+	}, []);
+
+	const journalLinkChangeHandler = (e) => {
+		console.log(e.target.value);
+		if (!globalSession.accountId) return;
+		if (globalSession.groups.length) {
+			setSaveStatus("pending");
+			post(
+				"/api/profile/update-saves",
+				{
+					profileId: globalSession.profileId,
+					update: { [`${globalSession.groups[globalSession.recentGroups[0]].licenseId}__${router.query.id}`]: e.target.value },
+					date: new Date().toString(),
+				},
+				() => {
+					setSaveStatus("success");
+				}
+			);
+		}
+	};
 
 	if (!data) return null;
 
@@ -62,6 +104,20 @@ const Define = () => {
 									Word
 								</a>
 							</div>
+						</div>
+					</div>
+				)}
+				{data && data.define.word && data.define.docs && (
+					<div className={classes.journalLink}>
+						<label>If your learning journal is on Google Docs, paste the link below:</label>
+						<input onChange={journalLinkChangeHandler} ref={linkRef} />
+						<div className={classes.saveStatus}>
+							{saveStatus === "pending" && "Saving ..."}
+							{saveStatus === "success" && (
+								<>
+									<i className="material-icons-outlined">done</i>Saved
+								</>
+							)}
 						</div>
 					</div>
 				)}
