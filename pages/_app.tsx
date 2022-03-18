@@ -11,6 +11,7 @@ import MobileView from "../components/MobileView/MobileView";
 import AuthGuard from "../components/Auth/AuthGuard";
 
 import "../styles/globals.scss";
+import { wrapper } from "../store/store";
 
 type NextPageWithLayout = NextPage & {
 	getLayout?: (page: ReactElement, pageProps: any) => JSX.Element;
@@ -44,4 +45,4 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
 	);
 };
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -11,9 +11,13 @@ import useApi from "../../../../../hooks/useApi";
 import Unity from "../../../../../components/Project/Code/Unity";
 import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
-import CodeContext from "../../../../../store/code-context";
 import Image from "next/image";
 import { Restart, Run, Stop, Unlink } from "../../../../../types/editor";
+import { wrapper } from "../../../../../store/store";
+import { ParsedUrlQuery } from "querystring";
+import { useDispatch, useSelector } from "react-redux";
+import { TState } from "../../../../../store/reducers/reducer";
+import { TCodeStepState } from "../../../../../store/reducers/codeStepReducer";
 
 declare global {
 	interface String {
@@ -49,10 +53,9 @@ interface Props {
 const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 	const consoleRef = useRef<HTMLDivElement>(null);
-	const {} = useMixpanel("project_create_code");
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { codeLayout, codeTab } = useContext(CodeContext);
 	const { post } = useApi();
+	const {} = useMixpanel("project_create_code");
 	const [status, setStatus] = useState("idle");
 	const [logs, setLogs] = useState<any[]>([]);
 	const [unityLoaded, setUnityLoaded] = useState(false);
@@ -64,6 +67,8 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		wip: data.wip,
 		setLoaded: setUnityLoaded,
 	});
+	const { layout } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (!globalSession.loaded) return;
@@ -73,7 +78,8 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 			post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, [subsystem]: "code" } }, date: new Date().toString() });
 			console.log("code page saved");
 		})();
-	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
+		dispatch({ type: "TICK", payload: "was set in use effect" });
+	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem, dispatch]);
 
 	useEffect(() => {
 		if (!consoleRef.current) return;
@@ -90,42 +96,45 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		return () => dynRef?.contentWindow && Unhook((dynRef.contentWindow as any)?.console);
 	}, []);
 
-	const run: Run = useCallback((code) => {
-		// Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
+	const run: Run = useCallback(
+		(code) => {
+			// Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
 
-		// const whileEntry: number[] = [];
-		// Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
-		// 	console.log(node);
-		// 	if (node.type === "WhileStatement") {
-		// 		whileEntry.push(node.body.body[0].range[0]);
-		// 	}
-		// });
-		// whileEntry.forEach((pos) => {
-		// 	code = code.insert(pos, `# insert code here \n \t`);
-		// });
+			// const whileEntry: number[] = [];
+			// Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
+			// 	console.log(node);
+			// 	if (node.type === "WhileStatement") {
+			// 		whileEntry.push(node.body.body[0].range[0]);
+			// 	}
+			// });
+			// whileEntry.forEach((pos) => {
+			// 	code = code.insert(pos, `# insert code here \n \t`);
+			// });
 
-		setStatus("running");
+			setStatus("running");
 
-		// console.log(whileEntry);
+			// console.log(whileEntry);
 
-		code = ` try {
+			code = ` try {
 		  ${code}
       unityContext.send("LeftWheel", "RotateMotorForwards", 0.1)		
     } catch(e) {
 		  console.error(e)
 		}`;
 
-		(iframeRef.current?.contentWindow as any).Function("sensorData", "unityContext", code)(sensorData, unityContext);
+			(iframeRef.current?.contentWindow as any).Function("sensorData", "unityContext", code)(sensorData, unityContext);
 
-		// console.log(Escodegen.generate(ast));
-		// Unhook(window.console);
-	}, []);
+			// console.log(Escodegen.generate(ast));
+			// Unhook(window.console);
+		},
+		[sensorData, unityContext]
+	);
 
 	const stop: Stop = useCallback(() => {
 		console.log("stopping");
 		setStatus("idle");
 		resetScene();
-	}, []);
+	}, [resetScene]);
 
 	const restart: Restart = useCallback(() => {
 		// TODO @louis
@@ -138,7 +147,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	return (
 		<div className={classes.page}>
 			<iframe ref={iframeRef} className={classes.iframe} />
-			<div className={`${classes.main} ${classes[`${codeLayout.toLowerCase()}Layout`]}`}>
+			<div className={`${classes.main} ${classes[`${layout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
 					<Editor run={run} stop={stop} restart={restart} unlink={unlink} projectId={data.id} subsystem={subsystem} />
 				</div>
@@ -175,25 +184,23 @@ Code.auth = "user";
 
 export default Code;
 
-interface Params {
-	params: {
-		id: string;
-		subsystem: string;
-		subsystemIndex: number;
-	};
+interface Params extends ParsedUrlQuery {
+	id: string;
+	subsystem: string;
 }
 
-export async function getStaticProps({ params }: Params) {
+export const getStaticProps = wrapper.getStaticProps((store) => ({ params, preview }) => {
+	const { id, subsystem } = params as Params;
 	return {
 		props: {
-			data: ALL_PROJECTS_OBJECT[params.id],
-			subsystem: params.subsystem,
-			subsystemIndex: ALL_PROJECTS_OBJECT[params.id].subsystems.findIndex((subsys) => subsys.id === params.subsystem),
+			data: ALL_PROJECTS_OBJECT[id],
+			subsystem: subsystem,
+			subsystemIndex: ALL_PROJECTS_OBJECT[id].subsystems.findIndex((subsys) => subsys.id === subsystem),
 		},
 	};
-}
+});
 
-export async function getStaticPaths() {
+export const getStaticPaths = () => {
 	return {
 		paths: ALL_PROJECTS_ARRAY.map((project) => {
 			return project.subsystems.map((subsystem) => {
@@ -207,4 +214,4 @@ export async function getStaticPaths() {
 		}).flat(),
 		fallback: false,
 	};
-}
+};

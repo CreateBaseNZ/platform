@@ -1,15 +1,15 @@
-import { Dispatch, memo, SetStateAction, useContext, useEffect, useRef } from "react";
+import { memo, useContext, useRef } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
-import CodeContext from "../../../store/code-context";
 import { Restart, Run, Stop, Unlink } from "../../../types/editor";
-import { TCodeFile } from "../../../types/code";
+import { TCodeStepState } from "../../../store/reducers/codeStepReducer";
 
 import classes from "./TextEditor.module.scss";
-import { TOpenTextFile } from "./Editor";
+import { useDispatch, useSelector } from "react-redux";
+import { TState } from "../../../store/reducers/reducer";
 
 const getLang = (lang: string) => {
 	switch (lang) {
@@ -32,20 +32,19 @@ const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 interface Props {
 	subsystem: string;
 	projectId: string;
-	openTextFiles: TOpenTextFile[];
-	setOpenTextFiles: Dispatch<SetStateAction<TOpenTextFile[]>>;
 	run: Run;
 	stop: Stop;
 	restart: Restart;
 	unlink: Unlink;
 }
 
-const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run, stop, restart, unlink }: Props): JSX.Element => {
+const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props): JSX.Element => {
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
-	const { activeFile, setActiveFile, files, setFiles } = useContext(CodeContext);
+	const { allFiles, activeFile, openTextFiles } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const dispatch = useDispatch();
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
 
@@ -84,23 +83,8 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 	// 	}
 	// }, [props.theme]);
 
-	useEffect(() => {
-		setOpenTextFiles((files) => {
-			const newState = files.some((f) => f.id === activeFile.id) ? files : [...files, { id: activeFile.id, name: activeFile.name, lang: activeFile.lang, lastSavedVersion: 1, isDirty: false }];
-			post("/api/profile/update-saves", {
-				profileId: globalSession.profileId,
-				update: { [`${projectId}-${subsystem}__workspace`]: { openTextFileIds: newState.map((f) => f.id), activeFileId: activeFile.id } },
-				date: new Date().toString(),
-			});
-			return newState;
-		});
-	}, [activeFile, setOpenTextFiles, globalSession.profileId, projectId, subsystem, post]);
-
-	const changeHandler = () => {
-		const _lastSavedVersion = editorRef.current?.getModel()?.getAlternativeVersionId();
-		const _fileId = editorRef.current?.getModel()?.uri.path.slice(1);
-		setOpenTextFiles((files) => files.map((f) => (f.id === _fileId ? { ...f, isDirty: f.lastSavedVersion !== _lastSavedVersion } : f)));
-	};
+	const changeHandler = () =>
+		dispatch({ type: "TEXT_FILE_ONCHANGE", payload: { id: editorRef.current?.getModel()?.uri.path.slice(1), version: editorRef.current?.getModel()?.getAlternativeVersionId() } });
 
 	const editorDidMount: OnMount = (editor, monaco) => {
 		editor.addAction({
@@ -110,23 +94,9 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 1,
 			run: () => {
-				const activeFileId = editor.getModel()?.uri.path.slice(1);
 				editor.getAction("editor.action.formatDocument").run();
-				setFiles((state) => {
-					const newState = state.map((f) => (f.id === activeFileId ? { ...f, code: editor.getValue(), lastModified: new Date() } : f));
-					post(
-						"/api/profile/update-saves",
-						{
-							profileId: globalSession.profileId,
-							update: { [`${projectId}-${subsystem}__files`]: newState },
-							date: new Date().toString(),
-						},
-						() => {
-							setOpenTextFiles((files) => files.map((f) => (f.id === activeFileId ? { ...f, lastSavedVersion: editor.getModel()?.getAlternativeVersionId(), isDirty: false } : f)));
-						}
-					);
-					return newState;
-				});
+				() => dispatch({ type: "", payload: { id: editor.getModel()?.uri.path.slice(1), code: editor.getValue(), version: editor.getModel()?.getAlternativeVersionId() } });
+				post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}-${subsystem}__files`]: allFiles }, date: new Date().toString() });
 			},
 		});
 		editor.addAction({
@@ -169,20 +139,20 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 	return (
 		<div className={classes.textEditor}>
 			<div className={classes.header}>
-				{openTextFiles.map((f) => (
+				{openTextFiles.map((file) => (
 					<button
-						key={f.id}
-						className={`${classes.filename} ${activeFile.id === f.id && classes.active}`}
-						title={f.name + "." + f.lang}
-						onClick={() => setActiveFile(files.find((_f) => _f.id === f.id) as TCodeFile)}>
+						key={file.id}
+						className={`${classes.filename} ${activeFile.id === file.id && classes.active}`}
+						title={file.name + "." + file.lang}
+						onClick={() => dispatch({ type: "SET_ACTIVE_FILE", payload: file.id })}>
 						<div className={classes.fileIcon}>
-							{f.isDirty ? (
+							{file.isDirty ? (
 								<i className={classes.unsavedIndicator} />
 							) : (
-								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${f.lang}.svg`} alt="js" />
+								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt="js" />
 							)}
 						</div>
-						{f.name}
+						{file.name}
 					</button>
 				))}
 			</div>

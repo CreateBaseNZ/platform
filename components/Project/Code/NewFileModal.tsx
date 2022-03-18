@@ -2,13 +2,14 @@ import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
-import CodeContext from "../../../store/code-context";
-import { TCodeFile } from "../../../types/code";
 import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 
 import classes from "./NewFileModal.module.scss";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
+import { useDispatch, useSelector } from "react-redux";
+import { TState } from "../../../store/reducers/reducer";
+import { TCodeStepState } from "../../../store/reducers/codeStepReducer";
 
 interface Props {
 	projectId: string;
@@ -30,25 +31,19 @@ const NewFileModal = ({ projectId, subsystem, setIsCreatingNewFile }: Props): JS
 		shouldFocusError: true,
 	});
 	const selectedLang = watch("lang");
-	const { setFiles, setActiveFile } = useContext(CodeContext);
+	const { allFiles } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const dispatch = useDispatch();
 	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	const onSubmit = (values: any) => {
 		if (Object.keys(errors).length > 0) return;
 
-		const newFile: TCodeFile = { id: uuidv4(), name: values.name, code: "", created: new Date(), lastModified: new Date(), lang: values.lang };
+		dispatch({ type: "ADD_FILE", payload: { id: uuidv4(), name: values.name, code: "", created: new Date(), lastModified: new Date(), lang: values.lang } });
 
-		let newState: TCodeFile[] = [];
-		setFiles((state) => {
-			newState = [...state, newFile];
-			return newState;
-		});
-
-		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}`]: newState }, date: new Date().toString() }, () => {
-			setActiveFile(newFile);
-			setIsCreatingNewFile(false);
-		});
+		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}-${subsystem}__files`]: allFiles }, date: new Date().toString() }, () =>
+			setIsCreatingNewFile(false)
+		);
 	};
 
 	return (
