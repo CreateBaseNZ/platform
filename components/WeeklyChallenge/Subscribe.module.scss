@@ -1,0 +1,110 @@
+@import "/styles/variables";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons&family=Material+Icons&display=swap");
+
+.CTAbtn{
+	padding: 1rem 1.5rem;
+	border-radius: 10px;
+	width: 100%;
+	width: 12rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: background-color ease 0.3s;
+    margin: 0 0.5rem;
+    background-color: $logo-light;
+	p{
+		font-family: $poppins;
+		font-weight: 500;
+		color: $lightest;
+        font-size: 0.9rem;
+	}
+    span{
+		color: $lightest;
+        font-size: 2rem;
+        margin-right: 1rem;
+	}
+}
+
+.shareContainer{
+    border-radius: 10px;
+    background-color: $lightest;
+    max-width: 38rem;
+}
+
+.titleContainer{
+    width: 100%;
+    // background-color: $logo-light;
+    display: flex;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    .title{
+        padding: 1rem 2rem;
+        width: 100%;
+        h2{
+            padding: 1rem 0;
+            font-weight: 600;
+            color: $dark;
+            font-size: 1.15rem;
+        }
+    }
+    .spacer{
+        flex-grow: 1;
+    }
+    .exitModal{
+        padding: 0 1rem 0 2rem;
+        display: flex;
+        align-items: center;
+        span{
+            font-size: 2.5rem;
+            color: $dark;
+        }
+    }
+}
+
+.contentContainer{
+    padding: 0rem 2rem 2rem 2rem;
+}
+
+.subscribeContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    // padding-bottom: 1rem;
+    h6{
+        font-weight: 600;
+        color: $dark;
+        padding-bottom: 1rem;
+    }
+    .subscribeBtnContainer{
+        display: flex;
+        background-color: #F6F1FF;
+        border-radius: 10px;
+        width: 100%;
+    }
+    input{
+        // border: thin solid red;
+        width: 100%;
+        padding: 1rem;
+        background-color: #F6F1FF;
+        font-weight: 500;
+        border-radius: 10px;
+        &::placeholder{
+            font-weight: 500;
+        }
+    }
+    .submitBtn{
+        padding: 0 2rem;
+        background-color: $logo-light;
+        border-radius: 10px;
+        p{
+            font-size: 0.9rem;
+            color: $lightest;
+        }
+    }
+    .errorMsg{
+        padding: 1rem 0 0 1rem;
+        width: 100%;
+        color: $red;
+    }
+}

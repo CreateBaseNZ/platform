@@ -1,0 +1,169 @@
+@import "/styles/variables";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons&family=Material+Icons&display=swap");
+
+.CTAbtn{
+	padding: 0.8rem 1.5rem;
+	border-radius: 10px;
+	width: 100%;
+	// max-width: 12rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: background-color ease 0.3s;
+	p{
+		font-family: $poppins;
+		font-weight: 500;
+		color: $lightest;
+        font-size: 0.9rem;
+	}
+}
+
+.challengeBtn{
+    background-color: $blue-light;
+    &:hover{
+        background-color: $blue-mid;
+    }
+}
+
+.leaderboardContainer{
+    border-radius: 10px;
+    background-color: $lightest;
+}
+
+.titleContainer{
+    width: 100%;
+    background-color: $amber;
+    display: flex;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    .titleIcon{
+        position: relative;
+        width: 5rem;
+        height: 7rem;
+        overflow: hidden;
+        border-radius: 10px 0 0 0;
+        span{
+            top: -0.5rem;
+            right: -1rem;
+            position: absolute;
+            color: $lightest;
+            font-size: 9rem;
+        }
+    }
+    .title{
+        padding: 2rem 1rem;
+        h2{
+        color: $lightest;
+        font-size: 2rem;
+        font-weight: 600;
+        padding-left: 1rem;
+        }
+    }
+    .spacer{
+        width: 10vw;
+    }
+    .btnContainer{
+        padding-left: 2rem;
+    }
+    .exitModal{
+        padding: 0 1rem 0 2rem;
+        display: flex;
+        align-items: center;
+        span{
+            font-size: 2.5rem;
+        }
+    }
+}
+
+.contentContainer{
+    padding: 0 2rem 2rem 2rem;
+    overflow-y: scroll;
+    max-height: 25rem;
+}
+
+.leaderboard{
+    padding: 1rem 0;
+    .leaderboardItem{
+        display: flex;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: thin solid $light;
+    }
+    .leadboardPosition{
+        padding: 2rem 2rem;
+        position: relative;
+        h3{
+            position: absolute;
+            font-size: 2rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 65;
+            color: $dark;
+            font-weight: 500;
+        }
+        span{
+            display: none;
+            position: absolute;
+            z-index: 60;
+        }
+    }
+    .firstPlace{
+        h3{
+            color: $lightest;
+            top: 40%;
+        }
+        span{
+            display: block;
+            color: $amber;
+            font-size: 5rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .secondPlace{
+        h3{
+            color: $lightest;
+            font-size: 1.5rem;
+            top: 40%;
+        }
+        span{
+            display: block;
+            color: $orange;
+            font-size: 4rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .thirdPlace{
+        h3{
+            color: $lightest;
+            font-size: 1.3rem;
+            top: 40%;
+        }
+        span{
+            display: block;
+            color: $red;
+            font-size: 3rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .leaderboardName{
+        flex-grow: 1;
+        h4{
+            padding: 0 1.5rem;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+    }
+    .leaderboardScore{
+        h4{
+            font-size: 2rem;
+            font-weight: 600;
+        }
+    }
+}
