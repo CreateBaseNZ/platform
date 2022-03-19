@@ -18,6 +18,7 @@ import { IProjectReadOnly } from "../types/projects";
 const SEND_IT_DATA: IProjectReadOnly = {
 	name: "Send It",
 	query: "send-it",
+	wip: true,
 	caption:
 		'In this Project, users will automate a jumping game by creating a simple "AI" that is able to exceed human capabilities and achieve as high of a score as possible. This AI will be controlling a robot with the task of delivering a package as fast as possible, automatically jumping over any obstacles that get in its way.',
 	stacked: true,
@@ -120,7 +121,324 @@ const SEND_IT_DATA: IProjectReadOnly = {
 	},
 	subsystems: [
 		{
-			title: "Obstacle avoidance",
+			title: "Jumping",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
+			description:
+				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
+			research: {
+				threshold: 600,
+				caption: ["Your learning journal will guide you through completing either the Flow or the JS modules below.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				modules: [
+					{
+						type: "video",
+						title: "Flow: Editor tutorial",
+						data: {
+							url: "https://youtu.be/2Ndwtpk7iN8",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
+							h1: "Flow Tutorial",
+							h2: "Get to know your way around Flow",
+						},
+					},
+					{
+						type: "pdf",
+						title: "Flow: Introduction to blocks",
+						img: "",
+						url: "/intro-to-flow.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Flow: Tips & tricks with sensing blocks",
+						img: "",
+						url: "/send-it/pdf/sensing-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to JavaScript",
+						img: "",
+						url: "/send-it/pdf/intro_to_JS.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Tips & tricks with sensing functions",
+						img: "",
+						url: "/send-it/pdf/sensing_functions.pdf",
+					},
+					// comment out until fixed 
+					/*{
+						type: "explore",
+						title: "Explore more",
+						items: [comparisonBoostData, ifBoostData],
+					}, */
+				],
+			},
+			plan: {
+				threshold: 30,
+				list: [
+					"Open up your learning journal and answer all of the questions in the Plan section.",
+					"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
+			code: {
+				threshold: 1200,
+				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
+				hints: ["Make sure that you hit the compile button to upload your code to the robot each time that you make a change. If you don't compile your latest code, you won't see any changes!"],
+			},
+			blockList: [
+				{
+					name: "Sensing",
+					blocks: [<NodeSendItDistanceMini />, <NodeSendItElevationOfMini />, <NodeSendItHeightOfMini />, <NodeSendItWidthOfMini />, <NodeSendItSpeedOfMini />],
+				},
+				{
+					name: "Actions",
+					blocks: [<NodeSendItJumpMini />, <NodeSendItCrouchMini />],
+				},
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+			],
+		},
+		{
+			title: "Precision Jumping",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
+			description:
+				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
+			research: {
+				threshold: 600,
+				caption: ["Your learning journal will guide you through completing either the Flow or the JS modules below.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				modules: [
+					{
+						type: "video",
+						title: "Flow: Editor tutorial",
+						data: {
+							url: "https://youtu.be/2Ndwtpk7iN8",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
+							h1: "Flow Tutorial",
+							h2: "Get to know your way around Flow",
+						},
+					},
+					{
+						type: "pdf",
+						title: "Flow: Introduction to blocks",
+						img: "",
+						url: "/intro-to-flow.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Flow: Tips & tricks with sensing blocks",
+						img: "",
+						url: "/send-it/pdf/sensing-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to JavaScript",
+						img: "",
+						url: "/send-it/pdf/intro_to_JS.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Tips & tricks with sensing functions",
+						img: "",
+						url: "/send-it/pdf/sensing_functions.pdf",
+					},
+					// comment out until fixed 
+					/*{
+						type: "explore",
+						title: "Explore more",
+						items: [comparisonBoostData, ifBoostData],
+					}, */
+				],
+			},
+			plan: {
+				threshold: 30,
+				list: [
+					"Open up your learning journal and answer all of the questions in the Plan section.",
+					"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
+			code: {
+				threshold: 1200,
+				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
+				hints: ["Make sure that you hit the compile button to upload your code to the robot each time that you make a change. If you don't compile your latest code, you won't see any changes!"],
+			},
+			blockList: [
+				{
+					name: "Sensing",
+					blocks: [<NodeSendItDistanceMini />, <NodeSendItElevationOfMini />, <NodeSendItHeightOfMini />, <NodeSendItWidthOfMini />, <NodeSendItSpeedOfMini />],
+				},
+				{
+					name: "Actions",
+					blocks: [<NodeSendItJumpMini />, <NodeSendItCrouchMini />],
+				},
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+			],
+		},
+		{
+			title: "Crouching",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
+			description:
+				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
+			research: {
+				threshold: 600,
+				caption: ["Your learning journal will guide you through completing either the Flow or the JS modules below.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				modules: [
+					{
+						type: "video",
+						title: "Flow: Editor tutorial",
+						data: {
+							url: "https://youtu.be/2Ndwtpk7iN8",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
+							h1: "Flow Tutorial",
+							h2: "Get to know your way around Flow",
+						},
+					},
+					{
+						type: "pdf",
+						title: "Flow: Introduction to blocks",
+						img: "",
+						url: "/intro-to-flow.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Flow: Tips & tricks with sensing blocks",
+						img: "",
+						url: "/send-it/pdf/sensing-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to JavaScript",
+						img: "",
+						url: "/send-it/pdf/intro_to_JS.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Tips & tricks with sensing functions",
+						img: "",
+						url: "/send-it/pdf/sensing_functions.pdf",
+					},
+					// comment out until fixed 
+					/*{
+						type: "explore",
+						title: "Explore more",
+						items: [comparisonBoostData, ifBoostData],
+					}, */
+				],
+			},
+			plan: {
+				threshold: 30,
+				list: [
+					"Open up your learning journal and answer all of the questions in the Plan section.",
+					"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
+			code: {
+				threshold: 1200,
+				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
+				hints: ["Make sure that you hit the compile button to upload your code to the robot each time that you make a change. If you don't compile your latest code, you won't see any changes!"],
+			},
+			blockList: [
+				{
+					name: "Sensing",
+					blocks: [<NodeSendItDistanceMini />, <NodeSendItElevationOfMini />, <NodeSendItHeightOfMini />, <NodeSendItWidthOfMini />, <NodeSendItSpeedOfMini />],
+				},
+				{
+					name: "Actions",
+					blocks: [<NodeSendItJumpMini />, <NodeSendItCrouchMini />],
+				},
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+			],
+		},
+		{
+			title: "Acceleration",
+			requirements: [],
+			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
+			description:
+				"In a single subsystem, your task is to create a program that will tell a humanoid delivery robot the correct action to take with the correct timing when it approaches an obstacle.",
+			research: {
+				threshold: 600,
+				caption: ["Your learning journal will guide you through completing either the Flow or the JS modules below.", "Make sure that you understand all of the content as you will need it to create your solution!"],
+				modules: [
+					{
+						type: "video",
+						title: "Flow: Editor tutorial",
+						data: {
+							url: "https://youtu.be/2Ndwtpk7iN8",
+							src: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/flow-tut.mp4",
+							h1: "Flow Tutorial",
+							h2: "Get to know your way around Flow",
+						},
+					},
+					{
+						type: "pdf",
+						title: "Flow: Introduction to blocks",
+						img: "",
+						url: "/intro-to-flow.pdf",
+					},
+					{
+						type: "pdf",
+						title: "Flow: Tips & tricks with sensing blocks",
+						img: "",
+						url: "/send-it/pdf/sensing-blocks.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Introduction to JavaScript",
+						img: "",
+						url: "/send-it/pdf/intro_to_JS.pdf",
+					},
+					{
+						type: "pdf",
+						title: "JS: Tips & tricks with sensing functions",
+						img: "",
+						url: "/send-it/pdf/sensing_functions.pdf",
+					},
+					// comment out until fixed 
+					/*{
+						type: "explore",
+						title: "Explore more",
+						items: [comparisonBoostData, ifBoostData],
+					}, */
+				],
+			},
+			plan: {
+				threshold: 30,
+				list: [
+					"Open up your learning journal and answer all of the questions in the Plan section.",
+					"If you get stuck, ask one of your classmates for help but don't forget to explain your own reasoning!",
+				],
+			},
+			code: {
+				threshold: 1200,
+				tasks: ["Write some code so that your robot can detect incoming obstacles and avoid them", "Reach 1000m to deliver your package and complete the task. Good luck!"],
+				hints: ["Make sure that you hit the compile button to upload your code to the robot each time that you make a change. If you don't compile your latest code, you won't see any changes!"],
+			},
+			blockList: [
+				{
+					name: "Sensing",
+					blocks: [<NodeSendItDistanceMini />, <NodeSendItElevationOfMini />, <NodeSendItHeightOfMini />, <NodeSendItWidthOfMini />, <NodeSendItSpeedOfMini />],
+				},
+				{
+					name: "Actions",
+					blocks: [<NodeSendItJumpMini />, <NodeSendItCrouchMini />],
+				},
+				{ name: "Operators", blocks: [<NodeAddMini />, <NodeSubtractMini />, <NodeMultiplyMini />, <NodeDivideMini />] },
+				{ name: "Comparisons", blocks: [<NodeLessThanMini />, <NodeGreaterThanMini />] },
+				{ name: "Logicals", blocks: [<NodeAndMini />, <NodeOrMini />] },
+				{ name: "Conditionals", blocks: [<NodeIfMini />] },
+			],
+			
+		},
+		{
+			title: "Putting it all together",
 			requirements: [],
 			imgSrc: "https://raw.githubusercontent.com/CreateBaseNZ/public/main/send-it/img/thumbnail.png",
 			description:
