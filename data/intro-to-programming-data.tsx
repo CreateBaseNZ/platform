@@ -47,7 +47,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 		cali: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - California.pdf",
 		uk: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - England.pdf",
 	},
-	lessonPlan: "/intro-to-programming/files/lesson-plan-intro-to-programming.pdf",
+	lessonPlan: "https://docs.google.com/document/d/1ci2sjQnD4dkWZUJUXNok5INmbE5586S5biL6UcmpTdI/edit?usp=sharing",
 	learnings: [
 		"Explain what programming is and why it is important",
 		"Explain what an algorithm is and why they are important",
