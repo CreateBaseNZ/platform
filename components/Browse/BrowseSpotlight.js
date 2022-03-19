@@ -21,7 +21,7 @@ const BrowseSpotlight = ({ project }) => {
 					</div>
 				</div>
 			) : (
-				"Coming soon!"
+				"Video spotlight coming soon! Check out the overview and learning tabs in the meantime 👀"
 			)}
 		</div>
 	);
