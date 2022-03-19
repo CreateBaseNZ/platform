@@ -13,7 +13,7 @@ import GlobalSessionContext from "../../store/global-session-context";
 
 const Game = ({ isImprove, project, index, query, blockList }) => {
 	const [gameLoaded, setGameLoaded] = useState(false);
-	const router = useRouter()
+	const router = useRouter();
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
 		project: project.query,
 		scenePrefix: project.scenePrefix,
@@ -27,7 +27,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 
 	useEffect(() => {
 		mp.init();
-		console.log(router.asPath.split('/')[1])
+		console.log(router.asPath.split("/")[1]);
 	}, []);
 
 	useEffect(() => {
@@ -46,15 +46,17 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 		<div className={classes.code}>
 			<ConsoleContextProvider>
 				<div className={`${classes.mainWindow} ${project.stacked ? classes.stackedView : classes.shelvedView}`}>
-					{router.asPath.split('/')[1] !== 'weekly-challenge' && <Link
-						href={{
-							pathname: isImprove ? `/project/[id]/improve` : "/project/[id]/create/[subsystem]/code",
-							query: router.query,
-						}}>
-						<button className={classes.backButton} title="Back to project">
-						<span className="material-icons-outlined">exit_to_app</span>
-						</button>
-					</Link>}
+					{router.asPath.split("/")[1] !== "weekly-challenge" && (
+						<Link
+							href={{
+								pathname: isImprove ? `/project/[id]/improve` : "/project/[id]/create/[subsystem]/code",
+								query: router.query,
+							}}>
+							<button className={classes.backButton} title="Back to project">
+								<span className="material-icons-outlined">exit_to_app</span>
+							</button>
+						</Link>
+					)}
 					<Unity unityContext={unityContext} />
 					<Workspace
 						saveName={isImprove ? `react-flow_${project.query}_improve` : `react-flow_${project.query}_${index}`}
@@ -65,6 +67,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 						sensorData={sensorData}
 						gameState={gameState}
 						textCodingOnly={project.textCodingOnly}
+						flowCodingOnly={project.flowCodingOnly}
 						url={project.documentation}
 					/>
 				</div>

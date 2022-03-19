@@ -27,7 +27,7 @@ const Tab = ({ id, active, value, icon, title, status, innerRef, onChangeHandler
 	);
 };
 
-const TabBar = ({ active, stacked, textCodingOnly, onChange }) => {
+const TabBar = ({ active, stacked, textCodingOnly, flowCodingOnly, onChange }) => {
 	console.log("rerendered");
 
 	const flowRef = useRef(null);
@@ -88,8 +88,12 @@ const TabBar = ({ active, stacked, textCodingOnly, onChange }) => {
 			{!textCodingOnly && (
 				<Tab title="Flow" id="flow-tab" value="flow" icon={<i className="material-icons-outlined">swap_calls</i>} onChangeHandler={onChangeHandler} active={active} innerRef={flowRef} />
 			)}
-			<Divider tabBefore="flow" tabAfter="text" active={active} />
-			<Tab title="Text" id="text-tab" value="text" icon={<i className="material-icons-outlined">code</i>} onChangeHandler={onChangeHandler} active={active} innerRef={textRef} />
+			{!flowCodingOnly && (
+				<>
+					<Divider tabBefore="flow" tabAfter="text" active={active} />
+					<Tab title="Text" id="text-tab" value="text" icon={<i className="material-icons-outlined">code</i>} onChangeHandler={onChangeHandler} active={active} innerRef={textRef} />{" "}
+				</>
+			)}
 			<Divider tabBefore="text" tabAfter="console" active={active} />
 			<Tab
 				title="Console"
