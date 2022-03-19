@@ -56,8 +56,16 @@ const codeStepReducer = (state: TCodeStepState = DEFAULT_CODE_STEP_STATE, action
 				openTextFiles: [...state.openTextFiles, { id: action.payload.id, name: action.payload.name, lang: action.payload.lang, lastSavedVersion: 1, isDirty: false }],
 				activeFile: action.payload,
 			};
-		case "DELETE_FILE": {
-			const _openTextFiles = state.openTextFiles.filter((f) => f.id !== action.payload);
+		case "RENAME_FILE":
+			const newValues = { name: action.payload.name, lastModified: new Date().toString() };
+			return {
+				...state,
+				allFiles: state.allFiles.map((file) => (file.id === action.payload.id ? { ...file, ...newValues } : file)),
+				openTextFiles: state.openTextFiles.map((file) => (file.id === action.payload.id ? { ...file, name: action.payload.name } : file)),
+				activeFile: state.activeFile.id === action.payload.id ? { ...state.activeFile, ...newValues } : state.activeFile,
+			};
+		case "DELETE_FILE":
+			const _openTextFiles = state.openTextFiles.filter((f) => f.id !== state.ctxMenu?.id);
 			return {
 				...state,
 				allFiles: state.allFiles.filter((f) => f !== action.payload),
@@ -65,7 +73,6 @@ const codeStepReducer = (state: TCodeStepState = DEFAULT_CODE_STEP_STATE, action
 				activeFile: state.activeFile.id === action.payload.id ? (state.allFiles.find((file) => file.id === _openTextFiles[0].id) as TCodeFile) : state.activeFile,
 				ctxMenu: undefined,
 			};
-		}
 		case "SET_ACTIVE_FILE":
 			return { ...state, activeFile: state.allFiles.find((file) => file.id === action.payload) as TCodeFile };
 		case "TEXT_FILE_ONCHANGE": {
