@@ -16,7 +16,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 	numOfLessons: 5,
 	difficulty: "introductory",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, AUTOMATION, MATH, SOCIAL_SCIENCE],
-	spotlight: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+	//spotlight: "https://www.youtube.com/embed/dQw4w9WgXcQ",
 	learningOutcome: "/magnebot/files/project_overview.pdf",
 	cads: {
 		nz: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - NZ.pdf",

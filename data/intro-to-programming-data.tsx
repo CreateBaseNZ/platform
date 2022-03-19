@@ -38,7 +38,8 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 	numOfLessons: 5,
 	difficulty: "advanced",
 	subjects: [TECHNOLOGY, COMPUTER_SCIENCE],
-	learningOutcome: "/heat-seeker/files/project-overview.pdf",
+	//spotlight: "https://www.youtube.com/embed/5A6Pz744DL8",
+	learningOutcome: "/intro-to-programming/files/project-overview-intro-to-programming.pdf",
 	cads: {
 		nz: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - NZ.pdf",
 		aus: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - ACARA.pdf",

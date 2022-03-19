@@ -28,6 +28,7 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 	numOfLessons: 9,
 	difficulty: "advanced",
 	subjects: [TECHNOLOGY, ENGINEERING, COMPUTER_SCIENCE, FIRE_SAFETY],
+	spotlight: "https://www.youtube.com/embed/5A6Pz744DL8",
 	learningOutcome: "/heat-seeker/files/project-overview-heat-seeker.pdf",
 	cads: {
 		nz: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - NZ.pdf",
@@ -35,7 +36,6 @@ const HEAT_SEEKER_DATA: IProjectReadOnly = {
 		cali: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - California.pdf",
 		uk: "/heat-seeker/cads/020802AD Curriculum Alignment - Heat Seeker - England.pdf",
 	},
-	spotlight: "https://www.youtube.com/embed/dQw4w9WgXcQ",
 	lessonPlan: "/heat-seeker/files/lesson-plan-heat-seeker.pdf",
 	learnings: [
 		"Explain how and why line-following is used for navigation.",
