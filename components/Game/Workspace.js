@@ -28,7 +28,7 @@ const FlowEditor = dynamic(() => import("../ReactFlow/FlowEditor"), {
 	ssr: false,
 });
 
-const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, textCodingOnly, url = "https://app.createbase.co.nz/404" }) => {
+const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stacked, textCodingOnly, flowCodingOnly, url = "https://app.createbase.co.nz/404" }) => {
 	const router = useRouter();
 	const editorRef = useRef();
 	const sensorDataRef = useRef();
@@ -211,7 +211,7 @@ const Workspace = ({ sensorData, query, _unityContext, saveName, blockList, stac
 			{theme && <TextEditor theme={theme} setTheme={setTheme} show={activeTab === "text"} text={text} ref={editorRef} />}
 			<Console show={activeTab === "console"} />
 			<Config show={activeTab === "config"} theme={theme} setTheme={setTheme} />
-			<TabBar active={activeTab} stacked={stacked} textCodingOnly={textCodingOnly} onChange={changeTabHandler} />
+			<TabBar active={activeTab} stacked={stacked} textCodingOnly={textCodingOnly} flowCodingOnly={flowCodingOnly} onChange={changeTabHandler} />
 		</div>
 	);
 };

@@ -91,6 +91,8 @@ export interface IProject {
 	documentation?: string;
 	/** If `true`, Flow will not be available. */
 	textCodingOnly?: boolean;
+	/** If `true`, text will not be available. */
+	flowCodingOnly?: boolean;
 	/** Unique prefix for Unity scene rendering. */
 	scenePrefix: string;
 	/** How the code is run under-the-hood.

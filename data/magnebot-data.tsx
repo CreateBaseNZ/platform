@@ -24,6 +24,7 @@ const MAGNEBOT_DATA: IProjectReadOnly = {
 		cali: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - California.pdf",
 		uk: "/magnebot/cads/020802AB Curriculum Alignment - MagneBot - England.pdf",
 	},
+	flowCodingOnly: true,
 	lessonPlan: "/magnebot/files/lesson-plan-magnebot.pdf",
 	learnings: [
 		"Understand the basics of programming a robotic system.",
