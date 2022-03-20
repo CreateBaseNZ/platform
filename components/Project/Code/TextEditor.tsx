@@ -1,17 +1,17 @@
-import { memo, useContext, useRef } from "react";
+import { memo, useContext, useEffect, useRef } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
 import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { Restart, Run, Stop, Unlink } from "../../../types/editor";
-import { TCodeStepState } from "../../../store/reducers/codeStepReducer";
+import { saveFile, setActiveFile, TCodeStepState } from "../../../store/reducers/codeStepReducer";
 
 import classes from "./TextEditor.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { TState } from "../../../store/reducers/reducer";
 
-const getLang = (lang: string) => {
+const getLang = (lang?: string) => {
 	switch (lang) {
 		case "js":
 			return "javascript";
@@ -30,20 +30,19 @@ const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 };
 
 interface Props {
-	subsystem: string;
 	projectId: string;
+	subsystem: string;
 	run: Run;
 	stop: Stop;
 	restart: Restart;
 	unlink: Unlink;
 }
 
-const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props): JSX.Element => {
+const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JSX.Element => {
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { post } = useApi();
-	const { allFiles, activeFile, openTextFiles } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const { allFiles, activeFileId, openTextFiles } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
 	const dispatch = useDispatch();
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
@@ -84,7 +83,7 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 	// }, [props.theme]);
 
 	const changeHandler = () =>
-		dispatch({ type: "TEXT_FILE_ONCHANGE", payload: { id: editorRef.current?.getModel()?.uri.path.slice(1), version: editorRef.current?.getModel()?.getAlternativeVersionId() } });
+		dispatch({ type: "code-step/TEXT_FILE_ONCHANGE", payload: { id: editorRef.current?.getModel()?.uri.path.slice(1), version: editorRef.current?.getModel()?.getAlternativeVersionId() } });
 
 	const editorDidMount: OnMount = (editor, monaco) => {
 		editor.addAction({
@@ -95,8 +94,7 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 			contextMenuOrder: 1,
 			run: () => {
 				editor.getAction("editor.action.formatDocument").run();
-				() => dispatch({ type: "", payload: { id: editor.getModel()?.uri.path.slice(1), code: editor.getValue(), version: editor.getModel()?.getAlternativeVersionId() } });
-				post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}-${subsystem}__files`]: allFiles }, date: new Date().toString() });
+				dispatch(saveFile(globalSession.profileId, projectId, subsystem, editor.getModel()?.uri.path.slice(1) as string, editor.getValue(), editor.getModel()?.getAlternativeVersionId() as number));
 			},
 		});
 		editor.addAction({
@@ -136,15 +134,17 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 		// monacoRef.current.editor.setTheme(props.theme);
 	};
 
+	console.log(openTextFiles);
+
 	return (
 		<div className={classes.textEditor}>
 			<div className={classes.header}>
 				{openTextFiles.map((file) => (
 					<button
 						key={file.id}
-						className={`${classes.filename} ${activeFile.id === file.id && classes.active}`}
+						className={`${classes.filename} ${activeFileId === file.id && classes.active}`}
 						title={file.name + "." + file.lang}
-						onClick={() => dispatch({ type: "SET_ACTIVE_FILE", payload: file.id })}>
+						onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, file.id))}>
 						<div className={classes.fileIcon}>
 							{file.isDirty ? (
 								<i className={classes.unsavedIndicator} />
@@ -172,9 +172,9 @@ const TextEditor = ({ subsystem, projectId, run, stop, restart, unlink }: Props)
 					onMount={editorDidMount}
 					onChange={changeHandler}
 					options={EDITOR_OPTIONS}
-					path={activeFile.id}
-					defaultLanguage={getLang(activeFile.lang)}
-					defaultValue={activeFile.code}
+					path={activeFileId || undefined}
+					defaultLanguage={getLang(allFiles?.[activeFileId].lang)}
+					defaultValue={allFiles?.[activeFileId].code}
 					saveViewState={true}
 				/>
 			</div>

@@ -1,5 +1,6 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { AnyAction, combineReducers, Reducer } from "redux";
+import { ThunkAction } from "redux-thunk";
 import accountReducer, { TAccountState } from "./accountReducer";
 import codeStepReducer, { DEFAULT_CODE_STEP_STATE, TCodeStepState } from "./codeStepReducer";
 
@@ -35,3 +36,5 @@ const reducer = (state: TState = DEFAULT_STATE, action: AnyAction) => {
 };
 
 export default reducer;
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, TState, unknown, AnyAction>;

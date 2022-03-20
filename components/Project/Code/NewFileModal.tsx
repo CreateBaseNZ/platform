@@ -39,9 +39,9 @@ const NewFileModal = ({ projectId, subsystem, setIsCreatingNewFile }: Props): JS
 	const onSubmit = (values: any) => {
 		if (Object.keys(errors).length > 0) return;
 
-		dispatch({ type: "ADD_FILE", payload: { id: uuidv4(), name: values.name, code: "", created: new Date(), lastModified: new Date(), lang: values.lang } });
+		dispatch({ type: "ADD_FILE", payload: { id: uuidv4(), data: { name: values.name, code: "", created: new Date(), lastModified: new Date(), lang: values.lang } } });
 
-		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}-${subsystem}__files`]: allFiles }, date: new Date().toString() }, () =>
+		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}__files`]: allFiles }, date: new Date().toString() }, () =>
 			setIsCreatingNewFile(false)
 		);
 	};

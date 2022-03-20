@@ -17,7 +17,7 @@ import { wrapper } from "../../../../../store/store";
 import { ParsedUrlQuery } from "querystring";
 import { useDispatch, useSelector } from "react-redux";
 import { TState } from "../../../../../store/reducers/reducer";
-import { TCodeStepState } from "../../../../../store/reducers/codeStepReducer";
+import { fetchCodeStepData, TCodeStepState } from "../../../../../store/reducers/codeStepReducer";
 
 declare global {
 	interface String {
@@ -78,8 +78,12 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 			post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, [subsystem]: "code" } }, date: new Date().toString() });
 			console.log("code page saved");
 		})();
-		dispatch({ type: "TICK", payload: "was set in use effect" });
-	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem, dispatch]);
+	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
+
+	useEffect(() => {
+		if (!globalSession.loaded) return;
+		dispatch(fetchCodeStepData(globalSession.profileId, data.id, subsystem));
+	}, [globalSession.loaded, globalSession.profileId, data.id, subsystem, dispatch]);
 
 	useEffect(() => {
 		if (!consoleRef.current) return;
@@ -146,7 +150,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 			<iframe ref={iframeRef} className={classes.iframe} />
 			<div className={`${classes.main} ${classes[`${layout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
-					<Editor run={run} stop={stop} restart={restart} unlink={unlink} projectId={data.id} subsystem={subsystem} />
+					<Editor projectId={data.id} subsystem={subsystem} run={run} stop={stop} restart={restart} unlink={unlink} />
 				</div>
 				<div className={classes.unity}>
 					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />
