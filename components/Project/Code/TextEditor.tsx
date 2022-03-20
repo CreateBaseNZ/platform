@@ -155,7 +155,7 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 						onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, file.id))}>
 						<div className={classes.fileIcon}>
 							{file.isDirty ? (
-								<i className={classes.unsavedIndicator} />
+								<i className={classes.unsavedIndicator} title="Unsaved changes" />
 							) : (
 								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt="js" />
 							)}

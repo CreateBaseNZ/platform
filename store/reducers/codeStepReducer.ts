@@ -19,11 +19,12 @@ const getWorkspaceParam = (projectId: string, subsystem: string) => `${projectId
 
 type TAllFiles = Record<string, TCodeFile>;
 
+export type TLang = "js" | "blockly";
 export type TCodeLayout = "Default" | "Editor" | "Simulation";
 export type TCodeTab = "Files" | "Blocks";
 export type TCodeFile = {
 	name: string;
-	lang: string;
+	lang: TLang;
 	code: string;
 	created: string;
 	lastModified: string;
@@ -31,7 +32,7 @@ export type TCodeFile = {
 export type TOpenTextFile = {
 	id: string;
 	name: string;
-	lang: string;
+	lang: TLang;
 	lastSavedVersion: number;
 	isDirty: boolean;
 };
@@ -252,7 +253,7 @@ export const closeFile = (profileId: string, projectId: string, subsystem: strin
 	};
 };
 
-export const newFile = (profileId: string, projectId: string, subsystem: string, fileId: string, name: string, lang: string, callback: () => void): AppThunk => {
+export const newFile = (profileId: string, projectId: string, subsystem: string, fileId: string, name: string, lang: TLang, callback: () => void): AppThunk => {
 	return async (dispatch, getState) => {
 		const { codeStep: state } = getState();
 		const newFile: TCodeFile = { name: name, lang: lang, code: "", created: new Date().toString(), lastModified: new Date().toString() };

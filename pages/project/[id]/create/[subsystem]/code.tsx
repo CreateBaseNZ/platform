@@ -1,23 +1,23 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
+import Image from "next/image";
 import * as Esprima from "esprima";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
 import { TProject } from "../../../../../types/projects";
-import classes from "../../../../../styles/code.module.scss";
 import GlobalSessionContext from "../../../../../store/global-session-context";
 import useApi from "../../../../../hooks/useApi";
 import Unity from "../../../../../components/Project/Code/Unity";
 import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
-import Image from "next/image";
 import { Restart, Run, Stop, Unlink } from "../../../../../types/editor";
 import { wrapper } from "../../../../../store/store";
 import { ParsedUrlQuery } from "querystring";
 import { useDispatch, useSelector } from "react-redux";
 import { TState } from "../../../../../store/reducers/reducer";
-import { deleteFile, fetchCodeStepData, TCodeStepState } from "../../../../../store/reducers/codeStepReducer";
+import { fetchCodeStepData, TCodeStepState } from "../../../../../store/reducers/codeStepReducer";
+import classes from "../../../../../styles/code.module.scss";
 
 declare global {
 	interface String {
