@@ -5,11 +5,9 @@ import { useForm } from "react-hook-form";
 import ClientOnlyPortal from "../../UI/ClientOnlyPortal";
 
 import classes from "./NewFileModal.module.scss";
-import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
-import { useDispatch, useSelector } from "react-redux";
-import { TState } from "../../../store/reducers/reducer";
-import { TCodeStepState } from "../../../store/reducers/codeStepReducer";
+import { useDispatch } from "react-redux";
+import { newFile } from "../../../store/reducers/codeStepReducer";
 
 interface Props {
 	projectId: string;
@@ -31,19 +29,12 @@ const NewFileModal = ({ projectId, subsystem, setIsCreatingNewFile }: Props): JS
 		shouldFocusError: true,
 	});
 	const selectedLang = watch("lang");
-	const { allFiles } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
 	const dispatch = useDispatch();
-	const { post } = useApi();
 	const { globalSession } = useContext(GlobalSessionContext);
 
 	const onSubmit = (values: any) => {
 		if (Object.keys(errors).length > 0) return;
-
-		dispatch({ type: "ADD_FILE", payload: { id: uuidv4(), data: { name: values.name, code: "", created: new Date(), lastModified: new Date(), lang: values.lang } } });
-
-		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}__files`]: allFiles }, date: new Date().toString() }, () =>
-			setIsCreatingNewFile(false)
-		);
+		dispatch(newFile(globalSession.profileId, projectId, subsystem, uuidv4(), values.name, values.lang, () => setIsCreatingNewFile(false)));
 	};
 
 	return (

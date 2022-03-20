@@ -5,6 +5,7 @@ import { AppThunk } from "./reducer";
 const LOAD_STATE = "code-step/LOAD_STATE";
 const SET_LAYOUT = "code-step/SET_LAYOUT";
 const SET_TAB = "code-step/SET_TAB";
+const NEW_FILE = "code-step/NEW_FILE";
 const RENAME_FILE = "code-step/RENAME_FILE";
 const DELETE_FILE = "code-step/DELETE_FILE";
 const SET_ACTIVE_FILE = "code-step/SET_ACTIVE_FILE";
@@ -14,6 +15,8 @@ const SET_CTX = "code-step/SET_CTX";
 
 const getFilesParam = (projectId: string, subsystem: string) => `${projectId}__${subsystem}__files`;
 const getWorkspaceParam = (projectId: string, subsystem: string) => `${projectId}__${subsystem}__workspace`;
+
+type TAllFiles = Record<string, TCodeFile>;
 
 export type TCodeLayout = "Default" | "Editor" | "Simulation";
 export type TCodeTab = "Files" | "Blocks";
@@ -37,7 +40,7 @@ export const CODE_TABS: TCodeTab[] = ["Files", "Blocks"];
 export type TCodeStepState = {
 	layout: TCodeLayout;
 	tab: TCodeTab;
-	allFiles: Record<string, TCodeFile>;
+	allFiles: TAllFiles;
 	activeFileId: string;
 	openTextFiles: TOpenTextFile[];
 	ctxMenu: { x: number; y: number; id: string } | undefined;
@@ -61,18 +64,12 @@ const codeStepReducer = (state: TCodeStepState = DEFAULT_CODE_STEP_STATE, action
 			return { ...state, layout: action.payload };
 		case SET_TAB:
 			return { ...state, tab: action.payload };
-		case "ADD_FILE":
-			return {
-				...state,
-				allFiles: { ...state.allFiles, [action.payload.id]: action.payload.data },
-				openTextFiles: [...state.openTextFiles, { ...action.payload.data, id: action.payload.id, lastSavedVersion: 1, isDirty: false }],
-				activeFileId: action.payload.id,
-			};
+		case NEW_FILE:
+			return { ...state, ...action.payload };
 		case RENAME_FILE:
 			return { ...state, ...action.payload };
-		case DELETE_FILE: {
+		case DELETE_FILE:
 			return { ...state, ...action.payload };
-		}
 		case SET_ACTIVE_FILE:
 			return { ...state, ...action.payload };
 		case TEXT_FILE_ONCHANGE:
@@ -217,5 +214,44 @@ export const setActiveFile = (profileId: string, projectId: string, subsystem: s
 			},
 			date: new Date().toString(),
 		});
+	};
+};
+
+export const newFile = (profileId: string, projectId: string, subsystem: string, fileId: string, name: string, lang: string, callback: () => void): AppThunk => {
+	return async (dispatch, getState) => {
+		const { codeStep: state } = getState();
+		const newFile: TCodeFile = { name: name, lang: lang, code: "", created: new Date().toString(), lastModified: new Date().toString() };
+		const newAllFiles: TAllFiles = { ...state.allFiles, [fileId]: newFile };
+		const newOpenTextFiles: TOpenTextFile[] = [...state.openTextFiles, { id: fileId, name: name, lang: lang, lastSavedVersion: 1, isDirty: false }];
+
+		console.log(newFile);
+		console.log(newAllFiles);
+		console.log(newOpenTextFiles);
+
+		post(
+			"/api/profile/update-saves",
+			{
+				profileId: profileId,
+				update: {
+					[getFilesParam(projectId, subsystem)]: newAllFiles,
+					[getWorkspaceParam(projectId, subsystem)]: {
+						openTextFileIds: newOpenTextFiles.map((f) => f.id),
+						activeFileId: fileId,
+					},
+				},
+				date: new Date().toString(),
+			},
+			() => {
+				dispatch({
+					type: NEW_FILE,
+					payload: {
+						allFiles: newAllFiles,
+						openTextFiles: newOpenTextFiles,
+						activeFileId: fileId,
+					},
+				});
+				callback();
+			}
+		);
 	};
 };
