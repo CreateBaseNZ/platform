@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FormEvent, MouseEvent, useContext, useEffect, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, MouseEvent, useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { deleteFile, renameFile, setActiveFile, TCodeLayout, TCodeStepState, TCodeTab } from "../../../store/reducers/codeStepReducer";
@@ -47,6 +47,11 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 		setRenameId(undefined);
 	};
 
+	const keyDownHandler = (id: string, e: KeyboardEvent) => {
+		e.preventDefault();
+		if (e.key === "Delete") dispatch(deleteFile(globalSession.profileId, projectId, subsystem, id));
+	};
+
 	return (
 		<div className={classes.codePanel}>
 			<div className={classes.layouts}>
@@ -73,10 +78,12 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 						{Object.entries(allFiles).map(([id, file]) => (
 							<button
 								key={id}
+								tabIndex={-1}
 								className={`${classes.file} ${ctxMenu?.id === id && classes.toggled} ${activeFileId === id && classes.activeFile} ${renameId === id && classes.renaming}`}
 								onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, id))}
 								onContextMenu={(e) => setCtxHandler(id, e)}
-								onBlur={() => dispatch({ type: "code-step/SET_CTX", payload: undefined })}>
+								onBlur={() => dispatch({ type: "code-step/SET_CTX", payload: undefined })}
+								onKeyDown={(e) => keyDownHandler(id, e)}>
 								<div className={classes.fileIcon}>
 									<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt={file.lang} />
 								</div>

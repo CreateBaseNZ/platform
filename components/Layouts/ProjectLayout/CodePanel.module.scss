@@ -200,6 +200,7 @@
 	box-shadow: 0 2px 4px 0 rgb(black, 0.05);
 	padding: 0.25rem 0;
 	button {
+		min-width: 7rem;
 		display: flex;
 		align-items: center;
 		height: 1.75rem;
@@ -216,7 +217,7 @@
 		overflow: overlay;
 		&::-webkit-scrollbar {
 			display: block;
-			width: 4px;
+			width: 8px;
 		}
 		&::-webkit-scrollbar-button {
 			display: none;
