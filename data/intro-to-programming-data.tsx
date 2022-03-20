@@ -339,7 +339,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 		hints: [
 			"While it is snowing, you will have to stop moving before the red light, or else your robot will slide into the traffic.",
 			"How early your robot needs to stop before the red light depends on how much it is snowing.",
-			"You can use a Delay block to pause your program for the specified amount of seconds - like to wait for a light to change colour.",
+			"You can use a Delay block to pause your program for the specified amount of seconds - like to wait for a light to change colour. Note that the delay block doesn't scale with the speed of the simulation, so we recommend keeping the speed at 1x.",
 		],
 		blockList: [
 			{ name: "Sensing", blocks: [<NodeTrainingBotGetTrafficLightMini />, <NodeTrainingBotGetSlipLevelMini/>], },

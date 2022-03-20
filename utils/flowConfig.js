@@ -262,7 +262,7 @@ export const tooltips = {
 			<ExecutionType /> <FloatType />
 		</>,
 		<ExecutionType />,
-		"Delays the code from running for a certain number of seconds",
+		"Delays the code from running for the specified number of seconds. Note that the delay time is not affected by the speed of the simulation",
 	],
 	NodeTrue: [<NoneType />, <BooleanType />, "Outputs boolean TRUE"],
 	NodeFalse: [<NoneType />, <BooleanType />, "Outputs boolean FALSE"],
