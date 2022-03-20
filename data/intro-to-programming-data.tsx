@@ -39,7 +39,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 	difficulty: "advanced",
 	subjects: [TECHNOLOGY, COMPUTER_SCIENCE],
 	flowCodingOnly: true,
-	//spotlight: "https://www.youtube.com/embed/5A6Pz744DL8",
+	spotlight: "https://www.youtube.com/embed/QuBgQqHQzns",
 	learningOutcome: "/intro-to-programming/files/project-overview-intro-to-programming.pdf",
 	cads: {
 		nz: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - NZ.pdf",
@@ -47,7 +47,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 		cali: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - California.pdf",
 		uk: "/intro-to-programming/cads/020802AG Curriculum Alignment - Intro to Programming - England.pdf",
 	},
-	lessonPlan: "https://docs.google.com/document/d/1ci2sjQnD4dkWZUJUXNok5INmbE5586S5biL6UcmpTdI/edit?usp=sharing",
+	lessonPlan: "/intro-to-programming/files/lesson-plan-intro-to-programming.pdf",
 	learnings: [
 		"Explain what programming is and why it is important",
 		"Explain what an algorithm is and why they are important",
