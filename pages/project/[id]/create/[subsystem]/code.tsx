@@ -17,7 +17,7 @@ import { wrapper } from "../../../../../store/store";
 import { ParsedUrlQuery } from "querystring";
 import { useDispatch, useSelector } from "react-redux";
 import { TState } from "../../../../../store/reducers/reducer";
-import { fetchCodeStepData, TCodeStepState } from "../../../../../store/reducers/codeStepReducer";
+import { deleteFile, fetchCodeStepData, TCodeStepState } from "../../../../../store/reducers/codeStepReducer";
 
 declare global {
 	interface String {

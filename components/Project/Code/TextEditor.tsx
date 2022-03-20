@@ -1,11 +1,10 @@
-import { memo, useContext, useEffect, useRef, WheelEvent } from "react";
+import { memo, MouseEvent, useContext, useRef, WheelEvent } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
-import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { Restart, Run, Stop, Unlink } from "../../../types/editor";
-import { saveFile, setActiveFile, TCodeStepState } from "../../../store/reducers/codeStepReducer";
+import { closeFile, saveFile, setActiveFile, TCodeStepState } from "../../../store/reducers/codeStepReducer";
 
 import classes from "./TextEditor.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -140,6 +139,11 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 			left: e.deltaY < 0 ? -30 : 30,
 		});
 
+	const closeFileHandler = (id: string, e: MouseEvent) => {
+		e.stopPropagation();
+		dispatch(closeFile(globalSession.profileId, projectId, subsystem, id));
+	};
+
 	return (
 		<div className={classes.textEditor}>
 			<div ref={headerRef} className={classes.header} onWheel={scrollHandler}>
@@ -157,6 +161,7 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 							)}
 						</div>
 						{file.name}
+						<i className={classes.closeIcon} onClick={(e) => closeFileHandler(file.id, e)} title="Close" />
 					</button>
 				))}
 			</div>

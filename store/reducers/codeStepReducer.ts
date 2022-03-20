@@ -9,6 +9,7 @@ const NEW_FILE = "code-step/NEW_FILE";
 const RENAME_FILE = "code-step/RENAME_FILE";
 const DELETE_FILE = "code-step/DELETE_FILE";
 const SET_ACTIVE_FILE = "code-step/SET_ACTIVE_FILE";
+const CLOSE_FILE = "code-step/CLOSE_FILE";
 const TEXT_FILE_ONCHANGE = "code-step/TEXT_FILE_ONCHANGE";
 const SAVE_FILE = "code-step/SAVE_FILE";
 const SET_CTX = "code-step/SET_CTX";
@@ -71,6 +72,8 @@ const codeStepReducer = (state: TCodeStepState = DEFAULT_CODE_STEP_STATE, action
 		case DELETE_FILE:
 			return { ...state, ...action.payload };
 		case SET_ACTIVE_FILE:
+			return { ...state, ...action.payload };
+		case CLOSE_FILE:
 			return { ...state, ...action.payload };
 		case TEXT_FILE_ONCHANGE:
 			return { ...state, openTextFiles: state.openTextFiles.map((file) => (file.id === action.payload.id ? { ...file, isDirty: file.lastSavedVersion !== action.payload.version } : file)) };
@@ -210,6 +213,34 @@ export const setActiveFile = (profileId: string, projectId: string, subsystem: s
 				[getWorkspaceParam(projectId, subsystem)]: {
 					openTextFileIds: newOpenTextFiles.map((f) => f.id),
 					activeFileId: fileId,
+				},
+			},
+			date: new Date().toString(),
+		});
+	};
+};
+
+export const closeFile = (profileId: string, projectId: string, subsystem: string, fileId: string): AppThunk => {
+	return (dispatch, getState) => {
+		const { codeStep: state } = getState();
+		const newOpenTextFiles = state.openTextFiles.filter((f) => f.id !== fileId);
+		// if file closed is active file, set new active file
+		const newActiveFileId = state.activeFileId === fileId ? state.openTextFiles[state.openTextFiles.findIndex((f) => f.id === fileId) - 1]?.id || "" : state.activeFileId;
+		dispatch({
+			type: SET_ACTIVE_FILE,
+			payload: {
+				openTextFiles: newOpenTextFiles,
+				activeFileId: newActiveFileId,
+			},
+		});
+		// dispatch before post (i.e. don't wait for post success)
+		// successful saving is non-critical, responsiveness more important
+		post("/api/profile/update-saves", {
+			profileId: profileId,
+			update: {
+				[getWorkspaceParam(projectId, subsystem)]: {
+					openTextFileIds: newOpenTextFiles.map((f) => f.id),
+					activeFileId: newActiveFileId,
 				},
 			},
 			date: new Date().toString(),

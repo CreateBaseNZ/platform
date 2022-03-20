@@ -40,8 +40,10 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 
 	const submitRenameHandler = (id: string, e?: FormEvent) => {
 		e?.preventDefault();
-		if (!renameRef.current?.value) return;
-		dispatch(renameFile(globalSession.profileId, projectId, subsystem, id, renameRef.current.value));
+		console.log("yeap");
+		if (renameRef.current?.value) {
+			dispatch(renameFile(globalSession.profileId, projectId, subsystem, id, renameRef.current.value));
+		}
 		setRenameId(undefined);
 	};
 
