@@ -15,6 +15,8 @@ import { IProjectReadOnly } from "../types/projects";
 
 const getProjectData = (query: string) => {
 	switch (query) {
+		case "intro-to-programming":
+			return introToProgrammingData;
 		case "send-it":
 			return sendItData;
 		case "magnebot":
@@ -25,8 +27,6 @@ const getProjectData = (query: string) => {
 			return aimbotData;
 		case "hyperloop":
 			return hyperloopData;
-		case "intro-to-programming":
-				return introToProgrammingData;
 		default:
 			return null;
 	}
@@ -34,4 +34,4 @@ const getProjectData = (query: string) => {
 
 export default getProjectData;
 
-export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData, introToProgrammingData];
+export const ALL_PROJECTS_ARRAY: IProjectReadOnly[] = [introToProgrammingData, magnebotData, sendItData, heatSeekerData, aimbotData, hyperloopData];

@@ -36,7 +36,7 @@ const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 	runType: "loop",
 	durPerLesson: "45 mins",
 	numOfLessons: 5,
-	difficulty: "advanced",
+	difficulty: "introductory",
 	subjects: [TECHNOLOGY, COMPUTER_SCIENCE],
 	flowCodingOnly: true,
 	spotlight: "https://www.youtube.com/embed/QuBgQqHQzns",
