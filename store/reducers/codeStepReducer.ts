@@ -20,7 +20,7 @@ const getWorkspaceParam = (projectId: string, subsystem: string) => `${projectId
 type TAllFiles = Record<string, TCodeFile>;
 
 export type TLang = "js" | "blockly" | "flow";
-export type TCodeLayout = "Default" | "Editor" | "Pancake" | "Simulation";
+export type TCodeLayout = "Default" | "Editor" | "Pudding" | "Simulation";
 export type TCodeTab = "Files" | "Blocks";
 export type TCodeFile = {
 	name: string;
@@ -45,7 +45,7 @@ export type TCodeStepState = {
 	allFiles: TAllFiles;
 	activeFileId: string;
 	openTextFiles: TOpenTextFile[];
-	ctxMenu: { x: number; y: number; id: string } | undefined;
+	ctxMenu: { x: number; y: number; id: string } | null;
 };
 
 export const DEFAULT_CODE_STEP_STATE: TCodeStepState = {
@@ -54,7 +54,7 @@ export const DEFAULT_CODE_STEP_STATE: TCodeStepState = {
 	allFiles: {},
 	activeFileId: "",
 	openTextFiles: [],
-	ctxMenu: { x: 0, y: 0, id: "" },
+	ctxMenu: null,
 };
 
 // create your reducer

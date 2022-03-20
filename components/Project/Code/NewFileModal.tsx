@@ -14,7 +14,7 @@ const NewFileModal = ({ projectId, subsystem, setIsCreatingNewFile }: Props): JS
 	return (
 		<ClientOnlyPortal selector="#modal-root">
 			<div className={classes.view}>
-				<div className={classes.wrapper}>
+				<div className={classes.modal}>
 					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setIsCreatingNewFile(false)} title="Close">
 						close
 					</i>

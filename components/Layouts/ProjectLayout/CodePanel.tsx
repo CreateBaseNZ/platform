@@ -10,7 +10,7 @@ import NewFileModal from "../../Project/Code/NewFileModal";
 import classes from "./CodePanel.module.scss";
 
 const CODE_TABS: TCodeTab[] = ["Files", "Blocks"];
-const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Pancake", "Simulation"];
+const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Pudding", "Simulation"];
 
 interface Props {
 	projectId: string;
@@ -24,7 +24,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 	const dispatch = useDispatch();
 	const [isCreatingNewFile, setIsCreatingNewFile] = useState(false);
 	const [renameId, setRenameId] = useState<string>();
-	const [isDeletingFile, setIsDeletingFile] = useState(false);
+	const [isDeletingFile, setIsDeletingFile] = useState("");
 
 	useEffect(() => {
 		if (renameId) renameRef.current?.focus();
@@ -37,7 +37,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 
 	const initRenameHandler = () => {
 		setRenameId(ctxMenu?.id);
-		dispatch({ type: "code-step/SET_CTX", payload: undefined });
+		dispatch({ type: "code-step/SET_CTX", payload: null });
 	};
 
 	const submitRenameHandler = (id: string, e?: FormEvent) => {
@@ -51,7 +51,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 
 	const keyDownHandler = (id: string, e: KeyboardEvent) => {
 		e.preventDefault();
-		if (e.key === "Delete") dispatch(deleteFile(globalSession.profileId, projectId, subsystem, id));
+		if (e.key === "Delete") setIsDeletingFile(id);
 	};
 
 	return (
@@ -84,7 +84,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 								className={`${classes.file} ${ctxMenu?.id === id && classes.toggled} ${activeFileId === id && classes.activeFile} ${renameId === id && classes.renaming}`}
 								onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, id))}
 								onContextMenu={(e) => setCtxHandler(id, e)}
-								onBlur={() => dispatch({ type: "code-step/SET_CTX", payload: undefined })}
+								onBlur={() => dispatch({ type: "code-step/SET_CTX", payload: null })}
 								onKeyDown={(e) => keyDownHandler(id, e)}>
 								<div className={classes.fileIcon}>
 									<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt={file.lang} />
@@ -117,7 +117,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 				</div>
 			)}
 			{isCreatingNewFile && <NewFileModal projectId={projectId} subsystem={subsystem} setIsCreatingNewFile={setIsCreatingNewFile} />}
-			{isDeletingFile && <DeleteFileModal />}
+			{isDeletingFile && <DeleteFileModal id={isDeletingFile} projectId={projectId} subsystem={subsystem} setIsDeletingFile={setIsDeletingFile} />}
 		</div>
 	);
 };
