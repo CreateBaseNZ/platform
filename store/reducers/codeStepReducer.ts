@@ -163,22 +163,26 @@ export const renameFile = (profileId: string, projectId: string, subsystem: stri
 export const deleteFile = (profileId: string, projectId: string, subsystem: string, fileId: string): AppThunk => {
 	return (dispatch, getState) => {
 		const { codeStep: state } = getState();
-		const { [fileId]: _, ...allFiles } = state.allFiles;
+		const { [fileId]: _, ...newAllFiles } = state.allFiles;
+		const newOpenTextFiles = state.openTextFiles.filter((f) => f.id !== fileId);
+		const newActiveFileId = state.activeFileId === fileId ? newOpenTextFiles[newOpenTextFiles.length - 1]?.id || "" : state.activeFileId;
 		post(
 			"/api/profile/update-saves",
 			{
 				profileId: profileId,
-				update: { [getFilesParam(projectId, subsystem)]: allFiles },
+				update: {
+					[getFilesParam(projectId, subsystem)]: newAllFiles,
+					[getWorkspaceParam(projectId, subsystem)]: { openTextFileIds: newOpenTextFiles.map((f) => f.id), activeFileId: newActiveFileId },
+				},
 				date: new Date().toString(),
 			},
 			() => {
-				const openTextFiles = state.openTextFiles.filter((f) => f.id !== fileId);
 				dispatch({
 					type: DELETE_FILE,
 					payload: {
-						allFiles: allFiles,
-						openTextFiles: openTextFiles,
-						activeFileId: openTextFiles.length === 0 || !state.activeFileId ? "" : state.activeFileId === fileId ? openTextFiles[openTextFiles.length - 1].id : state.activeFileId,
+						allFiles: newAllFiles,
+						openTextFiles: newOpenTextFiles,
+						activeFileId: newActiveFileId,
 						ctxMenu: undefined,
 					},
 				});
@@ -225,9 +229,9 @@ export const closeFile = (profileId: string, projectId: string, subsystem: strin
 		const { codeStep: state } = getState();
 		const newOpenTextFiles = state.openTextFiles.filter((f) => f.id !== fileId);
 		// if file closed is active file, set new active file
-		const newActiveFileId = state.activeFileId === fileId ? state.openTextFiles[state.openTextFiles.findIndex((f) => f.id === fileId) - 1]?.id || "" : state.activeFileId;
+		const newActiveFileId = state.activeFileId === fileId ? newOpenTextFiles[newOpenTextFiles.length - 1]?.id || "" : state.activeFileId;
 		dispatch({
-			type: SET_ACTIVE_FILE,
+			type: CLOSE_FILE,
 			payload: {
 				openTextFiles: newOpenTextFiles,
 				activeFileId: newActiveFileId,
@@ -254,11 +258,6 @@ export const newFile = (profileId: string, projectId: string, subsystem: string,
 		const newFile: TCodeFile = { name: name, lang: lang, code: "", created: new Date().toString(), lastModified: new Date().toString() };
 		const newAllFiles: TAllFiles = { ...state.allFiles, [fileId]: newFile };
 		const newOpenTextFiles: TOpenTextFile[] = [...state.openTextFiles, { id: fileId, name: name, lang: lang, lastSavedVersion: 1, isDirty: false }];
-
-		console.log(newFile);
-		console.log(newAllFiles);
-		console.log(newOpenTextFiles);
-
 		post(
 			"/api/profile/update-saves",
 			{
