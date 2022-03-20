@@ -19,8 +19,8 @@ const getWorkspaceParam = (projectId: string, subsystem: string) => `${projectId
 
 type TAllFiles = Record<string, TCodeFile>;
 
-export type TLang = "js" | "blockly";
-export type TCodeLayout = "Default" | "Editor" | "Simulation";
+export type TLang = "js" | "blockly" | "flow";
+export type TCodeLayout = "Default" | "Editor" | "Pancake" | "Simulation";
 export type TCodeTab = "Files" | "Blocks";
 export type TCodeFile = {
 	name: string;

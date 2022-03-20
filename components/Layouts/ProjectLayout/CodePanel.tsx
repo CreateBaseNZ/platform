@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { deleteFile, renameFile, setActiveFile, TCodeLayout, TCodeStepState, TCodeTab } from "../../../store/reducers/codeStepReducer";
 import { TState } from "../../../store/reducers/reducer";
+import DeleteFileModal from "../../Project/Code/DeleteFileModal";
 import NewFileModal from "../../Project/Code/NewFileModal";
 
 import classes from "./CodePanel.module.scss";
 
 const CODE_TABS: TCodeTab[] = ["Files", "Blocks"];
-const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
+const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Pancake", "Simulation"];
 
 interface Props {
 	projectId: string;
@@ -23,6 +24,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 	const dispatch = useDispatch();
 	const [isCreatingNewFile, setIsCreatingNewFile] = useState(false);
 	const [renameId, setRenameId] = useState<string>();
+	const [isDeletingFile, setIsDeletingFile] = useState(false);
 
 	useEffect(() => {
 		if (renameId) renameRef.current?.focus();
@@ -104,7 +106,6 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 					<div className={`${classes.codeItem} ${classes.block}`}>TODO - @louis</div>
 				</div>
 			)}
-			{isCreatingNewFile && <NewFileModal projectId={projectId} subsystem={subsystem} setIsCreatingNewFile={setIsCreatingNewFile} />}
 			{ctxMenu && (
 				<div className={classes.ctxMenu} style={{ top: ctxMenu.y, left: ctxMenu.x }}>
 					<button title="Rename" onMouseDown={initRenameHandler}>
@@ -115,6 +116,8 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 					</button>
 				</div>
 			)}
+			{isCreatingNewFile && <NewFileModal projectId={projectId} subsystem={subsystem} setIsCreatingNewFile={setIsCreatingNewFile} />}
+			{isDeletingFile && <DeleteFileModal />}
 		</div>
 	);
 };

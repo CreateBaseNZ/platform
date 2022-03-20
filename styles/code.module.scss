@@ -38,6 +38,13 @@
 			overflow: hidden;
 		}
 	}
+	&.pancakeLayout {
+		grid-template-areas:
+			"unity"
+			"editor";
+		grid-template-columns: 100%;
+		grid-template-rows: 50% 50%;
+	}
 	&.simulationLayout {
 		grid-template-areas:
 			"unity"
