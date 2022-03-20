@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect, useRef } from "react";
+import { memo, useContext, useEffect, useRef, WheelEvent } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
@@ -39,6 +39,7 @@ interface Props {
 }
 
 const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JSX.Element => {
+	const headerRef = useRef<HTMLDivElement>(null);
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 	const { globalSession } = useContext(GlobalSessionContext);
@@ -134,11 +135,14 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 		// monacoRef.current.editor.setTheme(props.theme);
 	};
 
-	console.log(openTextFiles);
+	const scrollHandler = (e: WheelEvent) =>
+		headerRef.current?.scrollBy({
+			left: e.deltaY < 0 ? -30 : 30,
+		});
 
 	return (
 		<div className={classes.textEditor}>
-			<div className={classes.header}>
+			<div ref={headerRef} className={classes.header} onWheel={scrollHandler}>
 				{openTextFiles.map((file) => (
 					<button
 						key={file.id}

@@ -9,9 +9,11 @@
 .header {
 	display: flex;
 	align-items: center;
+	justify-content: flex-start;
 	height: 2rem;
 	background: $border-color;
 	.filename {
+		flex: 0 0 auto;
 		display: flex;
 		align-items: center;
 		font-size: 12px;
@@ -19,6 +21,7 @@
 		padding: 0 1rem 0 0.75rem;
 		height: 100%;
 		background: $lighter;
+		opacity: 0.75;
 		border-bottom: thin solid $light;
 		border-right: thin solid $light;
 		transition: border-color 0.1s ease-out;
@@ -43,9 +46,11 @@
 			}
 		}
 		&:hover {
+			opacity: 1;
 			background: white;
 		}
 		&.active {
+			opacity: 1;
 			background: white;
 			border-bottom: thin solid white;
 		}
@@ -110,5 +115,31 @@
 	* {
 		font-family: $roboto;
 		font-size: 14px;
+	}
+}
+
+@supports (overflow: overlay) {
+	.header {
+		overflow: overlay;
+		&::-webkit-scrollbar {
+			display: block;
+			height: 4px;
+		}
+		&::-webkit-scrollbar-button {
+			display: none;
+		}
+		&::-webkit-scrollbar-track,
+		&::-webkit-scrollbar-thumb,
+		&::-webkit-scrollbar-track-piece {
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb:active {
+			background: rgba(black, 0.25) !important;
+		}
+		&:hover {
+			&::-webkit-scrollbar-thumb {
+				background: rgba(black, 0.1);
+			}
+		}
 	}
 }
