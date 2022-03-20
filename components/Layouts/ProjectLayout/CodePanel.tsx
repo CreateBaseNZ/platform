@@ -69,25 +69,27 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 						<i />
 						New file
 					</button>
-					{Object.entries(allFiles).map(([id, file]) => (
-						<button
-							key={id}
-							className={`${classes.codeItem} ${classes.file} ${ctxMenu?.id === id && classes.toggled} ${activeFileId === id && classes.activeFile} ${renameId === id && classes.renaming}`}
-							onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, id))}
-							onContextMenu={(e) => setCtxHandler(id, e)}
-							onBlur={() => dispatch({ type: "code-step/SET_CTX", payload: undefined })}>
-							<div className={classes.fileIcon}>
-								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt={file.lang} />
-							</div>
-							{renameId === id ? (
-								<form key={`${id}-rename`} onSubmit={(e) => submitRenameHandler(id, e)}>
-									<input ref={renameRef} onBlur={() => submitRenameHandler(id)} />
-								</form>
-							) : (
-								<span>{file.name}</span>
-							)}
-						</button>
-					))}
+					<div className={classes.fileList}>
+						{Object.entries(allFiles).map(([id, file]) => (
+							<button
+								key={id}
+								className={`${classes.file} ${ctxMenu?.id === id && classes.toggled} ${activeFileId === id && classes.activeFile} ${renameId === id && classes.renaming}`}
+								onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, id))}
+								onContextMenu={(e) => setCtxHandler(id, e)}
+								onBlur={() => dispatch({ type: "code-step/SET_CTX", payload: undefined })}>
+								<div className={classes.fileIcon}>
+									<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt={file.lang} />
+								</div>
+								{renameId === id ? (
+									<form key={`${id}-rename`} onSubmit={(e) => submitRenameHandler(id, e)}>
+										<input ref={renameRef} onBlur={() => submitRenameHandler(id)} />
+									</form>
+								) : (
+									<span>{file.name}</span>
+								)}
+							</button>
+						))}
+					</div>
 				</div>
 			)}
 			{tab === "Blocks" && (

@@ -12,6 +12,7 @@
 	justify-content: flex-start;
 	height: 2rem;
 	background: $border-color;
+	overflow: auto;
 	.filename {
 		flex: 0 0 auto;
 		display: flex;
