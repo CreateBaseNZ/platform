@@ -28,7 +28,6 @@ import { comparisonBoostData, ifBoostData, whileBoostData } from "./explore-data
 
 const INTRO_TO_PROGRAMMING_DATA: IProjectReadOnly = {
 	name: "Intro to Programming",
-	wip: true,
 	query: "intro-to-programming",
 	caption:
 		"Learn the fundamentals of programming using the Flow visual language. Flow is synonymous with creating flow charts, so you can focus on learning programming logic without having to memorize arbitrary syntax! In this Project, you will be programming an automation robot to complete a variety of tests to see if it is ready to send out into the world.",
