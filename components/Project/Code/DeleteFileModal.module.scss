@@ -1,0 +1,119 @@
+@import "/styles/variables";
+
+.view {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 100;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(1px);
+	animation: appear 0.2s ease-out;
+}
+
+.modal {
+	min-width: 450px;
+	position: relative;
+	z-index: 1;
+	background: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem 1rem 1rem 1rem;
+	border-radius: 1rem;
+	animation: float-up 0.2s ease-out;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 36, 63, 0.1);
+}
+
+.close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	cursor: pointer;
+	transition: color 0.1s ease-out;
+	&:hover {
+		color: $red;
+	}
+}
+
+.h1 {
+	font-size: 18px;
+	font-weight: 600;
+	margin: 1rem 0;
+}
+
+.h2 {
+	font-size: 14px;
+	color: $dark;
+	margin: 0.15rem 0;
+	b {
+		font-size: inherit;
+		color: $red;
+		font-weight: 600;
+	}
+}
+
+.btnContainer {
+	align-self: flex-end;
+	display: flex;
+	align-items: center;
+	height: 2.75rem;
+	margin: 2rem 0 0.25rem 0;
+	button {
+		margin: 0 0.5rem;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		padding: 0 1.5rem;
+		font-weight: 500;
+		font-size: 14px;
+		border-radius: 8px;
+		transition: color 0.1s ease-out, background-color 0.1s ease-out, transform 0.1s ease-out;
+	}
+	.cancel {
+		color: $darker;
+		&:hover {
+			color: $darkest;
+			background: $lighter;
+		}
+	}
+	.confirm {
+		letter-spacing: 1px;
+		color: white;
+		background: $red;
+		box-shadow: 0 4px 12px 0 rgba($red, 0.4);
+		i {
+			margin-left: -0.25rem;
+			margin-right: 0.25rem;
+			path {
+				stroke-width: 1.5;
+			}
+		}
+		&:hover {
+			transform: translateY(-2px);
+		}
+	}
+}
+
+@keyframes appear {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes float-up {
+	from {
+		transform: translateY(1rem);
+	}
+	to {
+		transform: none;
+	}
+}

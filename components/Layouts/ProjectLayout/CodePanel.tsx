@@ -1,19 +1,17 @@
 import Image from "next/image";
-import { MouseEvent, useContext, useState } from "react";
-import useApi from "../../../hooks/useApi";
-import CodeContext, { CODE_TABS, TCodeLayout } from "../../../store/code-context";
+import { FormEvent, KeyboardEvent, MouseEvent, useContext, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import GlobalSessionContext from "../../../store/global-session-context";
-import { TCodeFile } from "../../../types/code";
+import { deleteFile, renameFile, setActiveFile, TCodeLayout, TCodeStepState, TCodeTab } from "../../../store/reducers/codeStepReducer";
+import { TState } from "../../../store/reducers/reducer";
+import DeleteFileModal from "../../Project/Code/DeleteFileModal";
 import NewFileModal from "../../Project/Code/NewFileModal";
+import CodeFileList from "./CodeFileList";
 
 import classes from "./CodePanel.module.scss";
 
-const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Simulation"];
-
-interface CtxMenu extends TCodeFile {
-	x: number;
-	y: number;
-}
+const CODE_TABS: TCodeTab[] = ["Files", "Blocks"];
+const CODE_LAYOUTS: TCodeLayout[] = ["Default", "Editor", "Pudding", "Simulation"];
 
 interface Props {
 	projectId: string;
@@ -21,80 +19,65 @@ interface Props {
 }
 
 const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
-	const { codeLayout, setCodeLayout, codeTab, setCodeTab, files, setFiles, activeFile, setActiveFile } = useContext(CodeContext);
-	const [isCreatingNewFile, setIsCreatingNewFile] = useState(false);
-	const [ctxMenu, setCtxMenu] = useState<CtxMenu>();
-	const { post } = useApi();
+	const renameRef = useRef<HTMLInputElement>(null);
 	const { globalSession } = useContext(GlobalSessionContext);
+	const { layout, tab, ctxMenu } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const dispatch = useDispatch();
+	const [isCreatingNewFile, setIsCreatingNewFile] = useState(false);
+	const [renameId, setRenameId] = useState("");
+	const [deletingFile, setDeletingFile] = useState("");
 
-	const ctxMenuHandler = (file: TCodeFile, e: MouseEvent) => {
-		e.preventDefault();
-		setCtxMenu({ ...file, x: e.clientX, y: e.clientY });
-	};
+	useEffect(() => {
+		if (renameId) renameRef.current?.focus();
+	}, [renameId]);
 
-	const deleteFileHandler = () => {
-		let newFiles: TCodeFile[] = [];
-		setFiles((state) => {
-			newFiles = state.filter((f) => f.id !== ctxMenu?.id);
-			return newFiles;
-		});
-
-		post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [`${projectId}__${subsystem}`]: newFiles }, date: new Date().toString() }, () => {
-			setCtxMenu(undefined);
-		});
+	const initRenameHandler = () => {
+		setRenameId(ctxMenu?.id as string);
+		dispatch({ type: "code-step/SET_CTX", payload: null });
 	};
 
 	return (
 		<div className={classes.codePanel}>
 			<div className={classes.layouts}>
-				{CODE_LAYOUTS.map((view) => (
-					<button title={view} key={view} className={view === codeLayout ? classes.active : ""} onClick={() => setCodeLayout(view)}>
-						<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/layout-${view.toLowerCase()}.svg`} height={24} width={24} alt={view} />
+				{CODE_LAYOUTS.map((_layout) => (
+					<button title={_layout} key={_layout} className={_layout === layout ? classes.active : ""} onClick={() => dispatch({ type: "code-step/SET_LAYOUT", payload: _layout })}>
+						<Image src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/layout-${_layout.toLowerCase()}.svg`} height={24} width={24} alt={_layout} />
 					</button>
 				))}
 			</div>
 			<div className={classes.codeTabs}>
-				{CODE_TABS.map((tab) => (
-					<button key={tab} title={tab} className={codeTab === tab ? classes.active : ""} onClick={() => setCodeTab(tab)}>
-						{tab}
+				{CODE_TABS.map((_tab) => (
+					<button key={_tab} title={_tab} className={tab === _tab ? classes.active : ""} onClick={() => dispatch({ type: "code-step/SET_TAB", payload: _tab })}>
+						{_tab}
 					</button>
 				))}
 			</div>
-			{codeTab === "Files" && (
+			{tab === "Files" && (
 				<div className={classes.codeItemContainer}>
 					<button className={classes.newFileBtn} title="New file" onMouseDown={() => setIsCreatingNewFile(true)}>
 						<i />
 						New file
 					</button>
-					{files.map((file) => (
-						<button
-							key={file.id}
-							className={`${classes.codeItem} ${classes.file} ${ctxMenu?.id === file.id && classes.toggled} ${activeFile.id === file.id && classes.activeFile}`}
-							onClick={() => setActiveFile(file)}
-							onContextMenu={(e) => ctxMenuHandler(file, e)}
-							onBlur={() => setCtxMenu(undefined)}>
-							<div className={classes.fileIcon}>
-								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt={file.lang} />
-							</div>
-							<span>{file.name}</span>
-						</button>
-					))}
+					<CodeFileList projectId={projectId} subsystem={subsystem} renameRef={renameRef} renameId={renameId} setRenameId={setRenameId} setDeletingFile={setDeletingFile} />
 				</div>
 			)}
-			{codeTab === "Blocks" && (
+			{tab === "Blocks" && (
 				<div className={classes.codeItemContainer}>
 					<div className={`${classes.codeItem} ${classes.block}`}>TODO - @louis</div>
 				</div>
 			)}
-			{isCreatingNewFile && <NewFileModal projectId={projectId} subsystem={subsystem} setIsCreatingNewFile={setIsCreatingNewFile} />}
 			{ctxMenu && (
 				<div className={classes.ctxMenu} style={{ top: ctxMenu.y, left: ctxMenu.x }}>
-					<button title="Rename">Rename</button>
-					<button title="Delete" onMouseDown={deleteFileHandler}>
+					<button title="Rename" onMouseDown={initRenameHandler}>
+						Rename
+					</button>
+					<button title="Delete" onMouseDown={() => setDeletingFile(ctxMenu.id)}>
 						Delete
 					</button>
 				</div>
 			)}
+			{isCreatingNewFile && <NewFileModal projectId={projectId} subsystem={subsystem} setIsCreatingNewFile={setIsCreatingNewFile} />}
+			{deletingFile && <DeleteFileModal id={deletingFile} projectId={projectId} subsystem={subsystem} setDeletingFile={setDeletingFile} />}
 		</div>
 	);
 };

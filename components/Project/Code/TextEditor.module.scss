@@ -4,21 +4,26 @@
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
+	position: relative;
 }
 
 .header {
 	display: flex;
 	align-items: center;
+	justify-content: flex-start;
 	height: 2rem;
 	background: $border-color;
+	overflow: auto;
 	.filename {
+		flex: 0 0 auto;
 		display: flex;
 		align-items: center;
 		font-size: 12px;
 		font-weight: 500;
-		padding: 0 1rem 0 0.75rem;
+		padding: 0 0.5rem 0 0.75rem;
 		height: 100%;
 		background: $lighter;
+		opacity: 0.75;
 		border-bottom: thin solid $light;
 		border-right: thin solid $light;
 		transition: border-color 0.1s ease-out;
@@ -28,24 +33,51 @@
 			justify-content: center;
 			margin-right: 0.25rem;
 		}
-		.unsavedIndicator {
-			height: 1rem;
-			width: 1rem;
+		.rightIcon {
+			height: 18px;
+			width: 18px;
+			margin-left: 0.5rem;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			&::before {
-				content: "";
+			.unsavedIndicator {
 				background: $light;
-				height: 6px;
-				width: 6px;
+				height: 8px;
+				width: 8px;
 				border-radius: 8px;
+			}
+			.closeIcon {
+				border-radius: 4px;
+				height: 100%;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				path {
+					stroke: $dark;
+				}
+				&:hover {
+					background: $border-color;
+					path {
+						stroke: $darker;
+					}
+				}
+			}
+			&:hover {
+				.unsavedIndicator {
+					display: none !important;
+				}
+				.closeIcon {
+					display: flex !important;
+				}
 			}
 		}
 		&:hover {
+			opacity: 1;
 			background: white;
 		}
 		&.active {
+			opacity: 1;
 			background: white;
 			border-bottom: thin solid white;
 		}
@@ -67,7 +99,7 @@
 		height: 2rem;
 		display: flex;
 		align-items: center;
-		padding: 0 0.5rem 0 0.25rem;
+		padding: 0 0.5rem;
 		font-size: 13px;
 		border-radius: 4px;
 		i {
@@ -75,6 +107,7 @@
 			margin-right: 4px;
 		}
 		&:hover {
+			color: black;
 			background: rgba(black, 0.05);
 		}
 		&.run i {
@@ -92,8 +125,10 @@
 			font-size: 16px;
 		}
 		&.more {
+			padding: 0;
+			justify-content: center;
+			flex: 0 0 2rem;
 			margin-left: auto;
-			padding: 0 0.25rem;
 			i {
 				color: $dark;
 				margin: 0;
@@ -110,5 +145,31 @@
 	* {
 		font-family: $roboto;
 		font-size: 14px;
+	}
+}
+
+@supports (overflow: overlay) {
+	.header {
+		overflow: overlay;
+		&::-webkit-scrollbar {
+			display: block;
+			height: 4px;
+		}
+		&::-webkit-scrollbar-button {
+			display: none;
+		}
+		&::-webkit-scrollbar-track,
+		&::-webkit-scrollbar-thumb,
+		&::-webkit-scrollbar-track-piece {
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb:active {
+			background: rgba(black, 0.25) !important;
+		}
+		&:hover {
+			&::-webkit-scrollbar-thumb {
+				background: rgba(black, 0.1);
+			}
+		}
 	}
 }

@@ -1,11 +1,14 @@
 @import "/styles/variables";
 
 .codePanel {
+	flex: 1 1 0;
 	border-top: thin solid $border-color;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	padding: 1rem 0;
+	justify-content: flex-start;
+	padding-top: 1rem;
+	overflow: hidden;
 }
 
 .layouts {
@@ -32,10 +35,11 @@
 		}
 	}
 }
+
 .codeTabs {
 	padding: 0 0.25rem;
 	display: flex;
-	height: 2.5rem;
+	flex: 0 0 2.5rem;
 	border-bottom: thin solid $border-color;
 	button {
 		height: 100%;
@@ -67,89 +71,59 @@
 		}
 	}
 }
+
 .codeItemContainer {
+	flex: 1;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	.newFileBtn {
-		align-self: flex-end;
-		margin: 0.25rem;
-		display: flex;
-		align-items: center;
-		height: 1.5rem;
-		padding: 0 0.5rem;
-		border-radius: 3px;
-		font-size: 12px;
-		background: $lighter;
-		color: $blue-dark;
+	justify-content: flex-start;
+	overflow: hidden;
+}
+
+.newFileBtn {
+	align-self: flex-end;
+	margin: 0.25rem;
+	display: flex;
+	align-items: center;
+	flex: 0 0 1.5rem;
+	padding: 0 0.5rem;
+	border-radius: 3px;
+	font-size: 12px;
+	background: $lighter;
+	color: $blue-dark;
+	transition: background-color 0.1s ease-out;
+	i {
+		height: 8px;
+		width: 8px;
+		position: relative;
+		margin-right: 0.25rem;
 		transition: background-color 0.1s ease-out;
-		i {
-			height: 8px;
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			background: $blue-dark;
+			transform: translate(-50%, -50%);
+		}
+		&::before {
 			width: 8px;
-			position: relative;
-			margin-right: 0.25rem;
-			transition: background-color 0.1s ease-out;
-			&::before,
-			&::after {
-				content: "";
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				background: $blue-dark;
-				transform: translate(-50%, -50%);
-			}
-			&::before {
-				width: 8px;
-				height: 1px;
-			}
-			&::after {
-				height: 8px;
-				width: 1px;
-			}
+			height: 1px;
 		}
-		&:hover {
-			background: rgba($blue-dark, 0.1);
+		&::after {
+			height: 8px;
+			width: 1px;
 		}
 	}
-	.codeItem {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		font-size: 12px;
-		&.block {
-			padding: 0.75rem 0.5rem 0.75rem 1rem;
-		}
-		&.file {
-			height: 2.25rem;
-			padding-left: 1.5rem;
-			padding-right: 0.5rem;
-			transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
-			.fileIcon {
-				position: relative;
-				display: flex;
-				align-items: center;
-				margin-right: 0.25rem;
-			}
-			span {
-				font-size: 11px;
-				font-weight: 500;
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				transition: color 0.1s ease-out;
-			}
-			&:hover,
-			&.toggled {
-				background: $lighter;
-			}
-			&.activeFile {
-				background: rgba($blue-dark, 0.05);
-				span {
-					color: $blue-dark;
-				}
-			}
-		}
+	&:hover {
+		background: rgba($blue-dark, 0.1);
 	}
+}
+
+.block {
+	padding: 0.75rem 0.5rem 0.75rem 1rem;
 }
 
 .ctxMenu {
@@ -159,16 +133,44 @@
 	position: absolute;
 	background: white;
 	z-index: 1;
+	border: thin solid $border-color;
 	box-shadow: 0 2px 4px 0 rgb(black, 0.05);
 	padding: 0.25rem 0;
 	button {
+		min-width: 7rem;
 		display: flex;
 		align-items: center;
 		height: 1.75rem;
 		padding: 0 0.75rem;
 		font-size: 13px;
 		&:hover {
-			background: $lighter;
+			background: rgba($blue-dark, 0.05);
+		}
+	}
+}
+
+@supports (overflow: overlay) {
+	.fileList {
+		overflow: overlay;
+		&::-webkit-scrollbar {
+			display: block;
+			width: 8px;
+		}
+		&::-webkit-scrollbar-button {
+			display: none;
+		}
+		&::-webkit-scrollbar-track,
+		&::-webkit-scrollbar-thumb,
+		&::-webkit-scrollbar-track-piece {
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb:active {
+			background: rgba(black, 0.25) !important;
+		}
+		&:hover {
+			&::-webkit-scrollbar-thumb {
+				background: rgba(black, 0.1);
+			}
 		}
 	}
 }

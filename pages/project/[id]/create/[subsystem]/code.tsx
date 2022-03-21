@@ -1,19 +1,23 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
+import Image from "next/image";
 import * as Esprima from "esprima";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
 import { TProject } from "../../../../../types/projects";
-import classes from "../../../../../styles/code.module.scss";
 import GlobalSessionContext from "../../../../../store/global-session-context";
 import useApi from "../../../../../hooks/useApi";
 import Unity from "../../../../../components/Project/Code/Unity";
 import Editor from "../../../../../components/Project/Code/Editor";
 import useUnity from "../../../../../hooks/useUnity";
-import CodeContext from "../../../../../store/code-context";
-import Image from "next/image";
 import { Restart, Run, Stop, Unlink } from "../../../../../types/editor";
+import { wrapper } from "../../../../../store/store";
+import { ParsedUrlQuery } from "querystring";
+import { useDispatch, useSelector } from "react-redux";
+import { TState } from "../../../../../store/reducers/reducer";
+import { fetchCodeStepData, TCodeStepState } from "../../../../../store/reducers/codeStepReducer";
+import classes from "../../../../../styles/code.module.scss";
 
 declare global {
 	interface String {
@@ -49,10 +53,9 @@ interface Props {
 const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 	const consoleRef = useRef<HTMLDivElement>(null);
-	const {} = useMixpanel("project_create_code");
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { codeLayout, codeTab } = useContext(CodeContext);
 	const { post } = useApi();
+	const {} = useMixpanel("project_create_code");
 	const [status, setStatus] = useState("idle");
 	const [logs, setLogs] = useState<any[]>([]);
 	const [unityLoaded, setUnityLoaded] = useState(false);
@@ -64,6 +67,8 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		wip: data.wip,
 		setLoaded: setUnityLoaded,
 	});
+	const { layout } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (!globalSession.loaded) return;
@@ -74,6 +79,11 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 			console.log("code page saved");
 		})();
 	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
+
+	useEffect(() => {
+		if (!globalSession.loaded) return;
+		dispatch(fetchCodeStepData(globalSession.profileId, data.id, subsystem));
+	}, [globalSession.loaded, globalSession.profileId, data.id, subsystem, dispatch]);
 
 	useEffect(() => {
 		if (!consoleRef.current) return;
@@ -138,9 +148,9 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	return (
 		<div className={classes.page}>
 			<iframe ref={iframeRef} className={classes.iframe} />
-			<div className={`${classes.main} ${classes[`${codeLayout.toLowerCase()}Layout`]}`}>
+			<div className={`${classes.main} ${classes[`${layout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
-					<Editor run={run} stop={stop} restart={restart} unlink={unlink} projectId={data.id} subsystem={subsystem} />
+					<Editor projectId={data.id} subsystem={subsystem} run={run} stop={stop} restart={restart} unlink={unlink} />
 				</div>
 				<div className={classes.unity}>
 					<Unity unityContext={unityContext as UnityContext} unityLoaded={unityLoaded} />
@@ -175,25 +185,23 @@ Code.auth = "user";
 
 export default Code;
 
-interface Params {
-	params: {
-		id: string;
-		subsystem: string;
-		subsystemIndex: number;
-	};
+interface Params extends ParsedUrlQuery {
+	id: string;
+	subsystem: string;
 }
 
-export async function getStaticProps({ params }: Params) {
+export const getStaticProps = wrapper.getStaticProps((store) => ({ params, preview }) => {
+	const { id, subsystem } = params as Params;
 	return {
 		props: {
-			data: ALL_PROJECTS_OBJECT[params.id],
-			subsystem: params.subsystem,
-			subsystemIndex: ALL_PROJECTS_OBJECT[params.id].subsystems.findIndex((subsys) => subsys.id === params.subsystem),
+			data: ALL_PROJECTS_OBJECT[id],
+			subsystem: subsystem,
+			subsystemIndex: ALL_PROJECTS_OBJECT[id].subsystems.findIndex((subsys) => subsys.id === subsystem),
 		},
 	};
-}
+});
 
-export async function getStaticPaths() {
+export const getStaticPaths = () => {
 	return {
 		paths: ALL_PROJECTS_ARRAY.map((project) => {
 			return project.subsystems.map((subsystem) => {
@@ -207,4 +215,4 @@ export async function getStaticPaths() {
 		}).flat(),
 		fallback: false,
 	};
-}
+};

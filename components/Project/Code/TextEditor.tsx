@@ -1,17 +1,18 @@
-import { Dispatch, memo, SetStateAction, useContext, useEffect, useRef } from "react";
+import { memo, MouseEvent, useContext, useRef, useState, WheelEvent } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
-import useApi from "../../../hooks/useApi";
 import GlobalSessionContext from "../../../store/global-session-context";
-import CodeContext from "../../../store/code-context";
 import { Restart, Run, Stop, Unlink } from "../../../types/editor";
-import { TCodeFile } from "../../../types/code";
+import { closeFile, saveFile, setActiveFile, TCodeStepState, TOpenTextFile } from "../../../store/reducers/codeStepReducer";
 
 import classes from "./TextEditor.module.scss";
-import { TOpenTextFile } from "./Editor";
+import { useDispatch, useSelector } from "react-redux";
+import { TState } from "../../../store/reducers/reducer";
+import CloseUnsavedModal from "./CloseUnsavedModal";
+import { CloseI } from "../../UI/CustomIcon";
 
-const getLang = (lang: string) => {
+const getLang = (lang?: string) => {
 	switch (lang) {
 		case "js":
 			return "javascript";
@@ -30,22 +31,22 @@ const EDITOR_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
 };
 
 interface Props {
-	subsystem: string;
 	projectId: string;
-	openTextFiles: TOpenTextFile[];
-	setOpenTextFiles: Dispatch<SetStateAction<TOpenTextFile[]>>;
+	subsystem: string;
 	run: Run;
 	stop: Stop;
 	restart: Restart;
 	unlink: Unlink;
 }
 
-const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run, stop, restart, unlink }: Props): JSX.Element => {
+const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JSX.Element => {
+	const headerRef = useRef<HTMLDivElement>(null);
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { post } = useApi();
-	const { activeFile, setActiveFile, files, setFiles } = useContext(CodeContext);
+	const { allFiles, activeFileId, openTextFiles } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const dispatch = useDispatch();
+	const [closingUnsavedId, setClosingUnsavedId] = useState("");
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
 
@@ -84,23 +85,35 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 	// 	}
 	// }, [props.theme]);
 
-	useEffect(() => {
-		setOpenTextFiles((files) => {
-			const newState = files.some((f) => f.id === activeFile.id) ? files : [...files, { id: activeFile.id, name: activeFile.name, lang: activeFile.lang, lastSavedVersion: 1, isDirty: false }];
-			post("/api/profile/update-saves", {
-				profileId: globalSession.profileId,
-				update: { [`${projectId}-${subsystem}__workspace`]: { openTextFileIds: newState.map((f) => f.id), activeFileId: activeFile.id } },
-				date: new Date().toString(),
-			});
-			return newState;
-		});
-	}, [activeFile, setOpenTextFiles, globalSession.profileId, projectId, subsystem, post]);
-
-	const changeHandler = () => {
-		const _lastSavedVersion = editorRef.current?.getModel()?.getAlternativeVersionId();
-		const _fileId = editorRef.current?.getModel()?.uri.path.slice(1);
-		setOpenTextFiles((files) => files.map((f) => (f.id === _fileId ? { ...f, isDirty: f.lastSavedVersion !== _lastSavedVersion } : f)));
+	const saveHandler = (callback?: () => any) => {
+		editorRef.current?.getAction("editor.action.formatDocument").run();
+		dispatch(
+			saveFile(
+				globalSession.profileId,
+				projectId,
+				subsystem,
+				editorRef.current?.getModel()?.uri.path.slice(1) as string,
+				editorRef.current?.getValue() as string,
+				editorRef.current?.getModel()?.getAlternativeVersionId() as number,
+				callback
+			)
+		);
 	};
+
+	const closeHandler = (fileId: string) => dispatch(closeFile(globalSession.profileId, projectId, subsystem, fileId));
+
+	const checkSaveBeforeCloseHandler = (id: string, e: MouseEvent) => {
+		e.stopPropagation();
+		if ((openTextFiles.find((f) => f.id === id) as TOpenTextFile).isDirty) {
+			setClosingUnsavedId(id);
+		} else {
+			console.log("close this please");
+			closeHandler(id);
+		}
+	};
+
+	const changeHandler = () =>
+		dispatch({ type: "code-step/TEXT_FILE_ONCHANGE", payload: { id: editorRef.current?.getModel()?.uri.path.slice(1), version: editorRef.current?.getModel()?.getAlternativeVersionId() } });
 
 	const editorDidMount: OnMount = (editor, monaco) => {
 		editor.addAction({
@@ -109,25 +122,7 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 			keybindings: [monaco.KeyMod.CtrlCmd | (monaco.KeyCode as any).KEY_S], // type coercion due to error in package
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 1,
-			run: () => {
-				const activeFileId = editor.getModel()?.uri.path.slice(1);
-				editor.getAction("editor.action.formatDocument").run();
-				setFiles((state) => {
-					const newState = state.map((f) => (f.id === activeFileId ? { ...f, code: editor.getValue(), lastModified: new Date() } : f));
-					post(
-						"/api/profile/update-saves",
-						{
-							profileId: globalSession.profileId,
-							update: { [`${projectId}-${subsystem}__files`]: newState },
-							date: new Date().toString(),
-						},
-						() => {
-							setOpenTextFiles((files) => files.map((f) => (f.id === activeFileId ? { ...f, lastSavedVersion: editor.getModel()?.getAlternativeVersionId(), isDirty: false } : f)));
-						}
-					);
-					return newState;
-				});
-			},
+			run: () => saveHandler(),
 		});
 		editor.addAction({
 			id: "run",
@@ -166,23 +161,30 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 		// monacoRef.current.editor.setTheme(props.theme);
 	};
 
+	const scrollHandler = (e: WheelEvent) =>
+		headerRef.current?.scrollBy({
+			left: e.deltaY < 0 ? -30 : 30,
+		});
+
 	return (
 		<div className={classes.textEditor}>
-			<div className={classes.header}>
-				{openTextFiles.map((f) => (
+			<div ref={headerRef} className={classes.header} onWheel={scrollHandler}>
+				{openTextFiles.map((file) => (
 					<button
-						key={f.id}
-						className={`${classes.filename} ${activeFile.id === f.id && classes.active}`}
-						title={f.name + "." + f.lang}
-						onClick={() => setActiveFile(files.find((_f) => _f.id === f.id) as TCodeFile)}>
+						key={file.id}
+						className={`${classes.filename} ${activeFileId === file.id && classes.active}`}
+						title={file.name + "." + file.lang}
+						onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, file.id))}>
 						<div className={classes.fileIcon}>
-							{f.isDirty ? (
-								<i className={classes.unsavedIndicator} />
-							) : (
-								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${f.lang}.svg`} alt="js" />
-							)}
+							<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt="js" />
 						</div>
-						{f.name}
+						{file.name}
+						<div className={classes.rightIcon}>
+							<i className={classes.unsavedIndicator} title="Unsaved changes" style={{ display: file.isDirty ? "block" : "none" }} />
+							<div className={classes.closeIcon} onClick={(e) => checkSaveBeforeCloseHandler(file.id, e)} title="Close" style={{ display: file.isDirty ? "none" : "flex" }}>
+								<CloseI height={14} width={14} />
+							</div>
+						</div>
 					</button>
 				))}
 			</div>
@@ -202,11 +204,13 @@ const TextEditor = ({ subsystem, projectId, openTextFiles, setOpenTextFiles, run
 					onMount={editorDidMount}
 					onChange={changeHandler}
 					options={EDITOR_OPTIONS}
-					path={activeFile.id}
-					defaultLanguage={getLang(activeFile.lang)}
-					defaultValue={activeFile.code}
+					path={activeFileId || undefined}
+					value={allFiles?.[activeFileId].code}
+					defaultLanguage={getLang(allFiles?.[activeFileId].lang)}
+					defaultValue={allFiles?.[activeFileId].code}
 					saveViewState={true}
 				/>
+				{closingUnsavedId && <CloseUnsavedModal closingUnsavedId={closingUnsavedId} saveHandler={saveHandler} closeHandler={closeHandler} setClosingUnsavedId={setClosingUnsavedId} />}
 			</div>
 		</div>
 	);
