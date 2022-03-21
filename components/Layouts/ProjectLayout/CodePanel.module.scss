@@ -122,69 +122,6 @@
 	}
 }
 
-.fileList {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	flex: 1;
-	overflow: auto;
-	.file {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		font-size: 12px;
-		flex: 0 0 2.25rem;
-		.fileIcon {
-			position: relative;
-			display: flex;
-			align-items: center;
-			margin-left: 1.5rem;
-			margin-right: 0.25rem;
-			transition: margin 0.1s ease-out;
-		}
-		span {
-			font-size: 11px;
-			font-weight: 500;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			transition: color 0.1s ease-out;
-		}
-		form {
-			display: flex;
-			height: 100%;
-			flex: 1;
-			input {
-				width: 100%;
-				font-weight: 500;
-				font-size: 12px;
-				font-family: $poppins;
-				padding-left: 0.5rem;
-				&:focus {
-					background: white;
-					border: thin solid $blue-mid;
-				}
-			}
-		}
-		&:hover,
-		&.toggled {
-			background: $lighter;
-		}
-		&.activeFile {
-			background: rgba($blue-dark, 0.05);
-			span {
-				color: $blue-dark;
-			}
-		}
-		&.renaming {
-			.fileIcon {
-				margin-left: 0.5rem;
-				margin-right: 0.5rem;
-			}
-		}
-	}
-}
-
 .block {
 	padding: 0.75rem 0.5rem 0.75rem 1rem;
 }

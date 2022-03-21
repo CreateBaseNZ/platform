@@ -179,12 +179,12 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 							<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt="js" />
 						</div>
 						{file.name}
-						<button className={classes.rightIcon}>
+						<div className={classes.rightIcon}>
 							<i className={classes.unsavedIndicator} title="Unsaved changes" style={{ display: file.isDirty ? "block" : "none" }} />
 							<div className={classes.closeIcon} onClick={(e) => checkSaveBeforeCloseHandler(file.id, e)} title="Close" style={{ display: file.isDirty ? "none" : "flex" }}>
 								<CloseI height={14} width={14} />
 							</div>
-						</button>
+						</div>
 					</button>
 				))}
 			</div>

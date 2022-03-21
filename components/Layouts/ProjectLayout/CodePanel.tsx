@@ -6,6 +6,7 @@ import { deleteFile, renameFile, setActiveFile, TCodeLayout, TCodeStepState, TCo
 import { TState } from "../../../store/reducers/reducer";
 import DeleteFileModal from "../../Project/Code/DeleteFileModal";
 import NewFileModal from "../../Project/Code/NewFileModal";
+import CodeFileList from "./CodeFileList";
 
 import classes from "./CodePanel.module.scss";
 
@@ -20,38 +21,19 @@ interface Props {
 const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 	const renameRef = useRef<HTMLInputElement>(null);
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { layout, tab, allFiles, activeFileId, ctxMenu } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const { layout, tab, ctxMenu } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
 	const dispatch = useDispatch();
 	const [isCreatingNewFile, setIsCreatingNewFile] = useState(false);
-	const [renameId, setRenameId] = useState<string>();
+	const [renameId, setRenameId] = useState("");
 	const [deletingFile, setDeletingFile] = useState("");
 
 	useEffect(() => {
 		if (renameId) renameRef.current?.focus();
 	}, [renameId]);
 
-	const setCtxHandler = (id: string, e: MouseEvent) => {
-		e.preventDefault();
-		dispatch({ type: "code-step/SET_CTX", payload: { x: e.clientX, y: e.clientY, id: id } });
-	};
-
 	const initRenameHandler = () => {
-		setRenameId(ctxMenu?.id);
+		setRenameId(ctxMenu?.id as string);
 		dispatch({ type: "code-step/SET_CTX", payload: null });
-	};
-
-	const submitRenameHandler = (id: string, e?: FormEvent) => {
-		e?.preventDefault();
-		console.log("yeap");
-		if (renameRef.current?.value) {
-			dispatch(renameFile(globalSession.profileId, projectId, subsystem, id, renameRef.current.value));
-		}
-		setRenameId(undefined);
-	};
-
-	const keyDownHandler = (id: string, e: KeyboardEvent) => {
-		e.preventDefault();
-		if (e.key === "Delete") setDeletingFile(id);
 	};
 
 	return (
@@ -76,29 +58,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 						<i />
 						New file
 					</button>
-					<div className={classes.fileList}>
-						{Object.entries(allFiles).map(([id, file]) => (
-							<button
-								key={id}
-								tabIndex={-1}
-								className={`${classes.file} ${ctxMenu?.id === id && classes.toggled} ${activeFileId === id && classes.activeFile} ${renameId === id && classes.renaming}`}
-								onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, id))}
-								onContextMenu={(e) => setCtxHandler(id, e)}
-								onBlur={() => dispatch({ type: "code-step/SET_CTX", payload: null })}
-								onKeyDown={(e) => keyDownHandler(id, e)}>
-								<div className={classes.fileIcon}>
-									<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt={file.lang} />
-								</div>
-								{renameId === id ? (
-									<form key={`${id}-rename`} onSubmit={(e) => submitRenameHandler(id, e)}>
-										<input ref={renameRef} onBlur={() => submitRenameHandler(id)} />
-									</form>
-								) : (
-									<span>{file.name}</span>
-								)}
-							</button>
-						))}
-					</div>
+					<CodeFileList projectId={projectId} subsystem={subsystem} renameRef={renameRef} renameId={renameId} setRenameId={setRenameId} setDeletingFile={setDeletingFile} />
 				</div>
 			)}
 			{tab === "Blocks" && (
@@ -111,7 +71,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 					<button title="Rename" onMouseDown={initRenameHandler}>
 						Rename
 					</button>
-					<button title="Delete" onMouseDown={() => dispatch(deleteFile(globalSession.profileId, projectId, subsystem, ctxMenu.id))}>
+					<button title="Delete" onMouseDown={() => setDeletingFile(ctxMenu.id)}>
 						Delete
 					</button>
 				</div>
