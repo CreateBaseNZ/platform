@@ -1,0 +1,85 @@
+@import "/styles/variables";
+
+.view {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 100;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.1);
+	* {
+		font-family: $roboto;
+	}
+}
+
+.modal {
+	position: relative;
+	z-index: 1;
+	background: white;
+	display: flex;
+	flex-direction: column;
+	padding: 0.75rem 1rem;
+	box-shadow: 0 0.25rem 0.1rem 0 rgba(0, 36, 63, 0.05);
+}
+
+.h1 {
+	width: 100%;
+	color: black;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	button {
+		opacity: 0.5;
+		transition: opacity 0.1s ease-out;
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
+
+.divider {
+	width: 100%;
+	height: 1px;
+	background: $border-color;
+	margin: 0.75rem 0;
+}
+
+.h2 {
+	font-size: 13px;
+	color: $dark;
+}
+
+.btnContainer {
+	align-self: flex-end;
+	display: flex;
+	height: 2rem;
+	margin-top: 1rem;
+	button {
+		margin: 0 0.25rem;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		padding: 0 1rem;
+		font-size: 14px;
+		transition: background-color 0.1s ease-out, color 0.1s ease-out;
+	}
+	.fill {
+		background: $lighter;
+		&:hover {
+			background: $border-color;
+		}
+	}
+	.outline {
+		border: thin solid #0c61bd;
+		color: #0c61bd;
+		&:hover {
+			background: #0c61bd;
+			color: white;
+		}
+	}
+}

@@ -24,7 +24,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 	const dispatch = useDispatch();
 	const [isCreatingNewFile, setIsCreatingNewFile] = useState(false);
 	const [renameId, setRenameId] = useState<string>();
-	const [isDeletingFile, setIsDeletingFile] = useState("");
+	const [deletingFile, setDeletingFile] = useState("");
 
 	useEffect(() => {
 		if (renameId) renameRef.current?.focus();
@@ -51,7 +51,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 
 	const keyDownHandler = (id: string, e: KeyboardEvent) => {
 		e.preventDefault();
-		if (e.key === "Delete") setIsDeletingFile(id);
+		if (e.key === "Delete") setDeletingFile(id);
 	};
 
 	return (
@@ -117,7 +117,7 @@ const CodePanel = ({ projectId, subsystem }: Props): JSX.Element => {
 				</div>
 			)}
 			{isCreatingNewFile && <NewFileModal projectId={projectId} subsystem={subsystem} setIsCreatingNewFile={setIsCreatingNewFile} />}
-			{isDeletingFile && <DeleteFileModal id={isDeletingFile} projectId={projectId} subsystem={subsystem} setIsDeletingFile={setIsDeletingFile} />}
+			{deletingFile && <DeleteFileModal id={deletingFile} projectId={projectId} subsystem={subsystem} setDeletingFile={setDeletingFile} />}
 		</div>
 	);
 };

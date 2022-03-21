@@ -4,6 +4,7 @@
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
+	position: relative;
 }
 
 .header {
@@ -102,7 +103,7 @@
 		height: 2rem;
 		display: flex;
 		align-items: center;
-		padding: 0 0.5rem 0 0.25rem;
+		padding: 0 0.5rem;
 		font-size: 13px;
 		border-radius: 4px;
 		i {
@@ -110,6 +111,7 @@
 			margin-right: 4px;
 		}
 		&:hover {
+			color: black;
 			background: rgba(black, 0.05);
 		}
 		&.run i {
@@ -127,8 +129,10 @@
 			font-size: 16px;
 		}
 		&.more {
+			padding: 0;
+			justify-content: center;
+			flex: 0 0 2rem;
 			margin-left: auto;
-			padding: 0 0.25rem;
 			i {
 				color: $dark;
 				margin: 0;

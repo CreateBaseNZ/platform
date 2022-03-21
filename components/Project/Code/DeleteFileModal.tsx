@@ -10,23 +10,23 @@ interface Props {
 	projectId: string;
 	subsystem: string;
 	id: string;
-	setIsDeletingFile: Dispatch<SetStateAction<string>>;
+	setDeletingFile: Dispatch<SetStateAction<string>>;
 }
 
-const DeleteFileModal = ({ projectId, subsystem, id, setIsDeletingFile }: Props): JSX.Element => {
+const DeleteFileModal = ({ projectId, subsystem, id, setDeletingFile }: Props): JSX.Element => {
 	const { globalSession } = useContext(GlobalSessionContext);
 	const dispatch = useDispatch();
 
 	const deleteHandler = () => {
 		dispatch(deleteFile(globalSession.profileId, projectId, subsystem, id));
-		setIsDeletingFile("");
+		setDeletingFile("");
 	};
 
 	return (
 		<ClientOnlyPortal selector="#modal-root">
 			<div className={classes.view}>
 				<div className={classes.modal}>
-					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setIsDeletingFile("")} title="Close">
+					<i className={`material-icons-outlined ${classes.close}`} onClick={() => setDeletingFile("")} title="Close">
 						close
 					</i>
 					<div className={classes.h1}>You are about to delete a file</div>
@@ -35,7 +35,7 @@ const DeleteFileModal = ({ projectId, subsystem, id, setIsDeletingFile }: Props)
 					</div>
 					<div className={classes.h2}>Are you sure?</div>
 					<div className={classes.btnContainer}>
-						<button className={classes.cancel} onClick={() => setIsDeletingFile("")}>
+						<button className={classes.cancel} onClick={() => setDeletingFile("")}>
 							Cancel
 						</button>
 						<button className={classes.confirm} onClick={deleteHandler}>

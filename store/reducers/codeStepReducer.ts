@@ -10,6 +10,7 @@ const RENAME_FILE = "code-step/RENAME_FILE";
 const DELETE_FILE = "code-step/DELETE_FILE";
 const SET_ACTIVE_FILE = "code-step/SET_ACTIVE_FILE";
 const CLOSE_FILE = "code-step/CLOSE_FILE";
+const DISCARD_CHANGES = "code-step/DISCARD_CHANGES";
 const TEXT_FILE_ONCHANGE = "code-step/TEXT_FILE_ONCHANGE";
 const SAVE_FILE = "code-step/SAVE_FILE";
 const SET_CTX = "code-step/SET_CTX";
@@ -77,7 +78,7 @@ const codeStepReducer = (state: TCodeStepState = DEFAULT_CODE_STEP_STATE, action
 		case CLOSE_FILE:
 			return { ...state, ...action.payload };
 		case TEXT_FILE_ONCHANGE:
-			return { ...state, openTextFiles: state.openTextFiles.map((file) => (file.id === action.payload.id ? { ...file, isDirty: file.lastSavedVersion !== action.payload.version } : file)) };
+			return { ...state, openTextFiles: state.openTextFiles.map((f) => (f.id === action.payload.id ? { ...f, isDirty: f.lastSavedVersion !== action.payload.version } : f)) };
 		case SAVE_FILE:
 			return { ...state, ...action.payload };
 		case SET_CTX:
@@ -112,7 +113,7 @@ export const fetchCodeStepData = (profileId: string, projectId: string, subsyste
 	};
 };
 
-export const saveFile = (profileId: string, projectId: string, subsystem: string, fileId: string, code: string, version: number): AppThunk => {
+export const saveFile = (profileId: string, projectId: string, subsystem: string, fileId: string, code: string, version: number, callback?: () => any): AppThunk => {
 	return (dispatch, getState) => {
 		const { codeStep: state } = getState();
 		const { [fileId]: file, ...allFiles } = state.allFiles;
@@ -132,6 +133,7 @@ export const saveFile = (profileId: string, projectId: string, subsystem: string
 						openTextFiles: state.openTextFiles.map((f) => (f.id === fileId ? { ...f, lastSavedVersion: version, isDirty: false } : f)),
 					},
 				});
+				if (callback) callback();
 			}
 		);
 	};

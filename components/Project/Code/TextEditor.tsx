@@ -1,14 +1,15 @@
-import { memo, MouseEvent, useContext, useRef, WheelEvent } from "react";
+import { memo, MouseEvent, useContext, useRef, useState, WheelEvent } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 import Image from "next/image";
 import { editor } from "monaco-editor";
 import GlobalSessionContext from "../../../store/global-session-context";
 import { Restart, Run, Stop, Unlink } from "../../../types/editor";
-import { closeFile, saveFile, setActiveFile, TCodeStepState } from "../../../store/reducers/codeStepReducer";
+import { closeFile, saveFile, setActiveFile, TCodeStepState, TOpenTextFile } from "../../../store/reducers/codeStepReducer";
 
 import classes from "./TextEditor.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { TState } from "../../../store/reducers/reducer";
+import CloseUnsavedModal from "./CloseUnsavedModal";
 
 const getLang = (lang?: string) => {
 	switch (lang) {
@@ -44,6 +45,7 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { allFiles, activeFileId, openTextFiles } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
 	const dispatch = useDispatch();
+	const [closingUnsavedId, setClosingUnsavedId] = useState("");
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
 
@@ -82,6 +84,33 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 	// 	}
 	// }, [props.theme]);
 
+	const saveHandler = (callback?: () => any) => {
+		editorRef.current?.getAction("editor.action.formatDocument").run();
+		dispatch(
+			saveFile(
+				globalSession.profileId,
+				projectId,
+				subsystem,
+				editorRef.current?.getModel()?.uri.path.slice(1) as string,
+				editorRef.current?.getValue() as string,
+				editorRef.current?.getModel()?.getAlternativeVersionId() as number,
+				callback
+			)
+		);
+	};
+
+	const closeHandler = (fileId: string) => dispatch(closeFile(globalSession.profileId, projectId, subsystem, fileId));
+
+	const checkSaveBeforeCloseHandler = (id: string, e: MouseEvent) => {
+		e.stopPropagation();
+		if ((openTextFiles.find((f) => f.id === id) as TOpenTextFile).isDirty) {
+			setClosingUnsavedId(id);
+		} else {
+			console.log("close this please");
+			closeHandler(id);
+		}
+	};
+
 	const changeHandler = () =>
 		dispatch({ type: "code-step/TEXT_FILE_ONCHANGE", payload: { id: editorRef.current?.getModel()?.uri.path.slice(1), version: editorRef.current?.getModel()?.getAlternativeVersionId() } });
 
@@ -92,10 +121,7 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 			keybindings: [monaco.KeyMod.CtrlCmd | (monaco.KeyCode as any).KEY_S], // type coercion due to error in package
 			contextMenuGroupId: "2_basic",
 			contextMenuOrder: 1,
-			run: () => {
-				editor.getAction("editor.action.formatDocument").run();
-				dispatch(saveFile(globalSession.profileId, projectId, subsystem, editor.getModel()?.uri.path.slice(1) as string, editor.getValue(), editor.getModel()?.getAlternativeVersionId() as number));
-			},
+			run: () => saveHandler(),
 		});
 		editor.addAction({
 			id: "run",
@@ -139,11 +165,6 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 			left: e.deltaY < 0 ? -30 : 30,
 		});
 
-	const closeFileHandler = (id: string, e: MouseEvent) => {
-		e.stopPropagation();
-		dispatch(closeFile(globalSession.profileId, projectId, subsystem, id));
-	};
-
 	return (
 		<div className={classes.textEditor}>
 			<div ref={headerRef} className={classes.header} onWheel={scrollHandler}>
@@ -161,7 +182,7 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 							)}
 						</div>
 						{file.name}
-						<i className={classes.closeIcon} onClick={(e) => closeFileHandler(file.id, e)} title="Close" />
+						<i className={classes.closeIcon} onClick={(e) => checkSaveBeforeCloseHandler(file.id, e)} title="Close" />
 					</button>
 				))}
 			</div>
@@ -182,10 +203,12 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 					onChange={changeHandler}
 					options={EDITOR_OPTIONS}
 					path={activeFileId || undefined}
+					value={allFiles?.[activeFileId].code}
 					defaultLanguage={getLang(allFiles?.[activeFileId].lang)}
 					defaultValue={allFiles?.[activeFileId].code}
 					saveViewState={true}
 				/>
+				{closingUnsavedId && <CloseUnsavedModal closingUnsavedId={closingUnsavedId} saveHandler={saveHandler} closeHandler={closeHandler} setClosingUnsavedId={setClosingUnsavedId} />}
 			</div>
 		</div>
 	);
