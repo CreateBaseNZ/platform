@@ -33,46 +33,42 @@
 			justify-content: center;
 			margin-right: 0.25rem;
 		}
-		.unsavedIndicator {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			&::before {
-				content: "";
-				background: $light;
-				height: 6px;
-				width: 6px;
-				border-radius: 8px;
-			}
-		}
-		.closeIcon {
-			position: relative;
+		.rightIcon {
 			height: 18px;
 			width: 18px;
 			margin-left: 0.5rem;
-			border-radius: 4px;
-			&::before,
-			&::after {
-				content: "";
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.unsavedIndicator {
 				background: $light;
-				border-radius: 0;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				height: 12px;
-				width: 1px;
+				height: 8px;
+				width: 8px;
+				border-radius: 8px;
 			}
-			&::before {
-				transform: translate(-50%, -50%) rotate(45deg);
-			}
-			&::after {
-				transform: translate(-50%, -50%) rotate(-45deg);
+			.closeIcon {
+				border-radius: 4px;
+				height: 100%;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				path {
+					stroke: $dark;
+				}
+				&:hover {
+					background: $border-color;
+					path {
+						stroke: $darker;
+					}
+				}
 			}
 			&:hover {
-				background: $border-color;
-				&::before,
-				&::after {
-					background: $darker;
+				.unsavedIndicator {
+					display: none !important;
+				}
+				.closeIcon {
+					display: flex !important;
 				}
 			}
 		}

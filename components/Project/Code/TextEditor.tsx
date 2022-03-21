@@ -10,6 +10,7 @@ import classes from "./TextEditor.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { TState } from "../../../store/reducers/reducer";
 import CloseUnsavedModal from "./CloseUnsavedModal";
+import { CloseI } from "../../UI/CustomIcon";
 
 const getLang = (lang?: string) => {
 	switch (lang) {
@@ -175,14 +176,15 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 						title={file.name + "." + file.lang}
 						onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, file.id))}>
 						<div className={classes.fileIcon}>
-							{file.isDirty ? (
-								<i className={classes.unsavedIndicator} title="Unsaved changes" />
-							) : (
-								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt="js" />
-							)}
+							<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt="js" />
 						</div>
 						{file.name}
-						<i className={classes.closeIcon} onClick={(e) => checkSaveBeforeCloseHandler(file.id, e)} title="Close" />
+						<button className={classes.rightIcon}>
+							<i className={classes.unsavedIndicator} title="Unsaved changes" style={{ display: file.isDirty ? "block" : "none" }} />
+							<div className={classes.closeIcon} onClick={(e) => checkSaveBeforeCloseHandler(file.id, e)} title="Close" style={{ display: file.isDirty ? "none" : "flex" }}>
+								<CloseI height={14} width={14} />
+							</div>
+						</button>
 					</button>
 				))}
 			</div>

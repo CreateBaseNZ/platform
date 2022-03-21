@@ -3,15 +3,16 @@ interface Props {
 	width?: number;
 	color?: string;
 	strokeWidth?: number;
+	[x: string]: any;
 }
 
 interface GenericProps extends Props {
 	path: string;
 }
 
-const GenericI = ({ path, height = 24, width = 24, color = "black", strokeWidth = 1 }: GenericProps): JSX.Element => {
+const GenericI = ({ path, height = 24, width = 24, color = "black", strokeWidth = 1, ...props }: GenericProps): JSX.Element => {
 	return (
-		<i style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+		<i style={{ display: "flex", alignItems: "center", justifyContent: "center" }} {...props}>
 			<svg style={{ display: "inline" }} fill="none" height={height} width={width} viewBox="0 0 24 24">
 				<path d={path} stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" style={{ transition: "all 0.1s ease-out" }} />
 			</svg>
