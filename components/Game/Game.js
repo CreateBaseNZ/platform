@@ -11,7 +11,7 @@ import LoadingScreen from "../UI/LoadingScreen";
 import classes from "./Game.module.scss";
 import GlobalSessionContext from "../../store/global-session-context";
 
-const Game = ({ isImprove, project, index, query, blockList }) => {
+const Game = ({ isImprove, project, index, query, blockList, winCallback }) => {
 	const [gameLoaded, setGameLoaded] = useState(false);
 	const router = useRouter();
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
@@ -39,6 +39,7 @@ const Game = ({ isImprove, project, index, query, blockList }) => {
 				project: router.query.id,
 				subsystem: router.query.subsystem,
 			});
+			if (winCallback) winCallback(unityContext);
 		}
 	}, [gameState]);
 

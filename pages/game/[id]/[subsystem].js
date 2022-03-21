@@ -40,6 +40,10 @@ const SubsystemGame = () => {
 		}
 	}, [router.isReady, router.query.id]);
 
+	const winHandler = (unityContext) => {
+		console.log(unityContext);
+	};
+
 	if (!data || subsystemIndex === null) return <LoadingScreen />;
 
 	return (
@@ -50,7 +54,7 @@ const SubsystemGame = () => {
 				</title>
 				<meta name="description" content="CreateBase" />
 			</Head>
-			<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} />
+			<Game project={data} index={subsystemIndex} query={data.query} blockList={data.subsystems[subsystemIndex].blockList} winCallback={winHandler} />
 		</div>
 	);
 };
