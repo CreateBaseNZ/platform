@@ -19,6 +19,8 @@ interface Props {
 const Editor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JSX.Element => {
 	const { allFiles, activeFileId } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
 
+	console.log("## editor rerendered ##");
+
 	const renderEditor = (lang: TLang | undefined) => {
 		switch (lang) {
 			case "js":

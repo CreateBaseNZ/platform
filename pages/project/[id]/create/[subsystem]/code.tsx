@@ -101,7 +101,7 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 	}, []);
 
 	const run: Run = useCallback((code) => {
-		// Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
+		Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
 
 		// const whileEntry: number[] = [];
 		// Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
@@ -119,16 +119,18 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		// console.log(whileEntry);
 
 		code = ` try {
-		  ${code}
       unityContext.send("LeftWheel", "RotateMotorForwards", 0.1)		
+		  ${code}
     } catch(e) {
 		  console.error(e)
 		}`;
 
+		setInterval(() => console.log(sensorData), 1000);
+
 		(iframeRef.current?.contentWindow as any).Function("sensorData", "unityContext", code)(sensorData, unityContext);
 
 		// console.log(Escodegen.generate(ast));
-		// Unhook(window.console);
+		Unhook(window.console);
 	}, []);
 
 	const stop: Stop = useCallback(() => {
