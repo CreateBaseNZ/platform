@@ -5,13 +5,15 @@
 	width: 100%;
 	overflow: hidden;
 	position: relative;
+	display: flex;
+	flex-direction: column;
 }
 
 .header {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	height: 2rem;
+	flex: 0 0 2rem;
 	background: $border-color;
 	overflow: auto;
 	.filename {
@@ -26,12 +28,29 @@
 		opacity: 0.75;
 		border-bottom: thin solid $light;
 		border-right: thin solid $light;
-		transition: border-color 0.1s ease-out;
+		border-top: thin solid transparent;
+		&:hover {
+			opacity: 1;
+			background: white;
+		}
+		&.active {
+			opacity: 1;
+			background: white;
+			border-top: thin solid $light;
+			border-bottom: thin solid white;
+		}
+		&.running {
+			color: #ff8800;
+		}
 		.fileIcon {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			margin-right: 0.25rem;
+			.runningIcon {
+				font-size: 1rem;
+				color: #ff8800;
+			}
 		}
 		.rightIcon {
 			height: 20px;
@@ -57,7 +76,7 @@
 					stroke: $dark;
 				}
 				&:hover {
-					background: $border-color;
+					background: rgba(black, 0.075);
 					path {
 						stroke: $darker;
 					}
@@ -72,15 +91,6 @@
 				}
 			}
 		}
-		&:hover {
-			opacity: 1;
-			background: white;
-		}
-		&.active {
-			opacity: 1;
-			background: white;
-			border-bottom: thin solid white;
-		}
 	}
 	&::after {
 		content: "";
@@ -91,54 +101,106 @@
 	}
 }
 
-.btnContainer {
-	padding: 0.25rem 0.5rem;
+.dragContainer {
+	z-index: 2;
+	height: 0;
+	width: 100%;
+	position: relative;
+}
+
+.dragWrapper {
+	position: absolute;
+	right: calc(1rem + 5.5vw);
+	width: min-content;
 	display: flex;
 	align-items: center;
-	button {
-		height: 2rem;
+	justify-content: center;
+	background: white;
+	padding: 2px 4px 2px 0;
+	border: thin solid $border-color;
+	border-top: none !important;
+	box-shadow: 0 2px 4px 0 rgba(black, 0.1);
+	&.running {
+		border: thin solid #ffb968;
+	}
+	.dragHandle {
+		cursor: move; /* fallback if grab cursor is unsupported */
+		cursor: grab;
 		display: flex;
 		align-items: center;
-		padding: 0 0.5rem;
-		font-size: 13px;
-		border-radius: 4px;
+		justify-content: center;
+		padding: 0 2px;
+		&:active {
+			cursor: grabbing;
+		}
 		i {
-			font-size: 18px;
-			margin-right: 4px;
+			font-size: 1.25rem;
+			color: $dark;
 		}
-		&:hover {
-			color: black;
-			background: rgba(black, 0.05);
-		}
-		&.run i {
-			color: $green-mid;
-		}
-		&.stop i {
-			color: $red;
-		}
-		&.restart i {
-			color: $amber;
-			font-size: 16px;
-		}
-		&.unlink i {
-			color: $blue-mid;
-			font-size: 16px;
-		}
-		&.more {
-			padding: 0;
-			justify-content: center;
-			flex: 0 0 2rem;
-			margin-left: auto;
+	}
+	.btnContainer {
+		flex: 0 0 auto;
+		display: flex;
+		align-items: center;
+		button {
+			height: 2rem;
+			display: flex;
+			align-items: center;
+			padding: 0 0.5rem 0 0.25rem;
+			font-size: 13px;
+			border-radius: 4px;
 			i {
-				color: $dark;
-				margin: 0;
+				font-size: 18px;
+				margin-right: 4px;
+			}
+			&:hover {
+				color: black;
+				background: rgba(black, 0.05);
+			}
+			&.run i {
+				color: $green-mid;
+			}
+			&.stop i {
+				color: $red;
+			}
+			&.restart i {
+				color: $amber;
+				font-size: 16px;
+			}
+			&.stop,
+			&.restart {
+				pointer-events: none;
+				opacity: 0.25;
+				// display: none;
+			}
+			&.more {
+				margin-left: auto;
+				padding: 0;
+				justify-content: center;
+				width: 2rem;
+				i {
+					color: $dark;
+					margin: 0;
+				}
+			}
+		}
+		&.running button {
+			&.run {
+				pointer-events: none;
+				opacity: 0.25;
+				// display: none;
+			}
+			&.stop,
+			&.restart {
+				pointer-events: auto;
+				opacity: 1;
+				// display: flex;
 			}
 		}
 	}
 }
 
 .wrapper {
-	border-top: thin solid $border-color;
 	height: 100%;
 	width: 100%;
 	display: flex;

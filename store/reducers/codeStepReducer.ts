@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import post from "../../utils/api";
+import post from "../../lib/api";
 import { AppThunk } from "./reducer";
 
 const LOAD_STATE = "code-step/LOAD_STATE";
@@ -10,10 +10,10 @@ const RENAME_FILE = "code-step/RENAME_FILE";
 const DELETE_FILE = "code-step/DELETE_FILE";
 const SET_ACTIVE_FILE = "code-step/SET_ACTIVE_FILE";
 const CLOSE_FILE = "code-step/CLOSE_FILE";
-const DISCARD_CHANGES = "code-step/DISCARD_CHANGES";
 const TEXT_FILE_ONCHANGE = "code-step/TEXT_FILE_ONCHANGE";
 const SAVE_FILE = "code-step/SAVE_FILE";
 const SET_CTX = "code-step/SET_CTX";
+const SET_RUNNING_FILE = "code-step/SET_RUNNING_FILE";
 
 const getFilesParam = (projectId: string, subsystem: string) => `${projectId}__${subsystem}__files`;
 const getWorkspaceParam = (projectId: string, subsystem: string) => `${projectId}__${subsystem}__workspace`;
@@ -23,6 +23,7 @@ type TAllFiles = Record<string, TCodeFile>;
 export type TLang = "js" | "blockly" | "flow";
 export type TCodeLayout = "Default" | "Editor" | "Pudding" | "Simulation";
 export type TCodeTab = "Files" | "Blocks";
+export type TSimRunning = boolean;
 export type TCodeFile = {
 	name: string;
 	lang: TLang;
@@ -47,6 +48,7 @@ export type TCodeStepState = {
 	activeFileId: string;
 	openTextFiles: TOpenTextFile[];
 	ctxMenu: { x: number; y: number; id: string } | null;
+	runningFileId: string;
 };
 
 export const DEFAULT_CODE_STEP_STATE: TCodeStepState = {
@@ -56,6 +58,7 @@ export const DEFAULT_CODE_STEP_STATE: TCodeStepState = {
 	activeFileId: "",
 	openTextFiles: [],
 	ctxMenu: null,
+	runningFileId: "",
 };
 
 // create your reducer
@@ -83,6 +86,8 @@ const codeStepReducer = (state: TCodeStepState = DEFAULT_CODE_STEP_STATE, action
 			return { ...state, ...action.payload };
 		case SET_CTX:
 			return { ...state, ctxMenu: action.payload };
+		case SET_RUNNING_FILE:
+			return { ...state, runningFileId: action.payload };
 		default:
 			return state;
 	}

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TState } from "../../../store/reducers/reducer";
 import CloseUnsavedModal from "./CloseUnsavedModal";
 import { CloseI } from "../../UI/CustomIcon";
+import Draggable from "react-draggable";
 
 const getLang = (lang?: string) => {
 	switch (lang) {
@@ -44,7 +45,7 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 	const monacoRef = useRef<Monaco>();
 	const editorRef = useRef<editor.IStandaloneCodeEditor>();
 	const { globalSession } = useContext(GlobalSessionContext);
-	const { allFiles, activeFileId, openTextFiles } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	const { allFiles, activeFileId, openTextFiles, runningFileId } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
 	const dispatch = useDispatch();
 	const [closingUnsavedId, setClosingUnsavedId] = useState("");
 
@@ -65,15 +66,6 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 			title: "Restart",
 			icon: "replay",
 			func: () => {
-				console.log(editorRef.current?.getValue());
-				editorRef.current && run(editorRef.current?.getValue());
-			},
-		},
-		{
-			title: "Unlink",
-			icon: "link_off",
-			func: () => {
-				console.log(editorRef.current?.getValue());
 				editorRef.current && run(editorRef.current?.getValue());
 			},
 		},
@@ -100,7 +92,10 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 		);
 	};
 
-	const closeHandler = (fileId: string) => dispatch(closeFile(globalSession.profileId, projectId, subsystem, fileId));
+	const closeHandler = (fileId: string) => {
+		stop();
+		dispatch(closeFile(globalSession.profileId, projectId, subsystem, fileId));
+	};
 
 	const checkSaveBeforeCloseHandler = (id: string, e: MouseEvent) => {
 		e.stopPropagation();
@@ -172,11 +167,15 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 				{openTextFiles.map((file) => (
 					<button
 						key={file.id}
-						className={`${classes.filename} ${activeFileId === file.id && classes.active}`}
+						className={`${classes.filename} ${activeFileId === file.id && classes.active} ${runningFileId === file.id && classes.running}`}
 						title={file.name + "." + file.lang}
 						onClick={() => dispatch(setActiveFile(globalSession.profileId, projectId, subsystem, file.id))}>
 						<div className={classes.fileIcon}>
-							<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt="js" />
+							{runningFileId === file.id ? (
+								<i className={`material-icons ${classes.runningIcon}`}>play_arrow</i>
+							) : (
+								<Image height={16} width={16} src={`https://raw.githubusercontent.com/CreateBaseNZ/public/dev/project-pages/${file.lang}.svg`} alt="js" />
+							)}
 						</div>
 						{file.name}
 						<div className={classes.rightIcon}>
@@ -188,16 +187,25 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 					</button>
 				))}
 			</div>
-			<div className={classes.btnContainer}>
-				{buttonConfig.map((conf) => (
-					<button key={conf.title} className={classes[conf.title.toLowerCase()]} onClick={conf.func} title={conf.title}>
-						<i className="material-icons-outlined">{conf.icon}</i>
-						{conf.title}
-					</button>
-				))}
-				<button className={classes.more} title="More">
-					<i className="material-icons-outlined">more_vert</i>
-				</button>
+			<div className={`bounds ${classes.dragContainer}`}>
+				<Draggable axis="x" handle=".handle" bounds="parent" defaultClassName={classes.dragWrapper}>
+					<div className={runningFileId && classes.running}>
+						<div className={`handle ${classes.dragHandle}`}>
+							<i className="material-icons-outlined">drag_indicator</i>
+						</div>
+						<div className={`${classes.btnContainer} ${runningFileId && classes.running}`}>
+							{buttonConfig.map((conf) => (
+								<button key={conf.title} className={classes[conf.title.toLowerCase()]} onClick={conf.func} title={conf.title}>
+									<i className="material-icons-outlined">{conf.icon}</i>
+									{conf.title}
+								</button>
+							))}
+							<button className={classes.more} title="More">
+								<i className="material-icons-outlined">more_vert</i>
+							</button>
+						</div>
+					</div>
+				</Draggable>
 			</div>
 			<div className={classes.wrapper}>
 				<Editor

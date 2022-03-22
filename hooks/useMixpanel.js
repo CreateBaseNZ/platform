@@ -31,7 +31,7 @@ const useMixpanel = (eventName) => {
 		let hasFocus = true;
 
 		const endSession = (endTime = Date.now() - inactivityTimer) => {
-			console.log("session ended");
+			// console.log("session ended");
 			if (!startTime) return;
 			let duration = endTime - startTime;
 			console.log(startTime);
@@ -135,7 +135,7 @@ const useMixpanel = (eventName) => {
 		let hasFocus = true;
 
 		const endSession = (endTime = Date.now() - inactivityTimer) => {
-			console.log("session ended");
+			// console.log("session ended");
 			if (!startTime) return;
 			let duration = endTime - startTime;
 			console.log(startTime);

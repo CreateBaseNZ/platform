@@ -1,7 +1,9 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { UnityContext } from "react-unity-webgl";
 import Image from "next/image";
-import * as Esprima from "esprima";
+import { v4 as uuidv4 } from "uuid";
+import * as esprima from "esprima";
+import * as escodegen from "escodegen";
 import useMixpanel from "../../../../../hooks/useMixpanel";
 import ProjectLayout from "../../../../../components/Layouts/ProjectLayout/ProjectLayout";
 import { ALL_PROJECTS_ARRAY, ALL_PROJECTS_OBJECT } from "../../../../../constants/projects";
@@ -30,19 +32,8 @@ String.prototype.insert = function (index: number, string: string) {
 	return this.substring(0, ind) + string + this.substring(ind);
 };
 
-// const sandboxed = (code: string, args = {}) => {
-// 	const frame = document.createElement("iframe");
-// 	document.body.appendChild(frame);
-// 	Hook((frame.contentWindow as any)?.console);
-// 	const F = (frame.contentWindow as any)?.Function;
-// 	Unhook((frame.contentWindow as any)?.console);
-// 	document.body.removeChild(frame);
-// 	return F(...Object.keys(args), "'use strict';" + code)(...Object.values(args));
-// };
-
 let Console: any = () => <></>;
-let Hook: any = () => {};
-let Unhook: any = () => {};
+let Hook: any = () => <></>;
 
 interface Props {
 	data: TProject;
@@ -51,12 +42,13 @@ interface Props {
 }
 
 const Code = ({ data, subsystem, subsystemIndex }: Props) => {
-	const iframeRef = useRef<HTMLIFrameElement>(null);
+	const workerRef = useRef<Worker>();
 	const consoleRef = useRef<HTMLDivElement>(null);
+	const intervalRef = useRef<NodeJS.Timeout | null>(null);
+	const sensorDataRef = useRef<any>();
 	const { globalSession } = useContext(GlobalSessionContext);
 	const { post } = useApi();
 	const {} = useMixpanel("project_create_code");
-	const [status, setStatus] = useState("idle");
 	const [logs, setLogs] = useState<any[]>([]);
 	const [unityLoaded, setUnityLoaded] = useState(false);
 	const [unityContext, sensorData, gameState, resetScene] = useUnity({
@@ -67,7 +59,8 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 		wip: data.wip,
 		setLoaded: setUnityLoaded,
 	});
-	const { layout } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
+	sensorDataRef.current = sensorData;
+	const { layout, activeFileId } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -76,7 +69,6 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 			let saves = {};
 			await post("/api/profile/read-saves", { profileId: globalSession.profileId, properties: [data.id] }, (savesData) => (saves = savesData.content[data.id]));
 			post("/api/profile/update-saves", { profileId: globalSession.profileId, update: { [data.id]: { ...saves, [subsystem]: "code" } }, date: new Date().toString() });
-			console.log("code page saved");
 		})();
 	}, [globalSession.loaded, globalSession.profileId, data.id, post, subsystem]);
 
@@ -92,52 +84,68 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 
 	useEffect(() => {
 		(async () => {
-			({ Console, Hook, Unhook } = await import("console-feed"));
-			console.log("imported");
-			Hook((iframeRef.current?.contentWindow as any).console, (log: any) => setLogs((state) => [...state, log]), false);
+			({ Console, Hook } = await import("console-feed"));
+			// Hook(window.console, (log) => setLogs((state) => [...state, log]), false);
 		})();
-		const dynRef = iframeRef.current;
-		return () => dynRef?.contentWindow && Unhook((dynRef.contentWindow as any)?.console);
-	}, []);
-
-	const run: Run = useCallback((code) => {
-		Hook(window.console, (log: any) => setLogs((state) => [...state, log]), false);
-
-		// const whileEntry: number[] = [];
-		// Esprima.parseScript(code, { loc: true, range: true }, (node: any) => {
-		// 	console.log(node);
-		// 	if (node.type === "WhileStatement") {
-		// 		whileEntry.push(node.body.body[0].range[0]);
-		// 	}
-		// });
-		// whileEntry.forEach((pos) => {
-		// 	code = code.insert(pos, `# insert code here \n \t`);
-		// });
-
-		setStatus("running");
-
-		// console.log(whileEntry);
-
-		code = ` try {
-      unityContext.send("LeftWheel", "RotateMotorForwards", 0.1)		
-		  ${code}
-    } catch(e) {
-		  console.error(e)
-		}`;
-
-		setInterval(() => console.log(sensorData), 1000);
-
-		(iframeRef.current?.contentWindow as any).Function("sensorData", "unityContext", code)(sensorData, unityContext);
-
-		// console.log(Escodegen.generate(ast));
-		Unhook(window.console);
 	}, []);
 
 	const stop: Stop = useCallback(() => {
-		console.log("stopping");
-		setStatus("idle");
+		workerRef.current?.terminate();
+		if (intervalRef.current) clearInterval(intervalRef.current);
 		resetScene();
+		dispatch({ type: "code-step/SET_RUNNING_FILE", payload: "" });
 	}, []);
+
+	const run: Run = useCallback(
+		(value) => {
+			stop();
+			console.log(activeFileId);
+			dispatch({ type: "code-step/SET_RUNNING_FILE", payload: activeFileId });
+
+			// let initNode = {};
+			// let loopNode = {};
+			// try {
+			// 	const ast = esprima.parseScript(value, { loc: true, range: true, tolerant: true }, (node: any) => {
+			// 		// console.log(node);
+			// 		if (node.name === "init" && node.type === "Identifier") {
+			// 			initNode = node;
+			// 		} else if (node.name === "loop") {
+			// 			loopNode = node;
+			// 		}
+			// 		console.log(ast);
+			// 	});
+			// } catch (e) {
+			// 	console.log(e);
+			// 	setLogs((logs) => [...logs, { method: "error", id: uuidv4(), data: e }]);
+			// }
+			// console.log(escodegen.generate(ast));
+
+			workerRef.current = new Worker(new URL("/lib/worker.js", import.meta.url), { name: value });
+
+			workerRef.current.onmessage = (evt) => {
+				const payload = JSON.parse(evt.data);
+				console.log(`WebWorker response:`);
+				console.log(payload);
+				if (["console.log", "console.debug", "console.info", "console.warn", "console.error"].includes(payload.fn)) {
+					setLogs((logs) => [...logs, { method: payload.fn.split(".")[1], id: uuidv4(), data: payload.params }]);
+				} else if (payload.fn === "unityContext.send") {
+					unityContext.send(...(payload.params as [string, string, any]));
+				} else if (payload.fn === "terminate") {
+					stop();
+				} else if (payload.fn === "hang") {
+					workerRef.current?.terminate();
+					if (intervalRef.current) clearInterval(intervalRef.current);
+				}
+			};
+
+			// intervalRef.current = setInterval(() => {
+			// 	workerRef.current?.postMessage(sensorDataRef.current);
+			// }, 500);
+
+			// setInterval(() => console.log(sensorData), 1000);
+		},
+		[activeFileId, dispatch, stop]
+	);
 
 	const restart: Restart = useCallback(() => {
 		// TODO @louis
@@ -149,7 +157,6 @@ const Code = ({ data, subsystem, subsystemIndex }: Props) => {
 
 	return (
 		<div className={classes.page}>
-			<iframe ref={iframeRef} className={classes.iframe} />
 			<div className={`${classes.main} ${classes[`${layout.toLowerCase()}Layout`]}`}>
 				<div className={classes.editor}>
 					<Editor projectId={data.id} subsystem={subsystem} run={run} stop={stop} restart={restart} unlink={unlink} />
