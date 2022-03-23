@@ -6,6 +6,7 @@ import { TCodeStepState, TLang } from "../../../store/reducers/codeStepReducer";
 import { useSelector } from "react-redux";
 import { TState } from "../../../store/reducers/reducer";
 import GetStarted from "./GetStarted";
+import { DndContext, useDraggable } from "@dnd-kit/core";
 
 interface Props {
 	projectId: string;
@@ -30,7 +31,11 @@ const Editor = ({ projectId, subsystem, run, stop, restart, unlink }: Props): JS
 		}
 	};
 
-	return <div className={classes.editor}>{renderEditor(allFiles?.[activeFileId]?.lang)}</div>;
+	return (
+		<DndContext>
+			<div className={classes.editor}>{renderEditor(allFiles?.[activeFileId]?.lang)}</div>
+		</DndContext>
+	);
 };
 
 export default memo(Editor);

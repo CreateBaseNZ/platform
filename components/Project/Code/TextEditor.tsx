@@ -10,8 +10,10 @@ import classes from "./TextEditor.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { TState } from "../../../store/reducers/reducer";
 import CloseUnsavedModal from "./CloseUnsavedModal";
-import { CloseI } from "../../UI/CustomIcon";
+import { CloseI, DragIndicatorI } from "../../UI/CustomIcon";
 import Draggable from "react-draggable";
+import { DndContext, useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 
 const getLang = (lang?: string) => {
 	switch (lang) {
@@ -48,6 +50,9 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 	const { allFiles, activeFileId, openTextFiles, runningFileId } = useSelector<TState, TCodeStepState>((state) => state.codeStep);
 	const dispatch = useDispatch();
 	const [closingUnsavedId, setClosingUnsavedId] = useState("");
+	const { attributes, listeners, setNodeRef, transform } = useDraggable({
+		id: "draggable",
+	});
 
 	const runHandler = () => editorRef.current && run(editorRef.current?.getValue());
 
@@ -162,7 +167,7 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 		});
 
 	return (
-		<div className={classes.textEditor}>
+		<div className={`${classes.textEditor} ${runningFileId && classes.running}`}>
 			<div ref={headerRef} className={classes.header} onWheel={scrollHandler}>
 				{openTextFiles.map((file) => (
 					<button
@@ -191,7 +196,7 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 				<Draggable axis="x" handle=".handle" bounds="parent" defaultClassName={classes.dragWrapper}>
 					<div className={runningFileId && classes.running}>
 						<div className={`handle ${classes.dragHandle}`}>
-							<i className="material-icons-outlined">drag_indicator</i>
+							<DragIndicatorI />
 						</div>
 						<div className={`${classes.btnContainer} ${runningFileId && classes.running}`}>
 							{buttonConfig.map((conf) => (
@@ -207,6 +212,9 @@ const TextEditor = ({ projectId, subsystem, run, stop, restart, unlink }: Props)
 					</div>
 				</Draggable>
 			</div>
+			{/* <div ref={setNodeRef} style={{ transform: CSS.Translate.toString(transform) }} {...listeners} {...attributes}>
+				HELLO PLEASE DRAG ME
+			</div> */}
 			<div className={classes.wrapper}>
 				<Editor
 					onMount={editorDidMount}
